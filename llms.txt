@@ -1,0 +1,78 @@
+﻿# ResultantAI
+
+
+> AI systems that generate revenue, not complexity.
+
+
+## Agency Services
+
+
+We build production-ready AI systems for B2B service businesses.
+
+
+### Voice Agents (from $10K)
+AI phone systems that qualify leads, handle objections, and book appointments. Average 23% booking rate. No scripts, no hold music — conversations that convert.
+
+
+### Automation Systems (from $5K)
+Make.com and n8n workflows that eliminate manual processes. Clients save 20+ hours per week.
+
+
+### AI Safety & Compliance (from $6K)
+PII scrubbing, sentiment routing, audit trails. Enterprise-grade security without enterprise pricing. SOC2-ready in 30 days.
+
+
+## Case Studies
+
+
+- **Wayne Conn Plumbing**: +$5K/month in recovered revenue, 20+ hours/week saved
+- **CisionVision**: 10X ROI in 60 days
+- **Adleg**: Marketing audits reduced from 90 minutes to 2 minutes
+
+
+## AI Gateway (Coming Q1 2026)
+
+
+Consumption insurance for AI API costs.
+
+
+### Intelligence Router
+Auto-selects the cheapest model that can handle each request. Typical savings: 80-90%.
+
+
+### Safety Brain
+Every request scanned for PII, sentiment issues, compliance red flags. Block or flag before it hits the model.
+
+
+### Flat-Rate Billing
+Predictable monthly costs. Know your budget before you ship.
+
+
+### Tiers
+- Starter: $99/month (50K requests)
+- Growth: $299/month (200K requests)
+- Scale: $799/month (1M+ requests)
+
+
+Founding partners get 50% off for life.
+
+
+## Founder
+
+
+**Chris Mott** — 3 years building AI systems for agencies. Ships things that work. Documents them so you never need him again.
+
+
+## Contact
+
+
+- Website: https://resultantai.com
+- Gateway Waitlist: https://resultantai.com/gateway
+- LinkedIn: https://linkedin.com/in/chrismott1
+- Email: chris@resultantai.com
+
+
+## Booking
+
+
+Discovery calls: https://meetings.hubspot.com/chris4642/ai-gateway-founding-partner
