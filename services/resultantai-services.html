@@ -1,0 +1,1885 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Services — ResultantAI | AI Systems That Run Without You</title>
+  <meta name="description" content="Voice agents, automation systems, and AI compliance solutions. Production-ready AI systems delivered in weeks, not months.">
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="/favicon.png">
+  
+  <style>
+    /* ============================================
+       CSS VARIABLES (Design Tokens)
+       ============================================ */
+    :root {
+      /* Core Colors */
+      --bg-primary: #0a0f1a;
+      --bg-secondary: #0f172a;
+      --bg-card: #151d2e;
+      --bg-card-hover: #1a2540;
+      --border: #1e293b;
+      --border-light: #334155;
+      --border-glow: rgba(16, 185, 129, 0.3);
+      
+      /* Text */
+      --text-primary: #ffffff;
+      --text-secondary: #94a3b8;
+      --text-muted: #64748b;
+      
+      /* Accent - Emerald */
+      --accent: #10b981;
+      --accent-light: #34d399;
+      --accent-dark: #059669;
+      --accent-subtle: rgba(16, 185, 129, 0.08);
+      --accent-glow: rgba(16, 185, 129, 0.4);
+      
+      /* Secondary Accents */
+      --blue: #3b82f6;
+      --blue-subtle: rgba(59, 130, 246, 0.1);
+      --purple: #8b5cf6;
+      --purple-subtle: rgba(139, 92, 246, 0.1);
+      --orange: #f59e0b;
+      --orange-subtle: rgba(245, 158, 11, 0.1);
+      
+      /* Gradients */
+      --gradient-accent: linear-gradient(135deg, #10b981 0%, #34d399 100%);
+      --gradient-dark: linear-gradient(180deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+      --gradient-card: linear-gradient(135deg, var(--bg-card) 0%, rgba(16, 185, 129, 0.02) 100%);
+      --gradient-hero: radial-gradient(ellipse 80% 50% at 50% -20%, rgba(16, 185, 129, 0.15), transparent);
+      
+      /* Radius */
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 16px;
+      --radius-xl: 24px;
+      --radius-full: 9999px;
+      
+      /* Typography */
+      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+      
+      /* Shadows */
+      --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
+      --shadow-md: 0 4px 20px rgba(0, 0, 0, 0.4);
+      --shadow-lg: 0 8px 40px rgba(0, 0, 0, 0.5);
+      --shadow-glow: 0 0 40px var(--accent-glow);
+      --shadow-card: 0 4px 24px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.03);
+      
+      /* Transitions */
+      --transition-fast: 0.15s ease;
+      --transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      --transition-slow: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      --transition-bounce: 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    /* ============================================
+       RESET & BASE
+       ============================================ */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    body {
+      font-family: var(--font-sans);
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      line-height: 1.6;
+      font-size: 16px;
+      overflow-x: hidden;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    ::selection {
+      background: var(--accent);
+      color: var(--bg-primary);
+    }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: var(--bg-primary);
+    }
+    ::-webkit-scrollbar-thumb {
+      background: var(--border-light);
+      border-radius: var(--radius-full);
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--accent);
+    }
+
+    /* ============================================
+       LAYOUT
+       ============================================ */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    .container--narrow {
+      max-width: 900px;
+    }
+
+    .section {
+      padding: 120px 0;
+      position: relative;
+    }
+
+    .section--tight {
+      padding: 80px 0;
+    }
+
+    /* ============================================
+       ANIMATED BACKGROUND
+       ============================================ */
+    .bg-grid {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-image: 
+        linear-gradient(rgba(16, 185, 129, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(16, 185, 129, 0.03) 1px, transparent 1px);
+      background-size: 60px 60px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .bg-gradient {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 100vh;
+      background: var(--gradient-hero);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .bg-orb {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: 0.5;
+      pointer-events: none;
+      z-index: 0;
+      animation: float 20s ease-in-out infinite;
+    }
+
+    .bg-orb--1 {
+      width: 600px;
+      height: 600px;
+      background: rgba(16, 185, 129, 0.1);
+      top: -200px;
+      right: -100px;
+      animation-delay: 0s;
+    }
+
+    .bg-orb--2 {
+      width: 400px;
+      height: 400px;
+      background: rgba(16, 185, 129, 0.08);
+      bottom: 20%;
+      left: -100px;
+      animation-delay: -10s;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      25% { transform: translate(20px, -30px) scale(1.05); }
+      50% { transform: translate(-10px, 20px) scale(0.95); }
+      75% { transform: translate(15px, 10px) scale(1.02); }
+    }
+
+    /* ============================================
+       NAVIGATION
+       ============================================ */
+    .nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      padding: 20px 0;
+      transition: all var(--transition);
+    }
+
+    .nav.scrolled {
+      padding: 12px 0;
+      background: rgba(10, 15, 26, 0.8);
+      backdrop-filter: blur(20px) saturate(180%);
+      -webkit-backdrop-filter: blur(20px) saturate(180%);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav__inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .nav__logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 22px;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+    }
+
+    .nav__logo-icon {
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .nav__logo-icon svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    .nav__logo span {
+      background: var(--gradient-accent);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .nav__links {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .nav__link {
+      color: var(--text-secondary);
+      font-size: 14px;
+      font-weight: 500;
+      padding: 8px 16px;
+      border-radius: var(--radius-md);
+      transition: all var(--transition);
+      position: relative;
+    }
+
+    .nav__link::after {
+      content: '';
+      position: absolute;
+      bottom: 4px;
+      left: 50%;
+      width: 0;
+      height: 2px;
+      background: var(--accent);
+      border-radius: var(--radius-full);
+      transition: all var(--transition);
+      transform: translateX(-50%);
+    }
+
+    .nav__link:hover,
+    .nav__link.active {
+      color: var(--text-primary);
+    }
+
+    .nav__link:hover::after,
+    .nav__link.active::after {
+      width: calc(100% - 32px);
+    }
+
+    .nav__cta {
+      background: var(--gradient-accent);
+      color: var(--bg-primary);
+      padding: 10px 24px;
+      border-radius: var(--radius-md);
+      font-size: 14px;
+      font-weight: 600;
+      transition: all var(--transition);
+      box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+      margin-left: 16px;
+    }
+
+    .nav__cta:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(16, 185, 129, 0.4);
+    }
+
+    .nav__toggle {
+      display: none;
+      background: none;
+      border: none;
+      color: var(--text-primary);
+      cursor: pointer;
+      padding: 8px;
+      border-radius: var(--radius-sm);
+      transition: background var(--transition);
+    }
+
+    .nav__toggle:hover {
+      background: var(--bg-card);
+    }
+
+    @media (max-width: 768px) {
+      .nav__links {
+        display: none;
+      }
+      .nav__toggle {
+        display: block;
+      }
+    }
+
+    /* ============================================
+       PAGE HERO
+       ============================================ */
+    .page-hero {
+      padding: 160px 0 100px;
+      position: relative;
+      z-index: 1;
+      text-align: center;
+    }
+
+    .page-hero__badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--accent-subtle);
+      border: 1px solid rgba(16, 185, 129, 0.2);
+      padding: 8px 16px 8px 12px;
+      border-radius: var(--radius-full);
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--accent-light);
+      margin-bottom: 24px;
+      animation: fadeInUp 0.6s ease forwards;
+    }
+
+    .page-hero__badge-dot {
+      width: 8px;
+      height: 8px;
+      background: var(--accent);
+      border-radius: 50%;
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(1.2); }
+    }
+
+    .page-hero__title {
+      font-size: clamp(40px, 6vw, 64px);
+      font-weight: 800;
+      line-height: 1.1;
+      letter-spacing: -0.04em;
+      margin-bottom: 24px;
+      animation: fadeInUp 0.6s ease 0.1s forwards;
+      opacity: 0;
+    }
+
+    .page-hero__subtitle {
+      font-size: 20px;
+      color: var(--text-secondary);
+      max-width: 600px;
+      margin: 0 auto 40px;
+      line-height: 1.7;
+      animation: fadeInUp 0.6s ease 0.2s forwards;
+      opacity: 0;
+    }
+
+    .page-hero__ctas {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+      animation: fadeInUp 0.6s ease 0.3s forwards;
+      opacity: 0;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* ============================================
+       BUTTONS
+       ============================================ */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 16px 32px;
+      border-radius: var(--radius-md);
+      font-size: 15px;
+      font-weight: 600;
+      transition: all var(--transition);
+      cursor: pointer;
+      border: none;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn--primary {
+      background: var(--gradient-accent);
+      color: var(--bg-primary);
+      box-shadow: 0 4px 20px rgba(16, 185, 129, 0.3);
+    }
+
+    .btn--primary::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(255,255,255,0.2) 0%, transparent 50%);
+      opacity: 0;
+      transition: opacity var(--transition);
+    }
+
+    .btn--primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 30px rgba(16, 185, 129, 0.4);
+    }
+
+    .btn--primary:hover::before {
+      opacity: 1;
+    }
+
+    .btn--secondary {
+      background: var(--bg-card);
+      color: var(--text-primary);
+      border: 1px solid var(--border);
+    }
+
+    .btn--secondary:hover {
+      border-color: var(--accent);
+      background: var(--accent-subtle);
+      color: var(--accent-light);
+    }
+
+    .btn--ghost {
+      background: transparent;
+      color: var(--text-secondary);
+      padding: 12px 20px;
+    }
+
+    .btn--ghost:hover {
+      color: var(--accent);
+      background: var(--accent-subtle);
+    }
+
+    .btn__icon {
+      transition: transform var(--transition);
+    }
+
+    .btn:hover .btn__icon {
+      transform: translateX(4px);
+    }
+
+    /* ============================================
+       SECTION HEADERS
+       ============================================ */
+    .section__header {
+      text-align: center;
+      margin-bottom: 72px;
+    }
+
+    .section__label {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 16px;
+    }
+
+    .section__label::before,
+    .section__label::after {
+      content: '';
+      width: 20px;
+      height: 1px;
+      background: var(--accent);
+      opacity: 0.5;
+    }
+
+    .section__title {
+      font-size: clamp(32px, 5vw, 48px);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      margin-bottom: 16px;
+    }
+
+    .section__subtitle {
+      color: var(--text-secondary);
+      font-size: 18px;
+      max-width: 600px;
+      margin: 0 auto;
+      line-height: 1.7;
+    }
+
+    /* ============================================
+       SERVICE DETAILS GRID
+       ============================================ */
+    .services-detail {
+      background: var(--bg-secondary);
+      position: relative;
+      z-index: 1;
+    }
+
+    .services-detail::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--border-light), transparent);
+    }
+
+    .service-detail {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+      padding: 80px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .service-detail:last-child {
+      border-bottom: none;
+    }
+
+    .service-detail:nth-child(even) {
+      direction: rtl;
+    }
+
+    .service-detail:nth-child(even) > * {
+      direction: ltr;
+    }
+
+    @media (max-width: 900px) {
+      .service-detail {
+        grid-template-columns: 1fr;
+        gap: 48px;
+      }
+      .service-detail:nth-child(even) {
+        direction: ltr;
+      }
+    }
+
+    .service-detail__content {
+      max-width: 500px;
+    }
+
+    .service-detail__icon {
+      width: 72px;
+      height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: var(--radius-xl);
+      margin-bottom: 28px;
+      transition: all var(--transition);
+    }
+
+    .service-detail__icon--voice {
+      background: var(--accent-subtle);
+      border: 1px solid rgba(16, 185, 129, 0.2);
+      color: var(--accent);
+    }
+
+    .service-detail__icon--automation {
+      background: var(--blue-subtle);
+      border: 1px solid rgba(59, 130, 246, 0.2);
+      color: var(--blue);
+    }
+
+    .service-detail__icon--compliance {
+      background: var(--purple-subtle);
+      border: 1px solid rgba(139, 92, 246, 0.2);
+      color: var(--purple);
+    }
+
+    .service-detail__badge {
+      display: inline-block;
+      background: var(--bg-primary);
+      border: 1px solid var(--border);
+      padding: 6px 14px;
+      border-radius: var(--radius-full);
+      font-size: 13px;
+      font-weight: 600;
+      font-family: var(--font-mono);
+      margin-bottom: 20px;
+    }
+
+    .service-detail__badge--accent {
+      color: var(--accent);
+    }
+
+    .service-detail__badge--blue {
+      color: var(--blue);
+    }
+
+    .service-detail__badge--purple {
+      color: var(--purple);
+    }
+
+    .service-detail__title {
+      font-size: 36px;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      margin-bottom: 16px;
+    }
+
+    .service-detail__desc {
+      font-size: 17px;
+      color: var(--text-secondary);
+      line-height: 1.8;
+      margin-bottom: 32px;
+    }
+
+    .service-detail__features {
+      list-style: none;
+      margin-bottom: 32px;
+    }
+
+    .service-detail__feature {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .service-detail__feature:last-child {
+      border-bottom: none;
+    }
+
+    .service-detail__feature-icon {
+      flex-shrink: 0;
+      width: 24px;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--accent-subtle);
+      border-radius: var(--radius-sm);
+      color: var(--accent);
+      margin-top: 2px;
+    }
+
+    .service-detail__feature-text {
+      font-size: 15px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    .service-detail__feature-text strong {
+      color: var(--text-primary);
+      font-weight: 600;
+    }
+
+    /* Service Visual Card */
+    .service-detail__visual {
+      background: var(--gradient-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xl);
+      padding: 40px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .service-detail__visual::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: var(--gradient-accent);
+    }
+
+    .service-detail__visual--blue::before {
+      background: linear-gradient(90deg, #3b82f6, #60a5fa);
+    }
+
+    .service-detail__visual--purple::before {
+      background: linear-gradient(90deg, #8b5cf6, #a78bfa);
+    }
+
+    .service-visual__stat {
+      text-align: center;
+      padding: 24px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .service-visual__stat:last-child {
+      border-bottom: none;
+    }
+
+    .service-visual__stat-value {
+      font-size: 48px;
+      font-weight: 800;
+      font-family: var(--font-mono);
+      letter-spacing: -0.03em;
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+
+    .service-visual__stat-value--accent {
+      background: var(--gradient-accent);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .service-visual__stat-value--blue {
+      color: var(--blue);
+    }
+
+    .service-visual__stat-value--purple {
+      color: var(--purple);
+    }
+
+    .service-visual__stat-label {
+      font-size: 14px;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    /* ============================================
+       QUICK WINS SECTION
+       ============================================ */
+    .quick-wins {
+      background: var(--bg-primary);
+      position: relative;
+      z-index: 1;
+    }
+
+    .quick-wins__grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+    }
+
+    .quick-win-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xl);
+      padding: 32px;
+      transition: all var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .quick-win-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: var(--gradient-accent);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform var(--transition);
+    }
+
+    .quick-win-card:hover {
+      border-color: rgba(16, 185, 129, 0.3);
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .quick-win-card:hover::before {
+      transform: scaleX(1);
+    }
+
+    .quick-win-card__price {
+      font-size: 32px;
+      font-weight: 800;
+      font-family: var(--font-mono);
+      color: var(--accent);
+      margin-bottom: 8px;
+    }
+
+    .quick-win-card__title {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 12px;
+      letter-spacing: -0.02em;
+    }
+
+    .quick-win-card__desc {
+      font-size: 15px;
+      color: var(--text-secondary);
+      line-height: 1.7;
+      margin-bottom: 20px;
+    }
+
+    .quick-win-card__time {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    .quick-win-card__time svg {
+      color: var(--accent);
+    }
+
+    /* ============================================
+       PRICING COMPARISON
+       ============================================ */
+    .pricing {
+      background: var(--bg-secondary);
+      position: relative;
+      z-index: 1;
+    }
+
+    .pricing::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--border-light), transparent);
+    }
+
+    .pricing__grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    @media (max-width: 900px) {
+      .pricing__grid {
+        grid-template-columns: 1fr;
+        max-width: 400px;
+      }
+    }
+
+    .pricing-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xl);
+      padding: 40px 32px;
+      text-align: center;
+      transition: all var(--transition);
+      position: relative;
+    }
+
+    .pricing-card--featured {
+      border-color: var(--accent);
+      transform: scale(1.05);
+      box-shadow: var(--shadow-glow);
+    }
+
+    .pricing-card--featured::before {
+      content: 'Most Popular';
+      position: absolute;
+      top: -12px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--gradient-accent);
+      color: var(--bg-primary);
+      padding: 6px 16px;
+      border-radius: var(--radius-full);
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .pricing-card:not(.pricing-card--featured):hover {
+      border-color: var(--border-light);
+      transform: translateY(-4px);
+    }
+
+    .pricing-card__name {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 16px;
+    }
+
+    .pricing-card__price {
+      font-size: 48px;
+      font-weight: 800;
+      font-family: var(--font-mono);
+      margin-bottom: 8px;
+      letter-spacing: -0.03em;
+    }
+
+    .pricing-card__price span {
+      font-size: 18px;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    .pricing-card__desc {
+      font-size: 14px;
+      color: var(--text-secondary);
+      margin-bottom: 32px;
+      line-height: 1.6;
+    }
+
+    .pricing-card__features {
+      list-style: none;
+      text-align: left;
+      margin-bottom: 32px;
+    }
+
+    .pricing-card__feature {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 0;
+      font-size: 14px;
+      color: var(--text-secondary);
+    }
+
+    .pricing-card__feature svg {
+      color: var(--accent);
+      flex-shrink: 0;
+    }
+
+    .pricing-card__cta {
+      width: 100%;
+    }
+
+    /* ============================================
+       PROCESS SECTION
+       ============================================ */
+    .process {
+      background: var(--bg-primary);
+      position: relative;
+      z-index: 1;
+    }
+
+    .process__timeline {
+      max-width: 700px;
+      margin: 0 auto;
+      position: relative;
+      padding-left: 48px;
+    }
+
+    .process__timeline::before {
+      content: '';
+      position: absolute;
+      left: 16px;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: linear-gradient(180deg, var(--accent), var(--border), var(--accent));
+    }
+
+    .process__step {
+      position: relative;
+      padding-bottom: 48px;
+    }
+
+    .process__step:last-child {
+      padding-bottom: 0;
+    }
+
+    .process__step-number {
+      position: absolute;
+      left: -48px;
+      top: 0;
+      width: 36px;
+      height: 36px;
+      background: var(--gradient-accent);
+      color: var(--bg-primary);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      font-weight: 800;
+      box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+    }
+
+    .process__step-content {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 28px;
+      transition: all var(--transition);
+    }
+
+    .process__step:hover .process__step-content {
+      border-color: rgba(16, 185, 129, 0.3);
+      transform: translateX(8px);
+    }
+
+    .process__step-time {
+      font-size: 13px;
+      font-weight: 600;
+      font-family: var(--font-mono);
+      color: var(--accent);
+      margin-bottom: 8px;
+    }
+
+    .process__step-title {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      letter-spacing: -0.02em;
+    }
+
+    .process__step-desc {
+      font-size: 15px;
+      color: var(--text-secondary);
+      line-height: 1.7;
+    }
+
+    /* ============================================
+       FAQ SECTION
+       ============================================ */
+    .faq {
+      background: var(--bg-secondary);
+      position: relative;
+      z-index: 1;
+    }
+
+    .faq::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--border-light), transparent);
+    }
+
+    .faq__grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    @media (max-width: 768px) {
+      .faq__grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .faq-item {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 28px;
+      transition: all var(--transition);
+    }
+
+    .faq-item:hover {
+      border-color: rgba(16, 185, 129, 0.3);
+    }
+
+    .faq-item__question {
+      font-size: 17px;
+      font-weight: 700;
+      margin-bottom: 12px;
+      letter-spacing: -0.01em;
+    }
+
+    .faq-item__answer {
+      font-size: 15px;
+      color: var(--text-secondary);
+      line-height: 1.7;
+    }
+
+    /* ============================================
+       CTA SECTION
+       ============================================ */
+    .cta-section {
+      background: var(--bg-primary);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      z-index: 1;
+    }
+
+    .cta-section__inner {
+      position: relative;
+      z-index: 1;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .cta-section__title {
+      font-size: clamp(32px, 5vw, 44px);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      margin-bottom: 20px;
+    }
+
+    .cta-section__subtitle {
+      color: var(--text-secondary);
+      font-size: 18px;
+      margin-bottom: 40px;
+      line-height: 1.7;
+    }
+
+    .cta-section__buttons {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    /* ============================================
+       FOOTER
+       ============================================ */
+    .footer {
+      background: var(--bg-primary);
+      border-top: 1px solid var(--border);
+      padding: 48px 0;
+      position: relative;
+      z-index: 1;
+    }
+
+    .footer__inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 24px;
+    }
+
+    .footer__brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .footer__logo {
+      font-size: 18px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+    }
+
+    .footer__logo span {
+      color: var(--accent);
+    }
+
+    .footer__copy {
+      color: var(--text-muted);
+      font-size: 14px;
+    }
+
+    .footer__links {
+      display: flex;
+      gap: 24px;
+    }
+
+    .footer__link {
+      color: var(--text-secondary);
+      font-size: 14px;
+      font-weight: 500;
+      transition: color var(--transition);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .footer__link:hover {
+      color: var(--accent);
+    }
+
+    /* ============================================
+       SCROLL ANIMATIONS
+       ============================================ */
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+
+    /* ============================================
+       UTILITIES
+       ============================================ */
+    .text-accent { color: var(--accent); }
+    .text-muted { color: var(--text-muted); }
+    .font-mono { font-family: var(--font-mono); }
+    .gradient-text {
+      background: var(--gradient-accent);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+  </style>
+</head>
+<body>
+  <!-- Background elements -->
+  <div class="bg-grid"></div>
+  <div class="bg-gradient"></div>
+  <div class="bg-orb bg-orb--1"></div>
+  <div class="bg-orb bg-orb--2"></div>
+
+  <!-- Navigation -->
+  <nav class="nav" id="nav">
+    <div class="container">
+      <div class="nav__inner">
+        <a href="/" class="nav__logo">
+          <div class="nav__logo-icon">
+            <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="4" y="28" width="6" height="8" rx="1" fill="#60a5fa"/>
+              <rect x="12" y="22" width="6" height="14" rx="1" fill="#3b82f6"/>
+              <rect x="20" y="16" width="6" height="20" rx="1" fill="#2563eb"/>
+              <rect x="28" y="10" width="6" height="26" rx="1" fill="#10b981"/>
+              <path d="M7 26C10 20 18 12 34 6" stroke="#1e293b" stroke-width="4" stroke-linecap="round"/>
+              <path d="M7 26C10 20 18 12 34 6" stroke="#10b981" stroke-width="2" stroke-linecap="round"/>
+              <path d="M30 4L36 6L34 12" stroke="#10b981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          Resultant<span>AI</span>
+        </a>
+        <div class="nav__links">
+          <a href="/services" class="nav__link active">Services</a>
+          <a href="/#process" class="nav__link">Process</a>
+          <a href="/#work" class="nav__link">Work</a>
+          <a href="/#about" class="nav__link">About</a>
+          <a href="https://meetings.hubspot.com/chris4642/ai-gateway-founding-partner" class="nav__cta">Book a Call</a>
+        </div>
+        <button class="nav__toggle" aria-label="Toggle menu">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Page Hero -->
+  <section class="page-hero">
+    <div class="container">
+      <div class="page-hero__badge">
+        <span class="page-hero__badge-dot"></span>
+        What We Build
+      </div>
+      <h1 class="page-hero__title">Production-Ready AI Systems</h1>
+      <p class="page-hero__subtitle">Voice agents, automation, and compliance — built in weeks, not months. Every system comes with full documentation and handoff.</p>
+      <div class="page-hero__ctas">
+        <a href="https://meetings.hubspot.com/chris4642/ai-gateway-founding-partner" class="btn btn--primary">
+          Book a Discovery Call
+          <svg class="btn__icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <path d="M5 12h14M12 5l7 7-7 7"/>
+          </svg>
+        </a>
+        <a href="#pricing" class="btn btn--secondary">View Pricing</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Service Details -->
+  <section class="section services-detail">
+    <div class="container">
+      
+      <!-- Voice Agents -->
+      <div class="service-detail reveal">
+        <div class="service-detail__content">
+          <div class="service-detail__icon service-detail__icon--voice">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+            </svg>
+          </div>
+          <span class="service-detail__badge service-detail__badge--accent">From $10,000</span>
+          <h2 class="service-detail__title">Voice Agents</h2>
+          <p class="service-detail__desc">AI phone systems that qualify leads, handle objections, and book appointments. No scripts. No hold music. Just conversations that convert.</p>
+          <ul class="service-detail__features">
+            <li class="service-detail__feature">
+              <span class="service-detail__feature-icon">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                  <polyline points="20 6 9 17 4 12"/>
+                </svg>
+              </span>
+              <span class="service-detail__feature-text"><strong>Natural conversation AI</strong> — Powered by GPT-4 and Claude for human-like dialogue</span>
+            </li>
+            <li class="service-detail__feature">
+              <span class="service-detail__feature-icon">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                  <polyline points="20 6 9 17 4 12"/>
+                </svg>
+              </span>
+              <span class="service-detail__feature-text"><strong>Real-time objection handling</strong> — AI adapts to caller responses instantly</span>
+            </li>
+            <li class="service-detail__feature">
+              <span class="service-detail__feature-icon">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                  <polyline points="20 6 9 17 4 12"/>
+                </svg>
+              </span>
+              <span class="service-detail__feature-text"><strong>CRM integration</strong> — Syncs with HubSpot, Salesforce, or your existing stack</span>
+            </li>
+            <li class="service-detail__feature">
+              <span class="service-detail__feature-icon">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                  <polyline points="20 6 9 17 4 12"/>
+                </svg>
+              </span>
+              <span class="service-detail__feature-text"><strong>Call recording + transcription</strong> — Every conversation logged and searchable</span>
+            </li>
+          </ul>
+          <a href="https://meetings.hubspot.com/chris4642/ai-gateway-founding-partner" class="btn btn--primary">
+            Get Started
+            <svg class="btn__icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+          </a>
+        </div>
+        <div class="service-detail__visual">
+          <div class="service-visual__stat">
+            <div class="service-visual__stat-value service-visual__stat-value--accent">23%</div>
+            <div class="service-visual__stat-label">Average booking rate</div>
+          </div>
+          <div class="service-visual__stat">
+            <div class="service-visual__stat-value service-visual__stat-value--accent">2-3 weeks</div>
+            <div class="service-visual__stat-label">Delivery timeline</div>
+          </div>
+          <div class="service-visual__stat">
+            <div class="service-visual__stat-value service-visual__stat-value--accent">24/7</div>
+            <div class="service-visual__stat-label">Availability</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Automation Systems -->
+      <div class="service-detail reveal">
+        <div class="service-detail__content">
+          <div class="service-detail__icon service-detail__icon--automation">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="16 18 22 12 16 6"></polyline>
+              <polyline points="8 6 2 12 8 18"></polyline>
+            </svg>
+          </div>
+          <span class="service-detail__badge service-detail__badge--blue">From $5,000</span>
+          <h2 class="service-detail__title">Automation Systems</h2>
+          <p class="service-detail__desc">Make.com and n8n workflows that kill manual processes. Stop paying humans to do robot work.</p>
+          <ul class="service-detail__features">
+            <li class="service-detail__feature">
+              <span class="service-detail__feature-icon">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                  <polyline points="20 6 9 17 4 12"/>
+                </svg>
+              </span>
+              <span class="service-detail__feature-text"><strong>Lead routing & enrichment</strong> — Qualify, score, and assign leads automatically</span>
+            </li>
+            <li class="service-detail__feature">
+              <span class="service-detail__feature-icon">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                  <polyline points="20 6 9 17 4 12"/>
+                </svg>
+              </span>
+              <span class="service-detail__feature-text"><strong>Data sync across tools</strong> — CRM, email, Slack, spreadsheets — all connected</span>
+            </li>
+            <li class="service-detail__feature">
+              <span class="service-detail__feature-icon">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                  <polyline points="20 6 9 17 4 12"/>
+                </svg>
+              </span>
+              <span class="service-detail__feature-text"><strong>Reporting automation</strong> — Generate and distribute reports on autopilot</span>
+            </li>
+            <li class="service-detail__feature">
+              <span class="service-detail__feature-icon">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                  <polyline points="20 6 9 17 4 12"/>
+                </svg>
+              </span>
+              <span class="service-detail__feature-text"><strong>Error handling & alerts</strong> — Know immediately when something breaks</span>
+            </li>
+          </ul>
+          <a href="https://meetings.hubspot.com/chris4642/ai-gateway-founding-partner" class="btn btn--primary">
+            Get Started
+            <svg class="btn__icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+          </a>
+        </div>
+        <div class="service-detail__visual service-detail__visual--blue">
+          <div class="service-visual__stat">
+            <div class="service-visual__stat-value service-visual__stat-value--blue">20+ hrs</div>
+            <div class="service-visual__stat-label">Saved per week</div>
+          </div>
+          <div class="service-visual__stat">
+            <div class="service-visual__stat-value service-visual__stat-value--blue">1-2 weeks</div>
+            <div class="service-visual__stat-label">Delivery timeline</div>
+          </div>
+          <div class="service-visual__stat">
+            <div class="service-visual__stat-value service-visual__stat-value--blue">99.9%</div>
+            <div class="service-visual__stat-label">Uptime target</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- AI Safety & Compliance -->
+      <div class="service-detail reveal">
+        <div class="service-detail__content">
+          <div class="service-detail__icon service-detail__icon--compliance">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+            </svg>
+          </div>
+          <span class="service-detail__badge service-detail__badge--purple">From $6,000</span>
+          <h2 class="service-detail__title">AI Safety & Compliance</h2>
+          <p class="service-detail__desc">PII scrubbing, sentiment routing, audit trails. Enterprise-grade security without enterprise pricing.</p>
+          <ul class="service-detail__features">
+            <li class="service-detail__feature">
+              <span class="service-detail__feature-icon">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                  <polyline points="20 6 9 17 4 12"/>
+                </svg>
+              </span>
+              <span class="service-detail__feature-text"><strong>PII detection & redaction</strong> — Automatically scrub sensitive data before it hits your AI</span>
+            </li>
+            <li class="service-detail__feature">
+              <span class="service-detail__feature-icon">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                  <polyline points="20 6 9 17 4 12"/>
+                </svg>
+              </span>
+              <span class="service-detail__feature-text"><strong>Sentiment & safety routing</strong> — Escalate high-risk interactions to humans</span>
+            </li>
+            <li class="service-detail__feature">
+              <span class="service-detail__feature-icon">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                  <polyline points="20 6 9 17 4 12"/>
+                </svg>
+              </span>
+              <span class="service-detail__feature-text"><strong>Immutable audit trails</strong> — Complete logging for compliance and debugging</span>
+            </li>
+            <li class="service-detail__feature">
+              <span class="service-detail__feature-icon">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                  <polyline points="20 6 9 17 4 12"/>
+                </svg>
+              </span>
+              <span class="service-detail__feature-text"><strong>SOC 2 preparation</strong> — Documentation and controls for certification</span>
+            </li>
+          </ul>
+          <a href="https://meetings.hubspot.com/chris4642/ai-gateway-founding-partner" class="btn btn--primary">
+            Get Started
+            <svg class="btn__icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+          </a>
+        </div>
+        <div class="service-detail__visual service-detail__visual--purple">
+          <div class="service-visual__stat">
+            <div class="service-visual__stat-value service-visual__stat-value--purple">30 days</div>
+            <div class="service-visual__stat-label">To SOC 2 ready</div>
+          </div>
+          <div class="service-visual__stat">
+            <div class="service-visual__stat-value service-visual__stat-value--purple">100%</div>
+            <div class="service-visual__stat-label">PII detection rate</div>
+          </div>
+          <div class="service-visual__stat">
+            <div class="service-visual__stat-value service-visual__stat-value--purple">&lt;50ms</div>
+            <div class="service-visual__stat-label">Processing latency</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Quick Wins -->
+  <section class="section quick-wins" id="quick-wins">
+    <div class="container">
+      <div class="section__header reveal">
+        <div class="section__label">Quick Wins</div>
+        <h2 class="section__title">Need Something Smaller?</h2>
+        <p class="section__subtitle">Focused projects that deliver value fast. Perfect for testing the waters or solving a specific pain point.</p>
+      </div>
+      <div class="quick-wins__grid">
+        <div class="quick-win-card reveal reveal-delay-1">
+          <div class="quick-win-card__price">$2,500</div>
+          <h3 class="quick-win-card__title">Workflow Audit</h3>
+          <p class="quick-win-card__desc">We map your current processes, identify automation opportunities, and deliver a prioritized roadmap.</p>
+          <div class="quick-win-card__time">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"/>
+              <polyline points="12 6 12 12 16 14"/>
+            </svg>
+            3-5 days
+          </div>
+        </div>
+        <div class="quick-win-card reveal reveal-delay-2">
+          <div class="quick-win-card__price">$3,500</div>
+          <h3 class="quick-win-card__title">Single Automation</h3>
+          <p class="quick-win-card__desc">One workflow, fully built and documented. Lead routing, data sync, report generation — pick your pain point.</p>
+          <div class="quick-win-card__time">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"/>
+              <polyline points="12 6 12 12 16 14"/>
+            </svg>
+            5-7 days
+          </div>
+        </div>
+        <div class="quick-win-card reveal reveal-delay-3">
+          <div class="quick-win-card__price">$4,000</div>
+          <h3 class="quick-win-card__title">AI Integration</h3>
+          <p class="quick-win-card__desc">Add AI to an existing workflow — classification, summarization, extraction, or content generation.</p>
+          <div class="quick-win-card__time">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"/>
+              <polyline points="12 6 12 12 16 14"/>
+            </svg>
+            1 week
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing Comparison -->
+  <section class="section pricing" id="pricing">
+    <div class="container">
+      <div class="section__header reveal">
+        <div class="section__label">Pricing</div>
+        <h2 class="section__title">Transparent Pricing</h2>
+        <p class="section__subtitle">No surprises. No hidden fees. You know exactly what you're getting.</p>
+      </div>
+      <div class="pricing__grid">
+        <div class="pricing-card reveal reveal-delay-1">
+          <div class="pricing-card__name">Quick Win</div>
+          <div class="pricing-card__price">$2.5K<span>–$4K</span></div>
+          <p class="pricing-card__desc">Single workflow or audit. Perfect for testing the waters.</p>
+          <ul class="pricing-card__features">
+            <li class="pricing-card__feature">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <polyline points="20 6 9 17 4 12"/>
+              </svg>
+              One focused deliverable
+            </li>
+            <li class="pricing-card__feature">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <polyline points="20 6 9 17 4 12"/>
+              </svg>
+              Full documentation
+            </li>
+            <li class="pricing-card__feature">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <polyline points="20 6 9 17 4 12"/>
+              </svg>
+              7-day delivery
+            </li>
+            <li class="pricing-card__feature">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <polyline points="20 6 9 17 4 12"/>
+              </svg>
+              14-day support
+            </li>
+          </ul>
+          <a href="https://meetings.hubspot.com/chris4642/ai-gateway-founding-partner" class="btn btn--secondary pricing-card__cta">Get Started</a>
+        </div>
+        <div class="pricing-card pricing-card--featured reveal reveal-delay-2">
+          <div class="pricing-card__name">Full System</div>
+          <div class="pricing-card__price">$5K<span>–$15K</span></div>
+          <p class="pricing-card__desc">Complete automation or voice agent. Built to scale.</p>
+          <ul class="pricing-card__features">
+            <li class="pricing-card__feature">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <polyline points="20 6 9 17 4 12"/>
+              </svg>
+              End-to-end solution
+            </li>
+            <li class="pricing-card__feature">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <polyline points="20 6 9 17 4 12"/>
+              </svg>
+              CRM integration
+            </li>
+            <li class="pricing-card__feature">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <polyline points="20 6 9 17 4 12"/>
+              </svg>
+              2-4 week delivery
+            </li>
+            <li class="pricing-card__feature">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <polyline points="20 6 9 17 4 12"/>
+              </svg>
+              30-day support
+            </li>
+            <li class="pricing-card__feature">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <polyline points="20 6 9 17 4 12"/>
+              </svg>
+              Training included
+            </li>
+          </ul>
+          <a href="https://meetings.hubspot.com/chris4642/ai-gateway-founding-partner" class="btn btn--primary pricing-card__cta">Get Started</a>
+        </div>
+        <div class="pricing-card reveal reveal-delay-3">
+          <div class="pricing-card__name">Enterprise</div>
+          <div class="pricing-card__price">Custom</div>
+          <p class="pricing-card__desc">Multi-system builds with ongoing support and iteration.</p>
+          <ul class="pricing-card__features">
+            <li class="pricing-card__feature">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <polyline points="20 6 9 17 4 12"/>
+              </svg>
+              Multiple systems
+            </li>
+            <li class="pricing-card__feature">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <polyline points="20 6 9 17 4 12"/>
+              </svg>
+              Dedicated support
+            </li>
+            <li class="pricing-card__feature">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <polyline points="20 6 9 17 4 12"/>
+              </svg>
+              Priority response
+            </li>
+            <li class="pricing-card__feature">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <polyline points="20 6 9 17 4 12"/>
+              </svg>
+              Ongoing iteration
+            </li>
+          </ul>
+          <a href="https://meetings.hubspot.com/chris4642/ai-gateway-founding-partner" class="btn btn--secondary pricing-card__cta">Let's Talk</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Process -->
+  <section class="section process">
+    <div class="container">
+      <div class="section__header reveal">
+        <div class="section__label">How It Works</div>
+        <h2 class="section__title">From Call to Delivery</h2>
+        <p class="section__subtitle">A simple process designed for busy founders.</p>
+      </div>
+      <div class="process__timeline">
+        <div class="process__step reveal">
+          <div class="process__step-number">1</div>
+          <div class="process__step-content">
+            <div class="process__step-time">30 minutes</div>
+            <h3 class="process__step-title">Discovery Call</h3>
+            <p class="process__step-desc">We learn your workflow, your pain points, and whether we're the right fit. No pitch deck — just a conversation.</p>
+          </div>
+        </div>
+        <div class="process__step reveal">
+          <div class="process__step-number">2</div>
+          <div class="process__step-content">
+            <div class="process__step-time">24-48 hours</div>
+            <h3 class="process__step-title">Proposal & SOW</h3>
+            <p class="process__step-desc">You get a clear scope, timeline, and price. No back-and-forth. Accept and we start immediately.</p>
+          </div>
+        </div>
+        <div class="process__step reveal">
+          <div class="process__step-number">3</div>
+          <div class="process__step-content">
+            <div class="process__step-time">1-4 weeks</div>
+            <h3 class="process__step-title">Build & Iterate</h3>
+            <p class="process__step-desc">We design, build, and test your solution. You see progress weekly and can course-correct as needed.</p>
+          </div>
+        </div>
+        <div class="process__step reveal">
+          <div class="process__step-number">4</div>
+          <div class="process__step-content">
+            <div class="process__step-time">You own everything</div>
+            <h3 class="process__step-title">Handoff & Support</h3>
+            <p class="process__step-desc">Code, workflows, documentation — it's all yours. Plus 14-30 days of support to make sure it runs perfectly.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section faq">
+    <div class="container">
+      <div class="section__header reveal">
+        <div class="section__label">FAQ</div>
+        <h2 class="section__title">Common Questions</h2>
+      </div>
+      <div class="faq__grid">
+        <div class="faq-item reveal">
+          <h3 class="faq-item__question">What if I'm not sure what I need?</h3>
+          <p class="faq-item__answer">Start with a Workflow Audit. We'll map your current processes, identify the biggest opportunities, and give you a prioritized roadmap. It's $2,500 and takes 3-5 days.</p>
+        </div>
+        <div class="faq-item reveal">
+          <h3 class="faq-item__question">Do I own the code and workflows?</h3>
+          <p class="faq-item__answer">Yes, 100%. Everything we build — code, workflows, documentation — belongs to you. You can modify it, move it, or hand it to another developer. No lock-in.</p>
+        </div>
+        <div class="faq-item reveal">
+          <h3 class="faq-item__question">What's the typical timeline?</h3>
+          <p class="faq-item__answer">Quick Wins take 5-7 days. Full systems take 2-4 weeks. Complex enterprise builds can take 4-8 weeks. We'll give you a specific timeline in your proposal.</p>
+        </div>
+        <div class="faq-item reveal">
+          <h3 class="faq-item__question">What tools do you work with?</h3>
+          <p class="faq-item__answer">Make.com, n8n, Retell, Vapi, Python, Node.js, Supabase, and most major CRMs (HubSpot, Salesforce, etc). If it has an API, we can integrate it.</p>
+        </div>
+        <div class="faq-item reveal">
+          <h3 class="faq-item__question">What happens if something breaks?</h3>
+          <p class="faq-item__answer">Every project includes support (14-30 days depending on scope). After that, you can extend support or handle it yourself — you have full documentation.</p>
+        </div>
+        <div class="faq-item reveal">
+          <h3 class="faq-item__question">Can I see examples of your work?</h3>
+          <p class="faq-item__answer">Yes. Check our case studies: $382K pipeline for Honcho, +$5K/mo for Wayne Conn Plumbing, 10X ROI for CisionVision. We'll share more relevant examples on our call.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="section cta-section">
+    <div class="container">
+      <div class="cta-section__inner reveal">
+        <h2 class="cta-section__title">Ready to automate the busy work?</h2>
+        <p class="cta-section__subtitle">Book a 30-minute discovery call. No sales pitch — just a conversation about what you need and whether we can help.</p>
+        <div class="cta-section__buttons">
+          <a href="https://meetings.hubspot.com/chris4642/ai-gateway-founding-partner" class="btn btn--primary">
+            Book a Discovery Call
+            <svg class="btn__icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+          </a>
+          <a href="mailto:chris@resultantai.com" class="btn btn--ghost">
+            Or email chris@resultantai.com
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__inner">
+        <div class="footer__brand">
+          <div class="footer__logo">Resultant<span>AI</span></div>
+          <span class="footer__copy">© 2025</span>
+        </div>
+        <div class="footer__links">
+          <a href="https://www.linkedin.com/in/chrismott1/" class="footer__link" target="_blank" rel="noopener">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+            </svg>
+            LinkedIn
+          </a>
+          <a href="https://github.com/ResultantAI" class="footer__link" target="_blank" rel="noopener">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+            </svg>
+            GitHub
+          </a>
+          <a href="https://x.com/resultswithai" class="footer__link" target="_blank" rel="noopener">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+            </svg>
+            X
+          </a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script>
+    // Nav scroll effect
+    const nav = document.getElementById('nav');
+    
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        nav.classList.add('scrolled');
+      } else {
+        nav.classList.remove('scrolled');
+      }
+    });
+
+    // Reveal on scroll
+    const reveals = document.querySelectorAll('.reveal');
+    
+    const revealOnScroll = () => {
+      reveals.forEach(el => {
+        const windowHeight = window.innerHeight;
+        const elementTop = el.getBoundingClientRect().top;
+        const elementVisible = 100;
+        
+        if (elementTop < windowHeight - elementVisible) {
+          el.classList.add('visible');
+        }
+      });
+    };
+    
+    window.addEventListener('scroll', revealOnScroll);
+    revealOnScroll();
+
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      });
+    });
+  </script>
+</body>
+</html>
