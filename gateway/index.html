@@ -1,1374 +1,992 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AI Gateway — Predictable AI Costs for Builders | ResultantAI</title>
-  <meta name="description" content="Stop guessing what AI will cost. The AI Gateway gives you predictable billing, intelligent routing, and built-in safety — launching Q1 2026.">
-  
-  <!-- Open Graph -->
-  <meta property="og:title" content="AI Gateway — Predictable AI Costs for Builders">
-  <meta property="og:description" content="Stop guessing what AI will cost. Intelligent routing saves 80-90% on API costs. Join the beta waitlist.">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://resultantai.com/gateway">
-  
-  <!-- Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-  
-  <!-- Favicon -->
-  <link rel="icon" type="image/png" href="/favicon.png">
-  
-  <style>
-    /* ============================================
-       CSS VARIABLES
-       ============================================ */
-    :root {
-      --bg-primary: #0a0f1a;
-      --bg-secondary: #0f172a;
-      --bg-card: #151d2e;
-      --bg-card-hover: #1a2540;
-      --border: #1e293b;
-      --border-light: #334155;
-      --border-glow: rgba(16, 185, 129, 0.3);
-      
-      --text-primary: #ffffff;
-      --text-secondary: #94a3b8;
-      --text-muted: #64748b;
-      
-      --accent: #10b981;
-      --accent-light: #34d399;
-      --accent-dark: #059669;
-      --accent-subtle: rgba(16, 185, 129, 0.08);
-      --accent-glow: rgba(16, 185, 129, 0.4);
-      
-      --gradient-accent: linear-gradient(135deg, #10b981 0%, #34d399 100%);
-      --gradient-hero: radial-gradient(ellipse 80% 50% at 50% -20%, rgba(16, 185, 129, 0.15), transparent);
-      
-      --radius-sm: 6px;
-      --radius-md: 10px;
-      --radius-lg: 16px;
-      --radius-xl: 24px;
-      --radius-full: 9999px;
-      
-      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-      --font-mono: 'JetBrains Mono', monospace;
-      
-      --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
-      --shadow-md: 0 4px 20px rgba(0, 0, 0, 0.4);
-      --shadow-lg: 0 8px 40px rgba(0, 0, 0, 0.5);
-      --shadow-glow: 0 0 60px var(--accent-glow);
-      
-      --transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-
-    /* ============================================
-       RESET & BASE
-       ============================================ */
-    *, *::before, *::after {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    html {
-      scroll-behavior: smooth;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-    }
-
-    body {
-      font-family: var(--font-sans);
-      background: var(--bg-primary);
-      color: var(--text-primary);
-      line-height: 1.6;
-      font-size: 16px;
-      overflow-x: hidden;
-      min-height: 100vh;
-    }
-
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
-
-    ::selection {
-      background: var(--accent);
-      color: var(--bg-primary);
-    }
-
-    /* Custom Scrollbar */
-    ::-webkit-scrollbar {
-      width: 8px;
-    }
-    ::-webkit-scrollbar-track {
-      background: var(--bg-primary);
-    }
-    ::-webkit-scrollbar-thumb {
-      background: var(--border-light);
-      border-radius: var(--radius-full);
-    }
-    ::-webkit-scrollbar-thumb:hover {
-      background: var(--accent);
-    }
-
-    /* ============================================
-       ANIMATED BACKGROUND
-       ============================================ */
-    .bg-grid {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background-image: 
-        linear-gradient(rgba(16, 185, 129, 0.03) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(16, 185, 129, 0.03) 1px, transparent 1px);
-      background-size: 60px 60px;
-      pointer-events: none;
-      z-index: 0;
-    }
-
-    .bg-gradient {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 100vh;
-      background: var(--gradient-hero);
-      pointer-events: none;
-      z-index: 0;
-    }
-
-    .bg-orb {
-      position: fixed;
-      border-radius: 50%;
-      filter: blur(100px);
-      opacity: 0.4;
-      pointer-events: none;
-      z-index: 0;
-      animation: float 25s ease-in-out infinite;
-    }
-
-    .bg-orb--1 {
-      width: 800px;
-      height: 800px;
-      background: rgba(16, 185, 129, 0.15);
-      top: -300px;
-      right: -200px;
-    }
-
-    .bg-orb--2 {
-      width: 600px;
-      height: 600px;
-      background: rgba(16, 185, 129, 0.1);
-      bottom: -200px;
-      left: -200px;
-      animation-delay: -12s;
-    }
-
-    .bg-orb--3 {
-      width: 400px;
-      height: 400px;
-      background: rgba(59, 130, 246, 0.08);
-      top: 40%;
-      left: 60%;
-      animation-delay: -6s;
-    }
-
-    @keyframes float {
-      0%, 100% { transform: translate(0, 0) scale(1); }
-      25% { transform: translate(30px, -40px) scale(1.05); }
-      50% { transform: translate(-20px, 30px) scale(0.95); }
-      75% { transform: translate(25px, 15px) scale(1.02); }
-    }
-
-    /* Animated lines */
-    .bg-lines {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      overflow: hidden;
-      pointer-events: none;
-      z-index: 0;
-    }
-
-    .bg-line {
-      position: absolute;
-      width: 1px;
-      height: 100%;
-      background: linear-gradient(180deg, transparent, var(--accent), transparent);
-      opacity: 0.1;
-      animation: line-flow 8s linear infinite;
-    }
-
-    .bg-line:nth-child(1) { left: 10%; animation-delay: 0s; }
-    .bg-line:nth-child(2) { left: 30%; animation-delay: -2s; }
-    .bg-line:nth-child(3) { left: 50%; animation-delay: -4s; }
-    .bg-line:nth-child(4) { left: 70%; animation-delay: -6s; }
-    .bg-line:nth-child(5) { left: 90%; animation-delay: -1s; }
-
-    @keyframes line-flow {
-      0% { transform: translateY(-100%); opacity: 0; }
-      50% { opacity: 0.15; }
-      100% { transform: translateY(100%); opacity: 0; }
-    }
-
-    /* ============================================
-       LAYOUT
-       ============================================ */
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 24px;
-    }
-
-    .page {
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      position: relative;
-      z-index: 1;
-    }
-
-    /* ============================================
-       HEADER
-       ============================================ */
-    .header {
-      padding: 24px 0;
-      position: relative;
-      z-index: 100;
-    }
-
-    .header__inner {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .header__logo {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-size: 20px;
-      font-weight: 800;
-      letter-spacing: -0.03em;
-    }
-
-    .header__logo-icon {
-      width: 32px;
-      height: 32px;
-    }
-
-    .header__logo-icon svg {
-      width: 100%;
-      height: 100%;
-    }
-
-    .header__logo span {
-      background: var(--gradient-accent);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-
-    .header__back {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      color: var(--text-secondary);
-      font-size: 14px;
-      font-weight: 500;
-      padding: 8px 16px;
-      border-radius: var(--radius-md);
-      border: 1px solid var(--border);
-      transition: all var(--transition);
-    }
-
-    .header__back:hover {
-      color: var(--text-primary);
-      border-color: var(--border-light);
-      background: var(--bg-card);
-    }
-
-    .header__back svg {
-      transition: transform var(--transition);
-    }
-
-    .header__back:hover svg {
-      transform: translateX(-4px);
-    }
-
-    /* ============================================
-       MAIN CONTENT
-       ============================================ */
-    .main {
-      flex: 1;
-      display: flex;
-      align-items: center;
-      padding: 60px 0 100px;
-    }
-
-    .main__grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 80px;
-      align-items: center;
-    }
-
-    @media (max-width: 900px) {
-      .main__grid {
-        grid-template-columns: 1fr;
-        gap: 60px;
-        text-align: center;
-      }
-    }
-
-    /* ============================================
-       HERO CONTENT
-       ============================================ */
-    .hero__badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      background: var(--accent-subtle);
-      border: 1px solid rgba(16, 185, 129, 0.2);
-      padding: 8px 16px 8px 12px;
-      border-radius: var(--radius-full);
-      font-size: 13px;
-      font-weight: 600;
-      color: var(--accent-light);
-      margin-bottom: 28px;
-      animation: fadeInUp 0.6s ease forwards;
-    }
-
-    .hero__badge-dot {
-      width: 8px;
-      height: 8px;
-      background: var(--accent);
-      border-radius: 50%;
-      animation: pulse 2s ease-in-out infinite;
-    }
-
-    @keyframes pulse {
-      0%, 100% { opacity: 1; transform: scale(1); }
-      50% { opacity: 0.5; transform: scale(1.3); }
-    }
-
-    .hero__title {
-      font-size: clamp(40px, 6vw, 60px);
-      font-weight: 800;
-      line-height: 1.1;
-      letter-spacing: -0.04em;
-      margin-bottom: 24px;
-      animation: fadeInUp 0.6s ease 0.1s forwards;
-      opacity: 0;
-    }
-
-    .hero__title-accent {
-      background: var(--gradient-accent);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-
-    .hero__subtitle {
-      font-size: 19px;
-      color: var(--text-secondary);
-      max-width: 500px;
-      line-height: 1.7;
-      margin-bottom: 40px;
-      animation: fadeInUp 0.6s ease 0.2s forwards;
-      opacity: 0;
-    }
-
-    @media (max-width: 900px) {
-      .hero__subtitle {
-        margin-left: auto;
-        margin-right: auto;
-      }
-    }
-
-    /* Features list */
-    .hero__features {
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-      margin-bottom: 48px;
-      animation: fadeInUp 0.6s ease 0.3s forwards;
-      opacity: 0;
-    }
-
-    @media (max-width: 900px) {
-      .hero__features {
-        align-items: center;
-      }
-    }
-
-    .hero__feature {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      font-size: 15px;
-      color: var(--text-secondary);
-    }
-
-    .hero__feature-icon {
-      width: 24px;
-      height: 24px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: var(--accent-subtle);
-      border-radius: var(--radius-sm);
-      color: var(--accent);
-      flex-shrink: 0;
-    }
-
-    .hero__feature strong {
-      color: var(--text-primary);
-      font-weight: 600;
-    }
-
-    @keyframes fadeInUp {
-      from {
-        opacity: 0;
-        transform: translateY(30px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    /* ============================================
-       WAITLIST CARD
-       ============================================ */
-    .waitlist-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-xl);
-      padding: 48px;
-      position: relative;
-      overflow: hidden;
-      animation: fadeInUp 0.6s ease 0.4s forwards;
-      opacity: 0;
-    }
-
-    .waitlist-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 3px;
-      background: var(--gradient-accent);
-    }
-
-    .waitlist-card::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(circle at 50% 0%, var(--accent-subtle), transparent 60%);
-      pointer-events: none;
-    }
-
-    .waitlist-card__content {
-      position: relative;
-      z-index: 1;
-    }
-
-    .waitlist-card__label {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 12px;
-      font-weight: 700;
-      color: var(--accent);
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      margin-bottom: 16px;
-    }
-
-    .waitlist-card__title {
-      font-size: 28px;
-      font-weight: 800;
-      letter-spacing: -0.02em;
-      margin-bottom: 12px;
-    }
-
-    .waitlist-card__desc {
-      font-size: 15px;
-      color: var(--text-secondary);
-      line-height: 1.7;
-      margin-bottom: 32px;
-    }
-
-    /* Form */
-    .waitlist-form {
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-    }
-
-    .form-group {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
-
-    .form-label {
-      font-size: 13px;
-      font-weight: 600;
-      color: var(--text-secondary);
-    }
-
-    .form-input {
-      background: var(--bg-primary);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-md);
-      padding: 14px 18px;
-      font-size: 15px;
-      color: var(--text-primary);
-      font-family: var(--font-sans);
-      transition: all var(--transition);
-      width: 100%;
-    }
-
-    .form-input::placeholder {
-      color: var(--text-muted);
-    }
-
-    .form-input:focus {
-      outline: none;
-      border-color: var(--accent);
-      box-shadow: 0 0 0 3px var(--accent-subtle);
-    }
-
-    .form-select {
-      background: var(--bg-primary);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-md);
-      padding: 14px 18px;
-      font-size: 15px;
-      color: var(--text-primary);
-      font-family: var(--font-sans);
-      transition: all var(--transition);
-      width: 100%;
-      cursor: pointer;
-      appearance: none;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%2364748b' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
-      background-repeat: no-repeat;
-      background-position: right 16px center;
-    }
-
-    .form-select:focus {
-      outline: none;
-      border-color: var(--accent);
-      box-shadow: 0 0 0 3px var(--accent-subtle);
-    }
-
-    .form-row {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 16px;
-    }
-
-    @media (max-width: 500px) {
-      .form-row {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      padding: 16px 32px;
-      border-radius: var(--radius-md);
-      font-size: 15px;
-      font-weight: 600;
-      transition: all var(--transition);
-      cursor: pointer;
-      border: none;
-      width: 100%;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .btn--primary {
-      background: var(--gradient-accent);
-      color: var(--bg-primary);
-      box-shadow: 0 4px 20px rgba(16, 185, 129, 0.3);
-      margin-top: 8px;
-    }
-
-    .btn--primary::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(135deg, rgba(255,255,255,0.2) 0%, transparent 50%);
-      opacity: 0;
-      transition: opacity var(--transition);
-    }
-
-    .btn--primary:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 30px rgba(16, 185, 129, 0.4);
-    }
-
-    .btn--primary:hover::before {
-      opacity: 1;
-    }
-
-    .btn--primary:active {
-      transform: translateY(0);
-    }
-
-    .btn__icon {
-      transition: transform var(--transition);
-    }
-
-    .btn:hover .btn__icon {
-      transform: translateX(4px);
-    }
-
-    /* Success state */
-    .waitlist-success {
-      text-align: center;
-      padding: 20px 0;
-      display: none;
-    }
-
-    .waitlist-success.visible {
-      display: block;
-    }
-
-    .waitlist-success__icon {
-      width: 64px;
-      height: 64px;
-      background: var(--accent-subtle);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 0 auto 20px;
-      color: var(--accent);
-    }
-
-    .waitlist-success__title {
-      font-size: 24px;
-      font-weight: 700;
-      margin-bottom: 8px;
-    }
-
-    .waitlist-success__text {
-      color: var(--text-secondary);
-      font-size: 15px;
-    }
-
-    /* Counter */
-    .waitlist-card__counter {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      margin-top: 24px;
-      padding-top: 24px;
-      border-top: 1px solid var(--border);
-      font-size: 14px;
-      color: var(--text-muted);
-    }
-
-    .waitlist-card__counter strong {
-      color: var(--accent);
-      font-weight: 700;
-      font-family: var(--font-mono);
-    }
-
-    /* ============================================
-       FEATURES SECTION
-       ============================================ */
-    .features {
-      padding: 100px 0;
-      position: relative;
-      z-index: 1;
-    }
-
-    .features::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 1px;
-      background: linear-gradient(90deg, transparent, var(--border-light), transparent);
-    }
-
-    .features__header {
-      text-align: center;
-      margin-bottom: 64px;
-    }
-
-    .features__label {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 13px;
-      font-weight: 600;
-      color: var(--accent);
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      margin-bottom: 16px;
-    }
-
-    .features__title {
-      font-size: clamp(28px, 4vw, 40px);
-      font-weight: 800;
-      letter-spacing: -0.03em;
-      margin-bottom: 16px;
-    }
-
-    .features__subtitle {
-      font-size: 17px;
-      color: var(--text-secondary);
-      max-width: 500px;
-      margin: 0 auto;
-      line-height: 1.7;
-    }
-
-    .features__grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 24px;
-    }
-
-    @media (max-width: 900px) {
-      .features__grid {
-        grid-template-columns: 1fr;
-        max-width: 500px;
-        margin: 0 auto;
-      }
-    }
-
-    .feature-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-xl);
-      padding: 36px;
-      transition: all var(--transition);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .feature-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 2px;
-      background: var(--gradient-accent);
-      transform: scaleX(0);
-      transform-origin: left;
-      transition: transform var(--transition);
-    }
-
-    .feature-card:hover {
-      border-color: rgba(16, 185, 129, 0.3);
-      transform: translateY(-4px);
-      box-shadow: var(--shadow-md);
-    }
-
-    .feature-card:hover::before {
-      transform: scaleX(1);
-    }
-
-    .feature-card__icon {
-      width: 56px;
-      height: 56px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: var(--accent-subtle);
-      border: 1px solid rgba(16, 185, 129, 0.2);
-      border-radius: var(--radius-lg);
-      margin-bottom: 24px;
-      color: var(--accent);
-      transition: all var(--transition);
-    }
-
-    .feature-card:hover .feature-card__icon {
-      background: var(--accent);
-      color: var(--bg-primary);
-      transform: scale(1.1) rotate(-5deg);
-    }
-
-    .feature-card__title {
-      font-size: 20px;
-      font-weight: 700;
-      margin-bottom: 12px;
-      letter-spacing: -0.02em;
-    }
-
-    .feature-card__desc {
-      font-size: 15px;
-      color: var(--text-secondary);
-      line-height: 1.7;
-    }
-
-    .feature-card__stat {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      margin-top: 20px;
-      padding-top: 20px;
-      border-top: 1px solid var(--border);
-      font-size: 14px;
-      color: var(--accent);
-      font-weight: 600;
-      font-family: var(--font-mono);
-    }
-
-    /* ============================================
-       PRICING TEASER
-       ============================================ */
-    .pricing-teaser {
-      padding: 80px 0;
-      position: relative;
-      z-index: 1;
-    }
-
-    .pricing-teaser__card {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-xl);
-      padding: 48px;
-      text-align: center;
-      max-width: 700px;
-      margin: 0 auto;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .pricing-teaser__card::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(circle at 50% 0%, var(--accent-subtle), transparent 60%);
-      pointer-events: none;
-    }
-
-    .pricing-teaser__content {
-      position: relative;
-      z-index: 1;
-    }
-
-    .pricing-teaser__label {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: var(--accent-subtle);
-      border: 1px solid rgba(16, 185, 129, 0.2);
-      padding: 6px 14px;
-      border-radius: var(--radius-full);
-      font-size: 12px;
-      font-weight: 700;
-      color: var(--accent);
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      margin-bottom: 24px;
-    }
-
-    .pricing-teaser__title {
-      font-size: 32px;
-      font-weight: 800;
-      letter-spacing: -0.03em;
-      margin-bottom: 16px;
-    }
-
-    .pricing-teaser__desc {
-      font-size: 17px;
-      color: var(--text-secondary);
-      line-height: 1.7;
-      margin-bottom: 32px;
-      max-width: 500px;
-      margin-left: auto;
-      margin-right: auto;
-    }
-
-    .pricing-teaser__tiers {
-      display: flex;
-      justify-content: center;
-      gap: 32px;
-      flex-wrap: wrap;
-    }
-
-    .pricing-tier {
-      text-align: center;
-    }
-
-    .pricing-tier__price {
-      font-size: 36px;
-      font-weight: 800;
-      font-family: var(--font-mono);
-      margin-bottom: 4px;
-    }
-
-    .pricing-tier__price span {
-      font-size: 16px;
-      color: var(--text-muted);
-      font-weight: 500;
-    }
-
-    .pricing-tier__name {
-      font-size: 14px;
-      color: var(--text-secondary);
-      font-weight: 500;
-    }
-
-    .pricing-teaser__note {
-      margin-top: 32px;
-      padding-top: 24px;
-      border-top: 1px solid var(--border);
-      font-size: 14px;
-      color: var(--text-muted);
-    }
-
-    .pricing-teaser__note strong {
-      color: var(--accent);
-      font-weight: 600;
-    }
-
-    /* ============================================
-       FOOTER
-       ============================================ */
-    .footer {
-      padding: 32px 0;
-      border-top: 1px solid var(--border);
-      position: relative;
-      z-index: 1;
-    }
-
-    .footer__inner {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 24px;
-    }
-
-    .footer__copy {
-      color: var(--text-muted);
-      font-size: 14px;
-    }
-
-    .footer__links {
-      display: flex;
-      gap: 24px;
-    }
-
-    .footer__link {
-      color: var(--text-secondary);
-      font-size: 14px;
-      font-weight: 500;
-      transition: color var(--transition);
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .footer__link:hover {
-      color: var(--accent);
-    }
-
-    /* ============================================
-       ANIMATIONS
-       ============================================ */
-    .reveal {
-      opacity: 0;
-      transform: translateY(40px);
-      transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-
-    .reveal.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    /* ============================================
-       UTILITIES
-       ============================================ */
-    .text-accent { color: var(--accent); }
-    .text-muted { color: var(--text-muted); }
-    .font-mono { font-family: var(--font-mono); }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ResultantAI Gateway — Predictable AI Costs for Agencies</title>
+    <meta name="description" content="Stop guessing what AI will cost. One API key, every provider, predictable monthly bills. Join 25 Founding Partners — $499/year locked forever.">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="ResultantAI Gateway — Predictable AI Costs for Agencies">
+    <meta property="og:description" content="One API key. Every provider. Predictable monthly bills. Built for agencies tired of AI cost anxiety.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://gateway.resultantai.com">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        slate: {
+                            850: '#1a2332',
+                            950: '#0a0f1a',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        .gradient-bg {
+            background: linear-gradient(180deg, #0a0f1a 0%, #0f172a 50%, #0a0f1a 100%);
+        }
+        
+        .glow-emerald {
+            box-shadow: 0 0 60px rgba(16, 185, 129, 0.12), 0 0 20px rgba(16, 185, 129, 0.08);
+        }
+        
+        .glow-emerald-subtle {
+            box-shadow: 0 0 40px rgba(16, 185, 129, 0.08);
+        }
+        
+        .premium-card {
+            background: linear-gradient(135deg, rgba(30, 41, 59, 0.6) 0%, rgba(15, 23, 42, 0.9) 100%);
+            border: 1px solid rgba(71, 85, 105, 0.4);
+        }
+        
+        .founding-card {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.05) 0%, rgba(15, 23, 42, 0.95) 100%);
+            border: 1px solid rgba(16, 185, 129, 0.2);
+        }
+        
+        .nav-blur {
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+        
+        /* Logo styling to match ResultantAI.com */
+        .logo {
+            font-size: 18px;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+        }
+        
+        .logo-ai {
+            color: #10b981;
+        }
+        
+        @keyframes pulse-slow {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.6; }
+        }
+        
+        .pulse-slow {
+            animation: pulse-slow 2.5s ease-in-out infinite;
+        }
+        
+        /* Code block styling */
+        .code-block {
+            background: #0f172a;
+            border: 1px solid #334155;
+        }
+        
+        .code-block pre {
+            overflow-x: auto;
+        }
+        
+        /* Copy button */
+        .copy-btn {
+            opacity: 0;
+            transition: opacity 0.2s ease;
+        }
+        
+        .code-block:hover .copy-btn {
+            opacity: 1;
+        }
+        
+        /* Smooth scroll */
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        /* Mobile sticky safe area */
+        .mobile-sticky {
+            padding-bottom: env(safe-area-inset-bottom);
+        }
+        
+        /* Exit popup */
+        .popup-overlay {
+            backdrop-filter: blur(4px);
+        }
+        
+        /* FAQ Accordion */
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, padding 0.3s ease;
+        }
+        
+        .faq-item.open .faq-answer {
+            max-height: 200px;
+            padding-top: 1rem;
+        }
+        
+        .faq-item.open .faq-icon {
+            transform: rotate(180deg);
+        }
+        
+        .faq-icon {
+            transition: transform 0.3s ease;
+        }
+        
+        /* Coming soon badge */
+        .coming-soon {
+            background: rgba(251, 191, 36, 0.1);
+            border: 1px solid rgba(251, 191, 36, 0.3);
+            color: #fbbf24;
+        }
+    </style>
 </head>
-<body>
-  <!-- Background elements -->
-  <div class="bg-grid"></div>
-  <div class="bg-gradient"></div>
-  <div class="bg-orb bg-orb--1"></div>
-  <div class="bg-orb bg-orb--2"></div>
-  <div class="bg-orb bg-orb--3"></div>
-  <div class="bg-lines">
-    <div class="bg-line"></div>
-    <div class="bg-line"></div>
-    <div class="bg-line"></div>
-    <div class="bg-line"></div>
-    <div class="bg-line"></div>
-  </div>
+<body class="gradient-bg min-h-screen text-slate-300 font-sans">
 
-  <div class="page">
-    <!-- Header -->
-    <header class="header">
-      <div class="container">
-        <div class="header__inner">
-          <a href="/" class="header__logo">
-            <div class="header__logo-icon">
-              <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <rect x="4" y="28" width="6" height="8" rx="1" fill="#60a5fa"/>
-                <rect x="12" y="22" width="6" height="14" rx="1" fill="#3b82f6"/>
-                <rect x="20" y="16" width="6" height="20" rx="1" fill="#2563eb"/>
-                <rect x="28" y="10" width="6" height="26" rx="1" fill="#10b981"/>
-                <path d="M7 26C10 20 18 12 34 6" stroke="#1e293b" stroke-width="4" stroke-linecap="round"/>
-                <path d="M7 26C10 20 18 12 34 6" stroke="#10b981" stroke-width="2" stroke-linecap="round"/>
-                <path d="M30 4L36 6L34 12" stroke="#10b981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </div>
-            Resultant<span>AI</span>
-          </a>
-          <a href="/" class="header__back">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
-              <path d="M19 12H5M12 19l-7-7 7-7"/>
-            </svg>
-            Back to Agency
-          </a>
-        </div>
-      </div>
-    </header>
-
-    <!-- Main Content -->
-    <main class="main">
-      <div class="container">
-        <div class="main__grid">
-          <!-- Hero Content -->
-          <div class="hero">
-            <div class="hero__badge">
-              <span class="hero__badge-dot"></span>
-              Coming Q1 2026
-            </div>
-            <h1 class="hero__title">
-              Stop Guessing<br>
-              <span class="hero__title-accent">What AI Will Cost</span>
-            </h1>
-            <p class="hero__subtitle">
-              The AI Gateway gives you predictable billing, intelligent routing that cuts costs by 80-90%, and built-in safety controls — all through a single API.
-            </p>
-            <div class="hero__features">
-              <div class="hero__feature">
-                <span class="hero__feature-icon">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                    <polyline points="20 6 9 17 4 12"/>
-                  </svg>
-                </span>
-                <span><strong>Intelligence Router</strong> — Auto-selects the cheapest model that works</span>
-              </div>
-              <div class="hero__feature">
-                <span class="hero__feature-icon">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                    <polyline points="20 6 9 17 4 12"/>
-                  </svg>
-                </span>
-                <span><strong>Safety Brain</strong> — PII scrubbing, sentiment detection, audit trails</span>
-              </div>
-              <div class="hero__feature">
-                <span class="hero__feature-icon">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                    <polyline points="20 6 9 17 4 12"/>
-                  </svg>
-                </span>
-                <span><strong>Flat-rate billing</strong> — Know your costs before you ship</span>
-              </div>
-            </div>
-          </div>
-
-          <!-- Waitlist Card -->
-          <div class="waitlist-card">
-            <div class="waitlist-card__content">
-              <div class="waitlist-card__label">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
-                </svg>
-                Beta Access
-              </div>
-              <h2 class="waitlist-card__title">Join the Waitlist</h2>
-              <p class="waitlist-card__desc">Get early access, founding member pricing, and help shape the product. Limited to 50 beta partners.</p>
-              
-              <form class="waitlist-form" id="waitlistForm">
-                <div class="form-row">
-                  <div class="form-group">
-                    <label class="form-label" for="name">Name</label>
-                    <input type="text" id="name" name="name" class="form-input" placeholder="Chris Mott" required>
-                  </div>
-                  <div class="form-group">
-                    <label class="form-label" for="email">Work Email</label>
-                    <input type="email" id="email" name="email" class="form-input" placeholder="chris@company.com" required>
-                  </div>
+    <!-- Navigation -->
+    <nav class="fixed top-0 left-0 right-0 z-50 nav-blur bg-slate-950/80 border-b border-slate-800/50">
+        <div class="max-w-5xl mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <!-- Logo -->
+                <a href="https://resultantai.com" class="logo text-white">
+                    Resultant<span class="logo-ai">AI</span>
+                </a>
+                
+                <!-- Nav Links (Desktop) -->
+                <div class="hidden md:flex items-center gap-8">
+                    <a href="https://resultantai.com/services" class="text-sm text-slate-400 hover:text-white transition-colors">Services</a>
+                    <a href="https://resultantai.com/work" class="text-sm text-slate-400 hover:text-white transition-colors">Work</a>
+                    <a href="#" class="text-sm text-emerald-400 font-medium">Gateway</a>
+                    <a href="https://meetings.hubspot.com/chris4642/ai-gateway-founding-partner" target="_blank" class="bg-emerald-500 hover:bg-emerald-400 text-white text-sm font-medium px-4 py-2 rounded-lg transition-colors">
+                        Book a Call
+                    </a>
                 </div>
-                <div class="form-group">
-                  <label class="form-label" for="company">Company / Project</label>
-                  <input type="text" id="company" name="company" class="form-input" placeholder="Your company or project name">
-                </div>
-                <div class="form-group">
-                  <label class="form-label" for="use_case">Primary Use Case</label>
-                  <select id="use_case" name="use_case" class="form-select" required>
-                    <option value="" disabled selected>Select your use case</option>
-                    <option value="agency">Agency / Client Work</option>
-                    <option value="saas">SaaS Product</option>
-                    <option value="nocode">No-Code Automation (Make, n8n, Bubble)</option>
-                    <option value="internal">Internal Tools</option>
-                    <option value="other">Other</option>
-                  </select>
-                </div>
-                <button type="submit" class="btn btn--primary">
-                  Join the Waitlist
-                  <svg class="btn__icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                    <path d="M5 12h14M12 5l7 7-7 7"/>
-                  </svg>
+                
+                <!-- Mobile Menu Button -->
+                <button id="mobile-menu-btn" class="md:hidden text-slate-400 hover:text-white">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                    </svg>
                 </button>
-              </form>
-
-              <div class="waitlist-success" id="waitlistSuccess">
-                <div class="waitlist-success__icon">
-                  <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
-                    <polyline points="22 4 12 14.01 9 11.01"/>
-                  </svg>
-                </div>
-                <h3 class="waitlist-success__title">You're on the list!</h3>
-                <p class="waitlist-success__text">We'll reach out when beta access opens. In the meantime, follow us on X for updates.</p>
-              </div>
-
-              <div class="waitlist-card__counter">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
-                  <circle cx="9" cy="7" r="4"/>
-                  <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
-                  <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
-                </svg>
-                <strong>23</strong> builders on the waitlist
-              </div>
             </div>
-          </div>
         </div>
-      </div>
-    </main>
+        
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden border-t border-slate-800/50 bg-slate-950/95">
+            <div class="px-6 py-4 space-y-4">
+                <a href="https://resultantai.com/services" class="block text-slate-400 hover:text-white transition-colors">Services</a>
+                <a href="https://resultantai.com/work" class="block text-slate-400 hover:text-white transition-colors">Work</a>
+                <a href="#" class="block text-emerald-400 font-medium">Gateway</a>
+                <a href="https://meetings.hubspot.com/chris4642/ai-gateway-founding-partner" target="_blank" class="block bg-emerald-500 hover:bg-emerald-400 text-white text-center font-medium px-4 py-3 rounded-lg transition-colors">
+                    Book a Call
+                </a>
+            </div>
+        </div>
+    </nav>
 
-    <!-- Features Section -->
-    <section class="features">
-      <div class="container">
-        <div class="features__header reveal">
-          <div class="features__label">Why AI Gateway</div>
-          <h2 class="features__title">Built for Builders Who Ship</h2>
-          <p class="features__subtitle">One integration. Predictable costs. Enterprise-grade safety. Ship faster.</p>
+    <!-- Urgency Banner -->
+    <div class="fixed top-[65px] left-0 right-0 z-40 bg-emerald-950/40 border-b border-emerald-500/20 py-2.5 px-4">
+        <div class="max-w-4xl mx-auto flex flex-wrap items-center justify-center gap-x-4 gap-y-1 text-sm">
+            <span class="inline-flex items-center gap-2">
+                <span class="w-2 h-2 bg-emerald-400 rounded-full pulse-slow"></span>
+                <span class="text-emerald-400 font-medium">23 of 25</span>
+                <span class="text-slate-400">Founding Spots</span>
+            </span>
+            <span class="text-slate-600 hidden sm:inline">•</span>
+            <span class="text-slate-500 text-xs sm:text-sm">Closes Dec 24, 2025</span>
         </div>
-        <div class="features__grid">
-          <div class="feature-card reveal">
-            <div class="feature-card__icon">
-              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="12" cy="12" r="10"/>
-                <path d="M16 8l-4 4-4-4"/>
-                <path d="M12 16V12"/>
-              </svg>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="pt-36 md:pt-40 pb-16 md:pb-20 px-6">
+        <div class="max-w-4xl mx-auto text-center">
+            
+            <!-- Overline -->
+            <div class="inline-flex items-center gap-2 px-3 py-1.5 bg-slate-800/50 border border-slate-700/50 rounded-full text-xs text-slate-400 mb-8">
+                <span class="w-1.5 h-1.5 bg-emerald-400 rounded-full"></span>
+                ResultantAI Gateway • Now live • Built for agencies
             </div>
-            <h3 class="feature-card__title">Intelligence Router</h3>
-            <p class="feature-card__desc">Automatically routes requests to the cheapest model that meets your quality threshold. Most users save 80-90% on API costs.</p>
-            <div class="feature-card__stat">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/>
-              </svg>
-              80-90% cost reduction
+            
+            <!-- Headline -->
+            <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-[1.1] tracking-tight">
+                Stop Guessing What<br class="hidden sm:block"> AI Will Cost
+            </h1>
+            
+            <p class="text-lg md:text-xl text-slate-400 mb-10 max-w-2xl mx-auto leading-relaxed">
+                One API key. Every provider. Predictable monthly bills.<br class="hidden md:block">
+                Built for agencies tired of AI cost anxiety.
+            </p>
+            
+            <!-- Primary CTA Card -->
+            <div class="founding-card rounded-2xl p-8 max-w-md mx-auto mb-8 glow-emerald">
+                <div class="text-emerald-400 text-xs font-semibold tracking-wider mb-3">FOUNDING PARTNER PRICE</div>
+                <div class="text-5xl font-bold text-white mb-1">$499<span class="text-xl font-normal text-slate-400">/year</span></div>
+                <div class="text-slate-400 text-sm mb-1">$41/month • Locked forever</div>
+                <div class="text-sm text-slate-500 line-through mb-6">After Dec 24: $99/month ($1,188/year)</div>
+                
+                <a href="https://meetings.hubspot.com/chris4642/ai-gateway-founding-partner" target="_blank" class="block w-full bg-emerald-500 hover:bg-emerald-400 text-white font-semibold py-4 px-8 rounded-xl transition-all duration-200 text-lg text-center">
+                    Book Your Founding Partner Call
+                </a>
+                
+                <p class="text-xs text-slate-500 mt-4">
+                    90-day money-back guarantee • Cancel anytime
+                </p>
             </div>
-          </div>
-          <div class="feature-card reveal">
-            <div class="feature-card__icon">
-              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-              </svg>
-            </div>
-            <h3 class="feature-card__title">Safety Brain</h3>
-            <p class="feature-card__desc">PII detection and redaction, sentiment-based routing, content filtering, and immutable audit trails. Compliance built-in.</p>
-            <div class="feature-card__stat">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                <polyline points="20 6 9 17 4 12"/>
-              </svg>
-              SOC 2 ready
-            </div>
-          </div>
-          <div class="feature-card reveal">
-            <div class="feature-card__icon">
-              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
-                <line x1="8" y1="21" x2="16" y2="21"/>
-                <line x1="12" y1="17" x2="12" y2="21"/>
-              </svg>
-            </div>
-            <h3 class="feature-card__title">Single Integration</h3>
-            <p class="feature-card__desc">One API, all providers. OpenAI, Anthropic, Google, open-source — switch between them without changing your code.</p>
-            <div class="feature-card__stat">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                <circle cx="12" cy="12" r="10"/>
-                <polyline points="12 6 12 12 16 14"/>
-              </svg>
-              &lt;20ms overhead
-            </div>
-          </div>
+            
+            <!-- Secondary Link -->
+            <p class="text-sm text-slate-500">
+                Already a member? <a href="https://ai-gateway-prod.fly.dev/dashboard" class="text-emerald-400 hover:text-emerald-300 transition-colors">Sign in →</a>
+            </p>
         </div>
-      </div>
     </section>
 
-    <!-- Pricing Teaser -->
-    <section class="pricing-teaser">
-      <div class="container">
-        <div class="pricing-teaser__card reveal">
-          <div class="pricing-teaser__content">
-            <div class="pricing-teaser__label">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
-              </svg>
-              Consumption Insurance
-            </div>
-            <h2 class="pricing-teaser__title">Flat-Rate Pricing. No Surprises.</h2>
-            <p class="pricing-teaser__desc">Pay a predictable monthly fee. We handle the API costs and optimize for you. If you go over, we eat the difference (up to your cap).</p>
-            <div class="pricing-teaser__tiers">
-              <div class="pricing-tier">
-                <div class="pricing-tier__price">$99<span>/mo</span></div>
-                <div class="pricing-tier__name">Starter</div>
-              </div>
-              <div class="pricing-tier">
-                <div class="pricing-tier__price">$299<span>/mo</span></div>
-                <div class="pricing-tier__name">Growth</div>
-              </div>
-              <div class="pricing-tier">
-                <div class="pricing-tier__price">$799<span>/mo</span></div>
-                <div class="pricing-tier__name">Scale</div>
-              </div>
-            </div>
-            <p class="pricing-teaser__note">
-              <strong>Beta founders get 50% off</strong> for life + direct access to the roadmap.
+    <!-- Problem Section -->
+    <section class="py-20 px-6 border-t border-slate-800/50">
+        <div class="max-w-4xl mx-auto">
+            <h2 class="text-2xl md:text-3xl font-bold text-white text-center mb-4">
+                AI costs are unpredictable.<br class="sm:hidden"> Your business can't be.
+            </h2>
+            <p class="text-slate-400 text-center mb-12 max-w-xl mx-auto">
+                Sound familiar?
             </p>
-          </div>
+            
+            <div class="grid md:grid-cols-3 gap-6">
+                <!-- Pain 1 -->
+                <div class="premium-card rounded-xl p-6">
+                    <div class="w-10 h-10 bg-red-500/10 border border-red-500/20 rounded-lg flex items-center justify-center mb-4">
+                        <svg class="w-5 h-5 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 17h8m0 0V9m0 8l-8-8-4 4-6-6"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-white font-semibold mb-2">Bill Shock</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">One automation goes viral. Your API bill explodes. You eat the cost or have an awkward client conversation.</p>
+                </div>
+                
+                <!-- Pain 2 -->
+                <div class="premium-card rounded-xl p-6">
+                    <div class="w-10 h-10 bg-amber-500/10 border border-amber-500/20 rounded-lg flex items-center justify-center mb-4">
+                        <svg class="w-5 h-5 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-white font-semibold mb-2">Key Chaos</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">15 API keys. 3 providers. Costs tracked in spreadsheets. Client billing is a monthly nightmare.</p>
+                </div>
+                
+                <!-- Pain 3 -->
+                <div class="premium-card rounded-xl p-6">
+                    <div class="w-10 h-10 bg-slate-500/10 border border-slate-500/20 rounded-lg flex items-center justify-center mb-4">
+                        <svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-white font-semibold mb-2">Zero Visibility</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">"How much AI did we use for Acme Corp?" You don't know. Neither does your accountant.</p>
+                </div>
+            </div>
         </div>
-      </div>
+    </section>
+
+    <!-- Solution Section -->
+    <section class="py-20 px-6 border-t border-slate-800/50">
+        <div class="max-w-4xl mx-auto">
+            <h2 class="text-2xl md:text-3xl font-bold text-white text-center mb-4">
+                One gateway. Complete control.
+            </h2>
+            <p class="text-slate-400 text-center mb-12 max-w-xl mx-auto">
+                AI Gateway sits between your code and the providers. You get visibility. They get requests.
+            </p>
+            
+            <div class="grid md:grid-cols-3 gap-6">
+                <!-- Benefit 1 -->
+                <div class="premium-card rounded-xl p-6">
+                    <div class="w-10 h-10 bg-emerald-500/10 border border-emerald-500/20 rounded-lg flex items-center justify-center mb-4">
+                        <svg class="w-5 h-5 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-white font-semibold mb-2">Single API Key</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">Replace OpenAI, Anthropic, and Google keys with one endpoint. Change one line of code.</p>
+                </div>
+                
+                <!-- Benefit 2 -->
+                <div class="premium-card rounded-xl p-6">
+                    <div class="w-10 h-10 bg-emerald-500/10 border border-emerald-500/20 rounded-lg flex items-center justify-center mb-4">
+                        <svg class="w-5 h-5 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-white font-semibold mb-2">Per-Client Tracking</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">See usage by client in real-time. Know exactly what each project costs. Bill accurately.</p>
+                </div>
+                
+                <!-- Benefit 3 -->
+                <div class="premium-card rounded-xl p-6">
+                    <div class="w-10 h-10 bg-emerald-500/10 border border-emerald-500/20 rounded-lg flex items-center justify-center mb-4">
+                        <svg class="w-5 h-5 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-white font-semibold mb-2">Predictable Pricing</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">Flat annual rate. No per-token anxiety. Smart routing saves 60-80% on AI costs.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Comparison Table -->
+    <section class="py-20 px-6 border-t border-slate-800/50">
+        <div class="max-w-4xl mx-auto">
+            <h2 class="text-2xl font-bold text-white text-center mb-4">Direct API vs AI Gateway</h2>
+            <p class="text-slate-400 text-center mb-10">See why agencies are switching</p>
+            
+            <div class="overflow-x-auto">
+                <table class="w-full">
+                    <thead>
+                        <tr class="border-b border-slate-700">
+                            <th class="text-left py-4 px-4 text-slate-400 font-medium"></th>
+                            <th class="py-4 px-4 text-center">
+                                <div class="text-slate-400 font-medium">Direct API</div>
+                                <div class="text-xs text-slate-500">OpenAI, Anthropic, etc.</div>
+                            </th>
+                            <th class="py-4 px-4 text-center bg-emerald-500/5 rounded-t-xl">
+                                <div class="text-emerald-400 font-medium">AI Gateway</div>
+                                <div class="text-xs text-slate-400">Founding Partner</div>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-sm">
+                        <tr class="border-b border-slate-800">
+                            <td class="py-4 px-4 text-slate-300">Monthly cost (typical agency)</td>
+                            <td class="py-4 px-4 text-center text-slate-400">$800 - $2,000+</td>
+                            <td class="py-4 px-4 text-center bg-emerald-500/5 text-emerald-400 font-medium">$200 - $600</td>
+                        </tr>
+                        <tr class="border-b border-slate-800">
+                            <td class="py-4 px-4 text-slate-300">Predictable billing</td>
+                            <td class="py-4 px-4 text-center text-red-400/80">✕ Pay-per-token</td>
+                            <td class="py-4 px-4 text-center bg-emerald-500/5 text-emerald-400">✓ Hard budget caps</td>
+                        </tr>
+                        <tr class="border-b border-slate-800">
+                            <td class="py-4 px-4 text-slate-300">Per-client cost tracking</td>
+                            <td class="py-4 px-4 text-center text-red-400/80">✕ Manual spreadsheets</td>
+                            <td class="py-4 px-4 text-center bg-emerald-500/5 text-emerald-400">✓ Automatic</td>
+                        </tr>
+                        <tr class="border-b border-slate-800">
+                            <td class="py-4 px-4 text-slate-300">Multi-provider routing</td>
+                            <td class="py-4 px-4 text-center text-red-400/80">✕ Build yourself</td>
+                            <td class="py-4 px-4 text-center bg-emerald-500/5 text-emerald-400">✓ Built-in</td>
+                        </tr>
+                        <tr class="border-b border-slate-800">
+                            <td class="py-4 px-4 text-slate-300">Smart model selection</td>
+                            <td class="py-4 px-4 text-center text-red-400/80">✕ Manual</td>
+                            <td class="py-4 px-4 text-center bg-emerald-500/5 text-emerald-400">✓ Cheapest-adequate routing</td>
+                        </tr>
+                        <tr>
+                            <td class="py-4 px-4 text-slate-300">Code changes required</td>
+                            <td class="py-4 px-4 text-center text-slate-400">N/A</td>
+                            <td class="py-4 px-4 text-center bg-emerald-500/5 rounded-b-xl text-emerald-400">1 line</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- Founding Partner Offer Section -->
+    <section class="py-20 px-6 border-t border-slate-800/50 bg-gradient-to-b from-emerald-950/20 to-transparent">
+        <div class="max-w-3xl mx-auto">
+            
+            <!-- Badge -->
+            <div class="text-center mb-6">
+                <span class="inline-flex items-center gap-2 px-4 py-2 bg-emerald-500/10 border border-emerald-500/30 rounded-full text-sm text-emerald-400 font-medium">
+                    <span class="w-2 h-2 bg-emerald-400 rounded-full pulse-slow"></span>
+                    LIMITED — 23 OF 25 SPOTS REMAINING
+                </span>
+            </div>
+            
+            <h2 class="text-3xl md:text-4xl font-bold text-white text-center mb-4">
+                Lock in $499/year. Forever.
+            </h2>
+            <p class="text-slate-400 text-center mb-10 max-w-xl mx-auto">
+                Join as a Founding Partner before we open to the public. Your price never increases—even when ours does.
+            </p>
+            
+            <!-- Offer Card -->
+            <div class="founding-card rounded-2xl p-8 md:p-10 glow-emerald">
+                
+                <!-- What's Included -->
+                <div class="mb-8">
+                    <h3 class="text-lg font-semibold text-white mb-6">What's Included</h3>
+                    <div class="grid sm:grid-cols-2 gap-4">
+                        <div class="flex items-start gap-3">
+                            <svg class="w-5 h-5 text-emerald-400 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                            </svg>
+                            <div>
+                                <div class="text-white font-medium">1M tokens/month</div>
+                                <div class="text-slate-500 text-sm">~350 GPT-4o requests or 5K simple queries</div>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <svg class="w-5 h-5 text-emerald-400 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                            </svg>
+                            <div>
+                                <div class="text-white font-medium">Unlimited client workspaces</div>
+                                <div class="text-slate-500 text-sm">Track every project separately</div>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <svg class="w-5 h-5 text-emerald-400 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                            </svg>
+                            <div>
+                                <div class="text-white font-medium">Per-client cost tracking</div>
+                                <div class="text-slate-500 text-sm">Know exactly what each client costs</div>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <svg class="w-5 h-5 text-emerald-400 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                            </svg>
+                            <div>
+                                <div class="text-white font-medium">All 6 AI models</div>
+                                <div class="text-slate-500 text-sm">GPT-4o, Claude, Gemini + more coming</div>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <svg class="w-5 h-5 text-emerald-400 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                            </svg>
+                            <div>
+                                <div class="text-white font-medium">Per-client API keys</div>
+                                <div class="text-slate-500 text-sm">Isolate access per project</div>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <svg class="w-5 h-5 text-emerald-400 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                            </svg>
+                            <div>
+                                <div class="text-white font-medium">Cost allocation reports</div>
+                                <div class="text-slate-500 text-sm">CSV export for billing</div>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <svg class="w-5 h-5 text-emerald-400 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                            </svg>
+                            <div>
+                                <div class="text-white font-medium">Priority support (4hr response)</div>
+                                <div class="text-slate-500 text-sm">Direct founder access via Slack</div>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <svg class="w-5 h-5 text-emerald-400 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                            </svg>
+                            <div>
+                                <div class="text-white font-medium">Price locked forever</div>
+                                <div class="text-slate-500 text-sm">Even when we raise prices</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- The Math -->
+                <div class="bg-slate-900/50 rounded-xl p-6 mb-8 border border-slate-700/50">
+                    <h4 class="text-sm font-semibold text-slate-400 mb-4 tracking-wider">THE MATH</h4>
+                    <div class="space-y-2 font-mono text-sm">
+                        <div class="flex justify-between">
+                            <span class="text-slate-400">Pro plan (monthly):</span>
+                            <span class="text-slate-300">$99/mo = $1,188/year</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-emerald-400">Founding Partner:</span>
+                            <span class="text-emerald-400 font-semibold">$499/year = $42/mo</span>
+                        </div>
+                        <div class="border-t border-slate-700 pt-2 mt-2 flex justify-between">
+                            <span class="text-white font-medium">You save:</span>
+                            <span class="text-white font-bold">$689/year (58% off)</span>
+                        </div>
+                    </div>
+                    <p class="text-xs text-slate-500 mt-4">Pro features at Founding Partner pricing. Locked forever.</p>
+                </div>
+                
+                <!-- CTA -->
+                <a href="https://meetings.hubspot.com/chris4642/ai-gateway-founding-partner" target="_blank" class="block w-full bg-emerald-500 hover:bg-emerald-400 text-white font-semibold py-4 px-8 rounded-xl transition-all duration-200 text-lg text-center mb-4">
+                    Claim Your Founding Partner Spot
+                </a>
+                
+                <p class="text-center text-sm text-slate-500">
+                    90-day money-back guarantee. No questions asked.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works + Code -->
+    <section class="py-20 px-6 border-t border-slate-800/50">
+        <div class="max-w-4xl mx-auto">
+            <h2 class="text-2xl md:text-3xl font-bold text-white text-center mb-4">Live in 2 minutes</h2>
+            <p class="text-slate-400 text-center mb-12">Seriously. One line of code.</p>
+            
+            <!-- Steps -->
+            <div class="grid md:grid-cols-3 gap-8 mb-12">
+                <div class="text-center">
+                    <div class="inline-flex items-center justify-center w-12 h-12 bg-emerald-500/10 border border-emerald-500/30 rounded-xl mb-4 text-emerald-400 font-bold">1</div>
+                    <h3 class="text-white font-semibold mb-2">Sign Up</h3>
+                    <p class="text-slate-400 text-sm">Become a Founding Partner. Get instant dashboard access.</p>
+                </div>
+                <div class="text-center">
+                    <div class="inline-flex items-center justify-center w-12 h-12 bg-emerald-500/10 border border-emerald-500/30 rounded-xl mb-4 text-emerald-400 font-bold">2</div>
+                    <h3 class="text-white font-semibold mb-2">Get Your Key</h3>
+                    <p class="text-slate-400 text-sm">Generate an API key. Drop it into your code.</p>
+                </div>
+                <div class="text-center">
+                    <div class="inline-flex items-center justify-center w-12 h-12 bg-emerald-500/10 border border-emerald-500/30 rounded-xl mb-4 text-emerald-400 font-bold">3</div>
+                    <h3 class="text-white font-semibold mb-2">Start Building</h3>
+                    <p class="text-slate-400 text-sm">Make requests. Track costs. Invoice clients.</p>
+                </div>
+            </div>
+            
+            <!-- Code Example -->
+            <div class="code-block rounded-xl overflow-hidden">
+                <div class="flex items-center justify-between px-4 py-3 bg-slate-800/50 border-b border-slate-700">
+                    <span class="text-xs text-slate-400 font-mono">javascript</span>
+                    <button onclick="copyCode()" class="copy-btn text-xs text-slate-400 hover:text-white transition-colors flex items-center gap-1">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
+                        </svg>
+                        Copy
+                    </button>
+                </div>
+                <pre class="p-4 text-sm leading-relaxed overflow-x-auto"><code class="text-slate-300 font-mono"><span class="text-slate-500">// Before</span>
+<span class="text-slate-400">const</span> openai = <span class="text-slate-400">new</span> <span class="text-emerald-400">OpenAI</span>({ 
+  <span class="text-slate-400">apiKey:</span> process.env.<span class="text-amber-400">OPENAI_KEY</span>
+});
+
+<span class="text-slate-500">// After — one line change</span>
+<span class="text-slate-400">const</span> openai = <span class="text-slate-400">new</span> <span class="text-emerald-400">OpenAI</span>({ 
+  <span class="text-slate-400">apiKey:</span> process.env.<span class="text-amber-400">RESULTANT_KEY</span>,
+  <span class="text-slate-400">baseURL:</span> <span class="text-emerald-400">"https://ai-gateway-prod.fly.dev/v1"</span>
+});
+
+<span class="text-slate-500">// Same code. All providers. Full visibility.</span></code></pre>
+            </div>
+            
+            <div class="text-center mt-6">
+                <a href="#docs" class="text-sm text-emerald-400 hover:text-emerald-300 transition-colors">
+                    View full API documentation →
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Founder Note -->
+    <section class="py-20 px-6 border-t border-slate-800/50">
+        <div class="max-w-3xl mx-auto">
+            <div class="premium-card rounded-2xl p-8 md:p-10">
+                <div class="flex flex-col md:flex-row gap-6 md:gap-8">
+                    <img src="https://media.licdn.com/dms/image/v2/D4E03AQHOhVWWNIiPlg/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1730298499498?e=1738800000&v=beta&t=Yx2K5_Pq5_xKQs0n8xMUdZDw4HKvbT0M5bLlKlS4l_U" 
+                         alt="Chris Mott" 
+                         class="w-20 h-20 rounded-full object-cover border-2 border-emerald-500/30 flex-shrink-0">
+                    <div>
+                        <h3 class="text-lg font-semibold text-white mb-4">A note from the founder</h3>
+                        <div class="text-slate-300 space-y-4 leading-relaxed">
+                            <p>I've spent 3 years building automation systems for agencies. Last year, a client's AI bill jumped from $500 to $2,100 overnight. No warning.</p>
+                            <p>That's why I built AI Gateway — predictable costs, smart routing, per-client tracking. The infrastructure I wished existed.</p>
+                            <p>This Founding Partner program is for the first 25 agencies willing to bet on us early. You get locked-in pricing, direct access to me, and real influence on what we build.</p>
+                            <p class="text-emerald-400">Let's fix AI billing together.</p>
+                        </div>
+                        <div class="mt-6 text-white font-semibold">— Chris Mott</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="py-20 px-6 border-t border-slate-800/50">
+        <div class="max-w-3xl mx-auto">
+            <h2 class="text-2xl font-bold text-white text-center mb-12">Common Questions</h2>
+            
+            <div class="space-y-4">
+                <!-- FAQ 1 -->
+                <div class="faq-item premium-card rounded-xl cursor-pointer" onclick="toggleFaq(this)">
+                    <div class="flex items-center justify-between p-6">
+                        <h3 class="text-white font-medium">Who is this for?</h3>
+                        <svg class="faq-icon w-5 h-5 text-slate-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                        </svg>
+                    </div>
+                    <div class="faq-answer px-6 pb-6">
+                        <p class="text-slate-400">Agencies, freelancers, and developers who use AI APIs and want predictable costs with per-client visibility. If you're running Make.com automations, building with Bubble, or shipping AI features for clients — this is for you.</p>
+                    </div>
+                </div>
+                
+                <!-- FAQ 2 -->
+                <div class="faq-item premium-card rounded-xl cursor-pointer" onclick="toggleFaq(this)">
+                    <div class="flex items-center justify-between p-6">
+                        <h3 class="text-white font-medium">What's included in Founding Partner?</h3>
+                        <svg class="faq-icon w-5 h-5 text-slate-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                        </svg>
+                    </div>
+                    <div class="faq-answer px-6 pb-6">
+                        <p class="text-slate-400">All Pro features: 1M tokens/month, unlimited client workspaces, per-client cost tracking, per-client API keys, cost allocation reports with CSV export, and priority support (4hr response). Plus direct Slack access to me and input on the roadmap. Your price stays locked forever.</p>
+                    </div>
+                </div>
+                
+                <!-- FAQ 3 -->
+                <div class="faq-item premium-card rounded-xl cursor-pointer" onclick="toggleFaq(this)">
+                    <div class="flex items-center justify-between p-6">
+                        <h3 class="text-white font-medium">Which AI providers are supported?</h3>
+                        <svg class="faq-icon w-5 h-5 text-slate-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                        </svg>
+                    </div>
+                    <div class="faq-answer px-6 pb-6">
+                        <p class="text-slate-400">OpenAI (GPT-4o, GPT-4o-mini), Anthropic (Claude Sonnet 4.5, Claude Haiku), and Google (Gemini Flash, Gemini Pro). DeepSeek and Meta's LLaMA coming soon. The API is 100% OpenAI-compatible.</p>
+                    </div>
+                </div>
+                
+                <!-- FAQ 4 -->
+                <div class="faq-item premium-card rounded-xl cursor-pointer" onclick="toggleFaq(this)">
+                    <div class="flex items-center justify-between p-6">
+                        <h3 class="text-white font-medium">Is my data secure?</h3>
+                        <svg class="faq-icon w-5 h-5 text-slate-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                        </svg>
+                    </div>
+                    <div class="faq-answer px-6 pb-6">
+                        <p class="text-slate-400">Yes. We don't store prompts or completions. PII scrubbing removes sensitive data before it hits providers. Audit logs available for compliance. SOC2 certification in progress.</p>
+                    </div>
+                </div>
+                
+                <!-- FAQ 5 -->
+                <div class="faq-item premium-card rounded-xl cursor-pointer" onclick="toggleFaq(this)">
+                    <div class="flex items-center justify-between p-6">
+                        <h3 class="text-white font-medium">Can I cancel?</h3>
+                        <svg class="faq-icon w-5 h-5 text-slate-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                        </svg>
+                    </div>
+                    <div class="faq-answer px-6 pb-6">
+                        <p class="text-slate-400">90-day money-back guarantee, no questions asked. After that, you're locked in for the year — but at a price you'll never regret. We'll also prorate refunds for unused months if you need to cancel.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- API Docs Section -->
+    <section id="docs" class="py-20 px-6 border-t border-slate-800/50">
+        <div class="max-w-3xl mx-auto">
+            <h2 class="text-2xl font-bold text-white text-center mb-4">ResultantAI Gateway API</h2>
+            <p class="text-slate-400 text-center mb-12">Everything you need to get started</p>
+            
+            <!-- Base URL -->
+            <div class="mb-8">
+                <h3 class="text-sm font-semibold text-slate-400 mb-3 tracking-wider">BASE URL</h3>
+                <div class="code-block rounded-lg p-4 flex items-center justify-between">
+                    <code class="text-emerald-400 font-mono text-sm">https://ai-gateway-prod.fly.dev/v1</code>
+                    <button onclick="copyToClipboard('https://ai-gateway-prod.fly.dev/v1')" class="text-slate-400 hover:text-white transition-colors">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Authentication -->
+            <div class="mb-8">
+                <h3 class="text-sm font-semibold text-slate-400 mb-3 tracking-wider">AUTHENTICATION</h3>
+                <div class="code-block rounded-lg p-4 flex items-center justify-between">
+                    <code class="text-slate-300 font-mono text-sm">Authorization: Bearer <span class="text-amber-400">YOUR_API_KEY</span></code>
+                    <button onclick="copyToClipboard('Authorization: Bearer YOUR_API_KEY')" class="text-slate-400 hover:text-white transition-colors">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Chat Completion -->
+            <div class="mb-8">
+                <h3 class="text-sm font-semibold text-slate-400 mb-3 tracking-wider">CHAT COMPLETION</h3>
+                <div class="code-block rounded-xl overflow-hidden">
+                    <div class="flex items-center justify-between px-4 py-3 bg-slate-800/50 border-b border-slate-700">
+                        <span class="text-xs text-slate-400 font-mono">curl</span>
+                        <button onclick="copyCurl()" class="text-xs text-slate-400 hover:text-white transition-colors flex items-center gap-1">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
+                            </svg>
+                            Copy
+                        </button>
+                    </div>
+                    <pre class="p-4 text-sm leading-relaxed overflow-x-auto"><code class="text-slate-300 font-mono">curl https://ai-gateway-prod.fly.dev/v1/chat/completions \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "model": "gpt-4o",
+    "messages": [{"role": "user", "content": "Hello!"}]
+  }'</code></pre>
+                </div>
+            </div>
+            
+            <!-- Available Models -->
+            <div>
+                <h3 class="text-sm font-semibold text-slate-400 mb-3 tracking-wider">AVAILABLE MODELS</h3>
+                <div class="premium-card rounded-xl overflow-hidden">
+                    <table class="w-full text-sm">
+                        <thead>
+                            <tr class="border-b border-slate-700">
+                                <th class="text-left py-3 px-4 text-slate-400 font-medium">Model</th>
+                                <th class="text-left py-3 px-4 text-slate-400 font-medium">Provider</th>
+                                <th class="text-left py-3 px-4 text-slate-400 font-medium">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-800">
+                            <tr>
+                                <td class="py-3 px-4 font-mono text-emerald-400">gpt-4o</td>
+                                <td class="py-3 px-4 text-slate-300">OpenAI</td>
+                                <td class="py-3 px-4"><span class="text-xs text-emerald-400">Live</span></td>
+                            </tr>
+                            <tr>
+                                <td class="py-3 px-4 font-mono text-emerald-400">gpt-4o-mini</td>
+                                <td class="py-3 px-4 text-slate-300">OpenAI</td>
+                                <td class="py-3 px-4"><span class="text-xs text-emerald-400">Live</span></td>
+                            </tr>
+                            <tr>
+                                <td class="py-3 px-4 font-mono text-emerald-400">claude-sonnet-4-5</td>
+                                <td class="py-3 px-4 text-slate-300">Anthropic</td>
+                                <td class="py-3 px-4"><span class="text-xs text-emerald-400">Live</span></td>
+                            </tr>
+                            <tr>
+                                <td class="py-3 px-4 font-mono text-emerald-400">claude-haiku</td>
+                                <td class="py-3 px-4 text-slate-300">Anthropic</td>
+                                <td class="py-3 px-4"><span class="text-xs text-emerald-400">Live</span></td>
+                            </tr>
+                            <tr>
+                                <td class="py-3 px-4 font-mono text-emerald-400">gemini-1.5-flash</td>
+                                <td class="py-3 px-4 text-slate-300">Google</td>
+                                <td class="py-3 px-4"><span class="text-xs text-emerald-400">Live</span></td>
+                            </tr>
+                            <tr>
+                                <td class="py-3 px-4 font-mono text-emerald-400">gemini-1.5-pro</td>
+                                <td class="py-3 px-4 text-slate-300">Google</td>
+                                <td class="py-3 px-4"><span class="text-xs text-emerald-400">Live</span></td>
+                            </tr>
+                            <tr class="bg-slate-800/30">
+                                <td class="py-3 px-4 font-mono text-slate-500">deepseek-*</td>
+                                <td class="py-3 px-4 text-slate-500">DeepSeek</td>
+                                <td class="py-3 px-4"><span class="coming-soon text-xs px-2 py-0.5 rounded-full">Coming Soon</span></td>
+                            </tr>
+                            <tr class="bg-slate-800/30">
+                                <td class="py-3 px-4 font-mono text-slate-500">llama-*</td>
+                                <td class="py-3 px-4 text-slate-500">Meta</td>
+                                <td class="py-3 px-4"><span class="coming-soon text-xs px-2 py-0.5 rounded-full">Coming Soon</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <p class="text-center text-sm text-slate-500 mt-8">
+                Full documentation available after signup. Questions? <a href="mailto:gateway@resultantai.com" class="text-emerald-400 hover:text-emerald-300">gateway@resultantai.com</a>
+            </p>
+        </div>
+    </section>
+
+    <!-- Final CTA -->
+    <section class="py-20 px-6 border-t border-slate-800/50 pb-32 md:pb-20">
+        <div class="max-w-2xl mx-auto text-center">
+            <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">25 spots. $499/year. Forever.</h2>
+            <p class="text-slate-400 mb-8">Stop managing API keys. Stop guessing client costs. Start building.</p>
+            
+            <a href="https://meetings.hubspot.com/chris4642/ai-gateway-founding-partner" target="_blank" class="inline-block bg-emerald-500 hover:bg-emerald-400 text-white font-semibold py-4 px-12 rounded-xl transition-all duration-200 text-lg">
+                Become a Founding Partner
+            </a>
+            
+            <p class="text-slate-500 text-sm mt-6">Questions? <a href="mailto:gateway@resultantai.com" class="text-emerald-400 hover:text-emerald-300">gateway@resultantai.com</a></p>
+        </div>
     </section>
 
     <!-- Footer -->
-    <footer class="footer">
-      <div class="container">
-        <div class="footer__inner">
-          <div class="footer__copy">© 2026 ResultantAI</div>
-          <div class="footer__links">
-            <a href="https://www.linkedin.com/in/chrismott1/" class="footer__link" target="_blank" rel="noopener">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
-              </svg>
-              LinkedIn
-            </a>
-            <a href="https://github.com/ResultantAI" class="footer__link" target="_blank" rel="noopener">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
-              </svg>
-              GitHub
-            </a>
-            <a href="https://x.com/resultswithai" class="footer__link" target="_blank" rel="noopener">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
-              </svg>
-              X
-            </a>
-          </div>
+    <footer class="border-t border-slate-800/50 py-8 px-6">
+        <div class="max-w-4xl mx-auto">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+                <div class="flex items-center gap-3">
+                    <span class="logo text-white">Resultant<span class="logo-ai">AI</span></span>
+                    <span class="text-slate-600">•</span>
+                    <span class="text-slate-500 text-sm">© 2025</span>
+                </div>
+                <div class="flex items-center gap-6 text-sm">
+                    <a href="https://ai-gateway-prod.fly.dev/health" target="_blank" class="text-slate-500 hover:text-white transition-colors">API Status</a>
+                    <a href="mailto:gateway@resultantai.com" class="text-slate-500 hover:text-white transition-colors">Support</a>
+                    <a href="https://resultantai.com" class="text-slate-500 hover:text-white transition-colors">Main Site</a>
+                </div>
+            </div>
         </div>
-      </div>
     </footer>
-  </div>
 
-  <!-- Scripts -->
-  <script>
-    // Reveal on scroll
-    const reveals = document.querySelectorAll('.reveal');
-    
-    const revealOnScroll = () => {
-      reveals.forEach(el => {
-        const windowHeight = window.innerHeight;
-        const elementTop = el.getBoundingClientRect().top;
-        const elementVisible = 100;
-        
-        if (elementTop < windowHeight - elementVisible) {
-          el.classList.add('visible');
+    <!-- Mobile Sticky CTA -->
+    <div class="fixed bottom-0 left-0 right-0 md:hidden bg-slate-950/95 border-t border-slate-800 p-4 mobile-sticky z-50">
+        <a href="https://meetings.hubspot.com/chris4642/ai-gateway-founding-partner" target="_blank" class="block w-full bg-emerald-500 hover:bg-emerald-400 text-white font-semibold py-3.5 px-6 rounded-xl text-center transition-all duration-200">
+            Book Call — 23 spots left
+        </a>
+    </div>
+
+    <!-- Exit Intent Popup -->
+    <div id="exit-popup" class="fixed inset-0 z-50 hidden">
+        <div class="popup-overlay absolute inset-0 bg-slate-950/80" onclick="closePopup()"></div>
+        <div class="absolute inset-0 flex items-center justify-center p-4">
+            <div class="premium-card rounded-2xl p-8 max-w-md w-full relative glow-emerald">
+                <button onclick="closePopup()" class="absolute top-4 right-4 text-slate-500 hover:text-white transition-colors">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                    </svg>
+                </button>
+                
+                <div id="exit-form-container" class="text-center">
+                    <div class="w-12 h-12 bg-emerald-500/10 border border-emerald-500/30 rounded-xl flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-6 h-6 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-2">Before you go...</h3>
+                    <p class="text-slate-400 mb-6">Get the AI Cost Savings Calculator — see exactly how much you could save.</p>
+                    
+                    <form id="exit-form" class="space-y-4">
+                        <input 
+                            type="email" 
+                            id="exit-email"
+                            placeholder="Enter your email" 
+                            required
+                            class="w-full px-4 py-3 bg-slate-900 border border-slate-700 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:border-emerald-500 transition-colors"
+                        >
+                        <button type="submit" class="w-full bg-emerald-500 hover:bg-emerald-400 text-white font-semibold py-3 px-6 rounded-xl transition-all duration-200">
+                            Send Me the Calculator
+                        </button>
+                    </form>
+                    
+                    <p class="text-slate-600 text-xs mt-4">No spam. Unsubscribe anytime.</p>
+                </div>
+                
+                <!-- Success State -->
+                <div id="exit-success" class="hidden text-center">
+                    <div class="w-12 h-12 bg-emerald-500/10 border border-emerald-500/30 rounded-xl flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-6 h-6 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-2">Check your inbox!</h3>
+                    <p class="text-slate-400">The calculator is on its way.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Mobile menu toggle
+        document.getElementById('mobile-menu-btn').addEventListener('click', function() {
+            document.getElementById('mobile-menu').classList.toggle('hidden');
+        });
+
+        // FAQ Accordion
+        function toggleFaq(element) {
+            // Close all other FAQs
+            document.querySelectorAll('.faq-item').forEach(item => {
+                if (item !== element) {
+                    item.classList.remove('open');
+                }
+            });
+            // Toggle current
+            element.classList.toggle('open');
         }
-      });
-    };
-    
-    window.addEventListener('scroll', revealOnScroll);
-    revealOnScroll();
 
-    // Form handling
-    const form = document.getElementById('waitlistForm');
-    const success = document.getElementById('waitlistSuccess');
-    
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      
-      const formData = new FormData(form);
-      const data = Object.fromEntries(formData);
-      
-      // Here you'd send to your backend / ConvertKit / etc.
-      // For now, just show success state
-      console.log('Waitlist signup:', data);
-      
-      // Example: Send to ConvertKit
-      // await fetch('https://api.convertkit.com/v3/forms/YOUR_FORM_ID/subscribe', {
-      //   method: 'POST',
-      //   headers: { 'Content-Type': 'application/json' },
-      //   body: JSON.stringify({
-      //     api_key: 'YOUR_API_KEY',
-      //     email: data.email,
-      //     first_name: data.name,
-      //     fields: {
-      //       company: data.company,
-      //       use_case: data.use_case
-      //     }
-      //   })
-      // });
-      
-      // Show success
-      form.style.display = 'none';
-      success.classList.add('visible');
-      
-      // Update counter (in production, fetch real count)
-      const counter = document.querySelector('.waitlist-card__counter strong');
-      counter.textContent = parseInt(counter.textContent) + 1;
-    });
+        // Copy to clipboard functions
+        function copyCode() {
+            const code = `const openai = new OpenAI({ 
+  apiKey: process.env.RESULTANT_KEY,
+  baseURL: "https://ai-gateway-prod.fly.dev/v1"
+});`;
+            copyToClipboard(code);
+        }
 
-    // Animate counter on load
-    const counterEl = document.querySelector('.waitlist-card__counter strong');
-    const targetCount = 23;
-    let currentCount = 0;
-    
-    const animateCounter = () => {
-      if (currentCount < targetCount) {
-        currentCount++;
-        counterEl.textContent = currentCount;
-        setTimeout(animateCounter, 50);
-      }
-    };
-    
-    setTimeout(animateCounter, 1000);
-  </script>
+        function copyCurl() {
+            const curl = `curl https://ai-gateway-prod.fly.dev/v1/chat/completions \\
+  -H "Authorization: Bearer YOUR_API_KEY" \\
+  -H "Content-Type: application/json" \\
+  -d '{
+    "model": "gpt-4o",
+    "messages": [{"role": "user", "content": "Hello!"}]
+  }'`;
+            copyToClipboard(curl);
+        }
+
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                // Could add a toast notification here
+                console.log('Copied to clipboard');
+            });
+        }
+
+        // Exit Intent Detection
+        let popupShown = false;
+        document.addEventListener('mouseout', function(e) {
+            if (e.clientY < 10 && !popupShown && !localStorage.getItem('exitPopupShown')) {
+                document.getElementById('exit-popup').classList.remove('hidden');
+                popupShown = true;
+            }
+        });
+
+        function closePopup() {
+            document.getElementById('exit-popup').classList.add('hidden');
+            localStorage.setItem('exitPopupShown', 'true');
+        }
+
+        // Exit form handling
+        document.getElementById('exit-form').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const email = document.getElementById('exit-email').value;
+            
+            // Send to Make.com webhook
+            try {
+                await fetch('https://hook.us2.make.com/ydin3kbyd49e4hti31jqf7l34rv3unmo', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        email: email,
+                        source: 'exit-popup',
+                        timestamp: new Date().toISOString(),
+                        page: 'gateway-founding-partner'
+                    })
+                });
+            } catch (err) {
+                console.log('Webhook error:', err);
+            }
+            
+            // Show success
+            document.getElementById('exit-form-container').classList.add('hidden');
+            document.getElementById('exit-success').classList.remove('hidden');
+            
+            // Close after 2 seconds
+            setTimeout(closePopup, 2000);
+        });
+
+        // Close popup on escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') closePopup();
+        });
+    </script>
+
 </body>
 </html>
