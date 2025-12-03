@@ -1,2254 +1,566 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ResultantAI Gateway — Predictable AI Costs for Agencies</title>
-  <meta name="description" content="Stop guessing what AI will cost. One API key, every provider, predictable monthly bills. Join 25 Founding Partners — $499/year locked forever.">
-  
-  <!-- Open Graph -->
-  <meta property="og:title" content="ResultantAI Gateway — Predictable AI Costs for Agencies">
-  <meta property="og:description" content="One API key. Every provider. Predictable monthly bills. Built for agencies tired of AI cost anxiety.">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://gateway.resultantai.com">
-  
-  <!-- Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-  
-  <style>
-    /* ============================================
-       CSS VARIABLES
-       ============================================ */
-    :root {
-      --bg-primary: #0a0f1a;
-      --bg-secondary: #0f172a;
-      --bg-card: #151d2e;
-      --bg-card-hover: #1a2540;
-      --border: #1e293b;
-      --border-light: #334155;
-      --border-glow: rgba(16, 185, 129, 0.3);
-      
-      --text-primary: #ffffff;
-      --text-secondary: #94a3b8;
-      --text-muted: #64748b;
-      
-      --accent: #10b981;
-      --accent-light: #34d399;
-      --accent-dark: #059669;
-      --accent-subtle: rgba(16, 185, 129, 0.08);
-      --accent-glow: rgba(16, 185, 129, 0.4);
-      
-      --gradient-accent: linear-gradient(135deg, #10b981 0%, #34d399 100%);
-      --gradient-hero: radial-gradient(ellipse 80% 50% at 50% -20%, rgba(16, 185, 129, 0.15), transparent);
-      
-      --radius-sm: 6px;
-      --radius-md: 10px;
-      --radius-lg: 16px;
-      --radius-xl: 24px;
-      --radius-full: 9999px;
-      
-      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-      --font-mono: 'JetBrains Mono', monospace;
-      
-      --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
-      --shadow-md: 0 4px 20px rgba(0, 0, 0, 0.4);
-      --shadow-lg: 0 8px 40px rgba(0, 0, 0, 0.5);
-      --shadow-glow: 0 0 60px var(--accent-glow);
-      
-      --transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-
-    /* ============================================
-       RESET & BASE
-       ============================================ */
-    *, *::before, *::after {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    html {
-      scroll-behavior: smooth;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-    }
-
-    body {
-      font-family: var(--font-sans);
-      background: var(--bg-primary);
-      color: var(--text-primary);
-      line-height: 1.6;
-      font-size: 16px;
-      overflow-x: hidden;
-      min-height: 100vh;
-    }
-
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
-
-    ::selection {
-      background: var(--accent);
-      color: var(--bg-primary);
-    }
-
-    /* Custom Scrollbar */
-    ::-webkit-scrollbar {
-      width: 8px;
-    }
-    ::-webkit-scrollbar-track {
-      background: var(--bg-primary);
-    }
-    ::-webkit-scrollbar-thumb {
-      background: var(--border-light);
-      border-radius: var(--radius-full);
-    }
-    ::-webkit-scrollbar-thumb:hover {
-      background: var(--accent);
-    }
-
-    /* ============================================
-       ANIMATED BACKGROUND
-       ============================================ */
-    .bg-grid {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background-image: 
-        linear-gradient(rgba(16, 185, 129, 0.03) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(16, 185, 129, 0.03) 1px, transparent 1px);
-      background-size: 60px 60px;
-      pointer-events: none;
-      z-index: 0;
-    }
-
-    .bg-gradient {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 100vh;
-      background: var(--gradient-hero);
-      pointer-events: none;
-      z-index: 0;
-    }
-
-    .bg-orb {
-      position: fixed;
-      border-radius: 50%;
-      filter: blur(100px);
-      opacity: 0.4;
-      pointer-events: none;
-      z-index: 0;
-      animation: float 25s ease-in-out infinite;
-    }
-
-    .bg-orb--1 {
-      width: 800px;
-      height: 800px;
-      background: rgba(16, 185, 129, 0.15);
-      top: -300px;
-      right: -200px;
-    }
-
-    .bg-orb--2 {
-      width: 600px;
-      height: 600px;
-      background: rgba(16, 185, 129, 0.1);
-      bottom: -200px;
-      left: -200px;
-      animation-delay: -12s;
-    }
-
-    .bg-orb--3 {
-      width: 400px;
-      height: 400px;
-      background: rgba(59, 130, 246, 0.08);
-      top: 40%;
-      left: 60%;
-      animation-delay: -6s;
-    }
-
-    @keyframes float {
-      0%, 100% { transform: translate(0, 0) scale(1); }
-      25% { transform: translate(30px, -40px) scale(1.05); }
-      50% { transform: translate(-20px, 30px) scale(0.95); }
-      75% { transform: translate(25px, 15px) scale(1.02); }
-    }
-
-    /* Animated lines */
-    .bg-lines {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      overflow: hidden;
-      pointer-events: none;
-      z-index: 0;
-    }
-
-    .bg-line {
-      position: absolute;
-      width: 1px;
-      height: 100%;
-      background: linear-gradient(180deg, transparent, var(--accent), transparent);
-      opacity: 0.1;
-      animation: line-flow 8s linear infinite;
-    }
-
-    .bg-line:nth-child(1) { left: 10%; animation-delay: 0s; }
-    .bg-line:nth-child(2) { left: 30%; animation-delay: -2s; }
-    .bg-line:nth-child(3) { left: 50%; animation-delay: -4s; }
-    .bg-line:nth-child(4) { left: 70%; animation-delay: -6s; }
-    .bg-line:nth-child(5) { left: 90%; animation-delay: -1s; }
-
-    @keyframes line-flow {
-      0% { transform: translateY(-100%); opacity: 0; }
-      50% { opacity: 0.15; }
-      100% { transform: translateY(100%); opacity: 0; }
-    }
-
-    /* ============================================
-       LAYOUT
-       ============================================ */
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 24px;
-    }
-
-    .container--narrow {
-      max-width: 800px;
-    }
-
-    .page {
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      position: relative;
-      z-index: 1;
-    }
-
-    /* ============================================
-       HEADER
-       ============================================ */
-    .header {
-      padding: 20px 0;
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      z-index: 100;
-      background: rgba(10, 15, 26, 0.8);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border-bottom: 1px solid rgba(30, 41, 59, 0.5);
-    }
-
-    .header__inner {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .header__logo {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-size: 18px;
-      font-weight: 800;
-      letter-spacing: -0.02em;
-    }
-
-    .logo-accent {
-      color: var(--accent);
-    }
-
-    .footer__logo {
-      font-size: 16px;
-      font-weight: 800;
-      letter-spacing: -0.02em;
-    }
-
-    .header__nav {
-      display: flex;
-      align-items: center;
-      gap: 32px;
-    }
-
-    .header__link {
-      color: var(--text-secondary);
-      font-size: 14px;
-      font-weight: 500;
-      transition: color var(--transition);
-    }
-
-    .header__link:hover {
-      color: var(--text-primary);
-    }
-
-    .header__link--active {
-      color: var(--accent);
-    }
-
-    .header__cta {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: var(--accent);
-      color: var(--bg-primary);
-      font-size: 14px;
-      font-weight: 600;
-      padding: 10px 20px;
-      border-radius: var(--radius-md);
-      transition: all var(--transition);
-    }
-
-    .header__cta:hover {
-      background: var(--accent-light);
-      transform: translateY(-1px);
-    }
-
-    @media (max-width: 768px) {
-      .header__nav {
-        display: none;
-      }
-    }
-
-    /* Mobile menu button */
-    .header__mobile-btn {
-      display: none;
-      background: none;
-      border: none;
-      color: var(--text-secondary);
-      cursor: pointer;
-      padding: 8px;
-    }
-
-    @media (max-width: 768px) {
-      .header__mobile-btn {
-        display: block;
-      }
-    }
-
-    /* ============================================
-       URGENCY BANNER
-       ============================================ */
-    .urgency-banner {
-      position: fixed;
-      top: 65px;
-      left: 0;
-      right: 0;
-      z-index: 90;
-      background: rgba(16, 185, 129, 0.05);
-      border-bottom: 1px solid rgba(16, 185, 129, 0.15);
-      padding: 10px 24px;
-      text-align: center;
-    }
-
-    .urgency-banner__content {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 16px;
-      flex-wrap: wrap;
-      font-size: 14px;
-    }
-
-    .urgency-banner__dot {
-      width: 8px;
-      height: 8px;
-      background: var(--accent);
-      border-radius: 50%;
-      animation: pulse 2s ease-in-out infinite;
-    }
-
-    @keyframes pulse {
-      0%, 100% { opacity: 1; transform: scale(1); }
-      50% { opacity: 0.5; transform: scale(1.3); }
-    }
-
-    .urgency-banner__count {
-      color: var(--accent);
-      font-weight: 700;
-      font-family: var(--font-mono);
-    }
-
-    .urgency-banner__text {
-      color: var(--text-secondary);
-    }
-
-    .urgency-banner__deadline {
-      color: var(--text-muted);
-      font-size: 13px;
-    }
-
-    /* ============================================
-       HERO SECTION
-       ============================================ */
-    .hero {
-      padding: 180px 0 100px;
-      text-align: center;
-    }
-
-    .hero__badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      background: var(--accent-subtle);
-      border: 1px solid rgba(16, 185, 129, 0.2);
-      padding: 8px 16px 8px 12px;
-      border-radius: var(--radius-full);
-      font-size: 13px;
-      font-weight: 600;
-      color: var(--accent-light);
-      margin-bottom: 28px;
-      animation: fadeInUp 0.6s ease forwards;
-    }
-
-    .hero__badge-dot {
-      width: 8px;
-      height: 8px;
-      background: var(--accent);
-      border-radius: 50%;
-      animation: pulse 2s ease-in-out infinite;
-    }
-
-    .hero__title {
-      font-size: clamp(40px, 6vw, 64px);
-      font-weight: 800;
-      line-height: 1.1;
-      letter-spacing: -0.04em;
-      margin-bottom: 24px;
-      animation: fadeInUp 0.6s ease 0.1s forwards;
-      opacity: 0;
-    }
-
-    .hero__title-accent {
-      background: var(--gradient-accent);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-
-    .hero__subtitle {
-      font-size: 19px;
-      color: var(--text-secondary);
-      max-width: 600px;
-      margin: 0 auto 48px;
-      line-height: 1.7;
-      animation: fadeInUp 0.6s ease 0.2s forwards;
-      opacity: 0;
-    }
-
-    @keyframes fadeInUp {
-      from {
-        opacity: 0;
-        transform: translateY(30px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    /* ============================================
-       FOUNDING PARTNER CARD
-       ============================================ */
-    .founding-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border-glow);
-      border-radius: var(--radius-xl);
-      padding: 48px;
-      max-width: 520px;
-      margin: 0 auto 48px;
-      position: relative;
-      overflow: hidden;
-      animation: fadeInUp 0.6s ease 0.3s forwards;
-      opacity: 0;
-      box-shadow: var(--shadow-glow);
-    }
-
-    .founding-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 3px;
-      background: var(--gradient-accent);
-    }
-
-    .founding-card::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(circle at 50% 0%, var(--accent-subtle), transparent 60%);
-      pointer-events: none;
-    }
-
-    .founding-card__content {
-      position: relative;
-      z-index: 1;
-    }
-
-    .founding-card__label {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 12px;
-      font-weight: 700;
-      color: var(--accent);
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      margin-bottom: 16px;
-    }
-
-    .founding-card__price {
-      font-size: 56px;
-      font-weight: 800;
-      font-family: var(--font-mono);
-      margin-bottom: 4px;
-    }
-
-    .founding-card__price span {
-      font-size: 20px;
-      color: var(--text-muted);
-      font-weight: 500;
-    }
-
-    .founding-card__price-note {
-      font-size: 14px;
-      color: var(--text-secondary);
-      margin-bottom: 8px;
-    }
-
-    .founding-card__price-compare {
-      font-size: 14px;
-      color: var(--text-muted);
-      text-decoration: line-through;
-      margin-bottom: 32px;
-    }
-
-    .founding-card__cta {
-      display: block;
-      width: 100%;
-      background: var(--gradient-accent);
-      color: var(--bg-primary);
-      font-size: 16px;
-      font-weight: 700;
-      padding: 18px 32px;
-      border-radius: var(--radius-md);
-      border: none;
-      cursor: pointer;
-      transition: all var(--transition);
-      text-align: center;
-      box-shadow: 0 4px 20px rgba(16, 185, 129, 0.3);
-    }
-
-    .founding-card__cta:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 30px rgba(16, 185, 129, 0.4);
-    }
-
-    .founding-card__guarantee {
-      font-size: 13px;
-      color: var(--text-muted);
-      margin-top: 16px;
-    }
-
-    .hero__signin {
-      font-size: 14px;
-      color: var(--text-muted);
-      animation: fadeInUp 0.6s ease 0.4s forwards;
-      opacity: 0;
-    }
-
-    .hero__signin a {
-      color: var(--accent);
-      transition: color var(--transition);
-    }
-
-    .hero__signin a:hover {
-      color: var(--accent-light);
-    }
-
-    /* ============================================
-       PROBLEM SECTION
-       ============================================ */
-    .section {
-      padding: 100px 0;
-      position: relative;
-      z-index: 1;
-    }
-
-    .section::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 1px;
-      background: linear-gradient(90deg, transparent, var(--border-light), transparent);
-    }
-
-    .section__header {
-      text-align: center;
-      margin-bottom: 64px;
-    }
-
-    .section__label {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 13px;
-      font-weight: 600;
-      color: var(--accent);
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      margin-bottom: 16px;
-    }
-
-    .section__title {
-      font-size: clamp(28px, 4vw, 40px);
-      font-weight: 800;
-      letter-spacing: -0.03em;
-      margin-bottom: 16px;
-    }
-
-    .section__subtitle {
-      font-size: 17px;
-      color: var(--text-secondary);
-      max-width: 500px;
-      margin: 0 auto;
-      line-height: 1.7;
-    }
-
-    /* Problem cards */
-    .problem-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 24px;
-    }
-
-    @media (max-width: 900px) {
-      .problem-grid {
-        grid-template-columns: 1fr;
-        max-width: 500px;
-        margin: 0 auto;
-      }
-    }
-
-    .problem-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-xl);
-      padding: 32px;
-      transition: all var(--transition);
-    }
-
-    .problem-card:hover {
-      border-color: rgba(239, 68, 68, 0.3);
-      transform: translateY(-4px);
-    }
-
-    .problem-card__icon {
-      width: 48px;
-      height: 48px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: rgba(239, 68, 68, 0.1);
-      border: 1px solid rgba(239, 68, 68, 0.2);
-      border-radius: var(--radius-lg);
-      margin-bottom: 20px;
-      color: #ef4444;
-    }
-
-    .problem-card__title {
-      font-size: 18px;
-      font-weight: 700;
-      margin-bottom: 8px;
-    }
-
-    .problem-card__desc {
-      font-size: 14px;
-      color: var(--text-secondary);
-      line-height: 1.7;
-    }
-
-    /* ============================================
-       SOLUTION SECTION
-       ============================================ */
-    .solution-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 24px;
-    }
-
-    @media (max-width: 900px) {
-      .solution-grid {
-        grid-template-columns: 1fr;
-        max-width: 500px;
-        margin: 0 auto;
-      }
-    }
-
-    .solution-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-xl);
-      padding: 32px;
-      transition: all var(--transition);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .solution-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 2px;
-      background: var(--gradient-accent);
-      transform: scaleX(0);
-      transform-origin: left;
-      transition: transform var(--transition);
-    }
-
-    .solution-card:hover {
-      border-color: var(--border-glow);
-      transform: translateY(-4px);
-    }
-
-    .solution-card:hover::before {
-      transform: scaleX(1);
-    }
-
-    .solution-card__icon {
-      width: 48px;
-      height: 48px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: var(--accent-subtle);
-      border: 1px solid rgba(16, 185, 129, 0.2);
-      border-radius: var(--radius-lg);
-      margin-bottom: 20px;
-      color: var(--accent);
-      transition: all var(--transition);
-    }
-
-    .solution-card:hover .solution-card__icon {
-      background: var(--accent);
-      color: var(--bg-primary);
-      transform: scale(1.1) rotate(-5deg);
-    }
-
-    .solution-card__title {
-      font-size: 18px;
-      font-weight: 700;
-      margin-bottom: 8px;
-    }
-
-    .solution-card__desc {
-      font-size: 14px;
-      color: var(--text-secondary);
-      line-height: 1.7;
-    }
-
-    /* ============================================
-       COMPARISON TABLE
-       ============================================ */
-    .comparison {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-xl);
-      overflow: hidden;
-      max-width: 900px;
-      margin: 0 auto;
-    }
-
-    .comparison__table {
-      width: 100%;
-      border-collapse: collapse;
-    }
-
-    .comparison__table th,
-    .comparison__table td {
-      padding: 16px 24px;
-      text-align: left;
-      border-bottom: 1px solid var(--border);
-    }
-
-    .comparison__table th {
-      font-size: 14px;
-      font-weight: 600;
-      color: var(--text-muted);
-      background: var(--bg-secondary);
-    }
-
-    .comparison__table th:last-child {
-      background: rgba(16, 185, 129, 0.05);
-      color: var(--accent);
-    }
-
-    .comparison__table td {
-      font-size: 14px;
-      color: var(--text-secondary);
-    }
-
-    .comparison__table td:last-child {
-      background: rgba(16, 185, 129, 0.03);
-    }
-
-    .comparison__table tr:last-child td {
-      border-bottom: none;
-    }
-
-    .comparison__check {
-      color: var(--accent);
-    }
-
-    .comparison__x {
-      color: #ef4444;
-      opacity: 0.7;
-    }
-
-    @media (max-width: 600px) {
-      .comparison__table th,
-      .comparison__table td {
-        padding: 12px 16px;
-        font-size: 13px;
-      }
-    }
-
-    /* ============================================
-       FOUNDING PARTNER OFFER SECTION
-       ============================================ */
-    .offer {
-      padding: 100px 0;
-      background: linear-gradient(180deg, rgba(16, 185, 129, 0.03) 0%, transparent 100%);
-    }
-
-    .offer-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border-glow);
-      border-radius: var(--radius-xl);
-      padding: 48px;
-      max-width: 700px;
-      margin: 0 auto;
-      position: relative;
-      overflow: hidden;
-      box-shadow: var(--shadow-glow);
-    }
-
-    .offer-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 3px;
-      background: var(--gradient-accent);
-    }
-
-    .offer-card::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(circle at 50% 0%, var(--accent-subtle), transparent 60%);
-      pointer-events: none;
-    }
-
-    .offer-card__content {
-      position: relative;
-      z-index: 1;
-    }
-
-    .offer-card__badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: var(--accent-subtle);
-      border: 1px solid rgba(16, 185, 129, 0.2);
-      padding: 6px 14px;
-      border-radius: var(--radius-full);
-      font-size: 12px;
-      font-weight: 700;
-      color: var(--accent);
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      margin-bottom: 24px;
-    }
-
-    .offer-card__badge-dot {
-      width: 6px;
-      height: 6px;
-      background: var(--accent);
-      border-radius: 50%;
-      animation: pulse 2s ease-in-out infinite;
-    }
-
-    .offer-card__title {
-      font-size: 32px;
-      font-weight: 800;
-      letter-spacing: -0.02em;
-      margin-bottom: 16px;
-    }
-
-    .offer-card__desc {
-      font-size: 16px;
-      color: var(--text-secondary);
-      line-height: 1.7;
-      margin-bottom: 32px;
-    }
-
-    /* Features grid */
-    .offer-features {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 16px;
-      margin-bottom: 32px;
-    }
-
-    @media (max-width: 600px) {
-      .offer-features {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    .offer-feature {
-      display: flex;
-      align-items: flex-start;
-      gap: 12px;
-    }
-
-    .offer-feature__icon {
-      width: 20px;
-      height: 20px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: var(--accent);
-      border-radius: 50%;
-      color: var(--bg-primary);
-      flex-shrink: 0;
-      margin-top: 2px;
-    }
-
-    .offer-feature__text {
-      font-size: 14px;
-    }
-
-    .offer-feature__text strong {
-      color: var(--text-primary);
-      font-weight: 600;
-    }
-
-    .offer-feature__text span {
-      color: var(--text-muted);
-      display: block;
-      font-size: 13px;
-    }
-
-    /* Math box */
-    .offer-math {
-      background: var(--bg-primary);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-lg);
-      padding: 24px;
-      margin-bottom: 32px;
-    }
-
-    .offer-math__title {
-      font-size: 12px;
-      font-weight: 700;
-      color: var(--text-muted);
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      margin-bottom: 16px;
-    }
-
-    .offer-math__row {
-      display: flex;
-      justify-content: space-between;
-      font-family: var(--font-mono);
-      font-size: 14px;
-      padding: 8px 0;
-    }
-
-    .offer-math__row--total {
-      border-top: 1px solid var(--border);
-      margin-top: 8px;
-      padding-top: 16px;
-      font-weight: 700;
-    }
-
-    .offer-math__label {
-      color: var(--text-secondary);
-    }
-
-    .offer-math__label--accent {
-      color: var(--accent);
-    }
-
-    .offer-math__value {
-      color: var(--text-primary);
-    }
-
-    .offer-math__value--accent {
-      color: var(--accent);
-    }
-
-    .offer-math__note {
-      font-size: 13px;
-      color: var(--text-muted);
-      margin-top: 16px;
-      font-family: var(--font-sans);
-    }
-
-    .offer-card__cta {
-      display: block;
-      width: 100%;
-      background: var(--gradient-accent);
-      color: var(--bg-primary);
-      font-size: 16px;
-      font-weight: 700;
-      padding: 18px 32px;
-      border-radius: var(--radius-md);
-      border: none;
-      cursor: pointer;
-      transition: all var(--transition);
-      text-align: center;
-      box-shadow: 0 4px 20px rgba(16, 185, 129, 0.3);
-    }
-
-    .offer-card__cta:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 30px rgba(16, 185, 129, 0.4);
-    }
-
-    .offer-card__guarantee {
-      font-size: 13px;
-      color: var(--text-muted);
-      text-align: center;
-      margin-top: 16px;
-    }
-
-    /* ============================================
-       HOW IT WORKS
-       ============================================ */
-    .steps {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 32px;
-      margin-bottom: 48px;
-    }
-
-    @media (max-width: 768px) {
-      .steps {
-        grid-template-columns: 1fr;
-        max-width: 400px;
-        margin: 0 auto 48px;
-      }
-    }
-
-    .step {
-      text-align: center;
-    }
-
-    .step__number {
-      width: 48px;
-      height: 48px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: var(--accent-subtle);
-      border: 1px solid rgba(16, 185, 129, 0.3);
-      border-radius: var(--radius-lg);
-      font-size: 18px;
-      font-weight: 700;
-      color: var(--accent);
-      margin: 0 auto 16px;
-    }
-
-    .step__title {
-      font-size: 18px;
-      font-weight: 700;
-      margin-bottom: 8px;
-    }
-
-    .step__desc {
-      font-size: 14px;
-      color: var(--text-secondary);
-    }
-
-    /* Code block */
-    .code-block {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-xl);
-      overflow: hidden;
-      max-width: 600px;
-      margin: 0 auto;
-    }
-
-    .code-block__header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 12px 20px;
-      background: var(--bg-secondary);
-      border-bottom: 1px solid var(--border);
-    }
-
-    .code-block__lang {
-      font-size: 12px;
-      font-family: var(--font-mono);
-      color: var(--text-muted);
-    }
-
-    .code-block__copy {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      background: none;
-      border: none;
-      color: var(--text-muted);
-      font-size: 12px;
-      cursor: pointer;
-      transition: color var(--transition);
-    }
-
-    .code-block__copy:hover {
-      color: var(--accent);
-    }
-
-    .code-block__content {
-      padding: 24px;
-      overflow-x: auto;
-    }
-
-    .code-block__content pre {
-      margin: 0;
-      font-family: var(--font-mono);
-      font-size: 14px;
-      line-height: 1.7;
-    }
-
-    .code-block__content code {
-      color: var(--text-secondary);
-    }
-
-    .code-comment {
-      color: var(--text-muted);
-    }
-
-    .code-keyword {
-      color: var(--text-secondary);
-    }
-
-    .code-string {
-      color: var(--accent);
-    }
-
-    .code-var {
-      color: #fbbf24;
-    }
-
-    /* ============================================
-       FOUNDER NOTE
-       ============================================ */
-    .founder-note {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-xl);
-      padding: 40px;
-      max-width: 800px;
-      margin: 0 auto;
-      display: flex;
-      gap: 32px;
-      align-items: flex-start;
-    }
-
-    @media (max-width: 600px) {
-      .founder-note {
-        flex-direction: column;
-        text-align: center;
-        align-items: center;
-      }
-    }
-
-    .founder-note__photo {
-      width: 80px;
-      height: 80px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 2px solid var(--border-glow);
-      flex-shrink: 0;
-    }
-
-    .founder-note__content {
-      flex: 1;
-    }
-
-    .founder-note__title {
-      font-size: 18px;
-      font-weight: 700;
-      margin-bottom: 16px;
-    }
-
-    .founder-note__text {
-      font-size: 15px;
-      color: var(--text-secondary);
-      line-height: 1.8;
-    }
-
-    .founder-note__text p {
-      margin-bottom: 16px;
-    }
-
-    .founder-note__text p:last-child {
-      margin-bottom: 0;
-    }
-
-    .founder-note__accent {
-      color: var(--accent);
-    }
-
-    .founder-note__signature {
-      margin-top: 20px;
-      font-weight: 700;
-      color: var(--text-primary);
-    }
-
-    /* ============================================
-       FAQ SECTION
-       ============================================ */
-    .faq-list {
-      max-width: 700px;
-      margin: 0 auto;
-    }
-
-    .faq-item {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-lg);
-      margin-bottom: 12px;
-      overflow: hidden;
-      cursor: pointer;
-      transition: border-color var(--transition);
-    }
-
-    .faq-item:hover {
-      border-color: var(--border-light);
-    }
-
-    .faq-item.open {
-      border-color: var(--border-glow);
-    }
-
-    .faq-question {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 20px 24px;
-      font-size: 16px;
-      font-weight: 600;
-    }
-
-    .faq-icon {
-      color: var(--text-muted);
-      transition: transform var(--transition);
-    }
-
-    .faq-item.open .faq-icon {
-      transform: rotate(180deg);
-    }
-
-    .faq-answer {
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height 0.3s ease, padding 0.3s ease;
-    }
-
-    .faq-item.open .faq-answer {
-      max-height: 300px;
-    }
-
-    .faq-answer__content {
-      padding: 0 24px 20px;
-      font-size: 14px;
-      color: var(--text-secondary);
-      line-height: 1.7;
-    }
-
-    /* ============================================
-       API DOCS SECTION
-       ============================================ */
-    .docs-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 24px;
-      max-width: 800px;
-      margin: 0 auto 32px;
-    }
-
-    @media (max-width: 600px) {
-      .docs-grid {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    .docs-item {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-lg);
-      padding: 20px 24px;
-    }
-
-    .docs-item__label {
-      font-size: 11px;
-      font-weight: 700;
-      color: var(--text-muted);
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      margin-bottom: 8px;
-    }
-
-    .docs-item__value {
-      font-family: var(--font-mono);
-      font-size: 14px;
-      color: var(--accent);
-      word-break: break-all;
-    }
-
-    /* Models table */
-    .models-table {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-xl);
-      overflow: hidden;
-      max-width: 700px;
-      margin: 0 auto;
-    }
-
-    .models-table table {
-      width: 100%;
-      border-collapse: collapse;
-    }
-
-    .models-table th,
-    .models-table td {
-      padding: 14px 20px;
-      text-align: left;
-      border-bottom: 1px solid var(--border);
-      font-size: 14px;
-    }
-
-    .models-table th {
-      font-weight: 600;
-      color: var(--text-muted);
-      background: var(--bg-secondary);
-    }
-
-    .models-table td {
-      color: var(--text-secondary);
-    }
-
-    .models-table tr:last-child td {
-      border-bottom: none;
-    }
-
-    .models-table__model {
-      font-family: var(--font-mono);
-      color: var(--accent);
-    }
-
-    .models-table__status {
-      font-size: 12px;
-      font-weight: 600;
-    }
-
-    .models-table__status--live {
-      color: var(--accent);
-    }
-
-    .models-table__status--soon {
-      background: rgba(251, 191, 36, 0.1);
-      border: 1px solid rgba(251, 191, 36, 0.3);
-      color: #fbbf24;
-      padding: 4px 10px;
-      border-radius: var(--radius-full);
-    }
-
-    .docs-support {
-      text-align: center;
-      font-size: 14px;
-      color: var(--text-muted);
-      margin-top: 32px;
-    }
-
-    .docs-support a {
-      color: var(--accent);
-      transition: color var(--transition);
-    }
-
-    .docs-support a:hover {
-      color: var(--accent-light);
-    }
-
-    /* ============================================
-       FINAL CTA
-       ============================================ */
-    .final-cta {
-      padding: 100px 0;
-      text-align: center;
-    }
-
-    .final-cta__title {
-      font-size: clamp(28px, 4vw, 40px);
-      font-weight: 800;
-      letter-spacing: -0.03em;
-      margin-bottom: 16px;
-    }
-
-    .final-cta__subtitle {
-      font-size: 17px;
-      color: var(--text-secondary);
-      margin-bottom: 32px;
-    }
-
-    .final-cta__btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      background: var(--gradient-accent);
-      color: var(--bg-primary);
-      font-size: 16px;
-      font-weight: 700;
-      padding: 18px 40px;
-      border-radius: var(--radius-md);
-      transition: all var(--transition);
-      box-shadow: 0 4px 20px rgba(16, 185, 129, 0.3);
-    }
-
-    .final-cta__btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 30px rgba(16, 185, 129, 0.4);
-    }
-
-    .final-cta__support {
-      font-size: 14px;
-      color: var(--text-muted);
-      margin-top: 24px;
-    }
-
-    .final-cta__support a {
-      color: var(--accent);
-      transition: color var(--transition);
-    }
-
-    .final-cta__support a:hover {
-      color: var(--accent-light);
-    }
-
-    /* ============================================
-       FOOTER
-       ============================================ */
-    .footer {
-      padding: 32px 0;
-      border-top: 1px solid var(--border);
-      position: relative;
-      z-index: 1;
-    }
-
-    .footer__inner {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 24px;
-    }
-
-    .footer__brand {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .footer__logo {
-      font-size: 16px;
-      font-weight: 800;
-      letter-spacing: -0.02em;
-    }
-
-    .footer__logo span {
-      color: var(--accent);
-    }
-
-    .footer__copy {
-      color: var(--text-muted);
-      font-size: 14px;
-    }
-
-    .footer__links {
-      display: flex;
-      gap: 24px;
-    }
-
-    .footer__link {
-      color: var(--text-secondary);
-      font-size: 14px;
-      font-weight: 500;
-      transition: color var(--transition);
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .footer__link:hover {
-      color: var(--accent);
-    }
-
-    /* ============================================
-       MOBILE STICKY CTA
-       ============================================ */
-    .mobile-cta {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      z-index: 100;
-      background: rgba(10, 15, 26, 0.95);
-      backdrop-filter: blur(12px);
-      border-top: 1px solid var(--border);
-      padding: 16px 24px;
-      padding-bottom: calc(16px + env(safe-area-inset-bottom));
-      display: none;
-    }
-
-    @media (max-width: 768px) {
-      .mobile-cta {
-        display: block;
-      }
-
-      .final-cta {
-        padding-bottom: 140px;
-      }
-    }
-
-    .mobile-cta__btn {
-      display: block;
-      width: 100%;
-      background: var(--gradient-accent);
-      color: var(--bg-primary);
-      font-size: 15px;
-      font-weight: 700;
-      padding: 16px 24px;
-      border-radius: var(--radius-md);
-      text-align: center;
-    }
-
-    /* ============================================
-       REVEAL ANIMATIONS
-       ============================================ */
-    .reveal {
-      opacity: 0;
-      transform: translateY(40px);
-      transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-
-    .reveal.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stop Guessing Your AI Bill | AI Gateway</title>
+    <meta name="description" content="Flat-rate AI pricing. One API for OpenAI, Claude, Gemini. Track costs per client. Free beta access.">
+    
+    <!-- Preload critical fonts -->
+    <!-- Reddit Pixel - Replace YOUR_PIXEL_ID with actual ID from Reddit Ads -->
+    <script>
+    !function(w,d){if(!w.rdt){var p=w.rdt=function(){p.sendEvent?p.sendEvent.apply(p,arguments):p.callQueue.push(arguments)};p.callQueue=[];var t=d.createElement("script");t.src="https://www.redditstatic.com/ads/pixel.js",t.async=!0;var s=d.getElementsByTagName("script")[0];s.parentNode.insertBefore(t,s)}}(window,document);
+    rdt('init','a2_htj8d1flphh9');
+    rdt('track', 'PageVisit');
+    </script>
+    <!-- End Reddit Pixel -->
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+    
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        :root {
+            --bg: #0a0d12;
+            --card: #111820;
+            --border: #1e2a3a;
+            --text: #94a3b8;
+            --text-bright: #e2e8f0;
+            --accent: #10b981;
+            --accent-glow: rgba(16, 185, 129, 0.15);
+            --danger: #ef4444;
+        }
+        
+        body {
+            font-family: 'DM Sans', -apple-system, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+        
+        /* Subtle grid background */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image: 
+                linear-gradient(rgba(16, 185, 129, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(16, 185, 129, 0.03) 1px, transparent 1px);
+            background-size: 60px 60px;
+            pointer-events: none;
+            z-index: 0;
+        }
+        
+        .container {
+            max-width: 520px;
+            margin: 0 auto;
+            padding: 32px 20px 80px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* Header */
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: var(--accent-glow);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            color: var(--accent);
+            font-size: 12px;
+            font-weight: 500;
+            padding: 6px 12px;
+            border-radius: 20px;
+            margin-bottom: 24px;
+        }
+        
+        .badge::before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            background: var(--accent);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.4; }
+        }
+        
+        h1 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(28px, 7vw, 40px);
+            font-weight: 700;
+            color: var(--text-bright);
+            line-height: 1.15;
+            margin-bottom: 16px;
+            letter-spacing: -0.02em;
+        }
+        
+        .highlight {
+            color: var(--accent);
+        }
+        
+        .subhead {
+            font-size: 17px;
+            color: var(--text);
+            margin-bottom: 32px;
+            max-width: 440px;
+        }
+        
+        /* Pain points */
+        .pain-list {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 28px;
+        }
+        
+        .pain-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 10px 0;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .pain-item:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+        
+        .pain-item:first-child {
+            padding-top: 0;
+        }
+        
+        .pain-icon {
+            color: var(--danger);
+            font-size: 14px;
+            margin-top: 2px;
+            flex-shrink: 0;
+        }
+        
+        .pain-text {
+            font-size: 15px;
+            color: var(--text-bright);
+        }
+        
+        .pain-text span {
+            color: var(--text);
+            font-size: 14px;
+            display: block;
+            margin-top: 2px;
+        }
+        
+        /* Solution */
+        .solution-header {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-bottom: 16px;
+        }
+        
+        .benefit-grid {
+            display: grid;
+            gap: 12px;
+            margin-bottom: 32px;
+        }
+        
+        .benefit {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 14px 16px;
+        }
+        
+        .benefit-check {
+            width: 20px;
+            height: 20px;
+            background: var(--accent-glow);
+            border: 1px solid rgba(16, 185, 129, 0.4);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        
+        .benefit-check svg {
+            width: 12px;
+            height: 12px;
+            color: var(--accent);
+        }
+        
+        .benefit-text {
+            font-size: 15px;
+            color: var(--text-bright);
+        }
+        
+        /* Form */
+        .form-card {
+            background: linear-gradient(135deg, var(--card) 0%, #0d1218 100%);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 28px 24px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+        
+        .form-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--text-bright);
+            margin-bottom: 6px;
+        }
+        
+        .form-subtitle {
+            font-size: 14px;
+            color: var(--text);
+            margin-bottom: 20px;
+        }
+        
+        .form-group {
+            margin-bottom: 14px;
+        }
+        
+        .form-label {
+            display: block;
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text);
+            margin-bottom: 6px;
+        }
+        
+        .form-input {
+            width: 100%;
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 14px 16px;
+            font-size: 16px;
+            color: var(--text-bright);
+            font-family: inherit;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+        
+        .form-input:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px var(--accent-glow);
+        }
+        
+        .form-input::placeholder {
+            color: #4a5568;
+        }
+        
+        .form-select {
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%2394a3b8' viewBox='0 0 16 16'%3E%3Cpath d='M8 11L3 6h10l-5 5z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 14px center;
+            padding-right: 40px;
+            cursor: pointer;
+        }
+        
+        .submit-btn {
+            width: 100%;
+            background: var(--accent);
+            color: #000;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 16px;
+            font-weight: 700;
+            padding: 16px 24px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            margin-top: 6px;
+        }
+        
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(16, 185, 129, 0.3);
+        }
+        
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+        
+        .form-note {
+            text-align: center;
+            font-size: 12px;
+            color: var(--text);
+            margin-top: 14px;
+        }
+        
+        /* Success state */
+        .success-state {
+            display: none;
+            text-align: center;
+            padding: 20px 0;
+        }
+        
+        .success-state.visible {
+            display: block;
+        }
+        
+        .success-icon {
+            width: 56px;
+            height: 56px;
+            background: var(--accent-glow);
+            border: 2px solid var(--accent);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 16px;
+        }
+        
+        .success-icon svg {
+            width: 28px;
+            height: 28px;
+            color: var(--accent);
+        }
+        
+        .success-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--text-bright);
+            margin-bottom: 8px;
+        }
+        
+        .success-text {
+            font-size: 15px;
+            color: var(--text);
+        }
+        
+        /* Footer */
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 24px;
+            border-top: 1px solid var(--border);
+        }
+        
+        .footer-logo {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            font-size: 14px;
+            color: var(--text);
+            margin-bottom: 8px;
+        }
+        
+        .footer-links {
+            font-size: 13px;
+            color: var(--text);
+        }
+        
+        .footer-links a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+        
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
+        
+        /* Form hidden state */
+        #signup-form.hidden {
+            display: none;
+        }
+        
+        /* Loading state */
+        .submit-btn.loading {
+            pointer-events: none;
+            opacity: 0.7;
+        }
+    </style>
 </head>
 <body>
-  <!-- Background elements -->
-  <div class="bg-grid"></div>
-  <div class="bg-gradient"></div>
-  <div class="bg-orb bg-orb--1"></div>
-  <div class="bg-orb bg-orb--2"></div>
-  <div class="bg-orb bg-orb--3"></div>
-  <div class="bg-lines">
-    <div class="bg-line"></div>
-    <div class="bg-line"></div>
-    <div class="bg-line"></div>
-    <div class="bg-line"></div>
-    <div class="bg-line"></div>
-  </div>
-
-  <div class="page">
-    <!-- Header -->
-    <header class="header">
-      <div class="container">
-        <div class="header__inner">
-          <a href="https://resultantai.com" class="header__logo">
-            Resultant<span class="logo-accent">AI</span>
-          </a>
-          <nav class="header__nav">
-            <a href="https://resultantai.com/services" class="header__link">Services</a>
-            <a href="https://resultantai.com/work" class="header__link">Work</a>
-            <a href="#" class="header__link header__link--active">Gateway</a>
-            <a href="https://meetings.hubspot.com/chris4642/ai-gateway-founding-partner" target="_blank" class="header__cta">Book a Call</a>
-          </nav>
-          <button class="header__mobile-btn" id="mobileMenuBtn">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M4 6h16M4 12h16M4 18h16"/>
-            </svg>
-          </button>
-        </div>
-      </div>
-    </header>
-
-    <!-- Urgency Banner -->
-    <div class="urgency-banner">
-      <div class="urgency-banner__content">
-        <span class="urgency-banner__dot"></span>
-        <span class="urgency-banner__count">23 of 25</span>
-        <span class="urgency-banner__text">Founding Partner spots remaining</span>
-        <span class="urgency-banner__deadline">• Closes Dec 24, 2025</span>
-      </div>
-    </div>
-
-    <!-- Hero Section -->
-    <section class="hero">
-      <div class="container">
-        <div class="hero__badge">
-          <span class="hero__badge-dot"></span>
-          ResultantAI Gateway • Now Live
-        </div>
-        <h1 class="hero__title">
-          Stop Guessing What<br>
-          <span class="hero__title-accent">AI Will Cost</span>
-        </h1>
-        <p class="hero__subtitle">
-          One API key. Every provider. Predictable monthly bills.<br>
-          Built for agencies tired of AI cost anxiety.
-        </p>
-
-        <!-- Founding Partner Card -->
-        <div class="founding-card">
-          <div class="founding-card__content">
-            <div class="founding-card__label">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
-              </svg>
-              Founding Partner Price
-            </div>
-            <div class="founding-card__price">$499<span>/year</span></div>
-            <div class="founding-card__price-note">$42/month • Locked forever</div>
-            <div class="founding-card__price-compare">After Dec 24: $99/month ($1,188/year)</div>
-            <a href="https://meetings.hubspot.com/chris4642/ai-gateway-founding-partner" target="_blank" class="founding-card__cta">
-              Book Your Founding Partner Call
-            </a>
-            <p class="founding-card__guarantee">90-day money-back guarantee • Cancel anytime</p>
-          </div>
-        </div>
-
-        <p class="hero__signin">
-          Already a member? <a href="https://ai-gateway-prod.fly.dev/dashboard">Sign in →</a>
-        </p>
-      </div>
-    </section>
-
-    <!-- Problem Section -->
-    <section class="section">
-      <div class="container">
-        <div class="section__header reveal">
-          <div class="section__label">The Problem</div>
-          <h2 class="section__title">AI costs are unpredictable. Your business can't be.</h2>
-          <p class="section__subtitle">Sound familiar?</p>
-        </div>
-        <div class="problem-grid">
-          <div class="problem-card reveal">
-            <div class="problem-card__icon">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M13 17h8m0 0V9m0 8l-8-8-4 4-6-6"/>
-              </svg>
-            </div>
-            <h3 class="problem-card__title">Bill Shock</h3>
-            <p class="problem-card__desc">One automation goes viral. Your API bill explodes. You eat the cost or have an awkward client conversation.</p>
-          </div>
-          <div class="problem-card reveal">
-            <div class="problem-card__icon">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"/>
-              </svg>
-            </div>
-            <h3 class="problem-card__title">Key Chaos</h3>
-            <p class="problem-card__desc">15 API keys. 3 providers. Costs tracked in spreadsheets. Client billing is a monthly nightmare.</p>
-          </div>
-          <div class="problem-card reveal">
-            <div class="problem-card__icon">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21"/>
-              </svg>
-            </div>
-            <h3 class="problem-card__title">Zero Visibility</h3>
-            <p class="problem-card__desc">"How much AI did we use for Acme Corp?" You don't know. Neither does your accountant.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Solution Section -->
-    <section class="section">
-      <div class="container">
-        <div class="section__header reveal">
-          <div class="section__label">The Solution</div>
-          <h2 class="section__title">One gateway. Complete control.</h2>
-          <p class="section__subtitle">AI Gateway sits between your code and the providers. You get visibility. They get requests.</p>
-        </div>
-        <div class="solution-grid">
-          <div class="solution-card reveal">
-            <div class="solution-card__icon">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"/>
-              </svg>
-            </div>
-            <h3 class="solution-card__title">Single API Key</h3>
-            <p class="solution-card__desc">Replace OpenAI, Anthropic, and Google keys with one endpoint. Change one line of code.</p>
-          </div>
-          <div class="solution-card reveal">
-            <div class="solution-card__icon">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
-              </svg>
-            </div>
-            <h3 class="solution-card__title">Per-Client Tracking</h3>
-            <p class="solution-card__desc">See usage by client in real-time. Know exactly what each project costs. Bill accurately.</p>
-          </div>
-          <div class="solution-card reveal">
-            <div class="solution-card__icon">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
-              </svg>
-            </div>
-            <h3 class="solution-card__title">Predictable Pricing</h3>
-            <p class="solution-card__desc">Flat annual rate. No per-token anxiety. Smart routing saves 60-80% on AI costs.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Comparison Section -->
-    <section class="section">
-      <div class="container">
-        <div class="section__header reveal">
-          <div class="section__label">Compare</div>
-          <h2 class="section__title">Direct API vs AI Gateway</h2>
-          <p class="section__subtitle">See why agencies are switching</p>
-        </div>
-        <div class="comparison reveal">
-          <table class="comparison__table">
-            <thead>
-              <tr>
-                <th></th>
-                <th>Direct API</th>
-                <th>AI Gateway</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Monthly cost (typical agency)</td>
-                <td>$800 - $2,000+</td>
-                <td>$200 - $600</td>
-              </tr>
-              <tr>
-                <td>Predictable billing</td>
-                <td><span class="comparison__x">✕</span> Pay-per-token</td>
-                <td><span class="comparison__check">✓</span> Hard budget caps</td>
-              </tr>
-              <tr>
-                <td>Per-client cost tracking</td>
-                <td><span class="comparison__x">✕</span> Manual spreadsheets</td>
-                <td><span class="comparison__check">✓</span> Automatic</td>
-              </tr>
-              <tr>
-                <td>Multi-provider routing</td>
-                <td><span class="comparison__x">✕</span> Build yourself</td>
-                <td><span class="comparison__check">✓</span> Built-in</td>
-              </tr>
-              <tr>
-                <td>Smart model selection</td>
-                <td><span class="comparison__x">✕</span> Manual</td>
-                <td><span class="comparison__check">✓</span> Cheapest-adequate routing</td>
-              </tr>
-              <tr>
-                <td>Code changes required</td>
-                <td>N/A</td>
-                <td>1 line</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </section>
-
-    <!-- Founding Partner Offer Section -->
-    <section class="offer">
-      <div class="container">
-        <div class="offer-card reveal">
-          <div class="offer-card__content">
-            <div class="offer-card__badge">
-              <span class="offer-card__badge-dot"></span>
-              Limited — 23 of 25 spots remaining
-            </div>
-            <h2 class="offer-card__title">Lock in $499/year. Forever.</h2>
-            <p class="offer-card__desc">Join as a Founding Partner before we open to the public. Your price never increases—even when ours does.</p>
-
-            <!-- Features -->
-            <div class="offer-features">
-              <div class="offer-feature">
-                <div class="offer-feature__icon">
-                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
-                    <polyline points="20 6 9 17 4 12"/>
-                  </svg>
-                </div>
-                <div class="offer-feature__text">
-                  <strong>1M tokens/month</strong>
-                  <span>~350 GPT-4o requests or 5K simple queries</span>
-                </div>
-              </div>
-              <div class="offer-feature">
-                <div class="offer-feature__icon">
-                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
-                    <polyline points="20 6 9 17 4 12"/>
-                  </svg>
-                </div>
-                <div class="offer-feature__text">
-                  <strong>Unlimited client workspaces</strong>
-                  <span>Track every project separately</span>
-                </div>
-              </div>
-              <div class="offer-feature">
-                <div class="offer-feature__icon">
-                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
-                    <polyline points="20 6 9 17 4 12"/>
-                  </svg>
-                </div>
-                <div class="offer-feature__text">
-                  <strong>Per-client cost tracking</strong>
-                  <span>Know exactly what each client costs</span>
-                </div>
-              </div>
-              <div class="offer-feature">
-                <div class="offer-feature__icon">
-                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
-                    <polyline points="20 6 9 17 4 12"/>
-                  </svg>
-                </div>
-                <div class="offer-feature__text">
-                  <strong>All 6 AI models</strong>
-                  <span>GPT-4o, Claude, Gemini + more coming</span>
-                </div>
-              </div>
-              <div class="offer-feature">
-                <div class="offer-feature__icon">
-                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
-                    <polyline points="20 6 9 17 4 12"/>
-                  </svg>
-                </div>
-                <div class="offer-feature__text">
-                  <strong>Per-client API keys</strong>
-                  <span>Isolate access per project</span>
-                </div>
-              </div>
-              <div class="offer-feature">
-                <div class="offer-feature__icon">
-                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
-                    <polyline points="20 6 9 17 4 12"/>
-                  </svg>
-                </div>
-                <div class="offer-feature__text">
-                  <strong>Cost allocation reports</strong>
-                  <span>CSV export for billing</span>
-                </div>
-              </div>
-              <div class="offer-feature">
-                <div class="offer-feature__icon">
-                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
-                    <polyline points="20 6 9 17 4 12"/>
-                  </svg>
-                </div>
-                <div class="offer-feature__text">
-                  <strong>Priority support (4hr response)</strong>
-                  <span>Direct founder access via Slack</span>
-                </div>
-              </div>
-              <div class="offer-feature">
-                <div class="offer-feature__icon">
-                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
-                    <polyline points="20 6 9 17 4 12"/>
-                  </svg>
-                </div>
-                <div class="offer-feature__text">
-                  <strong>Price locked forever</strong>
-                  <span>Even when we raise prices</span>
-                </div>
-              </div>
-            </div>
-
-            <!-- The Math -->
-            <div class="offer-math">
-              <div class="offer-math__title">The Math</div>
-              <div class="offer-math__row">
-                <span class="offer-math__label">Pro plan (monthly):</span>
-                <span class="offer-math__value">$99/mo = $1,188/year</span>
-              </div>
-              <div class="offer-math__row">
-                <span class="offer-math__label offer-math__label--accent">Founding Partner:</span>
-                <span class="offer-math__value offer-math__value--accent">$499/year = $42/mo</span>
-              </div>
-              <div class="offer-math__row offer-math__row--total">
-                <span class="offer-math__label">You save:</span>
-                <span class="offer-math__value">$689/year (58% off)</span>
-              </div>
-              <p class="offer-math__note">Pro features at Founding Partner pricing. Locked forever.</p>
-            </div>
-
-            <a href="https://meetings.hubspot.com/chris4642/ai-gateway-founding-partner" target="_blank" class="offer-card__cta">
-              Claim Your Founding Partner Spot
-            </a>
-            <p class="offer-card__guarantee">90-day money-back guarantee. No questions asked.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- How It Works -->
-    <section class="section">
-      <div class="container">
-        <div class="section__header reveal">
-          <div class="section__label">Integration</div>
-          <h2 class="section__title">Live in 2 minutes</h2>
-          <p class="section__subtitle">Seriously. One line of code.</p>
-        </div>
-
-        <div class="steps reveal">
-          <div class="step">
-            <div class="step__number">1</div>
-            <h3 class="step__title">Sign Up</h3>
-            <p class="step__desc">Become a Founding Partner. Get instant dashboard access.</p>
-          </div>
-          <div class="step">
-            <div class="step__number">2</div>
-            <h3 class="step__title">Get Your Key</h3>
-            <p class="step__desc">Generate an API key. Drop it into your code.</p>
-          </div>
-          <div class="step">
-            <div class="step__number">3</div>
-            <h3 class="step__title">Start Building</h3>
-            <p class="step__desc">Make requests. Track costs. Invoice clients.</p>
-          </div>
-        </div>
-
-        <div class="code-block reveal">
-          <div class="code-block__header">
-            <span class="code-block__lang">javascript</span>
-            <button class="code-block__copy" onclick="copyCode()">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
-                <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/>
-              </svg>
-              Copy
-            </button>
-          </div>
-          <div class="code-block__content">
-            <pre><code><span class="code-comment">// Before</span>
-<span class="code-keyword">const</span> openai = <span class="code-keyword">new</span> OpenAI({ 
-  apiKey: process.env.<span class="code-var">OPENAI_KEY</span>
-});
-
-<span class="code-comment">// After — one line change</span>
-<span class="code-keyword">const</span> openai = <span class="code-keyword">new</span> OpenAI({ 
-  apiKey: process.env.<span class="code-var">RESULTANT_KEY</span>,
-  baseURL: <span class="code-string">"https://ai-gateway-prod.fly.dev/v1"</span>
-});
-
-<span class="code-comment">// Same code. All providers. Full visibility.</span></code></pre>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Founder Note -->
-    <section class="section">
-      <div class="container">
-        <div class="founder-note reveal">
-          <img src="https://media.licdn.com/dms/image/v2/D4E03AQHOhVWWNIiPlg/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1730298499498?e=1738800000&v=beta&t=Yx2K5_Pq5_xKQs0n8xMUdZDw4HKvbT0M5bLlKlS4l_U" alt="Chris Mott" class="founder-note__photo">
-          <div class="founder-note__content">
-            <h3 class="founder-note__title">A note from the founder</h3>
-            <div class="founder-note__text">
-              <p>I've spent 3 years building automation systems for agencies. Last year, a client's AI bill jumped from $500 to $2,100 overnight. No warning.</p>
-              <p>That's why I built AI Gateway — predictable costs, smart routing, per-client tracking. The infrastructure I wished existed.</p>
-              <p>This Founding Partner program is for the first 25 agencies willing to bet on us early. You get locked-in pricing, direct access to me, and real influence on what we build.</p>
-              <p class="founder-note__accent">Let's fix AI billing together.</p>
-            </div>
-            <div class="founder-note__signature">— Chris Mott</div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- FAQ -->
-    <section class="section">
-      <div class="container">
-        <div class="section__header reveal">
-          <div class="section__label">FAQ</div>
-          <h2 class="section__title">Common Questions</h2>
-        </div>
-        <div class="faq-list reveal">
-          <div class="faq-item" onclick="toggleFaq(this)">
-            <div class="faq-question">
-              <span>Who is this for?</span>
-              <svg class="faq-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M6 9l6 6 6-6"/>
-              </svg>
-            </div>
-            <div class="faq-answer">
-              <div class="faq-answer__content">
-                Agencies, freelancers, and developers who use AI APIs and want predictable costs with per-client visibility. If you're running Make.com automations, building with Bubble, or shipping AI features for clients — this is for you.
-              </div>
-            </div>
-          </div>
-          <div class="faq-item" onclick="toggleFaq(this)">
-            <div class="faq-question">
-              <span>What's included in Founding Partner?</span>
-              <svg class="faq-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M6 9l6 6 6-6"/>
-              </svg>
-            </div>
-            <div class="faq-answer">
-              <div class="faq-answer__content">
-                All Pro features: 1M tokens/month, unlimited client workspaces, per-client cost tracking, per-client API keys, cost allocation reports with CSV export, and priority support (4hr response). Plus direct Slack access to me and input on the roadmap. Your price stays locked forever.
-              </div>
-            </div>
-          </div>
-          <div class="faq-item" onclick="toggleFaq(this)">
-            <div class="faq-question">
-              <span>Which AI providers are supported?</span>
-              <svg class="faq-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M6 9l6 6 6-6"/>
-              </svg>
-            </div>
-            <div class="faq-answer">
-              <div class="faq-answer__content">
-                OpenAI (GPT-4o, GPT-4o-mini), Anthropic (Claude Sonnet 4.5, Claude Haiku), and Google (Gemini Flash, Gemini Pro). DeepSeek and Meta's LLaMA coming soon. The API is 100% OpenAI-compatible.
-              </div>
-            </div>
-          </div>
-          <div class="faq-item" onclick="toggleFaq(this)">
-            <div class="faq-question">
-              <span>Is my data secure?</span>
-              <svg class="faq-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M6 9l6 6 6-6"/>
-              </svg>
-            </div>
-            <div class="faq-answer">
-              <div class="faq-answer__content">
-                Yes. We don't store prompts or completions. PII scrubbing removes sensitive data before it hits providers. Audit logs available for compliance. SOC2 certification in progress.
-              </div>
-            </div>
-          </div>
-          <div class="faq-item" onclick="toggleFaq(this)">
-            <div class="faq-question">
-              <span>Can I cancel?</span>
-              <svg class="faq-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M6 9l6 6 6-6"/>
-              </svg>
-            </div>
-            <div class="faq-answer">
-              <div class="faq-answer__content">
-                90-day money-back guarantee, no questions asked. After that, you're locked in for the year — but at a price you'll never regret. We'll also prorate refunds for unused months if you need to cancel.
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- API Docs -->
-    <section class="section" id="docs">
-      <div class="container">
-        <div class="section__header reveal">
-          <div class="section__label">Developers</div>
-          <h2 class="section__title">ResultantAI Gateway API</h2>
-          <p class="section__subtitle">Everything you need to get started</p>
-        </div>
-
-        <div class="docs-grid reveal">
-          <div class="docs-item">
-            <div class="docs-item__label">Base URL</div>
-            <div class="docs-item__value">https://ai-gateway-prod.fly.dev/v1</div>
-          </div>
-          <div class="docs-item">
-            <div class="docs-item__label">Authentication</div>
-            <div class="docs-item__value">Authorization: Bearer YOUR_API_KEY</div>
-          </div>
-        </div>
-
-        <div class="models-table reveal">
-          <table>
-            <thead>
-              <tr>
-                <th>Model</th>
-                <th>Provider</th>
-                <th>Status</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td class="models-table__model">gpt-4o</td>
-                <td>OpenAI</td>
-                <td><span class="models-table__status models-table__status--live">Live</span></td>
-              </tr>
-              <tr>
-                <td class="models-table__model">gpt-4o-mini</td>
-                <td>OpenAI</td>
-                <td><span class="models-table__status models-table__status--live">Live</span></td>
-              </tr>
-              <tr>
-                <td class="models-table__model">claude-sonnet-4-5</td>
-                <td>Anthropic</td>
-                <td><span class="models-table__status models-table__status--live">Live</span></td>
-              </tr>
-              <tr>
-                <td class="models-table__model">claude-haiku</td>
-                <td>Anthropic</td>
-                <td><span class="models-table__status models-table__status--live">Live</span></td>
-              </tr>
-              <tr>
-                <td class="models-table__model">gemini-1.5-flash</td>
-                <td>Google</td>
-                <td><span class="models-table__status models-table__status--live">Live</span></td>
-              </tr>
-              <tr>
-                <td class="models-table__model">gemini-1.5-pro</td>
-                <td>Google</td>
-                <td><span class="models-table__status models-table__status--live">Live</span></td>
-              </tr>
-              <tr>
-                <td class="models-table__model">deepseek-*</td>
-                <td>DeepSeek</td>
-                <td><span class="models-table__status models-table__status--soon">Coming Soon</span></td>
-              </tr>
-              <tr>
-                <td class="models-table__model">llama-*</td>
-                <td>Meta</td>
-                <td><span class="models-table__status models-table__status--soon">Coming Soon</span></td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-
-        <p class="docs-support reveal">
-          Full documentation available after signup. Questions? <a href="mailto:gateway@resultantai.com">gateway@resultantai.com</a>
-        </p>
-      </div>
-    </section>
-
-    <!-- Final CTA -->
-    <section class="final-cta">
-      <div class="container">
-        <h2 class="final-cta__title reveal">25 spots. $499/year. Forever.</h2>
-        <p class="final-cta__subtitle reveal">Stop managing API keys. Stop guessing client costs. Start building.</p>
-        <a href="https://meetings.hubspot.com/chris4642/ai-gateway-founding-partner" target="_blank" class="final-cta__btn reveal">
-          Become a Founding Partner
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-            <path d="M5 12h14M12 5l7 7-7 7"/>
-          </svg>
-        </a>
-        <p class="final-cta__support reveal">Questions? <a href="mailto:gateway@resultantai.com">gateway@resultantai.com</a></p>
-      </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="footer">
-      <div class="container">
-        <div class="footer__inner">
-          <div class="footer__brand">
-            <span class="footer__logo">Resultant<span class="logo-accent">AI</span></span>
-            <span class="footer__copy">© 2025</span>
-          </div>
-          <div class="footer__links">
-            <a href="https://ai-gateway-prod.fly.dev/health" target="_blank" class="footer__link">API Status</a>
-            <a href="mailto:gateway@resultantai.com" class="footer__link">Support</a>
-            <a href="https://resultantai.com" class="footer__link">Main Site</a>
-            <a href="https://www.linkedin.com/in/chrismott1/" target="_blank" class="footer__link">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
-              </svg>
-              LinkedIn
-            </a>
-          </div>
-        </div>
-      </div>
-    </footer>
-  </div>
-
-  <!-- Mobile Sticky CTA -->
-  <div class="mobile-cta">
-    <a href="https://meetings.hubspot.com/chris4642/ai-gateway-founding-partner" target="_blank" class="mobile-cta__btn">
-      Book Call — 23 spots left
-    </a>
-  </div>
-
-  <!-- Scripts -->
-  <script>
-    // Reveal on scroll
-    const reveals = document.querySelectorAll('.reveal');
-    
-    const revealOnScroll = () => {
-      reveals.forEach(el => {
-        const windowHeight = window.innerHeight;
-        const elementTop = el.getBoundingClientRect().top;
-        const elementVisible = 100;
+    <div class="container">
+        <!-- Badge -->
+        <div class="badge">Free Beta Access — Limited Spots</div>
         
-        if (elementTop < windowHeight - elementVisible) {
-          el.classList.add('visible');
-        }
-      });
-    };
+        <!-- Headline -->
+        <h1>Your AI bill shouldn't be a <span class="highlight">mystery</span></h1>
+        
+        <p class="subhead">One API key. All providers. Flat monthly pricing. Built for agencies and builders tired of unpredictable AI costs.</p>
+        
+        <!-- Pain Points -->
+        <div class="pain-list">
+            <div class="pain-item">
+                <span class="pain-icon">✕</span>
+                <div class="pain-text">
+                    OpenAI bill jumped from $47 to $312
+                    <span>One viral feature, no warning, margin gone</span>
+                </div>
+            </div>
+            <div class="pain-item">
+                <span class="pain-icon">✕</span>
+                <div class="pain-text">
+                    Managing 4 different API keys
+                    <span>OpenAI, Claude, Gemini... each with separate billing</span>
+                </div>
+            </div>
+            <div class="pain-item">
+                <span class="pain-icon">✕</span>
+                <div class="pain-text">
+                    Guessing what to charge clients
+                    <span>No per-client tracking = awkward invoice conversations</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Solution -->
+        <p class="solution-header">The fix</p>
+        
+        <div class="benefit-grid">
+            <div class="benefit">
+                <div class="benefit-check">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/>
+                    </svg>
+                </div>
+                <span class="benefit-text"><strong>$99/mo flat</strong> — Know costs before you ship</span>
+            </div>
+            <div class="benefit">
+                <div class="benefit-check">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/>
+                    </svg>
+                </div>
+                <span class="benefit-text"><strong>One API key</strong> — OpenAI + Claude + Gemini</span>
+            </div>
+            <div class="benefit">
+                <div class="benefit-check">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/>
+                    </svg>
+                </div>
+                <span class="benefit-text"><strong>Per-client tracking</strong> — Export and invoice in seconds</span>
+            </div>
+        </div>
+        
+        <!-- Signup Form -->
+        <div class="form-card">
+            <form id="signup-form">
+                <h2 class="form-title">Get Free Beta Access</h2>
+                <p class="form-subtitle">Join the waitlist. First 50 get in free.</p>
+                
+                <div class="form-group">
+                    <label class="form-label" for="email">Email</label>
+                    <input type="email" id="email" name="email" class="form-input" placeholder="you@company.com" required>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label" for="use_case">What are you building?</label>
+                    <select id="use_case" name="use_case" class="form-input form-select" required>
+                        <option value="" disabled selected>Select one</option>
+                        <option value="agency">Agency / Client work</option>
+                        <option value="saas">SaaS product</option>
+                        <option value="nocode">No-code automation (Make, Bubble, n8n)</option>
+                        <option value="internal">Internal tools</option>
+                        <option value="other">Something else</option>
+                    </select>
+                </div>
+                
+                <button type="submit" class="submit-btn">Join the Waitlist →</button>
+                
+                <p class="form-note">No spam. No credit card. Just early access.</p>
+            </form>
+            
+            <!-- Success State -->
+            <div id="success" class="success-state">
+                <div class="success-icon">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                    </svg>
+                </div>
+                <h3 class="success-title">You're on the list!</h3>
+                <p class="success-text">Check your inbox for next steps.</p>
+            </div>
+        </div>
+        
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-logo">ResultantAI</div>
+            <p class="footer-links">
+                Questions? <a href="mailto:chris@resultantai.com">chris@resultantai.com</a>
+            </p>
+        </footer>
+    </div>
     
-    window.addEventListener('scroll', revealOnScroll);
-    revealOnScroll();
-
-    // FAQ accordion
-    function toggleFaq(element) {
-      document.querySelectorAll('.faq-item').forEach(item => {
-        if (item !== element) {
-          item.classList.remove('open');
+    <script>
+        // Get UTM params from URL
+        function getUTMParams() {
+            const params = new URLSearchParams(window.location.search);
+            return {
+                utm_source: params.get('utm_source') || 'direct',
+                utm_medium: params.get('utm_medium') || '',
+                utm_campaign: params.get('utm_campaign') || '',
+                utm_content: params.get('utm_content') || '',
+                utm_term: params.get('utm_term') || ''
+            };
         }
-      });
-      element.classList.toggle('open');
-    }
-
-    // Copy code
-    function copyCode() {
-      const code = `const openai = new OpenAI({ 
-  apiKey: process.env.RESULTANT_KEY,
-  baseURL: "https://ai-gateway-prod.fly.dev/v1"
-});`;
-      navigator.clipboard.writeText(code);
-      
-      const btn = document.querySelector('.code-block__copy');
-      btn.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Copied!`;
-      setTimeout(() => {
-        btn.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy`;
-      }, 2000);
-    }
-  </script>
+        
+        // Form submission
+        document.getElementById('signup-form').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const btn = this.querySelector('.submit-btn');
+            btn.classList.add('loading');
+            btn.textContent = 'Joining...';
+            
+            const email = document.getElementById('email').value;
+            const useCase = document.getElementById('use_case').value;
+            const utmParams = getUTMParams();
+            
+            const payload = {
+                email: email,
+                use_case: useCase,
+                source: 'reddit-landing-dark',
+                variant: 'A-dark',
+                ...utmParams,
+                timestamp: new Date().toISOString(),
+                page_url: window.location.href,
+                referrer: document.referrer
+            };
+            
+            try {
+                // Send to Make.com webhook
+                await fetch('https://hook.us2.make.com/n8deqd9mfxcqxeoe19j0etwfxnuq12pa', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                
+                // Fire Reddit Lead conversion
+                if (typeof rdt === 'function') {
+                    rdt('track', 'Lead');
+                }
+                
+                // Show success
+                document.getElementById('signup-form').classList.add('hidden');
+                document.getElementById('success').classList.add('visible');
+                
+            } catch (err) {
+                console.error('Submission error:', err);
+                btn.classList.remove('loading');
+                btn.textContent = 'Try Again →';
+            }
+        });
+    </script>
 </body>
 </html>
