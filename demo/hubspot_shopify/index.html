@@ -1,0 +1,1016 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HubSpot Deal Flow Visualizer | ResultantAI</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --walnut: #5D4E37;
+            --walnut-light: #8B7355;
+            --cream: #FAF7F2;
+            --cream-dark: #F0EBE3;
+            --sage: #7C9082;
+            --sage-light: #A8C0AE;
+            --copper: #B87333;
+            --copper-light: #D4956A;
+            --charcoal: #2D2D2D;
+            --slate: #6B7280;
+            --white: #FFFFFF;
+            --b2c-accent: #E07A5F;
+            --b2b-accent: #3D5A80;
+            --success: #059669;
+            --font-display: 'Fraunces', serif;
+            --font-body: 'DM Sans', sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background: var(--cream);
+            color: var(--charcoal);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Tutorial Banner */
+        .tutorial-banner {
+            background: linear-gradient(135deg, var(--walnut) 0%, var(--walnut-light) 100%);
+            color: var(--cream);
+            padding: 1.5rem 2rem;
+            position: relative;
+            animation: slideDown 0.5s ease-out;
+        }
+
+        @keyframes slideDown {
+            from { transform: translateY(-100%); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .tutorial-banner.hidden {
+            display: none;
+        }
+
+        .tutorial-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 2rem;
+        }
+
+        .tutorial-header h2 {
+            font-family: var(--font-display);
+            font-size: 1.25rem;
+            font-weight: 500;
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .tutorial-steps {
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .tutorial-step {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+            opacity: 0.95;
+        }
+
+        .step-number {
+            background: var(--copper);
+            color: var(--white);
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: 600;
+            flex-shrink: 0;
+        }
+
+        .dismiss-btn {
+            background: rgba(255,255,255,0.15);
+            border: 1px solid rgba(255,255,255,0.3);
+            color: var(--cream);
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            font-family: var(--font-body);
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            white-space: nowrap;
+        }
+
+        .dismiss-btn:hover {
+            background: rgba(255,255,255,0.25);
+        }
+
+        /* Header */
+        .header {
+            padding: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .logo {
+            font-family: var(--font-display);
+            font-size: 0.9rem;
+            color: var(--walnut);
+            letter-spacing: 0.05em;
+        }
+
+        .demo-badge {
+            background: var(--sage-light);
+            color: var(--walnut);
+            padding: 0.35rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .header h1 {
+            font-family: var(--font-display);
+            font-size: 2.25rem;
+            font-weight: 500;
+            color: var(--charcoal);
+            margin-bottom: 0.5rem;
+            line-height: 1.2;
+        }
+
+        .header p {
+            color: var(--slate);
+            font-size: 1.05rem;
+            max-width: 600px;
+        }
+
+        /* Pipeline Toggle */
+        .toggle-container {
+            display: flex;
+            justify-content: center;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+
+        .toggle-wrapper {
+            background: var(--cream-dark);
+            border-radius: 50px;
+            padding: 6px;
+            display: flex;
+            position: relative;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.06);
+        }
+
+        .toggle-bg {
+            position: absolute;
+            height: calc(100% - 12px);
+            width: calc(50% - 6px);
+            background: var(--white);
+            border-radius: 50px;
+            top: 6px;
+            left: 6px;
+            transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .toggle-wrapper.b2b .toggle-bg {
+            left: calc(50%);
+        }
+
+        .toggle-btn {
+            padding: 0.75rem 2rem;
+            border: none;
+            background: transparent;
+            font-family: var(--font-body);
+            font-size: 0.95rem;
+            font-weight: 500;
+            cursor: pointer;
+            position: relative;
+            z-index: 1;
+            transition: color 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .toggle-btn.b2c { color: var(--slate); }
+        .toggle-btn.b2b { color: var(--slate); }
+        
+        .toggle-wrapper:not(.b2b) .toggle-btn.b2c { color: var(--b2c-accent); }
+        .toggle-wrapper.b2b .toggle-btn.b2b { color: var(--b2b-accent); }
+
+        .toggle-icon {
+            width: 18px;
+            height: 18px;
+        }
+
+        /* Pipeline Container */
+        .pipeline-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem 3rem;
+        }
+
+        .pipeline-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--cream-dark);
+        }
+
+        .pipeline-title {
+            font-family: var(--font-display);
+            font-size: 1.1rem;
+            color: var(--charcoal);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .pipeline-indicator {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            transition: background 0.3s;
+        }
+
+        .pipeline-indicator.b2c { background: var(--b2c-accent); }
+        .pipeline-indicator.b2b { background: var(--b2b-accent); }
+
+        .pipeline-stats {
+            font-size: 0.85rem;
+            color: var(--slate);
+        }
+
+        .pipeline-stats span {
+            font-weight: 600;
+            color: var(--charcoal);
+        }
+
+        /* Pipeline Stages */
+        .pipeline {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .stage {
+            background: var(--white);
+            border-radius: 12px;
+            padding: 1.25rem;
+            cursor: pointer;
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 2px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stage::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            transition: background 0.3s;
+        }
+
+        .stage.b2c::before { background: var(--b2c-accent); }
+        .stage.b2b::before { background: var(--b2b-accent); }
+
+        .stage:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px rgba(0,0,0,0.08);
+        }
+
+        .stage.active {
+            border-color: var(--walnut);
+            box-shadow: 0 8px 24px rgba(93, 78, 55, 0.15);
+        }
+
+        .stage-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+        }
+
+        .stage-name {
+            font-weight: 600;
+            font-size: 0.95rem;
+            color: var(--charcoal);
+        }
+
+        .stage-count {
+            background: var(--cream);
+            padding: 0.25rem 0.6rem;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--walnut);
+        }
+
+        .stage-value {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--charcoal);
+            margin-bottom: 0.25rem;
+            font-family: var(--font-display);
+        }
+
+        .stage-label {
+            font-size: 0.8rem;
+            color: var(--slate);
+        }
+
+        .stage-arrow {
+            position: absolute;
+            right: -8px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--cream-dark);
+            font-size: 1.25rem;
+            z-index: 2;
+        }
+
+        .stage:last-child .stage-arrow {
+            display: none;
+        }
+
+        /* Automation Panel */
+        .automation-panel {
+            background: var(--white);
+            border-radius: 16px;
+            margin-top: 2rem;
+            overflow: hidden;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+            opacity: 0;
+            max-height: 0;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .automation-panel.visible {
+            opacity: 1;
+            max-height: 600px;
+        }
+
+        .panel-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid var(--cream-dark);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .panel-title {
+            font-family: var(--font-display);
+            font-size: 1.1rem;
+            color: var(--charcoal);
+        }
+
+        .panel-subtitle {
+            font-size: 0.85rem;
+            color: var(--slate);
+            margin-top: 0.25rem;
+        }
+
+        .close-panel {
+            background: var(--cream);
+            border: none;
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s;
+        }
+
+        .close-panel:hover {
+            background: var(--cream-dark);
+        }
+
+        .panel-content {
+            padding: 1.5rem;
+        }
+
+        .automation-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .automation-item {
+            display: flex;
+            gap: 1rem;
+            padding: 1rem;
+            background: var(--cream);
+            border-radius: 10px;
+            align-items: flex-start;
+            animation: fadeInUp 0.3s ease-out;
+            animation-fill-mode: both;
+        }
+
+        .automation-item:nth-child(1) { animation-delay: 0.1s; }
+        .automation-item:nth-child(2) { animation-delay: 0.2s; }
+        .automation-item:nth-child(3) { animation-delay: 0.3s; }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .automation-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .automation-icon.email { background: #DBEAFE; color: #2563EB; }
+        .automation-icon.task { background: #FEF3C7; color: #D97706; }
+        .automation-icon.slack { background: #E0E7FF; color: #4F46E5; }
+        .automation-icon.sms { background: #D1FAE5; color: #059669; }
+        .automation-icon.deal { background: #FCE7F3; color: #DB2777; }
+
+        .automation-details {
+            flex: 1;
+        }
+
+        .automation-name {
+            font-weight: 600;
+            font-size: 0.95rem;
+            color: var(--charcoal);
+            margin-bottom: 0.25rem;
+        }
+
+        .automation-desc {
+            font-size: 0.85rem;
+            color: var(--slate);
+            line-height: 1.5;
+        }
+
+        .automation-timing {
+            font-size: 0.75rem;
+            color: var(--walnut);
+            background: var(--white);
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            margin-top: 0.5rem;
+            display: inline-block;
+        }
+
+        /* Sample Deal Card */
+        .sample-deal {
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px dashed var(--cream-dark);
+        }
+
+        .sample-deal-header {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--slate);
+            margin-bottom: 1rem;
+        }
+
+        .deal-card {
+            background: linear-gradient(135deg, var(--cream) 0%, var(--white) 100%);
+            border: 1px solid var(--cream-dark);
+            border-radius: 12px;
+            padding: 1.25rem;
+        }
+
+        .deal-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+        }
+
+        .deal-name {
+            font-weight: 600;
+            color: var(--charcoal);
+        }
+
+        .deal-amount {
+            font-family: var(--font-display);
+            font-size: 1.25rem;
+            font-weight: 500;
+            color: var(--walnut);
+        }
+
+        .deal-details {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            font-size: 0.85rem;
+        }
+
+        .deal-detail-label {
+            color: var(--slate);
+            margin-bottom: 0.25rem;
+        }
+
+        .deal-detail-value {
+            color: var(--charcoal);
+            font-weight: 500;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 2rem;
+            color: var(--slate);
+            font-size: 0.85rem;
+        }
+
+        .footer a {
+            color: var(--walnut);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        .powered-by {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+            font-size: 0.8rem;
+            color: var(--slate);
+        }
+
+        .tool-badge {
+            background: var(--cream-dark);
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .tutorial-content {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .tutorial-steps {
+                flex-direction: column;
+                gap: 0.75rem;
+            }
+
+            .header h1 {
+                font-size: 1.75rem;
+            }
+
+            .toggle-btn {
+                padding: 0.6rem 1.25rem;
+                font-size: 0.85rem;
+            }
+
+            .pipeline {
+                grid-template-columns: 1fr;
+            }
+
+            .stage-arrow {
+                display: none;
+            }
+
+            .deal-details {
+                grid-template-columns: 1fr;
+                gap: 0.75rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Tutorial Banner -->
+    <div class="tutorial-banner" id="tutorialBanner">
+        <div class="tutorial-content">
+            <div class="tutorial-header">
+                <h2>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <path d="M12 16v-4"></path>
+                        <path d="M12 8h.01"></path>
+                    </svg>
+                    Quick Start Guide
+                </h2>
+                <div class="tutorial-steps">
+                    <div class="tutorial-step">
+                        <span class="step-number">1</span>
+                        <span>Toggle between B2C and B2B pipelines above</span>
+                    </div>
+                    <div class="tutorial-step">
+                        <span class="step-number">2</span>
+                        <span>Click any stage to see its automation triggers</span>
+                    </div>
+                    <div class="tutorial-step">
+                        <span class="step-number">3</span>
+                        <span>View sample deals showing real data flow</span>
+                    </div>
+                </div>
+            </div>
+            <button class="dismiss-btn" onclick="dismissTutorial()">Got it, let's explore →</button>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="header-top">
+            <div class="logo">RESULTANTAI</div>
+            <span class="demo-badge">Interactive Demo</span>
+        </div>
+        <h1>HubSpot Deal Flow Visualizer</h1>
+        <p>See how B2B and B2C leads move through different pipelines—with automation handling the follow-up 24/7.</p>
+    </header>
+
+    <!-- Pipeline Toggle -->
+    <div class="toggle-container">
+        <div class="toggle-wrapper" id="toggleWrapper">
+            <div class="toggle-bg"></div>
+            <button class="toggle-btn b2c" onclick="switchPipeline('b2c')">
+                <svg class="toggle-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+                B2C Retail
+            </button>
+            <button class="toggle-btn b2b" onclick="switchPipeline('b2b')">
+                <svg class="toggle-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                    <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                </svg>
+                B2B Contract
+            </button>
+        </div>
+    </div>
+
+    <!-- Pipeline Container -->
+    <div class="pipeline-container">
+        <div class="pipeline-header">
+            <div class="pipeline-title">
+                <span class="pipeline-indicator b2c" id="pipelineIndicator"></span>
+                <span id="pipelineName">Shopify Customer Journey</span>
+            </div>
+            <div class="pipeline-stats">
+                <span id="dealCount">24</span> active deals · <span id="pipelineValue">$47,850</span> in pipeline
+            </div>
+        </div>
+
+        <!-- B2C Pipeline -->
+        <div class="pipeline" id="b2cPipeline">
+            <div class="stage b2c" onclick="showAutomation('b2c', 0)">
+                <span class="stage-arrow">→</span>
+                <div class="stage-header">
+                    <span class="stage-name">New Order</span>
+                    <span class="stage-count">8</span>
+                </div>
+                <div class="stage-value">$12,450</div>
+                <div class="stage-label">Shopify sync</div>
+            </div>
+            <div class="stage b2c" onclick="showAutomation('b2c', 1)">
+                <span class="stage-arrow">→</span>
+                <div class="stage-header">
+                    <span class="stage-name">In Production</span>
+                    <span class="stage-count">6</span>
+                </div>
+                <div class="stage-value">$18,200</div>
+                <div class="stage-label">~6 week lead time</div>
+            </div>
+            <div class="stage b2c" onclick="showAutomation('b2c', 2)">
+                <span class="stage-arrow">→</span>
+                <div class="stage-header">
+                    <span class="stage-name">Ready to Ship</span>
+                    <span class="stage-count">5</span>
+                </div>
+                <div class="stage-value">$9,750</div>
+                <div class="stage-label">Delivery scheduled</div>
+            </div>
+            <div class="stage b2c" onclick="showAutomation('b2c', 3)">
+                <div class="stage-header">
+                    <span class="stage-name">Delivered</span>
+                    <span class="stage-count">5</span>
+                </div>
+                <div class="stage-value">$7,450</div>
+                <div class="stage-label">Review request sent</div>
+            </div>
+        </div>
+
+        <!-- B2B Pipeline -->
+        <div class="pipeline" id="b2bPipeline" style="display: none;">
+            <div class="stage b2b" onclick="showAutomation('b2b', 0)">
+                <span class="stage-arrow">→</span>
+                <div class="stage-header">
+                    <span class="stage-name">Inquiry</span>
+                    <span class="stage-count">4</span>
+                </div>
+                <div class="stage-value">$85,000</div>
+                <div class="stage-label">Initial contact</div>
+            </div>
+            <div class="stage b2b" onclick="showAutomation('b2b', 1)">
+                <span class="stage-arrow">→</span>
+                <div class="stage-header">
+                    <span class="stage-name">Quote Sent</span>
+                    <span class="stage-count">3</span>
+                </div>
+                <div class="stage-value">$142,500</div>
+                <div class="stage-label">Awaiting response</div>
+            </div>
+            <div class="stage b2b" onclick="showAutomation('b2b', 2)">
+                <span class="stage-arrow">→</span>
+                <div class="stage-header">
+                    <span class="stage-name">Negotiation</span>
+                    <span class="stage-count">2</span>
+                </div>
+                <div class="stage-value">$68,000</div>
+                <div class="stage-label">Terms discussion</div>
+            </div>
+            <div class="stage b2b" onclick="showAutomation('b2b', 3)">
+                <div class="stage-header">
+                    <span class="stage-name">Contract Signed</span>
+                    <span class="stage-count">1</span>
+                </div>
+                <div class="stage-value">$45,000</div>
+                <div class="stage-label">Production queue</div>
+            </div>
+        </div>
+
+        <!-- Automation Panel -->
+        <div class="automation-panel" id="automationPanel">
+            <div class="panel-header">
+                <div>
+                    <div class="panel-title" id="panelTitle">Stage Automations</div>
+                    <div class="panel-subtitle" id="panelSubtitle">Actions triggered when a deal enters this stage</div>
+                </div>
+                <button class="close-panel" onclick="closePanel()">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+            <div class="panel-content">
+                <div class="automation-list" id="automationList">
+                    <!-- Populated by JS -->
+                </div>
+                <div class="sample-deal">
+                    <div class="sample-deal-header">Example Deal in This Stage</div>
+                    <div class="deal-card" id="dealCard">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>Custom HubSpot + Shopify integration architecture by <a href="https://resultantai.com">ResultantAI</a></p>
+        <div class="powered-by">
+            Powered by
+            <span class="tool-badge">HubSpot</span>
+            <span class="tool-badge">Shopify</span>
+            <span class="tool-badge">Make.com</span>
+        </div>
+    </footer>
+
+    <script>
+        // Automation data
+        const automations = {
+            b2c: [
+                {
+                    stage: 'New Order',
+                    subtitle: 'Triggered instantly when Shopify order syncs',
+                    items: [
+                        { icon: 'email', name: 'Order Confirmation Sequence', desc: 'Personalized email with production timeline, care instructions, and what to expect next.', timing: 'Instant' },
+                        { icon: 'task', name: 'Create Production Task', desc: 'Auto-assigns to production team with order specs, fabric choice, and delivery address.', timing: 'Instant' },
+                        { icon: 'deal', name: 'Segment by Order Value', desc: 'Orders $2,500+ tagged as VIP for priority handling and personal follow-up.', timing: 'Instant' }
+                    ],
+                    deal: { name: 'Sarah Mitchell — Custom Sectional', amount: '$3,247', source: 'Shopify', product: 'Walnut Sectional (Custom)', date: 'Nov 28, 2025' }
+                },
+                {
+                    stage: 'In Production',
+                    subtitle: 'Triggered when production status updates',
+                    items: [
+                        { icon: 'email', name: 'Production Update Email', desc: 'Sends customer photo of their piece in progress with estimated completion date.', timing: 'Weekly' },
+                        { icon: 'sms', name: 'Milestone SMS Alert', desc: 'Text notification when piece moves to upholstery stage.', timing: 'Stage change' },
+                        { icon: 'slack', name: 'Quality Check Reminder', desc: 'Notifies QA team 3 days before estimated completion.', timing: '3 days before' }
+                    ],
+                    deal: { name: 'James & Elena Whitmore — Dining Set', amount: '$4,850', source: 'Shopify', product: '8-Seat Dining Table + Chairs', date: 'Nov 15, 2025' }
+                },
+                {
+                    stage: 'Ready to Ship',
+                    subtitle: 'Triggered when QA approves piece',
+                    items: [
+                        { icon: 'email', name: 'Delivery Scheduling Email', desc: 'Sends calendar link for customer to select delivery window.', timing: 'Instant' },
+                        { icon: 'task', name: 'Delivery Coordination', desc: 'Creates task for logistics team with route optimization.', timing: 'Instant' },
+                        { icon: 'sms', name: 'Day-Before Reminder', desc: 'Confirms delivery window and provides driver contact.', timing: '24 hrs before' }
+                    ],
+                    deal: { name: 'Marcus Chen — Home Office Suite', amount: '$2,175', source: 'Shopify', product: 'Standing Desk + Ergonomic Chair', date: 'Nov 8, 2025' }
+                },
+                {
+                    stage: 'Delivered',
+                    subtitle: 'Triggered when delivery confirmed',
+                    items: [
+                        { icon: 'email', name: 'Review Request Sequence', desc: 'Day 3: Care tips. Day 7: Photo request for social. Day 14: Review ask.', timing: '3-14 days' },
+                        { icon: 'deal', name: 'Upcycle Program Enrollment', desc: 'Tags customer for future trade-in program outreach.', timing: '90 days' },
+                        { icon: 'email', name: 'Referral Invite', desc: 'Sends referral code with $200 credit for next purchase.', timing: '30 days' }
+                    ],
+                    deal: { name: 'Priya Sharma — Bedroom Set', amount: '$5,450', source: 'Shopify', product: 'King Platform Bed + Nightstands', date: 'Oct 22, 2025' }
+                }
+            ],
+            b2b: [
+                {
+                    stage: 'Inquiry',
+                    subtitle: 'Triggered when B2B form submitted or trade contact identified',
+                    items: [
+                        { icon: 'email', name: 'Trade Welcome Sequence', desc: 'Catalog PDF, lead time overview, and trade pricing structure.', timing: 'Instant' },
+                        { icon: 'task', name: 'Assign Account Manager', desc: 'Routes to sales rep based on territory and project size.', timing: 'Instant' },
+                        { icon: 'slack', name: 'New Lead Alert', desc: 'Notifies sales channel with company info and estimated project value.', timing: 'Instant' }
+                    ],
+                    deal: { name: 'Coastal Hospitality Group — Hotel Lobby', amount: '$45,000', source: 'Trade Form', product: 'Custom Seating (24 units)', date: 'Nov 25, 2025' }
+                },
+                {
+                    stage: 'Quote Sent',
+                    subtitle: 'Triggered when proposal document sent',
+                    items: [
+                        { icon: 'email', name: 'Quote Follow-Up Sequence', desc: 'Day 2: "Questions?" check-in. Day 5: Case study share. Day 10: Direct outreach.', timing: '2-10 days' },
+                        { icon: 'task', name: 'Follow-Up Reminder', desc: 'Creates task for rep if no response within 7 days.', timing: '7 days' },
+                        { icon: 'deal', name: 'Engagement Tracking', desc: 'Logs quote views and time spent on pricing section.', timing: 'Real-time' }
+                    ],
+                    deal: { name: 'Brightwood Senior Living — Common Areas', amount: '$78,500', source: 'Referral', product: 'Lounge Furniture (40 pieces)', date: 'Nov 18, 2025' }
+                },
+                {
+                    stage: 'Negotiation',
+                    subtitle: 'Triggered when deal moved to active negotiation',
+                    items: [
+                        { icon: 'task', name: 'Pricing Approval Workflow', desc: 'Routes discount requests to sales director if >15% off list.', timing: 'On discount' },
+                        { icon: 'slack', name: 'Deal Desk Alert', desc: 'Notifies finance for projects >$50K requiring credit check.', timing: 'Instant' },
+                        { icon: 'email', name: 'Competitor Battlecard', desc: 'Sends rep internal doc with positioning vs. import alternatives.', timing: 'On stage entry' }
+                    ],
+                    deal: { name: 'University of Virginia — Dorm Renovation', amount: '$125,000', source: 'RFP Response', product: 'Student Furniture (200 rooms)', date: 'Nov 10, 2025' }
+                },
+                {
+                    stage: 'Contract Signed',
+                    subtitle: 'Triggered when DocuSign completed',
+                    items: [
+                        { icon: 'email', name: 'Kickoff Email', desc: 'Project timeline, production contact, and milestone calendar.', timing: 'Instant' },
+                        { icon: 'task', name: 'Production Planning', desc: 'Creates project in Airtable with material requirements and deadlines.', timing: 'Instant' },
+                        { icon: 'slack', name: 'Won Deal Celebration', desc: 'Posts win to team channel with deal value and rep recognition.', timing: 'Instant' }
+                    ],
+                    deal: { name: 'Blue Ridge Medical Center — Waiting Rooms', amount: '$45,000', source: 'Trade Show', product: 'Healthcare Seating (30 units)', date: 'Nov 1, 2025' }
+                }
+            ]
+        };
+
+        let currentPipeline = 'b2c';
+        let activeStage = null;
+
+        function dismissTutorial() {
+            document.getElementById('tutorialBanner').classList.add('hidden');
+        }
+
+        function switchPipeline(type) {
+            currentPipeline = type;
+            const wrapper = document.getElementById('toggleWrapper');
+            const b2cPipeline = document.getElementById('b2cPipeline');
+            const b2bPipeline = document.getElementById('b2bPipeline');
+            const indicator = document.getElementById('pipelineIndicator');
+            const name = document.getElementById('pipelineName');
+            const count = document.getElementById('dealCount');
+            const value = document.getElementById('pipelineValue');
+
+            if (type === 'b2b') {
+                wrapper.classList.add('b2b');
+                b2cPipeline.style.display = 'none';
+                b2bPipeline.style.display = 'grid';
+                indicator.classList.remove('b2c');
+                indicator.classList.add('b2b');
+                name.textContent = 'Trade & Contract Pipeline';
+                count.textContent = '10';
+                value.textContent = '$340,500';
+            } else {
+                wrapper.classList.remove('b2b');
+                b2cPipeline.style.display = 'grid';
+                b2bPipeline.style.display = 'none';
+                indicator.classList.remove('b2b');
+                indicator.classList.add('b2c');
+                name.textContent = 'Shopify Customer Journey';
+                count.textContent = '24';
+                value.textContent = '$47,850';
+            }
+
+            closePanel();
+        }
+
+        function showAutomation(pipeline, index) {
+            const data = automations[pipeline][index];
+            const panel = document.getElementById('automationPanel');
+            const list = document.getElementById('automationList');
+            const dealCard = document.getElementById('dealCard');
+            
+            document.getElementById('panelTitle').textContent = data.stage + ' Automations';
+            document.getElementById('panelSubtitle').textContent = data.subtitle;
+
+            // Clear active states
+            document.querySelectorAll('.stage').forEach(s => s.classList.remove('active'));
+            // Set active state on clicked stage
+            const stages = document.querySelectorAll(`#${pipeline}Pipeline .stage`);
+            stages[index].classList.add('active');
+
+            // Build automation list
+            list.innerHTML = data.items.map(item => `
+                <div class="automation-item">
+                    <div class="automation-icon ${item.icon}">
+                        ${getIcon(item.icon)}
+                    </div>
+                    <div class="automation-details">
+                        <div class="automation-name">${item.name}</div>
+                        <div class="automation-desc">${item.desc}</div>
+                        <span class="automation-timing">⏱ ${item.timing}</span>
+                    </div>
+                </div>
+            `).join('');
+
+            // Build deal card
+            dealCard.innerHTML = `
+                <div class="deal-top">
+                    <div class="deal-name">${data.deal.name}</div>
+                    <div class="deal-amount">${data.deal.amount}</div>
+                </div>
+                <div class="deal-details">
+                    <div>
+                        <div class="deal-detail-label">Source</div>
+                        <div class="deal-detail-value">${data.deal.source}</div>
+                    </div>
+                    <div>
+                        <div class="deal-detail-label">Product</div>
+                        <div class="deal-detail-value">${data.deal.product}</div>
+                    </div>
+                    <div>
+                        <div class="deal-detail-label">Created</div>
+                        <div class="deal-detail-value">${data.deal.date}</div>
+                    </div>
+                </div>
+            `;
+
+            panel.classList.add('visible');
+        }
+
+        function closePanel() {
+            document.getElementById('automationPanel').classList.remove('visible');
+            document.querySelectorAll('.stage').forEach(s => s.classList.remove('active'));
+        }
+
+        function getIcon(type) {
+            const icons = {
+                email: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>',
+                task: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"></path><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path></svg>',
+                slack: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.5 10c-.83 0-1.5-.67-1.5-1.5v-5c0-.83.67-1.5 1.5-1.5s1.5.67 1.5 1.5v5c0 .83-.67 1.5-1.5 1.5z"></path><path d="M20.5 10H19V8.5c0-.83.67-1.5 1.5-1.5s1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"></path><path d="M9.5 14c.83 0 1.5.67 1.5 1.5v5c0 .83-.67 1.5-1.5 1.5S8 21.33 8 20.5v-5c0-.83.67-1.5 1.5-1.5z"></path><path d="M3.5 14H5v1.5c0 .83-.67 1.5-1.5 1.5S2 16.33 2 15.5 2.67 14 3.5 14z"></path><path d="M14 14.5c0-.83.67-1.5 1.5-1.5h5c.83 0 1.5.67 1.5 1.5s-.67 1.5-1.5 1.5h-5c-.83 0-1.5-.67-1.5-1.5z"></path><path d="M15.5 19H14v1.5c0 .83.67 1.5 1.5 1.5s1.5-.67 1.5-1.5-.67-1.5-1.5-1.5z"></path><path d="M10 9.5C10 8.67 9.33 8 8.5 8h-5C2.67 8 2 8.67 2 9.5S2.67 11 3.5 11h5c.83 0 1.5-.67 1.5-1.5z"></path><path d="M8.5 5H10V3.5C10 2.67 9.33 2 8.5 2S7 2.67 7 3.5 7.67 5 8.5 5z"></path></svg>',
+                sms: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>',
+                deal: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>'
+            };
+            return icons[type] || '';
+        }
+    </script>
+</body>
+</html>
