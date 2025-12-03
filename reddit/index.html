@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stop Guessing Your AI Bill | AI Gateway</title>
+    <meta name="description" content="Flat-rate AI pricing. One API for OpenAI, Claude, Gemini. Track costs per client. Free beta access.">
+    
+    <!-- Preload critical fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+    
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        :root {
+            --bg: #0a0d12;
+            --card: #111820;
+            --border: #1e2a3a;
+            --text: #94a3b8;
+            --text-bright: #e2e8f0;
+            --accent: #10b981;
+            --accent-glow: rgba(16, 185, 129, 0.15);
+            --danger: #ef4444;
+        }
+        
+        body {
+            font-family: 'DM Sans', -apple-system, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+        
+        /* Subtle grid background */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image: 
+                linear-gradient(rgba(16, 185, 129, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(16, 185, 129, 0.03) 1px, transparent 1px);
+            background-size: 60px 60px;
+            pointer-events: none;
+            z-index: 0;
+        }
+        
+        .container {
+            max-width: 520px;
+            margin: 0 auto;
+            padding: 32px 20px 80px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* Header */
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: var(--accent-glow);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            color: var(--accent);
+            font-size: 12px;
+            font-weight: 500;
+            padding: 6px 12px;
+            border-radius: 20px;
+            margin-bottom: 24px;
+        }
+        
+        .badge::before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            background: var(--accent);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.4; }
+        }
+        
+        h1 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(28px, 7vw, 40px);
+            font-weight: 700;
+            color: var(--text-bright);
+            line-height: 1.15;
+            margin-bottom: 16px;
+            letter-spacing: -0.02em;
+        }
+        
+        .highlight {
+            color: var(--accent);
+        }
+        
+        .subhead {
+            font-size: 17px;
+            color: var(--text);
+            margin-bottom: 32px;
+            max-width: 440px;
+        }
+        
+        /* Pain points */
+        .pain-list {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 28px;
+        }
+        
+        .pain-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 10px 0;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .pain-item:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+        
+        .pain-item:first-child {
+            padding-top: 0;
+        }
+        
+        .pain-icon {
+            color: var(--danger);
+            font-size: 14px;
+            margin-top: 2px;
+            flex-shrink: 0;
+        }
+        
+        .pain-text {
+            font-size: 15px;
+            color: var(--text-bright);
+        }
+        
+        .pain-text span {
+            color: var(--text);
+            font-size: 14px;
+            display: block;
+            margin-top: 2px;
+        }
+        
+        /* Solution */
+        .solution-header {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-bottom: 16px;
+        }
+        
+        .benefit-grid {
+            display: grid;
+            gap: 12px;
+            margin-bottom: 32px;
+        }
+        
+        .benefit {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 14px 16px;
+        }
+        
+        .benefit-check {
+            width: 20px;
+            height: 20px;
+            background: var(--accent-glow);
+            border: 1px solid rgba(16, 185, 129, 0.4);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        
+        .benefit-check svg {
+            width: 12px;
+            height: 12px;
+            color: var(--accent);
+        }
+        
+        .benefit-text {
+            font-size: 15px;
+            color: var(--text-bright);
+        }
+        
+        /* Form */
+        .form-card {
+            background: linear-gradient(135deg, var(--card) 0%, #0d1218 100%);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 28px 24px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+        
+        .form-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--text-bright);
+            margin-bottom: 6px;
+        }
+        
+        .form-subtitle {
+            font-size: 14px;
+            color: var(--text);
+            margin-bottom: 20px;
+        }
+        
+        .form-group {
+            margin-bottom: 14px;
+        }
+        
+        .form-label {
+            display: block;
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text);
+            margin-bottom: 6px;
+        }
+        
+        .form-input {
+            width: 100%;
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 14px 16px;
+            font-size: 16px;
+            color: var(--text-bright);
+            font-family: inherit;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+        
+        .form-input:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px var(--accent-glow);
+        }
+        
+        .form-input::placeholder {
+            color: #4a5568;
+        }
+        
+        .form-select {
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%2394a3b8' viewBox='0 0 16 16'%3E%3Cpath d='M8 11L3 6h10l-5 5z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 14px center;
+            padding-right: 40px;
+            cursor: pointer;
+        }
+        
+        .submit-btn {
+            width: 100%;
+            background: var(--accent);
+            color: #000;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 16px;
+            font-weight: 700;
+            padding: 16px 24px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            margin-top: 6px;
+        }
+        
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(16, 185, 129, 0.3);
+        }
+        
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+        
+        .form-note {
+            text-align: center;
+            font-size: 12px;
+            color: var(--text);
+            margin-top: 14px;
+        }
+        
+        /* Success state */
+        .success-state {
+            display: none;
+            text-align: center;
+            padding: 20px 0;
+        }
+        
+        .success-state.visible {
+            display: block;
+        }
+        
+        .success-icon {
+            width: 56px;
+            height: 56px;
+            background: var(--accent-glow);
+            border: 2px solid var(--accent);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 16px;
+        }
+        
+        .success-icon svg {
+            width: 28px;
+            height: 28px;
+            color: var(--accent);
+        }
+        
+        .success-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--text-bright);
+            margin-bottom: 8px;
+        }
+        
+        .success-text {
+            font-size: 15px;
+            color: var(--text);
+        }
+        
+        /* Footer */
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 24px;
+            border-top: 1px solid var(--border);
+        }
+        
+        .footer-logo {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            font-size: 14px;
+            color: var(--text);
+            margin-bottom: 8px;
+        }
+        
+        .footer-links {
+            font-size: 13px;
+            color: var(--text);
+        }
+        
+        .footer-links a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+        
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
+        
+        /* Form hidden state */
+        #signup-form.hidden {
+            display: none;
+        }
+        
+        /* Loading state */
+        .submit-btn.loading {
+            pointer-events: none;
+            opacity: 0.7;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Badge -->
+        <div class="badge">Free Beta Access — Limited Spots</div>
+        
+        <!-- Headline -->
+        <h1>Your AI bill shouldn't be a <span class="highlight">mystery</span></h1>
+        
+        <p class="subhead">One API key. All providers. Flat monthly pricing. Built for agencies and builders tired of unpredictable AI costs.</p>
+        
+        <!-- Pain Points -->
+        <div class="pain-list">
+            <div class="pain-item">
+                <span class="pain-icon">✕</span>
+                <div class="pain-text">
+                    OpenAI bill jumped from $47 to $312
+                    <span>One viral feature, no warning, margin gone</span>
+                </div>
+            </div>
+            <div class="pain-item">
+                <span class="pain-icon">✕</span>
+                <div class="pain-text">
+                    Managing 4 different API keys
+                    <span>OpenAI, Claude, Gemini... each with separate billing</span>
+                </div>
+            </div>
+            <div class="pain-item">
+                <span class="pain-icon">✕</span>
+                <div class="pain-text">
+                    Guessing what to charge clients
+                    <span>No per-client tracking = awkward invoice conversations</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Solution -->
+        <p class="solution-header">The fix</p>
+        
+        <div class="benefit-grid">
+            <div class="benefit">
+                <div class="benefit-check">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/>
+                    </svg>
+                </div>
+                <span class="benefit-text"><strong>$99/mo flat</strong> — Know costs before you ship</span>
+            </div>
+            <div class="benefit">
+                <div class="benefit-check">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/>
+                    </svg>
+                </div>
+                <span class="benefit-text"><strong>One API key</strong> — OpenAI + Claude + Gemini</span>
+            </div>
+            <div class="benefit">
+                <div class="benefit-check">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/>
+                    </svg>
+                </div>
+                <span class="benefit-text"><strong>Per-client tracking</strong> — Export and invoice in seconds</span>
+            </div>
+        </div>
+        
+        <!-- Signup Form -->
+        <div class="form-card">
+            <form id="signup-form">
+                <h2 class="form-title">Get Free Beta Access</h2>
+                <p class="form-subtitle">Join the waitlist. First 50 get in free.</p>
+                
+                <div class="form-group">
+                    <label class="form-label" for="email">Email</label>
+                    <input type="email" id="email" name="email" class="form-input" placeholder="you@company.com" required>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label" for="use_case">What are you building?</label>
+                    <select id="use_case" name="use_case" class="form-input form-select" required>
+                        <option value="" disabled selected>Select one</option>
+                        <option value="agency">Agency / Client work</option>
+                        <option value="saas">SaaS product</option>
+                        <option value="nocode">No-code automation (Make, Bubble, n8n)</option>
+                        <option value="internal">Internal tools</option>
+                        <option value="other">Something else</option>
+                    </select>
+                </div>
+                
+                <button type="submit" class="submit-btn">Join the Waitlist →</button>
+                
+                <p class="form-note">No spam. No credit card. Just early access.</p>
+            </form>
+            
+            <!-- Success State -->
+            <div id="success" class="success-state">
+                <div class="success-icon">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                    </svg>
+                </div>
+                <h3 class="success-title">You're on the list!</h3>
+                <p class="success-text">Check your inbox for next steps.</p>
+            </div>
+        </div>
+        
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-logo">ResultantAI</div>
+            <p class="footer-links">
+                Questions? <a href="mailto:chris@resultantai.com">chris@resultantai.com</a>
+            </p>
+        </footer>
+    </div>
+    
+    <script>
+        // Get UTM params from URL
+        function getUTMParams() {
+            const params = new URLSearchParams(window.location.search);
+            return {
+                utm_source: params.get('utm_source') || 'direct',
+                utm_medium: params.get('utm_medium') || '',
+                utm_campaign: params.get('utm_campaign') || '',
+                utm_content: params.get('utm_content') || '',
+                utm_term: params.get('utm_term') || ''
+            };
+        }
+        
+        // Form submission
+        document.getElementById('signup-form').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const btn = this.querySelector('.submit-btn');
+            btn.classList.add('loading');
+            btn.textContent = 'Joining...';
+            
+            const email = document.getElementById('email').value;
+            const useCase = document.getElementById('use_case').value;
+            const utmParams = getUTMParams();
+            
+            const payload = {
+                email: email,
+                use_case: useCase,
+                source: 'reddit-landing',
+                ...utmParams,
+                timestamp: new Date().toISOString(),
+                page_url: window.location.href,
+                referrer: document.referrer
+            };
+            
+            try {
+                // Send to Make.com webhook
+                await fetch('https://hook.us2.make.com/n8deqd9mfxcqxeoe19j0etwfxnuq12pa', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                
+                // Show success
+                document.getElementById('signup-form').classList.add('hidden');
+                document.getElementById('success').classList.add('visible');
+                
+            } catch (err) {
+                console.error('Submission error:', err);
+                btn.classList.remove('loading');
+                btn.textContent = 'Try Again →';
+            }
+        });
+    </script>
+</body>
+</html>
