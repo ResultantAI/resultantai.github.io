@@ -9,7 +9,95 @@
   <!-- Google Search Console Verification -->
   <meta name="google-site-verification" content="EUs3oELHtHvHjcAdzN2HjjzWzEP_6KWVZFzaIoLdp70">
 
-    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="product">
+    <meta property="og:url" content="https://www.resultantai.com/gateway/">
+    <meta property="og:title" content="AI Gateway Founding Partner: 58% Off | Lock in $499/year">
+    <meta property="og:description" content="One API for OpenAI, Claude, Gemini. Flat-rate pricing. Track costs per client. 25 Founding Partner spots left. Deadline: Dec 24.">
+    <meta property="og:image" content="https://www.resultantai.com/images/og-gateway.jpg">
+    <meta property="og:site_name" content="ResultantAI">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@resultswithai">
+    <meta name="twitter:url" content="https://www.resultantai.com/gateway/">
+    <meta name="twitter:title" content="AI Gateway Founding Partner: 58% Off">
+    <meta name="twitter:description" content="One API for OpenAI, Claude, Gemini. Flat-rate pricing. 25 spots left, $499/year. Deadline: Dec 24.">
+    <meta name="twitter:image" content="https://www.resultantai.com/images/twitter-gateway.jpg">
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://www.resultantai.com/gateway/">
+
+    <!-- Offer Schema (Founding Partner Deal) -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Offer",
+        "name": "AI Gateway Founding Partner",
+        "description": "One API for OpenAI, Claude, and Gemini with flat-rate pricing. Limited Founding Partner offer: 58% off lifetime pricing.",
+        "url": "https://www.resultantai.com/gateway/",
+        "price": "499",
+        "priceCurrency": "USD",
+        "priceValidUntil": "2025-12-24",
+        "availability": "https://schema.org/LimitedAvailability",
+        "availabilityStarts": "2025-12-01",
+        "availabilityEnds": "2025-12-24",
+        "validFrom": "2025-12-01",
+        "seller": {
+            "@type": "Organization",
+            "name": "ResultantAI"
+        },
+        "itemOffered": {
+            "@type": "SoftwareApplication",
+            "name": "AI Gateway",
+            "applicationCategory": "DeveloperApplication",
+            "description": "Unified API gateway for OpenAI, Claude, Gemini with cost tracking and smart routing"
+        }
+    }
+    </script>
+
+    <!-- FAQ Schema -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            {
+                "@type": "Question",
+                "name": "What AI providers do you support?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "OpenAI (GPT-4, GPT-4o, GPT-4o-mini), Anthropic (Claude Sonnet, Opus, Haiku), Google (Gemini Pro, Flash), Groq, Together AI, and more. One API key for all."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "How does smart routing work?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "We automatically route requests to the most cost-effective provider based on your requirements. If a provider is down or rate-limited, we instantly failover to an alternative. You save money and never see downtime."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "What happens if I exceed my token limit?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Your requests automatically stop to prevent surprise bills. You'll get alerts at 80% and 90% usage. You can upgrade anytime or purchase additional tokens at overage rates."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Can I switch plans anytime?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Yes. Upgrade anytime and pay the prorated difference. Downgrade at your next billing cycle. Cancel in 2 clicks with no penalties."
+                }
+            }
+        ]
+    }
+    </script>
+
     <!-- Preload critical fonts -->
     <!-- Reddit Pixel - Replace YOUR_PIXEL_ID with actual ID from Reddit Ads -->
     <script>
@@ -390,6 +478,58 @@
             pointer-events: none;
             opacity: 0.7;
         }
+
+        /* Urgency Badge */
+        .urgency-bar {
+            background: linear-gradient(90deg, var(--danger) 0%, #c53030 100%);
+            color: white;
+            text-align: center;
+            padding: 12px 20px;
+            font-size: 14px;
+            font-weight: 600;
+            letter-spacing: 0.02em;
+        }
+
+        .urgency-bar strong {
+            font-weight: 700;
+        }
+
+        /* Social Proof */
+        .social-proof {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 32px;
+        }
+
+        .social-proof-header {
+            font-size: 13px;
+            color: var(--text);
+            margin-bottom: 12px;
+            text-align: center;
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            text-align: center;
+        }
+
+        .metric-value {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--accent);
+            display: block;
+        }
+
+        .metric-label {
+            font-size: 12px;
+            color: var(--text);
+            margin-top: 4px;
+        }
     </style>
   <!-- Google Analytics 4 (Direct) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-DY95GS9YX5"></script>
@@ -420,16 +560,39 @@
   height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <!-- End Google Tag Manager (noscript) -->
 
+    <!-- Urgency Bar -->
+    <div class="urgency-bar">
+        🔥 <strong>Founding Partner Offer:</strong> Only 25 spots left at $499/year (58% off) — Deadline: Dec 24
+    </div>
 
     <div class="container">
         <!-- Badge -->
-        <div class="badge">Free Beta Access — Limited Spots</div>
+        <div class="badge">Founding Partner — 58% Off</div>
         
         <!-- Headline -->
         <h1>Your AI bill shouldn't be a <span class="highlight">mystery</span></h1>
         
         <p class="subhead">One API key. All providers. Flat monthly pricing. Built for agencies and builders tired of unpredictable AI costs.</p>
-        
+
+        <!-- Social Proof -->
+        <div class="social-proof">
+            <div class="social-proof-header">Trusted by agencies saving thousands</div>
+            <div class="metrics-grid">
+                <div>
+                    <span class="metric-value">$382K</span>
+                    <div class="metric-label">Pipeline Generated</div>
+                </div>
+                <div>
+                    <span class="metric-value">10X</span>
+                    <div class="metric-label">ROI for Clients</div>
+                </div>
+                <div>
+                    <span class="metric-value">97%</span>
+                    <div class="metric-label">Time Saved</div>
+                </div>
+            </div>
+        </div>
+
         <!-- Pain Points -->
         <div class="pain-list">
             <div class="pain-item">
@@ -465,7 +628,7 @@
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/>
                     </svg>
                 </div>
-                <span class="benefit-text"><strong>$99/mo flat</strong> — Know costs before you ship</span>
+                <span class="benefit-text"><strong>$499/year flat</strong> — Lock in lifetime pricing (58% off)</span>
             </div>
             <div class="benefit">
                 <div class="benefit-check">
@@ -488,8 +651,8 @@
         <!-- Signup Form -->
         <div class="form-card">
             <form id="signup-form">
-                <h2 class="form-title">Get Free Beta Access</h2>
-                <p class="form-subtitle">Join the waitlist. First 50 get in free.</p>
+                <h2 class="form-title">Claim Your Founding Partner Spot</h2>
+                <p class="form-subtitle">$499/year (normally $1,188) — Only 25 spots at this price</p>
                 
                 <div class="form-group">
                     <label class="form-label" for="email">Email</label>
@@ -508,9 +671,9 @@
                     </select>
                 </div>
                 
-                <button type="submit" class="submit-btn">Join the Waitlist →</button>
-                
-                <p class="form-note">No spam. No credit card. Just early access.</p>
+                <button type="submit" class="submit-btn">Lock in Founding Partner Price →</button>
+
+                <p class="form-note">Secure your spot. Payment details sent after approval.</p>
             </form>
             
             <!-- Success State -->
