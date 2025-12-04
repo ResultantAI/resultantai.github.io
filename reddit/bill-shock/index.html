@@ -1,0 +1,1172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stop the $300 Surprise Bills — ResultantAI Gateway</title>
+  <meta name="description" content="Gateway's smart routing saves you 65% instantly by routing to the cheapest AI models that match your quality needs.">
+  
+  <!-- Open Graph -->
+  <meta property="og:title" content="Stop the $300 Surprise Bills — ResultantAI Gateway">
+  <meta property="og:description" content="See exactly how much you'll save with our Cost Predictor. Smart routing to cheaper models without sacrificing quality.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://resultantai.com/reddit/bill-shock">
+  
+  <!-- Reddit Pixel -->
+  <script>
+    !function(w,d){if(!w.rdt){var p=w.rdt=function(){p.sendEvent?p.sendEvent.apply(p,arguments):p.callQueue.push(arguments)};p.callQueue=[];var t=d.createElement("script");t.src="https://www.redditstatic.com/ads/pixel.js",t.async=!0;var s=d.getElementsByTagName("script")[0];s.parentNode.insertBefore(t,s)}}(window,document);rdt('init','a2_htj8d1flphh9');rdt('track', 'PageVisit');
+  </script>
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  
+  <style>
+    /* ============================================
+       CSS VARIABLES
+       ============================================ */
+    :root {
+      --bg-primary: #0a0f1a;
+      --bg-secondary: #0f172a;
+      --bg-card: #151d2e;
+      --bg-card-hover: #1a2540;
+      --border: #1e293b;
+      --border-light: #334155;
+      --border-glow: rgba(16, 185, 129, 0.3);
+      
+      --text-primary: #ffffff;
+      --text-secondary: #94a3b8;
+      --text-muted: #64748b;
+      
+      --accent: #10b981;
+      --accent-light: #34d399;
+      --accent-dark: #059669;
+      --accent-subtle: rgba(16, 185, 129, 0.08);
+      --accent-glow: rgba(16, 185, 129, 0.4);
+      
+      --danger: #ef4444;
+      --danger-light: #f87171;
+      --danger-subtle: rgba(239, 68, 68, 0.08);
+      
+      --gradient-accent: linear-gradient(135deg, #10b981 0%, #34d399 100%);
+      --gradient-hero: radial-gradient(ellipse 80% 50% at 50% -20%, rgba(16, 185, 129, 0.15), transparent);
+      
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 16px;
+      --radius-xl: 24px;
+      --radius-full: 9999px;
+      
+      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+      
+      --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
+      --shadow-md: 0 4px 20px rgba(0, 0, 0, 0.4);
+      --shadow-lg: 0 8px 40px rgba(0, 0, 0, 0.5);
+      --shadow-glow: 0 0 60px var(--accent-glow);
+      
+      --transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* ============================================
+       RESET & BASE
+       ============================================ */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    body {
+      font-family: var(--font-sans);
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      line-height: 1.6;
+      font-size: 16px;
+      overflow-x: hidden;
+      min-height: 100vh;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    ::selection {
+      background: var(--accent);
+      color: var(--bg-primary);
+    }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: var(--bg-primary); }
+    ::-webkit-scrollbar-thumb { background: var(--border-light); border-radius: var(--radius-full); }
+    ::-webkit-scrollbar-thumb:hover { background: var(--accent); }
+
+    /* ============================================
+       ANIMATED BACKGROUND
+       ============================================ */
+    .bg-grid {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-image: 
+        linear-gradient(rgba(16, 185, 129, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(16, 185, 129, 0.03) 1px, transparent 1px);
+      background-size: 60px 60px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .bg-gradient {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 100vh;
+      background: var(--gradient-hero);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .bg-orb {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(100px);
+      opacity: 0.4;
+      pointer-events: none;
+      z-index: 0;
+      animation: float 25s ease-in-out infinite;
+    }
+
+    .bg-orb--1 {
+      width: 600px;
+      height: 600px;
+      background: var(--accent);
+      top: -200px;
+      left: -200px;
+      animation-delay: 0s;
+    }
+
+    .bg-orb--2 {
+      width: 500px;
+      height: 500px;
+      background: var(--accent);
+      bottom: -150px;
+      right: -150px;
+      animation-delay: -8s;
+    }
+
+    .bg-orb--3 {
+      width: 300px;
+      height: 300px;
+      background: var(--accent);
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      animation-delay: -16s;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.3; }
+      33% { transform: translate(30px, -30px) scale(1.05); opacity: 0.4; }
+      66% { transform: translate(-20px, 20px) scale(0.95); opacity: 0.35; }
+    }
+
+    /* Animated Lines */
+    .bg-lines {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    .bg-line {
+      position: absolute;
+      width: 1px;
+      height: 100%;
+      background: linear-gradient(
+        to bottom,
+        transparent 0%,
+        rgba(16, 185, 129, 0.1) 50%,
+        transparent 100%
+      );
+      animation: line-flow 8s linear infinite;
+    }
+
+    .bg-line:nth-child(1) { left: 10%; animation-delay: 0s; }
+    .bg-line:nth-child(2) { left: 30%; animation-delay: -2s; }
+    .bg-line:nth-child(3) { left: 50%; animation-delay: -4s; }
+    .bg-line:nth-child(4) { left: 70%; animation-delay: -6s; }
+    .bg-line:nth-child(5) { left: 90%; animation-delay: -1s; }
+
+    @keyframes line-flow {
+      0% { transform: translateY(-100%); }
+      100% { transform: translateY(100%); }
+    }
+
+    /* ============================================
+       LAYOUT
+       ============================================ */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+      position: relative;
+      z-index: 10;
+    }
+
+    /* ============================================
+       HEADER
+       ============================================ */
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      background: rgba(10, 15, 26, 0.9);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(30, 41, 59, 0.5);
+    }
+
+    .header__inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 0;
+    }
+
+    .header__logo {
+      font-size: 18px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      white-space: nowrap;
+    }
+
+    .logo-accent {
+      color: var(--accent);
+    }
+
+    .header__cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 20px;
+      background: transparent;
+      border: 1px solid var(--accent);
+      color: var(--accent);
+      font-size: 14px;
+      font-weight: 600;
+      border-radius: var(--radius-md);
+      transition: all var(--transition);
+    }
+
+    .header__cta:hover {
+      background: var(--accent);
+      color: var(--bg-primary);
+    }
+
+    /* ============================================
+       HERO
+       ============================================ */
+    .hero {
+      padding: 140px 0 60px;
+      text-align: center;
+    }
+
+    .hero__badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 16px;
+      background: var(--danger-subtle);
+      border: 1px solid rgba(239, 68, 68, 0.2);
+      border-radius: var(--radius-full);
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--danger-light);
+      margin-bottom: 24px;
+    }
+
+    .hero__badge-dot {
+      width: 8px;
+      height: 8px;
+      background: var(--danger);
+      border-radius: 50%;
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(1.2); }
+    }
+
+    .hero__title {
+      font-size: clamp(40px, 6vw, 64px);
+      font-weight: 800;
+      line-height: 1.1;
+      letter-spacing: -0.04em;
+      margin-bottom: 24px;
+    }
+
+    .hero__title-gradient {
+      background: linear-gradient(135deg, var(--danger), var(--danger-light));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero__subtitle {
+      font-size: 18px;
+      color: var(--text-secondary);
+      max-width: 600px;
+      margin: 0 auto 16px;
+      line-height: 1.7;
+    }
+
+    .hero__lead {
+      font-size: 17px;
+      font-weight: 600;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .hero__lead .highlight {
+      color: var(--accent);
+    }
+
+    /* ============================================
+       CALCULATOR CARD
+       ============================================ */
+    .calculator {
+      max-width: 720px;
+      margin: 0 auto 80px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xl);
+      padding: 40px;
+      box-shadow: var(--shadow-glow);
+      transition: all var(--transition);
+    }
+
+    .calculator:hover {
+      border-color: var(--border-glow);
+    }
+
+    .calculator__header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding-bottom: 24px;
+      margin-bottom: 32px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .calculator__icon {
+      width: 56px;
+      height: 56px;
+      background: var(--gradient-accent);
+      border-radius: var(--radius-lg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .calculator__title {
+      font-size: 24px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    .calculator__desc {
+      color: var(--text-secondary);
+      font-size: 15px;
+      margin-top: 4px;
+    }
+
+    /* Slider */
+    .slider-group {
+      margin-bottom: 32px;
+    }
+
+    .slider-label {
+      display: block;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 16px;
+    }
+
+    .slider-value {
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+
+    .slider-value__amount {
+      font-size: 48px;
+      font-weight: 700;
+      font-family: var(--font-mono);
+      letter-spacing: -0.02em;
+    }
+
+    .slider-value__unit {
+      font-size: 18px;
+      color: var(--text-muted);
+    }
+
+    input[type="range"] {
+      width: 100%;
+      height: 8px;
+      border-radius: 4px;
+      background: var(--border);
+      outline: none;
+      -webkit-appearance: none;
+      appearance: none;
+      cursor: pointer;
+    }
+
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: var(--accent);
+      cursor: pointer;
+      border: 3px solid var(--bg-card);
+      box-shadow: 0 2px 8px rgba(16, 185, 129, 0.4);
+      transition: all var(--transition);
+    }
+
+    input[type="range"]::-webkit-slider-thumb:hover {
+      transform: scale(1.1);
+      box-shadow: 0 4px 16px rgba(16, 185, 129, 0.5);
+    }
+
+    input[type="range"]::-moz-range-thumb {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: var(--accent);
+      cursor: pointer;
+      border: 3px solid var(--bg-card);
+      box-shadow: 0 2px 8px rgba(16, 185, 129, 0.4);
+    }
+
+    .slider-labels {
+      display: flex;
+      justify-content: space-between;
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-top: 12px;
+      font-family: var(--font-mono);
+    }
+
+    /* Results Grid */
+    .results {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+      margin-bottom: 32px;
+    }
+
+    @media (max-width: 640px) {
+      .results {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .result-box {
+      padding: 20px;
+      border-radius: var(--radius-lg);
+      transition: all var(--transition);
+    }
+
+    .result-box--danger {
+      background: var(--danger-subtle);
+      border: 1px solid rgba(239, 68, 68, 0.2);
+    }
+
+    .result-box--success {
+      background: var(--accent-subtle);
+      border: 1px solid rgba(16, 185, 129, 0.2);
+    }
+
+    .result-box--highlight {
+      background: var(--gradient-accent);
+    }
+
+    .result-label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 12px;
+    }
+
+    .result-box--danger .result-label { color: var(--danger-light); }
+    .result-box--success .result-label { color: var(--accent-light); }
+    .result-box--highlight .result-label { color: var(--bg-primary); opacity: 0.9; }
+
+    .result-value {
+      font-size: 28px;
+      font-weight: 700;
+      font-family: var(--font-mono);
+      letter-spacing: -0.02em;
+    }
+
+    .result-box--danger .result-value { color: var(--danger); }
+    .result-box--success .result-value { color: var(--accent); }
+    .result-box--highlight .result-value { color: var(--bg-primary); }
+
+    .result-sub {
+      font-size: 12px;
+      margin-top: 6px;
+      opacity: 0.8;
+    }
+
+    .result-box--highlight .result-sub { color: var(--bg-primary); }
+
+    /* Annual Savings */
+    .annual {
+      background: var(--accent-subtle);
+      border: 1px solid rgba(16, 185, 129, 0.15);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 24px;
+      margin-bottom: 32px;
+    }
+
+    .annual__label {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 8px;
+    }
+
+    .annual__value {
+      font-size: 40px;
+      font-weight: 700;
+      font-family: var(--font-mono);
+      color: var(--accent);
+      letter-spacing: -0.02em;
+    }
+
+    .annual__pricing {
+      text-align: right;
+    }
+
+    .annual__price {
+      font-size: 28px;
+      font-weight: 700;
+    }
+
+    .annual__price span {
+      font-size: 16px;
+      color: var(--text-secondary);
+    }
+
+    .annual__lock {
+      font-size: 12px;
+      color: var(--accent);
+      margin-top: 4px;
+    }
+
+    /* Form */
+    .form {
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+    }
+
+    .form__label {
+      display: block;
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 16px;
+    }
+
+    .form__row {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    @media (max-width: 540px) {
+      .form__row {
+        flex-direction: column;
+      }
+    }
+
+    .form__input {
+      flex: 1;
+      padding: 16px 20px;
+      background: var(--bg-primary);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      color: var(--text-primary);
+      font-size: 16px;
+      font-family: var(--font-sans);
+      transition: all var(--transition);
+    }
+
+    .form__input:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+    }
+
+    .form__input::placeholder {
+      color: var(--text-muted);
+    }
+
+    .form__button {
+      padding: 16px 32px;
+      background: var(--gradient-accent);
+      color: var(--bg-primary);
+      font-size: 16px;
+      font-weight: 700;
+      font-family: var(--font-sans);
+      border: none;
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all var(--transition);
+      white-space: nowrap;
+    }
+
+    .form__button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(16, 185, 129, 0.35);
+    }
+
+    .form__button:active {
+      transform: translateY(0);
+    }
+
+    .form__button:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .form__note {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    /* ============================================
+       VALUE PROPS
+       ============================================ */
+    .value-props {
+      max-width: 900px;
+      margin: 0 auto 80px;
+    }
+
+    .value-props__title {
+      text-align: center;
+      font-size: 28px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 40px;
+    }
+
+    .props-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+
+    @media (max-width: 700px) {
+      .props-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .prop {
+      display: flex;
+      gap: 16px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      transition: all var(--transition);
+    }
+
+    .prop:hover {
+      border-color: var(--border-glow);
+      transform: translateY(-2px);
+    }
+
+    .prop__icon {
+      flex-shrink: 0;
+      width: 40px;
+      height: 40px;
+      background: var(--accent-subtle);
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .prop__title {
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+
+    .prop__desc {
+      font-size: 14px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    /* ============================================
+       FOOTER
+       ============================================ */
+    .footer {
+      padding: 40px 0;
+      border-top: 1px solid var(--border);
+      text-align: center;
+    }
+
+    .footer__logo {
+      font-size: 16px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin-bottom: 12px;
+    }
+
+    .footer__links {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 24px;
+      font-size: 14px;
+      color: var(--text-secondary);
+    }
+
+    .footer__links a:hover {
+      color: var(--accent);
+    }
+
+    /* ============================================
+       SUCCESS STATE
+       ============================================ */
+    .success-screen {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+
+    .success-card {
+      max-width: 560px;
+      width: 100%;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xl);
+      padding: 48px;
+      text-align: center;
+      box-shadow: var(--shadow-glow);
+    }
+
+    .success-icon {
+      width: 72px;
+      height: 72px;
+      background: var(--accent-subtle);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 24px;
+    }
+
+    .success-title {
+      font-size: 28px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 12px;
+    }
+
+    .success-subtitle {
+      font-size: 16px;
+      color: var(--text-secondary);
+      margin-bottom: 24px;
+      line-height: 1.6;
+    }
+
+    .success-box {
+      background: var(--accent-subtle);
+      border: 1px solid rgba(16, 185, 129, 0.2);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+    }
+
+    .success-box p {
+      color: var(--text-secondary);
+      font-size: 14px;
+    }
+
+    .success-box strong {
+      color: var(--accent);
+    }
+
+    /* ============================================
+       ANIMATIONS
+       ============================================ */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body>
+  <!-- Background Effects -->
+  <div class="bg-grid"></div>
+  <div class="bg-gradient"></div>
+  <div class="bg-orb bg-orb--1"></div>
+  <div class="bg-orb bg-orb--2"></div>
+  <div class="bg-orb bg-orb--3"></div>
+  <div class="bg-lines">
+    <div class="bg-line"></div>
+    <div class="bg-line"></div>
+    <div class="bg-line"></div>
+    <div class="bg-line"></div>
+    <div class="bg-line"></div>
+  </div>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="container">
+      <div class="header__inner">
+        <a href="https://resultantai.com" class="header__logo">Resultant<span class="logo-accent">AI</span></a>
+        <a href="https://meetings.hubspot.com/chris4642/ai-gateway-founding-partner" target="_blank" class="header__cta">
+          Book a Demo
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M5 12h14M12 5l7 7-7 7"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <div id="app"></div>
+
+  <script>
+    const API_URL = 'https://ai-gateway-dashboard-7jppgh9p3-chris-projects-16eb8f38.vercel.app/api/v1/reddit-signup';
+
+    let state = {
+      currentSpend: 500,
+      email: '',
+      isSubmitting: false,
+      isSubmitted: false
+    };
+
+    function calculateSavings(spend) {
+      const savingsRate = 0.65;
+      const gatewaySpend = spend * (1 - savingsRate);
+      const monthlySavings = spend - gatewaySpend;
+      const annualSavings = monthlySavings * 12;
+      return {
+        gatewaySpend,
+        monthlySavings,
+        annualSavings,
+        savingsPercent: Math.round(savingsRate * 100)
+      };
+    }
+
+    async function handleSubmit(e) {
+      e.preventDefault();
+      if (state.isSubmitting || !state.email) return;
+
+      state.isSubmitting = true;
+      render();
+
+      try {
+        // Track Reddit conversion
+        if (typeof rdt !== 'undefined') {
+          rdt('track', 'SignUp');
+        }
+
+        const response = await fetch(API_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            email: state.email,
+            source: 'reddit-bill-shock',
+            calculatedSpend: state.currentSpend,
+            potentialSavings: calculateSavings(state.currentSpend).annualSavings
+          })
+        });
+
+        if (!response.ok) throw new Error('Signup failed');
+        
+        state.isSubmitted = true;
+      } catch (error) {
+        console.error('Signup error:', error);
+        alert('Something went wrong. Please try again.');
+      } finally {
+        state.isSubmitting = false;
+        render();
+      }
+    }
+
+    function render() {
+      const app = document.getElementById('app');
+      const calc = calculateSavings(state.currentSpend);
+
+      if (state.isSubmitted) {
+        app.innerHTML = `
+          <div class="success-screen">
+            <div class="success-card">
+              <div class="success-icon">
+                <svg width="32" height="32" fill="none" stroke="#10b981" stroke-width="2" stroke-linecap="round">
+                  <path d="M20 6L9 17l-5-5"/>
+                </svg>
+              </div>
+              <h2 class="success-title">You're on the list!</h2>
+              <p class="success-subtitle">Check your inbox for next steps. We're excited to help you save <strong style="color: #10b981;">$${calc.annualSavings.toLocaleString()}/year</strong> on AI costs.</p>
+              <div class="success-box">
+                <p><strong>What happens next:</strong></p>
+                <p style="margin-top: 8px;">1. You'll get an email with your dashboard access</p>
+                <p>2. Add your API keys (takes 2 minutes)</p>
+                <p>3. Start saving on your very first request</p>
+              </div>
+            </div>
+          </div>
+        `;
+        return;
+      }
+
+      app.innerHTML = `
+        <main>
+          <section class="hero">
+            <div class="container">
+              <div class="hero__badge">
+                <span class="hero__badge-dot"></span>
+                Sound familiar?
+              </div>
+              <h1 class="hero__title">
+                Stop the <span class="hero__title-gradient">$300 Surprise Bills</span>
+              </h1>
+              <p class="hero__subtitle">
+                You budgeted $200. OpenAI charged $487. Again.
+              </p>
+              <p class="hero__lead">
+                Gateway's smart routing saves you <span class="highlight">65% instantly</span> by routing to the cheapest AI models that match your quality needs.
+              </p>
+            </div>
+          </section>
+
+          <section class="container">
+            <div class="calculator reveal">
+              <div class="calculator__header">
+                <div class="calculator__icon">
+                  <svg width="28" height="28" fill="none" stroke="#0a0f1a" stroke-width="2" stroke-linecap="round">
+                    <path d="M12 2v20M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/>
+                  </svg>
+                </div>
+                <div>
+                  <h2 class="calculator__title">Cost Predictor</h2>
+                  <p class="calculator__desc">See your exact savings in 30 seconds</p>
+                </div>
+              </div>
+
+              <div class="slider-group">
+                <label class="slider-label">Your current monthly AI spend</label>
+                <div class="slider-value">
+                  <span class="slider-value__amount" id="spend-value">$${state.currentSpend}</span>
+                  <span class="slider-value__unit">/month</span>
+                </div>
+                <input type="range" min="100" max="5000" step="50" value="${state.currentSpend}" id="spend-slider">
+                <div class="slider-labels">
+                  <span>$100</span>
+                  <span>$5,000</span>
+                </div>
+              </div>
+
+              <div class="results">
+                <div class="result-box result-box--danger">
+                  <div class="result-label">
+                    <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2">
+                      <circle cx="7" cy="7" r="6"/>
+                      <path d="M7 4v3M7 10h.01"/>
+                    </svg>
+                    Direct APIs
+                  </div>
+                  <div class="result-value">$${state.currentSpend}</div>
+                  <div class="result-sub">per month</div>
+                </div>
+                <div class="result-box result-box--success">
+                  <div class="result-label">
+                    <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M12 2L5 13l-3-3"/>
+                    </svg>
+                    With Gateway
+                  </div>
+                  <div class="result-value">$${Math.round(calc.gatewaySpend)}</div>
+                  <div class="result-sub">per month</div>
+                </div>
+                <div class="result-box result-box--highlight">
+                  <div class="result-label">
+                    <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2">
+                      <polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/>
+                    </svg>
+                    You Save
+                  </div>
+                  <div class="result-value">$${Math.round(calc.monthlySavings)}</div>
+                  <div class="result-sub">${calc.savingsPercent}% savings</div>
+                </div>
+              </div>
+
+              <div class="annual">
+                <div>
+                  <div class="annual__label">Annual Savings</div>
+                  <div class="annual__value">$${calc.annualSavings.toLocaleString()}/yr</div>
+                </div>
+                <div class="annual__pricing">
+                  <div class="annual__label">Founding Partner Price</div>
+                  <div class="annual__price">$499<span>/year</span></div>
+                  <div class="annual__lock">✓ Locked forever</div>
+                </div>
+              </div>
+
+              <form class="form" onsubmit="handleSubmit(event)">
+                <label class="form__label">Lock in Founding Partner pricing:</label>
+                <div class="form__row">
+                  <input type="email" class="form__input" placeholder="you@company.com" required value="${state.email}" oninput="state.email = this.value">
+                  <button type="submit" class="form__button" ${state.isSubmitting ? 'disabled' : ''}>
+                    ${state.isSubmitting ? 'Saving...' : 'Get Instant Access'}
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M5 12h14M12 5l7 7-7 7"/>
+                    </svg>
+                  </button>
+                </div>
+                <p class="form__note">Free 14-day trial • No credit card required • Cancel anytime</p>
+              </form>
+            </div>
+
+            <div class="value-props reveal">
+              <h3 class="value-props__title">What you get with Gateway</h3>
+              <div class="props-grid">
+                <div class="prop">
+                  <div class="prop__icon">
+                    <svg width="20" height="20" fill="none" stroke="#10b981" stroke-width="2">
+                      <path d="M13 2H6a2 2 0 00-2 2v16l7-4 7 4V4a2 2 0 00-2-2z"/>
+                    </svg>
+                  </div>
+                  <div>
+                    <div class="prop__title">Smart routing to cheaper models</div>
+                    <div class="prop__desc">Automatically routes 70% of requests to GPT-4o-mini/Claude Haiku while maintaining quality.</div>
+                  </div>
+                </div>
+                <div class="prop">
+                  <div class="prop__icon">
+                    <svg width="20" height="20" fill="none" stroke="#10b981" stroke-width="2">
+                      <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                  </div>
+                  <div>
+                    <div class="prop__title">Automatic failover</div>
+                    <div class="prop__desc">Never see rate limits again. Instantly switches between OpenAI, Anthropic, and more.</div>
+                  </div>
+                </div>
+                <div class="prop">
+                  <div class="prop__icon">
+                    <svg width="20" height="20" fill="none" stroke="#10b981" stroke-width="2">
+                      <path d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+                    </svg>
+                  </div>
+                  <div>
+                    <div class="prop__title">Real-time cost tracking</div>
+                    <div class="prop__desc">Know exactly what you're spending before the bill arrives. Set budget alerts.</div>
+                  </div>
+                </div>
+                <div class="prop">
+                  <div class="prop__icon">
+                    <svg width="20" height="20" fill="none" stroke="#10b981" stroke-width="2">
+                      <path d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                    </svg>
+                  </div>
+                  <div>
+                    <div class="prop__title">5-minute setup</div>
+                    <div class="prop__desc">Drop-in replacement for your existing code. Just change the base URL.</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <footer class="footer">
+            <div class="container">
+              <div class="footer__logo">Resultant<span class="logo-accent">AI</span></div>
+              <div class="footer__links">
+                <a href="https://resultantai.com">Home</a>
+                <a href="https://ai-gateway-prod.fly.dev/health" target="_blank">API Status</a>
+                <a href="mailto:gateway@resultantai.com">Support</a>
+              </div>
+            </div>
+          </footer>
+        </main>
+      `;
+
+      // Reattach slider listener
+      const slider = document.getElementById('spend-slider');
+      if (slider) {
+        slider.addEventListener('input', (e) => {
+          state.currentSpend = parseInt(e.target.value);
+          render();
+        });
+      }
+
+      // Trigger reveal animations
+      setTimeout(() => {
+        document.querySelectorAll('.reveal').forEach(el => {
+          el.classList.add('visible');
+        });
+      }, 100);
+    }
+
+    // Initial render
+    render();
+  </script>
+</body>
+</html>
