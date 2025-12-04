@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ResultantAI Demos | Live AI System Demos</title>
+    <meta name="description" content="Interactive demos of AI automation systems: voice agents, lead qualification, ROI calculators, and revenue systems. See what's possible before you build.">
+    
+    <!-- AISEO: Structured data for AI discovery -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "CollectionPage",
+        "name": "ResultantAI Demo Gallery",
+        "description": "Live interactive demos of AI automation systems for agencies and B2B service businesses",
+        "provider": {
+            "@type": "Organization",
+            "name": "ResultantAI",
+            "url": "https://resultantai.com"
+        },
+        "about": [
+            "AI Voice Agents",
+            "Lead Qualification Systems", 
+            "ROI Calculators",
+            "Marketing Automation"
+        ]
+    }
+    </script>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --emerald: #10b981;
+            --emerald-dark: #059669;
+            --slate-900: #0f172a;
+            --slate-800: #1e293b;
+            --slate-700: #334155;
+            --slate-400: #94a3b8;
+            --slate-300: #cbd5e1;
+            --white: #ffffff;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--slate-900);
+            color: var(--white);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        header {
+            text-align: center;
+            padding: 3rem 0;
+            border-bottom: 1px solid var(--slate-700);
+            margin-bottom: 3rem;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--emerald);
+            text-decoration: none;
+            display: inline-block;
+            margin-bottom: 1rem;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .subtitle {
+            color: var(--slate-400);
+            font-size: 1.1rem;
+        }
+
+        .category {
+            margin-bottom: 3rem;
+        }
+
+        .category-header {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid var(--slate-700);
+        }
+
+        .category-icon {
+            font-size: 1.5rem;
+        }
+
+        .category-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--emerald);
+        }
+
+        .demo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .demo-card {
+            background: var(--slate-800);
+            border: 1px solid var(--slate-700);
+            border-radius: 12px;
+            padding: 1.5rem;
+            transition: all 0.2s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .demo-card:hover {
+            border-color: var(--emerald);
+            transform: translateY(-2px);
+        }
+
+        .demo-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .demo-description {
+            color: var(--slate-400);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            flex-grow: 1;
+        }
+
+        .demo-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .tag {
+            background: var(--slate-700);
+            color: var(--slate-300);
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .tag-gateway {
+            background: rgba(16, 185, 129, 0.2);
+            color: var(--emerald);
+        }
+
+        .tag-voice {
+            background: rgba(59, 130, 246, 0.2);
+            color: #60a5fa;
+        }
+
+        .tag-case-study {
+            background: rgba(251, 146, 60, 0.2);
+            color: #fb923c;
+        }
+
+        .demo-links {
+            display: flex;
+            gap: 0.75rem;
+        }
+
+        .btn {
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            text-align: center;
+        }
+
+        .btn-primary {
+            background: var(--emerald);
+            color: var(--white);
+            flex: 1;
+        }
+
+        .btn-primary:hover {
+            background: var(--emerald-dark);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--slate-300);
+            border: 1px solid var(--slate-700);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--slate-400);
+            color: var(--white);
+        }
+
+        footer {
+            text-align: center;
+            padding: 3rem 0;
+            border-top: 1px solid var(--slate-700);
+            margin-top: 3rem;
+            color: var(--slate-400);
+        }
+
+        footer a {
+            color: var(--emerald);
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Filter buttons */
+        .filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            justify-content: center;
+            margin-bottom: 2rem;
+        }
+
+        .filter-btn {
+            background: var(--slate-800);
+            border: 1px solid var(--slate-700);
+            color: var(--slate-300);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.875rem;
+            transition: all 0.2s ease;
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            background: var(--emerald);
+            border-color: var(--emerald);
+            color: var(--white);
+        }
+
+        @media (max-width: 640px) {
+            .container {
+                padding: 1rem;
+            }
+
+            h1 {
+                font-size: 1.75rem;
+            }
+
+            .demo-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <a href="https://resultantai.com" class="logo">ResultantAI</a>
+            <h1>Demo Gallery</h1>
+            <p class="subtitle">Interactive demos of AI systems that drive revenue. Click to explore.</p>
+        </header>
+
+        <div class="filters">
+            <button class="filter-btn active" data-filter="all">All Demos</button>
+            <button class="filter-btn" data-filter="gateway">Gateway</button>
+            <button class="filter-btn" data-filter="voice">Voice AI</button>
+            <button class="filter-btn" data-filter="case-study">Case Studies</button>
+            <button class="filter-btn" data-filter="lead">Lead Systems</button>
+            <button class="filter-btn" data-filter="industry">Industry</button>
+        </div>
+
+        <!-- Voice AI Demos -->
+        <section class="category" data-category="voice">
+            <div class="category-header">
+                <span class="category-icon">🎙️</span>
+                <h2 class="category-title">Voice AI Systems</h2>
+            </div>
+            <div class="demo-grid">
+                <article class="demo-card">
+                    <h3 class="demo-title">MCA Voice Agent</h3>
+                    <p class="demo-description">AI voice agent handling merchant cash advance qualification calls in real-time. 24/7 lead qualification at scale.</p>
+                    <div class="demo-tags">
+                        <span class="tag tag-voice">Voice AI</span>
+                        <span class="tag">Financial</span>
+                    </div>
+                    <div class="demo-links">
+                        <a href="https://resultantai.github.io/mca-voice-agent-demo/" class="btn btn-primary" target="_blank">Live Demo</a>
+                        <a href="https://github.com/resultantai/mca-voice-agent-demo" class="btn btn-secondary" target="_blank">Source</a>
+                    </div>
+                </article>
+
+                <article class="demo-card">
+                    <h3 class="demo-title">Voice Performance Monitor</h3>
+                    <p class="demo-description">Real-time dashboard tracking voice agent KPIs: call duration, conversion rates, sentiment analysis.</p>
+                    <div class="demo-tags">
+                        <span class="tag tag-voice">Voice AI</span>
+                        <span class="tag">Analytics</span>
+                    </div>
+                    <div class="demo-links">
+                        <a href="https://resultantai.github.io/voice-performance-monitor/" class="btn btn-primary" target="_blank">Live Demo</a>
+                        <a href="https://github.com/resultantai/voice-performance-monitor" class="btn btn-secondary" target="_blank">Source</a>
+                    </div>
+                </article>
+
+                <article class="demo-card">
+                    <h3 class="demo-title">Voice Agent Dashboard</h3>
+                    <p class="demo-description">Command center for managing multiple voice agents across campaigns. Real-time status and routing.</p>
+                    <div class="demo-tags">
+                        <span class="tag tag-voice">Voice AI</span>
+                        <span class="tag">Dashboard</span>
+                    </div>
+                    <div class="demo-links">
+                        <a href="https://resultantai.github.io/voice-agent-dashboard/" class="btn btn-primary" target="_blank">Live Demo</a>
+                        <a href="https://github.com/resultantai/voice-agent-dashboard" class="btn btn-secondary" target="_blank">Source</a>
+                    </div>
+                </article>
+
+                <article class="demo-card">
+                    <h3 class="demo-title">AI Twin Demo</h3>
+                    <p class="demo-description">Clone your voice and personality into an AI agent that sounds like you. Consistent brand experience 24/7.</p>
+                    <div class="demo-tags">
+                        <span class="tag tag-voice">Voice AI</span>
+                        <span class="tag">Personalization</span>
+                    </div>
+                    <div class="demo-links">
+                        <a href="https://resultantai.github.io/ai-twin-demo/" class="btn btn-primary" target="_blank">Live Demo</a>
+                        <a href="https://github.com/resultantai/ai-twin-demo" class="btn btn-secondary" target="_blank">Source</a>
+                    </div>
+                </article>
+
+                <article class="demo-card">
+                    <h3 class="demo-title">Pipecat Demo</h3>
+                    <p class="demo-description">Open-source voice pipeline integration. Low-latency voice AI with customizable workflows.</p>
+                    <div class="demo-tags">
+                        <span class="tag tag-voice">Voice AI</span>
+                        <span class="tag">Open Source</span>
+                    </div>
+                    <div class="demo-links">
+                        <a href="https://resultantai.github.io/pipecat-demo/" class="btn btn-primary" target="_blank">Live Demo</a>
+                        <a href="https://github.com/resultantai/pipecat-demo" class="btn btn-secondary" target="_blank">Source</a>
+                    </div>
+                </article>
+
+                <article class="demo-card">
+                    <h3 class="demo-title">Retell Migration Validator</h3>
+                    <p class="demo-description">Tool for validating voice agent migrations between platforms. Ensure nothing breaks when you switch providers.</p>
+                    <div class="demo-tags">
+                        <span class="tag tag-voice">Voice AI</span>
+                        <span class="tag">Migration</span>
+                    </div>
+                    <div class="demo-links">
+                        <a href="https://resultantai.github.io/retell-migration-validator/" class="btn btn-primary" target="_blank">Live Demo</a>
+                        <a href="https://github.com/resultantai/retell-migration-validator" class="btn btn-secondary" target="_blank">Source</a>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <!-- Case Study Demos -->
+        <section class="category" data-category="case-study">
+            <div class="category-header">
+                <span class="category-icon">📊</span>
+                <h2 class="category-title">Case Study Demos</h2>
+            </div>
+            <div class="demo-grid">
+                <article class="demo-card">
+                    <h3 class="demo-title">Wayne Conn Plumbing</h3>
+                    <p class="demo-description">AI-powered lead capture system generating $5K+/month in previously missed revenue. Real client results.</p>
+                    <div class="demo-tags">
+                        <span class="tag tag-case-study">Case Study</span>
+                        <span class="tag">Home Services</span>
+                    </div>
+                    <div class="demo-links">
+                        <a href="https://resultantai.github.io/wayne-conn-plumbing-demo/" class="btn btn-primary" target="_blank">Live Demo</a>
+                        <a href="https://github.com/resultantai/wayne-conn-plumbing-demo" class="btn btn-secondary" target="_blank">Source</a>
+                    </div>
+                </article>
+
+                <article class="demo-card">
+                    <h3 class="demo-title">Adleg Audit Generator</h3>
+                    <p class="demo-description">Automated marketing audit system built for Adleg. 97% time savings on client analysis.</p>
+                    <div class="demo-tags">
+                        <span class="tag tag-case-study">Case Study</span>
+                        <span class="tag">Marketing</span>
+                    </div>
+                    <div class="demo-links">
+                        <a href="https://resultantai.github.io/adleg-audit-generator-demo/" class="btn btn-primary" target="_blank">Live Demo</a>
+                        <a href="https://github.com/resultantai/adleg-audit-generator-demo" class="btn btn-secondary" target="_blank">Source</a>
+                    </div>
+                </article>
+
+                <article class="demo-card">
+                    <h3 class="demo-title">MedSpa ROI Simulator</h3>
+                    <p class="demo-description">ROI calculator for medical spa automation investments. Show clients their potential returns.</p>
+                    <div class="demo-tags">
+                        <span class="tag tag-case-study">Case Study</span>
+                        <span class="tag">Healthcare</span>
+                    </div>
+                    <div class="demo-links">
+                        <a href="https://resultantai.github.io/medspa-roi-simulator/" class="btn btn-primary" target="_blank">Live Demo</a>
+                        <a href="https://github.com/resultantai/medspa-roi-simulator" class="btn btn-secondary" target="_blank">Source</a>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <!-- Lead & Sales Systems -->
+        <section class="category" data-category="lead">
+            <div class="category-header">
+                <span class="category-icon">🎯</span>
+                <h2 class="category-title">Lead & Sales Systems</h2>
+            </div>
+            <div class="demo-grid">
+                <article class="demo-card">
+                    <h3 class="demo-title">Lead Qualifier</h3>
+                    <p class="demo-description">AI-powered lead scoring and qualification. Route hot leads instantly, nurture the rest automatically.</p>
+                    <div class="demo-tags">
+                        <span class="tag tag-gateway">Lead Gen</span>
+                        <span class="tag">Automation</span>
+                    </div>
+                    <div class="demo-links">
+                        <a href="https://resultantai.github.io/lead-qualifier/" class="btn btn-primary" target="_blank">Live Demo</a>
+                        <a href="https://github.com/resultantai/lead-qualifier" class="btn btn-secondary" target="_blank">Source</a>
+                    </div>
+                </article>
+
+                <article class="demo-card">
+                    <h3 class="demo-title">Lead Flow</h3>
+                    <p class="demo-description">Visual pipeline builder for lead routing. Design qualification workflows without code.</p>
+                    <div class="demo-tags">
+                        <span class="tag tag-gateway">Lead Gen</span>
+                        <span class="tag">No-Code</span>
+                    </div>
+                    <div class="demo-links">
+                        <a href="https://resultantai.github.io/lead_flow/" class="btn btn-primary" target="_blank">Live Demo</a>
+                        <a href="https://github.com/resultantai/lead_flow" class="btn btn-secondary" target="_blank">Source</a>
+                    </div>
+                </article>
+
+                <article class="demo-card">
+                    <h3 class="demo-title">Priority Matrix</h3>
+                    <p class="demo-description">AI-driven task prioritization for sales teams. Focus on what moves revenue, not just what's urgent.</p>
+                    <div class="demo-tags">
+                        <span class="tag tag-gateway">Sales</span>
+                        <span class="tag">Productivity</span>
+                    </div>
+                    <div class="demo-links">
+                        <a href="https://resultantai.github.io/priority-matrix/" class="btn btn-primary" target="_blank">Live Demo</a>
+                        <a href="https://github.com/resultantai/priority-matrix" class="btn btn-secondary" target="_blank">Source</a>
+                    </div>
+                </article>
+
+                <article class="demo-card">
+                    <h3 class="demo-title">Executive Decision CC</h3>
+                    <p class="demo-description">AI command center for executives. Real-time insights, decision support, team coordination.</p>
+                    <div class="demo-tags">
+                        <span class="tag tag-gateway">Executive</span>
+                        <span class="tag">Dashboard</span>
+                    </div>
+                    <div class="demo-links">
+                        <a href="https://resultantai.github.io/executive-decision-cc/" class="btn btn-primary" target="_blank">Live Demo</a>
+                        <a href="https://github.com/resultantai/executive-decision-cc" class="btn btn-secondary" target="_blank">Source</a>
+                    </div>
+                </article>
+
+                <article class="demo-card">
+                    <h3 class="demo-title">Recruitment Demand Gen</h3>
+                    <p class="demo-description">Automated candidate sourcing and outreach. Fill your pipeline without the manual grind.</p>
+                    <div class="demo-tags">
+                        <span class="tag tag-gateway">Recruiting</span>
+                        <span class="tag">Automation</span>
+                    </div>
+                    <div class="demo-links">
+                        <a href="https://resultantai.github.io/recruitment-demandgen-demo/" class="btn btn-primary" target="_blank">Live Demo</a>
+                        <a href="https://github.com/resultantai/recruitment-demandgen-demo" class="btn btn-secondary" target="_blank">Source</a>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <!-- Gateway / ROI Tools -->
+        <section class="category" data-category="gateway">
+            <div class="category-header">
+                <span class="category-icon">⚡</span>
+                <h2 class="category-title">Gateway & ROI Tools</h2>
+            </div>
+            <div class="demo-grid">
+                <article class="demo-card">
+                    <h3 class="demo-title">AI Savings Calculator</h3>
+                    <p class="demo-description">Calculate your potential savings with AI Gateway's smart routing. See the numbers before you commit.</p>
+                    <div class="demo-tags">
+                        <span class="tag tag-gateway">Gateway</span>
+                        <span class="tag">Calculator</span>
+                    </div>
+                    <div class="demo-links">
+                        <a href="https://resultantai.github.io/ai-savings-calculator/" class="btn btn-primary" target="_blank">Live Demo</a>
+                        <a href="https://github.com/resultantai/ai-savings-calculator" class="btn btn-secondary" target="_blank">Source</a>
+                    </div>
+                </article>
+
+                <article class="demo-card">
+                    <h3 class="demo-title">HubSpot ROI Calculator</h3>
+                    <p class="demo-description">Calculate the ROI of AI-powered HubSpot automations. Justify the investment with real numbers.</p>
+                    <div class="demo-tags">
+                        <span class="tag tag-gateway">ROI</span>
+                        <span class="tag">HubSpot</span>
+                    </div>
+                    <div class="demo-links">
+                        <a href="https://resultantai.github.io/hubspot-rol-calculator/" class="btn btn-primary" target="_blank">Live Demo</a>
+                        <a href="https://github.com/resultantai/hubspot-rol-calculator" class="btn btn-secondary" target="_blank">Source</a>
+                    </div>
+                </article>
+
+                <article class="demo-card">
+                    <h3 class="demo-title">Decision Engine</h3>
+                    <p class="demo-description">AI-powered routing decisions. Automatically choose the right provider for each request based on cost, speed, quality.</p>
+                    <div class="demo-tags">
+                        <span class="tag tag-gateway">Gateway</span>
+                        <span class="tag">Routing</span>
+                    </div>
+                    <div class="demo-links">
+                        <a href="https://resultantai.github.io/decision-engine/" class="btn btn-primary" target="_blank">Live Demo</a>
+                        <a href="https://github.com/resultantai/decision-engine" class="btn btn-secondary" target="_blank">Source</a>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <!-- Industry Specific -->
+        <section class="category" data-category="industry">
+            <div class="category-header">
+                <span class="category-icon">🏢</span>
+                <h2 class="category-title">Industry Solutions</h2>
+            </div>
+            <div class="demo-grid">
+                <article class="demo-card">
+                    <h3 class="demo-title">Maryland Bill Tracker</h3>
+                    <p class="demo-description">Real-time legislative tracking for Maryland. AI-powered bill analysis and alerts.</p>
+                    <div class="demo-tags">
+                        <span class="tag">Government</span>
+                        <span class="tag">Legal</span>
+                    </div>
+                    <div class="demo-links">
+                        <a href="https://resultantai.github.io/maryland-bill-tracker-demo/" class="btn btn-primary" target="_blank">Live Demo</a>
+                        <a href="https://github.com/resultantai/maryland-bill-tracker-demo" class="btn btn-secondary" target="_blank">Source</a>
+                    </div>
+                </article>
+
+                <article class="demo-card">
+                    <h3 class="demo-title">Café Paris Reservations</h3>
+                    <p class="demo-description">AI-powered reservation system for restaurants. Handle bookings 24/7 without staff.</p>
+                    <div class="demo-tags">
+                        <span class="tag">Hospitality</span>
+                        <span class="tag">Automation</span>
+                    </div>
+                    <div class="demo-links">
+                        <a href="https://resultantai.github.io/reservation-system_cafe_paris/" class="btn btn-primary" target="_blank">Live Demo</a>
+                        <a href="https://github.com/resultantai/reservation-system_cafe_paris" class="btn btn-secondary" target="_blank">Source</a>
+                    </div>
+                </article>
+
+                <article class="demo-card">
+                    <h3 class="demo-title">Aloha CRM</h3>
+                    <p class="demo-description">AI-enhanced CRM for relationship-first businesses. Never forget a follow-up again.</p>
+                    <div class="demo-tags">
+                        <span class="tag">CRM</span>
+                        <span class="tag">Automation</span>
+                    </div>
+                    <div class="demo-links">
+                        <a href="https://resultantai.github.io/aloha-crm/" class="btn btn-primary" target="_blank">Live Demo</a>
+                        <a href="https://github.com/resultantai/aloha-crm" class="btn btn-secondary" target="_blank">Source</a>
+                    </div>
+                </article>
+
+                <article class="demo-card">
+                    <h3 class="demo-title">NobleProg AI Workbench</h3>
+                    <p class="demo-description">Custom AI training and deployment workbench. Enterprise-grade AI tooling.</p>
+                    <div class="demo-tags">
+                        <span class="tag">Enterprise</span>
+                        <span class="tag">Training</span>
+                    </div>
+                    <div class="demo-links">
+                        <a href="https://resultantai.github.io/nobleprog-ai-workbench-demo/" class="btn btn-primary" target="_blank">Live Demo</a>
+                        <a href="https://github.com/resultantai/nobleprog-ai-workbench-demo" class="btn btn-secondary" target="_blank">Source</a>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <!-- Infrastructure / Developer Tools -->
+        <section class="category" data-category="infrastructure">
+            <div class="category-header">
+                <span class="category-icon">🔧</span>
+                <h2 class="category-title">Developer Tools</h2>
+            </div>
+            <div class="demo-grid">
+                <article class="demo-card">
+                    <h3 class="demo-title">Edge Case Gauntlet</h3>
+                    <p class="demo-description">Stress-test your AI systems with edge cases. Find the breaking points before your users do.</p>
+                    <div class="demo-tags">
+                        <span class="tag">Testing</span>
+                        <span class="tag">QA</span>
+                    </div>
+                    <div class="demo-links">
+                        <a href="https://resultantai.github.io/edge-case-gauntlet/" class="btn btn-primary" target="_blank">Live Demo</a>
+                        <a href="https://github.com/resultantai/edge-case-gauntlet" class="btn btn-secondary" target="_blank">Source</a>
+                    </div>
+                </article>
+
+                <article class="demo-card">
+                    <h3 class="demo-title">Error Handler Demo</h3>
+                    <p class="demo-description">Graceful error handling patterns for AI systems. Never show users cryptic failures.</p>
+                    <div class="demo-tags">
+                        <span class="tag">Error Handling</span>
+                        <span class="tag">UX</span>
+                    </div>
+                    <div class="demo-links">
+                        <a href="https://resultantai.github.io/error-handler-demo/" class="btn btn-primary" target="_blank">Live Demo</a>
+                        <a href="https://github.com/resultantai/error-handler-demo" class="btn btn-secondary" target="_blank">Source</a>
+                    </div>
+                </article>
+
+                <article class="demo-card">
+                    <h3 class="demo-title">Tech Stack Audit</h3>
+                    <p class="demo-description">Audit your AI tech stack for cost, performance, and reliability. Find the gaps before they cost you.</p>
+                    <div class="demo-tags">
+                        <span class="tag">Audit</span>
+                        <span class="tag">Architecture</span>
+                    </div>
+                    <div class="demo-links">
+                        <a href="https://resultantai.github.io/tech-stack-audit-demo/" class="btn btn-primary" target="_blank">Live Demo</a>
+                        <a href="https://github.com/resultantai/tech-stack-audit-demo" class="btn btn-secondary" target="_blank">Source</a>
+                    </div>
+                </article>
+
+                <article class="demo-card">
+                    <h3 class="demo-title">Content Command Center</h3>
+                    <p class="demo-description">AI-powered content operations dashboard. Plan, create, and distribute from one place.</p>
+                    <div class="demo-tags">
+                        <span class="tag">Content</span>
+                        <span class="tag">Dashboard</span>
+                    </div>
+                    <div class="demo-links">
+                        <a href="https://resultantai.github.io/content-command-center/" class="btn btn-primary" target="_blank">Live Demo</a>
+                        <a href="https://github.com/resultantai/content-command-center" class="btn btn-secondary" target="_blank">Source</a>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <footer>
+            <p>Built by <a href="https://resultantai.com">ResultantAI</a> · <a href="https://github.com/resultantai">GitHub</a></p>
+            <p style="margin-top: 0.5rem; font-size: 0.875rem;">Systems that don't just work. They pay for themselves.</p>
+        </footer>
+    </div>
+
+    <script>
+        // Filter functionality
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const categories = document.querySelectorAll('.category');
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const filter = btn.dataset.filter;
+                
+                // Update active button
+                filterBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+
+                // Filter categories
+                categories.forEach(cat => {
+                    if (filter === 'all' || cat.dataset.category === filter) {
+                        cat.style.display = 'block';
+                    } else {
+                        cat.style.display = 'none';
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
