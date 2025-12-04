@@ -1,0 +1,915 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Us — ResultantAI</title>
+  <meta name="description" content="Get in touch with ResultantAI. Book a call, send a message, or reach out directly. We respond within 24 hours.">
+  
+  <!-- Open Graph -->
+  <meta property="og:title" content="Contact Us — ResultantAI">
+  <meta property="og:description" content="Get in touch. Book a discovery call or send us a message. We respond within 24 hours.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://resultantai.com/contact-us">
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <style>
+    /* ============================================
+       CSS VARIABLES
+       ============================================ */
+    :root {
+      --bg-primary: #0a0f1a;
+      --bg-secondary: #0f172a;
+      --bg-card: #151d2e;
+      --border: #1e293b;
+      --border-light: #334155;
+      --border-glow: rgba(16, 185, 129, 0.3);
+      
+      --text-primary: #ffffff;
+      --text-secondary: #94a3b8;
+      --text-muted: #64748b;
+      
+      --accent: #10b981;
+      --accent-light: #34d399;
+      --accent-subtle: rgba(16, 185, 129, 0.08);
+      --accent-glow: rgba(16, 185, 129, 0.4);
+      
+      --gradient-accent: linear-gradient(135deg, #10b981 0%, #34d399 100%);
+      --gradient-hero: radial-gradient(ellipse 80% 50% at 50% -20%, rgba(16, 185, 129, 0.15), transparent);
+      
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 16px;
+      --radius-xl: 24px;
+      --radius-full: 9999px;
+      
+      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      
+      --shadow-glow: 0 0 60px var(--accent-glow);
+      --transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* ============================================
+       RESET & BASE
+       ============================================ */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    body {
+      font-family: var(--font-sans);
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      line-height: 1.6;
+      font-size: 16px;
+      overflow-x: hidden;
+      min-height: 100vh;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    ::selection {
+      background: var(--accent);
+      color: var(--bg-primary);
+    }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: var(--bg-primary); }
+    ::-webkit-scrollbar-thumb { background: var(--border-light); border-radius: var(--radius-full); }
+    ::-webkit-scrollbar-thumb:hover { background: var(--accent); }
+
+    /* ============================================
+       ANIMATED BACKGROUND
+       ============================================ */
+    .bg-grid {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-image: 
+        linear-gradient(rgba(16, 185, 129, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(16, 185, 129, 0.03) 1px, transparent 1px);
+      background-size: 60px 60px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .bg-gradient {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 100vh;
+      background: var(--gradient-hero);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .bg-orb {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(100px);
+      opacity: 0.4;
+      pointer-events: none;
+      z-index: 0;
+      animation: float 25s ease-in-out infinite;
+    }
+
+    .bg-orb--1 {
+      width: 600px;
+      height: 600px;
+      background: var(--accent);
+      top: -200px;
+      right: -200px;
+    }
+
+    .bg-orb--2 {
+      width: 400px;
+      height: 400px;
+      background: var(--accent);
+      bottom: -100px;
+      left: -100px;
+      animation-delay: -8s;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.3; }
+      33% { transform: translate(30px, -30px) scale(1.05); opacity: 0.4; }
+      66% { transform: translate(-20px, 20px) scale(0.95); opacity: 0.35; }
+    }
+
+    /* ============================================
+       LAYOUT
+       ============================================ */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+      position: relative;
+      z-index: 10;
+    }
+
+    /* ============================================
+       HEADER
+       ============================================ */
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      background: rgba(10, 15, 26, 0.9);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(30, 41, 59, 0.5);
+    }
+
+    .header__inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 0;
+    }
+
+    .header__logo {
+      font-size: 18px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+    }
+
+    .logo-accent {
+      color: var(--accent);
+    }
+
+    .header__nav {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+    }
+
+    .header__link {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text-secondary);
+      transition: color var(--transition);
+    }
+
+    .header__link:hover,
+    .header__link--active {
+      color: var(--text-primary);
+    }
+
+    .header__cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 20px;
+      background: transparent;
+      border: 1px solid var(--accent);
+      color: var(--accent);
+      font-size: 14px;
+      font-weight: 600;
+      border-radius: var(--radius-md);
+      transition: all var(--transition);
+    }
+
+    .header__cta:hover {
+      background: var(--accent);
+      color: var(--bg-primary);
+    }
+
+    @media (max-width: 768px) {
+      .header__nav {
+        display: none;
+      }
+    }
+
+    /* ============================================
+       HERO
+       ============================================ */
+    .hero {
+      padding: 160px 0 60px;
+      text-align: center;
+    }
+
+    .hero__badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 16px;
+      background: var(--accent-subtle);
+      border: 1px solid rgba(16, 185, 129, 0.2);
+      border-radius: var(--radius-full);
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--accent-light);
+      margin-bottom: 24px;
+    }
+
+    .hero__title {
+      font-size: clamp(40px, 6vw, 56px);
+      font-weight: 800;
+      line-height: 1.15;
+      letter-spacing: -0.04em;
+      margin-bottom: 24px;
+    }
+
+    .hero__title-gradient {
+      background: linear-gradient(135deg, var(--accent), var(--accent-light));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero__subtitle {
+      font-size: 18px;
+      color: var(--text-secondary);
+      max-width: 500px;
+      margin: 0 auto;
+      line-height: 1.7;
+    }
+
+    /* ============================================
+       CONTACT SECTION
+       ============================================ */
+    .contact {
+      padding: 40px 0 80px;
+    }
+
+    .contact__grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      align-items: start;
+    }
+
+    @media (max-width: 900px) {
+      .contact__grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+    }
+
+    /* Contact Methods */
+    .contact-methods {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .contact-method {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 28px;
+      transition: all var(--transition);
+    }
+
+    .contact-method:hover {
+      border-color: var(--border-glow);
+      transform: translateY(-2px);
+    }
+
+    .contact-method__header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 12px;
+    }
+
+    .contact-method__icon {
+      width: 48px;
+      height: 48px;
+      background: var(--accent-subtle);
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .contact-method__title {
+      font-size: 18px;
+      font-weight: 600;
+    }
+
+    .contact-method__desc {
+      font-size: 14px;
+      color: var(--text-secondary);
+      margin-bottom: 16px;
+      line-height: 1.6;
+    }
+
+    .contact-method__link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--accent);
+      transition: all var(--transition);
+    }
+
+    .contact-method__link:hover {
+      gap: 12px;
+    }
+
+    .contact-method__link svg {
+      transition: transform var(--transition);
+    }
+
+    .contact-method__link:hover svg {
+      transform: translateX(4px);
+    }
+
+    /* Contact Form */
+    .contact-form {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xl);
+      padding: 40px;
+      box-shadow: var(--shadow-glow);
+    }
+
+    .contact-form__title {
+      font-size: 24px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 8px;
+    }
+
+    .contact-form__subtitle {
+      font-size: 14px;
+      color: var(--text-secondary);
+      margin-bottom: 32px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-secondary);
+      margin-bottom: 8px;
+    }
+
+    .form-input,
+    .form-textarea,
+    .form-select {
+      width: 100%;
+      padding: 14px 18px;
+      background: var(--bg-primary);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      color: var(--text-primary);
+      font-size: 15px;
+      font-family: var(--font-sans);
+      transition: all var(--transition);
+    }
+
+    .form-input:focus,
+    .form-textarea:focus,
+    .form-select:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+    }
+
+    .form-input::placeholder,
+    .form-textarea::placeholder {
+      color: var(--text-muted);
+    }
+
+    .form-textarea {
+      min-height: 140px;
+      resize: vertical;
+    }
+
+    .form-select {
+      cursor: pointer;
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='none' stroke='%2364748b' stroke-width='2'%3E%3Cpath d='M4 6l4 4 4-4'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 16px center;
+    }
+
+    .form-select option {
+      background: var(--bg-card);
+      color: var(--text-primary);
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    @media (max-width: 500px) {
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .form-button {
+      width: 100%;
+      padding: 16px 32px;
+      background: var(--gradient-accent);
+      color: var(--bg-primary);
+      font-size: 16px;
+      font-weight: 700;
+      font-family: var(--font-sans);
+      border: none;
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: all var(--transition);
+      margin-top: 8px;
+    }
+
+    .form-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(16, 185, 129, 0.35);
+    }
+
+    .form-button:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .form-note {
+      font-size: 12px;
+      color: var(--text-muted);
+      text-align: center;
+      margin-top: 16px;
+    }
+
+    /* Success State */
+    .form-success {
+      text-align: center;
+      padding: 40px 20px;
+    }
+
+    .form-success__icon {
+      width: 64px;
+      height: 64px;
+      background: var(--accent-subtle);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+    }
+
+    .form-success__title {
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .form-success__text {
+      font-size: 15px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    /* ============================================
+       FAQ SECTION
+       ============================================ */
+    .faq {
+      padding: 80px 0;
+    }
+
+    .section-title {
+      font-size: 32px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      text-align: center;
+      margin-bottom: 48px;
+    }
+
+    .faq__grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    @media (max-width: 700px) {
+      .faq__grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .faq-item {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+    }
+
+    .faq-item__question {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .faq-item__answer {
+      font-size: 14px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    /* ============================================
+       FOOTER
+       ============================================ */
+    .footer {
+      padding: 40px 0;
+      border-top: 1px solid var(--border);
+      text-align: center;
+    }
+
+    .footer__logo {
+      font-size: 16px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin-bottom: 12px;
+    }
+
+    .footer__links {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 24px;
+      font-size: 14px;
+      color: var(--text-secondary);
+      margin-bottom: 16px;
+    }
+
+    .footer__links a:hover {
+      color: var(--accent);
+    }
+
+    .footer__copyright {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    /* ============================================
+       ANIMATIONS
+       ============================================ */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body>
+  <!-- Background Effects -->
+  <div class="bg-grid"></div>
+  <div class="bg-gradient"></div>
+  <div class="bg-orb bg-orb--1"></div>
+  <div class="bg-orb bg-orb--2"></div>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="container">
+      <div class="header__inner">
+        <a href="https://resultantai.com" class="header__logo">Resultant<span class="logo-accent">AI</span></a>
+        <nav class="header__nav">
+          <a href="https://resultantai.com" class="header__link">Home</a>
+          <a href="https://resultantai.com/about" class="header__link">About</a>
+          <a href="https://resultantai.com/contact-us" class="header__link header__link--active">Contact</a>
+          <a href="https://resultantai.com/gateway" class="header__link">Gateway</a>
+          <a href="https://meetings.hubspot.com/chris4642" target="_blank" class="header__cta">Book a Call</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero -->
+    <section class="hero">
+      <div class="container">
+        <div class="hero__badge">
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/>
+          </svg>
+          Get in Touch
+        </div>
+        <h1 class="hero__title">
+          Let's <span class="hero__title-gradient">talk.</span>
+        </h1>
+        <p class="hero__subtitle">
+          Have a project in mind? Want to learn more? I respond to every message within 24 hours.
+        </p>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact">
+      <div class="container">
+        <div class="contact__grid">
+          <!-- Contact Methods -->
+          <div class="contact-methods">
+            <div class="contact-method reveal">
+              <div class="contact-method__header">
+                <div class="contact-method__icon">
+                  <svg width="24" height="24" fill="none" stroke="#10b981" stroke-width="2">
+                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                    <line x1="16" y1="2" x2="16" y2="6"/>
+                    <line x1="8" y1="2" x2="8" y2="6"/>
+                    <line x1="3" y1="10" x2="21" y2="10"/>
+                  </svg>
+                </div>
+                <h3 class="contact-method__title">Book a Discovery Call</h3>
+              </div>
+              <p class="contact-method__desc">30-minute call to discuss your project. No sales pitch — just a real conversation about what you need and whether I can help.</p>
+              <a href="https://meetings.hubspot.com/chris4642" target="_blank" class="contact-method__link">
+                Schedule a time
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M5 12h14M12 5l7 7-7 7"/>
+                </svg>
+              </a>
+            </div>
+
+            <div class="contact-method reveal">
+              <div class="contact-method__header">
+                <div class="contact-method__icon">
+                  <svg width="24" height="24" fill="none" stroke="#10b981" stroke-width="2">
+                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                    <polyline points="22,6 12,13 2,6"/>
+                  </svg>
+                </div>
+                <h3 class="contact-method__title">Email Directly</h3>
+              </div>
+              <p class="contact-method__desc">For quick questions, partnership inquiries, or if you prefer email over calls.</p>
+              <a href="mailto:chris@resultantai.com" class="contact-method__link">
+                chris@resultantai.com
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M5 12h14M12 5l7 7-7 7"/>
+                </svg>
+              </a>
+            </div>
+
+            <div class="contact-method reveal">
+              <div class="contact-method__header">
+                <div class="contact-method__icon">
+                  <svg width="24" height="24" fill="none" stroke="#10b981" stroke-width="2">
+                    <path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z"/>
+                    <rect x="2" y="9" width="4" height="12"/>
+                    <circle cx="4" cy="4" r="2"/>
+                  </svg>
+                </div>
+                <h3 class="contact-method__title">Connect on LinkedIn</h3>
+              </div>
+              <p class="contact-method__desc">Follow for AI automation insights, case studies, and behind-the-scenes of building ResultantAI.</p>
+              <a href="https://www.linkedin.com/in/chrismott1/" target="_blank" class="contact-method__link">
+                View profile
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M5 12h14M12 5l7 7-7 7"/>
+                </svg>
+              </a>
+            </div>
+          </div>
+
+          <!-- Contact Form -->
+          <div class="contact-form reveal" id="contactForm">
+            <h3 class="contact-form__title">Send a message</h3>
+            <p class="contact-form__subtitle">Fill out the form and I'll get back to you within 24 hours.</p>
+            
+            <form id="form" onsubmit="handleSubmit(event)">
+              <div class="form-row">
+                <div class="form-group">
+                  <label class="form-label">Name</label>
+                  <input type="text" class="form-input" name="name" placeholder="Your name" required>
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Email</label>
+                  <input type="email" class="form-input" name="email" placeholder="you@company.com" required>
+                </div>
+              </div>
+              
+              <div class="form-group">
+                <label class="form-label">Company (optional)</label>
+                <input type="text" class="form-input" name="company" placeholder="Your company name">
+              </div>
+              
+              <div class="form-group">
+                <label class="form-label">What can I help with?</label>
+                <select class="form-select" name="inquiry_type" required>
+                  <option value="" disabled selected>Select an option</option>
+                  <option value="voice-agent">Voice Agent / AI Phone System</option>
+                  <option value="automation">Automation / Workflow Build</option>
+                  <option value="chatbot">Chatbot / Conversational AI</option>
+                  <option value="gateway">AI Gateway (API Management)</option>
+                  <option value="consulting">Consulting / Strategy</option>
+                  <option value="other">Something else</option>
+                </select>
+              </div>
+              
+              <div class="form-group">
+                <label class="form-label">Tell me more</label>
+                <textarea class="form-textarea" name="message" placeholder="What are you trying to solve? What does success look like?" required></textarea>
+              </div>
+              
+              <button type="submit" class="form-button" id="submitBtn">
+                Send Message
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <line x1="22" y1="2" x2="11" y2="13"/>
+                  <polygon points="22 2 15 22 11 13 2 9 22 2"/>
+                </svg>
+              </button>
+              
+              <p class="form-note">I respond to every message within 24 hours.</p>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq">
+      <div class="container">
+        <h2 class="section-title">Common questions</h2>
+        <div class="faq__grid">
+          <div class="faq-item reveal">
+            <h4 class="faq-item__question">How quickly can you start?</h4>
+            <p class="faq-item__answer">Most projects kick off within 1-2 weeks of signing. I keep my calendar intentionally limited to ensure quality.</p>
+          </div>
+          <div class="faq-item reveal">
+            <h4 class="faq-item__question">What's your typical timeline?</h4>
+            <p class="faq-item__answer">Most projects ship in 2-4 weeks. Complex enterprise builds may take 6-8 weeks. You see progress weekly.</p>
+          </div>
+          <div class="faq-item reveal">
+            <h4 class="faq-item__question">Do you offer ongoing support?</h4>
+            <p class="faq-item__answer">Yes. After delivery, I offer optional retainer packages for maintenance, optimization, and new feature development.</p>
+          </div>
+          <div class="faq-item reveal">
+            <h4 class="faq-item__question">What industries do you work with?</h4>
+            <p class="faq-item__answer">I specialize in B2B service businesses — agencies, consultants, professional services. If you have manual processes eating your time, we should talk.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__logo">Resultant<span class="logo-accent">AI</span></div>
+      <div class="footer__links">
+        <a href="https://resultantai.com">Home</a>
+        <a href="https://resultantai.com/about">About</a>
+        <a href="https://resultantai.com/contact-us">Contact</a>
+        <a href="https://resultantai.com/gateway">Gateway</a>
+        <a href="https://www.linkedin.com/in/chrismott1/" target="_blank">LinkedIn</a>
+      </div>
+      <p class="footer__copyright">© 2025 ResultantAI. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    const API_URL = 'https://hook.us2.make.com/n8deqd9mfxcqxeoe19j0etwfxnuq12pa';
+
+    async function handleSubmit(e) {
+      e.preventDefault();
+      
+      const form = e.target;
+      const submitBtn = document.getElementById('submitBtn');
+      const formContainer = document.getElementById('contactForm');
+      
+      // Disable button
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = 'Sending...';
+      
+      // Get form data
+      const formData = new FormData(form);
+      const data = {
+        name: formData.get('name'),
+        email: formData.get('email'),
+        company: formData.get('company') || '',
+        use_case: `contact-form | Type: ${formData.get('inquiry_type')} | Message: ${formData.get('message')}`
+      };
+      
+      try {
+        const response = await fetch(API_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data)
+        });
+        
+        if (!response.ok) throw new Error('Failed to send');
+        
+        // Show success state
+        formContainer.innerHTML = `
+          <div class="form-success">
+            <div class="form-success__icon">
+              <svg width="32" height="32" fill="none" stroke="#10b981" stroke-width="2">
+                <path d="M20 6L9 17l-5-5"/>
+              </svg>
+            </div>
+            <h3 class="form-success__title">Message sent!</h3>
+            <p class="form-success__text">Thanks for reaching out. I'll get back to you within 24 hours.</p>
+          </div>
+        `;
+        
+      } catch (error) {
+        console.error('Form error:', error);
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = `
+          Send Message
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="22" y1="2" x2="11" y2="13"/>
+            <polygon points="22 2 15 22 11 13 2 9 22 2"/>
+          </svg>
+        `;
+        alert('Something went wrong. Please try again or email chris@resultantai.com directly.');
+      }
+    }
+
+    // Scroll reveal animation
+    function revealOnScroll() {
+      const elements = document.querySelectorAll('.reveal');
+      elements.forEach(el => {
+        const rect = el.getBoundingClientRect();
+        if (rect.top < window.innerHeight - 100) {
+          el.classList.add('visible');
+        }
+      });
+    }
+
+    window.addEventListener('scroll', revealOnScroll);
+    window.addEventListener('load', revealOnScroll);
+  </script>
+</body>
+</html>
