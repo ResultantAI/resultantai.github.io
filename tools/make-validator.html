@@ -9,6 +9,54 @@
   <!-- Google Search Console Verification -->
   <meta name="google-site-verification" content="EUs3oELHtHvHjcAdzN2HjjzWzEP_6KWVZFzaIoLdp70">
 
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.resultantai.com/tools/make-validator">
+    <meta property="og:title" content="Free Make.com Blueprint Validator | Find Errors Before You Deploy">
+    <meta property="og:description" content="Catch placeholders, missing configs, and common mistakes in your Make.com blueprints. Free tool by ResultantAI.">
+    <meta property="og:image" content="https://www.resultantai.com/images/og-make-validator.jpg">
+    <meta property="og:site_name" content="ResultantAI">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@resultswithai">
+    <meta name="twitter:url" content="https://www.resultantai.com/tools/make-validator">
+    <meta name="twitter:title" content="Free Make.com Blueprint Validator">
+    <meta name="twitter:description" content="Find errors in your Make.com blueprints before deployment. Free validation tool.">
+    <meta name="twitter:image" content="https://www.resultantai.com/images/twitter-make-validator.jpg">
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://www.resultantai.com/tools/make-validator">
+
+    <!-- SoftwareApplication Schema -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "Make.com Blueprint Validator",
+        "applicationCategory": "DeveloperApplication",
+        "operatingSystem": "Any (Web-based)",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+        },
+        "description": "Free validation tool that catches placeholders, missing configs, and common mistakes in Make.com blueprints before deployment.",
+        "url": "https://www.resultantai.com/tools/make-validator",
+        "author": {
+            "@type": "Organization",
+            "name": "ResultantAI",
+            "url": "https://www.resultantai.com"
+        },
+        "featureList": [
+            "Detect placeholder values in blueprints",
+            "Find missing API credentials",
+            "Identify configuration errors",
+            "Local analysis (data stays private)",
+            "Instant validation results"
+        ]
+    }
+    </script>
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -689,6 +737,74 @@
         }
 
         /* ============================================
+           EXIT INTENT MODAL
+           ============================================ */
+        #exitIntentModal .modal-content {
+            max-width: 600px;
+            background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-card) 100%);
+            border: 2px solid var(--accent);
+        }
+
+        #exitIntentModal h3 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        #exitIntentModal .gradient-text {
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-light) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .exit-offer-badge {
+            display: inline-block;
+            background: var(--error);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: var(--radius-md);
+            font-weight: 700;
+            font-size: 1.125rem;
+            margin-bottom: 1rem;
+        }
+
+        .exit-benefits {
+            text-align: left;
+            margin: 1.5rem 0;
+        }
+
+        .exit-benefits li {
+            color: var(--text-secondary);
+            margin-bottom: 0.75rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .exit-benefits li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+            font-weight: 700;
+        }
+
+        .exit-cta {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .exit-cta .btn {
+            flex: 1;
+        }
+
+        .exit-fine-print {
+            font-size: 0.875rem;
+            color: var(--text-muted);
+            margin-top: 1rem;
+        }
+
+        /* ============================================
            FOOTER
            ============================================ */
         footer {
@@ -820,6 +936,11 @@
                 Stop shipping broken automations. Find placeholders, missing configs,
                 and errors before you deploy to Make.com.
             </p>
+            <p style="margin-top: 1rem; font-size: 0.95rem;">
+                Need help with complex automations? Check out
+                <a href="https://www.resultantai.com/gateway/" style="color: var(--accent); font-weight: 600;">AI Gateway</a>
+                — one API for OpenAI, Claude, and Gemini with flat-rate pricing.
+            </p>
         </div>
 
         <!-- Upload Section -->
@@ -922,7 +1043,7 @@
                     Get Free Fix Guide →
                 </button>
                 <p style="font-size: 0.875rem; margin-top: 1rem; color: var(--text-muted);">
-                    Or <a href="https://resultantai.com/#contact" style="color: var(--accent);">talk to an expert</a> for custom automation help
+                    Need API cost control? <a href="https://www.resultantai.com/gateway/" style="color: var(--accent); font-weight: 600;">AI Gateway</a> offers flat-rate pricing for OpenAI, Claude, and Gemini — 58% off for Founding Partners
                 </p>
             </div>
         </div>
@@ -943,6 +1064,37 @@
                     <button type="submit" class="btn">Send Guide</button>
                 </div>
             </form>
+        </div>
+    </div>
+
+    <!-- Exit Intent Modal -->
+    <div id="exitIntentModal" class="modal">
+        <div class="modal-content">
+            <div style="text-align: center;">
+                <div class="exit-offer-badge">58% OFF — Limited Time</div>
+                <h3>Before You Go...</h3>
+                <p style="font-size: 1.25rem; margin-top: 0.5rem;">
+                    Get the <span class="gradient-text">AI Gateway Founding Partner</span> Deal
+                </p>
+                <p style="color: var(--text-secondary); margin-top: 1rem;">
+                    One API for OpenAI, Claude, and Gemini. Flat-rate pricing means no surprises on your bill.
+                </p>
+                <ul class="exit-benefits">
+                    <li>Save thousands with smart routing to cheaper models</li>
+                    <li>Automatic failover — no downtime when providers go down</li>
+                    <li>Track costs per client/project in real-time</li>
+                    <li>Flat $499/year (normally $1,188/year)</li>
+                </ul>
+                <div class="exit-cta">
+                    <button type="button" class="btn btn-secondary" onclick="closeExitIntent()">Not Now</button>
+                    <a href="https://www.resultantai.com/gateway/" class="btn">
+                        Lock in Founding Partner Price →
+                    </a>
+                </div>
+                <p class="exit-fine-print">
+                    Only 25 spots available. Offer ends December 24, 2025.
+                </p>
+            </div>
         </div>
     </div>
 
@@ -1251,6 +1403,57 @@
                 }
             } catch (error) {
                 alert('Error submitting form. Please try again.');
+            }
+        });
+
+        // Exit Intent Detection
+        let exitIntentShown = false;
+
+        function showExitIntent() {
+            if (!exitIntentShown && !sessionStorage.getItem('exitIntentShown')) {
+                document.getElementById('exitIntentModal').classList.add('active');
+                exitIntentShown = true;
+                sessionStorage.setItem('exitIntentShown', 'true');
+
+                // Track exit intent shown
+                if (typeof gtag !== 'undefined') {
+                    gtag('event', 'exit_intent_shown', { event_category: 'engagement' });
+                }
+            }
+        }
+
+        function closeExitIntent() {
+            document.getElementById('exitIntentModal').classList.remove('active');
+        }
+
+        // Detect mouse leaving viewport (desktop only)
+        if (window.innerWidth > 768) {
+            document.addEventListener('mouseout', function(e) {
+                if (e.clientY <= 0 && !exitIntentShown) {
+                    showExitIntent();
+                }
+            });
+        }
+
+        // On mobile, show after 30 seconds of inactivity
+        if (window.innerWidth <= 768) {
+            let inactivityTimer;
+            function resetInactivityTimer() {
+                clearTimeout(inactivityTimer);
+                if (!exitIntentShown) {
+                    inactivityTimer = setTimeout(showExitIntent, 30000);
+                }
+            }
+
+            document.addEventListener('touchstart', resetInactivityTimer);
+            document.addEventListener('scroll', resetInactivityTimer);
+            resetInactivityTimer(); // Start timer on page load
+        }
+
+        // Close modal if clicking outside
+        document.getElementById('exitIntentModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeExitIntent();
             }
         });
     </script>
