@@ -1,0 +1,1179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Orthodontic AI Receptionist Demo | ResultantAI</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: linear-gradient(145deg, #0c1222 0%, #1a2744 50%, #0f1629 100%);
+      color: #e2e8f0;
+      min-height: 100vh;
+      padding: 20px;
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    /* === HEADER === */
+    .header {
+      text-align: center;
+      margin-bottom: 28px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(16, 185, 129, 0.12);
+      border: 1px solid rgba(16, 185, 129, 0.35);
+      border-radius: 100px;
+      padding: 8px 18px;
+      margin-bottom: 16px;
+      font-size: 13px;
+      color: #34d399;
+      font-weight: 500;
+    }
+
+    .badge-icon {
+      font-size: 16px;
+    }
+
+    .header h1 {
+      font-size: clamp(24px, 4.5vw, 32px);
+      font-weight: 700;
+      margin-bottom: 10px;
+      background: linear-gradient(135deg, #fff 0%, #94a3b8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      letter-spacing: -0.03em;
+    }
+
+    .header p {
+      font-size: 15px;
+      color: #94a3b8;
+      max-width: 580px;
+      margin: 0 auto;
+    }
+
+    /* === TUTORIAL BANNER === */
+    .tutorial-banner {
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.12) 0%, rgba(59, 130, 246, 0.12) 100%);
+      border: 1px solid rgba(16, 185, 129, 0.25);
+      border-radius: 14px;
+      padding: 18px 20px;
+      margin-bottom: 24px;
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+    }
+
+    .tutorial-banner.hidden {
+      display: none;
+    }
+
+    .tutorial-icon {
+      font-size: 24px;
+      flex-shrink: 0;
+    }
+
+    .tutorial-content {
+      flex: 1;
+    }
+
+    .tutorial-content h3 {
+      font-size: 15px;
+      font-weight: 600;
+      color: #10b981;
+      margin-bottom: 6px;
+    }
+
+    .tutorial-content > p {
+      font-size: 13px;
+      color: #94a3b8;
+      margin-bottom: 10px;
+    }
+
+    .tutorial-steps {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    @media (min-width: 768px) {
+      .tutorial-steps {
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 16px;
+      }
+    }
+
+    .tutorial-step {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      color: #e2e8f0;
+    }
+
+    .step-number {
+      width: 22px;
+      height: 22px;
+      background: rgba(16, 185, 129, 0.25);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 600;
+      color: #10b981;
+      flex-shrink: 0;
+    }
+
+    .dismiss-btn {
+      background: rgba(16, 185, 129, 0.18);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      border-radius: 8px;
+      padding: 8px 16px;
+      color: #10b981;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      margin-top: 12px;
+      transition: all 0.2s;
+    }
+
+    .dismiss-btn:hover {
+      background: rgba(16, 185, 129, 0.28);
+      transform: translateY(-1px);
+    }
+
+    /* === MAIN GRID === */
+    .main-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+
+    @media (min-width: 900px) {
+      .main-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    /* === CARDS === */
+    .card {
+      background: rgba(30, 41, 59, 0.6);
+      border: 1px solid rgba(148, 163, 184, 0.12);
+      border-radius: 16px;
+      padding: 22px;
+      backdrop-filter: blur(10px);
+    }
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+
+    .card-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+    }
+
+    .card-icon.green {
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.25) 0%, rgba(16, 185, 129, 0.1) 100%);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+    }
+
+    .card-icon.blue {
+      background: linear-gradient(135deg, rgba(59, 130, 246, 0.25) 0%, rgba(59, 130, 246, 0.1) 100%);
+      border: 1px solid rgba(59, 130, 246, 0.3);
+    }
+
+    .card-title {
+      font-size: 16px;
+      font-weight: 600;
+      color: #f1f5f9;
+    }
+
+    /* === PHONE INTERFACE === */
+    .phone-frame {
+      background: linear-gradient(180deg, #1a1a2e 0%, #16213e 100%);
+      border-radius: 28px;
+      padding: 12px;
+      border: 3px solid #2d3748;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255,255,255,0.1);
+      max-width: 320px;
+      margin: 0 auto;
+    }
+
+    .phone-screen {
+      background: linear-gradient(180deg, #0f172a 0%, #1e293b 100%);
+      border-radius: 20px;
+      padding: 16px;
+      min-height: 420px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .phone-status-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 11px;
+      color: #94a3b8;
+      margin-bottom: 16px;
+      padding: 0 4px;
+    }
+
+    .call-header {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .caller-avatar {
+      width: 72px;
+      height: 72px;
+      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+      border-radius: 50%;
+      margin: 0 auto 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      box-shadow: 0 0 30px rgba(16, 185, 129, 0.3);
+      animation: pulse-ring 2s ease-out infinite;
+    }
+
+    @keyframes pulse-ring {
+      0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4); }
+      70% { box-shadow: 0 0 0 15px rgba(16, 185, 129, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+    }
+
+    .caller-avatar.answered {
+      animation: none;
+      box-shadow: 0 0 20px rgba(16, 185, 129, 0.25);
+    }
+
+    .caller-name {
+      font-size: 18px;
+      font-weight: 600;
+      color: #fff;
+      margin-bottom: 4px;
+    }
+
+    .call-status {
+      font-size: 13px;
+      color: #10b981;
+      font-weight: 500;
+    }
+
+    .call-status.connecting {
+      color: #fbbf24;
+    }
+
+    /* === CONVERSATION AREA === */
+    .conversation {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      overflow-y: auto;
+      margin-bottom: 16px;
+      padding-right: 4px;
+    }
+
+    .message {
+      max-width: 85%;
+      padding: 10px 14px;
+      border-radius: 16px;
+      font-size: 13px;
+      line-height: 1.5;
+      animation: message-in 0.3s ease-out;
+    }
+
+    @keyframes message-in {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .message.ai {
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.2) 0%, rgba(16, 185, 129, 0.1) 100%);
+      border: 1px solid rgba(16, 185, 129, 0.25);
+      align-self: flex-start;
+      border-bottom-left-radius: 4px;
+    }
+
+    .message.caller {
+      background: linear-gradient(135deg, rgba(59, 130, 246, 0.2) 0%, rgba(59, 130, 246, 0.1) 100%);
+      border: 1px solid rgba(59, 130, 246, 0.25);
+      align-self: flex-end;
+      border-bottom-right-radius: 4px;
+    }
+
+    .message-label {
+      font-size: 10px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 4px;
+      opacity: 0.7;
+    }
+
+    .message.ai .message-label {
+      color: #10b981;
+    }
+
+    .message.caller .message-label {
+      color: #60a5fa;
+    }
+
+    /* === RESPONSE OPTIONS === */
+    .response-options {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .response-btn {
+      background: rgba(59, 130, 246, 0.1);
+      border: 1px solid rgba(59, 130, 246, 0.3);
+      border-radius: 12px;
+      padding: 12px 14px;
+      color: #e2e8f0;
+      font-size: 12px;
+      text-align: left;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-family: inherit;
+    }
+
+    .response-btn:hover {
+      background: rgba(59, 130, 246, 0.2);
+      border-color: rgba(59, 130, 246, 0.5);
+      transform: translateX(4px);
+    }
+
+    .response-btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .response-btn .btn-label {
+      font-size: 10px;
+      color: #60a5fa;
+      margin-bottom: 2px;
+      font-weight: 500;
+    }
+
+    /* === CALL CONTROLS === */
+    .call-controls {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      padding-top: 12px;
+      border-top: 1px solid rgba(148, 163, 184, 0.1);
+    }
+
+    .control-btn {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      transition: all 0.2s;
+    }
+
+    .control-btn.answer {
+      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+      box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);
+    }
+
+    .control-btn.answer:hover {
+      transform: scale(1.1);
+      box-shadow: 0 6px 20px rgba(16, 185, 129, 0.5);
+    }
+
+    .control-btn.end {
+      background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+      box-shadow: 0 4px 15px rgba(239, 68, 68, 0.4);
+    }
+
+    .control-btn.end:hover {
+      transform: scale(1.1);
+    }
+
+    .control-btn.mute {
+      background: rgba(148, 163, 184, 0.2);
+      border: 1px solid rgba(148, 163, 184, 0.3);
+    }
+
+    /* === SUMMARY PANEL === */
+    .summary-panel {
+      background: rgba(0, 0, 0, 0.25);
+      border-radius: 12px;
+      padding: 16px;
+    }
+
+    .summary-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 14px;
+    }
+
+    .summary-title {
+      font-size: 12px;
+      font-weight: 600;
+      color: #94a3b8;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .live-badge {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(239, 68, 68, 0.15);
+      border: 1px solid rgba(239, 68, 68, 0.3);
+      border-radius: 100px;
+      padding: 4px 10px;
+      font-size: 10px;
+      color: #f87171;
+      font-weight: 600;
+    }
+
+    .live-dot {
+      width: 6px;
+      height: 6px;
+      background: #ef4444;
+      border-radius: 50%;
+      animation: blink 1s ease-in-out infinite;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
+
+    .live-badge.complete {
+      background: rgba(16, 185, 129, 0.15);
+      border-color: rgba(16, 185, 129, 0.3);
+      color: #34d399;
+    }
+
+    .live-badge.complete .live-dot {
+      background: #10b981;
+      animation: none;
+    }
+
+    .summary-grid {
+      display: grid;
+      gap: 12px;
+    }
+
+    .summary-field {
+      background: rgba(30, 41, 59, 0.5);
+      border-radius: 8px;
+      padding: 10px 12px;
+      border-left: 3px solid transparent;
+      transition: all 0.3s ease;
+    }
+
+    .summary-field.filled {
+      border-left-color: #10b981;
+      background: rgba(16, 185, 129, 0.08);
+    }
+
+    .summary-field.filling {
+      animation: field-fill 0.5s ease-out;
+    }
+
+    @keyframes field-fill {
+      0% { background: rgba(16, 185, 129, 0.2); }
+      100% { background: rgba(16, 185, 129, 0.08); }
+    }
+
+    .field-label {
+      font-size: 10px;
+      color: #64748b;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 4px;
+    }
+
+    .field-value {
+      font-size: 13px;
+      color: #e2e8f0;
+      font-weight: 500;
+      min-height: 18px;
+    }
+
+    .field-value.empty {
+      color: #475569;
+      font-style: italic;
+      font-weight: 400;
+    }
+
+    /* === ACTION PREVIEW === */
+    .action-preview {
+      margin-top: 16px;
+      padding-top: 16px;
+      border-top: 1px solid rgba(148, 163, 184, 0.1);
+    }
+
+    .action-title {
+      font-size: 11px;
+      color: #94a3b8;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .action-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 0;
+      font-size: 12px;
+      color: #64748b;
+      transition: all 0.3s;
+    }
+
+    .action-item.triggered {
+      color: #10b981;
+    }
+
+    .action-icon {
+      width: 24px;
+      height: 24px;
+      background: rgba(148, 163, 184, 0.1);
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      transition: all 0.3s;
+    }
+
+    .action-item.triggered .action-icon {
+      background: rgba(16, 185, 129, 0.2);
+    }
+
+    /* === RESTART BUTTON === */
+    .restart-btn {
+      width: 100%;
+      background: linear-gradient(135deg, rgba(59, 130, 246, 0.2) 0%, rgba(59, 130, 246, 0.1) 100%);
+      border: 1px solid rgba(59, 130, 246, 0.3);
+      border-radius: 10px;
+      padding: 12px;
+      color: #60a5fa;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      margin-top: 16px;
+      font-family: inherit;
+      display: none;
+    }
+
+    .restart-btn.visible {
+      display: block;
+    }
+
+    .restart-btn:hover {
+      background: linear-gradient(135deg, rgba(59, 130, 246, 0.3) 0%, rgba(59, 130, 246, 0.2) 100%);
+      transform: translateY(-2px);
+    }
+
+    /* === FOOTER === */
+    .footer {
+      margin-top: 28px;
+      padding-top: 20px;
+      border-top: 1px solid rgba(148, 163, 184, 0.1);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      text-align: center;
+    }
+
+    @media (min-width: 600px) {
+      .footer {
+        flex-direction: row;
+        justify-content: space-between;
+      }
+    }
+
+    .footer-name {
+      font-size: 13px;
+      color: #64748b;
+    }
+
+    .footer-name strong {
+      color: #94a3b8;
+    }
+
+    .footer-tech {
+      font-size: 11px;
+      color: #475569;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    /* === INITIAL STATE === */
+    .initial-state {
+      text-align: center;
+      padding: 40px 20px;
+    }
+
+    .initial-icon {
+      font-size: 48px;
+      margin-bottom: 16px;
+      opacity: 0.5;
+    }
+
+    .initial-text {
+      color: #64748b;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    
+    <!-- HEADER -->
+    <header class="header">
+      <div class="badge">
+        <span class="badge-icon">🦷</span>
+        <span>Interactive Demo</span>
+      </div>
+      <h1>AI Receptionist for Orthodontic Practices</h1>
+      <p>Experience how the voice AI handles a new patient inquiry—from first ring to structured summary for your team.</p>
+    </header>
+
+    <!-- TUTORIAL BANNER -->
+    <div class="tutorial-banner" id="tutorial">
+      <div class="tutorial-icon">💡</div>
+      <div class="tutorial-content">
+        <h3>Quick Start Guide</h3>
+        <p>This demo simulates a real inbound call. Try it yourself:</p>
+        <div class="tutorial-steps">
+          <div class="tutorial-step">
+            <div class="step-number">1</div>
+            <span>Answer the incoming call</span>
+          </div>
+          <div class="tutorial-step">
+            <div class="step-number">2</div>
+            <span>Select caller responses</span>
+          </div>
+          <div class="tutorial-step">
+            <div class="step-number">3</div>
+            <span>Watch summary populate in real-time</span>
+          </div>
+          <div class="tutorial-step">
+            <div class="step-number">4</div>
+            <span>See automated actions trigger</span>
+          </div>
+        </div>
+        <button class="dismiss-btn" onclick="dismissTutorial()">Got it, let's explore →</button>
+      </div>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div class="main-grid">
+      
+      <!-- LEFT: Phone Interface -->
+      <div class="card">
+        <div class="card-header">
+          <div class="card-icon green">📞</div>
+          <div class="card-title">Live Call Simulation</div>
+        </div>
+        
+        <div class="phone-frame">
+          <div class="phone-screen">
+            <div class="phone-status-bar">
+              <span>9:41 AM</span>
+              <span>Weave • 📶 5G</span>
+            </div>
+            
+            <div class="call-header">
+              <div class="caller-avatar" id="callerAvatar">👤</div>
+              <div class="caller-name" id="callerName">Incoming Call</div>
+              <div class="call-status" id="callStatus">New Patient Inquiry</div>
+            </div>
+            
+            <div class="conversation" id="conversation">
+              <!-- Messages will appear here -->
+            </div>
+            
+            <div class="response-options" id="responseOptions">
+              <!-- Response buttons will appear here -->
+            </div>
+            
+            <div class="call-controls" id="callControls">
+              <button class="control-btn answer" id="answerBtn" onclick="answerCall()">📞</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- RIGHT: Summary Panel -->
+      <div class="card">
+        <div class="card-header">
+          <div class="card-icon blue">📋</div>
+          <div class="card-title">Call Summary (Auto-Generated)</div>
+        </div>
+        
+        <div class="summary-panel">
+          <div class="summary-header">
+            <div class="summary-title">Patient Intake Details</div>
+            <div class="live-badge" id="liveBadge">
+              <div class="live-dot"></div>
+              <span id="badgeText">Waiting</span>
+            </div>
+          </div>
+          
+          <div class="summary-grid">
+            <div class="summary-field" id="field-name">
+              <div class="field-label">Caller Name</div>
+              <div class="field-value empty" id="value-name">Awaiting call...</div>
+            </div>
+            
+            <div class="summary-field" id="field-phone">
+              <div class="field-label">Phone Number</div>
+              <div class="field-value empty" id="value-phone">Awaiting call...</div>
+            </div>
+            
+            <div class="summary-field" id="field-patient">
+              <div class="field-label">Patient Type</div>
+              <div class="field-value empty" id="value-patient">Awaiting call...</div>
+            </div>
+            
+            <div class="summary-field" id="field-treatment">
+              <div class="field-label">Treatment Interest</div>
+              <div class="field-value empty" id="value-treatment">Awaiting call...</div>
+            </div>
+            
+            <div class="summary-field" id="field-insurance">
+              <div class="field-label">Insurance Status</div>
+              <div class="field-value empty" id="value-insurance">Awaiting call...</div>
+            </div>
+            
+            <div class="summary-field" id="field-time">
+              <div class="field-label">Preferred Time</div>
+              <div class="field-value empty" id="value-time">Awaiting call...</div>
+            </div>
+            
+            <div class="summary-field" id="field-provider">
+              <div class="field-label">Provider Preference</div>
+              <div class="field-value empty" id="value-provider">Awaiting call...</div>
+            </div>
+            
+            <div class="summary-field" id="field-notes">
+              <div class="field-label">Additional Notes</div>
+              <div class="field-value empty" id="value-notes">Awaiting call...</div>
+            </div>
+          </div>
+          
+          <div class="action-preview" id="actionPreview">
+            <div class="action-title">
+              ⚡ Automated Actions
+            </div>
+            <div class="action-item" id="action-email">
+              <div class="action-icon">📧</div>
+              <span>Email summary to front desk</span>
+            </div>
+            <div class="action-item" id="action-sms">
+              <div class="action-icon">💬</div>
+              <span>Send SMS via Weave</span>
+            </div>
+            <div class="action-item" id="action-dolphin">
+              <div class="action-icon">🐬</div>
+              <span>Format for Dolphin entry</span>
+            </div>
+            <div class="action-item" id="action-followup">
+              <div class="action-icon">📅</div>
+              <span>Schedule follow-up task</span>
+            </div>
+          </div>
+          
+          <button class="restart-btn" id="restartBtn" onclick="restartDemo()">
+            🔄 Try Another Call Scenario
+          </button>
+        </div>
+      </div>
+      
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+      <div class="footer-name">Built by <strong>Chris Mott</strong> • ResultantAI</div>
+      <div class="footer-tech">Retell AI + Make.com + Weave Integration</div>
+    </footer>
+
+  </div>
+
+  <script>
+    // ==========================================
+    // CALL SIMULATION STATE
+    // ==========================================
+    
+    let callState = {
+      step: 0,
+      answered: false,
+      data: {}
+    };
+
+    // ==========================================
+    // CALL FLOW SCRIPT
+    // ==========================================
+    
+    const callFlow = [
+      {
+        ai: "Thank you for calling Smile Orthodontics. This is our AI assistant. Are you calling about a new consultation or an existing appointment?",
+        options: [
+          { text: "New patient—I'm interested in braces for my daughter", value: "new_patient", patientType: "Minor (Parent Calling)" },
+          { text: "I'd like to schedule a consultation for myself", value: "new_adult", patientType: "Adult Patient" },
+          { text: "Existing patient—need to reschedule", value: "existing", patientType: "Existing Patient" }
+        ],
+        field: "patient"
+      },
+      {
+        ai: "Wonderful! I'd be happy to help you get started. May I have your name please?",
+        options: [
+          { text: "Sarah Mitchell", value: "Sarah Mitchell" },
+          { text: "Jennifer Rodriguez", value: "Jennifer Rodriguez" },
+          { text: "Amanda Chen", value: "Amanda Chen" }
+        ],
+        field: "name"
+      },
+      {
+        ai: "Thank you, {name}. And what's the best phone number to reach you?",
+        options: [
+          { text: "(301) 555-4827", value: "(301) 555-4827" },
+          { text: "(240) 555-9163", value: "(240) 555-9163" },
+          { text: "(202) 555-3341", value: "(202) 555-3341" }
+        ],
+        field: "phone"
+      },
+      {
+        ai: "Perfect. What type of treatment are you most interested in learning about?",
+        options: [
+          { text: "Traditional metal braces", value: "Metal Braces" },
+          { text: "Invisalign clear aligners", value: "Invisalign" },
+          { text: "Not sure yet—need a consultation", value: "Consultation (Undecided)" }
+        ],
+        field: "treatment"
+      },
+      {
+        ai: "Great choice. Do you have dental insurance that covers orthodontic treatment?",
+        options: [
+          { text: "Yes, through Delta Dental", value: "Delta Dental (Verified)" },
+          { text: "Yes, but I'm not sure about ortho coverage", value: "Has Insurance (Coverage TBD)" },
+          { text: "No insurance—interested in payment plans", value: "Self-Pay (Payment Plan Interest)" }
+        ],
+        field: "insurance"
+      },
+      {
+        ai: "I have availability this week. Do you prefer mornings, afternoons, or after-school times?",
+        options: [
+          { text: "Mornings work best", value: "Morning (9-12pm)" },
+          { text: "After school, around 3:30 or 4", value: "After School (3:30-5pm)" },
+          { text: "Whenever you have the soonest opening", value: "ASAP / Flexible" }
+        ],
+        field: "time"
+      },
+      {
+        ai: "Would you like to see a specific orthodontist, or are you open to any provider?",
+        options: [
+          { text: "Dr. Williams was recommended to me", value: "Dr. Williams (Requested)" },
+          { text: "Whoever has the soonest availability", value: "Any Provider Available" },
+          { text: "Do you have a female orthodontist?", value: "Female Provider Preferred" }
+        ],
+        field: "provider"
+      },
+      {
+        ai: "Is there anything else I should note for your consultation? Any concerns or questions?",
+        options: [
+          { text: "My daughter is nervous—she's never had braces", value: "Patient is anxious, first-time orthodontic treatment" },
+          { text: "We need to discuss financing options", value: "Wants detailed financing/payment plan discussion" },
+          { text: "Just want to get started ASAP", value: "Motivated, ready to begin treatment quickly" }
+        ],
+        field: "notes",
+        final: true
+      }
+    ];
+
+    // ==========================================
+    // CORE FUNCTIONS
+    // ==========================================
+    
+    function dismissTutorial() {
+      document.getElementById('tutorial').classList.add('hidden');
+    }
+
+    function answerCall() {
+      callState.answered = true;
+      
+      // Update avatar
+      document.getElementById('callerAvatar').classList.add('answered');
+      document.getElementById('callerAvatar').textContent = '🤖';
+      
+      // Update caller info
+      document.getElementById('callerName').textContent = 'AI Receptionist';
+      document.getElementById('callStatus').textContent = 'Connected • 0:01';
+      document.getElementById('callStatus').classList.remove('connecting');
+      
+      // Update badge
+      document.getElementById('liveBadge').style.background = 'rgba(239, 68, 68, 0.15)';
+      document.getElementById('liveBadge').style.borderColor = 'rgba(239, 68, 68, 0.3)';
+      document.getElementById('badgeText').textContent = 'Recording';
+      
+      // Update controls
+      document.getElementById('callControls').innerHTML = `
+        <button class="control-btn mute">🔇</button>
+        <button class="control-btn end" onclick="endCall()">📵</button>
+      `;
+      
+      // Start conversation
+      setTimeout(() => {
+        showAIMessage(callFlow[0].ai);
+        setTimeout(() => {
+          showResponseOptions(callFlow[0].options);
+        }, 800);
+      }, 500);
+      
+      // Start timer
+      startCallTimer();
+    }
+
+    function showAIMessage(text) {
+      // Replace placeholders
+      Object.keys(callState.data).forEach(key => {
+        text = text.replace(`{${key}}`, callState.data[key]);
+      });
+      
+      const conversation = document.getElementById('conversation');
+      const message = document.createElement('div');
+      message.className = 'message ai';
+      message.innerHTML = `
+        <div class="message-label">AI Assistant</div>
+        <div>${text}</div>
+      `;
+      conversation.appendChild(message);
+      conversation.scrollTop = conversation.scrollHeight;
+    }
+
+    function showCallerMessage(text) {
+      const conversation = document.getElementById('conversation');
+      const message = document.createElement('div');
+      message.className = 'message caller';
+      message.innerHTML = `
+        <div class="message-label">Caller</div>
+        <div>${text}</div>
+      `;
+      conversation.appendChild(message);
+      conversation.scrollTop = conversation.scrollHeight;
+    }
+
+    function showResponseOptions(options) {
+      const container = document.getElementById('responseOptions');
+      container.innerHTML = options.map((opt, i) => `
+        <button class="response-btn" onclick="selectResponse(${i})">
+          <div class="btn-label">Option ${i + 1}</div>
+          <div>${opt.text}</div>
+        </button>
+      `).join('');
+    }
+
+    function selectResponse(index) {
+      const currentStep = callFlow[callState.step];
+      const selectedOption = currentStep.options[index];
+      
+      // Disable buttons
+      document.querySelectorAll('.response-btn').forEach(btn => {
+        btn.disabled = true;
+      });
+      
+      // Show caller message
+      showCallerMessage(selectedOption.text);
+      
+      // Store data
+      const field = currentStep.field;
+      let value = selectedOption.value;
+      
+      // Handle special case for patient type
+      if (field === 'patient' && selectedOption.patientType) {
+        callState.data['patient'] = selectedOption.patientType;
+        updateSummaryField('patient', selectedOption.patientType);
+      } else {
+        callState.data[field] = value;
+        updateSummaryField(field, value);
+      }
+      
+      // Move to next step
+      callState.step++;
+      
+      if (callState.step < callFlow.length) {
+        // Continue conversation
+        setTimeout(() => {
+          showAIMessage(callFlow[callState.step].ai);
+          setTimeout(() => {
+            showResponseOptions(callFlow[callState.step].options);
+          }, 800);
+        }, 600);
+      } else {
+        // End conversation
+        setTimeout(() => {
+          completeCall();
+        }, 800);
+      }
+    }
+
+    function updateSummaryField(field, value) {
+      const fieldEl = document.getElementById(`field-${field}`);
+      const valueEl = document.getElementById(`value-${field}`);
+      
+      if (fieldEl && valueEl) {
+        fieldEl.classList.add('filled', 'filling');
+        valueEl.classList.remove('empty');
+        valueEl.textContent = value;
+        
+        setTimeout(() => {
+          fieldEl.classList.remove('filling');
+        }, 500);
+      }
+    }
+
+    function completeCall() {
+      // Final AI message
+      showAIMessage("Perfect! I've scheduled a consultation for you. You'll receive a confirmation text via Weave shortly. Our team will review your information and call if they need anything else before your appointment. Have a great day!");
+      
+      // Clear response options
+      document.getElementById('responseOptions').innerHTML = '';
+      
+      // Update badge
+      const badge = document.getElementById('liveBadge');
+      badge.classList.add('complete');
+      document.getElementById('badgeText').textContent = 'Complete';
+      
+      // Trigger automated actions with animation
+      triggerActions();
+      
+      // Show restart button
+      setTimeout(() => {
+        document.getElementById('restartBtn').classList.add('visible');
+      }, 2500);
+    }
+
+    function triggerActions() {
+      const actions = ['email', 'sms', 'dolphin', 'followup'];
+      actions.forEach((action, i) => {
+        setTimeout(() => {
+          const el = document.getElementById(`action-${action}`);
+          el.classList.add('triggered');
+          el.querySelector('.action-icon').textContent = '✓';
+        }, (i + 1) * 600);
+      });
+    }
+
+    function endCall() {
+      if (confirm('End call? Summary will be incomplete.')) {
+        completeCall();
+      }
+    }
+
+    let timerInterval;
+    let seconds = 0;
+    
+    function startCallTimer() {
+      timerInterval = setInterval(() => {
+        seconds++;
+        const mins = Math.floor(seconds / 60);
+        const secs = seconds % 60;
+        document.getElementById('callStatus').textContent = 
+          `Connected • ${mins}:${secs.toString().padStart(2, '0')}`;
+      }, 1000);
+    }
+
+    function restartDemo() {
+      // Reset state
+      callState = { step: 0, answered: false, data: {} };
+      seconds = 0;
+      clearInterval(timerInterval);
+      
+      // Reset phone UI
+      document.getElementById('callerAvatar').classList.remove('answered');
+      document.getElementById('callerAvatar').textContent = '👤';
+      document.getElementById('callerName').textContent = 'Incoming Call';
+      document.getElementById('callStatus').textContent = 'New Patient Inquiry';
+      document.getElementById('conversation').innerHTML = '';
+      document.getElementById('responseOptions').innerHTML = '';
+      document.getElementById('callControls').innerHTML = `
+        <button class="control-btn answer" id="answerBtn" onclick="answerCall()">📞</button>
+      `;
+      
+      // Reset summary
+      document.getElementById('liveBadge').classList.remove('complete');
+      document.getElementById('liveBadge').style.background = '';
+      document.getElementById('liveBadge').style.borderColor = '';
+      document.getElementById('badgeText').textContent = 'Waiting';
+      
+      ['name', 'phone', 'patient', 'treatment', 'insurance', 'time', 'provider', 'notes'].forEach(field => {
+        const fieldEl = document.getElementById(`field-${field}`);
+        const valueEl = document.getElementById(`value-${field}`);
+        fieldEl.classList.remove('filled', 'filling');
+        valueEl.classList.add('empty');
+        valueEl.textContent = 'Awaiting call...';
+      });
+      
+      // Reset actions
+      ['email', 'sms', 'dolphin', 'followup'].forEach(action => {
+        const el = document.getElementById(`action-${action}`);
+        el.classList.remove('triggered');
+      });
+      document.querySelector('#action-email .action-icon').textContent = '📧';
+      document.querySelector('#action-sms .action-icon').textContent = '💬';
+      document.querySelector('#action-dolphin .action-icon').textContent = '🐬';
+      document.querySelector('#action-followup .action-icon').textContent = '📅';
+      
+      // Hide restart button
+      document.getElementById('restartBtn').classList.remove('visible');
+    }
+  </script>
+</body>
+</html>
