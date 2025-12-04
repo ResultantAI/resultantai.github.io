@@ -1,0 +1,1072 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pipeline Leak Detector | ResultantAI Audit Tool</title>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0a0a0f;
+            --bg-secondary: #12121a;
+            --bg-card: #1a1a24;
+            --bg-hover: #22222e;
+            --text-primary: #f0f0f5;
+            --text-secondary: #8888a0;
+            --text-muted: #55556a;
+            --accent-blue: #3b82f6;
+            --accent-purple: #8b5cf6;
+            --accent-green: #22c55e;
+            --accent-yellow: #eab308;
+            --accent-red: #ef4444;
+            --accent-orange: #f97316;
+            --border-color: #2a2a3a;
+            --gradient-1: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+            --shadow-glow: 0 0 60px rgba(59, 130, 246, 0.15);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        /* Tutorial Banner */
+        .tutorial-banner {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(139, 92, 246, 0.1) 100%);
+            border-bottom: 1px solid var(--border-color);
+            padding: 20px 24px;
+            animation: slideDown 0.5s ease-out;
+        }
+
+        @keyframes slideDown {
+            from { transform: translateY(-100%); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .tutorial-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 24px;
+        }
+
+        .tutorial-text h3 {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--accent-blue);
+            margin-bottom: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .tutorial-steps {
+            display: flex;
+            gap: 32px;
+            flex-wrap: wrap;
+        }
+
+        .tutorial-step {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+
+        .step-number {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--accent-blue);
+        }
+
+        .dismiss-btn {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+            white-space: nowrap;
+        }
+
+        .dismiss-btn:hover {
+            background: var(--bg-hover);
+            color: var(--text-primary);
+        }
+
+        /* Header */
+        .header {
+            padding: 32px 24px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .header-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--gradient-1);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 18px;
+        }
+
+        .logo-text {
+            font-weight: 700;
+            font-size: 20px;
+        }
+
+        .logo-text span {
+            color: var(--accent-blue);
+        }
+
+        .header-meta {
+            text-align: right;
+        }
+
+        .header-meta h1 {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .header-meta p {
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+
+        /* Main Container */
+        .main-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 24px;
+        }
+
+        /* Summary Cards */
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin-bottom: 40px;
+        }
+
+        .summary-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .summary-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+        }
+
+        .summary-card.critical::before { background: var(--accent-red); }
+        .summary-card.warning::before { background: var(--accent-yellow); }
+        .summary-card.info::before { background: var(--accent-blue); }
+        .summary-card.success::before { background: var(--accent-green); }
+
+        .summary-label {
+            font-size: 12px;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+        }
+
+        .summary-value {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .summary-card.critical .summary-value { color: var(--accent-red); }
+        .summary-card.warning .summary-value { color: var(--accent-yellow); }
+        .summary-card.info .summary-value { color: var(--accent-blue); }
+        .summary-card.success .summary-value { color: var(--accent-green); }
+
+        .summary-detail {
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        /* Funnel Section */
+        .funnel-section {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 32px;
+            margin-bottom: 32px;
+            box-shadow: var(--shadow-glow);
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 32px;
+        }
+
+        .section-title {
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .section-subtitle {
+            font-size: 13px;
+            color: var(--text-secondary);
+            margin-top: 4px;
+        }
+
+        /* Funnel Visualization */
+        .funnel-container {
+            display: flex;
+            align-items: stretch;
+            gap: 0;
+            margin-bottom: 32px;
+        }
+
+        .funnel-stage {
+            flex: 1;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .funnel-stage:hover {
+            transform: translateY(-4px);
+        }
+
+        .stage-bar {
+            height: 120px;
+            border-radius: 8px;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 16px;
+            transition: all 0.3s;
+        }
+
+        .funnel-stage:nth-child(1) .stage-bar {
+            background: linear-gradient(180deg, rgba(59, 130, 246, 0.3) 0%, rgba(59, 130, 246, 0.1) 100%);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+        }
+
+        .funnel-stage:nth-child(2) .stage-bar {
+            background: linear-gradient(180deg, rgba(139, 92, 246, 0.3) 0%, rgba(139, 92, 246, 0.1) 100%);
+            border: 1px solid rgba(139, 92, 246, 0.3);
+        }
+
+        .funnel-stage:nth-child(3) .stage-bar {
+            background: linear-gradient(180deg, rgba(249, 115, 22, 0.3) 0%, rgba(249, 115, 22, 0.1) 100%);
+            border: 1px solid rgba(249, 115, 22, 0.3);
+        }
+
+        .funnel-stage:nth-child(4) .stage-bar {
+            background: linear-gradient(180deg, rgba(34, 197, 94, 0.3) 0%, rgba(34, 197, 94, 0.1) 100%);
+            border: 1px solid rgba(34, 197, 94, 0.3);
+        }
+
+        .funnel-stage.active .stage-bar {
+            transform: scale(1.02);
+            box-shadow: 0 0 30px rgba(59, 130, 246, 0.2);
+        }
+
+        .stage-icon {
+            font-size: 28px;
+            margin-bottom: 8px;
+        }
+
+        .stage-name {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .stage-count {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 24px;
+            font-weight: 700;
+        }
+
+        /* Leak Connector */
+        .leak-connector {
+            width: 80px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .leak-arrow {
+            font-size: 20px;
+            color: var(--text-muted);
+            margin-bottom: 4px;
+        }
+
+        .leak-badge {
+            background: var(--accent-red);
+            color: white;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11px;
+            font-weight: 600;
+            padding: 4px 8px;
+            border-radius: 4px;
+            white-space: nowrap;
+        }
+
+        .leak-badge.warning {
+            background: var(--accent-yellow);
+            color: var(--bg-primary);
+        }
+
+        .leak-badge.info {
+            background: var(--accent-blue);
+        }
+
+        /* Stage Detail Panel */
+        .stage-detail {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 24px;
+            display: none;
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        .stage-detail.visible {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .detail-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .detail-title {
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .detail-close {
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            cursor: pointer;
+            font-size: 20px;
+            transition: color 0.2s;
+        }
+
+        .detail-close:hover {
+            color: var(--text-primary);
+        }
+
+        .leak-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .leak-item {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 16px;
+            background: var(--bg-card);
+            border-radius: 8px;
+            border-left: 3px solid var(--accent-red);
+        }
+
+        .leak-item.warning {
+            border-left-color: var(--accent-yellow);
+        }
+
+        .leak-item.info {
+            border-left-color: var(--accent-blue);
+        }
+
+        .leak-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            flex-shrink: 0;
+        }
+
+        .leak-item .leak-icon {
+            background: rgba(239, 68, 68, 0.1);
+        }
+
+        .leak-item.warning .leak-icon {
+            background: rgba(234, 179, 8, 0.1);
+        }
+
+        .leak-item.info .leak-icon {
+            background: rgba(59, 130, 246, 0.1);
+        }
+
+        .leak-content {
+            flex: 1;
+        }
+
+        .leak-name {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .leak-description {
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+
+        .leak-impact {
+            text-align: right;
+        }
+
+        .leak-percent {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--accent-red);
+        }
+
+        .leak-item.warning .leak-percent {
+            color: var(--accent-yellow);
+        }
+
+        .leak-item.info .leak-percent {
+            color: var(--accent-blue);
+        }
+
+        .leak-count {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        /* Recommendations Section */
+        .recommendations-section {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 32px;
+        }
+
+        .rec-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            margin-top: 24px;
+        }
+
+        .rec-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 20px;
+            transition: all 0.3s;
+        }
+
+        .rec-card:hover {
+            border-color: var(--accent-blue);
+            transform: translateY(-2px);
+        }
+
+        .rec-priority {
+            display: inline-block;
+            font-size: 10px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            padding: 4px 8px;
+            border-radius: 4px;
+            margin-bottom: 12px;
+        }
+
+        .rec-priority.high {
+            background: rgba(239, 68, 68, 0.1);
+            color: var(--accent-red);
+        }
+
+        .rec-priority.medium {
+            background: rgba(234, 179, 8, 0.1);
+            color: var(--accent-yellow);
+        }
+
+        .rec-priority.low {
+            background: rgba(59, 130, 246, 0.1);
+            color: var(--accent-blue);
+        }
+
+        .rec-title {
+            font-size: 15px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .rec-description {
+            font-size: 13px;
+            color: var(--text-secondary);
+            margin-bottom: 16px;
+        }
+
+        .rec-impact {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 12px;
+            color: var(--accent-green);
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 40px 24px;
+            border-top: 1px solid var(--border-color);
+            margin-top: 40px;
+        }
+
+        .footer-brand {
+            font-size: 14px;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+        }
+
+        .footer-brand span {
+            color: var(--accent-blue);
+            font-weight: 600;
+        }
+
+        .footer-stack {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .summary-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .funnel-container {
+                flex-direction: column;
+                gap: 8px;
+            }
+
+            .leak-connector {
+                width: 100%;
+                height: 40px;
+                flex-direction: row;
+            }
+
+            .rec-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .tutorial-steps {
+                flex-direction: column;
+                gap: 12px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .header-inner {
+                flex-direction: column;
+                gap: 16px;
+                text-align: center;
+            }
+
+            .header-meta {
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Tutorial Banner -->
+    <div class="tutorial-banner" id="tutorialBanner">
+        <div class="tutorial-content">
+            <div class="tutorial-text">
+                <h3>🔍 Quick Start Guide</h3>
+                <div class="tutorial-steps">
+                    <div class="tutorial-step">
+                        <span class="step-number">1</span>
+                        <span>Review the summary metrics at the top</span>
+                    </div>
+                    <div class="tutorial-step">
+                        <span class="step-number">2</span>
+                        <span>Click any funnel stage to see leak details</span>
+                    </div>
+                    <div class="tutorial-step">
+                        <span class="step-number">3</span>
+                        <span>Check the prioritized fix recommendations below</span>
+                    </div>
+                </div>
+            </div>
+            <button class="dismiss-btn" onclick="dismissTutorial()">Got it, let's explore →</button>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="header-inner">
+            <div class="logo">
+                <div class="logo-icon">R</div>
+                <div class="logo-text">Resultant<span>AI</span></div>
+            </div>
+            <div class="header-meta">
+                <h1>Pipeline Leak Detector</h1>
+                <p>HubSpot + Clay + Instantly + Apollo Audit</p>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-container">
+        <!-- Summary Cards -->
+        <div class="summary-grid">
+            <div class="summary-card critical">
+                <div class="summary-label">Total Leads Leaked</div>
+                <div class="summary-value">847</div>
+                <div class="summary-detail">23.4% of total pipeline</div>
+            </div>
+            <div class="summary-card warning">
+                <div class="summary-label">Credits Wasted</div>
+                <div class="summary-value">$2,340</div>
+                <div class="summary-detail">From duplicate enrichments</div>
+            </div>
+            <div class="summary-card info">
+                <div class="summary-label">Reply Rate</div>
+                <div class="summary-value">4.2%</div>
+                <div class="summary-detail">Industry avg: 5.1%</div>
+            </div>
+            <div class="summary-card success">
+                <div class="summary-label">Potential Recovery</div>
+                <div class="summary-value">+$47K</div>
+                <div class="summary-detail">If leaks are fixed</div>
+            </div>
+        </div>
+
+        <!-- Funnel Section -->
+        <section class="funnel-section">
+            <div class="section-header">
+                <div>
+                    <h2 class="section-title">Pipeline Flow Analysis</h2>
+                    <p class="section-subtitle">Click each stage to see where leads are leaking and why</p>
+                </div>
+            </div>
+
+            <!-- Funnel Visualization -->
+            <div class="funnel-container">
+                <div class="funnel-stage" data-stage="clay" onclick="showStageDetail('clay')">
+                    <div class="stage-bar">
+                        <div class="stage-icon">🧱</div>
+                        <div class="stage-name">Clay Enrichment</div>
+                        <div class="stage-count">3,621</div>
+                    </div>
+                </div>
+
+                <div class="leak-connector">
+                    <div class="leak-arrow">→</div>
+                    <div class="leak-badge">-412 (11%)</div>
+                </div>
+
+                <div class="funnel-stage" data-stage="hubspot" onclick="showStageDetail('hubspot')">
+                    <div class="stage-bar">
+                        <div class="stage-icon">🟠</div>
+                        <div class="stage-name">HubSpot CRM</div>
+                        <div class="stage-count">3,209</div>
+                    </div>
+                </div>
+
+                <div class="leak-connector">
+                    <div class="leak-arrow">→</div>
+                    <div class="leak-badge warning">-287 (9%)</div>
+                </div>
+
+                <div class="funnel-stage" data-stage="instantly" onclick="showStageDetail('instantly')">
+                    <div class="stage-bar">
+                        <div class="stage-icon">⚡</div>
+                        <div class="stage-name">Instantly Sequences</div>
+                        <div class="stage-count">2,922</div>
+                    </div>
+                </div>
+
+                <div class="leak-connector">
+                    <div class="leak-arrow">→</div>
+                    <div class="leak-badge info">-148 (5%)</div>
+                </div>
+
+                <div class="funnel-stage" data-stage="response" onclick="showStageDetail('response')">
+                    <div class="stage-bar">
+                        <div class="stage-icon">💬</div>
+                        <div class="stage-name">Responses</div>
+                        <div class="stage-count">2,774</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Stage Detail Panels -->
+            <div class="stage-detail" id="detail-clay">
+                <div class="detail-header">
+                    <h3 class="detail-title">🧱 Clay → HubSpot Leaks (412 leads lost)</h3>
+                    <button class="detail-close" onclick="hideAllDetails()">×</button>
+                </div>
+                <div class="leak-list">
+                    <div class="leak-item">
+                        <div class="leak-icon">🔄</div>
+                        <div class="leak-content">
+                            <div class="leak-name">Infinite Loop Credit Drain</div>
+                            <div class="leak-description">HubSpot webhook triggers Clay on every property update, causing enrichment loops</div>
+                        </div>
+                        <div class="leak-impact">
+                            <div class="leak-percent">4.8%</div>
+                            <div class="leak-count">173 leads</div>
+                        </div>
+                    </div>
+                    <div class="leak-item">
+                        <div class="leak-icon">🗑️</div>
+                        <div class="leak-content">
+                            <div class="leak-name">Blind Overwrite Data Loss</div>
+                            <div class="leak-description">"Ignore Blank Values" disabled—Clay erasing existing rep-entered data</div>
+                        </div>
+                        <div class="leak-impact">
+                            <div class="leak-percent">3.2%</div>
+                            <div class="leak-count">116 leads</div>
+                        </div>
+                    </div>
+                    <div class="leak-item warning">
+                        <div class="leak-icon">👥</div>
+                        <div class="leak-content">
+                            <div class="leak-name">Duplicate Record Creation</div>
+                            <div class="leak-description">Matching by email instead of HubSpot Object ID creates duplicates</div>
+                        </div>
+                        <div class="leak-impact">
+                            <div class="leak-percent">3.4%</div>
+                            <div class="leak-count">123 leads</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="stage-detail" id="detail-hubspot">
+                <div class="detail-header">
+                    <h3 class="detail-title">🟠 HubSpot → Instantly Leaks (287 leads lost)</h3>
+                    <button class="detail-close" onclick="hideAllDetails()">×</button>
+                </div>
+                <div class="leak-list">
+                    <div class="leak-item">
+                        <div class="leak-icon">🏷️</div>
+                        <div class="leak-content">
+                            <div class="leak-name">Missing Campaign Tags</div>
+                            <div class="leak-description">Leads pushed to Instantly without campaign attribution—can't track ROI</div>
+                        </div>
+                        <div class="leak-impact">
+                            <div class="leak-percent">5.1%</div>
+                            <div class="leak-count">164 leads</div>
+                        </div>
+                    </div>
+                    <div class="leak-item warning">
+                        <div class="leak-icon">⚙️</div>
+                        <div class="leak-content">
+                            <div class="leak-name">Lifecycle Stage Mismatch</div>
+                            <div class="leak-description">HubSpot stages don't map to Instantly lead statuses—lost context</div>
+                        </div>
+                        <div class="leak-impact">
+                            <div class="leak-percent">2.4%</div>
+                            <div class="leak-count">77 leads</div>
+                        </div>
+                    </div>
+                    <div class="leak-item info">
+                        <div class="leak-icon">📋</div>
+                        <div class="leak-content">
+                            <div class="leak-name">Invisible List Bug</div>
+                            <div class="leak-description">New HubSpot lists not appearing in Instantly due to cached metadata</div>
+                        </div>
+                        <div class="leak-impact">
+                            <div class="leak-percent">1.4%</div>
+                            <div class="leak-count">46 leads</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="stage-detail" id="detail-instantly">
+                <div class="detail-header">
+                    <h3 class="detail-title">⚡ Instantly → Response Leaks (148 leads lost)</h3>
+                    <button class="detail-close" onclick="hideAllDetails()">×</button>
+                </div>
+                <div class="leak-list">
+                    <div class="leak-item">
+                        <div class="leak-icon">📭</div>
+                        <div class="leak-content">
+                            <div class="leak-name">Reply Sync Black Hole</div>
+                            <div class="leak-description">Native integration fails to log replies—reps calling leads who already responded</div>
+                        </div>
+                        <div class="leak-impact">
+                            <div class="leak-percent">3.2%</div>
+                            <div class="leak-count">94 leads</div>
+                        </div>
+                    </div>
+                    <div class="leak-item warning">
+                        <div class="leak-icon">📧</div>
+                        <div class="leak-content">
+                            <div class="leak-name">Deliverability Issues</div>
+                            <div class="leak-description">17% of emails never reaching inbox due to domain warmup gaps</div>
+                        </div>
+                        <div class="leak-impact">
+                            <div class="leak-percent">1.5%</div>
+                            <div class="leak-count">44 leads</div>
+                        </div>
+                    </div>
+                    <div class="leak-item info">
+                        <div class="leak-icon">↔️</div>
+                        <div class="leak-content">
+                            <div class="leak-name">Bi-directional Sync Conflicts</div>
+                            <div class="leak-description">Instantly overwriting HubSpot lifecycle stages with campaign status</div>
+                        </div>
+                        <div class="leak-impact">
+                            <div class="leak-percent">0.3%</div>
+                            <div class="leak-count">10 leads</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="stage-detail" id="detail-response">
+                <div class="detail-header">
+                    <h3 class="detail-title">💬 Response Quality Analysis</h3>
+                    <button class="detail-close" onclick="hideAllDetails()">×</button>
+                </div>
+                <div class="leak-list">
+                    <div class="leak-item info">
+                        <div class="leak-icon">📊</div>
+                        <div class="leak-content">
+                            <div class="leak-name">Current Reply Rate: 4.2%</div>
+                            <div class="leak-description">Industry benchmark is 5.1%—top performers hit 10-25% with proper integration</div>
+                        </div>
+                        <div class="leak-impact">
+                            <div class="leak-percent">-0.9%</div>
+                            <div class="leak-count">vs. avg</div>
+                        </div>
+                    </div>
+                    <div class="leak-item warning">
+                        <div class="leak-icon">🎯</div>
+                        <div class="leak-content">
+                            <div class="leak-name">Attribution Gap</div>
+                            <div class="leak-description">Cannot tie 67% of responses back to specific campaigns—ROI unknown</div>
+                        </div>
+                        <div class="leak-impact">
+                            <div class="leak-percent">67%</div>
+                            <div class="leak-count">unattributed</div>
+                        </div>
+                    </div>
+                    <div class="leak-item">
+                        <div class="leak-icon">⏱️</div>
+                        <div class="leak-content">
+                            <div class="leak-name">Response Time Delay</div>
+                            <div class="leak-description">Average 4.2 hours from reply to rep notification—should be under 5 minutes</div>
+                        </div>
+                        <div class="leak-impact">
+                            <div class="leak-percent">4.2hr</div>
+                            <div class="leak-count">avg delay</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Recommendations Section -->
+        <section class="recommendations-section">
+            <div class="section-header">
+                <div>
+                    <h2 class="section-title">Prioritized Fix Recommendations</h2>
+                    <p class="section-subtitle">Ordered by impact—fix these first</p>
+                </div>
+            </div>
+
+            <div class="rec-grid">
+                <div class="rec-card">
+                    <div class="rec-priority high">High Priority</div>
+                    <h3 class="rec-title">Add Enrollment Triggers</h3>
+                    <p class="rec-description">Set HubSpot workflow to only trigger Clay when "Enrichment Status = Empty"—stops the infinite loop</p>
+                    <div class="rec-impact">
+                        <span>↑</span>
+                        <span>Saves 10,000+ credits/month</span>
+                    </div>
+                </div>
+
+                <div class="rec-card">
+                    <div class="rec-priority high">High Priority</div>
+                    <h3 class="rec-title">Enable "Ignore Blank Values"</h3>
+                    <p class="rec-description">In Clay HubSpot integration settings—prevents overwriting rep-entered data</p>
+                    <div class="rec-impact">
+                        <span>↑</span>
+                        <span>Recovers 116 leads immediately</span>
+                    </div>
+                </div>
+
+                <div class="rec-card">
+                    <div class="rec-priority high">High Priority</div>
+                    <h3 class="rec-title">Switch to Webhook Reply Sync</h3>
+                    <p class="rec-description">Replace native Instantly sync with webhook-based logging—responses hit HubSpot in real-time</p>
+                    <div class="rec-impact">
+                        <span>↑</span>
+                        <span>4hr → 2min response time</span>
+                    </div>
+                </div>
+
+                <div class="rec-card">
+                    <div class="rec-priority medium">Medium Priority</div>
+                    <h3 class="rec-title">Match by HubSpot Object ID</h3>
+                    <p class="rec-description">Change Clay deduplication from email to Object ID—eliminates duplicate records</p>
+                    <div class="rec-impact">
+                        <span>↑</span>
+                        <span>Stops 123 duplicates/batch</span>
+                    </div>
+                </div>
+
+                <div class="rec-card">
+                    <div class="rec-priority medium">Medium Priority</div>
+                    <h3 class="rec-title">Add Campaign Tagging</h3>
+                    <p class="rec-description">Create "Last Outreach Campaign" property in HubSpot, populate before Instantly push</p>
+                    <div class="rec-impact">
+                        <span>↑</span>
+                        <span>100% revenue attribution</span>
+                    </div>
+                </div>
+
+                <div class="rec-card">
+                    <div class="rec-priority low">Optimization</div>
+                    <h3 class="rec-title">Implement Waterfall Order</h3>
+                    <p class="rec-description">Enrich company first → filter ICP → then enrich person. Saves 40% on Clay credits</p>
+                    <div class="rec-impact">
+                        <span>↑</span>
+                        <span>-$936/month in credits</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p class="footer-brand">Built by <span>ResultantAI</span> | chris@resultantai.com</p>
+        <p class="footer-stack">Powered by HubSpot + Clay + Make.com + Instantly</p>
+    </footer>
+
+    <script>
+        function dismissTutorial() {
+            const banner = document.getElementById('tutorialBanner');
+            banner.style.transform = 'translateY(-100%)';
+            banner.style.opacity = '0';
+            setTimeout(() => {
+                banner.style.display = 'none';
+            }, 300);
+        }
+
+        function showStageDetail(stage) {
+            // Hide all details first
+            document.querySelectorAll('.stage-detail').forEach(el => {
+                el.classList.remove('visible');
+            });
+
+            // Remove active from all stages
+            document.querySelectorAll('.funnel-stage').forEach(el => {
+                el.classList.remove('active');
+            });
+
+            // Show selected detail
+            const detail = document.getElementById('detail-' + stage);
+            if (detail) {
+                detail.classList.add('visible');
+            }
+
+            // Mark stage as active
+            const stageEl = document.querySelector(`.funnel-stage[data-stage="${stage}"]`);
+            if (stageEl) {
+                stageEl.classList.add('active');
+            }
+
+            // Scroll to detail
+            setTimeout(() => {
+                detail.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }, 100);
+        }
+
+        function hideAllDetails() {
+            document.querySelectorAll('.stage-detail').forEach(el => {
+                el.classList.remove('visible');
+            });
+            document.querySelectorAll('.funnel-stage').forEach(el => {
+                el.classList.remove('active');
+            });
+        }
+
+        // Auto-show first stage on load for demo effect
+        setTimeout(() => {
+            showStageDetail('clay');
+        }, 1500);
+    </script>
+</body>
+</html>
