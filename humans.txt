@@ -1,0 +1,29 @@
+/* TEAM */
+
+Creator: Chris
+Role: Founder, ResultantAI
+Site: resultantai.com
+Location: Bay Area → Maryland → Bay Area (soon)
+Twitter: @resultantai
+
+/* THANKS */
+
+Coffee: Too much
+Claude: For the pair programming
+Make.com: For the automation backbone
+GitHub Pages: For free hosting
+
+/* SITE */
+
+Last update: 2025-12-03
+Language: English
+Doctype: HTML5
+Standards: Semantic HTML, CSS Grid, Vanilla JS
+IDE: Cursor + Claude
+
+/* PHILOSOPHY */
+
+We don't sell AI. We sell what AI unlocks.
+No fluff. No jargon. No "synergy."
+Ship over perfect.
+Systems that pay for themselves.
