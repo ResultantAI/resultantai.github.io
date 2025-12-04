@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How to Prevent AI Bill Shock in Make.com (5 Essential Safeguards)</title>
+    <meta name="description" content="One misconfigured Make.com scenario can drain $200+ overnight. Learn the 5 essential safeguards every Make.com user needs before connecting LLM APIs.">
+
+    <meta name="google-site-verification" content="EUs3oELHtHvHjcAdzN2HjjzWzEP_6KWVZFzaIoLdp70">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --bg: #0a0d12;
+            --card: #111820;
+            --border: #1e2a3a;
+            --text: #94a3b8;
+            --text-bright: #e2e8f0;
+            --accent: #10b981;
+            --accent-glow: rgba(16, 185, 129, 0.15);
+        }
+
+        body {
+            font-family: 'DM Sans', -apple-system, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            line-height: 1.8;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(16, 185, 129, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(16, 185, 129, 0.03) 1px, transparent 1px);
+            background-size: 60px 60px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 60px 20px 80px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .back-link {
+            display: inline-block;
+            color: var(--accent);
+            text-decoration: none;
+            margin-bottom: 24px;
+            font-size: 14px;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+
+        h1 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(32px, 5vw, 48px);
+            font-weight: 700;
+            color: var(--text-bright);
+            line-height: 1.2;
+            margin-bottom: 16px;
+            letter-spacing: -0.02em;
+        }
+
+        .post-meta {
+            color: var(--text);
+            font-size: 14px;
+            margin-bottom: 32px;
+            padding-bottom: 24px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .post-tag {
+            background: var(--accent-glow);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            color: var(--accent);
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-weight: 500;
+        }
+
+        h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--text-bright);
+            margin: 48px 0 20px;
+        }
+
+        h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--text-bright);
+            margin: 32px 0 16px;
+        }
+
+        p {
+            margin-bottom: 20px;
+        }
+
+        strong {
+            color: var(--text-bright);
+        }
+
+        ul, ol {
+            margin: 16px 0 20px 24px;
+        }
+
+        li {
+            margin-bottom: 12px;
+        }
+
+        .warning-box {
+            background: rgba(239, 68, 68, 0.1);
+            border-left: 4px solid #ef4444;
+            padding: 20px 24px;
+            margin: 28px 0;
+            border-radius: 0 8px 8px 0;
+            color: var(--text-bright);
+        }
+
+        .callout {
+            background: var(--accent-glow);
+            border-left: 4px solid var(--accent);
+            padding: 20px 24px;
+            margin: 28px 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .code-block {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 16px 20px;
+            margin: 20px 0;
+            overflow-x: auto;
+            font-family: 'Monaco', 'Courier New', monospace;
+            font-size: 14px;
+            line-height: 1.6;
+            color: var(--text-bright);
+        }
+
+        .cta-box {
+            background: linear-gradient(135deg, var(--card) 0%, rgba(16, 185, 129, 0.05) 100%);
+            border: 1px solid var(--accent);
+            border-radius: 12px;
+            padding: 32px;
+            text-align: center;
+            margin: 48px 0;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: var(--accent);
+            color: #000;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 16px;
+            font-weight: 700;
+            padding: 14px 28px;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: transform 0.2s;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 60px;
+            padding-top: 24px;
+            border-top: 1px solid var(--border);
+        }
+
+        .footer-links a {
+            color: var(--accent);
+            text-decoration: none;
+            margin: 0 10px;
+        }
+    </style>
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-DY95GS9YX5"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-DY95GS9YX5');
+    </script>
+
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-WBGJ9J8X');</script>
+</head>
+<body>
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WBGJ9J8X"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+    <div class="container">
+        <a href="/blog" class="back-link">← Back to Blog</a>
+
+        <article>
+            <h1>How to Prevent AI Bill Shock in Make.com</h1>
+
+            <div class="post-meta">
+                <span class="post-tag">Make.com</span>
+                <span>6 min read</span>
+                <span>•</span>
+                <span>December 4, 2025</span>
+            </div>
+
+            <div class="warning-box">
+                <strong>Real scenario:</strong> A Make.com user set up an automation to analyze customer feedback
+                using GPT-4. A misconfigured loop caused the scenario to run 2,400 times overnight instead of 24.
+                Result: $247 in OpenAI charges before they woke up. This happens more often than you think.
+            </div>
+
+            <p>
+                Make.com (formerly Integromat) is one of the most popular no-code automation platforms, and connecting
+                it to LLM APIs like OpenAI or Anthropic unlocks incredible possibilities. But Make.com's power comes
+                with risk: <strong>one misconfigured scenario can drain hundreds of dollars before you notice</strong>.
+            </p>
+
+            <p>
+                This guide covers the 5 essential safeguards every Make.com user needs before connecting LLM APIs.
+                Follow these steps, and you'll never experience bill shock.
+            </p>
+
+            <h2>Why Make.com + LLMs = Bill Shock Risk</h2>
+
+            <p>
+                Make.com scenarios run automatically in the background. Unlike manual scripts you run from your terminal,
+                Make.com executes 24/7 without supervision. Three factors combine to create bill shock risk:
+            </p>
+
+            <ol>
+                <li><strong>No usage visibility:</strong> Make.com doesn't show you LLM token consumption or costs in real-time</li>
+                <li><strong>Easy to misconfigure:</strong> One wrong filter, one missing error handler, and your scenario loops forever</li>
+                <li><strong>No built-in cost limits:</strong> Make.com will happily call your LLM API 10,000 times if your scenario says to</li>
+            </ol>
+
+            <p>
+                The result: You deploy a scenario Friday evening, it malfunctions overnight, and Monday morning you
+                discover a $300+ charge. Let's prevent that.
+            </p>
+
+            <h2>Safeguard #1: Test with Small Limits First</h2>
+
+            <p>
+                <strong>Never deploy a new Make.com scenario directly to production.</strong> Always test with artificial
+                constraints for 24-48 hours first.
+            </p>
+
+            <h3>How to Test Safely</h3>
+
+            <ol>
+                <li>
+                    <strong>Add a "Test Mode" toggle:</strong> Use a Make.com variable called <code>TEST_MODE</code>.
+                    When enabled, limit scenario to 10 runs maximum.
+                </li>
+                <li>
+                    <strong>Set a $5 daily budget:</strong> Use an LLM gateway with budget caps, or monitor OpenAI
+                    usage hourly for 24 hours.
+                </li>
+                <li>
+                    <strong>Watch for 24 hours:</strong> Check scenario execution history every 4-6 hours. Look for
+                    unexpected spikes, errors, or retries.
+                </li>
+                <li>
+                    <strong>Graduate to production:</strong> If 24 hours pass with expected behavior, disable TEST_MODE
+                    and raise budget to production levels.
+                </li>
+            </ol>
+
+            <div class="callout">
+                <p>
+                    <strong>Pro tip:</strong> Set a Make.com Data Store variable called <code>daily_llm_calls</code>
+                    that increments with each LLM request. Add a filter: "If daily_llm_calls > 100, stop scenario."
+                    This acts as a manual circuit breaker.
+                </p>
+            </div>
+
+            <h2>Safeguard #2: Use Budget Caps at the Gateway Level</h2>
+
+            <p>
+                The single most effective protection against bill shock is <strong>hard spending limits at the API level</strong>.
+                Make.com can't protect you here—you need to control costs at the LLM provider or gateway.
+            </p>
+
+            <h3>Three Options for Budget Protection</h3>
+
+            <h4>Option 1: OpenAI Usage Limits (Limited)</h4>
+            <p>
+                OpenAI lets you set monthly spending limits in your account dashboard. However, these limits are
+                <em>soft</em>—they send alerts but don't hard-stop requests. Not sufficient for bill shock prevention.
+            </p>
+
+            <h4>Option 2: LLM Gateway with Hard Caps (Recommended)</h4>
+            <p>
+                Use an LLM gateway like AI Gateway that enforces hard spending caps. When you hit your limit, requests
+                return an error instead of consuming more tokens.
+            </p>
+
+            <div class="code-block">
+# Example: Set $100/month hard cap
+When cap is reached:
+  - HTTP 429 error returned to Make.com
+  - Make.com scenario logs error and stops
+  - No additional charges possible
+            </div>
+
+            <h4>Option 3: Make.com Monitoring Automation (DIY)</h4>
+            <p>
+                Create a separate Make.com scenario that monitors your OpenAI usage via API every hour. If usage
+                exceeds threshold, it disables your LLM-calling scenarios. More complex but gives you full control.
+            </p>
+
+            <h2>Safeguard #3: Tag Scenarios for Per-Scenario Tracking</h2>
+
+            <p>
+                If you have multiple Make.com scenarios calling LLMs, you need to know <strong>which scenario is
+                consuming the most tokens</strong>. Without per-scenario tracking, you can't optimize costs or identify
+                runaway scenarios quickly.
+            </p>
+
+            <h3>How to Implement Scenario Tagging</h3>
+
+            <p>
+                When calling your LLM API from Make.com, add a custom header identifying the scenario:
+            </p>
+
+            <div class="code-block">
+HTTP Module Configuration:
+  URL: https://gateway.resultantai.com/v1/chat/completions
+  Method: POST
+  Headers:
+    Authorization: Bearer YOUR_API_KEY
+    X-Scenario-ID: customer-feedback-analyzer
+    X-Scenario-Name: Analyze Customer Feedback
+  Body: {
+    "model": "gpt-4o-mini",
+    "messages": [...]
+  }
+            </div>
+
+            <p>
+                Your LLM gateway (or custom logging) can then track costs per scenario. At the end of the month,
+                you'll see:
+            </p>
+
+            <div class="code-block">
+Scenario                         | Runs  | Cost
+---------------------------------|-------|--------
+customer-feedback-analyzer       | 1,247 | $3.42
+lead-qualification              | 823   | $2.18
+email-summarizer                | 12,450| $8.76
+content-generator               | 342   | $12.34  ← Expensive!
+            </div>
+
+            <p>
+                Now you know exactly where to optimize.
+            </p>
+
+            <h2>Safeguard #4: Add Error Handling to Prevent Infinite Loops</h2>
+
+            <p>
+                The most common cause of Make.com bill shock is <strong>infinite loops caused by missing error handlers</strong>.
+                If your LLM API returns an error and Make.com retries indefinitely, you're in trouble.
+            </p>
+
+            <h3>Essential Error Handling Pattern</h3>
+
+            <p>
+                Add an "Error Handler" route to every HTTP module that calls an LLM API:
+            </p>
+
+            <ol>
+                <li>
+                    <strong>Catch HTTP errors:</strong> Any 4xx or 5xx response should trigger the error handler,
+                    not retry.
+                </li>
+                <li>
+                    <strong>Log error to Data Store:</strong> Store error details (timestamp, scenario ID, error message)
+                    for debugging.
+                </li>
+                <li>
+                    <strong>Notify admin:</strong> Send email or Slack notification for critical errors.
+                </li>
+                <li>
+                    <strong>Stop execution:</strong> Do NOT retry more than 3 times. After 3 failures, stop the scenario
+                    run entirely.
+                </li>
+            </ol>
+
+            <div class="callout">
+                <p>
+                    <strong>Make.com tip:</strong> Right-click any module → "Add error handler" → Select "Break" to
+                    stop execution on error. This prevents retry loops.
+                </p>
+            </div>
+
+            <h2>Safeguard #5: Use Cheaper Models for Simple Tasks</h2>
+
+            <p>
+                Many Make.com users default to GPT-4o for everything because it's the "best" model. But GPT-4o costs
+                $2.50 per 1M tokens—16.7x more expensive than GPT-4o-mini at $0.15 per 1M tokens.
+            </p>
+
+            <p>
+                For 70-80% of automation tasks, GPT-4o-mini performs identically to GPT-4o. Use this decision framework:
+            </p>
+
+            <h3>Use GPT-4o-mini ($0.15/1M) for:</h3>
+            <ul>
+                <li><strong>Classification:</strong> "Is this email a customer complaint or feature request?"</li>
+                <li><strong>Extraction:</strong> "Pull name, email, and phone number from this text"</li>
+                <li><strong>Sentiment analysis:</strong> "Is this review positive or negative?"</li>
+                <li><strong>FAQ responses:</strong> "Answer this question using our knowledge base"</li>
+                <li><strong>Simple summaries:</strong> "Summarize this 200-word email in 1 sentence"</li>
+            </ul>
+
+            <h3>Use GPT-4o ($2.50/1M) for:</h3>
+            <ul>
+                <li><strong>Complex reasoning:</strong> Multi-step logic, edge case handling</li>
+                <li><strong>Long-form content:</strong> Blog posts, detailed reports</li>
+                <li><strong>Nuanced understanding:</strong> Sarcasm detection, tone analysis</li>
+            </ul>
+
+            <div class="warning-box">
+                <strong>Cost example:</strong> A Make.com scenario processes 10,000 customer feedback messages per month.
+                Each message is 150 tokens (input + output = 300 tokens total).<br><br>
+
+                <strong>GPT-4o cost:</strong> 10,000 × 300 = 3M tokens × $2.50/1M = <strong>$7.50/month</strong><br>
+                <strong>GPT-4o-mini cost:</strong> 10,000 × 300 = 3M tokens × $0.15/1M = <strong>$0.45/month</strong><br><br>
+
+                <strong>Savings: $7.05/month (94%)</strong> by switching to GPT-4o-mini for a classification task.
+            </div>
+
+            <h2>Real-World Example: Complete Safeguard Implementation</h2>
+
+            <p>
+                Let's walk through a real scenario: <strong>"Analyze customer feedback and categorize as Bug/Feature/Question"</strong>
+            </p>
+
+            <h3>Before Safeguards (Risky Setup)</h3>
+            <ul>
+                <li>Uses GPT-4 (expensive)</li>
+                <li>No error handling—retries indefinitely on failures</li>
+                <li>No budget cap—unlimited spending</li>
+                <li>No scenario tagging—can't track costs</li>
+                <li><strong>Risk level: HIGH</strong> 🔴</li>
+            </ul>
+
+            <h3>After Safeguards (Protected Setup)</h3>
+            <ul>
+                <li>✅ Uses GPT-4o-mini (16x cheaper, same quality for classification)</li>
+                <li>✅ Error handler: Stops after 3 retries, logs errors, sends Slack alert</li>
+                <li>✅ Budget cap: $10/month hard limit via LLM gateway</li>
+                <li>✅ Scenario tagging: X-Scenario-ID header for cost tracking</li>
+                <li>✅ Test mode: Ran for 48 hours with 50-run limit before going live</li>
+                <li><strong>Risk level: LOW</strong> 🟢</li>
+            </ul>
+
+            <p>
+                <strong>Result:</strong> Scenario runs safely in production, costs $0.60/month instead of $8-12/month,
+                and cannot cause bill shock even if it malfunctions.
+            </p>
+
+            <h2>Checklist: Deploy Your Make.com LLM Scenario Safely</h2>
+
+            <p>Before activating any Make.com scenario that calls LLM APIs:</p>
+
+            <ol>
+                <li>☐ Tested with TEST_MODE enabled and 10-run limit for 24 hours</li>
+                <li>☐ Set hard budget cap at gateway or provider level</li>
+                <li>☐ Added X-Scenario-ID header for per-scenario cost tracking</li>
+                <li>☐ Implemented error handler with 3-retry limit and admin notifications</li>
+                <li>☐ Verified I'm using cheapest model that meets quality requirements</li>
+                <li>☐ Documented scenario's expected monthly cost</li>
+                <li>☐ Set calendar reminder to review costs after 7 days</li>
+            </ol>
+
+            <p>
+                Check all 7 boxes? You're protected. Deploy with confidence.
+            </p>
+
+            <div class="cta-box">
+                <h3>Prevent Bill Shock with AI Gateway</h3>
+                <p>
+                    AI Gateway enforces hard budget caps, provides per-scenario tracking, and includes 3M tokens/month.
+                    Perfect for Make.com automations.
+                </p>
+                <a href="/gateway" class="cta-button">Try Free for 14 Days →</a>
+            </div>
+
+            <p style="margin-top: 48px;">
+                <strong>Related:</strong> <a href="/blog/llm-cost-optimization-guide" style="color: var(--accent);">Complete Guide to LLM Cost Optimization</a>
+            </p>
+        </article>
+
+        <footer class="footer">
+            <p class="footer-links">
+                <a href="/">Home</a>
+                <a href="/blog">Blog</a>
+                <a href="/gateway">AI Gateway</a>
+                <a href="mailto:chris@resultantai.com">Contact</a>
+            </p>
+        </footer>
+    </div>
+</body>
+</html>

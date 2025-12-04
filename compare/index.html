@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Gateway Comparisons | vs Portkey, Helicone, LiteLLM, Direct API</title>
+    <meta name="description" content="Compare AI Gateway with alternatives: Portkey, Helicone, LiteLLM, and direct API access. See pricing, features, and which solution fits your needs.">
+
+    <!-- Google Search Console Verification -->
+    <meta name="google-site-verification" content="EUs3oELHtHvHjcAdzN2HjjzWzEP_6KWVZFzaIoLdp70">
+
+    <!-- Preload critical fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --bg: #0a0d12;
+            --card: #111820;
+            --border: #1e2a3a;
+            --text: #94a3b8;
+            --text-bright: #e2e8f0;
+            --accent: #10b981;
+            --accent-glow: rgba(16, 185, 129, 0.15);
+        }
+
+        body {
+            font-family: 'DM Sans', -apple-system, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(16, 185, 129, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(16, 185, 129, 0.03) 1px, transparent 1px);
+            background-size: 60px 60px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 60px 20px 80px;
+            position: relative;
+            z-index: 1;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        h1 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(32px, 5vw, 48px);
+            font-weight: 700;
+            color: var(--text-bright);
+            line-height: 1.2;
+            margin-bottom: 16px;
+            letter-spacing: -0.02em;
+        }
+
+        .subtitle {
+            font-size: 18px;
+            color: var(--text);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .comparison-grid {
+            display: grid;
+            gap: 20px;
+            margin-bottom: 60px;
+        }
+
+        .comparison-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 28px;
+            text-decoration: none;
+            transition: border-color 0.2s, transform 0.2s;
+        }
+
+        .comparison-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-2px);
+        }
+
+        .comparison-card h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--text-bright);
+            margin-bottom: 12px;
+        }
+
+        .comparison-card p {
+            color: var(--text);
+            line-height: 1.7;
+            margin-bottom: 16px;
+        }
+
+        .comparison-highlights {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .highlight-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: var(--accent-glow);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            color: var(--accent);
+            font-size: 13px;
+            font-weight: 500;
+            padding: 6px 12px;
+            border-radius: 20px;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 60px;
+            padding-top: 24px;
+            border-top: 1px solid var(--border);
+        }
+
+        .footer-logo {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            font-size: 14px;
+            color: var(--text);
+            margin-bottom: 12px;
+        }
+
+        .footer-links {
+            font-size: 13px;
+            color: var(--text);
+        }
+
+        .footer-links a {
+            color: var(--accent);
+            text-decoration: none;
+            margin: 0 10px;
+        }
+
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
+    </style>
+
+    <!-- Google Analytics 4 -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-DY95GS9YX5"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-DY95GS9YX5');
+    </script>
+
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-WBGJ9J8X');</script>
+
+    <!-- Tracking Script -->
+    <script src="/js/tracking.js" defer></script>
+</head>
+<body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WBGJ9J8X"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+    <div class="container">
+        <header>
+            <h1>AI Gateway Comparisons</h1>
+            <p class="subtitle">
+                See how AI Gateway compares to other LLM proxy solutions and direct API access.
+                All comparisons updated December 2025.
+            </p>
+        </header>
+
+        <div class="comparison-grid">
+            <a href="/compare/portkey" class="comparison-card">
+                <h2>AI Gateway vs Portkey</h2>
+                <p>
+                    Compare token-inclusive pricing ($99 with 3M tokens) vs platform-fee model
+                    ($49 + provider costs). Which saves more for your use case?
+                </p>
+                <div class="comparison-highlights">
+                    <span class="highlight-tag">💰 Pricing Model</span>
+                    <span class="highlight-tag">📊 Feature Parity</span>
+                    <span class="highlight-tag">🎯 Best For</span>
+                </div>
+            </a>
+
+            <a href="/compare/helicone" class="comparison-card">
+                <h2>AI Gateway vs Helicone</h2>
+                <p>
+                    Cost management with token inclusions vs observability-focused logging.
+                    Different tools for different priorities.
+                </p>
+                <div class="comparison-highlights">
+                    <span class="highlight-tag">📈 Observability</span>
+                    <span class="highlight-tag">💵 Cost Controls</span>
+                    <span class="highlight-tag">🔄 Use Together?</span>
+                </div>
+            </a>
+
+            <a href="/compare/litellm" class="comparison-card">
+                <h2>AI Gateway vs LiteLLM</h2>
+                <p>
+                    Self-hosted open source vs fully managed service. Compare DevOps overhead,
+                    included tokens, and total cost of ownership.
+                </p>
+                <div class="comparison-highlights">
+                    <span class="highlight-tag">🏠 Self-Hosted</span>
+                    <span class="highlight-tag">☁️ Managed</span>
+                    <span class="highlight-tag">⚙️ DevOps Cost</span>
+                </div>
+            </a>
+
+            <a href="/compare/direct-api" class="comparison-card">
+                <h2>AI Gateway vs Direct API Access</h2>
+                <p>
+                    When does adding a gateway make sense? Compare simplicity of direct access
+                    with budget controls, tracking, and failover.
+                </p>
+                <div class="comparison-highlights">
+                    <span class="highlight-tag">🎚️ Complexity</span>
+                    <span class="highlight-tag">🛡️ Protection</span>
+                    <span class="highlight-tag">💸 Bill Shock</span>
+                </div>
+            </a>
+        </div>
+
+        <footer class="footer">
+            <div class="footer-logo">ResultantAI</div>
+            <p class="footer-links">
+                <a href="/">Home</a>
+                <a href="/gateway">AI Gateway</a>
+                <a href="/pricing">Pricing</a>
+                <a href="mailto:chris@resultantai.com">Contact</a>
+            </p>
+        </footer>
+    </div>
+</body>
+</html>

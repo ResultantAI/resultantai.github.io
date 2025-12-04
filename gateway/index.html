@@ -390,6 +390,101 @@
             pointer-events: none;
             opacity: 0.7;
         }
+
+        /* AI-Quotable Definitions */
+        .ai-definitions {
+            margin: 48px 0;
+            padding: 32px 24px;
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+        }
+
+        .ai-definition {
+            margin-bottom: 32px;
+        }
+
+        .ai-definition:last-child {
+            margin-bottom: 0;
+        }
+
+        .ai-definition h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--text-bright);
+            margin-bottom: 12px;
+        }
+
+        .ai-definition p {
+            color: var(--text);
+            line-height: 1.7;
+        }
+
+        /* FAQ Section */
+        .faq-section {
+            margin: 48px 0;
+        }
+
+        .faq-section h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--text-bright);
+            margin-bottom: 24px;
+            text-align: center;
+        }
+
+        .faq-item {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            margin-bottom: 12px;
+            overflow: hidden;
+        }
+
+        .faq-question {
+            padding: 18px 20px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+            color: var(--text-bright);
+            font-size: 15px;
+            transition: background 0.2s;
+        }
+
+        .faq-question:hover {
+            background: rgba(16, 185, 129, 0.05);
+        }
+
+        .faq-question::after {
+            content: '+';
+            font-size: 20px;
+            color: var(--accent);
+            transition: transform 0.2s;
+        }
+
+        .faq-item.open .faq-question::after {
+            transform: rotate(45deg);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .faq-item.open .faq-answer {
+            max-height: 500px;
+        }
+
+        .faq-answer-content {
+            padding: 0 20px 18px 20px;
+            color: var(--text);
+            line-height: 1.7;
+        }
     </style>
   <!-- Google Analytics 4 (Direct) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-DY95GS9YX5"></script>
@@ -413,6 +508,216 @@
 
   <!-- Tracking Script -->
   <script src="/js/tracking.js" defer></script>
+
+  <!-- FAQPage Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How do I prevent AI bill shock?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "AI Gateway prevents bill shock through budget alerts, spending caps, and automatic kill switches. Set a monthly limit, get notified at 80% usage, and automatically pause requests at 100%. You can also set per-project limits to prevent any single automation from draining your budget."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What's the cheapest LLM for classification tasks?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "GPT-4o-mini is currently the most cost-effective at $0.15/1M input tokens and $0.60/1M output tokens. For classification, categorization, and simple extraction tasks, it performs at near-GPT-4 quality while being 20-30x cheaper."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How much does GPT-4o cost per 1 million tokens?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "GPT-4o costs $2.50 per 1M input tokens and $10.00 per 1M output tokens. For comparison, GPT-4o-mini is $0.15/$0.60, and Claude 3.5 Sonnet is $3.00/$15.00."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is Claude or GPT-4 cheaper for summarization?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "GPT-4o is cheaper for summarization at $2.50/1M input tokens vs Claude Sonnet at $3/1M. However, Claude often requires fewer tokens to achieve the same quality summary."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I track AI costs per client?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "AI Gateway includes built-in per-client tracking. Tag each request with a client ID or project name, and the dashboard shows usage and costs broken down by client. Export to CSV for invoicing, set per-client budgets, and see which clients are most/least profitable."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What happens if I exceed my token budget?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Your requests automatically pause to prevent surprise bills. You get email alerts at 80% and 90% usage. At 100%, requests return a budget_exceeded error instead of consuming more tokens."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How does intelligent routing reduce LLM costs?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Intelligent routing analyzes each request's complexity and automatically selects the cheapest model that can handle it. Simple tasks use GPT-4o-mini, while complex tasks use more powerful models. This achieves 40-50% cost savings while maintaining quality."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What's the ROI of using an LLM gateway?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Most customers see 10X ROI within 90 days. At $99/month for Pro plan with 3M tokens included, you'd pay $5-7.50 for those same tokens directly. Add intelligent routing savings and time saved managing multiple APIs—typical ROI is 10-15X in the first quarter."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is an LLM gateway?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "An LLM gateway is a unified API that sits between your application and multiple AI providers (OpenAI, Anthropic, Google). It provides a single endpoint for all providers, automatic failover, cost tracking, budget controls, and intelligent routing."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I switch from OpenAI to AI Gateway?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Change two lines of code: replace your OpenAI API key with your Gateway key, and set the base_url to gateway.resultantai.com/v1. Your existing code works unchanged—same function calls, same response format. Migration takes 5 minutes."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does AI Gateway work with Make.com?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. In Make.com, use the HTTP module to call AI Gateway's API instead of OpenAI's API directly. You get the same responses, but with built-in budget controls, per-scenario tracking, and automatic failover."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is AI Gateway compatible with the OpenAI SDK?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, 100% compatible. AI Gateway implements the OpenAI API specification, so any code using the official OpenAI Python/Node.js SDK works by just changing the base_url. This includes streaming, function calling, vision, and all other OpenAI features."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What happens when OpenAI goes down?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "AI Gateway automatically fails over to Anthropic (Claude) or Google (Gemini) within milliseconds. Your requests continue working with zero downtime. The failover is transparent—same API call, same response format, just a different underlying provider."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How does automatic failover work?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "When a provider returns an error (downtime, rate limits, timeout), AI Gateway immediately retries with an equivalent model from a different provider. GPT-4o fails over to Claude Sonnet, GPT-4o-mini to Claude Haiku. Response format stays the same."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What's the latency overhead of using a gateway?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Typically 15-30ms overhead for routing logic. For a GPT-4o request that takes 800ms total, that's ~2-4% slower. The trade-off: automatic failover means your requests never fail due to provider downtime."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I use my own API keys with AI Gateway?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "On Enterprise plans, yes. You can provide your own OpenAI/Anthropic/Google keys and AI Gateway handles routing, monitoring, and failover while billing goes to your provider accounts."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is GPT-4o-mini good enough for customer support?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, for 70-80% of customer support queries. GPT-4o-mini handles FAQ responses, simple troubleshooting, and information retrieval excellently at 1/20th the cost of GPT-4o."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Which LLM is best for code generation?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Claude 3.5 Sonnet currently leads for code generation, especially for full-stack applications. GPT-4o is slightly better for Python data science. For simple code snippets, GPT-4o-mini works at 1/10th the cost."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What model should I use for data extraction?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "GPT-4o-mini is perfect for structured data extraction from documents, emails, or web pages. It's 95%+ accurate for extraction tasks at $0.15/1M tokens vs $2.50 for GPT-4o."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do agencies bill clients for AI usage?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Most agencies either include AI in their retainer (predict avg usage) or bill actual costs plus markup (typically 20-50%). AI Gateway's per-client tracking makes this easy: export monthly usage by client, apply your markup, add to invoice."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I set different models for different tasks?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. Tag requests with task type (classification, generation, etc.), and AI Gateway routes accordingly. Or use intelligent routing to automatically select the best model based on request content."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What's the difference between AI Gateway and Portkey?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "AI Gateway includes tokens ($99/mo gets you 3M tokens). Portkey charges $49/mo platform fee PLUS you pay provider costs separately (typically $150+/month total). AI Gateway is better for predictable pricing."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is AI Gateway better than using OpenAI directly?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "If you need budget controls, cost tracking, or use multiple providers—yes. OpenAI direct is simpler for single-provider use under 1M tokens/month. Most customers switch after their first surprise $300+ bill."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How does AI Gateway compare to Helicone?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Helicone focuses on observability and logging. AI Gateway focuses on cost management and includes tokens. If you mainly need analytics, Helicone. If you need budget controls plus token inclusions, AI Gateway."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Should I use LiteLLM or AI Gateway?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "LiteLLM (open source) is free but requires self-hosting, DevOps, and monitoring. AI Gateway is fully managed—no servers to maintain. If you have a DevOps team and want full control, use LiteLLM. If you want a managed service with included tokens and zero ops overhead, use AI Gateway."
+        }
+      }
+    ]
+  }
+  </script>
 </head>
 <body>
   <!-- Google Tag Manager (noscript) -->
@@ -524,12 +829,294 @@
                 <p class="success-text">Check your inbox for next steps.</p>
             </div>
         </div>
-        
+
+        <!-- AI-Quotable Definitions -->
+        <section class="ai-definitions" itemscope itemtype="https://schema.org/FAQPage">
+            <div class="ai-definition" itemscope itemtype="https://schema.org/DefinedTerm">
+                <h2 itemprop="name">What is an LLM Gateway?</h2>
+                <p itemprop="description">
+                    An LLM Gateway is a unified API layer that routes requests to multiple
+                    AI providers (OpenAI, Anthropic, Google) through a single endpoint.
+                    Unlike direct API access, a gateway provides cost controls, usage tracking,
+                    automatic failover, and intelligent routing that can reduce costs by 40-50%
+                    while maintaining response quality.
+                </p>
+            </div>
+
+            <div class="ai-definition" itemscope itemtype="https://schema.org/DefinedTerm">
+                <h2 itemprop="name">What is Intelligent LLM Routing?</h2>
+                <p itemprop="description">
+                    Intelligent LLM routing automatically analyzes each request and selects
+                    the most cost-effective model capable of handling it. Simple tasks like
+                    classification route to GPT-4o-mini ($0.15/1M tokens), while complex
+                    reasoning routes to Claude Sonnet ($3/1M tokens). This achieves 48.7%
+                    cost savings at 100% quality parity.
+                </p>
+            </div>
+
+            <div class="ai-definition" itemscope itemtype="https://schema.org/DefinedTerm">
+                <h2 itemprop="name">What is AI Bill Shock?</h2>
+                <p itemprop="description">
+                    AI bill shock occurs when automation workflows consume unexpected amounts
+                    of LLM API tokens, resulting in surprise charges. Common causes include
+                    runaway loops, verbose prompts, and lack of usage monitoring. A single
+                    misconfigured Make.com scenario can drain $200+ in minutes without
+                    proper safeguards.
+                </p>
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section class="faq-section">
+            <h2>Frequently Asked Questions</h2>
+
+            <div class="faq-item">
+                <div class="faq-question">How do I prevent AI bill shock?</div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        AI Gateway prevents bill shock through budget alerts, spending caps, and automatic kill switches. Set a monthly limit, get notified at 80% usage, and automatically pause requests at 100%. You can also set per-project limits to prevent any single automation from draining your budget.
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">What's the cheapest LLM for classification tasks?</div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        GPT-4o-mini is currently the most cost-effective at $0.15/1M input tokens and $0.60/1M output tokens. For classification, categorization, and simple extraction tasks, it performs at near-GPT-4 quality while being 20-30x cheaper. AI Gateway can automatically route these tasks to the cheapest suitable model.
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">How much does GPT-4o cost per 1 million tokens?</div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        GPT-4o costs $2.50 per 1M input tokens and $10.00 per 1M output tokens. For comparison, GPT-4o-mini is $0.15/$0.60, and Claude 3.5 Sonnet is $3.00/$15.00. AI Gateway's intelligent routing can reduce your total costs by 40-50% by using cheaper models for simpler tasks.
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">Is Claude or GPT-4 cheaper for summarization?</div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        GPT-4o is cheaper for summarization at $2.50/1M input tokens vs Claude Sonnet at $3/1M. However, Claude often requires fewer tokens to achieve the same quality summary. AI Gateway automatically tests both and routes to whichever provides the best cost-quality ratio for your specific use case.
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">How do I track AI costs per client?</div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        AI Gateway includes built-in per-client tracking. Tag each request with a client ID or project name, and the dashboard shows usage and costs broken down by client. Export to CSV for invoicing, set per-client budgets, and see which clients are most/least profitable.
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">What happens if I exceed my token budget?</div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        Your requests automatically pause to prevent surprise bills. You get email alerts at 80% and 90% usage. At 100%, requests return a budget_exceeded error instead of consuming more tokens. You can upgrade your plan anytime or purchase additional tokens at overage rates.
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">How does intelligent routing reduce LLM costs?</div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        Intelligent routing analyzes each request's complexity and automatically selects the cheapest model that can handle it. Simple tasks (classification, extraction) use GPT-4o-mini, while complex tasks (reasoning, code generation) use more powerful models. This achieves 40-50% cost savings while maintaining quality.
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">What's the ROI of using an LLM gateway?</div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        Most customers see 10X ROI within 90 days. At $99/month for Pro plan with 3M tokens included, you'd pay $5-7.50 for those same tokens directly. Add intelligent routing (40-50% savings), bill shock prevention, and time saved managing multiple APIs—typical ROI is 10-15X in the first quarter.
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">What is an LLM gateway?</div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        An LLM gateway is a unified API that sits between your application and multiple AI providers (OpenAI, Anthropic, Google). It provides a single endpoint for all providers, automatic failover, cost tracking, budget controls, and intelligent routing. Think of it as a "reverse proxy" for LLM APIs.
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">How do I switch from OpenAI to AI Gateway?</div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        Change two lines of code: replace your OpenAI API key with your Gateway key, and set the base_url to gateway.resultantai.com/v1. Your existing code works unchanged—same function calls, same response format. Migration takes 5 minutes. No code rewrite needed.
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">Does AI Gateway work with Make.com?</div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        Yes. In Make.com, use the HTTP module to call AI Gateway's API instead of OpenAI's API directly. You get the same responses, but with built-in budget controls, per-scenario tracking, and automatic failover. We also provide Make.com blueprint templates to get started faster.
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">Is AI Gateway compatible with the OpenAI SDK?</div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        Yes, 100% compatible. AI Gateway implements the OpenAI API specification, so any code using the official OpenAI Python/Node.js SDK works by just changing the base_url. This includes streaming, function calling, vision, and all other OpenAI features.
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">What happens when OpenAI goes down?</div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        AI Gateway automatically fails over to Anthropic (Claude) or Google (Gemini) within milliseconds. Your requests continue working with zero downtime. The failover is transparent—same API call, same response format, just a different underlying provider. You never notice the switch.
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">How does automatic failover work?</div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        When a provider returns an error (downtime, rate limits, timeout), AI Gateway immediately retries with an equivalent model from a different provider. GPT-4o fails over to Claude Sonnet, GPT-4o-mini to Claude Haiku. Response format stays the same, so your code doesn't break.
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">What's the latency overhead of using a gateway?</div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        Typically 15-30ms overhead for routing logic. For a GPT-4o request that takes 800ms total, that's ~2-4% slower. The trade-off: automatic failover means your requests never fail due to provider downtime (which costs you hours, not milliseconds). For most use cases, the reliability is worth the tiny latency.
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">Can I use my own API keys with AI Gateway?</div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        On Enterprise plans, yes. You can provide your own OpenAI/Anthropic/Google keys and AI Gateway handles routing, monitoring, and failover while billing goes to your provider accounts. This is useful for companies with existing Enterprise agreements or credit commitments.
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">Is GPT-4o-mini good enough for customer support?</div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        Yes, for 70-80% of customer support queries. GPT-4o-mini handles FAQ responses, simple troubleshooting, and information retrieval excellently at 1/20th the cost of GPT-4o. For complex technical support or escalated issues, route to GPT-4o. AI Gateway can automatically decide which to use based on query complexity.
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">Which LLM is best for code generation?</div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        Claude 3.5 Sonnet currently leads for code generation, especially for full-stack applications. GPT-4o is slightly better for Python data science. For simple code snippets or refactoring, GPT-4o-mini works at 1/10th the cost. AI Gateway can route based on code complexity automatically.
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">What model should I use for data extraction?</div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        GPT-4o-mini is perfect for structured data extraction from documents, emails, or web pages. It's 95%+ accurate for extraction tasks at $0.15/1M tokens (vs $2.50 for GPT-4o). Only use more expensive models if extraction requires deep reasoning or ambiguous interpretation.
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">How do agencies bill clients for AI usage?</div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        Most agencies either include AI in their retainer (predict avg usage) or bill actual costs plus markup (typically 20-50%). AI Gateway's per-client tracking makes this easy: export monthly usage by client, apply your markup, add to invoice. Some agencies bundle "X tokens included" in packages.
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">Can I set different models for different tasks?</div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        Yes. Tag requests with task type (classification, generation, etc.), and AI Gateway routes accordingly. Or use intelligent routing to automatically select the best model based on request content. You can also manually specify model per request while keeping budget controls and tracking.
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">What's the difference between AI Gateway and Portkey?</div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        AI Gateway includes tokens ($99/mo gets you 3M tokens). Portkey charges $49/mo platform fee PLUS you pay provider costs separately (typically $150+/month total). For 3M tokens, AI Gateway is $99 all-in vs Portkey's $50+ platform + $75+ provider = $125+ total. AI Gateway is better for predictable pricing.
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">Is AI Gateway better than using OpenAI directly?</div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        If you need budget controls, cost tracking, or use multiple providers—yes. OpenAI direct is simpler for single-provider use under 1M tokens/month. But once you hit bill shock, need per-client tracking, or want automatic failover, a gateway pays for itself. Most customers switch after their first surprise $300+ bill.
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">How does AI Gateway compare to Helicone?</div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        Helicone focuses on observability and logging (~$60/mo). AI Gateway focuses on cost management and includes tokens. If you mainly need analytics, Helicone. If you need budget controls + token inclusions + intelligent routing, AI Gateway. Some customers use both (AI Gateway for routing, Helicone for logging).
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">Should I use LiteLLM or AI Gateway?</div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        LiteLLM (open source) is free but requires self-hosting, DevOps, and monitoring. AI Gateway is fully managed—no servers to maintain. If you have a DevOps team and want full control, use LiteLLM. If you want a managed service with included tokens and zero ops overhead, use AI Gateway.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Comparison Section -->
+        <section style="text-align: center; margin: 60px 0 40px;">
+            <h2 style="font-family: 'Space Grotesk', sans-serif; font-size: 24px; font-weight: 700; color: var(--text-bright); margin-bottom: 16px;">
+                Still comparing solutions?
+            </h2>
+            <p style="color: var(--text); margin-bottom: 24px; max-width: 500px; margin-left: auto; margin-right: auto;">
+                See how AI Gateway stacks up against Portkey, Helicone, LiteLLM, and direct API access.
+            </p>
+            <a href="/compare" style="display: inline-block; background: var(--card); color: var(--text-bright); font-weight: 600; padding: 14px 28px; border: 1px solid var(--border); border-radius: 10px; text-decoration: none; transition: border-color 0.2s, transform 0.2s;">
+                View All Comparisons →
+            </a>
+        </section>
+
         <!-- Footer -->
         <footer class="footer">
             <div class="footer-logo">ResultantAI</div>
             <p class="footer-links">
-                Questions? <a href="mailto:chris@resultantai.com">chris@resultantai.com</a>
+                <a href="/">Home</a> •
+                <a href="/compare">Compare Solutions</a> •
+                <a href="/pricing">Pricing</a> •
+                <a href="mailto:chris@resultantai.com">Contact</a>
             </p>
         </footer>
     </div>
@@ -592,6 +1179,14 @@
                 btn.classList.remove('loading');
                 btn.textContent = 'Try Again →';
             }
+        });
+
+        // FAQ collapse/expand functionality
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', () => {
+                const faqItem = question.parentElement;
+                faqItem.classList.toggle('open');
+            });
         });
     </script>
 </body>

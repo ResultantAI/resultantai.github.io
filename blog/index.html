@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Gateway Blog | LLM Cost Optimization & Best Practices</title>
+    <meta name="description" content="Learn how to reduce AI costs, prevent bill shock, and optimize LLM usage. Guides for Make.com users, agencies, and developers.">
+
+    <!-- Google Search Console Verification -->
+    <meta name="google-site-verification" content="EUs3oELHtHvHjcAdzN2HjjzWzEP_6KWVZFzaIoLdp70">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --bg: #0a0d12;
+            --card: #111820;
+            --border: #1e2a3a;
+            --text: #94a3b8;
+            --text-bright: #e2e8f0;
+            --accent: #10b981;
+            --accent-glow: rgba(16, 185, 129, 0.15);
+        }
+
+        body {
+            font-family: 'DM Sans', -apple-system, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(16, 185, 129, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(16, 185, 129, 0.03) 1px, transparent 1px);
+            background-size: 60px 60px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 60px 20px 80px;
+            position: relative;
+            z-index: 1;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        h1 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(32px, 5vw, 48px);
+            font-weight: 700;
+            color: var(--text-bright);
+            line-height: 1.2;
+            margin-bottom: 16px;
+            letter-spacing: -0.02em;
+        }
+
+        .subtitle {
+            font-size: 18px;
+            color: var(--text);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .post-grid {
+            display: grid;
+            gap: 28px;
+            margin-bottom: 60px;
+        }
+
+        .post-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 32px;
+            text-decoration: none;
+            transition: border-color 0.2s, transform 0.2s;
+        }
+
+        .post-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-2px);
+        }
+
+        .post-card.featured {
+            border-color: var(--accent);
+            background: linear-gradient(135deg, var(--card) 0%, rgba(16, 185, 129, 0.05) 100%);
+        }
+
+        .post-meta {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+            font-size: 13px;
+            color: var(--text);
+        }
+
+        .post-tag {
+            background: var(--accent-glow);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            color: var(--accent);
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-weight: 500;
+        }
+
+        .post-card h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--text-bright);
+            margin-bottom: 12px;
+            line-height: 1.3;
+        }
+
+        .post-card.featured h2 {
+            font-size: 28px;
+        }
+
+        .post-excerpt {
+            color: var(--text);
+            line-height: 1.7;
+            margin-bottom: 16px;
+        }
+
+        .read-more {
+            color: var(--accent);
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 60px;
+            padding-top: 24px;
+            border-top: 1px solid var(--border);
+        }
+
+        .footer-logo {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            font-size: 14px;
+            color: var(--text);
+            margin-bottom: 12px;
+        }
+
+        .footer-links {
+            font-size: 13px;
+            color: var(--text);
+        }
+
+        .footer-links a {
+            color: var(--accent);
+            text-decoration: none;
+            margin: 0 10px;
+        }
+
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
+    </style>
+
+    <!-- Google Analytics 4 -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-DY95GS9YX5"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-DY95GS9YX5');
+    </script>
+
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-WBGJ9J8X');</script>
+
+    <script src="/js/tracking.js" defer></script>
+</head>
+<body>
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WBGJ9J8X"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+    <div class="container">
+        <header>
+            <h1>AI Gateway Blog</h1>
+            <p class="subtitle">
+                Learn how to reduce AI costs, prevent bill shock, and optimize LLM usage for agencies and developers.
+            </p>
+        </header>
+
+        <div class="post-grid">
+            <!-- Featured/Pillar Post -->
+            <a href="/blog/llm-cost-optimization-guide" class="post-card featured">
+                <div class="post-meta">
+                    <span class="post-tag">Guide</span>
+                    <span>12 min read</span>
+                    <span>•</span>
+                    <span>Dec 4, 2025</span>
+                </div>
+                <h2>Complete Guide to LLM Cost Optimization</h2>
+                <p class="post-excerpt">
+                    Everything you need to know about reducing AI costs without sacrificing quality. Learn intelligent routing, budget protection, and per-client tracking strategies that save 40-50% monthly.
+                </p>
+                <span class="read-more">Read the full guide →</span>
+            </a>
+
+            <!-- Cluster Posts -->
+            <a href="/blog/prevent-ai-bill-shock-makecom" class="post-card">
+                <div class="post-meta">
+                    <span class="post-tag">Make.com</span>
+                    <span>6 min read</span>
+                    <span>•</span>
+                    <span>Dec 4, 2025</span>
+                </div>
+                <h2>How to Prevent AI Bill Shock in Make.com</h2>
+                <p class="post-excerpt">
+                    One misconfigured scenario can drain $200+ overnight. Learn the 5 essential safeguards every Make.com user needs before connecting LLM APIs.
+                </p>
+                <span class="read-more">Read more →</span>
+            </a>
+
+            <a href="/blog/intelligent-llm-routing-guide" class="post-card">
+                <div class="post-meta">
+                    <span class="post-tag">Optimization</span>
+                    <span>7 min read</span>
+                    <span>•</span>
+                    <span>Dec 4, 2025</span>
+                </div>
+                <h2>Intelligent LLM Routing: Save 48.7% Without Quality Loss</h2>
+                <p class="post-excerpt">
+                    Stop using GPT-4o for simple tasks. Learn how intelligent routing automatically selects the cheapest model for each request while maintaining 100% quality parity.
+                </p>
+                <span class="read-more">Read more →</span>
+            </a>
+
+            <a href="/blog/per-client-billing-agencies" class="post-card">
+                <div class="post-meta">
+                    <span class="post-tag">Agencies</span>
+                    <span>6 min read</span>
+                    <span>•</span>
+                    <span>Dec 4, 2025</span>
+                </div>
+                <h2>Per-Client AI Billing for Agencies: Complete Guide</h2>
+                <p class="post-excerpt">
+                    Track which clients are profitable and which are draining your budget. Learn retainer vs markup pricing models and how to automate client billing.
+                </p>
+                <span class="read-more">Read more →</span>
+            </a>
+
+            <a href="/blog/openai-vs-anthropic-cost-comparison" class="post-card">
+                <div class="post-meta">
+                    <span class="post-tag">Comparison</span>
+                    <span>5 min read</span>
+                    <span>•</span>
+                    <span>Dec 4, 2025</span>
+                </div>
+                <h2>OpenAI vs Anthropic: Real Cost Comparison 2025</h2>
+                <p class="post-excerpt">
+                    GPT-4o costs $2.50/1M tokens, Claude Sonnet costs $3/1M. But which is actually cheaper? Token efficiency analysis reveals the surprising answer.
+                </p>
+                <span class="read-more">Read more →</span>
+            </a>
+
+            <a href="/blog/llm-pricing-comparison-2025" class="post-card">
+                <div class="post-meta">
+                    <span class="post-tag">Pricing</span>
+                    <span>8 min read</span>
+                    <span>•</span>
+                    <span>Dec 4, 2025</span>
+                </div>
+                <h2>LLM Pricing Comparison 2025: All Models</h2>
+                <p class="post-excerpt">
+                    Complete pricing breakdown of every major LLM: GPT-4o, Claude Sonnet, Gemini Pro, and more. Find the cheapest model for your use case.
+                </p>
+                <span class="read-more">Read more →</span>
+            </a>
+        </div>
+
+        <footer class="footer">
+            <div class="footer-logo">ResultantAI</div>
+            <p class="footer-links">
+                <a href="/">Home</a>
+                <a href="/gateway">AI Gateway</a>
+                <a href="/compare">Comparisons</a>
+                <a href="/pricing">Pricing</a>
+                <a href="mailto:chris@resultantai.com">Contact</a>
+            </p>
+        </footer>
+    </div>
+</body>
+</html>
