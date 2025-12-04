@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Gateway vs LiteLLM: Managed vs Self-Hosted (2025 Comparison)</title>
+    <meta name="description" content="AI Gateway vs LiteLLM: Fully managed service vs open-source self-hosted. Compare DevOps costs, total ownership costs, and which to choose.">
+
+    <!-- Google Search Console Verification -->
+    <meta name="google-site-verification" content="EUs3oELHtHvHjcAdzN2HjjzWzEP_6KWVZFzaIoLdp70">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --bg: #0a0d12;
+            --card: #111820;
+            --border: #1e2a3a;
+            --text: #94a3b8;
+            --text-bright: #e2e8f0;
+            --accent: #10b981;
+            --accent-glow: rgba(16, 185, 129, 0.15);
+        }
+
+        body {
+            font-family: 'DM Sans', -apple-system, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(16, 185, 129, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(16, 185, 129, 0.03) 1px, transparent 1px);
+            background-size: 60px 60px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 60px 20px 80px;
+            position: relative;
+            z-index: 1;
+        }
+
+        h1 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(28px, 5vw, 42px);
+            font-weight: 700;
+            color: var(--text-bright);
+            line-height: 1.2;
+            margin-bottom: 16px;
+            letter-spacing: -0.02em;
+        }
+
+        .verdict {
+            background: var(--accent-glow);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            border-radius: 12px;
+            padding: 20px 24px;
+            margin: 24px 0 40px;
+            font-size: 17px;
+            color: var(--text-bright);
+            line-height: 1.7;
+        }
+
+        h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--text-bright);
+            margin: 48px 0 20px;
+        }
+
+        h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--text-bright);
+            margin: 32px 0 12px;
+        }
+
+        p {
+            margin-bottom: 16px;
+            line-height: 1.8;
+        }
+
+        .comparison-table {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            overflow: hidden;
+            margin: 24px 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 16px 20px;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+
+        th {
+            background: rgba(16, 185, 129, 0.05);
+            color: var(--text-bright);
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        td {
+            color: var(--text);
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        .check {
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        .cross {
+            color: #ef4444;
+        }
+
+        .cta {
+            background: var(--accent);
+            color: #000;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 16px;
+            font-weight: 700;
+            padding: 16px 32px;
+            border: none;
+            border-radius: 10px;
+            text-decoration: none;
+            display: inline-block;
+            margin: 32px 0;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(16, 185, 129, 0.3);
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 60px;
+            padding-top: 24px;
+            border-top: 1px solid var(--border);
+        }
+
+        .footer-logo {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            font-size: 14px;
+            color: var(--text);
+            margin-bottom: 12px;
+        }
+
+        .footer-links {
+            font-size: 13px;
+            color: var(--text);
+        }
+
+        .footer-links a {
+            color: var(--accent);
+            text-decoration: none;
+            margin: 0 10px;
+        }
+    </style>
+
+    <!-- Google Analytics 4 -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-DY95GS9YX5"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-DY95GS9YX5');
+    </script>
+
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-WBGJ9J8X');</script>
+
+    <script src="/js/tracking.js" defer></script>
+</head>
+<body>
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WBGJ9J8X"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+    <div class="container">
+        <h1>AI Gateway vs LiteLLM</h1>
+
+        <div class="verdict">
+            <strong>Self-hosted vs managed:</strong> LiteLLM is free open-source software but requires
+            self-hosting, DevOps, and monitoring ($500-2,000/month in hidden costs). AI Gateway is fully
+            managed at $99/month with 3M tokens included. Choose LiteLLM if you have a DevOps team and
+            want full control. Choose AI Gateway if you want zero ops overhead.
+        </div>
+
+        <h2>Core Difference</h2>
+
+        <h3>LiteLLM = Open Source, Self-Hosted</h3>
+        <p>
+            LiteLLM is free, open-source software you run on your own infrastructure. You have full control,
+            can customize everything, and pay $0 for the software itself. However, you pay for hosting,
+            DevOps time, monitoring, and maintenance. Best for: teams with existing DevOps who want
+            complete control.
+        </p>
+
+        <h3>AI Gateway = Fully Managed SaaS</h3>
+        <p>
+            AI Gateway is a managed service. No servers to maintain, no deployments, no monitoring setup.
+            You get a URL and API key, and it just works. $99/month includes 3M tokens, infrastructure,
+            monitoring, and support. Best for: teams who want to ship fast without DevOps overhead.
+        </p>
+
+        <h2>Total Cost of Ownership</h2>
+
+        <h3>LiteLLM Hidden Costs</h3>
+        <p>
+            While LiteLLM is free software, running it in production has real costs:
+        </p>
+        <p>
+            <strong>Infrastructure:</strong> $50-200/month (AWS/GCP compute + load balancer + database)<br>
+            <strong>DevOps setup:</strong> 20-40 hours initial setup ($2,000-4,000 one-time at $100/hr)<br>
+            <strong>Ongoing maintenance:</strong> 5-10 hours/month ($500-1,000/month)<br>
+            <strong>Monitoring tools:</strong> $50-100/month (Datadog, Sentry, etc.)<br>
+            <strong>Security updates:</strong> Ongoing time commitment<br>
+        </p>
+        <p>
+            <strong>Total first year:</strong> $3,000 setup + $600-1,300/month = $10,200-18,600
+        </p>
+
+        <h3>AI Gateway All-In Cost</h3>
+        <p>
+            <strong>Platform:</strong> $99/month<br>
+            <strong>Tokens included:</strong> 3M/month<br>
+            <strong>Setup time:</strong> 5 minutes<br>
+            <strong>Maintenance:</strong> Zero<br>
+            <strong>Monitoring:</strong> Built-in<br>
+        </p>
+        <p>
+            <strong>Total first year:</strong> $1,188
+        </p>
+
+        <h2>Feature Comparison</h2>
+
+        <div class="comparison-table">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Feature</th>
+                        <th>AI Gateway</th>
+                        <th>LiteLLM</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Multi-provider routing</td>
+                        <td><span class="check">✓</span></td>
+                        <td><span class="check">✓</span></td>
+                    </tr>
+                    <tr>
+                        <td>Automatic failover</td>
+                        <td><span class="check">✓</span></td>
+                        <td><span class="check">✓</span></td>
+                    </tr>
+                    <tr>
+                        <td>Budget caps</td>
+                        <td><span class="check">✓ Built-in</span></td>
+                        <td>Manual config</td>
+                    </tr>
+                    <tr>
+                        <td>Tokens included</td>
+                        <td><span class="check">✓ 3M/month</span></td>
+                        <td><span class="cross">✕ Pay providers directly</span></td>
+                    </tr>
+                    <tr>
+                        <td>Setup time</td>
+                        <td>5 minutes</td>
+                        <td>20-40 hours</td>
+                    </tr>
+                    <tr>
+                        <td>Hosting</td>
+                        <td><span class="check">✓ Managed</span></td>
+                        <td>Self-host required</td>
+                    </tr>
+                    <tr>
+                        <td>Monitoring</td>
+                        <td><span class="check">✓ Built-in dashboard</span></td>
+                        <td>Set up yourself</td>
+                    </tr>
+                    <tr>
+                        <td>Uptime SLA</td>
+                        <td>99.9% guaranteed</td>
+                        <td>You're responsible</td>
+                    </tr>
+                    <tr>
+                        <td>Custom code</td>
+                        <td><span class="cross">✕ SaaS only</span></td>
+                        <td><span class="check">✓ Full control</span></td>
+                    </tr>
+                    <tr>
+                        <td>Data residency control</td>
+                        <td>US-based</td>
+                        <td><span class="check">✓ Any region</span></td>
+                    </tr>
+                    <tr>
+                        <td>Support</td>
+                        <td>Email + docs</td>
+                        <td>GitHub issues + community</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h2>Which Should You Choose?</h2>
+
+        <h3>Choose LiteLLM if:</h3>
+        <p>
+            ✓ You have a DevOps team with spare capacity<br>
+            ✓ You need full control over code and infrastructure<br>
+            ✓ You have specific data residency requirements (e.g., EU-only)<br>
+            ✓ You want to customize routing logic extensively<br>
+            ✓ You already have monitoring/logging infrastructure<br>
+            ✓ You're processing 50M+ tokens/month (economies of scale)
+        </p>
+
+        <h3>Choose AI Gateway if:</h3>
+        <p>
+            ✓ You don't have DevOps resources or time<br>
+            ✓ You want to ship fast without infrastructure work<br>
+            ✓ You process 1-10M tokens/month (sweet spot)<br>
+            ✓ You want predictable, all-in pricing<br>
+            ✓ You prefer zero maintenance and guaranteed uptime<br>
+            ✓ You're a solo founder, small team, or agency
+        </p>
+
+        <h2>Break-Even Analysis</h2>
+        <p>
+            At what point does self-hosting LiteLLM become cheaper than AI Gateway?
+        </p>
+        <p>
+            <strong>Year 1:</strong> AI Gateway is cheaper ($1,188 vs $10,200+) due to setup costs<br>
+            <strong>Year 2+:</strong> If ongoing DevOps costs drop to ~$200/month, LiteLLM = $2,400/year
+            vs AI Gateway = $1,188/year. AI Gateway still wins unless you're processing 20M+ tokens/month.
+        </p>
+        <p>
+            <strong>Conclusion:</strong> For most teams under 20M tokens/month, AI Gateway's managed service
+            is more cost-effective when you factor in DevOps time and opportunity cost.
+        </p>
+
+        <a href="/gateway" class="cta">Try AI Gateway Free →</a>
+
+        <footer class="footer">
+            <div class="footer-logo">ResultantAI</div>
+            <p class="footer-links">
+                <a href="/">Home</a>
+                <a href="/compare">All Comparisons</a>
+                <a href="/pricing">Pricing</a>
+                <a href="mailto:chris@resultantai.com">Contact</a>
+            </p>
+        </footer>
+    </div>
+</body>
+</html>

@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Gateway vs Direct API Access: When Do You Need a Gateway? (2025)</title>
+    <meta name="description" content="Should you use an LLM gateway or call OpenAI directly? Compare simplicity vs budget protection. When does a gateway pay for itself?">
+
+    <!-- Google Search Console Verification -->
+    <meta name="google-site-verification" content="EUs3oELHtHvHjcAdzN2HjjzWzEP_6KWVZFzaIoLdp70">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --bg: #0a0d12;
+            --card: #111820;
+            --border: #1e2a3a;
+            --text: #94a3b8;
+            --text-bright: #e2e8f0;
+            --accent: #10b981;
+            --accent-glow: rgba(16, 185, 129, 0.15);
+        }
+
+        body {
+            font-family: 'DM Sans', -apple-system, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(16, 185, 129, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(16, 185, 129, 0.03) 1px, transparent 1px);
+            background-size: 60px 60px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 60px 20px 80px;
+            position: relative;
+            z-index: 1;
+        }
+
+        h1 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(28px, 5vw, 42px);
+            font-weight: 700;
+            color: var(--text-bright);
+            line-height: 1.2;
+            margin-bottom: 16px;
+            letter-spacing: -0.02em;
+        }
+
+        .verdict {
+            background: var(--accent-glow);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            border-radius: 12px;
+            padding: 20px 24px;
+            margin: 24px 0 40px;
+            font-size: 17px;
+            color: var(--text-bright);
+            line-height: 1.7;
+        }
+
+        h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--text-bright);
+            margin: 48px 0 20px;
+        }
+
+        h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--text-bright);
+            margin: 32px 0 12px;
+        }
+
+        p {
+            margin-bottom: 16px;
+            line-height: 1.8;
+        }
+
+        .comparison-table {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            overflow: hidden;
+            margin: 24px 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 16px 20px;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+
+        th {
+            background: rgba(16, 185, 129, 0.05);
+            color: var(--text-bright);
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        td {
+            color: var(--text);
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        .check {
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        .cross {
+            color: #ef4444;
+        }
+
+        .warning-box {
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            border-radius: 12px;
+            padding: 20px 24px;
+            margin: 24px 0;
+            color: var(--text-bright);
+        }
+
+        .cta {
+            background: var(--accent);
+            color: #000;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 16px;
+            font-weight: 700;
+            padding: 16px 32px;
+            border: none;
+            border-radius: 10px;
+            text-decoration: none;
+            display: inline-block;
+            margin: 32px 0;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(16, 185, 129, 0.3);
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 60px;
+            padding-top: 24px;
+            border-top: 1px solid var(--border);
+        }
+
+        .footer-logo {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            font-size: 14px;
+            color: var(--text);
+            margin-bottom: 12px;
+        }
+
+        .footer-links {
+            font-size: 13px;
+            color: var(--text);
+        }
+
+        .footer-links a {
+            color: var(--accent);
+            text-decoration: none;
+            margin: 0 10px;
+        }
+    </style>
+
+    <!-- Google Analytics 4 -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-DY95GS9YX5"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-DY95GS9YX5');
+    </script>
+
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-WBGJ9J8X');</script>
+
+    <script src="/js/tracking.js" defer></script>
+</head>
+<body>
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WBGJ9J8X"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+    <div class="container">
+        <h1>AI Gateway vs Direct API Access</h1>
+
+        <div class="verdict">
+            <strong>When to use direct API:</strong> Building a prototype, using under 1M tokens/month,
+            or need absolute simplicity. <strong>When to use a gateway:</strong> Spending $50+/month on
+            tokens, need budget protection, billing multiple clients, or want multi-provider failover.
+            Most teams switch to a gateway after their first surprise $300+ bill.
+        </div>
+
+        <h2>Direct API Access: The Simple Path</h2>
+
+        <h3>What is Direct API Access?</h3>
+        <p>
+            Calling OpenAI, Anthropic, or Google directly from your application. You get an API key from
+            their dashboard, install their SDK, and make requests. Simple, fast, and works great for
+            prototypes and low-volume use cases.
+        </p>
+
+        <h3>Advantages of Direct API</h3>
+        <p>
+            ✓ <strong>Simplicity:</strong> 5 lines of code, no middleman<br>
+            ✓ <strong>Official SDKs:</strong> Best-in-class libraries from providers<br>
+            ✓ <strong>Lowest latency:</strong> No proxy overhead (~20-30ms faster)<br>
+            ✓ <strong>Immediate access:</strong> New features available day 1<br>
+            ✓ <strong>Pay-per-use:</strong> Only pay for what you consume
+        </p>
+
+        <h2>The Problem with Direct API</h2>
+
+        <div class="warning-box">
+            <strong>⚠️ Real scenario:</strong> A Make.com automation with a loop bug consumed $247 in
+            GPT-4 tokens overnight. No warning, no kill switch, just a surprise bill. This happens
+            to teams every single day.
+        </div>
+
+        <h3>What Direct API Doesn't Give You</h3>
+        <p>
+            ✕ <strong>No budget caps:</strong> If your app goes viral, you're on the hook for unlimited charges<br>
+            ✕ <strong>No spending alerts:</strong> You discover overspending when the bill arrives<br>
+            ✕ <strong>No automatic failover:</strong> OpenAI downtime = your app is down<br>
+            ✕ <strong>No per-client tracking:</strong> Can't track costs by customer/project<br>
+            ✕ <strong>No intelligent routing:</strong> You manually choose models (often overspending)<br>
+            ✕ <strong>Multiple API keys:</strong> Managing OpenAI + Claude + Gemini separately
+        </p>
+
+        <h2>When a Gateway Makes Sense</h2>
+
+        <h3>Sign you need a gateway:</h3>
+        <p>
+            1. <strong>Your monthly AI bill exceeds $50</strong><br>
+            &nbsp;&nbsp;&nbsp;→ ROI calculation: Gateway saves 40-50% via intelligent routing = $20-25/month savings on $50 spend
+        </p>
+        <p>
+            2. <strong>You've had an unexpected bill spike</strong><br>
+            &nbsp;&nbsp;&nbsp;→ Even one $200 surprise bill justifies a gateway forever
+        </p>
+        <p>
+            3. <strong>You bill clients for AI usage</strong><br>
+            &nbsp;&nbsp;&nbsp;→ Per-client tracking and CSV export saves hours of manual work
+        </p>
+        <p>
+            4. <strong>You use multiple providers</strong><br>
+            &nbsp;&nbsp;&nbsp;→ Managing 3 API keys + 3 billing accounts + 3 dashboards = chaos
+        </p>
+        <p>
+            5. <strong>Uptime matters</strong><br>
+            &nbsp;&nbsp;&nbsp;→ OpenAI goes down monthly. Automatic failover to Claude prevents customer-facing failures
+        </p>
+
+        <h2>Feature Comparison</h2>
+
+        <div class="comparison-table">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Feature</th>
+                        <th>Direct API</th>
+                        <th>AI Gateway</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Setup time</td>
+                        <td><span class="check">✓ 5 minutes</span></td>
+                        <td>5 minutes</td>
+                    </tr>
+                    <tr>
+                        <td>Latency</td>
+                        <td><span class="check">✓ 800ms (direct)</span></td>
+                        <td>815-830ms (+15-30ms)</td>
+                    </tr>
+                    <tr>
+                        <td>Budget caps</td>
+                        <td><span class="cross">✕</span></td>
+                        <td><span class="check">✓</span></td>
+                    </tr>
+                    <tr>
+                        <td>Spending alerts</td>
+                        <td><span class="cross">✕</span></td>
+                        <td><span class="check">✓</span></td>
+                    </tr>
+                    <tr>
+                        <td>Automatic failover</td>
+                        <td><span class="cross">✕</span></td>
+                        <td><span class="check">✓</span></td>
+                    </tr>
+                    <tr>
+                        <td>Per-client tracking</td>
+                        <td><span class="cross">✕ Manual tagging</span></td>
+                        <td><span class="check">✓ Built-in</span></td>
+                    </tr>
+                    <tr>
+                        <td>Intelligent routing</td>
+                        <td><span class="cross">✕ Manual</span></td>
+                        <td><span class="check">✓ 40-50% savings</span></td>
+                    </tr>
+                    <tr>
+                        <td>Multi-provider support</td>
+                        <td>Separate SDKs</td>
+                        <td><span class="check">✓ Unified API</span></td>
+                    </tr>
+                    <tr>
+                        <td>Cost (3M tokens)</td>
+                        <td>$7.50/month</td>
+                        <td>$99/month (includes tokens)</td>
+                    </tr>
+                    <tr>
+                        <td>Bill shock risk</td>
+                        <td><span class="cross">✕ High</span></td>
+                        <td><span class="check">✓ Eliminated</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h2>Cost Comparison</h2>
+
+        <h3>Scenario: 3M GPT-4o tokens/month</h3>
+        <p>
+            <strong>Direct API:</strong><br>
+            • 3M tokens at $2.50/1M = $7.50/month<br>
+            • Risk: One bug could cost $200+ overnight<br>
+            • No routing optimization<br>
+            • Total: $7.50/month (plus risk)
+        </p>
+
+        <p>
+            <strong>AI Gateway:</strong><br>
+            • $99/month includes 3M tokens<br>
+            • Intelligent routing saves 40-50% on actual consumption<br>
+            • Budget cap prevents runaway costs<br>
+            • Total: $99/month (zero risk)
+        </p>
+
+        <h3>Break-Even Analysis</h3>
+        <p>
+            AI Gateway pays for itself if:<br>
+            • It prevents ONE $100+ surprise bill (instantly ROI positive), OR<br>
+            • Intelligent routing saves 40% on $250+/month spend (saves $100/month), OR<br>
+            • Per-client tracking saves you 2+ hours/month at $50/hr billable rate (saves $100/month)
+        </p>
+
+        <h2>Decision Framework</h2>
+
+        <h3>Use Direct API if:</h3>
+        <p>
+            ✓ You're building a prototype or MVP<br>
+            ✓ You're spending under $50/month on tokens<br>
+            ✓ You're comfortable manually monitoring usage<br>
+            ✓ Downtime is acceptable (personal projects)<br>
+            ✓ You need absolute maximum performance (latency-critical)
+        </p>
+
+        <h3>Use AI Gateway if:</h3>
+        <p>
+            ✓ You're spending $50+/month on LLM tokens<br>
+            ✓ You need predictable, capped costs<br>
+            ✓ You bill clients and need per-client tracking<br>
+            ✓ You use multiple providers (OpenAI + Claude + Gemini)<br>
+            ✓ You've experienced bill shock before<br>
+            ✓ Uptime matters (customer-facing features)<br>
+            ✓ You want to optimize costs automatically
+        </p>
+
+        <h2>Migration Path</h2>
+        <p>
+            Most teams start with direct API and migrate to a gateway once they hit production scale.
+            The migration is simple:
+        </p>
+        <p>
+            1. Get AI Gateway API key<br>
+            2. Change base_url in your OpenAI client config<br>
+            3. Replace API key<br>
+            4. Deploy
+        </p>
+        <p>
+            Migration time: 5 minutes. Zero code rewrite required.
+        </p>
+
+        <a href="/gateway" class="cta">Try AI Gateway Free →</a>
+
+        <footer class="footer">
+            <div class="footer-logo">ResultantAI</div>
+            <p class="footer-links">
+                <a href="/">Home</a>
+                <a href="/compare">All Comparisons</a>
+                <a href="/pricing">Pricing</a>
+                <a href="mailto:chris@resultantai.com">Contact</a>
+            </p>
+        </footer>
+    </div>
+</body>
+</html>

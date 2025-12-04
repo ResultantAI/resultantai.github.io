@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Gateway vs Portkey: Which LLM Gateway is Better? (2025 Comparison)</title>
+    <meta name="description" content="Compare AI Gateway vs Portkey: $99 all-inclusive vs $49 platform fee + provider costs. Feature comparison, pricing breakdown, and which to choose.">
+
+    <!-- Google Search Console Verification -->
+    <meta name="google-site-verification" content="EUs3oELHtHvHjcAdzN2HjjzWzEP_6KWVZFzaIoLdp70">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --bg: #0a0d12;
+            --card: #111820;
+            --border: #1e2a3a;
+            --text: #94a3b8;
+            --text-bright: #e2e8f0;
+            --accent: #10b981;
+            --accent-glow: rgba(16, 185, 129, 0.15);
+        }
+
+        body {
+            font-family: 'DM Sans', -apple-system, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(16, 185, 129, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(16, 185, 129, 0.03) 1px, transparent 1px);
+            background-size: 60px 60px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 60px 20px 80px;
+            position: relative;
+            z-index: 1;
+        }
+
+        h1 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(28px, 5vw, 42px);
+            font-weight: 700;
+            color: var(--text-bright);
+            line-height: 1.2;
+            margin-bottom: 16px;
+            letter-spacing: -0.02em;
+        }
+
+        .verdict {
+            background: var(--accent-glow);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            border-radius: 12px;
+            padding: 20px 24px;
+            margin: 24px 0 40px;
+            font-size: 17px;
+            color: var(--text-bright);
+            line-height: 1.7;
+        }
+
+        h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--text-bright);
+            margin: 48px 0 20px;
+        }
+
+        h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--text-bright);
+            margin: 32px 0 12px;
+        }
+
+        p {
+            margin-bottom: 16px;
+            line-height: 1.8;
+        }
+
+        .comparison-table {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            overflow: hidden;
+            margin: 24px 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 16px 20px;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+
+        th {
+            background: rgba(16, 185, 129, 0.05);
+            color: var(--text-bright);
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        td {
+            color: var(--text);
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        .check {
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        .cross {
+            color: #ef4444;
+        }
+
+        .cta {
+            background: var(--accent);
+            color: #000;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 16px;
+            font-weight: 700;
+            padding: 16px 32px;
+            border: none;
+            border-radius: 10px;
+            text-decoration: none;
+            display: inline-block;
+            margin: 32px 0;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(16, 185, 129, 0.3);
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 60px;
+            padding-top: 24px;
+            border-top: 1px solid var(--border);
+        }
+
+        .footer-logo {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            font-size: 14px;
+            color: var(--text);
+            margin-bottom: 12px;
+        }
+
+        .footer-links {
+            font-size: 13px;
+            color: var(--text);
+        }
+
+        .footer-links a {
+            color: var(--accent);
+            text-decoration: none;
+            margin: 0 10px;
+        }
+    </style>
+
+    <!-- Google Analytics 4 -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-DY95GS9YX5"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-DY95GS9YX5');
+    </script>
+
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-WBGJ9J8X');</script>
+
+    <script src="/js/tracking.js" defer></script>
+</head>
+<body>
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WBGJ9J8X"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+    <div class="container">
+        <h1>AI Gateway vs Portkey: Which is Better?</h1>
+
+        <div class="verdict">
+            <strong>Bottom line:</strong> AI Gateway is better for predictable pricing (tokens included).
+            Portkey is better for enterprise teams needing advanced observability. For 3M tokens/month,
+            AI Gateway costs $99 all-in vs Portkey's $49 platform + $75 provider costs = $124+ total.
+        </div>
+
+        <h2>Pricing Comparison</h2>
+
+        <h3>AI Gateway Pricing</h3>
+        <p>
+            AI Gateway uses <strong>token-inclusive pricing</strong>: $99/month gets you 3 million tokens included.
+            Your total cost is predictable—one bill, no surprises. If you exceed 3M tokens, overage is
+            $35 per additional 1M tokens.
+        </p>
+
+        <h3>Portkey Pricing</h3>
+        <p>
+            Portkey uses a <strong>platform-fee model</strong>: $49/month platform subscription, then you pay
+            OpenAI/Anthropic/Google separately for all tokens consumed. For 3M tokens at standard rates
+            (~$2.50/1M for GPT-4o), that's $49 + $7.50 = $56.50. Seems cheaper, but only if you use exactly 3M.
+        </p>
+
+        <h3>Real-World Cost Comparison</h3>
+        <div class="comparison-table">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Monthly Usage</th>
+                        <th>AI Gateway Cost</th>
+                        <th>Portkey Cost</th>
+                        <th>Winner</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1M tokens</td>
+                        <td>$99</td>
+                        <td>$49 + $2.50 = $51.50</td>
+                        <td>Portkey</td>
+                    </tr>
+                    <tr>
+                        <td>3M tokens</td>
+                        <td>$99</td>
+                        <td>$49 + $7.50 = $56.50</td>
+                        <td>AI Gateway</td>
+                    </tr>
+                    <tr>
+                        <td>5M tokens</td>
+                        <td>$99 + $70 = $169</td>
+                        <td>$49 + $12.50 = $61.50</td>
+                        <td>Portkey</td>
+                    </tr>
+                    <tr>
+                        <td>10M tokens</td>
+                        <td>$99 + $245 = $344</td>
+                        <td>$49 + $25 = $74</td>
+                        <td>Portkey</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <p>
+            <strong>Verdict:</strong> AI Gateway wins at 2-4M tokens/month (most small-medium use cases).
+            Portkey wins at 10M+ tokens/month or if you need very granular provider billing.
+        </p>
+
+        <h2>Feature Comparison</h2>
+
+        <div class="comparison-table">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Feature</th>
+                        <th>AI Gateway</th>
+                        <th>Portkey</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Multi-provider routing</td>
+                        <td><span class="check">✓</span></td>
+                        <td><span class="check">✓</span></td>
+                    </tr>
+                    <tr>
+                        <td>Automatic failover</td>
+                        <td><span class="check">✓</span></td>
+                        <td><span class="check">✓</span></td>
+                    </tr>
+                    <tr>
+                        <td>Budget caps & alerts</td>
+                        <td><span class="check">✓</span></td>
+                        <td><span class="check">✓</span></td>
+                    </tr>
+                    <tr>
+                        <td>Per-client tracking</td>
+                        <td><span class="check">✓</span></td>
+                        <td><span class="check">✓</span></td>
+                    </tr>
+                    <tr>
+                        <td>Intelligent routing</td>
+                        <td><span class="check">✓ Built-in</span></td>
+                        <td><span class="check">✓ Config required</span></td>
+                    </tr>
+                    <tr>
+                        <td>Tokens included</td>
+                        <td><span class="check">✓ 3M/month</span></td>
+                        <td><span class="cross">✕ Pay separately</span></td>
+                    </tr>
+                    <tr>
+                        <td>Advanced analytics</td>
+                        <td>Basic dashboard</td>
+                        <td><span class="check">✓ Comprehensive</span></td>
+                    </tr>
+                    <tr>
+                        <td>Prompt management</td>
+                        <td><span class="cross">✕</span></td>
+                        <td><span class="check">✓</span></td>
+                    </tr>
+                    <tr>
+                        <td>A/B testing</td>
+                        <td><span class="cross">✕</span></td>
+                        <td><span class="check">✓</span></td>
+                    </tr>
+                    <tr>
+                        <td>Setup complexity</td>
+                        <td>5 minutes</td>
+                        <td>15-30 minutes</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h2>Which Should You Choose?</h2>
+
+        <h3>Choose AI Gateway if:</h3>
+        <p>
+            ✓ You use 2-4M tokens/month consistently<br>
+            ✓ You want predictable, all-inclusive pricing<br>
+            ✓ You prioritize simplicity over advanced features<br>
+            ✓ You're an agency billing clients and need clean invoicing<br>
+            ✓ You want to prevent bill shock with hard spending caps
+        </p>
+
+        <h3>Choose Portkey if:</h3>
+        <p>
+            ✓ You use 10M+ tokens/month (lower per-token cost)<br>
+            ✓ You need advanced observability and analytics<br>
+            ✓ You want prompt versioning and A/B testing<br>
+            ✓ You have an enterprise team that needs collaboration features<br>
+            ✓ You're okay managing separate platform + provider billing
+        </p>
+
+        <h2>Can You Use Both?</h2>
+        <p>
+            No—both are LLM proxy layers, so you can't route through AI Gateway AND Portkey simultaneously.
+            You must choose one. However, you could use AI Gateway for production traffic and Portkey for
+            development/testing if needed.
+        </p>
+
+        <a href="/gateway" class="cta">Try AI Gateway Free →</a>
+
+        <footer class="footer">
+            <div class="footer-logo">ResultantAI</div>
+            <p class="footer-links">
+                <a href="/">Home</a>
+                <a href="/compare">All Comparisons</a>
+                <a href="/pricing">Pricing</a>
+                <a href="mailto:chris@resultantai.com">Contact</a>
+            </p>
+        </footer>
+    </div>
+</body>
+</html>
