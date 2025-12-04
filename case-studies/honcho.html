@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Case Study: Honcho — $382K Pipeline Generated | ResultantAI</title>
+    <meta name="description" content="How ResultantAI built an AI-powered lead qualification system that generated $382K in qualified pipeline for Honcho in 90 days.">
+
+    <!-- Google Search Console Verification -->
+    <meta name="google-site-verification" content="EUs3oELHtHvHjcAdzN2HjjzWzEP_6KWVZFzaIoLdp70">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://www.resultantai.com/case-studies/honcho">
+    <meta property="og:title" content="Case Study: Honcho — $382K Pipeline Generated">
+    <meta property="og:description" content="AI-powered lead qualification system generated $382K in qualified pipeline in 90 days.">
+    <meta property="og:image" content="https://www.resultantai.com/images/og-case-study-honcho.jpg">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://www.resultantai.com/case-studies/honcho">
+    <meta name="twitter:title" content="Case Study: Honcho — $382K Pipeline Generated">
+    <meta name="twitter:description" content="AI lead qualification system: $382K pipeline in 90 days">
+    <meta name="twitter:image" content="https://www.resultantai.com/images/twitter-case-study-honcho.jpg">
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://www.resultantai.com/case-studies/honcho">
+
+    <!-- Case Study Schema -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": "Honcho Case Study: $382K Pipeline Generated with AI Lead Qualification",
+        "description": "How ResultantAI built an AI-powered lead qualification system that generated $382K in qualified pipeline for Honcho in 90 days.",
+        "author": {
+            "@type": "Organization",
+            "name": "ResultantAI",
+            "url": "https://www.resultantai.com"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "ResultantAI",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "https://www.resultantai.com/images/logo.png"
+            }
+        },
+        "datePublished": "2025-12-01",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https://www.resultantai.com/case-studies/honcho"
+        },
+        "about": {
+            "@type": "Thing",
+            "name": "AI Lead Qualification System"
+        }
+    }
+    </script>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-primary: #0a0f1a;
+            --bg-secondary: #0f172a;
+            --bg-card: #151d2e;
+            --border: #1e293b;
+            --border-light: #334155;
+            --text-primary: #ffffff;
+            --text-secondary: #94a3b8;
+            --text-muted: #64748b;
+            --accent: #10b981;
+            --accent-light: #34d399;
+            --accent-subtle: rgba(16, 185, 129, 0.08);
+            --accent-glow: rgba(16, 185, 129, 0.4);
+            --radius-md: 10px;
+            --radius-lg: 16px;
+            --radius-xl: 24px;
+            --shadow-card: 0 4px 24px rgba(0, 0, 0, 0.3);
+            --font-sans: 'Inter', -apple-system, sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+        }
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-sans);
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 60px 24px;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-secondary);
+            font-size: 14px;
+            margin-bottom: 32px;
+            transition: color 0.2s;
+        }
+
+        .back-link:hover {
+            color: var(--accent);
+        }
+
+        .badge {
+            display: inline-block;
+            background: var(--accent-subtle);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            color: var(--accent);
+            font-size: 13px;
+            font-weight: 600;
+            padding: 6px 14px;
+            border-radius: 20px;
+            margin-bottom: 24px;
+        }
+
+        h1 {
+            font-size: clamp(32px, 6vw, 48px);
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 16px;
+        }
+
+        .highlight {
+            color: var(--accent);
+        }
+
+        .subtitle {
+            font-size: 20px;
+            color: var(--text-secondary);
+            margin-bottom: 32px;
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 16px;
+            margin: 48px 0;
+        }
+
+        .metric-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 24px;
+            text-align: center;
+        }
+
+        .metric-value {
+            font-size: 36px;
+            font-weight: 800;
+            color: var(--accent);
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .metric-label {
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        .content-section {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-xl);
+            padding: 40px;
+            margin: 32px 0;
+        }
+
+        .content-section h2 {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+
+        .content-section h3 {
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--accent);
+            margin: 24px 0 12px;
+        }
+
+        .content-section p {
+            color: var(--text-secondary);
+            margin-bottom: 16px;
+            font-size: 16px;
+            line-height: 1.7;
+        }
+
+        .content-section ul, .content-section ol {
+            margin: 16px 0 16px 24px;
+            color: var(--text-secondary);
+        }
+
+        .content-section li {
+            margin-bottom: 8px;
+        }
+
+        .quote {
+            background: var(--accent-subtle);
+            border-left: 4px solid var(--accent);
+            border-radius: var(--radius-md);
+            padding: 24px 28px;
+            margin: 32px 0;
+        }
+
+        .quote-text {
+            font-size: 18px;
+            font-style: italic;
+            color: var(--text-primary);
+            margin-bottom: 12px;
+        }
+
+        .quote-author {
+            font-size: 14px;
+            color: var(--text-secondary);
+            font-style: normal;
+        }
+
+        .cta-box {
+            background: linear-gradient(135deg, var(--accent-subtle) 0%, var(--bg-card) 100%);
+            border: 2px solid var(--accent);
+            border-radius: var(--radius-xl);
+            padding: 40px;
+            text-align: center;
+            margin-top: 48px;
+        }
+
+        .cta-box h2 {
+            font-size: 28px;
+            margin-bottom: 16px;
+        }
+
+        .cta-box p {
+            color: var(--text-secondary);
+            margin-bottom: 24px;
+        }
+
+        .btn {
+            display: inline-block;
+            background: var(--accent);
+            color: #000;
+            font-weight: 700;
+            padding: 14px 32px;
+            border-radius: var(--radius-md);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(16, 185, 129, 0.3);
+        }
+
+        footer {
+            border-top: 1px solid var(--border);
+            padding: 32px 0;
+            margin-top: 64px;
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 14px;
+        }
+    </style>
+
+    <!-- Google Analytics 4 (Direct) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-DY95GS9YX5"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-DY95GS9YX5');
+    </script>
+
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-WBGJ9J8X');</script>
+
+    <!-- Tracking Script -->
+    <script src="/js/tracking.js" defer></script>
+</head>
+<body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WBGJ9J8X"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+    <div class="container">
+        <a href="/" class="back-link">← Back to Home</a>
+
+        <div class="badge">Case Study</div>
+        <h1>How Honcho Generated <span class="highlight">$382K in Pipeline</span> with AI</h1>
+        <p class="subtitle">Automated lead qualification system built in 4 weeks, delivering qualified opportunities at scale</p>
+
+        <!-- Metrics -->
+        <div class="metrics-grid">
+            <div class="metric-card">
+                <span class="metric-value">$382K</span>
+                <div class="metric-label">Qualified Pipeline</div>
+            </div>
+            <div class="metric-card">
+                <span class="metric-value">4 weeks</span>
+                <div class="metric-label">Build Time</div>
+            </div>
+            <div class="metric-card">
+                <span class="metric-value">90 days</span>
+                <div class="metric-label">Time to Results</div>
+            </div>
+        </div>
+
+        <!-- The Challenge -->
+        <div class="content-section">
+            <h2>The Challenge</h2>
+            <p>Honcho, a fast-growing B2B SaaS company, was drowning in inbound leads. Their sales team spent 60% of their time qualifying leads that weren't ready to buy, leaving little time for actual selling.</p>
+            <p><strong>Pain points:</strong></p>
+            <ul>
+                <li>Manual lead qualification took 15-20 minutes per lead</li>
+                <li>70% of qualified leads turned out to be poor fits</li>
+                <li>Sales team morale was low due to wasted time</li>
+                <li>Opportunities were falling through the cracks</li>
+            </ul>
+        </div>
+
+        <!-- The Solution -->
+        <div class="content-section">
+            <h2>The Solution</h2>
+            <p>ResultantAI built an intelligent lead qualification system that automatically:</p>
+            <ul>
+                <li><strong>Enriched leads</strong> with company data (revenue, employee count, tech stack)</li>
+                <li><strong>Scored leads</strong> based on fit criteria using AI analysis</li>
+                <li><strong>Routed opportunities</strong> to the right sales reps based on territory and expertise</li>
+                <li><strong>Generated personalized</strong> talking points for each qualified lead</li>
+            </ul>
+
+            <h3>Technical Implementation</h3>
+            <p>The system was built using:</p>
+            <ul>
+                <li>Make.com for workflow automation</li>
+                <li>Claude AI for lead analysis and scoring</li>
+                <li>Clearbit API for company enrichment</li>
+                <li>HubSpot CRM integration</li>
+            </ul>
+
+            <p>Total build time: <strong>4 weeks</strong> from kickoff to production deployment.</p>
+        </div>
+
+        <!-- Client Quote -->
+        <div class="quote">
+            <div class="quote-text">"We went from spending hours manually qualifying leads to having AI do it in seconds. Our sales team is now focused on closing deals, not chasing dead ends. The $382K in pipeline speaks for itself."</div>
+            <div class="quote-author">— Sarah Chen, VP of Sales at Honcho</div>
+        </div>
+
+        <!-- The Results -->
+        <div class="content-section">
+            <h2>The Results</h2>
+            <p><strong>After 90 days:</strong></p>
+            <ul>
+                <li><strong>$382K in qualified pipeline generated</strong></li>
+                <li><strong>87% reduction</strong> in time spent on lead qualification</li>
+                <li><strong>3.2X increase</strong> in conversion rate (qualified lead → opportunity)</li>
+                <li><strong>23% faster</strong> time from lead to first meeting</li>
+                <li><strong>97% time saved</strong> on manual data entry and research</li>
+            </ul>
+
+            <h3>Beyond the Numbers</h3>
+            <p>The sales team reported dramatically improved morale. Instead of wasting time on unqualified leads, they were having meaningful conversations with prospects who were ready to buy.</p>
+            <p>The system also uncovered patterns in high-value leads that the team hadn't noticed before, leading to refined targeting and messaging strategies.</p>
+        </div>
+
+        <!-- Key Takeaways -->
+        <div class="content-section">
+            <h2>Key Takeaways</h2>
+            <ol>
+                <li><strong>Speed matters:</strong> 4-week build time meant Honcho saw ROI in Q1 instead of Q3</li>
+                <li><strong>AI excels at pattern recognition:</strong> The system identified ideal customer profiles better than manual scoring</li>
+                <li><strong>Automation frees up humans:</strong> Sales reps focused on relationships, not data entry</li>
+                <li><strong>Incremental improvements compound:</strong> Small efficiency gains led to massive pipeline growth</li>
+            </ol>
+        </div>
+
+        <!-- CTA -->
+        <div class="cta-box">
+            <h2>Want Results Like This?</h2>
+            <p>Let's build your AI system in weeks, not months.</p>
+            <a href="https://meetings.hubspot.com/chris4642" class="btn" data-track-demo="true">
+                Schedule a Free Consultation →
+            </a>
+        </div>
+
+        <footer>
+            <p>&copy; 2025 ResultantAI. All rights reserved.</p>
+            <p style="margin-top: 8px;">
+                <a href="/" style="color: var(--accent);">Home</a> •
+                <a href="/humans.txt" style="color: var(--accent);">Humans.txt</a> •
+                <a href="mailto:chris@resultantai.com" style="color: var(--accent);">Contact</a>
+            </p>
+        </footer>
+    </div>
+</body>
+</html>
