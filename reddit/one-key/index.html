@@ -1,0 +1,1283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>One API Key. Every AI Provider — ResultantAI Gateway</title>
+  <meta name="description" content="Gateway gives you OpenAI, Anthropic, Google, Meta, and Mistral through one unified API. Stop juggling 5 different API keys.">
+  
+  <!-- Open Graph -->
+  <meta property="og:title" content="One API Key. Every AI Provider — ResultantAI Gateway">
+  <meta property="og:description" content="Stop juggling 5 different API keys. Gateway gives you OpenAI, Anthropic, Google, and more through one unified API.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://resultantai.com/reddit/one-key">
+  
+  <!-- Reddit Pixel -->
+  <script>
+    !function(w,d){if(!w.rdt){var p=w.rdt=function(){p.sendEvent?p.sendEvent.apply(p,arguments):p.callQueue.push(arguments)};p.callQueue=[];var t=d.createElement("script");t.src="https://www.redditstatic.com/ads/pixel.js",t.async=!0;var s=d.getElementsByTagName("script")[0];s.parentNode.insertBefore(t,s)}}(window,document);rdt('init','a2_htj8d1flphh9');rdt('track', 'PageVisit');
+  </script>
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  
+  <style>
+    /* ============================================
+       CSS VARIABLES
+       ============================================ */
+    :root {
+      --bg-primary: #0a0f1a;
+      --bg-secondary: #0f172a;
+      --bg-card: #151d2e;
+      --bg-card-hover: #1a2540;
+      --border: #1e293b;
+      --border-light: #334155;
+      --border-glow: rgba(16, 185, 129, 0.3);
+      
+      --text-primary: #ffffff;
+      --text-secondary: #94a3b8;
+      --text-muted: #64748b;
+      
+      --accent: #10b981;
+      --accent-light: #34d399;
+      --accent-dark: #059669;
+      --accent-subtle: rgba(16, 185, 129, 0.08);
+      --accent-glow: rgba(16, 185, 129, 0.4);
+      
+      --gradient-accent: linear-gradient(135deg, #10b981 0%, #34d399 100%);
+      --gradient-hero: radial-gradient(ellipse 80% 50% at 50% -20%, rgba(16, 185, 129, 0.15), transparent);
+      
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 16px;
+      --radius-xl: 24px;
+      --radius-full: 9999px;
+      
+      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+      
+      --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
+      --shadow-md: 0 4px 20px rgba(0, 0, 0, 0.4);
+      --shadow-lg: 0 8px 40px rgba(0, 0, 0, 0.5);
+      --shadow-glow: 0 0 60px var(--accent-glow);
+      
+      --transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* ============================================
+       RESET & BASE
+       ============================================ */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    body {
+      font-family: var(--font-sans);
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      line-height: 1.6;
+      font-size: 16px;
+      overflow-x: hidden;
+      min-height: 100vh;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    ::selection {
+      background: var(--accent);
+      color: var(--bg-primary);
+    }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: var(--bg-primary); }
+    ::-webkit-scrollbar-thumb { background: var(--border-light); border-radius: var(--radius-full); }
+    ::-webkit-scrollbar-thumb:hover { background: var(--accent); }
+
+    /* ============================================
+       ANIMATED BACKGROUND
+       ============================================ */
+    .bg-grid {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-image: 
+        linear-gradient(rgba(16, 185, 129, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(16, 185, 129, 0.03) 1px, transparent 1px);
+      background-size: 60px 60px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .bg-gradient {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 100vh;
+      background: var(--gradient-hero);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .bg-orb {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(100px);
+      opacity: 0.4;
+      pointer-events: none;
+      z-index: 0;
+      animation: float 25s ease-in-out infinite;
+    }
+
+    .bg-orb--1 {
+      width: 600px;
+      height: 600px;
+      background: var(--accent);
+      top: -200px;
+      left: -200px;
+      animation-delay: 0s;
+    }
+
+    .bg-orb--2 {
+      width: 500px;
+      height: 500px;
+      background: var(--accent);
+      bottom: -150px;
+      right: -150px;
+      animation-delay: -8s;
+    }
+
+    .bg-orb--3 {
+      width: 300px;
+      height: 300px;
+      background: var(--accent);
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      animation-delay: -16s;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.3; }
+      33% { transform: translate(30px, -30px) scale(1.05); opacity: 0.4; }
+      66% { transform: translate(-20px, 20px) scale(0.95); opacity: 0.35; }
+    }
+
+    /* Animated Lines */
+    .bg-lines {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    .bg-line {
+      position: absolute;
+      width: 1px;
+      height: 100%;
+      background: linear-gradient(
+        to bottom,
+        transparent 0%,
+        rgba(16, 185, 129, 0.1) 50%,
+        transparent 100%
+      );
+      animation: line-flow 8s linear infinite;
+    }
+
+    .bg-line:nth-child(1) { left: 10%; animation-delay: 0s; }
+    .bg-line:nth-child(2) { left: 30%; animation-delay: -2s; }
+    .bg-line:nth-child(3) { left: 50%; animation-delay: -4s; }
+    .bg-line:nth-child(4) { left: 70%; animation-delay: -6s; }
+    .bg-line:nth-child(5) { left: 90%; animation-delay: -1s; }
+
+    @keyframes line-flow {
+      0% { transform: translateY(-100%); }
+      100% { transform: translateY(100%); }
+    }
+
+    /* ============================================
+       LAYOUT
+       ============================================ */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+      position: relative;
+      z-index: 10;
+    }
+
+    /* ============================================
+       HEADER
+       ============================================ */
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      background: rgba(10, 15, 26, 0.9);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(30, 41, 59, 0.5);
+    }
+
+    .header__inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 0;
+    }
+
+    .header__logo {
+      font-size: 18px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      white-space: nowrap;
+    }
+
+    .logo-accent {
+      color: var(--accent);
+    }
+
+    .header__cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 20px;
+      background: transparent;
+      border: 1px solid var(--accent);
+      color: var(--accent);
+      font-size: 14px;
+      font-weight: 600;
+      border-radius: var(--radius-md);
+      transition: all var(--transition);
+    }
+
+    .header__cta:hover {
+      background: var(--accent);
+      color: var(--bg-primary);
+    }
+
+    /* ============================================
+       HERO
+       ============================================ */
+    .hero {
+      padding: 140px 0 60px;
+      text-align: center;
+    }
+
+    .hero__badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 16px;
+      background: var(--accent-subtle);
+      border: 1px solid rgba(16, 185, 129, 0.2);
+      border-radius: var(--radius-full);
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--accent-light);
+      margin-bottom: 24px;
+    }
+
+    .hero__title {
+      font-size: clamp(40px, 6vw, 64px);
+      font-weight: 800;
+      line-height: 1.1;
+      letter-spacing: -0.04em;
+      margin-bottom: 24px;
+    }
+
+    .hero__title-gradient {
+      background: linear-gradient(135deg, var(--accent), var(--accent-light));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero__subtitle {
+      font-size: 18px;
+      color: var(--text-secondary);
+      max-width: 600px;
+      margin: 0 auto 16px;
+      line-height: 1.7;
+    }
+
+    .hero__lead {
+      font-size: 17px;
+      font-weight: 600;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .hero__lead .highlight {
+      color: var(--accent);
+    }
+
+    /* ============================================
+       CODE DEMO CARD
+       ============================================ */
+    .code-card {
+      max-width: 800px;
+      margin: 0 auto 60px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+      box-shadow: var(--shadow-glow);
+      transition: all var(--transition);
+    }
+
+    .code-card:hover {
+      border-color: var(--border-glow);
+    }
+
+    .code-card__header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 24px;
+      border-bottom: 1px solid var(--border);
+      background: rgba(21, 29, 46, 0.5);
+    }
+
+    .code-card__left {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .code-card__icon {
+      width: 48px;
+      height: 48px;
+      background: var(--gradient-accent);
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .code-card__title {
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    .code-card__desc {
+      color: var(--text-secondary);
+      font-size: 14px;
+      margin-top: 2px;
+    }
+
+    .copy-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 16px;
+      background: var(--bg-primary);
+      border: 1px solid var(--border);
+      color: var(--text-secondary);
+      font-size: 13px;
+      font-weight: 500;
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      transition: all var(--transition);
+    }
+
+    .copy-btn:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    .copy-btn--copied {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    .code-block {
+      background: var(--bg-primary);
+      padding: 24px;
+      overflow-x: auto;
+    }
+
+    .code-block pre {
+      font-family: var(--font-mono);
+      font-size: 14px;
+      line-height: 1.7;
+      color: var(--text-secondary);
+    }
+
+    .code-block .keyword { color: #c792ea; }
+    .code-block .string { color: #c3e88d; }
+    .code-block .comment { color: #546e7a; }
+    .code-block .property { color: #82aaff; }
+    .code-block .variable { color: #f78c6c; }
+
+    .code-card__features {
+      padding: 24px;
+      background: linear-gradient(135deg, rgba(21, 29, 46, 0.8), var(--bg-primary));
+      border-top: 1px solid var(--border);
+    }
+
+    .code-card__features-title {
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 16px;
+      color: var(--text-secondary);
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+
+    @media (max-width: 600px) {
+      .features-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .feature-item {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+    }
+
+    .feature-item__icon {
+      flex-shrink: 0;
+      width: 24px;
+      height: 24px;
+      background: var(--accent-subtle);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 2px;
+    }
+
+    .feature-item__title {
+      font-weight: 600;
+      font-size: 14px;
+      margin-bottom: 4px;
+    }
+
+    .feature-item__desc {
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    /* ============================================
+       SIGNUP FORM
+       ============================================ */
+    .form-card {
+      max-width: 600px;
+      margin: 0 auto 80px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xl);
+      padding: 40px;
+      box-shadow: var(--shadow-glow);
+    }
+
+    .form-card__title {
+      font-size: 28px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      text-align: center;
+      margin-bottom: 8px;
+    }
+
+    .form-card__subtitle {
+      color: var(--text-secondary);
+      text-align: center;
+      margin-bottom: 32px;
+    }
+
+    .form__row {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    @media (max-width: 540px) {
+      .form__row {
+        flex-direction: column;
+      }
+    }
+
+    .form__input {
+      flex: 1;
+      padding: 16px 20px;
+      background: var(--bg-primary);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      color: var(--text-primary);
+      font-size: 16px;
+      font-family: var(--font-sans);
+      transition: all var(--transition);
+    }
+
+    .form__input:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+    }
+
+    .form__input::placeholder {
+      color: var(--text-muted);
+    }
+
+    .form__button {
+      padding: 16px 32px;
+      background: var(--gradient-accent);
+      color: var(--bg-primary);
+      font-size: 16px;
+      font-weight: 700;
+      font-family: var(--font-sans);
+      border: none;
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all var(--transition);
+      white-space: nowrap;
+    }
+
+    .form__button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(16, 185, 129, 0.35);
+    }
+
+    .form__button:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .form__note {
+      font-size: 13px;
+      color: var(--text-muted);
+      text-align: center;
+    }
+
+    .beta-box {
+      background: var(--accent-subtle);
+      border: 1px solid rgba(16, 185, 129, 0.2);
+      border-radius: var(--radius-lg);
+      padding: 20px;
+      text-align: center;
+      margin-top: 24px;
+    }
+
+    .beta-box__price {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--accent);
+    }
+
+    .beta-box__note {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    /* ============================================
+       PROVIDERS
+       ============================================ */
+    .providers {
+      max-width: 800px;
+      margin: 0 auto 80px;
+      text-align: center;
+    }
+
+    .providers__label {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 24px;
+    }
+
+    .providers__grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 32px;
+      align-items: center;
+    }
+
+    .provider {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      opacity: 0.5;
+      transition: all var(--transition);
+    }
+
+    .provider:hover {
+      opacity: 1;
+      color: var(--accent);
+    }
+
+    /* ============================================
+       VALUE PROPS
+       ============================================ */
+    .value-props {
+      max-width: 900px;
+      margin: 0 auto 80px;
+    }
+
+    .value-props__title {
+      text-align: center;
+      font-size: 28px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 40px;
+    }
+
+    .props-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    @media (max-width: 768px) {
+      .props-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .prop {
+      text-align: center;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 32px 24px;
+      transition: all var(--transition);
+    }
+
+    .prop:hover {
+      border-color: var(--border-glow);
+      transform: translateY(-4px);
+    }
+
+    .prop__icon {
+      width: 56px;
+      height: 56px;
+      background: var(--accent-subtle);
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+    }
+
+    .prop__title {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .prop__desc {
+      font-size: 14px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    /* ============================================
+       FINAL CTA
+       ============================================ */
+    .final-cta {
+      max-width: 720px;
+      margin: 0 auto 80px;
+      padding: 0 24px;
+    }
+
+    .final-cta__card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xl);
+      padding: 56px 48px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      box-shadow: var(--shadow-glow);
+    }
+
+    .final-cta__card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: var(--gradient-accent);
+    }
+
+    .final-cta__badge {
+      display: inline-block;
+      padding: 6px 14px;
+      background: var(--accent-subtle);
+      border: 1px solid rgba(16, 185, 129, 0.2);
+      border-radius: var(--radius-full);
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 20px;
+    }
+
+    .final-cta__title {
+      font-size: 36px;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      margin-bottom: 12px;
+    }
+
+    .final-cta__subtitle {
+      font-size: 18px;
+      color: var(--text-secondary);
+      margin-bottom: 32px;
+    }
+
+    .final-cta__subtitle strong {
+      color: var(--accent);
+    }
+
+    .final-cta__button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 18px 40px;
+      background: var(--gradient-accent);
+      color: var(--bg-primary);
+      font-size: 17px;
+      font-weight: 700;
+      border-radius: var(--radius-md);
+      transition: all var(--transition);
+      box-shadow: 0 4px 20px rgba(16, 185, 129, 0.3);
+    }
+
+    .final-cta__button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 30px rgba(16, 185, 129, 0.4);
+    }
+
+    .final-cta__button svg {
+      transition: transform var(--transition);
+    }
+
+    .final-cta__button:hover svg {
+      transform: translateX(4px);
+    }
+
+    .final-cta__note {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-top: 20px;
+    }
+
+    /* ============================================
+       FOOTER
+       ============================================ */
+    .footer {
+      padding: 40px 0;
+      border-top: 1px solid var(--border);
+      text-align: center;
+    }
+
+    .footer__logo {
+      font-size: 16px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin-bottom: 12px;
+    }
+
+    .footer__links {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 24px;
+      font-size: 14px;
+      color: var(--text-secondary);
+    }
+
+    .footer__links a:hover {
+      color: var(--accent);
+    }
+
+    /* ============================================
+       SUCCESS STATE
+       ============================================ */
+    .success-screen {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+
+    .success-card {
+      max-width: 560px;
+      width: 100%;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xl);
+      padding: 48px;
+      text-align: center;
+      box-shadow: var(--shadow-glow);
+    }
+
+    .success-icon {
+      width: 72px;
+      height: 72px;
+      background: var(--accent-subtle);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 24px;
+    }
+
+    .success-title {
+      font-size: 28px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 12px;
+    }
+
+    .success-subtitle {
+      font-size: 16px;
+      color: var(--text-secondary);
+      margin-bottom: 24px;
+      line-height: 1.6;
+    }
+
+    .success-box {
+      background: var(--accent-subtle);
+      border: 1px solid rgba(16, 185, 129, 0.2);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      text-align: left;
+    }
+
+    .success-box__title {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 12px;
+    }
+
+    .success-list {
+      list-style: none;
+    }
+
+    .success-list li {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 14px;
+      color: var(--text-secondary);
+      margin-bottom: 10px;
+    }
+
+    .success-list li:last-child {
+      margin-bottom: 0;
+    }
+
+    .success-list li svg {
+      flex-shrink: 0;
+      color: var(--accent);
+    }
+
+    /* ============================================
+       ANIMATIONS
+       ============================================ */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body>
+  <!-- Background Effects -->
+  <div class="bg-grid"></div>
+  <div class="bg-gradient"></div>
+  <div class="bg-orb bg-orb--1"></div>
+  <div class="bg-orb bg-orb--2"></div>
+  <div class="bg-orb bg-orb--3"></div>
+  <div class="bg-lines">
+    <div class="bg-line"></div>
+    <div class="bg-line"></div>
+    <div class="bg-line"></div>
+    <div class="bg-line"></div>
+    <div class="bg-line"></div>
+  </div>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="container">
+      <div class="header__inner">
+        <a href="https://resultantai.com" class="header__logo">Resultant<span class="logo-accent">AI</span></a>
+        <a href="https://meetings.hubspot.com/chris4642/ai-gateway-founding-partner" target="_blank" class="header__cta">
+          Book a Demo
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M5 12h14M12 5l7 7-7 7"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <div id="app"></div>
+
+  <script>
+    const API_URL = 'https://hook.us2.make.com/n8deqd9mfxcqxeoe19j0etwfxnuq12pa';
+
+    const CODE = `<span class="keyword">import</span> OpenAI <span class="keyword">from</span> <span class="string">'openai'</span>;
+
+<span class="keyword">const</span> client = <span class="keyword">new</span> OpenAI({
+  <span class="property">baseURL</span>: <span class="string">'https://ai-gateway-prod.fly.dev/v1'</span>,
+  <span class="property">apiKey</span>: process.env.<span class="variable">GATEWAY_API_KEY</span>,
+});
+
+<span class="keyword">const</span> response = <span class="keyword">await</span> client.chat.completions.create({
+  <span class="property">model</span>: <span class="string">'gpt-4o-mini'</span>,  <span class="comment">// or claude-3-haiku, gemini-1.5-flash</span>
+  <span class="property">messages</span>: [{ <span class="property">role</span>: <span class="string">'user'</span>, <span class="property">content</span>: <span class="string">'Hello!'</span> }],
+});`;
+
+    const CODE_PLAIN = `import OpenAI from 'openai';
+
+const client = new OpenAI({
+  baseURL: 'https://ai-gateway-prod.fly.dev/v1',
+  apiKey: process.env.GATEWAY_API_KEY,
+});
+
+const response = await client.chat.completions.create({
+  model: 'gpt-4o-mini',  // or claude-3-haiku, gemini-1.5-flash
+  messages: [{ role: 'user', content: 'Hello!' }],
+});`;
+
+    let state = {
+      email: '',
+      isSubmitting: false,
+      isSubmitted: false,
+      copied: false
+    };
+
+    function copyCode() {
+      navigator.clipboard.writeText(CODE_PLAIN);
+      state.copied = true;
+      render();
+      setTimeout(() => {
+        state.copied = false;
+        render();
+      }, 2000);
+    }
+
+    async function handleSubmit(e) {
+      e.preventDefault();
+      if (state.isSubmitting || !state.email) return;
+
+      state.isSubmitting = true;
+      render();
+
+      try {
+        // Track Reddit conversion
+        if (typeof rdt !== 'undefined') {
+          rdt('track', 'SignUp');
+        }
+
+        const response = await fetch(API_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            name: state.email.split('@')[0],
+            email: state.email,
+            company: '',
+            use_case: 'reddit-one-key | Unified API access'
+          })
+        });
+
+        if (!response.ok) throw new Error('Signup failed');
+        
+        state.isSubmitted = true;
+      } catch (error) {
+        console.error('Signup error:', error);
+        alert('Something went wrong. Please try again.');
+      } finally {
+        state.isSubmitting = false;
+        render();
+      }
+    }
+
+    function render() {
+      const app = document.getElementById('app');
+
+      if (state.isSubmitted) {
+        app.innerHTML = `
+          <div class="success-screen">
+            <div class="success-card">
+              <div class="success-icon">
+                <svg width="32" height="32" fill="none" stroke="#10b981" stroke-width="2" stroke-linecap="round">
+                  <path d="M20 6L9 17l-5-5"/>
+                </svg>
+              </div>
+              <h2 class="success-title">You're In! 🎉</h2>
+              <p class="success-subtitle">Check your email for instant access to your Gateway dashboard and your first API key.</p>
+              <div class="success-box">
+                <p class="success-box__title">What happens next:</p>
+                <ul class="success-list">
+                  <li>
+                    <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>
+                    Instant access to OpenAI, Anthropic, Google, and more
+                  </li>
+                  <li>
+                    <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>
+                    One API key replaces all your provider keys
+                  </li>
+                  <li>
+                    <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>
+                    5-minute setup with zero code changes
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        `;
+        return;
+      }
+
+      app.innerHTML = `
+        <main>
+          <section class="hero">
+            <div class="container">
+              <div class="hero__badge">
+                <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+                  <polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/>
+                </svg>
+                Drop-in replacement for OpenAI SDK
+              </div>
+              <h1 class="hero__title">
+                One API key.<br/>
+                <span class="hero__title-gradient">Every AI provider.</span>
+              </h1>
+              <p class="hero__subtitle">
+                Stop juggling 5 different API keys. Stop hitting rate limits.
+              </p>
+              <p class="hero__lead">
+                Gateway gives you <span class="highlight">OpenAI, Anthropic, Google, Meta, and Mistral</span> through one unified API.
+              </p>
+            </div>
+          </section>
+
+          <section class="container">
+            <div class="code-card reveal">
+              <div class="code-card__header">
+                <div class="code-card__left">
+                  <div class="code-card__icon">
+                    <svg width="24" height="24" fill="none" stroke="#0a0f1a" stroke-width="2">
+                      <polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/>
+                    </svg>
+                  </div>
+                  <div>
+                    <h2 class="code-card__title">5-Minute Setup</h2>
+                    <p class="code-card__desc">Just change the base URL. That's it.</p>
+                  </div>
+                </div>
+                <button class="copy-btn ${state.copied ? 'copy-btn--copied' : ''}" onclick="copyCode()">
+                  ${state.copied ? `
+                    <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>
+                    Copied!
+                  ` : `
+                    <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+                    Copy
+                  `}
+                </button>
+              </div>
+              <div class="code-block">
+                <pre><code>${CODE}</code></pre>
+              </div>
+              <div class="code-card__features">
+                <p class="code-card__features-title">What this unlocks:</p>
+                <div class="features-grid">
+                  <div class="feature-item">
+                    <div class="feature-item__icon">
+                      <svg width="12" height="12" fill="none" stroke="#10b981" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>
+                    </div>
+                    <div>
+                      <div class="feature-item__title">Automatic failover</div>
+                      <div class="feature-item__desc">OpenAI rate limited? Gateway instantly switches to Claude or Gemini</div>
+                    </div>
+                  </div>
+                  <div class="feature-item">
+                    <div class="feature-item__icon">
+                      <svg width="12" height="12" fill="none" stroke="#10b981" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>
+                    </div>
+                    <div>
+                      <div class="feature-item__title">Smart routing</div>
+                      <div class="feature-item__desc">Routes 70% of requests to cheap models automatically</div>
+                    </div>
+                  </div>
+                  <div class="feature-item">
+                    <div class="feature-item__icon">
+                      <svg width="12" height="12" fill="none" stroke="#10b981" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>
+                    </div>
+                    <div>
+                      <div class="feature-item__title">One dashboard</div>
+                      <div class="feature-item__desc">Track costs, logs, and usage across all providers in real-time</div>
+                    </div>
+                  </div>
+                  <div class="feature-item">
+                    <div class="feature-item__icon">
+                      <svg width="12" height="12" fill="none" stroke="#10b981" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>
+                    </div>
+                    <div>
+                      <div class="feature-item__title">Zero code changes</div>
+                      <div class="feature-item__desc">Works with your existing OpenAI code. Just swap the base URL</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-card reveal">
+              <h3 class="form-card__title">Get Your Gateway API Key</h3>
+              <p class="form-card__subtitle">Start routing requests to multiple providers in 5 minutes</p>
+              <form onsubmit="handleSubmit(event)">
+                <div class="form__row">
+                  <input type="email" class="form__input" placeholder="you@company.com" required value="${state.email}" oninput="state.email = this.value">
+                  <button type="submit" class="form__button" ${state.isSubmitting ? 'disabled' : ''}>
+                    ${state.isSubmitting ? 'Saving...' : 'Get Instant Access'}
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M5 12h14M12 5l7 7-7 7"/>
+                    </svg>
+                  </button>
+                </div>
+                <p class="form__note">Free 14-day trial • No credit card required • Cancel anytime</p>
+                <div class="beta-box">
+                  <p class="beta-box__price">Founding Partner: $499/year — locked forever</p>
+                  <p class="beta-box__note">Regular price will be $1,188/year after beta</p>
+                </div>
+              </form>
+            </div>
+
+            <div class="providers reveal">
+              <p class="providers__label">Access all major AI providers:</p>
+              <div class="providers__grid">
+                <span class="provider">OpenAI</span>
+                <span class="provider">Anthropic</span>
+                <span class="provider">Google</span>
+                <span class="provider">Meta</span>
+                <span class="provider">Mistral</span>
+              </div>
+            </div>
+
+            <div class="value-props reveal">
+              <h3 class="value-props__title">Why developers love Gateway</h3>
+              <div class="props-grid">
+                <div class="prop">
+                  <div class="prop__icon">
+                    <svg width="24" height="24" fill="none" stroke="#10b981" stroke-width="2">
+                      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                    </svg>
+                  </div>
+                  <h4 class="prop__title">99.9% Uptime</h4>
+                  <p class="prop__desc">If one provider goes down, we automatically route to another. Your users never notice.</p>
+                </div>
+                <div class="prop">
+                  <div class="prop__icon">
+                    <svg width="24" height="24" fill="none" stroke="#10b981" stroke-width="2">
+                      <path d="M12 2v20M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/>
+                    </svg>
+                  </div>
+                  <h4 class="prop__title">65% Cost Savings</h4>
+                  <p class="prop__desc">Smart routing sends simple requests to cheap models, complex ones to GPT-4o.</p>
+                </div>
+                <div class="prop">
+                  <div class="prop__icon">
+                    <svg width="24" height="24" fill="none" stroke="#10b981" stroke-width="2">
+                      <polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/>
+                    </svg>
+                  </div>
+                  <h4 class="prop__title">Drop-in SDK</h4>
+                  <p class="prop__desc">Works with your existing OpenAI code. No refactoring, no migration headaches.</p>
+                </div>
+              </div>
+            </div>
+
+            <section class="final-cta reveal">
+              <div class="final-cta__card">
+                <div class="final-cta__badge">Limited Availability</div>
+                <h2 class="final-cta__title">One key. Every provider.</h2>
+                <p class="final-cta__subtitle">Join 25 Founding Partners at <strong>$499/year</strong> — locked forever.</p>
+                <a href="https://meetings.hubspot.com/chris4642/ai-gateway-founding-partner" target="_blank" class="final-cta__button">
+                  Claim Your Spot
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M5 12h14M12 5l7 7-7 7"/>
+                  </svg>
+                </a>
+                <p class="final-cta__note">90-day money-back guarantee • No long-term lock-in</p>
+              </div>
+            </section>
+          </section>
+
+          <footer class="footer">
+            <div class="container">
+              <div class="footer__logo">Resultant<span class="logo-accent">AI</span></div>
+              <div class="footer__links">
+                <a href="https://resultantai.com">Home</a>
+                <a href="https://ai-gateway-prod.fly.dev/health" target="_blank">API Status</a>
+                <a href="mailto:gateway@resultantai.com">Support</a>
+              </div>
+            </div>
+          </footer>
+        </main>
+      `;
+
+      // Trigger reveal animations
+      setTimeout(() => {
+        document.querySelectorAll('.reveal').forEach(el => {
+          el.classList.add('visible');
+        });
+      }, 100);
+    }
+
+    // Initial render
+    render();
+  </script>
+</body>
+</html>
