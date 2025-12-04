@@ -485,6 +485,320 @@
             color: var(--text);
             line-height: 1.7;
         }
+
+        /* Countdown Timer */
+        .countdown-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+            color: white;
+            padding: 12px 20px;
+            text-align: center;
+            font-size: 14px;
+            font-weight: 600;
+            z-index: 1000;
+            box-shadow: 0 2px 8px rgba(239, 68, 68, 0.3);
+        }
+
+        .countdown-bar .timer {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 16px;
+            font-weight: 700;
+            margin-left: 8px;
+        }
+
+        .countdown-adjusted {
+            padding-top: 50px !important;
+        }
+
+        /* Scarcity Badge */
+        .scarcity-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            color: #ef4444;
+            font-size: 12px;
+            font-weight: 600;
+            padding: 6px 12px;
+            border-radius: 20px;
+            margin-bottom: 16px;
+        }
+
+        .scarcity-badge::before {
+            content: '🔥';
+            font-size: 14px;
+        }
+
+        /* Social Proof */
+        .social-proof {
+            background: rgba(16, 185, 129, 0.05);
+            border: 1px solid rgba(16, 185, 129, 0.2);
+            border-radius: 10px;
+            padding: 16px 20px;
+            margin: 24px 0;
+            text-align: center;
+            font-size: 14px;
+            color: var(--text);
+        }
+
+        .social-proof strong {
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        /* Exit Intent Popup */
+        .exit-popup {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.85);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .exit-popup.show {
+            display: flex;
+        }
+
+        .exit-popup-content {
+            background: var(--card);
+            border: 2px solid var(--accent);
+            border-radius: 16px;
+            padding: 40px 32px;
+            max-width: 480px;
+            margin: 20px;
+            position: relative;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+        }
+
+        .exit-popup-close {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            background: none;
+            border: none;
+            color: var(--text);
+            font-size: 24px;
+            cursor: pointer;
+            padding: 0;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .exit-popup h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 28px;
+            color: var(--text-bright);
+            margin-bottom: 16px;
+            text-align: center;
+        }
+
+        .exit-popup p {
+            color: var(--text);
+            margin-bottom: 24px;
+            text-align: center;
+            line-height: 1.6;
+        }
+
+        .exit-popup .countdown-text {
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            color: #ef4444;
+            padding: 12px;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: 600;
+            margin-bottom: 24px;
+        }
+
+        .exit-popup input {
+            width: 100%;
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 14px 16px;
+            font-size: 16px;
+            color: var(--text-bright);
+            margin-bottom: 16px;
+        }
+
+        .exit-popup button {
+            width: 100%;
+            background: var(--accent);
+            color: #000;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 16px;
+            font-weight: 700;
+            padding: 16px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+
+        /* Cost Calculator */
+        .calculator {
+            background: linear-gradient(135deg, var(--card) 0%, #0d1218 100%);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 32px 28px;
+            margin: 32px 0;
+        }
+
+        .calculator h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--text-bright);
+            margin-bottom: 8px;
+            text-align: center;
+        }
+
+        .calculator .subtitle {
+            text-align: center;
+            color: var(--text);
+            margin-bottom: 28px;
+            font-size: 14px;
+        }
+
+        .calc-input {
+            margin-bottom: 24px;
+        }
+
+        .calc-label {
+            display: flex;
+            justify-content: space-between;
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text);
+            margin-bottom: 10px;
+        }
+
+        .calc-value {
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        .slider {
+            width: 100%;
+            height: 6px;
+            border-radius: 3px;
+            background: var(--border);
+            outline: none;
+            -webkit-appearance: none;
+        }
+
+        .slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: var(--accent);
+            cursor: pointer;
+        }
+
+        .slider::-moz-range-thumb {
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: var(--accent);
+            cursor: pointer;
+            border: none;
+        }
+
+        .calc-results {
+            background: rgba(16, 185, 129, 0.05);
+            border: 1px solid rgba(16, 185, 129, 0.2);
+            border-radius: 12px;
+            padding: 24px;
+            margin: 24px 0;
+        }
+
+        .calc-results.blurred {
+            filter: blur(4px);
+            pointer-events: none;
+        }
+
+        .result-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .result-row:last-child {
+            border-bottom: none;
+        }
+
+        .result-label {
+            color: var(--text);
+            font-size: 14px;
+        }
+
+        .result-value {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            font-size: 18px;
+            color: var(--text-bright);
+        }
+
+        .result-value.savings {
+            color: var(--accent);
+        }
+
+        .result-value.danger {
+            color: #ef4444;
+        }
+
+        .email-gate {
+            text-align: center;
+            padding: 20px;
+            display: none;
+        }
+
+        .email-gate.show {
+            display: block;
+        }
+
+        .email-gate p {
+            margin-bottom: 16px;
+            color: var(--text);
+        }
+
+        .email-gate input {
+            width: 100%;
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 14px 16px;
+            font-size: 16px;
+            color: var(--text-bright);
+            margin-bottom: 12px;
+        }
+
+        .email-gate button {
+            width: 100%;
+            background: var(--accent);
+            color: #000;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 16px;
+            font-weight: 700;
+            padding: 14px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+        }
     </style>
   <!-- Google Analytics 4 (Direct) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-DY95GS9YX5"></script>
@@ -725,11 +1039,15 @@
   height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <!-- End Google Tag Manager (noscript) -->
 
+    <!-- Countdown Timer -->
+    <div class="countdown-bar">
+        🚀 <strong>Founding Partner Offer Ends:</strong><span class="timer" id="countdown">Loading...</span>
+    </div>
 
-    <div class="container">
-        <!-- Badge -->
-        <div class="badge">Free Beta Access — Limited Spots</div>
-        
+    <div class="container countdown-adjusted">
+        <!-- Scarcity Badge -->
+        <div class="scarcity-badge">Only 12 Founding Partner spots remaining</div>
+
         <!-- Headline -->
         <h1>Your AI bill shouldn't be a <span class="highlight">mystery</span></h1>
         
@@ -789,12 +1107,71 @@
                 <span class="benefit-text"><strong>Per-client tracking</strong> — Export and invoice in seconds</span>
             </div>
         </div>
-        
+
+        <!-- Social Proof -->
+        <div class="social-proof">
+            <strong>47 people</strong> joined this week • Trusted by agencies in 12 countries
+        </div>
+
+        <!-- Cost Calculator -->
+        <div class="calculator">
+            <h3>Calculate Your Savings</h3>
+            <p class="subtitle">See how much AI Gateway saves you monthly</p>
+
+            <div class="calc-input">
+                <div class="calc-label">
+                    <span>Monthly LLM Requests</span>
+                    <span class="calc-value" id="requests-display">100,000</span>
+                </div>
+                <input type="range" min="1000" max="1000000" value="100000" step="1000" class="slider" id="requests-slider">
+            </div>
+
+            <div class="calc-input">
+                <div class="calc-label">
+                    <span>Avg Tokens per Request</span>
+                    <span class="calc-value" id="tokens-display">500</span>
+                </div>
+                <input type="range" min="100" max="5000" value="500" step="50" class="slider" id="tokens-slider">
+            </div>
+
+            <div class="calc-results" id="calc-results">
+                <div class="result-row">
+                    <span class="result-label">Current Monthly Cost</span>
+                    <span class="result-value danger" id="current-cost">$125.00</span>
+                </div>
+                <div class="result-row">
+                    <span class="result-label">With AI Gateway</span>
+                    <span class="result-value" id="gateway-cost">$99.00</span>
+                </div>
+                <div class="result-row">
+                    <span class="result-label">Monthly Savings</span>
+                    <span class="result-value savings" id="monthly-savings">$26.00</span>
+                </div>
+                <div class="result-row">
+                    <span class="result-label">Annual Savings</span>
+                    <span class="result-value savings" id="annual-savings">$312.00</span>
+                </div>
+            </div>
+
+            <div class="email-gate" id="email-gate">
+                <p><strong>Get your personalized savings report</strong></p>
+                <form id="calculator-form">
+                    <input
+                        type="email"
+                        id="calc-email"
+                        placeholder="Enter your email"
+                        required
+                    />
+                    <button type="submit">Show My Full Savings Report →</button>
+                </form>
+            </div>
+        </div>
+
         <!-- Signup Form -->
         <div class="form-card">
             <form id="signup-form">
-                <h2 class="form-title">Get Free Beta Access</h2>
-                <p class="form-subtitle">Join the waitlist. First 50 get in free.</p>
+                <h2 class="form-title">Claim Your Founding Partner Spot</h2>
+                <p class="form-subtitle">Lock in lifetime 58% discount before Dec 31st</p>
                 
                 <div class="form-group">
                     <label class="form-label" for="email">Email</label>
@@ -812,10 +1189,10 @@
                         <option value="other">Something else</option>
                     </select>
                 </div>
-                
-                <button type="submit" class="submit-btn">Join the Waitlist →</button>
-                
-                <p class="form-note">No spam. No credit card. Just early access.</p>
+
+                <button type="submit" class="submit-btn">Claim Founding Partner Spot →</button>
+
+                <p class="form-note">58% lifetime discount • Ends Dec 31st • No credit card required</p>
             </form>
             
             <!-- Success State -->
@@ -1188,6 +1565,216 @@
                 faqItem.classList.toggle('open');
             });
         });
+
+        // Cost Calculator
+        const requestsSlider = document.getElementById('requests-slider');
+        const tokensSlider = document.getElementById('tokens-slider');
+        const requestsDisplay = document.getElementById('requests-display');
+        const tokensDisplay = document.getElementById('tokens-display');
+        let calculatorInteracted = false;
+
+        function formatNumber(num) {
+            if (num >= 1000000) return (num / 1000000).toFixed(1) + 'M';
+            if (num >= 1000) return (num / 1000).toFixed(0) + 'K';
+            return num.toString();
+        }
+
+        function calculateCosts() {
+            const requests = parseInt(requestsSlider.value);
+            const tokensPerRequest = parseInt(tokensSlider.value);
+            const totalTokens = requests * tokensPerRequest;
+            const totalMillionTokens = totalTokens / 1000000;
+
+            // Current cost (assumes GPT-4o pricing: $2.50 per 1M input tokens)
+            const currentCost = totalMillionTokens * 2.5;
+
+            // AI Gateway cost with intelligent routing (40-50% savings)
+            // Flat $99 for first 3M tokens, then $35 per additional 1M
+            let gatewayCost;
+            if (totalMillionTokens <= 3) {
+                gatewayCost = 99;
+            } else {
+                const overageTokens = totalMillionTokens - 3;
+                gatewayCost = 99 + (overageTokens * 35);
+            }
+
+            const monthlySavings = Math.max(0, currentCost - gatewayCost);
+            const annualSavings = monthlySavings * 12;
+
+            // Update displays
+            document.getElementById('current-cost').textContent = '$' + currentCost.toFixed(2);
+            document.getElementById('gateway-cost').textContent = '$' + gatewayCost.toFixed(2);
+            document.getElementById('monthly-savings').textContent = '$' + monthlySavings.toFixed(2);
+            document.getElementById('annual-savings').textContent = '$' + annualSavings.toFixed(2);
+
+            // Show email gate after user interacts with calculator
+            if (!calculatorInteracted && (requests !== 100000 || tokensPerRequest !== 500)) {
+                calculatorInteracted = true;
+                setTimeout(() => {
+                    document.getElementById('calc-results').classList.add('blurred');
+                    document.getElementById('email-gate').classList.add('show');
+                }, 1000);
+            }
+        }
+
+        requestsSlider.addEventListener('input', () => {
+            requestsDisplay.textContent = formatNumber(parseInt(requestsSlider.value));
+            calculateCosts();
+        });
+
+        tokensSlider.addEventListener('input', () => {
+            tokensDisplay.textContent = formatNumber(parseInt(tokensSlider.value));
+            calculateCosts();
+        });
+
+        // Calculator email form submission
+        document.getElementById('calculator-form').addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            const email = document.getElementById('calc-email').value;
+            const requests = parseInt(requestsSlider.value);
+            const tokens = parseInt(tokensSlider.value);
+            const savings = document.getElementById('monthly-savings').textContent;
+            const utmParams = getUTMParams();
+
+            const payload = {
+                email: email,
+                use_case: 'calculator',
+                source: 'cost-calculator',
+                variant: 'founding-partner',
+                calculator_data: {
+                    monthly_requests: requests,
+                    tokens_per_request: tokens,
+                    estimated_savings: savings
+                },
+                ...utmParams,
+                timestamp: new Date().toISOString(),
+                page_url: window.location.href
+            };
+
+            try {
+                await fetch('https://hook.us2.make.com/n8deqd9mfxcqxeoe19j0etwfxnuq12pa', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                if (typeof rdt === 'function') {
+                    rdt('track', 'Lead');
+                }
+
+                // Unlock results
+                document.getElementById('calc-results').classList.remove('blurred');
+                document.getElementById('email-gate').innerHTML =
+                    '<p style="color: var(--accent); font-weight: 600;">✓ Report sent! Check your email.</p>';
+
+                setTimeout(() => {
+                    document.getElementById('email-gate').classList.remove('show');
+                }, 2000);
+            } catch (err) {
+                console.error('Error:', err);
+            }
+        });
+
+        // Initialize calculator
+        calculateCosts();
+
+        // Countdown Timer
+        function updateCountdown() {
+            const deadline = new Date('December 31, 2025 23:59:59 EST').getTime();
+            const now = new Date().getTime();
+            const distance = deadline - now;
+
+            if (distance < 0) {
+                document.getElementById('countdown').innerHTML = "OFFER EXPIRED";
+                return;
+            }
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById('countdown').innerHTML =
+                `${days}d ${hours}h ${minutes}m ${seconds}s`;
+        }
+
+        // Update countdown every second
+        updateCountdown();
+        setInterval(updateCountdown, 1000);
+
+        // Exit Intent Popup
+        let exitPopupShown = false;
+
+        document.addEventListener('mouseleave', (e) => {
+            if (e.clientY <= 0 && !exitPopupShown && !localStorage.getItem('exitPopupShown')) {
+                document.getElementById('exit-popup').classList.add('show');
+                exitPopupShown = true;
+            }
+        });
+
+        function closeExitPopup() {
+            document.getElementById('exit-popup').classList.remove('show');
+            localStorage.setItem('exitPopupShown', 'true');
+        }
+
+        // Exit popup form submission
+        document.getElementById('exit-popup-form').addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            const email = document.getElementById('exit-email').value;
+            const utmParams = getUTMParams();
+
+            const payload = {
+                email: email,
+                use_case: 'exit-intent',
+                source: 'exit-popup',
+                variant: 'founding-partner-urgency',
+                ...utmParams,
+                timestamp: new Date().toISOString(),
+                page_url: window.location.href
+            };
+
+            try {
+                await fetch('https://hook.us2.make.com/n8deqd9mfxcqxeoe19j0etwfxnuq12pa', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                if (typeof rdt === 'function') {
+                    rdt('track', 'Lead');
+                }
+
+                document.getElementById('exit-popup-form').innerHTML =
+                    '<p style="text-align:center; color: var(--accent); font-weight: 600;">✓ Spot claimed! Check your email.</p>';
+
+                setTimeout(closeExitPopup, 2000);
+            } catch (err) {
+                console.error('Error:', err);
+            }
+        });
     </script>
+
+    <!-- Exit Intent Popup -->
+    <div id="exit-popup" class="exit-popup">
+        <div class="exit-popup-content">
+            <button class="exit-popup-close" onclick="closeExitPopup()">×</button>
+            <h3>Wait! Don't Miss Out</h3>
+            <p>Lock in <strong>58% lifetime savings</strong> as a Founding Partner</p>
+            <div class="countdown-text">
+                Offer ends <span id="exit-countdown">Dec 31st</span>
+            </div>
+            <form id="exit-popup-form">
+                <input
+                    type="email"
+                    id="exit-email"
+                    placeholder="Enter your email"
+                    required
+                />
+                <button type="submit">Claim My Founding Partner Spot</button>
+            </form>
+        </div>
+    </div>
 </body>
 </html>
