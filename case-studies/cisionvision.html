@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Case Study: CisionVision — 10X ROI with Marketing Automation | ResultantAI</title>
+    <meta name="description" content="How ResultantAI built an AI-powered marketing audit system that delivers 10X ROI through automated competitive analysis and strategy generation.">
+
+    <!-- Google Search Console Verification -->
+    <meta name="google-site-verification" content="EUs3oELHtHvHjcAdzN2HjjzWzEP_6KWVZFzaIoLdp70">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://www.resultantai.com/case-studies/cisionvision">
+    <meta property="og:title" content="Case Study: CisionVision — 10X ROI with AI">
+    <meta property="og:description" content="AI-powered marketing audits delivering 10X ROI through automated competitive analysis.">
+    <meta property="og:image" content="https://www.resultantai.com/images/og-case-study-cisionvision.jpg">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://www.resultantai.com/case-studies/cisionvision">
+    <meta name="twitter:title" content="Case Study: CisionVision — 10X ROI">
+    <meta name="twitter:description" content="AI marketing audits: 10X ROI from automated analysis">
+    <meta name="twitter:image" content="https://www.resultantai.com/images/twitter-case-study-cisionvision.jpg">
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://www.resultantai.com/case-studies/cisionvision">
+
+    <!-- Case Study Schema -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": "CisionVision Case Study: 10X ROI with AI Marketing Automation",
+        "description": "How ResultantAI built an AI-powered marketing audit system that delivers 10X ROI through automated competitive analysis and strategy generation.",
+        "author": {
+            "@type": "Organization",
+            "name": "ResultantAI",
+            "url": "https://www.resultantai.com"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "ResultantAI",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "https://www.resultantai.com/images/logo.png"
+            }
+        },
+        "datePublished": "2025-12-01",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https://www.resultantai.com/case-studies/cisionvision"
+        },
+        "about": {
+            "@type": "Thing",
+            "name": "AI Marketing Automation System"
+        }
+    }
+    </script>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-primary: #0a0f1a;
+            --bg-secondary: #0f172a;
+            --bg-card: #151d2e;
+            --border: #1e293b;
+            --border-light: #334155;
+            --text-primary: #ffffff;
+            --text-secondary: #94a3b8;
+            --text-muted: #64748b;
+            --accent: #10b981;
+            --accent-light: #34d399;
+            --accent-subtle: rgba(16, 185, 129, 0.08);
+            --accent-glow: rgba(16, 185, 129, 0.4);
+            --radius-md: 10px;
+            --radius-lg: 16px;
+            --radius-xl: 24px;
+            --shadow-card: 0 4px 24px rgba(0, 0, 0, 0.3);
+            --font-sans: 'Inter', -apple-system, sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+        }
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-sans);
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 60px 24px;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-secondary);
+            font-size: 14px;
+            margin-bottom: 32px;
+            transition: color 0.2s;
+        }
+
+        .back-link:hover {
+            color: var(--accent);
+        }
+
+        .badge {
+            display: inline-block;
+            background: var(--accent-subtle);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            color: var(--accent);
+            font-size: 13px;
+            font-weight: 600;
+            padding: 6px 14px;
+            border-radius: 20px;
+            margin-bottom: 24px;
+        }
+
+        h1 {
+            font-size: clamp(32px, 6vw, 48px);
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 16px;
+        }
+
+        .highlight {
+            color: var(--accent);
+        }
+
+        .subtitle {
+            font-size: 20px;
+            color: var(--text-secondary);
+            margin-bottom: 32px;
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 16px;
+            margin: 48px 0;
+        }
+
+        .metric-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 24px;
+            text-align: center;
+        }
+
+        .metric-value {
+            font-size: 36px;
+            font-weight: 800;
+            color: var(--accent);
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .metric-label {
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        .content-section {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-xl);
+            padding: 40px;
+            margin: 32px 0;
+        }
+
+        .content-section h2 {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+
+        .content-section h3 {
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--accent);
+            margin: 24px 0 12px;
+        }
+
+        .content-section p {
+            color: var(--text-secondary);
+            margin-bottom: 16px;
+            font-size: 16px;
+            line-height: 1.7;
+        }
+
+        .content-section ul, .content-section ol {
+            margin: 16px 0 16px 24px;
+            color: var(--text-secondary);
+        }
+
+        .content-section li {
+            margin-bottom: 8px;
+        }
+
+        .quote {
+            background: var(--accent-subtle);
+            border-left: 4px solid var(--accent);
+            border-radius: var(--radius-md);
+            padding: 24px 28px;
+            margin: 32px 0;
+        }
+
+        .quote-text {
+            font-size: 18px;
+            font-style: italic;
+            color: var(--text-primary);
+            margin-bottom: 12px;
+        }
+
+        .quote-author {
+            font-size: 14px;
+            color: var(--text-secondary);
+            font-style: normal;
+        }
+
+        .cta-box {
+            background: linear-gradient(135deg, var(--accent-subtle) 0%, var(--bg-card) 100%);
+            border: 2px solid var(--accent);
+            border-radius: var(--radius-xl);
+            padding: 40px;
+            text-align: center;
+            margin-top: 48px;
+        }
+
+        .cta-box h2 {
+            font-size: 28px;
+            margin-bottom: 16px;
+        }
+
+        .cta-box p {
+            color: var(--text-secondary);
+            margin-bottom: 24px;
+        }
+
+        .btn {
+            display: inline-block;
+            background: var(--accent);
+            color: #000;
+            font-weight: 700;
+            padding: 14px 32px;
+            border-radius: var(--radius-md);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(16, 185, 129, 0.3);
+        }
+
+        footer {
+            border-top: 1px solid var(--border);
+            padding: 32px 0;
+            margin-top: 64px;
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 14px;
+        }
+    </style>
+
+    <!-- Google Analytics 4 (Direct) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-DY95GS9YX5"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-DY95GS9YX5');
+    </script>
+
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-WBGJ9J8X');</script>
+
+    <!-- Tracking Script -->
+    <script src="/js/tracking.js" defer></script>
+</head>
+<body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WBGJ9J8X"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+    <div class="container">
+        <a href="/" class="back-link">← Back to Home</a>
+
+        <div class="badge">Case Study</div>
+        <h1>How CisionVision Achieved <span class="highlight">10X ROI</span> with AI</h1>
+        <p class="subtitle">Automated marketing audit system generates high-value deliverables in minutes, not weeks</p>
+
+        <!-- Metrics -->
+        <div class="metrics-grid">
+            <div class="metric-card">
+                <span class="metric-value">10X</span>
+                <div class="metric-label">Return on Investment</div>
+            </div>
+            <div class="metric-card">
+                <span class="metric-value">95%</span>
+                <div class="metric-label">Time Saved</div>
+            </div>
+            <div class="metric-card">
+                <span class="metric-value">3 weeks</span>
+                <div class="metric-label">Build Time</div>
+            </div>
+        </div>
+
+        <!-- The Challenge -->
+        <div class="content-section">
+            <h2>The Challenge</h2>
+            <p>CisionVision, a marketing agency specializing in competitive intelligence, had a profitable but labor-intensive service: comprehensive marketing audits for B2B SaaS companies.</p>
+            <p><strong>The problem:</strong></p>
+            <ul>
+                <li>Each audit took 20-30 hours of analyst time</li>
+                <li>Charged $5,000 per audit, but labor costs were $3,200</li>
+                <li>Limited to 8-10 audits per month due to capacity constraints</li>
+                <li>Analysts burned out on repetitive research tasks</li>
+                <li>Couldn't scale without hiring (expensive and risky)</li>
+            </ul>
+        </div>
+
+        <!-- The Solution -->
+        <div class="content-section">
+            <h2>The Solution</h2>
+            <p>ResultantAI built an AI-powered marketing audit system that automates 90% of the research and analysis:</p>
+
+            <h3>What the System Does</h3>
+            <ul>
+                <li><strong>Analyzes competitor websites</strong> — extracts messaging, positioning, and value props</li>
+                <li><strong>Audits SEO performance</strong> — keyword gaps, backlink profiles, technical issues</li>
+                <li><strong>Maps content strategy</strong> — identifies topic clusters and content gaps</li>
+                <li><strong>Reviews paid advertising</strong> — analyzes competitor ad copy and targeting</li>
+                <li><strong>Generates strategic recommendations</strong> — AI creates custom action plans</li>
+                <li><strong>Produces client-ready reports</strong> — formatted PDFs with charts and executive summaries</li>
+            </ul>
+
+            <h3>Technical Architecture</h3>
+            <p>Built using:</p>
+            <ul>
+                <li>Make.com for workflow orchestration</li>
+                <li>Claude AI for analysis and strategic insights</li>
+                <li>Firecrawl for web scraping and data extraction</li>
+                <li>Ahrefs API for SEO data</li>
+                <li>Google Docs API for report generation</li>
+            </ul>
+            <p>Development time: <strong>3 weeks</strong> from concept to production.</p>
+        </div>
+
+        <!-- Client Quote -->
+        <div class="quote">
+            <div class="quote-text">"We went from 20 hours per audit to 2 hours. The AI does the grunt work, and our team adds the strategic polish. We're now doing 50+ audits a month at higher margins. This fundamentally changed our business model."</div>
+            <div class="quote-author">— Michael Park, Founder, CisionVision</div>
+        </div>
+
+        <!-- The Results -->
+        <div class="content-section">
+            <h2>The Results</h2>
+            <p><strong>First 6 months:</strong></p>
+            <ul>
+                <li><strong>10X ROI on implementation cost</strong> (recovered investment in 3 weeks)</li>
+                <li><strong>95% reduction in time per audit</strong> (30 hours → 90 minutes)</li>
+                <li><strong>6X increase in monthly capacity</strong> (10 audits → 60 audits/month)</li>
+                <li><strong>72% gross margin</strong> (up from 36%)</li>
+                <li><strong>Higher quality outputs</strong> — AI catches patterns humans miss</li>
+            </ul>
+
+            <h3>Business Transformation</h3>
+            <p>The impact went beyond just efficiency:</p>
+            <ul>
+                <li><strong>New pricing model:</strong> Introduced $2,500 "Express Audit" tier powered by AI</li>
+                <li><strong>Faster sales cycle:</strong> Can deliver audits in 48 hours instead of 2 weeks</li>
+                <li><strong>Team satisfaction:</strong> Analysts now focus on strategy, not data gathering</li>
+                <li><strong>Competitive moat:</strong> Can underprice competitors while maintaining margins</li>
+                <li><strong>Scalability unlocked:</strong> Revenue no longer capped by headcount</li>
+            </ul>
+        </div>
+
+        <!-- Key Takeaways -->
+        <div class="content-section">
+            <h2>Key Takeaways</h2>
+            <ol>
+                <li><strong>Automate the repetitive, elevate the strategic:</strong> AI excels at data gathering and pattern recognition</li>
+                <li><strong>Speed is a feature:</strong> 48-hour delivery became a competitive advantage</li>
+                <li><strong>Higher volume at higher margins:</strong> Automation breaks the typical service business trade-off</li>
+                <li><strong>Quality can improve with automation:</strong> AI's consistency and thoroughness exceeded manual processes</li>
+                <li><strong>ROI compounds:</strong> System pays for itself repeatedly, month after month</li>
+            </ol>
+        </div>
+
+        <!-- CTA -->
+        <div class="cta-box">
+            <h2>Want Results Like This?</h2>
+            <p>Let's automate your high-value service in weeks, not months.</p>
+            <a href="https://meetings.hubspot.com/chris4642" class="btn" data-track-demo="true">
+                Schedule a Free Consultation →
+            </a>
+        </div>
+
+        <footer>
+            <p>&copy; 2025 ResultantAI. All rights reserved.</p>
+            <p style="margin-top: 8px;">
+                <a href="/" style="color: var(--accent);">Home</a> •
+                <a href="/humans.txt" style="color: var(--accent);">Humans.txt</a> •
+                <a href="mailto:chris@resultantai.com" style="color: var(--accent);">Contact</a>
+            </p>
+        </footer>
+    </div>
+</body>
+</html>
