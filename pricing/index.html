@@ -361,11 +361,11 @@
             <div class="absolute top-0 right-0 w-64 h-64 bg-emerald-500/10 rounded-full blur-3xl"></div>
             <div class="relative z-10">
                 <div class="inline-block bg-emerald-500 text-white text-xs font-bold px-4 py-1 rounded-full mb-4">
-                    LIMITED TIME OFFER
+                    FOUNDING PARTNER
                 </div>
-                <h2 class="text-3xl font-bold mb-3">Founding Partner — $499/year</h2>
+                <h2 class="text-3xl font-bold mb-3">$499/year (Save $689)</h2>
                 <p class="text-xl text-slate-300 mb-6">
-                    Pro features (3M tokens/month) at <strong class="text-emerald-400">58% off</strong>, locked in forever
+                    Pro features (3M tokens/month) — <strong class="text-emerald-400">Price locked forever</strong>
                 </p>
                 <div class="flex items-center justify-center gap-8 mb-6 text-sm">
                     <div class="flex items-center gap-2">
@@ -387,12 +387,10 @@
                         <span>Save $689/year</span>
                     </div>
                 </div>
-                <!-- Countdown Timer -->
-                <div class="bg-red-900/30 border border-red-500/30 rounded-lg px-6 py-4 mb-6 inline-block">
-                    <p class="text-red-400 font-semibold mb-2">🔥 Offer Ends In:</p>
-                    <p class="text-2xl font-bold font-mono" id="pricing-countdown">Loading...</p>
+                <!-- Social Proof -->
+                <div class="text-sm text-slate-400 mb-6">
+                    25+ Founding Partners have joined
                 </div>
-                <br>
                 <a href="https://meetings.hubspot.com/chris4642/ai-gateway-founding-partner"
                    class="inline-block bg-emerald-500 hover:bg-emerald-400 text-white text-lg font-semibold px-8 py-3 rounded-lg transition-all"
                    data-track-demo="true">
@@ -604,31 +602,6 @@
             </div>
         </div>
     </footer>
-
-    <script>
-        // Countdown Timer for Founding Partner Offer
-        function updatePricingCountdown() {
-            const deadline = new Date('December 31, 2025 23:59:59 EST').getTime();
-            const now = new Date().getTime();
-            const distance = deadline - now;
-
-            if (distance < 0) {
-                document.getElementById('pricing-countdown').innerHTML = "OFFER EXPIRED";
-                return;
-            }
-
-            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-            document.getElementById('pricing-countdown').innerHTML =
-                `${days}d ${hours}h ${minutes}m ${seconds}s`;
-        }
-
-        updatePricingCountdown();
-        setInterval(updatePricingCountdown, 1000);
-    </script>
 
 </body>
 </html>
