@@ -1,406 +1,394 @@
-# 🚀 ResultantAI - Production-Ready AI Automation Tools
+# ResultantAI Gateway - Marketing Website
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
-[![Make.com Compatible](https://img.shields.io/badge/Make.com-Compatible-purple.svg)](https://www.make.com/)
-[![Powered by Claude](https://img.shields.io/badge/Powered%20by-Claude%20AI-orange.svg)](https://www.anthropic.com/)
+[![GitHub Pages](https://img.shields.io/badge/Hosted%20on-GitHub%20Pages-blue.svg)](https://resultantai.github.io)
+[![Website Status](https://img.shields.io/website?url=https%3A%2F%2Fresultantai.github.io)](https://resultantai.github.io)
 
-**Open-source AI automation tools for lead intelligence, marketing analysis, and business qualification.** Built for developers, automation engineers, and growth teams who need production-ready solutions with zero black boxes.
+**AI Gateway marketing website and landing pages.** Built for developers, agencies, and builders who need predictable AI API pricing with multi-provider support.
 
----
-
-## 🎯 What's Inside
-
-This repository contains **four production-ready automation systems** powered by Anthropic's Claude AI:
-
-| Tool | Description | Use Case |
-|------|-------------|----------|
-| **[Lead Enrichment & Scoring](LEAD_ENRICHMENT_README.md)** | AI-powered lead qualification with ICP scoring | Sales automation, CRM enrichment, lead routing |
-| **[Marketing Audit System](MARKETING_AUDIT_README.md)** | Comprehensive marketing analysis engine | Agency audits, SEO analysis, content strategy |
-| **[MCA Qualification](MCA_QUALIFICATION_README.md)** | Business financing qualification assessment | FinTech, lending automation, risk assessment |
-| **[Maryland Bill Tracker](MARYLAND_BILL_TRACKER_README.md)** | AI-powered legislative monitoring and analysis | Government affairs, policy research, advocacy |
-
-Each tool includes:
-- ✅ **CLI & API modes** (works standalone or in automation workflows)
-- ✅ **Make.com blueprints** (pre-built automation scenarios)
-- ✅ **Structured JSON output** (easy integration with any system)
-- ✅ **Production-ready code** (error handling, logging, modular design)
-- ✅ **Detailed documentation** (setup guides, examples, troubleshooting)
+🌐 **Live Site:** [resultantai.github.io](https://resultantai.github.io)
 
 ---
 
-## 🚀 Quick Start
+## 📁 Repository Structure
 
-### Prerequisites
-
-- Python 3.8 or higher
-- Anthropic API key ([get one here](https://console.anthropic.com/settings/keys))
-- Make.com account (optional, for no-code automation)
-
-### Installation
-
-```bash
-# Clone the repository
-git clone https://github.com/ResultantAI/ResultantAI.git
-cd ResultantAI
-
-# Create virtual environment
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
-
-# Install dependencies
-pip install -r requirements.txt
-
-# Configure environment
-cp .env.example .env
-# Edit .env and add your ANTHROPIC_API_KEY
-```
-
-### Quick Examples
-
-**Lead Enrichment:**
-```bash
-python lead_enrichment.py --domain stripe.com
-# Returns comprehensive company data + ICP score (0-100)
-```
-
-**Marketing Audit:**
-```bash
-python marketing_audit.py --url https://example.com --industry "SaaS"
-# Returns SEO, content, social media, and paid advertising analysis
-```
-
-**MCA Qualification:**
-```bash
-echo '{"business_name": "Acme Corp", "monthly_revenue": 50000}' | python mca_qualification.py
-# Returns financing qualification assessment and recommendations
-```
-
-**Maryland Bill Tracker:**
-```bash
-python maryland_bill_tracker.py --bill-number HB123
-# Returns bill details, status, and AI-powered impact analysis
-```
-
-For detailed usage, see each tool's dedicated README.
-
----
-
-## 🧰 Tool Documentation
-
-### 1. [Lead Enrichment & Scoring System](LEAD_ENRICHMENT_README.md)
-
-**Extract comprehensive company intelligence and score leads against your ICP.**
-
-- Clearbit-style data enrichment (company size, tech stack, funding, growth signals)
-- Customizable ICP scoring (6 weighted criteria, configurable thresholds)
-- Lead categorization (Hot/Warm/Cold/Poor Fit) with actionable recommendations
-- Perfect for: Sales automation, CRM enrichment, lead routing, ABM
-
-**Output includes:**
-- Company profile (name, industry, business model, HQ location)
-- Tech stack analysis (React, AWS, Stripe, sophistication level)
-- Funding & growth signals (stage, hiring activity, expansion indicators)
-- Market presence assessment (SEO, social activity, content marketing)
-- ICP score (0-100) with detailed breakdown by criteria
-
-[→ Full Documentation](LEAD_ENRICHMENT_README.md) | [→ Make.com Blueprint](make-blueprint-lead-enrichment.json)
-
----
-
-### 2. [Marketing Audit System](MARKETING_AUDIT_README.md)
-
-**Generate comprehensive marketing audits with AI-powered analysis.**
-
-- SEO analysis (title tags, meta descriptions, headers, performance)
-- Content strategy assessment (messaging, blog quality, CTAs)
-- Social media presence evaluation (platform coverage, engagement)
-- Paid advertising opportunities (Google Ads, social ads, keywords)
-- Top 3 Quick Wins (prioritized by impact vs. effort)
-
-**Perfect for:**
-- Agency client audits
-- Competitive analysis
-- Marketing health checks
-- Lead generation (offer free audits)
-
-[→ Full Documentation](MARKETING_AUDIT_README.md) | [→ Make.com Blueprint](make-blueprint-marketing-audit.json)
-
----
-
-### 3. [MCA Qualification System](MCA_QUALIFICATION_README.md)
-
-**Automate business financing qualification and risk assessment.**
-
-- Business qualification scoring
-- Revenue and cash flow analysis
-- Industry risk assessment
-- Credit readiness evaluation
-- Financing recommendations
-
-**Perfect for:**
-- FinTech platforms
-- Lending automation
-- Business loan pre-qualification
-- Risk assessment workflows
-
-[→ Full Documentation](MCA_QUALIFICATION_README.md) | [→ Make.com Blueprint](make-blueprint-mca-qualification.json)
-
----
-
-### 4. [Maryland Bill Tracker](MARYLAND_BILL_TRACKER_README.md)
-
-**Track and analyze Maryland state legislation with AI-powered insights.**
-
-- Bill tracking by number, keyword, or subject area
-- Legislative status monitoring (introduced, committee, passed, enacted)
-- AI-powered impact assessment and stakeholder analysis
-- Priority ratings and monitoring recommendations
-- Multi-keyword tracking for comprehensive coverage
-
-**Perfect for:**
-- Government affairs teams
-- Policy researchers and analysts
-- Advocacy organizations
-- Journalists and media
-- Business & industry groups
-
-**Output includes:**
-- Bill details (title, sponsors, status, timeline)
-- Committee assignments and latest actions
-- AI analysis (impact, stakeholders, priority)
-- Legislative recommendations and insights
-
-[→ Full Documentation](MARYLAND_BILL_TRACKER_README.md)
-
----
-
-## 🔧 Technical Architecture
-
-### Tech Stack
-
-- **AI Engine:** Anthropic Claude (Sonnet 4.5)
-- **Language:** Python 3.8+
-- **Web Scraping:** BeautifulSoup4, Requests
-- **Config Management:** python-dotenv, JSON
-- **Automation:** Make.com compatible (stdin/stdout JSON)
-
-### Design Principles
-
-1. **Modular & Extensible:** Each tool is self-contained but shares common patterns
-2. **Production-Ready:** Robust error handling, logging, and timeout management
-3. **Automation-First:** Works standalone (CLI) or in workflows (Make.com, Zapier, n8n)
-4. **Transparent & Auditable:** Structured JSON output with detailed reasoning
-5. **Zero Black Boxes:** All logic is visible, configurable, and customizable
-
-### Integration Patterns
+This repository contains the complete marketing website for AI Gateway, a unified API for OpenAI, Anthropic Claude, and Google Gemini.
 
 ```
-┌─────────────┐      ┌──────────────┐      ┌─────────────┐
-│   Webhook   │─────>│ Python Tool  │─────>│   CRM/DB    │
-│  (Make.com) │      │  (CLI/API)   │      │  (Airtable) │
-└─────────────┘      └──────────────┘      └─────────────┘
-                            │
-                            v
-                    ┌──────────────┐
-                    │  Claude API  │
-                    │  (Analysis)  │
-                    └──────────────┘
+resultantai.github.io/
+├── index.html                    # Homepage
+├── gateway/
+│   └── index.html               # Main gateway landing page
+├── pricing/
+│   └── index.html               # Pricing tiers and Founding Partner offer
+├── blog/
+│   ├── index.html               # Blog hub page
+│   ├── llm-cost-optimization-guide.html
+│   ├── intelligent-llm-routing-guide.html
+│   ├── llm-pricing-comparison-2025.html
+│   ├── openai-vs-anthropic-cost-comparison.html
+│   ├── per-client-billing-agencies.html
+│   └── prevent-ai-bill-shock-makecom.html
+├── compare/
+│   ├── index.html               # Comparison hub
+│   ├── direct-api.html          # vs Direct API
+│   ├── portkey.html             # vs Portkey
+│   ├── helicone.html            # vs Helicone
+│   └── litellm.html             # vs LiteLLM
+├── reddit/
+│   ├── index.html               # Bill Shock landing page
+│   ├── bill-shock/
+│   │   └── index.html           # Interactive cost calculator
+│   └── one-key/
+│       └── index.html           # Developer-focused SDK page
+├── js/
+│   └── tracking.js              # Analytics and event tracking
+└── sitemap.xml                  # SEO sitemap
 ```
 
 ---
 
-## 📦 Make.com Blueprints
+## 🎯 What is AI Gateway?
 
-Pre-built automation scenarios for instant deployment:
+AI Gateway is a unified API that provides:
 
-1. **[Lead Enrichment Blueprint](make-blueprint-lead-enrichment.json)**
-   - Trigger: New lead in CRM
-   - Action: Enrich with company data + ICP score
-   - Route: Hot leads → Sales, Warm → Nurture, Cold → Archive
+- **Flat-rate pricing:** $99/month includes 3M tokens (no surprises)
+- **Multi-provider support:** OpenAI, Claude, Gemini through one API key
+- **Intelligent routing:** Automatically select cheapest model for each task (40-50% savings)
+- **Per-client tracking:** Built-in cost tracking for agencies
+- **Budget controls:** Spending caps, alerts, and automatic kill switches
+- **Automatic failover:** Zero downtime when providers go down
 
-2. **[Marketing Audit Blueprint](make-blueprint-marketing-audit.json)**
-   - Trigger: Form submission or webhook
-   - Action: Generate comprehensive audit
-   - Output: Email report + save to Google Sheets
-
-3. **[MCA Qualification Blueprint](make-blueprint-mca-qualification.json)**
-   - Trigger: Loan application received
-   - Action: Assess qualification and risk
-   - Route: Qualified → Sales team, Not qualified → Auto-decline
-
-**Import Instructions:**
-1. Open Make.com → Create New Scenario
-2. Import JSON blueprint from this repository
-3. Configure API keys and webhooks
-4. Activate and test
+**Target Audience:**
+- Agencies managing multiple client AI costs
+- Developers building AI-powered products
+- Make.com/Zapier users preventing bill shock
+- SaaS companies needing predictable LLM pricing
 
 ---
 
-## 🛠️ Configuration
+## 🚀 Key Pages
 
-### Environment Variables
+### Landing Pages
 
-Create a `.env` file (copy from `.env.example`):
+1. **[Gateway Landing Page](/gateway/index.html)**
+   - Main product landing page
+   - Founding Partner offer ($499/year, 58% off)
+   - Social proof and trust signals
+   - Email capture form with Make.com integration
 
-```bash
-# Required: Anthropic API Key
-ANTHROPIC_API_KEY=your_api_key_here
+2. **[Pricing Page](/pricing/index.html)**
+   - 6 pricing tiers (Free, Starter, Pro, Agency, Scale, Enterprise)
+   - Founding Partner section with social proof
+   - Feature comparison table
+   - FAQ section
 
-# Optional: Model Configuration
-MODEL_NAME=claude-sonnet-4-5-20250929
-MAX_TOKENS=4096
-REQUEST_TIMEOUT=30
-```
+3. **[Homepage](/index.html)**
+   - Product overview
+   - Feature highlights
+   - Social proof elements
 
-### ICP Scoring Configuration
+### Reddit Campaign Landing Pages
 
-Customize lead scoring criteria in `icp_config.json`:
+1. **[Bill Shock Page](/reddit/index.html)**
+   - Focused on preventing unexpected AI bills
+   - Minimal design, fast load
+   - Tracking: `source: 'reddit-billshock'`
 
-```json
+2. **[Bill Shock Calculator](/reddit/bill-shock/index.html)**
+   - Interactive cost predictor slider
+   - Real-time savings calculation
+   - Email capture with calculator results
+
+3. **[One-Key Page](/reddit/one-key/index.html)**
+   - Developer-focused SDK messaging
+   - Code examples and integrations
+   - "One API key. Every AI provider."
+
+### Content Marketing
+
+**Blog Posts** (6 published):
+- [LLM Cost Optimization Guide](/blog/llm-cost-optimization-guide.html)
+- [Intelligent LLM Routing Guide](/blog/intelligent-llm-routing-guide.html)
+- [LLM Pricing Comparison 2025](/blog/llm-pricing-comparison-2025.html)
+- [OpenAI vs Anthropic: Cost Comparison](/blog/openai-vs-anthropic-cost-comparison.html)
+- [Per-Client Billing for Agencies](/blog/per-client-billing-agencies.html)
+- [Prevent AI Bill Shock with Make.com](/blog/prevent-ai-bill-shock-makecom.html)
+
+**Comparison Pages** (5 published):
+- [AI Gateway vs Direct API](/compare/direct-api.html)
+- [AI Gateway vs Portkey](/compare/portkey.html)
+- [AI Gateway vs Helicone](/compare/helicone.html)
+- [AI Gateway vs LiteLLM](/compare/litellm.html)
+
+---
+
+## 🔧 Technical Stack
+
+### Frontend
+- **Framework:** Static HTML/CSS/JavaScript (GitHub Pages)
+- **Styling:** Custom CSS with CSS variables, Tailwind CSS (pricing page)
+- **Fonts:** Space Grotesk (headings), DM Sans (body)
+- **Design:** Dark theme (#0a0d12 background), emerald accent (#10b981)
+
+### Analytics & Tracking
+- **Google Analytics 4:** G-DY95GS9YX5
+- **Google Tag Manager:** GTM-WBGJ9J8X
+- **Reddit Pixel:** a2_htj8d1flphh9
+- **Custom Events:** CTA clicks, form submissions, scroll depth
+- **Tracking Script:** `/js/tracking.js` (comprehensive event tracking)
+
+### Integrations
+- **Form Submissions:** Make.com webhook
+  - Endpoint: `https://hook.us2.make.com/n8deqd9mfxcqxeoe19j0etwfxnuq12pa`
+  - Payload includes: email, use_case, source, landing_page, variant, UTM params
+- **Scheduling:** HubSpot Meetings (Founding Partner calls)
+- **SEO:** Schema.org markup (FAQPage, Product, Organization)
+
+### Form Tracking Fields
+
+All forms submit with:
+```javascript
 {
-  "icp_criteria": {
-    "company_size": {
-      "weight": 20,
-      "ideal_range": [50, 500]
-    },
-    "industry": {
-      "weight": 15,
-      "ideal_industries": ["SaaS", "FinTech", "E-commerce"]
-    }
-  },
-  "scoring_thresholds": {
-    "hot_lead": 80,
-    "warm_lead": 60,
-    "cold_lead": 40
-  }
+  email: "user@example.com",
+  use_case: "agency|saas|nocode|internal|other",
+  source: "gateway-founding-partner|reddit-billshock|reddit-onekey",
+  landing_page: "gateway|bill-shock|one-key|billing",
+  variant: "social-proof-v1|dark",
+  utm_source: "...",
+  utm_medium: "...",
+  utm_campaign: "...",
+  utm_content: "...",
+  utm_term: "...",
+  timestamp: "2024-12-04T...",
+  page_url: "https://...",
+  referrer: "https://..."
 }
 ```
 
-See [Lead Enrichment README](LEAD_ENRICHMENT_README.md) for full configuration options.
+---
+
+## 🎨 Design System
+
+### Colors
+```css
+--bg: #0a0d12          /* Dark background */
+--card: #111820         /* Card backgrounds */
+--border: #1e2a3a      /* Borders */
+--text: #94a3b8        /* Body text */
+--text-bright: #e2e8f0 /* Headings */
+--accent: #10b981      /* Emerald green (primary CTA) */
+--danger: #ef4444      /* Red (urgency elements) */
+```
+
+### Typography
+- **Headings:** Space Grotesk (700 weight)
+- **Body:** DM Sans (400 regular, 500 medium, 600 semibold)
+- **Code/Monospace:** Monaco, monospace
+
+### Components
+- **Badges:** Pill-shaped with accent glow background
+- **Forms:** Dark cards with emerald focus states
+- **Buttons:** Emerald background, hover lift effect
+- **FAQ:** Collapsible accordion with + icon toggle
 
 ---
 
-## 💡 Use Cases
+## 📊 Conversion Optimization
 
-### For Agencies
-- **Client Acquisition:** Offer free marketing audits to generate leads
-- **Onboarding:** Automate initial client assessments
-- **Lead Qualification:** Score and route inbound leads automatically
-- **Reporting:** Generate audit reports at scale
+### Current Strategy (Professional, Trust-Focused)
 
-### For Sales Teams
-- **Lead Enrichment:** Enhance CRM data with AI-powered intelligence
-- **Lead Scoring:** Prioritize outreach based on ICP fit (0-100 score)
-- **Account Research:** Get comprehensive company profiles instantly
-- **ABM Targeting:** Identify and prioritize high-value accounts
+**What We Do:**
+- ✅ Subtle urgency banner (no countdown timer)
+- ✅ Social proof ("Join 25+ Founding Partners")
+- ✅ Clear price anchoring ($499/year vs $1,188)
+- ✅ Professional CTAs ("Get Started" vs "Claim Now")
+- ✅ Value-focused messaging (14-day trial, no credit card)
 
-### For FinTech/Lending
-- **Pre-Qualification:** Automate initial loan eligibility checks
-- **Risk Assessment:** Evaluate business health and creditworthiness
-- **Lead Routing:** Direct qualified leads to appropriate loan products
-- **Compliance:** Maintain audit trails of qualification decisions
+**What We Avoid:**
+- ❌ Countdown timers (27+ days doesn't create urgency)
+- ❌ Fake scarcity ("Only 12 spots" that never changes)
+- ❌ Excessive emojis and urgency signals
+- ❌ "Guru course" marketing patterns
+- ❌ Aggressive sales language
 
-### For Developers
-- **Build Automation:** Integrate tools into existing workflows
-- **Extend & Customize:** Fork and adapt to specific business needs
-- **API Integration:** Connect to CRMs, databases, and marketing tools
-- **Learn AI Automation:** Study production-ready AI implementation patterns
+**Reasoning:**
+Our ICP (developers, agency owners) is highly skeptical of marketing tactics. They pattern-match urgency overload to scams. Professional, trust-building design converts better than aggressive urgency.
 
 ---
 
-## 🗺️ Roadmap
+## 🚀 Deployment
 
-| Status | Feature | Description |
-|--------|---------|-------------|
-| ✅ | **Lead Enrichment v1.0** | Production-ready with ICP scoring |
-| ✅ | **Marketing Audit v1.0** | Comprehensive marketing analysis |
-| ✅ | **MCA Qualification v1.0** | Business financing assessment |
-| ✅ | **Maryland Bill Tracker v1.0** | AI-powered legislative monitoring |
-| ✅ | **Make.com Blueprints** | Pre-built automation scenarios |
-| 🚧 | **Web Dashboard** | UI for reviewing and managing results |
-| 🚧 | **Batch Processing** | Process multiple leads/audits in parallel |
-| 🔜 | **CRM Integrations** | Native HubSpot, Salesforce, Pipedrive connectors |
-| 🔜 | **Historical Tracking** | Track score/data changes over time |
-| 🔜 | **LinkedIn Integration** | Enrich with employee and company data |
-| 🔜 | **Custom AI Prompts** | User-defined analysis templates |
+### GitHub Pages Configuration
 
-**Legend:** ✅ Live | 🚧 In Progress | 🔜 Planned
+This site is hosted on **GitHub Pages** and automatically deploys from the `main` branch.
 
-Want to influence the roadmap? [Open an issue](../../issues) or contribute!
+**Deployment Process:**
+1. Push changes to `main` branch
+2. GitHub Actions builds and deploys automatically
+3. Live at: https://resultantai.github.io
+4. Custom domain (if configured): https://resultantai.com
+
+**Build Time:** ~2-3 minutes after push
+
+### Local Development
+
+```bash
+# Clone repository
+git clone https://github.com/ResultantAI/resultantai.github.io.git
+cd resultantai.github.io
+
+# Start local server (Python)
+python -m http.server 8000
+
+# Or use Live Server (VS Code extension)
+# Right-click index.html → "Open with Live Server"
+
+# View site
+open http://localhost:8000
+```
 
 ---
 
-## 📚 Documentation
+## 📈 SEO & Performance
 
-- **[Lead Enrichment Guide](LEAD_ENRICHMENT_README.md)** - Full setup, usage, and configuration
-- **[Marketing Audit Guide](MARKETING_AUDIT_README.md)** - Installation and examples
-- **[MCA Qualification Guide](MCA_QUALIFICATION_README.md)** - Business assessment docs
-- **[Maryland Bill Tracker Guide](MARYLAND_BILL_TRACKER_README.md)** - Legislative monitoring and analysis
-- **[Make.com Blueprints](MAKE_BLUEPRINTS_README.md)** - Automation scenario guides
+### SEO Features
+- ✅ Google Search Console verification
+- ✅ Canonical URLs on all pages
+- ✅ Schema.org structured data (FAQPage, Product, Organization)
+- ✅ Comprehensive sitemap.xml (268 URLs)
+- ✅ Meta descriptions on all pages
+- ✅ humans.txt and robots.txt
+- ✅ AI-quotable definitions for LLM discovery
+- ⚠️ Open Graph tags (partial - needs expansion)
+- ⚠️ Twitter Card markup (missing on most pages)
+
+### Performance
+- **Load Time:** < 2 seconds (static HTML, minimal JS)
+- **Page Size:** ~50-100KB per page (no heavy frameworks)
+- **Mobile-Friendly:** Responsive design with viewport meta tag
+- **Accessibility:** ARIA labels, semantic HTML, keyboard navigation
+
+### AI Discovery (AISEO)
+All pages include AI-quotable definitions:
+- "What is an LLM Gateway?"
+- "What is Intelligent LLM Routing?"
+- "What is AI Bill Shock?"
+
+These are structured with Schema.org DefinedTerm markup for AI search engines (Perplexity, Claude, ChatGPT).
+
+---
+
+## 🧪 Testing
+
+### Pre-Deployment Checklist
+
+Before merging to `main`:
+- [ ] All forms submit correctly to Make.com webhook
+- [ ] Reddit Pixel fires Lead event on form submission
+- [ ] Google Analytics tracks PageView events
+- [ ] All internal links work (no 404s)
+- [ ] Mobile responsive on iPhone/Android
+- [ ] Dark theme displays correctly
+- [ ] Countdown timers removed (professional approach)
+- [ ] Social proof numbers are accurate
+- [ ] Tracking variant matches current A/B test
+
+### Form Testing
+
+```bash
+# Test payload structure
+# Open browser console on /gateway/index.html
+# Submit form and check Network tab for webhook payload
+
+Expected payload:
+{
+  "email": "test@example.com",
+  "use_case": "agency",
+  "source": "gateway-founding-partner",
+  "landing_page": "gateway",
+  "variant": "social-proof-v1",
+  "utm_source": "reddit",
+  "timestamp": "2024-12-04T...",
+  "page_url": "https://resultantai.github.io/gateway/",
+  "referrer": ""
+}
+```
+
+---
+
+## 📝 Content Guidelines
+
+### Voice & Tone
+- **Professional, not salesy:** We're building for skeptical developers
+- **Technical, not fluffy:** Specific numbers, clear comparisons
+- **Transparent, not hypey:** Honest about limitations and trade-offs
+- **Helpful, not pushy:** Educate first, sell second
+
+### Messaging Framework
+
+**Problem:**
+- Unpredictable AI bills (OpenAI jumped from $47 to $312)
+- Managing multiple API keys (OpenAI, Claude, Gemini)
+- No per-client cost tracking for agencies
+
+**Solution:**
+- Flat-rate pricing ($99/month includes 3M tokens)
+- One API key for all providers
+- Built-in per-client tracking
+
+**Proof:**
+- 25+ Founding Partners (social proof)
+- 40-50% cost savings (intelligent routing)
+- $689/year savings (price locked forever)
+
+---
+
+## 🛠️ Maintenance
+
+### Regular Updates
+
+**Monthly:**
+- Update social proof numbers ("25+ Founding Partners" → "50+")
+- Review and refresh blog content for SEO
+- Check for broken links (dead competitor sites, etc.)
+- Update pricing if plans change
+
+**Quarterly:**
+- Refresh comparison pages (competitor pricing changes)
+- Update LLM pricing tables (model costs change frequently)
+- Review Google Analytics for top-performing content
+- A/B test new landing page variants
+
+**Annually:**
+- Update copyright year in footers
+- Refresh testimonials and case studies
+- Review and update technical documentation
+- Archive outdated blog posts
 
 ---
 
 ## 🤝 Contributing
 
-We welcome contributions! Here's how you can help:
+### Quick Edits
+- Fix typos → Edit directly in GitHub web interface → Commit to `main`
+- Update pricing → Edit `/pricing/index.html` → Commit
+- Add blog post → Create new HTML in `/blog/` → Update index
 
-### Quick Contributions
-- 🐛 **Report bugs:** [Open an issue](../../issues)
-- 💡 **Suggest features:** Share your ideas in issues
-- 📖 **Improve docs:** Submit PRs for typos or clarity
-- ⭐ **Star the repo:** Help others discover these tools
+### Major Changes (Use Pull Requests)
+1. Create new branch: `git checkout -b feature/your-feature`
+2. Make changes
+3. Test locally (http://localhost:8000)
+4. Commit with descriptive message
+5. Push: `git push origin feature/your-feature`
+6. Open PR on GitHub
+7. Review, merge to `main`
 
-### Code Contributions
-
-1. **Fork the repository**
-2. **Create a feature branch:** `git checkout -b feature/your-feature`
-3. **Make your changes** (follow existing code style)
-4. **Test thoroughly** (include examples in PR description)
-5. **Submit a pull request** with clear description
-
-### Contribution Ideas
-- Add new data enrichment sources
-- Build integrations (Zapier, n8n, custom APIs)
-- Create additional Make.com blueprints
-- Add multilingual support
-- Improve AI prompts and analysis quality
-- Build a web dashboard (React/Next.js)
-
-See [CONTRIBUTING.md](CONTRIBUTING.md) for detailed guidelines.
-
----
-
-## 🧠 Our Approach: AI Risk-First
-
-Every tool in this repository follows our **transparent, auditable AI** philosophy:
-
-- ✅ **No Black Boxes:** All logic is visible and configurable
-- ✅ **Structured Output:** JSON with detailed reasoning and confidence scores
-- ✅ **Error Handling:** Graceful failures with actionable error messages
-- ✅ **Audit Trails:** Track all API calls and decisions
-- ✅ **Human-in-the-Loop:** Tools assist, not replace, human judgment
-- ✅ **Continuous Improvement:** Built for iteration and refinement
-
-We believe AI automation should be **trustworthy, explainable, and outcome-focused.**
-
----
-
-## 💬 Community & Support
-
-### Get Help
-- 📖 **Read the Docs:** Check tool-specific READMEs first
-- 🐛 **Report Issues:** [GitHub Issues](../../issues)
-- 💡 **Feature Requests:** [Open a discussion](../../discussions)
-- 📧 **Email:** [Contact us directly](mailto:support@resultantai.com)
-
-### Testimonials
-
-> "The lead enrichment tool replaced three paid services for our agency. The ICP scoring is incredibly accurate." — SaaS Agency Owner
-
-> "Finally, marketing audit automation that actually works. Saves us 5+ hours per client." — Digital Marketing Consultant
-
-> "Production-ready code with excellent documentation. Integrated into our CRM in under an hour." — DevOps Engineer
+### Branch Naming
+- `feature/` - New features (landing pages, blog posts)
+- `fix/` - Bug fixes (broken links, typos)
+- `update/` - Content updates (pricing, social proof numbers)
+- `redesign/` - Visual/UX changes
 
 ---
 
@@ -408,45 +396,41 @@ We believe AI automation should be **trustworthy, explainable, and outcome-focus
 
 This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) file for details.
 
-**TL;DR:** You can use, modify, and distribute this code for any purpose (commercial or personal), with attribution.
-
 ---
 
 ## 🏢 About ResultantAI
 
-ResultantAI builds **transparent, production-ready AI automation** for founders, operators, and growth teams.
+**ResultantAI** builds AI Gateway - the unified API for OpenAI, Anthropic, and Google.
 
-**Our Principles:**
-- 🎯 **Outcome-Focused:** Build for business results, not just technical demos
-- 🔍 **Transparency First:** No black boxes, clear reasoning, full auditability
-- 🚀 **Production-Ready:** Enterprise-grade code, not prototypes
-- 🤝 **Open Source:** Share knowledge, build together, lift the industry
+**Product:**
+- Flat-rate AI pricing ($99/month)
+- Multi-provider support (one API key)
+- Intelligent routing (40-50% savings)
+- Per-client tracking (for agencies)
+- Budget controls and failover
 
-**What We Specialize In:**
-- AI agent workflows for sales, ops, and client delivery
-- No-code/low-code automation (Make.com, Zapier, Airtable, Notion)
-- Explainable AI systems with audit trails and risk dashboards
-- Productized automation libraries for repeatable, scalable results
+**Team:**
+- Founded 2024
+- Bootstrapped (no VC)
+- Remote-first
 
----
-
-## ⭐ Star History
-
-If you find these tools useful, please star the repository! It helps others discover these resources.
-
-[![Star History Chart](https://api.star-history.com/svg?repos=ResultantAI/ResultantAI&type=Date)](https://star-history.com/#ResultantAI/ResultantAI&Date)
+**Contact:**
+- Website: [resultantai.github.io](https://resultantai.github.io)
+- Email: chris@resultantai.com
+- GitHub: [@ResultantAI](https://github.com/ResultantAI)
 
 ---
 
-## 🔗 Links & Resources
+## 🔗 Links
 
-- **Website:** [ResultantAI.com](https://resultantai.com) (coming soon)
-- **Documentation:** [GitHub Wiki](../../wiki)
-- **Changelog:** [CHANGELOG.md](CHANGELOG.md)
-- **Security:** [SECURITY.md](SECURITY.md)
+- **Live Site:** [resultantai.github.io](https://resultantai.github.io)
+- **Documentation:** [Gateway Docs](/gateway)
+- **Pricing:** [Pricing Page](/pricing)
+- **Blog:** [Content Library](/blog)
+- **Comparisons:** [vs Competitors](/compare)
 
 ---
 
 **Built with ❤️ by ResultantAI** | **Powered by Claude AI** | **MIT Licensed**
 
-*Making AI automation transparent, trustworthy, and production-ready.*
+*Transparent AI pricing. No surprises.*
