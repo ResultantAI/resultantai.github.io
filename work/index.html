@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Client Success Stories | ResultantAI Case Studies</title>
+  <meta name="description" content="See how ResultantAI helped clients achieve 97% time savings, 3X lead volume, and zero missed calls with AI automation systems. Real results from real businesses.">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Client Success Stories | ResultantAI Case Studies">
+  <meta property="og:description" content="AI systems that work: 97% time savings, 3X leads, $17K+ revenue generated. See our portfolio of successful client implementations.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://resultantai.com/work">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="/favicon.png">
+
+  <style>
+    :root {
+      --bg-primary: #0a0f1a;
+      --bg-secondary: #0f172a;
+      --bg-card: #151d2e;
+      --bg-card-hover: #1a2540;
+      --border: #1e293b;
+      --border-light: #334155;
+      --text-primary: #ffffff;
+      --text-secondary: #94a3b8;
+      --text-muted: #64748b;
+      --accent: #10b981;
+      --accent-light: #34d399;
+      --gradient-accent: linear-gradient(135deg, #10b981 0%, #34d399 100%);
+      --radius-lg: 16px;
+      --radius-xl: 24px;
+      --shadow-card: 0 4px 24px rgba(0, 0, 0, 0.3);
+      --transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font-sans);
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      line-height: 1.6;
+      font-size: 16px;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* Navigation */
+    nav {
+      padding: 24px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav__logo {
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--text-primary);
+      text-decoration: none;
+    }
+
+    .nav__logo span {
+      background: var(--gradient-accent);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* Hero */
+    .hero {
+      padding: 80px 0 60px;
+      text-align: center;
+    }
+
+    .hero__back {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-secondary);
+      font-size: 14px;
+      margin-bottom: 40px;
+      transition: var(--transition);
+      text-decoration: none;
+    }
+
+    .hero__back:hover {
+      color: var(--accent);
+    }
+
+    h1 {
+      font-size: clamp(36px, 5vw, 56px);
+      font-weight: 800;
+      line-height: 1.1;
+      margin-bottom: 20px;
+    }
+
+    .hero__subtitle {
+      font-size: 20px;
+      color: var(--text-secondary);
+      line-height: 1.5;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    /* Stats */
+    .stats {
+      padding: 60px 0;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .stats__grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 40px;
+    }
+
+    .stat {
+      text-align: center;
+    }
+
+    .stat__value {
+      font-size: 48px;
+      font-weight: 800;
+      background: var(--gradient-accent);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 8px;
+    }
+
+    .stat__label {
+      color: var(--text-secondary);
+      font-size: 14px;
+    }
+
+    /* Case Studies Grid */
+    .case-studies {
+      padding: 80px 0;
+    }
+
+    .case-studies__grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 32px;
+      margin-top: 40px;
+    }
+
+    .case-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 32px;
+      transition: var(--transition);
+      text-decoration: none;
+      display: block;
+    }
+
+    .case-card:hover {
+      background: var(--bg-card-hover);
+      border-color: var(--accent);
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-card);
+    }
+
+    .case-card__industry {
+      display: inline-block;
+      padding: 4px 12px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-light);
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 16px;
+    }
+
+    .case-card__stat {
+      font-size: 40px;
+      font-weight: 800;
+      background: var(--gradient-accent);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 12px;
+    }
+
+    .case-card__company {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 12px;
+    }
+
+    .case-card__preview {
+      color: var(--text-secondary);
+      font-size: 15px;
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+
+    .case-card__results {
+      list-style: none;
+      margin: 20px 0;
+      padding: 20px 0;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .case-card__results li {
+      padding-left: 24px;
+      position: relative;
+      margin-bottom: 8px;
+      color: var(--text-secondary);
+      font-size: 14px;
+    }
+
+    .case-card__results li::before {
+      content: "✓";
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+      font-weight: 700;
+    }
+
+    .case-card__cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--accent);
+      font-weight: 600;
+      font-size: 14px;
+      margin-top: 12px;
+    }
+
+    .case-card:hover .case-card__cta {
+      gap: 12px;
+    }
+
+    /* CTA Section */
+    .cta {
+      padding: 80px 0;
+      text-align: center;
+    }
+
+    .cta__box {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xl);
+      padding: 60px 48px;
+    }
+
+    .cta h2 {
+      font-size: clamp(28px, 4vw, 40px);
+      font-weight: 800;
+      line-height: 1.2;
+      margin-bottom: 16px;
+    }
+
+    .cta p {
+      font-size: 18px;
+      color: var(--text-secondary);
+      margin-bottom: 32px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      padding: 16px 32px;
+      background: var(--accent);
+      color: var(--bg-primary);
+      font-weight: 700;
+      font-size: 16px;
+      border-radius: 12px;
+      transition: var(--transition);
+      text-decoration: none;
+    }
+
+    .btn:hover {
+      background: var(--accent-light);
+      transform: translateY(-2px);
+    }
+
+    /* Footer */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 40px 0;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 14px;
+    }
+
+    @media (max-width: 768px) {
+      .hero {
+        padding: 60px 0 40px;
+      }
+      .case-studies {
+        padding: 60px 0;
+      }
+      .case-studies__grid {
+        grid-template-columns: 1fr;
+      }
+      .cta {
+        padding: 60px 0;
+      }
+      .cta__box {
+        padding: 40px 24px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="container">
+      <a href="/" class="nav__logo">Resultant<span>AI</span></a>
+    </div>
+  </nav>
+
+  <main>
+    <!-- Hero -->
+    <section class="hero">
+      <div class="container">
+        <a href="/" class="hero__back">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M19 12H5M12 19l-7-7 7-7"/>
+          </svg>
+          Back to Home
+        </a>
+        <h1>Client Success Stories</h1>
+        <p class="hero__subtitle">Real results from real businesses — AI systems that work while you sleep</p>
+      </div>
+    </section>
+
+    <!-- Aggregate Stats -->
+    <section class="stats">
+      <div class="container">
+        <div class="stats__grid">
+          <div class="stat">
+            <div class="stat__value">3</div>
+            <div class="stat__label">Industries Served</div>
+          </div>
+          <div class="stat">
+            <div class="stat__value">$17K+</div>
+            <div class="stat__label">Revenue Generated</div>
+          </div>
+          <div class="stat">
+            <div class="stat__value">85%</div>
+            <div class="stat__label">Average Time Savings</div>
+          </div>
+          <div class="stat">
+            <div class="stat__value">100%</div>
+            <div class="stat__label">Success Rate</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Case Studies -->
+    <section class="case-studies">
+      <div class="container">
+        <div class="case-studies__grid">
+
+          <!-- Adleg -->
+          <a href="/work/adleg" class="case-card">
+            <span class="case-card__industry">Digital Marketing</span>
+            <div class="case-card__stat">97%</div>
+            <h2 class="case-card__company">Adleg Marketing</h2>
+            <p class="case-card__preview">Automated marketing audits that took 90 minutes now take 2 minutes — helping close 4 new clients in 30 days</p>
+            <ul class="case-card__results">
+              <li>4→50 audits per week capacity</li>
+              <li>29 hours/month reclaimed</li>
+              <li>$1.50 cost per professional audit</li>
+              <li>Zero formatting errors</li>
+            </ul>
+            <span class="case-card__cta">
+              Read Case Study
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <path d="M5 12h14M12 5l7 7-7 7"/>
+              </svg>
+            </span>
+          </a>
+
+          <!-- Jami Consulting -->
+          <a href="/work/hera-j" class="case-card">
+            <span class="case-card__industry">Financial Services — MCA</span>
+            <div class="case-card__stat">3X Leads</div>
+            <h2 class="case-card__company">Jami Consulting</h2>
+            <p class="case-card__preview">AI outbound system that qualifies MCA leads 24/7 — tripling qualified lead volume without hiring</p>
+            <ul class="case-card__results">
+              <li>75% less manual calling time</li>
+              <li>5→1.5 days document collection</li>
+              <li>24/7 lead qualification coverage</li>
+              <li>100% data capture rate</li>
+            </ul>
+            <span class="case-card__cta">
+              Read Case Study
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <path d="M5 12h14M12 5l7 7-7 7"/>
+              </svg>
+            </span>
+          </a>
+
+          <!-- Wayne Conn -->
+          <a href="/work/wayne-conn" class="case-card">
+            <span class="case-card__industry">Home Services — Plumbing</span>
+            <div class="case-card__stat">18→0</div>
+            <h2 class="case-card__company">Wayne Conn Plumbing</h2>
+            <p class="case-card__preview">AI receptionist that answers every emergency call 24/7 — making $6,285 in revenue in just 2 weeks</p>
+            <ul class="case-card__results">
+              <li>Zero missed calls (was 18/week)</li>
+              <li>20min→10sec response time</li>
+              <li>Paid for itself in 18 days</li>
+              <li>100% booking rate</li>
+            </ul>
+            <span class="case-card__cta">
+              Read Case Study
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <path d="M5 12h14M12 5l7 7-7 7"/>
+              </svg>
+            </span>
+          </a>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta">
+      <div class="container">
+        <div class="cta__box">
+          <h2>Ready to see similar results?</h2>
+          <p>Let's build an AI system that works while you sleep</p>
+          <a href="https://meetings.hubspot.com/chris4642/ai-gateway-founding-partner" class="btn">
+            Book a Discovery Call
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <p>© 2025 ResultantAI. All rights reserved.</p>
+    </div>
+  </footer>
+</body>
+</html>
