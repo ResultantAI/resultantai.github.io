@@ -1,0 +1,17 @@
+<svg width="200" height="40" viewBox="0 0 200 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Icon: All white bars with emerald green arrow -->
+  <rect x="4" y="28" width="6" height="8" rx="1" fill="#ffffff"/>
+  <rect x="12" y="22" width="6" height="14" rx="1" fill="#ffffff"/>
+  <rect x="20" y="16" width="6" height="20" rx="1" fill="#ffffff"/>
+  <rect x="28" y="10" width="6" height="26" rx="1" fill="#ffffff"/>
+  <!-- Arrow with stroke and emerald green -->
+  <path d="M7 26C10 20 18 12 34 6" stroke="#1e293b" stroke-width="4" stroke-linecap="round"/>
+  <path d="M7 26C10 20 18 12 34 6" stroke="#10b981" stroke-width="2" stroke-linecap="round"/>
+  <path d="M30 4L36 6L34 12" stroke="#10b981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- Text: "Resultant" in white -->
+  <text x="48" y="28" font-family="Inter, sans-serif" font-size="20" font-weight="700" fill="#ffffff">Resultant</text>
+
+  <!-- Text: "AI" in emerald green -->
+  <text x="148" y="28" font-family="Inter, sans-serif" font-size="20" font-weight="700" fill="#10b981">AI</text>
+</svg>
