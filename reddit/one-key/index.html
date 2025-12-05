@@ -1060,7 +1060,13 @@ const response = await client.chat.completions.create({
             name: state.email.split('@')[0],
             email: state.email,
             company: '',
-            use_case: 'reddit-one-key | Unified API access'
+            use_case: 'reddit-one-key | Unified API access',
+            source: 'reddit-onekey',
+            landing_page: 'one-key',
+            variant: 'dark',
+            timestamp: new Date().toISOString(),
+            page_url: window.location.href,
+            referrer: document.referrer
           })
         });
 

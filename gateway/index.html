@@ -391,6 +391,43 @@
             opacity: 0.7;
         }
 
+        /* Subtle Urgency Banner */
+        .urgency-banner {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(17, 24, 32, 0.95);
+            border-bottom: 1px solid var(--border);
+            color: var(--text);
+            padding: 10px 20px;
+            text-align: center;
+            font-size: 13px;
+            font-weight: 500;
+            z-index: 1000;
+            backdrop-filter: blur(8px);
+        }
+
+        /* Adjust body padding for banner */
+        body.has-banner {
+            padding-top: 42px;
+        }
+
+        /* Social Proof Badge */
+        .social-proof-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.2);
+            color: var(--accent);
+            font-size: 12px;
+            font-weight: 500;
+            padding: 6px 12px;
+            border-radius: 20px;
+            margin-bottom: 24px;
+        }
+
         /* AI-Quotable Definitions */
         .ai-definitions {
             margin: 48px 0;
@@ -1033,21 +1070,21 @@
   }
   </script>
 </head>
-<body>
+<body class="has-banner">
   <!-- Google Tag Manager (noscript) -->
   <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WBGJ9J8X"
   height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <!-- End Google Tag Manager (noscript) -->
 
-    <!-- Countdown Timer -->
-    <div class="countdown-bar">
-        🚀 <strong>Founding Partner Offer Ends:</strong><span class="timer" id="countdown">Loading...</span>
-    </div>
+  <!-- Subtle Urgency Banner -->
+  <div class="urgency-banner">
+    Founding Partner pricing available — Limited spots
+  </div>
 
-    <div class="container countdown-adjusted">
-        <!-- Scarcity Badge -->
-        <div class="scarcity-badge">Only 12 Founding Partner spots remaining</div>
-
+    <div class="container">
+        <!-- Social Proof Badge -->
+        <div class="social-proof-badge">Join 25+ Founding Partners</div>
+        
         <!-- Headline -->
         <h1>Your AI bill shouldn't be a <span class="highlight">mystery</span></h1>
         
@@ -1170,8 +1207,8 @@
         <!-- Signup Form -->
         <div class="form-card">
             <form id="signup-form">
-                <h2 class="form-title">Claim Your Founding Partner Spot</h2>
-                <p class="form-subtitle">Lock in lifetime 58% discount before Dec 31st</p>
+                <h2 class="form-title">Join as a Founding Partner</h2>
+                <p class="form-subtitle">$499/year (58% off $1,188) — Price locked forever</p>
                 
                 <div class="form-group">
                     <label class="form-label" for="email">Email</label>
@@ -1189,10 +1226,10 @@
                         <option value="other">Something else</option>
                     </select>
                 </div>
+                
+                <button type="submit" class="submit-btn">Get Started →</button>
 
-                <button type="submit" class="submit-btn">Claim Founding Partner Spot →</button>
-
-                <p class="form-note">58% lifetime discount • Ends Dec 31st • No credit card required</p>
+                <p class="form-note">No credit card required • 14-day free trial</p>
             </form>
             
             <!-- Success State -->
@@ -1526,8 +1563,9 @@
             const payload = {
                 email: email,
                 use_case: useCase,
-                source: 'reddit-landing-dark',
-                variant: 'A-dark',
+                source: 'gateway-founding-partner',
+                landing_page: 'gateway',
+                variant: 'social-proof-v1',
                 ...utmParams,
                 timestamp: new Date().toISOString(),
                 page_url: window.location.href,
