@@ -387,6 +387,12 @@
                         <span>Save $689/year</span>
                     </div>
                 </div>
+                <!-- Countdown Timer -->
+                <div class="bg-red-900/30 border border-red-500/30 rounded-lg px-6 py-4 mb-6 inline-block">
+                    <p class="text-red-400 font-semibold mb-2">🔥 Offer Ends In:</p>
+                    <p class="text-2xl font-bold font-mono" id="pricing-countdown">Loading...</p>
+                </div>
+                <br>
                 <a href="https://meetings.hubspot.com/chris4642/ai-gateway-founding-partner"
                    class="inline-block bg-emerald-500 hover:bg-emerald-400 text-white text-lg font-semibold px-8 py-3 rounded-lg transition-all"
                    data-track-demo="true">
@@ -598,6 +604,31 @@
             </div>
         </div>
     </footer>
+
+    <script>
+        // Countdown Timer for Founding Partner Offer
+        function updatePricingCountdown() {
+            const deadline = new Date('December 31, 2025 23:59:59 EST').getTime();
+            const now = new Date().getTime();
+            const distance = deadline - now;
+
+            if (distance < 0) {
+                document.getElementById('pricing-countdown').innerHTML = "OFFER EXPIRED";
+                return;
+            }
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById('pricing-countdown').innerHTML =
+                `${days}d ${hours}h ${minutes}m ${seconds}s`;
+        }
+
+        updatePricingCountdown();
+        setInterval(updatePricingCountdown, 1000);
+    </script>
 
 </body>
 </html>
