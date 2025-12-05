@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>18 Missed Calls to Zero | Wayne Conn Plumbing Case Study | ResultantAI</title>
+  <meta name="description" content="How Wayne Conn Plumbing eliminated missed calls, cut response time from 20 minutes to 10 seconds, and made $6,285 in 2 weeks with 24/7 AI receptionist.">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="18 Missed Calls to Zero | Wayne Conn Plumbing Case Study | ResultantAI">
+  <meta property="og:description" content="AI receptionist that answers every call 24/7. Zero missed calls, 10-second response time, $6,285 in revenue in 2 weeks.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://resultantai.com/work/wayne-conn">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="/favicon.png">
+
+  <style>
+    :root {
+      --bg-primary: #0a0f1a;
+      --bg-secondary: #0f172a;
+      --bg-card: #151d2e;
+      --bg-card-hover: #1a2540;
+      --border: #1e293b;
+      --border-light: #334155;
+      --text-primary: #ffffff;
+      --text-secondary: #94a3b8;
+      --text-muted: #64748b;
+      --accent: #10b981;
+      --accent-light: #34d399;
+      --gradient-accent: linear-gradient(135deg, #10b981 0%, #34d399 100%);
+      --radius-lg: 16px;
+      --radius-xl: 24px;
+      --shadow-card: 0 4px 24px rgba(0, 0, 0, 0.3);
+      --transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font-sans);
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      line-height: 1.6;
+      font-size: 16px;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    .container--narrow {
+      max-width: 800px;
+    }
+
+    /* Navigation */
+    nav {
+      padding: 24px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav__logo {
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--text-primary);
+      text-decoration: none;
+    }
+
+    .nav__logo span {
+      background: var(--gradient-accent);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* Hero */
+    .hero {
+      padding: 80px 0 60px;
+    }
+
+    .hero__back {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-secondary);
+      font-size: 14px;
+      margin-bottom: 40px;
+      transition: var(--transition);
+      text-decoration: none;
+    }
+
+    .hero__back:hover {
+      color: var(--accent);
+    }
+
+    .hero__meta {
+      display: flex;
+      gap: 24px;
+      flex-wrap: wrap;
+      margin-bottom: 24px;
+      font-size: 14px;
+      color: var(--text-secondary);
+    }
+
+    .hero__meta-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .hero__meta-label {
+      font-weight: 600;
+      color: var(--accent);
+    }
+
+    h1 {
+      font-size: clamp(32px, 5vw, 48px);
+      font-weight: 800;
+      line-height: 1.1;
+      margin-bottom: 20px;
+    }
+
+    .hero__subtitle {
+      font-size: 20px;
+      color: var(--text-secondary);
+      line-height: 1.5;
+    }
+
+    /* Stats */
+    .stats {
+      padding: 60px 0;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .stats__grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 40px;
+    }
+
+    .stat {
+      text-align: center;
+    }
+
+    .stat__value {
+      font-size: 48px;
+      font-weight: 800;
+      background: var(--gradient-accent);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 8px;
+    }
+
+    .stat__label {
+      color: var(--text-secondary);
+      font-size: 14px;
+    }
+
+    /* Section */
+    .section {
+      padding: 80px 0;
+    }
+
+    .section__label {
+      display: inline-block;
+      padding: 6px 16px;
+      background: var(--accent);
+      color: var(--bg-primary);
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 20px;
+    }
+
+    h2 {
+      font-size: clamp(28px, 4vw, 40px);
+      font-weight: 800;
+      line-height: 1.2;
+      margin-bottom: 24px;
+    }
+
+    p {
+      color: var(--text-secondary);
+      margin-bottom: 20px;
+      line-height: 1.7;
+    }
+
+    strong {
+      color: var(--text-primary);
+      font-weight: 600;
+    }
+
+    ul {
+      list-style: none;
+      margin: 20px 0;
+    }
+
+    li {
+      padding-left: 28px;
+      position: relative;
+      margin-bottom: 12px;
+      color: var(--text-secondary);
+    }
+
+    li::before {
+      content: "→";
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+      font-weight: 700;
+    }
+
+    /* System Architecture */
+    .system-grid {
+      display: grid;
+      gap: 20px;
+      margin: 32px 0;
+    }
+
+    .system-item {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+    }
+
+    .system-item h3 {
+      color: var(--accent);
+      font-size: 18px;
+      margin-bottom: 12px;
+      font-weight: 700;
+    }
+
+    .system-item p {
+      margin: 0;
+      font-size: 15px;
+    }
+
+    /* Testimonial */
+    .testimonial {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--accent);
+      border-radius: var(--radius-lg);
+      padding: 40px;
+      margin: 60px 0;
+    }
+
+    .testimonial__quote {
+      font-size: 20px;
+      line-height: 1.6;
+      color: var(--text-primary);
+      margin-bottom: 20px;
+      font-style: italic;
+    }
+
+    .testimonial__author {
+      color: var(--text-secondary);
+      font-size: 16px;
+    }
+
+    /* CTA */
+    .cta {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xl);
+      padding: 60px 48px;
+      text-align: center;
+    }
+
+    .cta h2 {
+      margin-bottom: 16px;
+    }
+
+    .cta p {
+      font-size: 18px;
+      margin-bottom: 32px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      padding: 16px 32px;
+      background: var(--accent);
+      color: var(--bg-primary);
+      font-weight: 700;
+      font-size: 16px;
+      border-radius: 12px;
+      transition: var(--transition);
+      text-decoration: none;
+    }
+
+    .btn:hover {
+      background: var(--accent-light);
+      transform: translateY(-2px);
+    }
+
+    /* Footer */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 40px 0;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 14px;
+    }
+
+    @media (max-width: 768px) {
+      .hero {
+        padding: 60px 0 40px;
+      }
+      .section {
+        padding: 60px 0;
+      }
+      .cta {
+        padding: 40px 24px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="container">
+      <a href="/" class="nav__logo">Resultant<span>AI</span></a>
+    </div>
+  </nav>
+
+  <main>
+    <!-- Hero -->
+    <section class="hero">
+      <div class="container container--narrow">
+        <a href="/#work" class="hero__back">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M19 12H5M12 19l-7-7 7-7"/>
+          </svg>
+          Back to Case Studies
+        </a>
+        <div class="hero__meta">
+          <div class="hero__meta-item">
+            <span class="hero__meta-label">Client:</span>
+            Wayne Conn Plumbing
+          </div>
+          <div class="hero__meta-item">
+            <span class="hero__meta-label">Industry:</span>
+            Home Services — Plumbing
+          </div>
+          <div class="hero__meta-item">
+            <span class="hero__meta-label">Location:</span>
+            Jacksonville, FL
+          </div>
+          <div class="hero__meta-item">
+            <span class="hero__meta-label">Timeline:</span>
+            2 Weeks
+          </div>
+        </div>
+        <h1>From 18 Missed Calls to Zero: How Wayne Conn Plumbing Made $6,285 in 2 Weeks</h1>
+        <p class="hero__subtitle">AI receptionist that answers every call 24/7 — nights, weekends, emergencies — and books appointments instantly</p>
+      </div>
+    </section>
+
+    <!-- Stats -->
+    <section class="stats">
+      <div class="container">
+        <div class="stats__grid">
+          <div class="stat">
+            <div class="stat__value">18→0</div>
+            <div class="stat__label">Missed calls per week</div>
+          </div>
+          <div class="stat">
+            <div class="stat__value">20min→10sec</div>
+            <div class="stat__label">Response time</div>
+          </div>
+          <div class="stat">
+            <div class="stat__value">$6,285</div>
+            <div class="stat__label">Revenue in 2 weeks</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Problem -->
+    <section class="section">
+      <div class="container container--narrow">
+        <div class="section__label">The Problem</div>
+        <h2>The Missed Call Crisis</h2>
+        <p>Wayne Conn Plumbing is a mid-sized plumbing company serving Jacksonville, FL, handling over 200 service calls per month. Their services include emergency repairs, installations, and regular maintenance for residential and commercial customers.</p>
+
+        <p><strong>But they had a revenue leak:</strong></p>
+        <ul>
+          <li><strong>18 missed calls every week</strong> — customers hanging up and calling the next plumber</li>
+          <li><strong>20+ minute response times</strong> during business hours</li>
+          <li><strong>After-hours calls went unanswered</strong> — leaving emergency customers frustrated</li>
+          <li><strong>No call tracking system</strong> — couldn't measure what was being lost</li>
+          <li><strong>Lost revenue and damaged client relationships</strong> from slow follow-up</li>
+        </ul>
+
+        <p>In the plumbing business, <strong>speed wins</strong>. The first company to answer gets the job. Wayne Conn was losing jobs every single day because customers couldn't reach them.</p>
+      </div>
+    </section>
+
+    <!-- Solution -->
+    <section class="section" style="background: var(--bg-secondary); margin: 0 -100vw; padding-left: 100vw; padding-right: 100vw;">
+      <div class="container container--narrow">
+        <div class="section__label">The Solution</div>
+        <h2>24/7 AI Receptionist That Never Misses a Call</h2>
+        <p>We built an AI-powered phone system that answers every call instantly, qualifies the customer, schedules the appointment, and routes urgent calls to the on-call technician — all without human intervention.</p>
+
+        <p><strong>System Architecture:</strong></p>
+
+        <div class="system-grid">
+          <div class="system-item">
+            <h3>1. AI Receptionist (Retell AI)</h3>
+            <p>Answers every call in under 3 seconds. Sounds natural, follows call scripts perfectly, handles objections, and books appointments directly into the calendar.</p>
+          </div>
+          <div class="system-item">
+            <h3>2. Smart Dashboard & Call Tracking</h3>
+            <p>Real-time dashboard shows all incoming calls, call dispositions, booking status, and revenue attribution. Management can monitor service calls and performance live.</p>
+          </div>
+          <div class="system-item">
+            <h3>3. Booking System Integration</h3>
+            <p>Seamless integration with Wayne Conn's existing booking software. AI checks availability and schedules appointments instantly — no back-and-forth.</p>
+          </div>
+          <div class="system-item">
+            <h3>4. Emergency Routing Logic</h3>
+            <p>Detects urgent keywords (flooding, burst pipe, no water) and immediately routes to on-call technician via SMS and phone notification.</p>
+          </div>
+        </div>
+
+        <p><strong>Key Technical Features:</strong></p>
+        <ul>
+          <li><strong>Sub-10-second pickup time:</strong> Customers never wait on hold.</li>
+          <li><strong>Natural conversation flow:</strong> AI understands plumbing terminology, handles objections, and upsells service plans.</li>
+          <li><strong>100% call capture:</strong> Every call is logged, transcribed, and tracked.</li>
+          <li><strong>After-hours coverage:</strong> Works nights, weekends, holidays — no extra staffing costs.</li>
+          <li><strong>CRM integration:</strong> Customer data flows directly into existing systems.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Results -->
+    <section class="section">
+      <div class="container container--narrow">
+        <div class="section__label">Results</div>
+        <h2>Zero Missed Calls, $6,285 in 2 Weeks</h2>
+
+        <div class="stats__grid" style="margin: 40px 0;">
+          <div class="stat">
+            <div class="stat__value">0</div>
+            <div class="stat__label">missed calls (was 18/week)</div>
+          </div>
+          <div class="stat">
+            <div class="stat__value">10 sec</div>
+            <div class="stat__label">average response time</div>
+          </div>
+          <div class="stat">
+            <div class="stat__value">100%</div>
+            <div class="stat__label">booking rate</div>
+          </div>
+          <div class="stat">
+            <div class="stat__value">$6,285</div>
+            <div class="stat__label">revenue in first 2 weeks</div>
+          </div>
+        </div>
+
+        <p><strong>Operational Impact:</strong></p>
+        <ul>
+          <li><strong>24/7 call coverage</strong> without hiring additional staff</li>
+          <li><strong>Zero hold times</strong> — every customer gets instant attention</li>
+          <li><strong>Consistent service quality</strong> — AI follows scripts perfectly every time</li>
+          <li><strong>Real-time tracking</strong> — full visibility into call volume and revenue attribution</li>
+          <li><strong>Emergency response</strong> — urgent calls routed to on-call tech within seconds</li>
+          <li><strong>Paid for itself in 18 days</strong> from recovered missed call revenue alone</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Testimonial -->
+    <div class="container container--narrow">
+      <div class="testimonial">
+        <div class="testimonial__quote">
+          "I was amazed by the efficiency of the AI receptionists. They are fast, cost-effective, and available 24/7. Thanks to them, booking appointments has never been easier!"
+        </div>
+        <div class="testimonial__author">
+          — <strong>Vernon J. Sparks</strong>, Owner, Wayne Conn Plumbing
+        </div>
+      </div>
+    </div>
+
+    <!-- Technical Details -->
+    <section class="section">
+      <div class="container container--narrow">
+        <div class="section__label">Technical Details</div>
+        <h2>Under the Hood</h2>
+        <ul>
+          <li><strong>Voice AI:</strong> Retell AI with custom voice and plumbing-specific scripts</li>
+          <li><strong>Call Routing:</strong> Conditional logic routes urgent calls to on-call technician via Twilio</li>
+          <li><strong>Booking Integration:</strong> Direct API connection to ServiceTitan scheduling system</li>
+          <li><strong>Dashboard:</strong> Custom real-time dashboard built on Make.com + Airtable</li>
+          <li><strong>CRM Sync:</strong> Automatic customer data sync to existing CRM</li>
+        </ul>
+
+        <p style="margin-top: 40px;"><strong>Timeline:</strong> 2 weeks (design, build, test, launch)</p>
+        <p><strong>Investment:</strong> Fixed-price project</p>
+        <p><strong>ROI:</strong> Paid for itself in 18 days</p>
+        <p><strong>Deliverables:</strong></p>
+        <ul>
+          <li>Retell AI voice agent with custom scripts</li>
+          <li>Call routing and emergency escalation system</li>
+          <li>Booking system integration</li>
+          <li>Real-time call tracking dashboard</li>
+          <li>CRM data sync</li>
+          <li>Documentation and training videos</li>
+          <li>30-day support and optimization</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="section">
+      <div class="container container--narrow">
+        <div class="cta">
+          <h2>Tired of missing emergency calls?</h2>
+          <p>Let's build an AI receptionist that works while you sleep.</p>
+          <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; margin-top: 32px;">
+            <a href="https://resultantai.com/wayne-conn-plumbing-demo/" class="btn" style="background: var(--bg-primary); border: 2px solid var(--accent); color: var(--accent);">
+              Try Live Demo
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/>
+              </svg>
+            </a>
+            <a href="https://meetings.hubspot.com/chris4642/ai-gateway-founding-partner" class="btn">
+              Book a Discovery Call
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <path d="M5 12h14M12 5l7 7-7 7"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <p>© 2025 ResultantAI. All rights reserved.</p>
+    </div>
+  </footer>
+</body>
+</html>
