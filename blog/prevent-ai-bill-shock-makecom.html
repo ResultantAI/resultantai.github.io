@@ -309,7 +309,7 @@
 
             <h4>Option 2: LLM Gateway with Hard Caps (Recommended)</h4>
             <p>
-                Use an LLM gateway like AI Gateway that enforces hard spending caps. When you hit your limit, requests
+                Use an LLM gateway like <a href="/gateway" style="color: var(--accent); text-decoration: none; font-weight: 600;">AI Gateway</a> that enforces hard spending caps. When you hit your limit, requests
                 return an error instead of consuming more tokens.
             </p>
 
@@ -326,6 +326,16 @@ When cap is reached:
                 Create a separate Make.com scenario that monitors your OpenAI usage via API every hour. If usage
                 exceeds threshold, it disables your LLM-calling scenarios. More complex but gives you full control.
             </p>
+
+            <div class="cta-box" style="margin: 48px 0; padding: 24px; background: var(--accent-glow);">
+                <p style="font-size: 18px; font-weight: 600; color: var(--text-bright); margin-bottom: 12px;">
+                    Tired of guessing what your AI will cost?
+                </p>
+                <p style="margin-bottom: 16px;">
+                    AI Gateway gives you hard spending caps, real-time alerts, and per-scenario tracking—automatically.
+                </p>
+                <a href="/gateway" class="cta-button">Start free →</a>
+            </div>
 
             <h2>Safeguard #3: Tag Scenarios for Per-Scenario Tracking</h2>
 
@@ -370,7 +380,7 @@ content-generator               | 342   | $12.34  ← Expensive!
             </div>
 
             <p>
-                Now you know exactly where to optimize.
+                Now you know exactly where to optimize. For agencies managing multiple clients, see: <a href="/blog/per-client-ai-billing" style="color: var(--accent); text-decoration: none;">How to Bill Clients for AI Usage</a>
             </p>
 
             <h2>Safeguard #4: Add Error Handling to Prevent Infinite Loops</h2>
@@ -446,6 +456,8 @@ content-generator               | 342   | $12.34  ← Expensive!
                 <strong>GPT-4o-mini cost:</strong> 10,000 × 300 = 3M tokens × $0.15/1M = <strong>$0.45/month</strong><br><br>
 
                 <strong>Savings: $7.05/month (94%)</strong> by switching to GPT-4o-mini for a classification task.
+                <br><br>
+                <a href="/blog/llm-cost-optimization-guide" style="color: var(--accent); text-decoration: none; font-weight: 600;">Learn more about intelligent model routing and cost optimization →</a>
             </div>
 
             <h2>Real-World Example: Complete Safeguard Implementation</h2>
@@ -496,10 +508,21 @@ content-generator               | 342   | $12.34  ← Expensive!
                 Check all 7 boxes? You're protected. Deploy with confidence.
             </p>
 
+            <div class="callout" style="background: rgba(16, 185, 129, 0.08); margin-top: 32px;">
+                <h3 style="margin-top: 0;">Or skip the DIY approach.</h3>
+                <p>
+                    AI Gateway handles all 5 safeguards automatically—plus intelligent routing that cuts costs 40-50%.
+                    Hard budget caps, per-scenario tracking, and real-time alerts built-in.
+                </p>
+                <a href="/gateway" style="color: var(--accent); font-weight: 600; text-decoration: none;">
+                    See how it works →
+                </a>
+            </div>
+
             <div class="cta-box">
                 <h3>Prevent Bill Shock with AI Gateway</h3>
                 <p>
-                    AI Gateway enforces hard budget caps, provides per-scenario tracking, and includes 3M tokens/month.
+                    AI Gateway enforces hard budget caps ($5,000/month), provides per-scenario tracking, and prevents bill shock automatically.
                     Perfect for Make.com automations.
                 </p>
                 <a href="/gateway" class="cta-button">Try Free for 14 Days →</a>
