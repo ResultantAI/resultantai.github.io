@@ -391,6 +391,53 @@
             opacity: 0.7;
         }
 
+        /* Countdown Timer Bar */
+        .countdown-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+            color: white;
+            padding: 12px 20px;
+            text-align: center;
+            font-size: 14px;
+            font-weight: 600;
+            z-index: 1000;
+            box-shadow: 0 2px 8px rgba(239, 68, 68, 0.3);
+        }
+
+        .countdown-bar strong {
+            color: white;
+        }
+
+        .timer {
+            display: inline-block;
+            margin-left: 8px;
+            font-family: 'Space Grotesk', monospace;
+            font-weight: 700;
+        }
+
+        /* Adjust body padding for countdown bar */
+        body.has-countdown {
+            padding-top: 48px;
+        }
+
+        /* Scarcity Badge */
+        .scarcity-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.15) 0%, rgba(220, 38, 38, 0.15) 100%);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            color: #f87171;
+            font-size: 12px;
+            font-weight: 600;
+            padding: 6px 12px;
+            border-radius: 20px;
+            margin-bottom: 24px;
+        }
+
         /* AI-Quotable Definitions */
         .ai-definitions {
             margin: 48px 0;
@@ -719,16 +766,20 @@
   }
   </script>
 </head>
-<body>
+<body class="has-countdown">
   <!-- Google Tag Manager (noscript) -->
   <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WBGJ9J8X"
   height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <!-- End Google Tag Manager (noscript) -->
 
+  <!-- Countdown Timer -->
+  <div class="countdown-bar">
+    🔥 <strong>Founding Partner Offer Ends:</strong> <span class="timer" id="countdown">Loading...</span>
+  </div>
 
     <div class="container">
-        <!-- Badge -->
-        <div class="badge">Free Beta Access — Limited Spots</div>
+        <!-- Scarcity Badge -->
+        <div class="scarcity-badge">🔥 Only 12 Founding Partner spots remaining</div>
         
         <!-- Headline -->
         <h1>Your AI bill shouldn't be a <span class="highlight">mystery</span></h1>
@@ -793,8 +844,8 @@
         <!-- Signup Form -->
         <div class="form-card">
             <form id="signup-form">
-                <h2 class="form-title">Get Free Beta Access</h2>
-                <p class="form-subtitle">Join the waitlist. First 50 get in free.</p>
+                <h2 class="form-title">Claim Your Founding Partner Spot</h2>
+                <p class="form-subtitle">Lock in $499/year pricing forever — Offer ends Dec 31st</p>
                 
                 <div class="form-group">
                     <label class="form-label" for="email">Email</label>
@@ -813,9 +864,9 @@
                     </select>
                 </div>
                 
-                <button type="submit" class="submit-btn">Join the Waitlist →</button>
-                
-                <p class="form-note">No spam. No credit card. Just early access.</p>
+                <button type="submit" class="submit-btn">Claim Founding Partner Spot →</button>
+
+                <p class="form-note">🔥 58% lifetime discount • Ends Dec 31st • No credit card required</p>
             </form>
             
             <!-- Success State -->
@@ -1149,8 +1200,9 @@
             const payload = {
                 email: email,
                 use_case: useCase,
-                source: 'reddit-landing-dark',
-                variant: 'A-dark',
+                source: 'gateway-founding-partner',
+                landing_page: 'gateway',
+                variant: 'countdown',
                 ...utmParams,
                 timestamp: new Date().toISOString(),
                 page_url: window.location.href,
@@ -1188,6 +1240,29 @@
                 faqItem.classList.toggle('open');
             });
         });
+
+        // Countdown Timer
+        function updateCountdown() {
+            const deadline = new Date('December 31, 2025 23:59:59 EST').getTime();
+            const now = new Date().getTime();
+            const distance = deadline - now;
+
+            if (distance < 0) {
+                document.getElementById('countdown').innerHTML = "OFFER EXPIRED";
+                return;
+            }
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById('countdown').innerHTML =
+                `${days}d ${hours}h ${minutes}m ${seconds}s`;
+        }
+
+        updateCountdown();
+        setInterval(updateCountdown, 1000);
     </script>
 </body>
 </html>
