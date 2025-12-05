@@ -963,9 +963,14 @@
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
             email: state.email,
-            source: 'reddit-bill-shock',
+            source: 'reddit-billshock',
+            landing_page: 'bill-shock',
+            variant: 'dark',
             calculatedSpend: state.currentSpend,
-            potentialSavings: calculateSavings(state.currentSpend).annualSavings
+            potentialSavings: calculateSavings(state.currentSpend).annualSavings,
+            timestamp: new Date().toISOString(),
+            page_url: window.location.href,
+            referrer: document.referrer
           })
         });
 
