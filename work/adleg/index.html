@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>90 Minutes to 2 Minutes | Adleg Case Study | ResultantAI</title>
+  <meta name="description" content="How Adleg automated marketing audits, eliminated 97% of manual work, and helped close 4 new clients in 30 days with AI.">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="90 Minutes to 2 Minutes | Adleg Case Study | ResultantAI">
+  <meta property="og:description" content="Automated marketing audit system that eliminated 97% of manual work and helped close 4 new clients in 30 days">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://resultantai.com/work/adleg">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="/favicon.png">
+
+  <style>
+    :root {
+      --bg-primary: #0a0f1a;
+      --bg-secondary: #0f172a;
+      --bg-card: #151d2e;
+      --bg-card-hover: #1a2540;
+      --border: #1e293b;
+      --border-light: #334155;
+      --text-primary: #ffffff;
+      --text-secondary: #94a3b8;
+      --text-muted: #64748b;
+      --accent: #10b981;
+      --accent-light: #34d399;
+      --gradient-accent: linear-gradient(135deg, #10b981 0%, #34d399 100%);
+      --radius-lg: 16px;
+      --radius-xl: 24px;
+      --shadow-card: 0 4px 24px rgba(0, 0, 0, 0.3);
+      --transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font-sans);
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      line-height: 1.6;
+      font-size: 16px;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    .container--narrow {
+      max-width: 800px;
+    }
+
+    /* Navigation */
+    nav {
+      padding: 24px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav__logo {
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--text-primary);
+    }
+
+    .nav__logo span {
+      background: var(--gradient-accent);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* Hero */
+    .hero {
+      padding: 80px 0 60px;
+    }
+
+    .hero__back {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-secondary);
+      font-size: 14px;
+      margin-bottom: 40px;
+      transition: var(--transition);
+    }
+
+    .hero__back:hover {
+      color: var(--accent);
+    }
+
+    .hero__meta {
+      display: flex;
+      gap: 24px;
+      flex-wrap: wrap;
+      margin-bottom: 24px;
+      font-size: 14px;
+      color: var(--text-secondary);
+    }
+
+    .hero__meta-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .hero__meta-label {
+      font-weight: 600;
+      color: var(--accent);
+    }
+
+    h1 {
+      font-size: clamp(32px, 5vw, 48px);
+      font-weight: 800;
+      line-height: 1.1;
+      margin-bottom: 20px;
+    }
+
+    .hero__subtitle {
+      font-size: 20px;
+      color: var(--text-secondary);
+      line-height: 1.5;
+    }
+
+    /* Stats */
+    .stats {
+      padding: 60px 0;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .stats__grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 40px;
+    }
+
+    .stat {
+      text-align: center;
+    }
+
+    .stat__value {
+      font-size: 48px;
+      font-weight: 800;
+      background: var(--gradient-accent);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 8px;
+    }
+
+    .stat__label {
+      color: var(--text-secondary);
+      font-size: 14px;
+    }
+
+    /* Section */
+    .section {
+      padding: 80px 0;
+    }
+
+    .section__label {
+      display: inline-block;
+      padding: 6px 16px;
+      background: var(--accent);
+      color: var(--bg-primary);
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 20px;
+    }
+
+    h2 {
+      font-size: clamp(28px, 4vw, 40px);
+      font-weight: 800;
+      line-height: 1.2;
+      margin-bottom: 24px;
+    }
+
+    p {
+      color: var(--text-secondary);
+      margin-bottom: 20px;
+      line-height: 1.7;
+    }
+
+    strong {
+      color: var(--text-primary);
+      font-weight: 600;
+    }
+
+    ul {
+      list-style: none;
+      margin: 20px 0;
+    }
+
+    li {
+      padding-left: 28px;
+      position: relative;
+      margin-bottom: 12px;
+      color: var(--text-secondary);
+    }
+
+    li::before {
+      content: "→";
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+      font-weight: 700;
+    }
+
+    /* System Architecture */
+    .system-grid {
+      display: grid;
+      gap: 20px;
+      margin: 32px 0;
+    }
+
+    .system-item {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+    }
+
+    .system-item h3 {
+      color: var(--accent);
+      font-size: 18px;
+      margin-bottom: 12px;
+      font-weight: 700;
+    }
+
+    .system-item p {
+      margin: 0;
+      font-size: 15px;
+    }
+
+    /* Testimonial */
+    .testimonial {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xl);
+      padding: 48px;
+      margin: 60px 0;
+      position: relative;
+    }
+
+    .testimonial__quote {
+      font-size: 22px;
+      line-height: 1.6;
+      color: var(--text-primary);
+      margin-bottom: 24px;
+      font-style: italic;
+    }
+
+    .testimonial__author {
+      color: var(--text-secondary);
+      font-size: 16px;
+    }
+
+    .testimonial__author strong {
+      color: var(--accent);
+    }
+
+    /* CTA */
+    .cta {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xl);
+      padding: 60px 48px;
+      text-align: center;
+    }
+
+    .cta h2 {
+      margin-bottom: 16px;
+    }
+
+    .cta p {
+      font-size: 18px;
+      margin-bottom: 32px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      padding: 16px 32px;
+      background: var(--accent);
+      color: var(--bg-primary);
+      font-weight: 700;
+      font-size: 16px;
+      border-radius: 12px;
+      transition: var(--transition);
+    }
+
+    .btn:hover {
+      background: var(--accent-light);
+      transform: translateY(-2px);
+    }
+
+    /* Footer */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 40px 0;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 14px;
+    }
+
+    @media (max-width: 768px) {
+      .hero {
+        padding: 60px 0 40px;
+      }
+      .section {
+        padding: 60px 0;
+      }
+      .testimonial {
+        padding: 32px 24px;
+      }
+      .testimonial__quote {
+        font-size: 18px;
+      }
+      .cta {
+        padding: 40px 24px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="container">
+      <a href="/" class="nav__logo">Resultant<span>AI</span></a>
+    </div>
+  </nav>
+
+  <main>
+    <!-- Hero -->
+    <section class="hero">
+      <div class="container container--narrow">
+        <a href="/#work" class="hero__back">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M19 12H5M12 19l-7-7 7-7"/>
+          </svg>
+          Back to Case Studies
+        </a>
+        <div class="hero__meta">
+          <div class="hero__meta-item">
+            <span class="hero__meta-label">Client:</span>
+            Adleg Marketing Agency
+          </div>
+          <div class="hero__meta-item">
+            <span class="hero__meta-label">Industry:</span>
+            Digital Marketing
+          </div>
+          <div class="hero__meta-item">
+            <span class="hero__meta-label">Timeline:</span>
+            7 Days
+          </div>
+        </div>
+        <h1>90 Minutes to 2 Minutes: How Adleg 10X'd Their Prospect Audits</h1>
+        <p class="hero__subtitle">Automated marketing audit system that eliminated 97% of manual work and helped close 4 new clients in 30 days</p>
+      </div>
+    </section>
+
+    <!-- Stats -->
+    <section class="stats">
+      <div class="container">
+        <div class="stats__grid">
+          <div class="stat">
+            <div class="stat__value">97%</div>
+            <div class="stat__label">Time savings</div>
+          </div>
+          <div class="stat">
+            <div class="stat__value">90→2 min</div>
+            <div class="stat__label">Per audit</div>
+          </div>
+          <div class="stat">
+            <div class="stat__value">$1.50</div>
+            <div class="stat__label">Cost per audit</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Problem -->
+    <section class="section">
+      <div class="container container--narrow">
+        <div class="section__label">The Problem</div>
+        <h2>The Bottleneck That Was Killing Growth</h2>
+        <p>Adleg's sales team had a problem every growing agency faces: they needed to deliver comprehensive marketing audits to win new clients, but creating each audit was a 90-minute ordeal.</p>
+
+        <p><strong>The existing process:</strong></p>
+        <ul>
+          <li>Manually researching prospect companies online</li>
+          <li>Generating audit content using AI with custom prompts</li>
+          <li>Copy-pasting content into Canva templates</li>
+          <li>Manual formatting and layout adjustments</li>
+          <li>Exporting and quality checking final PDFs</li>
+        </ul>
+
+        <p>For a team creating 20 audits per month, that's 30 hours of repetitive work — nearly a full work week lost to formatting.</p>
+
+        <p>Tyler York, Adleg's founder, knew this bottleneck was limiting their growth. Every hour spent formatting was an hour not spent closing deals.</p>
+      </div>
+    </section>
+
+    <!-- Solution -->
+    <section class="section" style="background: var(--bg-secondary); margin: 0 -100vw; padding-left: 100vw; padding-right: 100vw;">
+      <div class="container container--narrow">
+        <div class="section__label">The Solution</div>
+        <h2>A 6-Platform Automation That Runs Itself</h2>
+        <p>We architected a multi-LLM automation system that orchestrates web research, content generation, and PDF production into a seamless 2-3 minute workflow.</p>
+
+        <p><strong>System Architecture:</strong></p>
+
+        <div class="system-grid">
+          <div class="system-item">
+            <h3>1. Google Sheets</h3>
+            <p>Simple input interface. Sales team enters company name and website URL.</p>
+          </div>
+          <div class="system-item">
+            <h3>2. Perplexity AI</h3>
+            <p>Web research engine gathers real-time data: social media metrics, Google reviews, competitor analysis, website gaps.</p>
+          </div>
+          <div class="system-item">
+            <h3>3. Claude AI</h3>
+            <p>Generates comprehensive HTML audit reports using research data and custom system prompts enforcing brand standards.</p>
+          </div>
+          <div class="system-item">
+            <h3>4. PDF.co</h3>
+            <p>Converts HTML to professional, print-ready PDFs with proper page breaks.</p>
+          </div>
+          <div class="system-item">
+            <h3>5. Google Drive</h3>
+            <p>Automatic storage in organized folders.</p>
+          </div>
+          <div class="system-item">
+            <h3>6. Slack</h3>
+            <p>Real-time notifications when audits complete.</p>
+          </div>
+        </div>
+
+        <p><strong>Key Technical Features:</strong></p>
+        <ul>
+          <li><strong>Live Web Research:</strong> Unlike static AI generation, Perplexity verifies current social media metrics, Google reviews, and competitor data. Audits contain real, accurate information.</li>
+          <li><strong>Brand-Perfect Design:</strong> Claude generates complete HTML with Adleg's brand colors (#2DD366), logo placement, and consistent 10-12 page formatting.</li>
+          <li><strong>Hallucination Prevention:</strong> Strict system prompt rules eliminated unwanted sections and prevented Claude from inventing pricing or revenue figures.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Results -->
+    <section class="section">
+      <div class="container container--narrow">
+        <div class="section__label">Results</div>
+        <h2>The Numbers That Matter</h2>
+
+        <div class="stats__grid" style="margin: 40px 0;">
+          <div class="stat">
+            <div class="stat__value">97%</div>
+            <div class="stat__label">time reduction (90 min → 2-3 min)</div>
+          </div>
+          <div class="stat">
+            <div class="stat__value">29 hrs</div>
+            <div class="stat__label">reclaimed per month</div>
+          </div>
+          <div class="stat">
+            <div class="stat__value">$1.50</div>
+            <div class="stat__label">cost per audit (API costs)</div>
+          </div>
+          <div class="stat">
+            <div class="stat__value">7 days</div>
+            <div class="stat__label">from kickoff to production</div>
+          </div>
+        </div>
+
+        <p><strong>Operational Impact:</strong></p>
+        <ul>
+          <li>Unlimited audits without additional labor costs</li>
+          <li>Consistent professional quality on every output</li>
+          <li>Zero formatting errors</li>
+          <li>More accurate data than manual research</li>
+          <li>No technical expertise required to operate</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Testimonial -->
+    <div class="container container--narrow">
+      <div class="testimonial">
+        <div class="testimonial__quote">
+          "The automation delivers professional audits faster than we could have imagined. It's killer work that's already transforming how we approach prospect engagement."
+        </div>
+        <div class="testimonial__author">
+          — <strong>Tyler York</strong>, Founder, Adleg Marketing Agency
+        </div>
+      </div>
+    </div>
+
+    <!-- Technical Details -->
+    <section class="section">
+      <div class="container container--narrow">
+        <div class="section__label">Technical Details</div>
+        <h2>Under the Hood</h2>
+        <ul>
+          <li><strong>Multi-LLM Orchestration:</strong> Strategic use of Perplexity for research and Claude for generation optimizes for accuracy, cost, and speed</li>
+          <li><strong>Prompt Engineering:</strong> Custom system prompts enforce brand standards, content structure, and formatting rules</li>
+          <li><strong>Error Handling:</strong> Robust processing of variable-length content, special characters, and edge cases</li>
+          <li><strong>Integration Architecture:</strong> Seamless data flow between 6 platforms without data loss</li>
+        </ul>
+
+        <p style="margin-top: 40px;"><strong>Timeline:</strong> 7 days (October 12-19, 2025)</p>
+        <p><strong>Deliverables:</strong></p>
+        <ul>
+          <li>Complete Make.com automation scenario</li>
+          <li>Custom Claude prompts with brand rules</li>
+          <li>PDF generation pipeline</li>
+          <li>Google Sheets input interface</li>
+          <li>Slack notifications</li>
+          <li>Documentation and video walkthrough</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="section">
+      <div class="container container--narrow">
+        <div class="cta">
+          <h2>Spending hours on work that should take minutes?</h2>
+          <p>Let's find the bottleneck and eliminate it.</p>
+          <a href="https://meetings.hubspot.com/chris4642/ai-gateway-founding-partner" class="btn">
+            Book a Discovery Call
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <p>© 2025 ResultantAI. All rights reserved.</p>
+    </div>
+  </footer>
+</body>
+</html>
