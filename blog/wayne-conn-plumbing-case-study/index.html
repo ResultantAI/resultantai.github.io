@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wayne Conn Plumbing: How AI Handles 200+ Calls/Week | ResultantAI</title>
+  <meta name="description" content="From missed calls costing $5K/month to 24/7 coverage with zero missed opportunities. Full breakdown of the AI receptionist system architecture.">
+  
+  <meta property="og:title" content="Wayne Conn Plumbing: How AI Handles 200+ Calls/Week">
+  <meta property="og:description" content="Case study: AI voice agent that captures $5K/month in after-hours emergency calls for a plumbing company.">
+  <meta property="og:type" content="article">
+  
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Wayne Conn Plumbing: How AI Handles 200+ Calls/Week",
+    "author": {"@type": "Person", "name": "Chris Mott"},
+    "datePublished": "2025-12-28",
+    "publisher": {"@type": "Organization", "name": "ResultantAI"}
+  }
+  </script>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --bg-primary: #0a0f1a;
+      --bg-secondary: #0f172a;
+      --bg-card: #151d2e;
+      --bg-card-hover: #1a2540;
+      --border: #1e293b;
+      --border-light: #334155;
+      --text-primary: #ffffff;
+      --text-secondary: #94a3b8;
+      --text-muted: #64748b;
+      --accent: #10b981;
+      --accent-light: #34d399;
+      --accent-subtle: rgba(16, 185, 129, 0.08);
+      --cat-casestudy: #10b981;
+      --gradient-accent: linear-gradient(135deg, #10b981 0%, #34d399 100%);
+      --gradient-hero: radial-gradient(ellipse 80% 50% at 50% -20%, rgba(16, 185, 129, 0.15), transparent);
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 16px;
+      --radius-xl: 24px;
+      --radius-full: 9999px;
+      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+      --shadow-card: 0 4px 24px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.03);
+      --transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+    body { font-family: var(--font-sans); background: var(--bg-primary); color: var(--text-primary); line-height: 1.6; font-size: 16px; overflow-x: hidden; }
+    a { color: var(--accent); text-decoration: none; transition: color var(--transition); }
+    a:hover { color: var(--accent-light); }
+    img { max-width: 100%; display: block; }
+    ::selection { background: var(--accent); color: var(--bg-primary); }
+
+    .bg-grid { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background-image: linear-gradient(rgba(16, 185, 129, 0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(16, 185, 129, 0.03) 1px, transparent 1px); background-size: 60px 60px; pointer-events: none; z-index: 0; }
+    .bg-gradient { position: fixed; top: 0; left: 0; right: 0; height: 100vh; background: var(--gradient-hero); pointer-events: none; z-index: 0; }
+
+    .container { max-width: 800px; margin: 0 auto; padding: 0 24px; }
+    .container--wide { max-width: 1200px; }
+
+    /* Navigation */
+    .nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; padding: 20px 0; transition: all var(--transition); }
+    .nav.scrolled { padding: 12px 0; background: rgba(10, 15, 26, 0.8); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); }
+    .nav__inner { display: flex; align-items: center; justify-content: space-between; max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+    .nav__logo { font-size: 22px; font-weight: 800; letter-spacing: -0.03em; color: var(--text-primary); }
+    .nav__logo span { color: var(--accent); }
+    .nav__links { display: flex; align-items: center; gap: 8px; }
+    .nav__link { color: var(--text-secondary); font-size: 14px; font-weight: 500; padding: 8px 16px; border-radius: var(--radius-md); transition: all var(--transition); position: relative; }
+    .nav__link::after { content: ''; position: absolute; bottom: 4px; left: 50%; width: 0; height: 2px; background: var(--accent); border-radius: var(--radius-full); transition: all var(--transition); transform: translateX(-50%); }
+    .nav__link:hover { color: var(--text-primary); }
+    .nav__link:hover::after { width: calc(100% - 32px); }
+    .nav__cta { background: var(--gradient-accent); color: var(--bg-primary); padding: 10px 24px; border-radius: var(--radius-md); font-size: 14px; font-weight: 600; transition: all var(--transition); box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3); margin-left: 16px; }
+    .nav__cta:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(16, 185, 129, 0.4); color: var(--bg-primary); }
+    @media (max-width: 768px) { .nav__links { display: none; } }
+
+    /* Article Header */
+    .article-header { padding: 140px 0 60px; position: relative; z-index: 1; }
+    .article-header__breadcrumb { display: flex; align-items: center; gap: 8px; font-size: 14px; color: var(--text-muted); margin-bottom: 24px; }
+    .article-header__breadcrumb a { color: var(--text-muted); }
+    .article-header__breadcrumb a:hover { color: var(--accent); }
+    .article-header__category { display: inline-block; padding: 6px 14px; background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.2); border-radius: var(--radius-full); font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: var(--cat-casestudy); margin-bottom: 20px; }
+    .article-header__title { font-size: clamp(32px, 5vw, 48px); font-weight: 800; line-height: 1.15; letter-spacing: -0.03em; margin-bottom: 20px; }
+    .article-header__excerpt { font-size: 18px; color: var(--text-secondary); line-height: 1.7; margin-bottom: 32px; }
+    .article-header__meta { display: flex; align-items: center; gap: 24px; padding-top: 24px; border-top: 1px solid var(--border); flex-wrap: wrap; }
+    .article-header__author { display: flex; align-items: center; gap: 12px; }
+    .article-header__author-avatar { width: 44px; height: 44px; border-radius: 50%; background: var(--accent-subtle); border: 2px solid var(--accent); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 16px; color: var(--accent); }
+    .article-header__author-name { font-weight: 600; font-size: 15px; }
+    .article-header__author-title { font-size: 13px; color: var(--text-muted); }
+    .article-header__info { display: flex; align-items: center; gap: 16px; font-size: 14px; color: var(--text-muted); }
+
+    /* Hero Image */
+    .article-hero-image { margin: 40px 0; border-radius: var(--radius-xl); overflow: hidden; border: 1px solid var(--border); position: relative; z-index: 1; }
+    .article-hero-image img { width: 100%; height: auto; aspect-ratio: 16/9; object-fit: cover; }
+
+    /* Article Content */
+    .article-content { position: relative; z-index: 1; padding-bottom: 80px; }
+    .article-content h2 { font-size: 28px; font-weight: 700; letter-spacing: -0.02em; margin: 56px 0 24px; padding-top: 24px; border-top: 1px solid var(--border); }
+    .article-content h2:first-of-type { border-top: none; padding-top: 0; margin-top: 0; }
+    .article-content h3 { font-size: 20px; font-weight: 600; margin: 40px 0 16px; color: var(--accent-light); }
+    .article-content p { font-size: 17px; line-height: 1.8; color: var(--text-secondary); margin-bottom: 24px; }
+    .article-content strong { color: var(--text-primary); font-weight: 600; }
+    .article-content ul, .article-content ol { margin: 24px 0; padding-left: 24px; }
+    .article-content li { font-size: 17px; line-height: 1.8; color: var(--text-secondary); margin-bottom: 12px; }
+    .article-content li::marker { color: var(--accent); }
+
+    /* TL;DR Box */
+    .tldr-box { background: linear-gradient(135deg, var(--bg-card) 0%, rgba(16, 185, 129, 0.02) 100%); border: 1px solid var(--border); border-left: 4px solid var(--accent); border-radius: var(--radius-lg); padding: 28px 32px; margin: 32px 0; }
+    .tldr-box__title { display: flex; align-items: center; gap: 10px; font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--accent); margin-bottom: 16px; }
+    .tldr-box ul { margin: 0; padding-left: 20px; }
+    .tldr-box li { font-size: 15px; margin-bottom: 8px; color: var(--text-primary); }
+
+    /* Stats Grid */
+    .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 16px; margin: 40px 0; }
+    .stat-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 20px; text-align: center; }
+    .stat-card__number { font-size: 32px; font-weight: 800; font-family: var(--font-mono); background: var(--gradient-accent); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 6px; }
+    .stat-card__label { font-size: 13px; color: var(--text-muted); }
+
+    /* Quote */
+    .quote { border-left: 4px solid var(--accent); padding: 24px 32px; margin: 40px 0; background: var(--bg-card); border-radius: 0 var(--radius-lg) var(--radius-lg) 0; }
+    .quote__text { font-size: 18px; font-style: italic; line-height: 1.7; color: var(--text-primary); margin-bottom: 16px; }
+    .quote__author { font-size: 14px; color: var(--text-muted); }
+    .quote__author strong { color: var(--accent); }
+
+    /* Callout */
+    .callout { background: var(--accent-subtle); border: 1px solid rgba(16, 185, 129, 0.2); border-radius: var(--radius-lg); padding: 24px 28px; margin: 32px 0; }
+    .callout__icon { display: flex; align-items: center; gap: 10px; font-size: 14px; font-weight: 600; color: var(--accent); margin-bottom: 12px; }
+    .callout p { margin: 0; color: var(--text-primary); font-size: 15px; }
+
+    /* Before/After */
+    .before-after { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin: 40px 0; }
+    @media (max-width: 600px) { .before-after { grid-template-columns: 1fr; } }
+    .before-after__card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 24px; }
+    .before-after__card--before { border-top: 3px solid #ef4444; }
+    .before-after__card--after { border-top: 3px solid var(--accent); }
+    .before-after__label { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 16px; }
+    .before-after__card--before .before-after__label { color: #ef4444; }
+    .before-after__card--after .before-after__label { color: var(--accent); }
+    .before-after__card ul { margin: 0; padding-left: 18px; }
+    .before-after__card li { font-size: 14px; margin-bottom: 10px; color: var(--text-secondary); }
+
+    /* Architecture */
+    .architecture-diagram { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-xl); padding: 40px; margin: 40px 0; text-align: center; }
+    .architecture-diagram__title { font-size: 14px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-muted); margin-bottom: 32px; }
+    .architecture-flow { display: flex; align-items: center; justify-content: center; gap: 12px; flex-wrap: wrap; }
+    .architecture-node { background: var(--bg-secondary); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 14px 18px; text-align: center; min-width: 90px; }
+    .architecture-node--accent { border-color: var(--accent); background: var(--accent-subtle); }
+    .architecture-node__icon { font-size: 20px; margin-bottom: 6px; }
+    .architecture-node__label { font-size: 11px; font-weight: 600; color: var(--text-primary); }
+    .architecture-arrow { color: var(--accent); font-size: 16px; }
+
+    /* CTA */
+    .article-cta { background: linear-gradient(135deg, var(--bg-card) 0%, rgba(16, 185, 129, 0.02) 100%); border: 1px solid var(--border); border-radius: var(--radius-xl); padding: 48px; text-align: center; margin: 60px 0; position: relative; overflow: hidden; }
+    .article-cta::before { content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 400px; height: 200px; background: radial-gradient(ellipse, rgba(16, 185, 129, 0.15), transparent); pointer-events: none; }
+    .article-cta__title { font-size: 28px; font-weight: 800; margin-bottom: 12px; position: relative; }
+    .article-cta__text { font-size: 16px; color: var(--text-secondary); margin-bottom: 28px; position: relative; }
+    .article-cta__btn { display: inline-flex; align-items: center; gap: 10px; padding: 16px 32px; background: var(--gradient-accent); color: var(--bg-primary); font-size: 15px; font-weight: 600; border-radius: var(--radius-md); box-shadow: 0 4px 20px rgba(16, 185, 129, 0.3); position: relative; }
+    .article-cta__btn:hover { transform: translateY(-2px); color: var(--bg-primary); }
+
+    /* Author Bio */
+    .author-bio { display: flex; gap: 24px; padding: 32px; background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-xl); margin-top: 60px; }
+    @media (max-width: 560px) { .author-bio { flex-direction: column; text-align: center; } }
+    .author-bio__avatar { width: 80px; height: 80px; border-radius: var(--radius-lg); background: var(--accent-subtle); border: 2px solid var(--accent); display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 28px; color: var(--accent); flex-shrink: 0; }
+    .author-bio__content { flex: 1; }
+    .author-bio__name { font-size: 18px; font-weight: 700; margin-bottom: 4px; }
+    .author-bio__title { font-size: 14px; color: var(--accent); margin-bottom: 12px; }
+    .author-bio__text { font-size: 14px; color: var(--text-secondary); line-height: 1.6; margin-bottom: 16px; }
+    .author-bio__links { display: flex; gap: 16px; }
+    @media (max-width: 560px) { .author-bio__links { justify-content: center; } }
+    .author-bio__link { display: flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 500; color: var(--text-muted); }
+    .author-bio__link:hover { color: var(--accent); }
+
+    /* Footer */
+    .footer { padding: 60px 0 32px; border-top: 1px solid var(--border); position: relative; z-index: 1; margin-top: 80px; }
+    .footer__inner { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 24px; max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+    .footer__copy { color: var(--text-muted); font-size: 14px; }
+    .footer__links { display: flex; gap: 24px; }
+    .footer__link { color: var(--text-secondary); font-size: 14px; font-weight: 500; display: flex; align-items: center; gap: 6px; }
+    .footer__link:hover { color: var(--accent); }
+  </style>
+</head>
+<body>
+  <div class="bg-grid"></div>
+  <div class="bg-gradient"></div>
+
+  <nav class="nav" id="nav">
+    <div class="nav__inner">
+      <a href="/" class="nav__logo">Resultant<span>AI</span></a>
+      <div class="nav__links">
+        <a href="/#services" class="nav__link">Services</a>
+        <a href="/#process" class="nav__link">Process</a>
+        <a href="/#work" class="nav__link">Work</a>
+        <a href="/#about" class="nav__link">About</a>
+        <a href="/blog" class="nav__link">Blog</a>
+        <a href="https://meetings.hubspot.com/chris4642/ai-gateway-founding-partner" class="nav__cta">Book a Call</a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="article-header">
+    <div class="container">
+      <nav class="article-header__breadcrumb">
+        <a href="/">Home</a><span>/</span><a href="/blog">Blog</a><span>/</span><span>Wayne Conn Case Study</span>
+      </nav>
+      <span class="article-header__category">Case Study</span>
+      <h1 class="article-header__title">Wayne Conn Plumbing: How AI Handles 200+ Calls/Week</h1>
+      <p class="article-header__excerpt">From missed calls costing $5K/month to 24/7 coverage with zero missed opportunities. Full breakdown of the AI receptionist system we built.</p>
+      <div class="article-header__meta">
+        <div class="article-header__author">
+          <div class="article-header__author-avatar">CM</div>
+          <div>
+            <div class="article-header__author-name">Chris Mott</div>
+            <div class="article-header__author-title">Founder, ResultantAI</div>
+          </div>
+        </div>
+        <div class="article-header__info">
+          <span>Dec 28, 2025</span>
+          <span>•</span>
+          <span>9 min read</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="container container--wide">
+    <div class="article-hero-image">
+      <img src="https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=1200&h=600&fit=crop" alt="Plumbing service van">
+    </div>
+  </div>
+
+  <article class="article-content">
+    <div class="container">
+      
+      <div class="tldr-box">
+        <div class="tldr-box__title">📋 Case Study Summary</div>
+        <ul>
+          <li><strong>Client:</strong> Wayne Conn Plumbing & Heating — 5 plumbers, 1 office manager</li>
+          <li><strong>Problem:</strong> Missing 3-5 emergency calls/week to competitors ($5K+/month lost)</li>
+          <li><strong>Solution:</strong> AI voice agent that answers 24/7, qualifies emergencies, routes instantly</li>
+          <li><strong>Result:</strong> 100% call capture, $5K/month recovered, 18-day payback</li>
+        </ul>
+      </div>
+
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-card__number">$5K</div>
+          <div class="stat-card__label">Monthly Revenue Recovered</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card__number">100%</div>
+          <div class="stat-card__label">Call Capture Rate</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card__number">18</div>
+          <div class="stat-card__label">Days to Payback</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card__number">15hrs</div>
+          <div class="stat-card__label">Weekly Time Saved</div>
+        </div>
+      </div>
+
+      <h2>The Problem: Missed Calls = Lost Revenue</h2>
+      
+      <p>Wayne Conn runs a residential plumbing and heating company with 5 plumbers and 1 office manager. They're good at what they do — 4.8 stars on Google, 20+ years in business.</p>
+      
+      <p>But they had a problem that was costing them serious money.</p>
+      
+      <p><strong>Emergency calls don't wait.</strong> When a customer has a burst pipe at 9pm, they don't leave a voicemail and wait until morning. They call the next plumber on Google. By the time Wayne checked voicemail the next day, the job was already done — by a competitor.</p>
+      
+      <p>Wayne tried an answering service. $300/month for humans who took messages. The problem? They couldn't tell the difference between "I need a quote on a bathroom remodel" and "water is flooding my basement RIGHT NOW." His on-call plumber was getting woken up at 3am for non-emergencies.</p>
+
+      <h3>The Math That Made It Urgent</h3>
+      
+      <ul>
+        <li>Average emergency call value: $800-$1,500</li>
+        <li>Missed calls per week: 3-5</li>
+        <li>Lost revenue: $3K-$5K per week</li>
+        <li><strong>Annual cost of the problem: $150K-$250K</strong></li>
+      </ul>
+
+      <div class="before-after">
+        <div class="before-after__card before-after__card--before">
+          <div class="before-after__label">❌ Before</div>
+          <ul>
+            <li>60% call capture rate</li>
+            <li>3-5 missed emergency calls/week</li>
+            <li>$300/month answering service</li>
+            <li>On-call plumber woken for non-emergencies</li>
+            <li>No visibility into call quality</li>
+          </ul>
+        </div>
+        <div class="before-after__card before-after__card--after">
+          <div class="before-after__label">✓ After</div>
+          <ul>
+            <li>100% call capture rate</li>
+            <li>Zero missed opportunities</li>
+            <li>AI qualifies emergency vs routine</li>
+            <li>Emergencies routed instantly</li>
+            <li>Full transcripts + recordings in CRM</li>
+          </ul>
+        </div>
+      </div>
+
+      <h2>The Solution: AI That Knows Plumbing Emergencies</h2>
+      
+      <p>We built an AI voice agent specifically trained to handle plumbing calls. Not a generic chatbot — a system that understands the difference between "my toilet is running" and "water is coming through my ceiling."</p>
+
+      <div class="architecture-diagram">
+        <div class="architecture-diagram__title">System Architecture</div>
+        <div class="architecture-flow">
+          <div class="architecture-node">
+            <div class="architecture-node__icon">📞</div>
+            <div class="architecture-node__label">Incoming Call</div>
+          </div>
+          <div class="architecture-arrow">→</div>
+          <div class="architecture-node architecture-node--accent">
+            <div class="architecture-node__icon">🤖</div>
+            <div class="architecture-node__label">Retell AI</div>
+          </div>
+          <div class="architecture-arrow">→</div>
+          <div class="architecture-node">
+            <div class="architecture-node__icon">⚡</div>
+            <div class="architecture-node__label">Qualify</div>
+          </div>
+          <div class="architecture-arrow">→</div>
+          <div class="architecture-node">
+            <div class="architecture-node__icon">🚨</div>
+            <div class="architecture-node__label">Route/Schedule</div>
+          </div>
+        </div>
+      </div>
+
+      <h3>The Qualification Script</h3>
+      
+      <p>The AI asks 7 questions designed to identify true emergencies:</p>
+      
+      <ol>
+        <li>"What's going on? Describe the issue."</li>
+        <li>"Is water actively leaking right now?"</li>
+        <li>"Do you have a shut-off valve you can access?"</li>
+        <li>"Is this affecting your ability to use water in the home?"</li>
+        <li>"What's your address?"</li>
+        <li>"What's the best callback number?"</li>
+        <li>"Does this need someone tonight, or can it wait until morning?"</li>
+      </ol>
+
+      <div class="callout">
+        <div class="callout__icon">🎯 Key Insight</div>
+        <p>Question #2 is the critical one. "Is water actively leaking?" separates real emergencies from everything else. If yes → instant escalation. If no → schedule for next day.</p>
+      </div>
+
+      <h3>The Routing Logic</h3>
+      
+      <ul>
+        <li><strong>Emergency (active leak/flood):</strong> AI immediately texts + calls the on-call plumber with customer details. Customer gets "Someone will call you back in 5 minutes."</li>
+        <li><strong>Urgent (no water/heat, but not flooding):</strong> First-available slot next morning, customer gets confirmation text</li>
+        <li><strong>Routine (quotes, maintenance):</strong> Scheduled during business hours, logged in CRM for office manager</li>
+      </ul>
+
+      <h2>The Results: 18 Days to Payback</h2>
+
+      <div class="quote">
+        <div class="quote__text">"Our customers don't care it's AI at 2am — they care someone answers. We've recovered every missed opportunity and my on-call guy actually sleeps through the night now."</div>
+        <div class="quote__author">— <strong>Wayne Conn</strong>, Owner</div>
+      </div>
+
+      <p>After 90 days of running the system:</p>
+      
+      <ul>
+        <li><strong>Call capture rate:</strong> 60% → 100%</li>
+        <li><strong>Recovered revenue:</strong> $5,000/month in after-hours emergencies</li>
+        <li><strong>Time saved:</strong> 15 hours/week in dispatch coordination</li>
+        <li><strong>Customer satisfaction:</strong> 93% positive across 500+ AI-handled calls</li>
+        <li><strong>False emergency escalations:</strong> Down 85% (AI filters correctly)</li>
+      </ul>
+
+      <p><strong>Payback period: 18 days.</strong> The system cost $1,497 to set up + $297/month. Wayne recovered that in the first three weeks from calls that would have gone to competitors.</p>
+
+      <h2>Why This Works for Home Services</h2>
+      
+      <p>Plumbing, HVAC, electrical, pest control — they all share the same problem:</p>
+      
+      <ul>
+        <li>Emergencies happen at inconvenient times</li>
+        <li>Customers won't wait</li>
+        <li>Your competition is one Google search away</li>
+        <li>Human answering services can't qualify properly</li>
+      </ul>
+      
+      <p>AI solves this because it never sleeps, never gets tired, and can be trained to ask exactly the right questions for YOUR business. Wayne's AI knows plumbing. An HVAC company's AI would know heating and cooling. Same technology, different expertise.</p>
+
+      <h2>What We'd Do Differently</h2>
+      
+      <p>After running this system for 90+ days, a few lessons learned:</p>
+      
+      <ul>
+        <li><strong>Add Spanish language support earlier.</strong> Wayne's service area is 30% Spanish-speaking. We added it in month 2, should have done it day 1.</li>
+        <li><strong>Build the callback confirmation.</strong> When the on-call plumber calls back, having the AI send a "Wayne Conn is calling you now" text increases answer rates.</li>
+        <li><strong>Track the "almost emergencies."</strong> Some calls start as routine but escalate. Building a follow-up sequence for these catches problems before they become emergencies.</li>
+      </ul>
+
+      <div class="article-cta">
+        <h2 class="article-cta__title">Losing Calls After Hours?</h2>
+        <p class="article-cta__text">If you're in home services and missing calls when you can't answer, let's talk. Same system, customized to your business.</p>
+        <a href="https://meetings.hubspot.com/chris4642/ai-gateway-founding-partner" class="article-cta__btn">
+          Book a Strategy Call →
+        </a>
+      </div>
+
+      <div class="author-bio">
+        <div class="author-bio__avatar">CM</div>
+        <div class="author-bio__content">
+          <div class="author-bio__name">Chris Mott</div>
+          <div class="author-bio__title">Founder, ResultantAI</div>
+          <p class="author-bio__text">Chris builds revenue systems for B2B service businesses — voice AI, workflow automation, and CRM architecture. Wayne Conn was one of his first AI voice agent deployments and remains a client today.</p>
+          <div class="author-bio__links">
+            <a href="https://linkedin.com/in/chrismott1" class="author-bio__link">LinkedIn</a>
+            <a href="https://resultantai.com" class="author-bio__link">resultantai.com</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </article>
+
+  <footer class="footer">
+    <div class="footer__inner">
+      <div class="footer__copy">© 2025 ResultantAI</div>
+      <div class="footer__links">
+        <a href="https://linkedin.com/in/chrismott1" class="footer__link">LinkedIn</a>
+        <a href="mailto:chris@resultantai.com" class="footer__link">Email</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    window.addEventListener('scroll', () => {
+      document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 50);
+    });
+  </script>
+</body>
+</html>
