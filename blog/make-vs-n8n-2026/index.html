@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Make.com vs n8n: Which Should You Choose in 2026? | ResultantAI</title>
+  <meta name="description" content="After building 50+ automations on both platforms, here's the honest breakdown. Pricing, performance, and when each one wins.">
+  
+  <meta property="og:title" content="Make.com vs n8n: Which Should You Choose in 2026?">
+  <meta property="og:description" content="Honest comparison of Make.com and n8n after 50+ automations. Pricing, features, and best use cases.">
+  <meta property="og:type" content="article">
+  
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Make.com vs n8n: Which Should You Choose in 2026?",
+    "author": {"@type": "Person", "name": "Chris Mott"},
+    "datePublished": "2025-12-12",
+    "publisher": {"@type": "Organization", "name": "ResultantAI"}
+  }
+  </script>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --bg-primary: #0a0f1a;
+      --bg-secondary: #0f172a;
+      --bg-card: #151d2e;
+      --bg-card-hover: #1a2540;
+      --border: #1e293b;
+      --border-light: #334155;
+      --text-primary: #ffffff;
+      --text-secondary: #94a3b8;
+      --text-muted: #64748b;
+      --accent: #10b981;
+      --accent-light: #34d399;
+      --accent-subtle: rgba(16, 185, 129, 0.08);
+      --cat-automation: #3b82f6;
+      --make-color: #6366f1;
+      --n8n-color: #ff6d5a;
+      --gradient-accent: linear-gradient(135deg, #10b981 0%, #34d399 100%);
+      --gradient-hero: radial-gradient(ellipse 80% 50% at 50% -20%, rgba(16, 185, 129, 0.15), transparent);
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 16px;
+      --radius-xl: 24px;
+      --radius-full: 9999px;
+      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+      --transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+    body { font-family: var(--font-sans); background: var(--bg-primary); color: var(--text-primary); line-height: 1.6; font-size: 16px; overflow-x: hidden; }
+    a { color: var(--accent); text-decoration: none; transition: color var(--transition); }
+    a:hover { color: var(--accent-light); }
+    img { max-width: 100%; display: block; }
+    ::selection { background: var(--accent); color: var(--bg-primary); }
+
+    .bg-grid { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background-image: linear-gradient(rgba(16, 185, 129, 0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(16, 185, 129, 0.03) 1px, transparent 1px); background-size: 60px 60px; pointer-events: none; z-index: 0; }
+    .bg-gradient { position: fixed; top: 0; left: 0; right: 0; height: 100vh; background: var(--gradient-hero); pointer-events: none; z-index: 0; }
+
+    .container { max-width: 800px; margin: 0 auto; padding: 0 24px; }
+    .container--wide { max-width: 1200px; }
+
+    /* Navigation */
+    .nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; padding: 20px 0; transition: all var(--transition); }
+    .nav.scrolled { padding: 12px 0; background: rgba(10, 15, 26, 0.8); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); }
+    .nav__inner { display: flex; align-items: center; justify-content: space-between; max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+    .nav__logo { font-size: 22px; font-weight: 800; letter-spacing: -0.03em; color: var(--text-primary); }
+    .nav__logo span { color: var(--accent); }
+    .nav__links { display: flex; align-items: center; gap: 8px; }
+    .nav__link { color: var(--text-secondary); font-size: 14px; font-weight: 500; padding: 8px 16px; border-radius: var(--radius-md); transition: all var(--transition); position: relative; }
+    .nav__link::after { content: ''; position: absolute; bottom: 4px; left: 50%; width: 0; height: 2px; background: var(--accent); border-radius: var(--radius-full); transition: all var(--transition); transform: translateX(-50%); }
+    .nav__link:hover { color: var(--text-primary); }
+    .nav__link:hover::after { width: calc(100% - 32px); }
+    .nav__cta { background: var(--gradient-accent); color: var(--bg-primary); padding: 10px 24px; border-radius: var(--radius-md); font-size: 14px; font-weight: 600; transition: all var(--transition); box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3); margin-left: 16px; }
+    .nav__cta:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(16, 185, 129, 0.4); color: var(--bg-primary); }
+    @media (max-width: 768px) { .nav__links { display: none; } }
+
+    /* Article Header */
+    .article-header { padding: 140px 0 60px; position: relative; z-index: 1; }
+    .article-header__breadcrumb { display: flex; align-items: center; gap: 8px; font-size: 14px; color: var(--text-muted); margin-bottom: 24px; }
+    .article-header__breadcrumb a { color: var(--text-muted); }
+    .article-header__breadcrumb a:hover { color: var(--accent); }
+    .article-header__category { display: inline-block; padding: 6px 14px; background: rgba(59, 130, 246, 0.1); border: 1px solid rgba(59, 130, 246, 0.2); border-radius: var(--radius-full); font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: var(--cat-automation); margin-bottom: 20px; }
+    .article-header__title { font-size: clamp(32px, 5vw, 48px); font-weight: 800; line-height: 1.15; letter-spacing: -0.03em; margin-bottom: 20px; }
+    .article-header__excerpt { font-size: 18px; color: var(--text-secondary); line-height: 1.7; margin-bottom: 32px; }
+    .article-header__meta { display: flex; align-items: center; gap: 24px; padding-top: 24px; border-top: 1px solid var(--border); flex-wrap: wrap; }
+    .article-header__author { display: flex; align-items: center; gap: 12px; }
+    .article-header__author-avatar { width: 44px; height: 44px; border-radius: 50%; background: var(--accent-subtle); border: 2px solid var(--accent); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 16px; color: var(--accent); }
+    .article-header__author-name { font-weight: 600; font-size: 15px; }
+    .article-header__author-title { font-size: 13px; color: var(--text-muted); }
+    .article-header__info { display: flex; align-items: center; gap: 16px; font-size: 14px; color: var(--text-muted); }
+
+    /* Hero Image */
+    .article-hero-image { margin: 40px 0; border-radius: var(--radius-xl); overflow: hidden; border: 1px solid var(--border); position: relative; z-index: 1; }
+    .article-hero-image img { width: 100%; height: auto; aspect-ratio: 16/9; object-fit: cover; }
+
+    /* Article Content */
+    .article-content { position: relative; z-index: 1; padding-bottom: 80px; }
+    .article-content h2 { font-size: 28px; font-weight: 700; letter-spacing: -0.02em; margin: 56px 0 24px; padding-top: 24px; border-top: 1px solid var(--border); }
+    .article-content h2:first-of-type { border-top: none; padding-top: 0; margin-top: 0; }
+    .article-content h3 { font-size: 20px; font-weight: 600; margin: 40px 0 16px; color: var(--accent-light); }
+    .article-content p { font-size: 17px; line-height: 1.8; color: var(--text-secondary); margin-bottom: 24px; }
+    .article-content strong { color: var(--text-primary); font-weight: 600; }
+    .article-content ul, .article-content ol { margin: 24px 0; padding-left: 24px; }
+    .article-content li { font-size: 17px; line-height: 1.8; color: var(--text-secondary); margin-bottom: 12px; }
+    .article-content li::marker { color: var(--accent); }
+
+    /* TL;DR Box */
+    .tldr-box { background: linear-gradient(135deg, var(--bg-card) 0%, rgba(16, 185, 129, 0.02) 100%); border: 1px solid var(--border); border-left: 4px solid var(--accent); border-radius: var(--radius-lg); padding: 28px 32px; margin: 32px 0; }
+    .tldr-box__title { display: flex; align-items: center; gap: 10px; font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--accent); margin-bottom: 16px; }
+    .tldr-box ul { margin: 0; padding-left: 20px; }
+    .tldr-box li { font-size: 15px; margin-bottom: 8px; color: var(--text-primary); }
+
+    /* Comparison Table */
+    .comparison-table { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); margin: 32px 0; overflow: hidden; overflow-x: auto; }
+    .comparison-table table { width: 100%; border-collapse: collapse; min-width: 500px; }
+    .comparison-table th { text-align: left; padding: 16px 20px; font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-muted); background: rgba(0,0,0,0.2); border-bottom: 1px solid var(--border); }
+    .comparison-table th.make { color: var(--make-color); }
+    .comparison-table th.n8n { color: var(--n8n-color); }
+    .comparison-table td { padding: 16px 20px; font-size: 15px; color: var(--text-secondary); border-bottom: 1px solid var(--border); vertical-align: top; }
+    .comparison-table tr:last-child td { border-bottom: none; }
+    .comparison-table .winner { background: rgba(16, 185, 129, 0.08); color: var(--text-primary); font-weight: 500; }
+
+    /* Verdict Cards */
+    .verdict-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 40px 0; }
+    @media (max-width: 600px) { .verdict-grid { grid-template-columns: 1fr; } }
+    .verdict-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 28px; }
+    .verdict-card--make { border-top: 4px solid var(--make-color); }
+    .verdict-card--n8n { border-top: 4px solid var(--n8n-color); }
+    .verdict-card__title { font-size: 18px; font-weight: 700; margin-bottom: 16px; display: flex; align-items: center; gap: 10px; }
+    .verdict-card--make .verdict-card__title { color: var(--make-color); }
+    .verdict-card--n8n .verdict-card__title { color: var(--n8n-color); }
+    .verdict-card ul { margin: 0; padding-left: 18px; }
+    .verdict-card li { font-size: 14px; color: var(--text-secondary); margin-bottom: 8px; line-height: 1.5; }
+
+    /* Callout */
+    .callout { background: var(--accent-subtle); border: 1px solid rgba(16, 185, 129, 0.2); border-radius: var(--radius-lg); padding: 24px 28px; margin: 32px 0; }
+    .callout__icon { display: flex; align-items: center; gap: 10px; font-size: 14px; font-weight: 600; color: var(--accent); margin-bottom: 12px; }
+    .callout p { margin: 0; color: var(--text-primary); font-size: 15px; }
+
+    /* Code Block */
+    .code-block { background: var(--bg-secondary); border: 1px solid var(--border); border-radius: var(--radius-lg); margin: 32px 0; overflow: hidden; }
+    .code-block__header { display: flex; align-items: center; justify-content: space-between; padding: 12px 20px; background: rgba(0, 0, 0, 0.3); border-bottom: 1px solid var(--border); }
+    .code-block__dots { display: flex; gap: 8px; }
+    .code-block__dot { width: 12px; height: 12px; border-radius: 50%; }
+    .code-block__dot--red { background: #ff5f56; }
+    .code-block__dot--yellow { background: #ffbd2e; }
+    .code-block__dot--green { background: #27c93f; }
+    .code-block__lang { font-size: 12px; font-family: var(--font-mono); color: var(--text-muted); }
+    .code-block pre { padding: 20px; overflow-x: auto; margin: 0; }
+    .code-block code { font-family: var(--font-mono); font-size: 14px; line-height: 1.6; color: var(--text-secondary); }
+
+    /* Pricing Table */
+    .pricing-table { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); margin: 32px 0; overflow: hidden; }
+    .pricing-table__header { padding: 20px 24px; border-bottom: 1px solid var(--border); background: rgba(0,0,0,0.2); }
+    .pricing-table__title { font-size: 16px; font-weight: 600; color: var(--text-primary); }
+    .pricing-row { display: grid; grid-template-columns: 1fr 1fr 1fr; padding: 16px 24px; border-bottom: 1px solid var(--border); }
+    .pricing-row:last-child { border-bottom: none; }
+    .pricing-row__label { font-size: 14px; color: var(--text-muted); font-weight: 500; }
+    .pricing-row__make { font-size: 14px; color: var(--text-secondary); }
+    .pricing-row__n8n { font-size: 14px; color: var(--text-secondary); }
+
+    /* CTA */
+    .article-cta { background: linear-gradient(135deg, var(--bg-card) 0%, rgba(16, 185, 129, 0.02) 100%); border: 1px solid var(--border); border-radius: var(--radius-xl); padding: 48px; text-align: center; margin: 60px 0; position: relative; overflow: hidden; }
+    .article-cta::before { content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 400px; height: 200px; background: radial-gradient(ellipse, rgba(16, 185, 129, 0.15), transparent); pointer-events: none; }
+    .article-cta__title { font-size: 28px; font-weight: 800; margin-bottom: 12px; position: relative; }
+    .article-cta__text { font-size: 16px; color: var(--text-secondary); margin-bottom: 28px; position: relative; }
+    .article-cta__btn { display: inline-flex; align-items: center; gap: 10px; padding: 16px 32px; background: var(--gradient-accent); color: var(--bg-primary); font-size: 15px; font-weight: 600; border-radius: var(--radius-md); box-shadow: 0 4px 20px rgba(16, 185, 129, 0.3); position: relative; }
+    .article-cta__btn:hover { transform: translateY(-2px); color: var(--bg-primary); }
+
+    /* Author Bio */
+    .author-bio { display: flex; gap: 24px; padding: 32px; background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-xl); margin-top: 60px; }
+    @media (max-width: 560px) { .author-bio { flex-direction: column; text-align: center; } }
+    .author-bio__avatar { width: 80px; height: 80px; border-radius: var(--radius-lg); background: var(--accent-subtle); border: 2px solid var(--accent); display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 28px; color: var(--accent); flex-shrink: 0; }
+    .author-bio__content { flex: 1; }
+    .author-bio__name { font-size: 18px; font-weight: 700; margin-bottom: 4px; }
+    .author-bio__title { font-size: 14px; color: var(--accent); margin-bottom: 12px; }
+    .author-bio__text { font-size: 14px; color: var(--text-secondary); line-height: 1.6; margin-bottom: 16px; }
+    .author-bio__links { display: flex; gap: 16px; }
+    @media (max-width: 560px) { .author-bio__links { justify-content: center; } }
+    .author-bio__link { font-size: 13px; font-weight: 500; color: var(--text-muted); }
+    .author-bio__link:hover { color: var(--accent); }
+
+    /* Footer */
+    .footer { padding: 60px 0 32px; border-top: 1px solid var(--border); position: relative; z-index: 1; margin-top: 80px; }
+    .footer__inner { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 24px; max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+    .footer__copy { color: var(--text-muted); font-size: 14px; }
+    .footer__links { display: flex; gap: 24px; }
+    .footer__link { color: var(--text-secondary); font-size: 14px; font-weight: 500; }
+    .footer__link:hover { color: var(--accent); }
+  </style>
+</head>
+<body>
+  <div class="bg-grid"></div>
+  <div class="bg-gradient"></div>
+
+  <nav class="nav" id="nav">
+    <div class="nav__inner">
+      <a href="/" class="nav__logo">Resultant<span>AI</span></a>
+      <div class="nav__links">
+        <a href="/#services" class="nav__link">Services</a>
+        <a href="/#process" class="nav__link">Process</a>
+        <a href="/#work" class="nav__link">Work</a>
+        <a href="/#about" class="nav__link">About</a>
+        <a href="/blog" class="nav__link">Blog</a>
+        <a href="https://meetings.hubspot.com/chris4642/ai-gateway-founding-partner" class="nav__cta">Book a Call</a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="article-header">
+    <div class="container">
+      <nav class="article-header__breadcrumb">
+        <a href="/">Home</a><span>/</span><a href="/blog">Blog</a><span>/</span><span>Make vs n8n</span>
+      </nav>
+      <span class="article-header__category">Automation</span>
+      <h1 class="article-header__title">Make.com vs n8n: Which Should You Choose in 2026?</h1>
+      <p class="article-header__excerpt">After building 50+ automations on both platforms, here's the honest breakdown. Pricing, performance, and when each one wins.</p>
+      <div class="article-header__meta">
+        <div class="article-header__author">
+          <div class="article-header__author-avatar">CM</div>
+          <div>
+            <div class="article-header__author-name">Chris Mott</div>
+            <div class="article-header__author-title">Founder, ResultantAI</div>
+          </div>
+        </div>
+        <div class="article-header__info">
+          <span>Dec 12, 2025</span>
+          <span>•</span>
+          <span>8 min read</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="container container--wide">
+    <div class="article-hero-image">
+      <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1200&h=600&fit=crop" alt="Automation workflow">
+    </div>
+  </div>
+
+  <article class="article-content">
+    <div class="container">
+      
+      <div class="tldr-box">
+        <div class="tldr-box__title">⚡ TL;DR</div>
+        <ul>
+          <li><strong>Make.com:</strong> Better for visual learners, client-facing work, quick prototypes</li>
+          <li><strong>n8n:</strong> Better for developers, self-hosting needs, complex logic, cost control at scale</li>
+          <li><strong>Pricing winner:</strong> n8n (especially self-hosted)</li>
+          <li><strong>Ease of use winner:</strong> Make.com</li>
+          <li><strong>My default:</strong> Make.com for client work, n8n for internal systems</li>
+        </ul>
+      </div>
+
+      <p>I've been building automations professionally for 3 years. My current split is roughly 60% Make.com, 40% n8n. This isn't a theoretical comparison — it's based on real production systems running for real clients.</p>
+      
+      <p>Both platforms are excellent. The question isn't "which is better" — it's "which is better for YOUR situation."</p>
+
+      <h2>The Quick Comparison</h2>
+
+      <div class="comparison-table">
+        <table>
+          <thead>
+            <tr>
+              <th>Factor</th>
+              <th class="make">Make.com</th>
+              <th class="n8n">n8n</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Ease of Use</strong></td>
+              <td class="winner">⭐ Excellent. Visual builder is best-in-class.</td>
+              <td>Good. Steeper learning curve.</td>
+            </tr>
+            <tr>
+              <td><strong>Pricing Model</strong></td>
+              <td>Per operation (every action costs)</td>
+              <td class="winner">⭐ Per workflow execution (flat cost)</td>
+            </tr>
+            <tr>
+              <td><strong>Self-Hosting</strong></td>
+              <td>Not available</td>
+              <td class="winner">⭐ Full self-hosting option</td>
+            </tr>
+            <tr>
+              <td><strong>Integrations</strong></td>
+              <td class="winner">⭐ 1,500+ native apps</td>
+              <td>400+ native, but has HTTP nodes</td>
+            </tr>
+            <tr>
+              <td><strong>Code Flexibility</strong></td>
+              <td>Limited JavaScript support</td>
+              <td class="winner">⭐ Full code nodes (JS, Python)</td>
+            </tr>
+            <tr>
+              <td><strong>Error Handling</strong></td>
+              <td>Good. Visual error paths.</td>
+              <td class="winner">⭐ Excellent. Granular retry logic.</td>
+            </tr>
+            <tr>
+              <td><strong>Version Control</strong></td>
+              <td>Basic snapshots</td>
+              <td class="winner">⭐ Git integration available</td>
+            </tr>
+            <tr>
+              <td><strong>Client Handoff</strong></td>
+              <td class="winner">⭐ Easy. Clean UI for non-technical users.</td>
+              <td>Harder. More technical interface.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2>Pricing: The Real Numbers</h2>
+      
+      <p>This is where most comparisons get it wrong. They show you the starting prices without explaining how the costs actually work in production.</p>
+
+      <h3>Make.com Pricing</h3>
+      
+      <p>Make charges per <strong>operation</strong>. An operation is any action: reading a row, sending an email, making an API call. A single workflow execution can consume dozens of operations.</p>
+      
+      <ul>
+        <li><strong>Free:</strong> 1,000 ops/month</li>
+        <li><strong>Core:</strong> $9/mo for 10,000 ops</li>
+        <li><strong>Pro:</strong> $16/mo for 10,000 ops + advanced features</li>
+        <li><strong>Teams:</strong> $29/mo for 10,000 ops + team features</li>
+      </ul>
+      
+      <p>Additional operations: ~$0.001 per operation on higher tiers.</p>
+
+      <h3>n8n Pricing</h3>
+      
+      <p>n8n charges per <strong>workflow execution</strong>. No matter how many nodes run, you pay once per trigger.</p>
+      
+      <ul>
+        <li><strong>Free (self-hosted):</strong> Unlimited</li>
+        <li><strong>Starter (cloud):</strong> €20/mo for 2,500 executions</li>
+        <li><strong>Pro (cloud):</strong> €50/mo for 10,000 executions</li>
+        <li><strong>Self-hosted:</strong> Free forever (you pay for hosting)</li>
+      </ul>
+
+      <h3>Real Cost Comparison</h3>
+      
+      <p>Let's say you have a workflow that:</p>
+      <ol>
+        <li>Triggers on new form submission</li>
+        <li>Enriches data with an API call</li>
+        <li>Creates a CRM record</li>
+        <li>Sends a Slack notification</li>
+        <li>Sends a confirmation email</li>
+      </ol>
+      
+      <p>That's <strong>5 operations</strong> in Make.com, but <strong>1 execution</strong> in n8n.</p>
+      
+      <p>If this workflow runs 1,000 times/month:</p>
+      <ul>
+        <li><strong>Make.com:</strong> 5,000 operations → $9/mo (Core tier, half your quota)</li>
+        <li><strong>n8n cloud:</strong> 1,000 executions → €20/mo (Starter tier, 40% of quota)</li>
+        <li><strong>n8n self-hosted:</strong> ~$5-10/mo for a small VPS</li>
+      </ul>
+
+      <div class="callout">
+        <div class="callout__icon">💡 The Rule of Thumb</div>
+        <p>If your average workflow has more than 3-4 steps, n8n is usually cheaper. If you're running simple 1-2 step automations, Make.com's pricing is competitive.</p>
+      </div>
+
+      <h2>When to Choose Make.com</h2>
+
+      <div class="verdict-card verdict-card--make">
+        <div class="verdict-card__title">✦ Choose Make.com When:</div>
+        <ul>
+          <li><strong>Building for clients</strong> — The visual interface is easier to hand off and explain</li>
+          <li><strong>Fast prototyping</strong> — You can build and test faster with the drag-and-drop builder</li>
+          <li><strong>Non-technical stakeholders</strong> — They can actually understand what's happening</li>
+          <li><strong>You need a specific integration</strong> — Make has more native connectors</li>
+          <li><strong>You want zero DevOps</strong> — Nothing to host, maintain, or update</li>
+          <li><strong>Lower volume</strong> — The operation-based pricing works fine for &lt;50K ops/month</li>
+        </ul>
+      </div>
+
+      <p>I use Make.com for most client work because the handoff is cleaner. When the project is done, clients can see their automations, understand the logic, and even make small changes themselves.</p>
+
+      <h3>Make.com Strengths</h3>
+      
+      <ul>
+        <li><strong>Visual debugging:</strong> You can see exactly where a workflow failed and what data was in each step</li>
+        <li><strong>Scenario history:</strong> Every execution is logged with full data visibility</li>
+        <li><strong>Built-in scheduling:</strong> Cron-like scheduling without any setup</li>
+        <li><strong>Teams/Organizations:</strong> Easy to manage access for multiple clients</li>
+      </ul>
+
+      <h2>When to Choose n8n</h2>
+
+      <div class="verdict-card verdict-card--n8n">
+        <div class="verdict-card__title">◆ Choose n8n When:</div>
+        <ul>
+          <li><strong>High volume automations</strong> — Per-execution pricing scales better</li>
+          <li><strong>Complex logic</strong> — Code nodes give you full JavaScript/Python power</li>
+          <li><strong>Self-hosting requirements</strong> — Data residency, compliance, or cost control</li>
+          <li><strong>Internal tools</strong> — Your team can handle the technical interface</li>
+          <li><strong>Custom integrations</strong> — HTTP nodes make anything possible</li>
+          <li><strong>Version control needs</strong> — Git integration for workflow management</li>
+        </ul>
+      </div>
+
+      <p>I use n8n for my own internal systems. The self-hosted version runs on a $6/month VPS and handles unlimited executions.</p>
+
+      <h3>n8n Strengths</h3>
+      
+      <ul>
+        <li><strong>Code nodes:</strong> Write JavaScript or Python when visual nodes aren't enough</li>
+        <li><strong>Self-hosting:</strong> Full control over your data and infrastructure</li>
+        <li><strong>Open source:</strong> You can inspect the code, contribute, or fork</li>
+        <li><strong>Execution data:</strong> Store and query historical execution data</li>
+        <li><strong>Sub-workflows:</strong> Better support for modular, reusable components</li>
+      </ul>
+
+      <h2>The Dealbreakers</h2>
+
+      <h3>Make.com Dealbreakers</h3>
+      
+      <ul>
+        <li><strong>No self-hosting:</strong> If you need data residency or on-prem, it's not possible</li>
+        <li><strong>Operation costs at scale:</strong> Complex workflows with 20+ steps get expensive fast</li>
+        <li><strong>Limited code flexibility:</strong> When you need custom logic, you hit walls</li>
+      </ul>
+
+      <h3>n8n Dealbreakers</h3>
+      
+      <ul>
+        <li><strong>Steeper learning curve:</strong> Non-technical users struggle with the interface</li>
+        <li><strong>Fewer native integrations:</strong> You'll build more custom HTTP connections</li>
+        <li><strong>Self-hosting overhead:</strong> Cloud is simpler but more expensive; self-hosting needs DevOps knowledge</li>
+      </ul>
+
+      <h2>My Recommendation Framework</h2>
+
+      <div class="code-block">
+        <div class="code-block__header">
+          <div class="code-block__dots">
+            <span class="code-block__dot code-block__dot--red"></span>
+            <span class="code-block__dot code-block__dot--yellow"></span>
+            <span class="code-block__dot code-block__dot--green"></span>
+          </div>
+          <span class="code-block__lang">Decision Tree</span>
+        </div>
+        <pre><code>START
+│
+├─ Do you need self-hosting?
+│  └─ Yes → n8n
+│
+├─ Is this for a client who'll manage it?
+│  └─ Yes → Make.com
+│
+├─ Do you need complex code logic?
+│  └─ Yes → n8n
+│
+├─ Are you running >100K operations/month?
+│  └─ Yes → n8n (cost)
+│
+├─ Do you need a specific native integration?
+│  └─ Check both → Pick whoever has it
+│
+└─ Default → Make.com (easier)</code></pre>
+      </div>
+
+      <h2>What About Zapier?</h2>
+      
+      <p>You might be wondering why I didn't include Zapier. Simple: for production automation work, it's rarely the right choice.</p>
+      
+      <ul>
+        <li><strong>Pricing:</strong> Most expensive of the three at scale</li>
+        <li><strong>Flexibility:</strong> Less than both Make and n8n</li>
+        <li><strong>Power:</strong> Fine for simple "if this then that" but struggles with complex workflows</li>
+      </ul>
+      
+      <p>Zapier is great for non-technical users doing simple automations. For professional automation work, Make or n8n are better choices.</p>
+
+      <h2>Final Verdict</h2>
+      
+      <p>There's no universal winner. My setup:</p>
+      
+      <ul>
+        <li><strong>Client projects:</strong> Make.com (90% of the time)</li>
+        <li><strong>Internal systems:</strong> n8n self-hosted</li>
+        <li><strong>High-volume processing:</strong> n8n cloud or self-hosted</li>
+        <li><strong>Quick prototypes:</strong> Make.com</li>
+      </ul>
+      
+      <p>Both platforms are actively developed and improving. You can't go wrong with either — just pick the one that matches your constraints.</p>
+
+      <div class="article-cta">
+        <h2 class="article-cta__title">Need Help Choosing?</h2>
+        <p class="article-cta__text">I build automations on both platforms. If you're not sure which is right for your project, let's talk through your requirements.</p>
+        <a href="https://meetings.hubspot.com/chris4642/ai-gateway-founding-partner" class="article-cta__btn">
+          Book a Strategy Call →
+        </a>
+      </div>
+
+      <div class="author-bio">
+        <div class="author-bio__avatar">CM</div>
+        <div class="author-bio__content">
+          <div class="author-bio__name">Chris Mott</div>
+          <div class="author-bio__title">Founder, ResultantAI</div>
+          <p class="author-bio__text">Chris has built 50+ production automations across Make.com and n8n. He runs ResultantAI, helping B2B service businesses automate revenue operations.</p>
+          <div class="author-bio__links">
+            <a href="https://linkedin.com/in/chrismott1" class="author-bio__link">LinkedIn</a>
+            <a href="https://resultantai.com" class="author-bio__link">resultantai.com</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </article>
+
+  <footer class="footer">
+    <div class="footer__inner">
+      <div class="footer__copy">© 2025 ResultantAI</div>
+      <div class="footer__links">
+        <a href="https://linkedin.com/in/chrismott1" class="footer__link">LinkedIn</a>
+        <a href="mailto:chris@resultantai.com" class="footer__link">Email</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    window.addEventListener('scroll', () => {
+      document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 50);
+    });
+  </script>
+</body>
+</html>
