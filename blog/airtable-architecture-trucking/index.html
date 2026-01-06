@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The 4-Table Airtable Architecture That Runs a $2M Trucking Operation | ResultantAI</title>
+  <meta name="description" content="How we replaced a legacy TMS system with a simple Airtable setup. 4 tables, 3 automations, and complete visibility into loads, drivers, and dispatch.">
+  
+  <meta property="og:title" content="The 4-Table Airtable Architecture That Runs a $2M Trucking Operation">
+  <meta property="og:description" content="Simple beats complex. How a 4-table Airtable replaced a $50K TMS for a trucking company.">
+  <meta property="og:type" content="article">
+  
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "The 4-Table Airtable Architecture That Runs a $2M Trucking Operation",
+    "author": {"@type": "Person", "name": "Chris Mott"},
+    "datePublished": "2025-12-22",
+    "publisher": {"@type": "Organization", "name": "ResultantAI"}
+  }
+  </script>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --bg-primary: #0a0f1a;
+      --bg-secondary: #0f172a;
+      --bg-card: #151d2e;
+      --bg-card-hover: #1a2540;
+      --border: #1e293b;
+      --border-light: #334155;
+      --text-primary: #ffffff;
+      --text-secondary: #94a3b8;
+      --text-muted: #64748b;
+      --accent: #10b981;
+      --accent-light: #34d399;
+      --accent-subtle: rgba(16, 185, 129, 0.08);
+      --cat-crm: #f59e0b;
+      --gradient-accent: linear-gradient(135deg, #10b981 0%, #34d399 100%);
+      --gradient-hero: radial-gradient(ellipse 80% 50% at 50% -20%, rgba(16, 185, 129, 0.15), transparent);
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 16px;
+      --radius-xl: 24px;
+      --radius-full: 9999px;
+      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+      --transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+    body { font-family: var(--font-sans); background: var(--bg-primary); color: var(--text-primary); line-height: 1.6; font-size: 16px; overflow-x: hidden; }
+    a { color: var(--accent); text-decoration: none; transition: color var(--transition); }
+    a:hover { color: var(--accent-light); }
+    img { max-width: 100%; display: block; }
+    ::selection { background: var(--accent); color: var(--bg-primary); }
+
+    .bg-grid { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background-image: linear-gradient(rgba(16, 185, 129, 0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(16, 185, 129, 0.03) 1px, transparent 1px); background-size: 60px 60px; pointer-events: none; z-index: 0; }
+    .bg-gradient { position: fixed; top: 0; left: 0; right: 0; height: 100vh; background: var(--gradient-hero); pointer-events: none; z-index: 0; }
+
+    .container { max-width: 800px; margin: 0 auto; padding: 0 24px; }
+    .container--wide { max-width: 1200px; }
+
+    /* Navigation */
+    .nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; padding: 20px 0; transition: all var(--transition); }
+    .nav.scrolled { padding: 12px 0; background: rgba(10, 15, 26, 0.8); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); }
+    .nav__inner { display: flex; align-items: center; justify-content: space-between; max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+    .nav__logo { font-size: 22px; font-weight: 800; letter-spacing: -0.03em; color: var(--text-primary); }
+    .nav__logo span { color: var(--accent); }
+    .nav__links { display: flex; align-items: center; gap: 8px; }
+    .nav__link { color: var(--text-secondary); font-size: 14px; font-weight: 500; padding: 8px 16px; border-radius: var(--radius-md); transition: all var(--transition); position: relative; }
+    .nav__link::after { content: ''; position: absolute; bottom: 4px; left: 50%; width: 0; height: 2px; background: var(--accent); border-radius: var(--radius-full); transition: all var(--transition); transform: translateX(-50%); }
+    .nav__link:hover { color: var(--text-primary); }
+    .nav__link:hover::after { width: calc(100% - 32px); }
+    .nav__cta { background: var(--gradient-accent); color: var(--bg-primary); padding: 10px 24px; border-radius: var(--radius-md); font-size: 14px; font-weight: 600; transition: all var(--transition); box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3); margin-left: 16px; }
+    .nav__cta:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(16, 185, 129, 0.4); color: var(--bg-primary); }
+    @media (max-width: 768px) { .nav__links { display: none; } }
+
+    /* Article Header */
+    .article-header { padding: 140px 0 60px; position: relative; z-index: 1; }
+    .article-header__breadcrumb { display: flex; align-items: center; gap: 8px; font-size: 14px; color: var(--text-muted); margin-bottom: 24px; }
+    .article-header__breadcrumb a { color: var(--text-muted); }
+    .article-header__breadcrumb a:hover { color: var(--accent); }
+    .article-header__category { display: inline-block; padding: 6px 14px; background: rgba(245, 158, 11, 0.1); border: 1px solid rgba(245, 158, 11, 0.2); border-radius: var(--radius-full); font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: var(--cat-crm); margin-bottom: 20px; }
+    .article-header__title { font-size: clamp(32px, 5vw, 48px); font-weight: 800; line-height: 1.15; letter-spacing: -0.03em; margin-bottom: 20px; }
+    .article-header__excerpt { font-size: 18px; color: var(--text-secondary); line-height: 1.7; margin-bottom: 32px; }
+    .article-header__meta { display: flex; align-items: center; gap: 24px; padding-top: 24px; border-top: 1px solid var(--border); flex-wrap: wrap; }
+    .article-header__author { display: flex; align-items: center; gap: 12px; }
+    .article-header__author-avatar { width: 44px; height: 44px; border-radius: 50%; background: var(--accent-subtle); border: 2px solid var(--accent); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 16px; color: var(--accent); }
+    .article-header__author-name { font-weight: 600; font-size: 15px; }
+    .article-header__author-title { font-size: 13px; color: var(--text-muted); }
+    .article-header__info { display: flex; align-items: center; gap: 16px; font-size: 14px; color: var(--text-muted); }
+
+    /* Hero Image */
+    .article-hero-image { margin: 40px 0; border-radius: var(--radius-xl); overflow: hidden; border: 1px solid var(--border); position: relative; z-index: 1; }
+    .article-hero-image img { width: 100%; height: auto; aspect-ratio: 16/9; object-fit: cover; }
+
+    /* Article Content */
+    .article-content { position: relative; z-index: 1; padding-bottom: 80px; }
+    .article-content h2 { font-size: 28px; font-weight: 700; letter-spacing: -0.02em; margin: 56px 0 24px; padding-top: 24px; border-top: 1px solid var(--border); }
+    .article-content h2:first-of-type { border-top: none; padding-top: 0; margin-top: 0; }
+    .article-content h3 { font-size: 20px; font-weight: 600; margin: 40px 0 16px; color: var(--accent-light); }
+    .article-content p { font-size: 17px; line-height: 1.8; color: var(--text-secondary); margin-bottom: 24px; }
+    .article-content strong { color: var(--text-primary); font-weight: 600; }
+    .article-content ul, .article-content ol { margin: 24px 0; padding-left: 24px; }
+    .article-content li { font-size: 17px; line-height: 1.8; color: var(--text-secondary); margin-bottom: 12px; }
+    .article-content li::marker { color: var(--accent); }
+
+    /* TL;DR Box */
+    .tldr-box { background: linear-gradient(135deg, var(--bg-card) 0%, rgba(16, 185, 129, 0.02) 100%); border: 1px solid var(--border); border-left: 4px solid var(--accent); border-radius: var(--radius-lg); padding: 28px 32px; margin: 32px 0; }
+    .tldr-box__title { display: flex; align-items: center; gap: 10px; font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--accent); margin-bottom: 16px; }
+    .tldr-box ul { margin: 0; padding-left: 20px; }
+    .tldr-box li { font-size: 15px; margin-bottom: 8px; color: var(--text-primary); }
+
+    /* Stats Grid */
+    .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 16px; margin: 40px 0; }
+    .stat-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 20px; text-align: center; }
+    .stat-card__number { font-size: 32px; font-weight: 800; font-family: var(--font-mono); background: var(--gradient-accent); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 6px; }
+    .stat-card__label { font-size: 13px; color: var(--text-muted); }
+
+    /* Table Block */
+    .table-block { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); margin: 32px 0; overflow: hidden; }
+    .table-block__header { padding: 16px 24px; border-bottom: 1px solid var(--border); background: rgba(0,0,0,0.2); }
+    .table-block__title { font-size: 14px; font-weight: 600; color: var(--text-primary); display: flex; align-items: center; gap: 8px; }
+    .table-block__title span { font-size: 18px; }
+    .table-block table { width: 100%; border-collapse: collapse; }
+    .table-block th { text-align: left; padding: 12px 24px; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-muted); border-bottom: 1px solid var(--border); }
+    .table-block td { padding: 14px 24px; font-size: 14px; color: var(--text-secondary); border-bottom: 1px solid var(--border); }
+    .table-block tr:last-child td { border-bottom: none; }
+    .table-block code { background: var(--bg-secondary); padding: 2px 8px; border-radius: var(--radius-sm); font-family: var(--font-mono); font-size: 12px; color: var(--accent); }
+
+    /* Callout */
+    .callout { background: var(--accent-subtle); border: 1px solid rgba(16, 185, 129, 0.2); border-radius: var(--radius-lg); padding: 24px 28px; margin: 32px 0; }
+    .callout__icon { display: flex; align-items: center; gap: 10px; font-size: 14px; font-weight: 600; color: var(--accent); margin-bottom: 12px; }
+    .callout p { margin: 0; color: var(--text-primary); font-size: 15px; }
+
+    /* Code Block */
+    .code-block { background: var(--bg-secondary); border: 1px solid var(--border); border-radius: var(--radius-lg); margin: 32px 0; overflow: hidden; }
+    .code-block__header { display: flex; align-items: center; justify-content: space-between; padding: 12px 20px; background: rgba(0, 0, 0, 0.3); border-bottom: 1px solid var(--border); }
+    .code-block__dots { display: flex; gap: 8px; }
+    .code-block__dot { width: 12px; height: 12px; border-radius: 50%; }
+    .code-block__dot--red { background: #ff5f56; }
+    .code-block__dot--yellow { background: #ffbd2e; }
+    .code-block__dot--green { background: #27c93f; }
+    .code-block__lang { font-size: 12px; font-family: var(--font-mono); color: var(--text-muted); }
+    .code-block pre { padding: 20px; overflow-x: auto; margin: 0; }
+    .code-block code { font-family: var(--font-mono); font-size: 14px; line-height: 1.6; color: var(--text-secondary); }
+
+    /* Architecture */
+    .architecture-diagram { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-xl); padding: 40px; margin: 40px 0; text-align: center; }
+    .architecture-diagram__title { font-size: 14px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-muted); margin-bottom: 32px; }
+    .table-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; max-width: 500px; margin: 0 auto; }
+    @media (max-width: 500px) { .table-grid { grid-template-columns: 1fr; } }
+    .table-node { background: var(--bg-secondary); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 20px; text-align: center; }
+    .table-node--accent { border-color: var(--accent); background: var(--accent-subtle); }
+    .table-node__icon { font-size: 24px; margin-bottom: 8px; }
+    .table-node__label { font-size: 14px; font-weight: 600; color: var(--text-primary); margin-bottom: 4px; }
+    .table-node__desc { font-size: 12px; color: var(--text-muted); }
+
+    /* CTA */
+    .article-cta { background: linear-gradient(135deg, var(--bg-card) 0%, rgba(16, 185, 129, 0.02) 100%); border: 1px solid var(--border); border-radius: var(--radius-xl); padding: 48px; text-align: center; margin: 60px 0; position: relative; overflow: hidden; }
+    .article-cta::before { content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 400px; height: 200px; background: radial-gradient(ellipse, rgba(16, 185, 129, 0.15), transparent); pointer-events: none; }
+    .article-cta__title { font-size: 28px; font-weight: 800; margin-bottom: 12px; position: relative; }
+    .article-cta__text { font-size: 16px; color: var(--text-secondary); margin-bottom: 28px; position: relative; }
+    .article-cta__btn { display: inline-flex; align-items: center; gap: 10px; padding: 16px 32px; background: var(--gradient-accent); color: var(--bg-primary); font-size: 15px; font-weight: 600; border-radius: var(--radius-md); box-shadow: 0 4px 20px rgba(16, 185, 129, 0.3); position: relative; }
+    .article-cta__btn:hover { transform: translateY(-2px); color: var(--bg-primary); }
+
+    /* Author Bio */
+    .author-bio { display: flex; gap: 24px; padding: 32px; background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-xl); margin-top: 60px; }
+    @media (max-width: 560px) { .author-bio { flex-direction: column; text-align: center; } }
+    .author-bio__avatar { width: 80px; height: 80px; border-radius: var(--radius-lg); background: var(--accent-subtle); border: 2px solid var(--accent); display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 28px; color: var(--accent); flex-shrink: 0; }
+    .author-bio__content { flex: 1; }
+    .author-bio__name { font-size: 18px; font-weight: 700; margin-bottom: 4px; }
+    .author-bio__title { font-size: 14px; color: var(--accent); margin-bottom: 12px; }
+    .author-bio__text { font-size: 14px; color: var(--text-secondary); line-height: 1.6; margin-bottom: 16px; }
+    .author-bio__links { display: flex; gap: 16px; }
+    @media (max-width: 560px) { .author-bio__links { justify-content: center; } }
+    .author-bio__link { font-size: 13px; font-weight: 500; color: var(--text-muted); }
+    .author-bio__link:hover { color: var(--accent); }
+
+    /* Footer */
+    .footer { padding: 60px 0 32px; border-top: 1px solid var(--border); position: relative; z-index: 1; margin-top: 80px; }
+    .footer__inner { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 24px; max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+    .footer__copy { color: var(--text-muted); font-size: 14px; }
+    .footer__links { display: flex; gap: 24px; }
+    .footer__link { color: var(--text-secondary); font-size: 14px; font-weight: 500; }
+    .footer__link:hover { color: var(--accent); }
+  </style>
+</head>
+<body>
+  <div class="bg-grid"></div>
+  <div class="bg-gradient"></div>
+
+  <nav class="nav" id="nav">
+    <div class="nav__inner">
+      <a href="/" class="nav__logo">Resultant<span>AI</span></a>
+      <div class="nav__links">
+        <a href="/#services" class="nav__link">Services</a>
+        <a href="/#process" class="nav__link">Process</a>
+        <a href="/#work" class="nav__link">Work</a>
+        <a href="/#about" class="nav__link">About</a>
+        <a href="/blog" class="nav__link">Blog</a>
+        <a href="https://meetings.hubspot.com/chris4642/ai-gateway-founding-partner" class="nav__cta">Book a Call</a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="article-header">
+    <div class="container">
+      <nav class="article-header__breadcrumb">
+        <a href="/">Home</a><span>/</span><a href="/blog">Blog</a><span>/</span><span>Airtable Trucking</span>
+      </nav>
+      <span class="article-header__category">CRM / Operations</span>
+      <h1 class="article-header__title">The 4-Table Airtable Architecture That Runs a $2M Trucking Operation</h1>
+      <p class="article-header__excerpt">How we replaced a legacy TMS system with a simple Airtable setup. 4 tables, 3 automations, and complete visibility into loads, drivers, and dispatch.</p>
+      <div class="article-header__meta">
+        <div class="article-header__author">
+          <div class="article-header__author-avatar">CM</div>
+          <div>
+            <div class="article-header__author-name">Chris Mott</div>
+            <div class="article-header__author-title">Founder, ResultantAI</div>
+          </div>
+        </div>
+        <div class="article-header__info">
+          <span>Dec 22, 2025</span>
+          <span>•</span>
+          <span>10 min read</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="container container--wide">
+    <div class="article-hero-image">
+      <img src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=1200&h=600&fit=crop" alt="Trucking operations dashboard">
+    </div>
+  </div>
+
+  <article class="article-content">
+    <div class="container">
+      
+      <div class="tldr-box">
+        <div class="tldr-box__title">⚡ TL;DR</div>
+        <ul>
+          <li>Replaced a $50K/year TMS with a $50/month Airtable base</li>
+          <li>4 tables: Loads, Drivers, Trucks, Customers</li>
+          <li>3 automations: Load assignment, status updates, invoice generation</li>
+          <li>Built and deployed in 10 days</li>
+          <li>Now tracking $2M+ in annual freight</li>
+        </ul>
+      </div>
+
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-card__number">$2M+</div>
+          <div class="stat-card__label">Annual Freight Tracked</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card__number">4</div>
+          <div class="stat-card__label">Tables Total</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card__number">10</div>
+          <div class="stat-card__label">Days to Deploy</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card__number">99%</div>
+          <div class="stat-card__label">Cost Reduction</div>
+        </div>
+      </div>
+
+      <h2>The Problem: Enterprise TMS for a 12-Truck Operation</h2>
+      
+      <p>Beaver Pumice runs a specialized trucking operation — 12 trucks moving volcanic rock from quarries to construction sites across the Pacific Northwest. They were using a TMS (Transportation Management System) that was built for companies with 500+ trucks.</p>
+      
+      <p>The software cost $4,200/month. It required 3 days of training just to create a load. And half the features — cross-docking, intermodal routing, LTL consolidation — were completely irrelevant to their business.</p>
+      
+      <p><strong>What they actually needed:</strong></p>
+      <ul>
+        <li>Track which truck is carrying which load</li>
+        <li>Know where drivers are and when they'll arrive</li>
+        <li>Generate invoices when loads are delivered</li>
+        <li>See everything on one screen</li>
+      </ul>
+
+      <p>That's it. Four requirements. The $50K/year TMS was a sledgehammer for a finishing nail.</p>
+
+      <h2>The Solution: 4 Tables That Do Everything</h2>
+      
+      <p>We built the entire system in Airtable with just 4 linked tables. Here's the architecture:</p>
+
+      <div class="architecture-diagram">
+        <div class="architecture-diagram__title">Database Schema</div>
+        <div class="table-grid">
+          <div class="table-node table-node--accent">
+            <div class="table-node__icon">📦</div>
+            <div class="table-node__label">Loads</div>
+            <div class="table-node__desc">The core table</div>
+          </div>
+          <div class="table-node">
+            <div class="table-node__icon">👤</div>
+            <div class="table-node__label">Drivers</div>
+            <div class="table-node__desc">Who's driving</div>
+          </div>
+          <div class="table-node">
+            <div class="table-node__icon">🚛</div>
+            <div class="table-node__label">Trucks</div>
+            <div class="table-node__desc">Equipment tracking</div>
+          </div>
+          <div class="table-node">
+            <div class="table-node__icon">🏢</div>
+            <div class="table-node__label">Customers</div>
+            <div class="table-node__desc">Billing & contacts</div>
+          </div>
+        </div>
+      </div>
+
+      <h3>Table 1: Loads (The Heart of the System)</h3>
+      
+      <p>Every load gets a record. This is where all the action happens.</p>
+
+      <div class="table-block">
+        <div class="table-block__header">
+          <div class="table-block__title"><span>📦</span> Loads Table Fields</div>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>Field</th>
+              <th>Type</th>
+              <th>Purpose</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>Load ID</code></td>
+              <td>Auto-number</td>
+              <td>Unique identifier (BP-001, BP-002...)</td>
+            </tr>
+            <tr>
+              <td><code>Customer</code></td>
+              <td>Link to Customers</td>
+              <td>Who's paying for this load</td>
+            </tr>
+            <tr>
+              <td><code>Driver</code></td>
+              <td>Link to Drivers</td>
+              <td>Who's driving it</td>
+            </tr>
+            <tr>
+              <td><code>Truck</code></td>
+              <td>Link to Trucks</td>
+              <td>Which vehicle</td>
+            </tr>
+            <tr>
+              <td><code>Status</code></td>
+              <td>Single Select</td>
+              <td>Pending → Assigned → In Transit → Delivered → Invoiced</td>
+            </tr>
+            <tr>
+              <td><code>Pickup Location</code></td>
+              <td>Text</td>
+              <td>Quarry address</td>
+            </tr>
+            <tr>
+              <td><code>Delivery Location</code></td>
+              <td>Text</td>
+              <td>Construction site address</td>
+            </tr>
+            <tr>
+              <td><code>Pickup Time</code></td>
+              <td>Date/Time</td>
+              <td>When to load</td>
+            </tr>
+            <tr>
+              <td><code>Delivery Time</code></td>
+              <td>Date/Time</td>
+              <td>When delivered (actual)</td>
+            </tr>
+            <tr>
+              <td><code>Rate</code></td>
+              <td>Currency</td>
+              <td>What we charge</td>
+            </tr>
+            <tr>
+              <td><code>Weight (tons)</code></td>
+              <td>Number</td>
+              <td>Load weight</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Table 2: Drivers</h3>
+      
+      <p>Simple roster of who's available and their current status.</p>
+
+      <div class="table-block">
+        <div class="table-block__header">
+          <div class="table-block__title"><span>👤</span> Drivers Table Fields</div>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>Field</th>
+              <th>Type</th>
+              <th>Purpose</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>Name</code></td>
+              <td>Text</td>
+              <td>Driver's name</td>
+            </tr>
+            <tr>
+              <td><code>Phone</code></td>
+              <td>Phone</td>
+              <td>For dispatch contact</td>
+            </tr>
+            <tr>
+              <td><code>Status</code></td>
+              <td>Single Select</td>
+              <td>Available / On Load / Off Duty</td>
+            </tr>
+            <tr>
+              <td><code>Current Load</code></td>
+              <td>Link to Loads</td>
+              <td>What they're currently hauling</td>
+            </tr>
+            <tr>
+              <td><code>Loads (All)</code></td>
+              <td>Link to Loads</td>
+              <td>History of all loads</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Table 3: Trucks</h3>
+
+      <div class="table-block">
+        <div class="table-block__header">
+          <div class="table-block__title"><span>🚛</span> Trucks Table Fields</div>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>Field</th>
+              <th>Type</th>
+              <th>Purpose</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>Unit Number</code></td>
+              <td>Text</td>
+              <td>Truck identifier (T-01, T-02...)</td>
+            </tr>
+            <tr>
+              <td><code>Type</code></td>
+              <td>Single Select</td>
+              <td>Dump Truck / Flatbed / Tanker</td>
+            </tr>
+            <tr>
+              <td><code>Status</code></td>
+              <td>Single Select</td>
+              <td>Active / Maintenance / Out of Service</td>
+            </tr>
+            <tr>
+              <td><code>Current Load</code></td>
+              <td>Link to Loads</td>
+              <td>What it's carrying now</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Table 4: Customers</h3>
+
+      <div class="table-block">
+        <div class="table-block__header">
+          <div class="table-block__title"><span>🏢</span> Customers Table Fields</div>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>Field</th>
+              <th>Type</th>
+              <th>Purpose</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>Company Name</code></td>
+              <td>Text</td>
+              <td>Customer company</td>
+            </tr>
+            <tr>
+              <td><code>Contact Name</code></td>
+              <td>Text</td>
+              <td>Primary contact</td>
+            </tr>
+            <tr>
+              <td><code>Email</code></td>
+              <td>Email</td>
+              <td>For invoices</td>
+            </tr>
+            <tr>
+              <td><code>Default Rate</code></td>
+              <td>Currency</td>
+              <td>Standard per-load rate</td>
+            </tr>
+            <tr>
+              <td><code>Loads</code></td>
+              <td>Link to Loads</td>
+              <td>All loads for this customer</td>
+            </tr>
+            <tr>
+              <td><code>Total Revenue</code></td>
+              <td>Rollup</td>
+              <td>SUM of all load rates</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2>The 3 Automations That Make It Work</h2>
+      
+      <p>The tables are just data. The automations make it a system.</p>
+
+      <h3>Automation 1: Load Assignment Notification</h3>
+      
+      <p><strong>Trigger:</strong> When Load status changes to "Assigned"</p>
+      <p><strong>Action:</strong> Send SMS to Driver with pickup details</p>
+
+      <div class="code-block">
+        <div class="code-block__header">
+          <div class="code-block__dots">
+            <span class="code-block__dot code-block__dot--red"></span>
+            <span class="code-block__dot code-block__dot--yellow"></span>
+            <span class="code-block__dot code-block__dot--green"></span>
+          </div>
+          <span class="code-block__lang">SMS Template</span>
+        </div>
+        <pre><code>New Load Assigned: {Load ID}
+Pickup: {Pickup Location}
+Time: {Pickup Time}
+Customer: {Customer}
+Delivery: {Delivery Location}
+
+Reply CONFIRM when loaded.</code></pre>
+      </div>
+
+      <h3>Automation 2: Status Update Chain</h3>
+      
+      <p><strong>Trigger:</strong> When Load status changes to "Delivered"</p>
+      <p><strong>Actions:</strong></p>
+      <ul>
+        <li>Set Driver status to "Available"</li>
+        <li>Set Truck status to "Active" (not on a load)</li>
+        <li>Log delivery timestamp</li>
+        <li>Send delivery confirmation to Customer</li>
+      </ul>
+
+      <h3>Automation 3: Weekly Invoice Generation</h3>
+      
+      <p><strong>Trigger:</strong> Every Monday at 8am</p>
+      <p><strong>Action:</strong> For each Customer, generate PDF invoice of all "Delivered" loads from previous week, email to customer, mark loads as "Invoiced"</p>
+
+      <div class="callout">
+        <div class="callout__icon">💡 Why This Works</div>
+        <p>These 3 automations eliminate 90% of the dispatcher's busywork. No more texting drivers manually. No more forgetting to update truck status. No more spending Friday afternoons building invoices.</p>
+      </div>
+
+      <h2>The Dashboard View</h2>
+      
+      <p>The owner wanted to see everything on one screen. We built a Kanban view grouped by Load Status:</p>
+      
+      <ul>
+        <li><strong>Pending:</strong> Loads that need to be assigned</li>
+        <li><strong>Assigned:</strong> Loads with a driver, waiting for pickup</li>
+        <li><strong>In Transit:</strong> Currently moving</li>
+        <li><strong>Delivered:</strong> Waiting for invoicing</li>
+        <li><strong>Invoiced:</strong> Done, awaiting payment</li>
+      </ul>
+      
+      <p>Drag a card from "Pending" to "Assigned" → assign a driver → automation sends SMS. That's it.</p>
+
+      <h2>What We'd Build Next</h2>
+      
+      <p>After 6 months of running this system, here's what we'd add for a V2:</p>
+      
+      <ul>
+        <li><strong>GPS integration:</strong> Pull real-time truck locations into the Trucks table</li>
+        <li><strong>Driver mobile app:</strong> Let drivers update status from their phone instead of SMS</li>
+        <li><strong>Rate calculator:</strong> Auto-calculate rates based on distance + weight + fuel surcharge</li>
+        <li><strong>Maintenance tracking:</strong> Add service intervals and alerts to Trucks table</li>
+      </ul>
+      
+      <p>But here's the thing — the current 4-table system handles $2M in annual freight. Sometimes simple is enough.</p>
+
+      <h2>When NOT to Use This Approach</h2>
+      
+      <p>This architecture works for small-to-medium trucking operations. It probably doesn't work if:</p>
+      
+      <ul>
+        <li>You have 50+ trucks (need more robust scheduling)</li>
+        <li>You do LTL or intermodal (complex routing)</li>
+        <li>You need real-time ELD integration (compliance requirements)</li>
+        <li>You have multiple dispatchers working simultaneously (concurrency issues)</li>
+      </ul>
+      
+      <p>For those cases, you probably do need a real TMS. But for a 12-truck operation moving one type of freight? Airtable is plenty.</p>
+
+      <div class="article-cta">
+        <h2 class="article-cta__title">Running Operations on Spreadsheets?</h2>
+        <p class="article-cta__text">If your business runs on spreadsheets and manual processes, there's probably a simple Airtable architecture that could save you 10+ hours/week.</p>
+        <a href="https://meetings.hubspot.com/chris4642/ai-gateway-founding-partner" class="article-cta__btn">
+          Let's Talk Architecture →
+        </a>
+      </div>
+
+      <div class="author-bio">
+        <div class="author-bio__avatar">CM</div>
+        <div class="author-bio__content">
+          <div class="author-bio__name">Chris Mott</div>
+          <div class="author-bio__title">Founder, ResultantAI</div>
+          <p class="author-bio__text">Chris builds operational systems for service businesses. The Beaver Pumice project led to two referrals — TruckQuote.com ($15K) and a $110K TMS replacement project for a larger fleet.</p>
+          <div class="author-bio__links">
+            <a href="https://linkedin.com/in/chrismott1" class="author-bio__link">LinkedIn</a>
+            <a href="https://resultantai.com" class="author-bio__link">resultantai.com</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </article>
+
+  <footer class="footer">
+    <div class="footer__inner">
+      <div class="footer__copy">© 2025 ResultantAI</div>
+      <div class="footer__links">
+        <a href="https://linkedin.com/in/chrismott1" class="footer__link">LinkedIn</a>
+        <a href="mailto:chris@resultantai.com" class="footer__link">Email</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    window.addEventListener('scroll', () => {
+      document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 50);
+    });
+  </script>
+</body>
+</html>
