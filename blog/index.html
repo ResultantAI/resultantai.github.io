@@ -179,78 +179,97 @@
       margin: 0 auto;
     }
 
-    /* Results Banner */
-    .results-banner {
-      background: linear-gradient(135deg, var(--bg-card) 0%, rgba(16, 185, 129, 0.05) 100%);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-xl);
-      padding: 32px 40px;
-      margin: 40px 0 60px;
-      position: relative;
-      overflow: hidden;
+    /* Coming Soon Section */
+    .coming-soon {
+      margin-bottom: 60px;
     }
-    .results-banner::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%2310b981' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-      opacity: 0.5;
+    .coming-soon__header {
+      text-align: center;
+      margin-bottom: 32px;
     }
-    .results-banner__label {
+    .coming-soon__badge {
       display: inline-flex;
       align-items: center;
-      gap: 6px;
+      gap: 8px;
+      padding: 6px 14px;
+      background: rgba(245, 158, 11, 0.1);
+      border: 1px solid rgba(245, 158, 11, 0.2);
+      border-radius: var(--radius-full);
       font-size: 12px;
       font-weight: 600;
       text-transform: uppercase;
-      letter-spacing: 0.1em;
-      color: var(--accent);
-      margin-bottom: 20px;
-      position: relative;
+      letter-spacing: 0.05em;
+      color: #f59e0b;
+      margin-bottom: 16px;
     }
-    .results-banner__grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 32px;
-      position: relative;
-    }
-    .results-banner__stat {
-      text-align: center;
-      position: relative;
-    }
-    .results-banner__stat::after {
-      content: '';
-      position: absolute;
-      right: -16px;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 1px;
-      height: 60%;
-      background: var(--border);
-    }
-    .results-banner__stat:last-child::after { display: none; }
-    .results-banner__number {
-      font-size: 36px;
-      font-weight: 800;
+    .coming-soon__title {
+      font-size: 28px;
+      font-weight: 700;
       letter-spacing: -0.02em;
-      color: var(--text-primary);
-      line-height: 1;
       margin-bottom: 8px;
     }
-    .results-banner__number span { color: var(--accent); }
-    .results-banner__label-text {
-      font-size: 14px;
+    .coming-soon__subtitle {
+      font-size: 16px;
+      color: var(--text-secondary);
+    }
+    .coming-soon__grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+    .coming-soon__card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 28px;
+      position: relative;
+      overflow: hidden;
+      transition: all var(--transition);
+    }
+    .coming-soon__card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, rgba(245, 158, 11, 0.5), rgba(16, 185, 129, 0.5));
+      opacity: 0.5;
+    }
+    .coming-soon__card:hover {
+      border-color: var(--border-light);
+      transform: translateY(-4px);
+      box-shadow: 0 16px 48px rgba(0, 0, 0, 0.25);
+    }
+    .coming-soon__card-icon {
+      font-size: 32px;
+      margin-bottom: 16px;
+    }
+    .coming-soon__card-category {
+      display: inline-block;
+      padding: 4px 10px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: var(--radius-sm);
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
       color: var(--text-muted);
+      margin-bottom: 12px;
+    }
+    .coming-soon__card-title {
+      font-size: 17px;
+      font-weight: 600;
       line-height: 1.4;
+      letter-spacing: -0.01em;
+      margin-bottom: 10px;
+      color: var(--text-primary);
     }
-    @media (max-width: 800px) {
-      .results-banner__grid { grid-template-columns: repeat(2, 1fr); gap: 24px; }
-      .results-banner__stat:nth-child(2)::after { display: none; }
-      .results-banner__stat::after { height: 40%; }
+    .coming-soon__card-excerpt {
+      font-size: 14px;
+      color: var(--text-secondary);
+      line-height: 1.6;
     }
-    @media (max-width: 500px) {
-      .results-banner { padding: 24px; }
-      .results-banner__grid { grid-template-columns: 1fr 1fr; }
+    @media (max-width: 900px) {
+      .coming-soon__grid { grid-template-columns: 1fr; }
     }
 
     /* Featured Post */
@@ -1153,34 +1172,6 @@
     </header>
 
     <div class="container">
-      <!-- Results Banner -->
-      <section class="results-banner">
-        <div class="results-banner__label">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
-          </svg>
-          Aggregate Client Results
-        </div>
-        <div class="results-banner__grid">
-          <div class="results-banner__stat">
-            <div class="results-banner__number">$<span>382K</span></div>
-            <div class="results-banner__label-text">Revenue generated for clients</div>
-          </div>
-          <div class="results-banner__stat">
-            <div class="results-banner__number"><span>97</span>%</div>
-            <div class="results-banner__label-text">Time saved on manual tasks</div>
-          </div>
-          <div class="results-banner__stat">
-            <div class="results-banner__number"><span>5K</span>+</div>
-            <div class="results-banner__label-text">Calls handled by our AI systems</div>
-          </div>
-          <div class="results-banner__stat">
-            <div class="results-banner__number"><span>50</span>%</div>
-            <div class="results-banner__label-text">Average close rate improvement</div>
-          </div>
-        </div>
-      </section>
-
       <!-- Featured Post -->
       <section class="featured">
         <a href="/blog/ai-automation-rapport-pacing-leading/" class="featured__card">
@@ -1557,6 +1548,47 @@
         <h3 class="empty-state__title">No posts found</h3>
         <p class="empty-state__text">Try a different search term or filter.</p>
       </div>
+
+      <!-- Coming Soon -->
+      <section class="coming-soon">
+        <div class="coming-soon__header">
+          <div class="coming-soon__badge">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"></circle>
+              <polyline points="12 6 12 12 16 14"></polyline>
+            </svg>
+            Coming Soon
+          </div>
+          <h2 class="coming-soon__title">Up Next</h2>
+          <p class="coming-soon__subtitle">What we are working on. Want early access? Subscribe below.</p>
+        </div>
+        <div class="coming-soon__grid">
+          <div class="coming-soon__card">
+            <div class="coming-soon__card-icon">⏱️</div>
+            <div class="coming-soon__card-content">
+              <span class="coming-soon__card-category">Voice AI</span>
+              <h3 class="coming-soon__card-title">The 7-Second Rule: Why Your AI's First Response Determines Everything</h3>
+              <p class="coming-soon__card-excerpt">Research on first impressions, response time psychology, and how to optimize your AI's greeting for maximum conversion.</p>
+            </div>
+          </div>
+          <div class="coming-soon__card">
+            <div class="coming-soon__card-icon">💸</div>
+            <div class="coming-soon__card-content">
+              <span class="coming-soon__card-category">AI Gateway</span>
+              <h3 class="coming-soon__card-title">AI Cost Forecasting: Why 73% of Agencies Blow Their Token Budget</h3>
+              <p class="coming-soon__card-excerpt">The hidden patterns in AI API consumption and how to predict costs before they surprise you.</p>
+            </div>
+          </div>
+          <div class="coming-soon__card">
+            <div class="coming-soon__card-icon">💔</div>
+            <div class="coming-soon__card-content">
+              <span class="coming-soon__card-category">Sales</span>
+              <h3 class="coming-soon__card-title">The Breakup Email That Closes 25% of Dead Deals</h3>
+              <p class="coming-soon__card-excerpt">Psychology of scarcity and reactance. The exact email template that revives ghosted prospects.</p>
+            </div>
+          </div>
+        </div>
+      </section>
 
       <!-- Industries We Serve -->
       <section class="industries">
