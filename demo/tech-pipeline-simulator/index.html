@@ -1,0 +1,931 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tech Stack Pipeline Simulator | ResultantAI</title>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0a0a0f;
+            --bg-secondary: #12121a;
+            --bg-tertiary: #1a1a25;
+            --border: #2a2a3a;
+            --text-primary: #e8e8ed;
+            --text-secondary: #8888a0;
+            --text-muted: #55556a;
+            --accent-blue: #4a9eff;
+            --accent-green: #22c55e;
+            --accent-orange: #f59e0b;
+            --accent-red: #ef4444;
+            --accent-purple: #a855f7;
+            --accent-cyan: #06b6d4;
+            --glow-blue: rgba(74, 158, 255, 0.15);
+            --glow-green: rgba(34, 197, 94, 0.15);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .noise-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            opacity: 0.03;
+            z-index: 1000;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 40px 24px;
+        }
+
+        /* Header */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 48px;
+            padding-bottom: 32px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .header-left h1 {
+            font-size: 28px;
+            font-weight: 600;
+            letter-spacing: -0.5px;
+            margin-bottom: 8px;
+        }
+
+        .header-left p {
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+
+        .status-badge {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            padding: 10px 16px;
+            border-radius: 8px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 12px;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--accent-green);
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.4); }
+            50% { opacity: 0.8; box-shadow: 0 0 0 8px rgba(34, 197, 94, 0); }
+        }
+
+        /* Pipeline Container */
+        .pipeline-wrapper {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 40px;
+            margin-bottom: 32px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .pipeline-wrapper::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--accent-blue), transparent);
+            opacity: 0.5;
+        }
+
+        .pipeline-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+        }
+
+        .pipeline-title {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--text-muted);
+        }
+
+        .controls {
+            display: flex;
+            gap: 12px;
+        }
+
+        .btn {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 12px;
+            padding: 10px 20px;
+            border-radius: 6px;
+            border: 1px solid var(--border);
+            background: var(--bg-tertiary);
+            color: var(--text-primary);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .btn:hover {
+            border-color: var(--accent-blue);
+            background: var(--glow-blue);
+        }
+
+        .btn-primary {
+            background: var(--accent-blue);
+            border-color: var(--accent-blue);
+            color: #000;
+            font-weight: 600;
+        }
+
+        .btn-primary:hover {
+            background: #5aabff;
+            border-color: #5aabff;
+        }
+
+        /* Pipeline Nodes */
+        .pipeline-flow {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+            overflow-x: auto;
+            padding: 20px 0;
+        }
+
+        .node {
+            flex-shrink: 0;
+            width: 140px;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px 16px;
+            text-align: center;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .node.active {
+            border-color: var(--accent-blue);
+            box-shadow: 0 0 30px var(--glow-blue);
+        }
+
+        .node.success {
+            border-color: var(--accent-green);
+            box-shadow: 0 0 30px var(--glow-green);
+        }
+
+        .node.error {
+            border-color: var(--accent-red);
+            box-shadow: 0 0 30px rgba(239, 68, 68, 0.15);
+        }
+
+        .node-icon {
+            width: 48px;
+            height: 48px;
+            margin: 0 auto 12px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            font-weight: 700;
+        }
+
+        .node[data-tool="clay"] .node-icon { background: linear-gradient(135deg, #6366f1, #8b5cf6); }
+        .node[data-tool="trigify"] .node-icon { background: linear-gradient(135deg, #f59e0b, #f97316); }
+        .node[data-tool="instantly"] .node-icon { background: linear-gradient(135deg, #3b82f6, #1d4ed8); }
+        .node[data-tool="valley"] .node-icon { background: linear-gradient(135deg, #22c55e, #16a34a); }
+        .node[data-tool="sparktoro"] .node-icon { background: linear-gradient(135deg, #ec4899, #be185d); }
+        .node[data-tool="hubspot"] .node-icon { background: linear-gradient(135deg, #f97316, #ea580c); }
+        .node[data-tool="sprout"] .node-icon { background: linear-gradient(135deg, #10b981, #059669); }
+        .node[data-tool="manychat"] .node-icon { background: linear-gradient(135deg, #0ea5e9, #0284c7); }
+
+        .node-name {
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .node-status {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 10px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .node.active .node-status { color: var(--accent-blue); }
+        .node.success .node-status { color: var(--accent-green); }
+        .node.error .node-status { color: var(--accent-red); }
+
+        /* Connectors */
+        .connector {
+            flex-shrink: 0;
+            width: 40px;
+            height: 2px;
+            background: var(--border);
+            position: relative;
+        }
+
+        .connector::after {
+            content: '';
+            position: absolute;
+            right: -4px;
+            top: -3px;
+            border: 4px solid transparent;
+            border-left-color: var(--border);
+        }
+
+        .connector.active {
+            background: var(--accent-blue);
+        }
+
+        .connector.active::after {
+            border-left-color: var(--accent-blue);
+        }
+
+        .connector.success {
+            background: var(--accent-green);
+        }
+
+        .connector.success::after {
+            border-left-color: var(--accent-green);
+        }
+
+        .data-packet {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: var(--accent-blue);
+            border-radius: 50%;
+            top: -3px;
+            left: 0;
+            box-shadow: 0 0 10px var(--accent-blue);
+            animation: movePacket 0.6s ease-in-out forwards;
+        }
+
+        @keyframes movePacket {
+            0% { left: 0; opacity: 1; }
+            100% { left: 100%; opacity: 1; }
+        }
+
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin-bottom: 32px;
+        }
+
+        .stat-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 24px;
+        }
+
+        .stat-label {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+        }
+
+        .stat-value {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .stat-value.green { color: var(--accent-green); }
+        .stat-value.blue { color: var(--accent-blue); }
+        .stat-value.orange { color: var(--accent-orange); }
+        .stat-value.purple { color: var(--accent-purple); }
+
+        .stat-change {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        /* Activity Log */
+        .log-section {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 24px;
+        }
+
+        .log-panel {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .log-header {
+            padding: 16px 20px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .log-title {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--text-muted);
+        }
+
+        .log-body {
+            padding: 16px 20px;
+            max-height: 300px;
+            overflow-y: auto;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 12px;
+            line-height: 1.8;
+        }
+
+        .log-entry {
+            display: flex;
+            gap: 12px;
+            padding: 8px 0;
+            border-bottom: 1px solid var(--border);
+            opacity: 0;
+            animation: fadeIn 0.3s ease forwards;
+        }
+
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+
+        .log-time {
+            color: var(--text-muted);
+            flex-shrink: 0;
+        }
+
+        .log-message {
+            color: var(--text-secondary);
+        }
+
+        .log-message .highlight {
+            color: var(--accent-blue);
+        }
+
+        .log-message .success {
+            color: var(--accent-green);
+        }
+
+        .log-message .error {
+            color: var(--accent-red);
+        }
+
+        .log-message .warning {
+            color: var(--accent-orange);
+        }
+
+        /* Health Panel */
+        .health-list {
+            padding: 16px 20px;
+        }
+
+        .health-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .health-item:last-child {
+            border-bottom: none;
+        }
+
+        .health-name {
+            font-size: 13px;
+        }
+
+        .health-status {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11px;
+        }
+
+        .health-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+        }
+
+        .health-dot.green { background: var(--accent-green); }
+        .health-dot.orange { background: var(--accent-orange); }
+        .health-dot.red { background: var(--accent-red); }
+
+        /* Footer */
+        .footer {
+            margin-top: 48px;
+            padding-top: 32px;
+            border-top: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .footer-logo {
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 14px;
+        }
+
+        .footer-text {
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        .footer-cta {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .footer-cta a {
+            color: var(--accent-blue);
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.2s ease;
+        }
+
+        .footer-cta a:hover {
+            color: #5aabff;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .log-section {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                gap: 16px;
+            }
+            .pipeline-flow {
+                justify-content: flex-start;
+            }
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="noise-overlay"></div>
+    
+    <div class="container">
+        <header class="header">
+            <div class="header-left">
+                <h1>Tech Stack Pipeline Simulator</h1>
+                <p>Visualizing your integrated sales and marketing automation flow</p>
+            </div>
+            <div class="status-badge">
+                <span class="status-dot"></span>
+                <span>SYSTEM OPERATIONAL</span>
+            </div>
+        </header>
+
+        <div class="pipeline-wrapper">
+            <div class="pipeline-header">
+                <span class="pipeline-title">Data Flow Architecture</span>
+                <div class="controls">
+                    <button class="btn" onclick="simulateError()">Simulate Error</button>
+                    <button class="btn btn-primary" onclick="runSimulation()">Run Pipeline</button>
+                </div>
+            </div>
+
+            <div class="pipeline-flow" id="pipeline">
+                <div class="node" data-tool="clay" id="node-clay">
+                    <div class="node-icon">C</div>
+                    <div class="node-name">Clay</div>
+                    <div class="node-status">Ready</div>
+                </div>
+                <div class="connector" id="conn-1"></div>
+                <div class="node" data-tool="trigify" id="node-trigify">
+                    <div class="node-icon">T</div>
+                    <div class="node-name">Trigify</div>
+                    <div class="node-status">Ready</div>
+                </div>
+                <div class="connector" id="conn-2"></div>
+                <div class="node" data-tool="instantly" id="node-instantly">
+                    <div class="node-icon">I</div>
+                    <div class="node-name">Instantly</div>
+                    <div class="node-status">Ready</div>
+                </div>
+                <div class="connector" id="conn-3"></div>
+                <div class="node" data-tool="valley" id="node-valley">
+                    <div class="node-icon">V</div>
+                    <div class="node-name">Valley</div>
+                    <div class="node-status">Ready</div>
+                </div>
+                <div class="connector" id="conn-4"></div>
+                <div class="node" data-tool="hubspot" id="node-hubspot">
+                    <div class="node-icon">H</div>
+                    <div class="node-name">HubSpot</div>
+                    <div class="node-status">Ready</div>
+                </div>
+            </div>
+
+            <div style="margin-top: 24px; padding-top: 24px; border-top: 1px solid var(--border);">
+                <span class="pipeline-title" style="display: block; margin-bottom: 20px;">Secondary Integrations</span>
+                <div class="pipeline-flow">
+                    <div class="node" data-tool="sparktoro" id="node-sparktoro">
+                        <div class="node-icon">S</div>
+                        <div class="node-name">Sparktoro</div>
+                        <div class="node-status">Ready</div>
+                    </div>
+                    <div class="connector" id="conn-5"></div>
+                    <div class="node" data-tool="sprout" id="node-sprout">
+                        <div class="node-icon">SS</div>
+                        <div class="node-name">Sprout Social</div>
+                        <div class="node-status">Ready</div>
+                    </div>
+                    <div class="connector" id="conn-6"></div>
+                    <div class="node" data-tool="manychat" id="node-manychat">
+                        <div class="node-icon">M</div>
+                        <div class="node-name">ManyChat</div>
+                        <div class="node-status">Ready</div>
+                    </div>
+                    <div class="connector" id="conn-7"></div>
+                    <div class="node" data-tool="hubspot" id="node-hubspot-2">
+                        <div class="node-icon">H</div>
+                        <div class="node-name">HubSpot</div>
+                        <div class="node-status">Ready</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-label">Records Processed</div>
+                <div class="stat-value green" id="stat-records">0</div>
+                <div class="stat-change">Last 24 hours</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Enrichment Rate</div>
+                <div class="stat-value blue" id="stat-enrichment">0%</div>
+                <div class="stat-change">Clay waterfall coverage</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Sync Latency</div>
+                <div class="stat-value orange" id="stat-latency">0ms</div>
+                <div class="stat-change">Avg response time</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Error Rate</div>
+                <div class="stat-value purple" id="stat-errors">0%</div>
+                <div class="stat-change">Last 7 days</div>
+            </div>
+        </div>
+
+        <div class="log-section">
+            <div class="log-panel">
+                <div class="log-header">
+                    <span class="log-title">Activity Log</span>
+                    <button class="btn" onclick="clearLog()">Clear</button>
+                </div>
+                <div class="log-body" id="log-body">
+                    <div class="log-entry">
+                        <span class="log-time">--:--:--</span>
+                        <span class="log-message">Waiting for pipeline execution...</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="log-panel">
+                <div class="log-header">
+                    <span class="log-title">System Health</span>
+                </div>
+                <div class="health-list">
+                    <div class="health-item">
+                        <span class="health-name">Clay API</span>
+                        <span class="health-status">
+                            <span class="health-dot green"></span>
+                            Operational
+                        </span>
+                    </div>
+                    <div class="health-item">
+                        <span class="health-name">Instantly Sync</span>
+                        <span class="health-status">
+                            <span class="health-dot green"></span>
+                            Operational
+                        </span>
+                    </div>
+                    <div class="health-item">
+                        <span class="health-name">HubSpot CRM</span>
+                        <span class="health-status">
+                            <span class="health-dot green"></span>
+                            Operational
+                        </span>
+                    </div>
+                    <div class="health-item">
+                        <span class="health-name">Make.com Webhooks</span>
+                        <span class="health-status">
+                            <span class="health-dot green"></span>
+                            Operational
+                        </span>
+                    </div>
+                    <div class="health-item">
+                        <span class="health-name">ManyChat Bot</span>
+                        <span class="health-status">
+                            <span class="health-dot green"></span>
+                            Operational
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer class="footer">
+            <div class="footer-brand">
+                <div class="footer-logo">R</div>
+                <span class="footer-text">Built by ResultantAI</span>
+            </div>
+            <div class="footer-cta">
+                <a href="https://meetings.hubspot.com/chris4642" target="_blank">Schedule a Call</a>
+                <a href="mailto:chris@resultantai.com">chris@resultantai.com</a>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        let isRunning = false;
+        let logIndex = 0;
+
+        const nodes = {
+            primary: ['node-clay', 'node-trigify', 'node-instantly', 'node-valley', 'node-hubspot'],
+            secondary: ['node-sparktoro', 'node-sprout', 'node-manychat', 'node-hubspot-2']
+        };
+
+        const connectors = {
+            primary: ['conn-1', 'conn-2', 'conn-3', 'conn-4'],
+            secondary: ['conn-5', 'conn-6', 'conn-7']
+        };
+
+        const logMessages = [
+            { msg: 'Initializing Clay enrichment engine...', type: 'highlight' },
+            { msg: 'Pulling 247 contacts from filtered HubSpot list', type: 'normal' },
+            { msg: 'Waterfall enrichment started (LinkedIn > Clearbit > Dropcontact)', type: 'normal' },
+            { msg: 'Clay enrichment complete: <span class="success">94.3% coverage</span>', type: 'success' },
+            { msg: 'Trigify signal detection activated', type: 'highlight' },
+            { msg: 'Detected 12 job change signals, 8 funding events', type: 'normal' },
+            { msg: 'Routing enriched contacts to Instantly sequences', type: 'normal' },
+            { msg: 'Instantly campaign "Q1_Outbound" receiving 247 contacts', type: 'normal' },
+            { msg: 'Valley AI SDR reviewing high-intent signals', type: 'highlight' },
+            { msg: 'AI personalization layer applied to 89 priority contacts', type: 'normal' },
+            { msg: 'Pushing enriched records to HubSpot CRM', type: 'normal' },
+            { msg: 'HubSpot sync complete: <span class="success">247 contacts updated</span>', type: 'success' },
+            { msg: '"Ignore blank values" toggle preserved 1,247 existing fields', type: 'normal' },
+            { msg: 'Campaign attribution tag applied: <span class="highlight">clay_q1_2026</span>', type: 'normal' },
+            { msg: 'Sparktoro audience data pull initiated', type: 'highlight' },
+            { msg: 'Identified 34 relevant podcasts, 12 newsletters for targeting', type: 'normal' },
+            { msg: 'Sprout Social scheduling 15 posts based on audience insights', type: 'normal' },
+            { msg: 'ManyChat flows updated with new lead qualification logic', type: 'normal' },
+            { msg: 'All systems synced to HubSpot <span class="success">✓</span>', type: 'success' },
+            { msg: 'Pipeline execution complete. Total time: <span class="success">2.4 seconds</span>', type: 'success' }
+        ];
+
+        function getTime() {
+            const now = new Date();
+            return now.toTimeString().split(' ')[0];
+        }
+
+        function addLog(message) {
+            const logBody = document.getElementById('log-body');
+            const entry = document.createElement('div');
+            entry.className = 'log-entry';
+            entry.innerHTML = `
+                <span class="log-time">${getTime()}</span>
+                <span class="log-message">${message}</span>
+            `;
+            logBody.appendChild(entry);
+            logBody.scrollTop = logBody.scrollHeight;
+        }
+
+        function clearLog() {
+            const logBody = document.getElementById('log-body');
+            logBody.innerHTML = `
+                <div class="log-entry">
+                    <span class="log-time">${getTime()}</span>
+                    <span class="log-message">Log cleared. Waiting for pipeline execution...</span>
+                </div>
+            `;
+        }
+
+        function resetNodes() {
+            document.querySelectorAll('.node').forEach(node => {
+                node.classList.remove('active', 'success', 'error');
+                node.querySelector('.node-status').textContent = 'Ready';
+            });
+            document.querySelectorAll('.connector').forEach(conn => {
+                conn.classList.remove('active', 'success');
+                conn.innerHTML = '';
+            });
+        }
+
+        function animateNode(nodeId, state, status) {
+            const node = document.getElementById(nodeId);
+            node.classList.remove('active', 'success', 'error');
+            node.classList.add(state);
+            node.querySelector('.node-status').textContent = status;
+        }
+
+        function animateConnector(connId) {
+            const conn = document.getElementById(connId);
+            conn.classList.add('active');
+            const packet = document.createElement('div');
+            packet.className = 'data-packet';
+            conn.appendChild(packet);
+            setTimeout(() => {
+                packet.remove();
+                conn.classList.remove('active');
+                conn.classList.add('success');
+            }, 600);
+        }
+
+        function updateStats(records, enrichment, latency, errors) {
+            document.getElementById('stat-records').textContent = records.toLocaleString();
+            document.getElementById('stat-enrichment').textContent = enrichment + '%';
+            document.getElementById('stat-latency').textContent = latency + 'ms';
+            document.getElementById('stat-errors').textContent = errors + '%';
+        }
+
+        async function runSimulation() {
+            if (isRunning) return;
+            isRunning = true;
+            
+            resetNodes();
+            clearLog();
+            updateStats(0, 0, 0, 0);
+
+            // Primary flow
+            for (let i = 0; i < nodes.primary.length; i++) {
+                animateNode(nodes.primary[i], 'active', 'Processing');
+                
+                // Add relevant log messages
+                if (i < 4) {
+                    await delay(200);
+                    addLog(logMessages[i * 3].msg);
+                    await delay(300);
+                    if (logMessages[i * 3 + 1]) addLog(logMessages[i * 3 + 1].msg);
+                    await delay(300);
+                    if (logMessages[i * 3 + 2]) addLog(logMessages[i * 3 + 2].msg);
+                }
+
+                await delay(400);
+                animateNode(nodes.primary[i], 'success', 'Complete');
+                
+                if (i < connectors.primary.length) {
+                    animateConnector(connectors.primary[i]);
+                    await delay(700);
+                }
+
+                // Update stats progressively
+                updateStats(
+                    Math.floor(247 * ((i + 1) / nodes.primary.length)),
+                    Math.floor(94.3 * ((i + 1) / nodes.primary.length)),
+                    Math.floor(127 + Math.random() * 50),
+                    0.2
+                );
+            }
+
+            addLog(logMessages[12].msg);
+            addLog(logMessages[13].msg);
+            await delay(500);
+
+            // Secondary flow
+            for (let i = 0; i < nodes.secondary.length; i++) {
+                animateNode(nodes.secondary[i], 'active', 'Processing');
+                await delay(200);
+                addLog(logMessages[14 + i].msg);
+                await delay(400);
+                animateNode(nodes.secondary[i], 'success', 'Complete');
+                
+                if (i < connectors.secondary.length) {
+                    animateConnector(connectors.secondary[i]);
+                    await delay(500);
+                }
+            }
+
+            addLog(logMessages[18].msg);
+            await delay(300);
+            addLog(logMessages[19].msg);
+
+            updateStats(247, 94.3, 127, 0.2);
+            isRunning = false;
+        }
+
+        async function simulateError() {
+            if (isRunning) return;
+            isRunning = true;
+            
+            resetNodes();
+            clearLog();
+            updateStats(0, 0, 0, 0);
+
+            // Run until error
+            animateNode('node-clay', 'active', 'Processing');
+            addLog('Initializing Clay enrichment engine...');
+            await delay(500);
+            animateNode('node-clay', 'success', 'Complete');
+            animateConnector('conn-1');
+            await delay(700);
+
+            animateNode('node-trigify', 'active', 'Processing');
+            addLog('Trigify signal detection activated');
+            await delay(500);
+            animateNode('node-trigify', 'success', 'Complete');
+            animateConnector('conn-2');
+            await delay(700);
+
+            animateNode('node-instantly', 'active', 'Processing');
+            addLog('Connecting to Instantly API...');
+            await delay(800);
+            
+            // Error state
+            animateNode('node-instantly', 'error', 'Error');
+            addLog('<span class="error">ERROR: Instantly API rate limit exceeded (429)</span>');
+            await delay(300);
+            addLog('<span class="warning">Initiating retry with exponential backoff...</span>');
+            await delay(500);
+            addLog('Retry 1/3: Waiting 2 seconds...');
+            await delay(800);
+            addLog('<span class="success">Connection restored. Resuming pipeline.</span>');
+            
+            animateNode('node-instantly', 'success', 'Complete');
+            updateStats(89, 94.3, 2340, 1.2);
+            
+            isRunning = false;
+        }
+
+        function delay(ms) {
+            return new Promise(resolve => setTimeout(resolve, ms));
+        }
+
+        // Auto-run on load
+        setTimeout(() => {
+            runSimulation();
+        }, 1000);
+    </script>
+</body>
+</html>
