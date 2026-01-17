@@ -1,0 +1,1103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signal-Led Lead Machine | Pipeline Simulator</title>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #0a0a0f;
+            --bg-card: #12121a;
+            --bg-elevated: #1a1a24;
+            --border: #2a2a3a;
+            --text-primary: #f0f0f5;
+            --text-secondary: #8888a0;
+            --text-muted: #55556a;
+            --accent-blue: #3b82f6;
+            --accent-purple: #8b5cf6;
+            --accent-green: #22c55e;
+            --accent-orange: #f97316;
+            --accent-pink: #ec4899;
+            --gradient-1: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+            --gradient-2: linear-gradient(135deg, #22c55e 0%, #3b82f6 100%);
+            --glow-blue: 0 0 30px rgba(59, 130, 246, 0.3);
+            --glow-green: 0 0 30px rgba(34, 197, 94, 0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-primary);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .noise-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            opacity: 0.03;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+            z-index: 1000;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 40px 24px;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            background: var(--bg-elevated);
+            border: 1px solid var(--border);
+            border-radius: 100px;
+            font-size: 12px;
+            font-weight: 500;
+            color: var(--accent-blue);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 24px;
+        }
+
+        .badge::before {
+            content: '';
+            width: 8px;
+            height: 8px;
+            background: var(--accent-green);
+            border-radius: 50%;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(0.8); }
+        }
+
+        .header h1 {
+            font-size: clamp(32px, 5vw, 48px);
+            font-weight: 700;
+            margin-bottom: 16px;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .header p {
+            font-size: 18px;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        /* Pipeline Section */
+        .pipeline-section {
+            margin-bottom: 60px;
+        }
+
+        .section-label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+        }
+
+        .pipeline-container {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 40px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .pipeline-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--accent-blue), transparent);
+        }
+
+        .pipeline-stages {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 12px;
+            position: relative;
+        }
+
+        /* Connection Lines */
+        .connection-line {
+            position: absolute;
+            top: 45px;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--bg-elevated);
+            border-radius: 2px;
+            z-index: 0;
+        }
+
+        .connection-progress {
+            height: 100%;
+            width: 0%;
+            background: var(--gradient-1);
+            border-radius: 2px;
+            transition: width 0.8s ease-out;
+            box-shadow: var(--glow-blue);
+        }
+
+        /* Pipeline Stage */
+        .pipeline-stage {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+            opacity: 0.4;
+            transform: translateY(10px);
+            transition: all 0.5s ease;
+        }
+
+        .pipeline-stage.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .stage-icon {
+            width: 90px;
+            height: 90px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--bg-dark);
+            border: 2px solid var(--border);
+            border-radius: 20px;
+            margin-bottom: 16px;
+            position: relative;
+            transition: all 0.4s ease;
+        }
+
+        .pipeline-stage.active .stage-icon {
+            border-color: var(--accent-blue);
+            box-shadow: var(--glow-blue);
+        }
+
+        .pipeline-stage.complete .stage-icon {
+            border-color: var(--accent-green);
+            box-shadow: var(--glow-green);
+        }
+
+        .stage-icon svg {
+            width: 36px;
+            height: 36px;
+            stroke: var(--text-secondary);
+            transition: stroke 0.4s ease;
+        }
+
+        .pipeline-stage.active .stage-icon svg {
+            stroke: var(--accent-blue);
+        }
+
+        .pipeline-stage.complete .stage-icon svg {
+            stroke: var(--accent-green);
+        }
+
+        .stage-number {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            width: 24px;
+            height: 24px;
+            background: var(--bg-elevated);
+            border: 1px solid var(--border);
+            border-radius: 50%;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-muted);
+            transition: all 0.4s ease;
+        }
+
+        .pipeline-stage.active .stage-number,
+        .pipeline-stage.complete .stage-number {
+            background: var(--accent-blue);
+            border-color: var(--accent-blue);
+            color: white;
+        }
+
+        .pipeline-stage.complete .stage-number {
+            background: var(--accent-green);
+            border-color: var(--accent-green);
+        }
+
+        .stage-name {
+            font-weight: 600;
+            font-size: 14px;
+            margin-bottom: 4px;
+            color: var(--text-primary);
+        }
+
+        .stage-tool {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11px;
+            color: var(--text-muted);
+            padding: 4px 10px;
+            background: var(--bg-elevated);
+            border-radius: 4px;
+        }
+
+        /* Data Packet Animation */
+        .data-packet {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            background: var(--accent-blue);
+            border-radius: 50%;
+            top: 41px;
+            left: 45px;
+            opacity: 0;
+            box-shadow: 0 0 20px var(--accent-blue);
+            z-index: 2;
+        }
+
+        .data-packet.moving {
+            animation: movePacket 4s ease-in-out forwards;
+        }
+
+        @keyframes movePacket {
+            0% { left: 10%; opacity: 1; }
+            20% { left: 28%; }
+            40% { left: 48%; }
+            60% { left: 68%; }
+            80% { left: 88%; }
+            100% { left: 88%; opacity: 0; }
+        }
+
+        /* Output Preview Section */
+        .output-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            margin-bottom: 40px;
+        }
+
+        @media (max-width: 900px) {
+            .output-section {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .output-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.6s ease;
+        }
+
+        .output-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .output-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 16px 20px;
+            background: var(--bg-elevated);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .output-icon {
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+        }
+
+        .output-icon.slack {
+            background: linear-gradient(135deg, #4A154B 0%, #611f69 100%);
+        }
+
+        .output-icon.email {
+            background: var(--gradient-1);
+        }
+
+        .output-icon svg {
+            width: 20px;
+            height: 20px;
+            stroke: white;
+            fill: none;
+        }
+
+        .output-title {
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .output-subtitle {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .output-body {
+            padding: 20px;
+        }
+
+        /* Slack Notification */
+        .slack-message {
+            display: flex;
+            gap: 12px;
+        }
+
+        .slack-avatar {
+            width: 36px;
+            height: 36px;
+            background: var(--gradient-2);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 14px;
+            flex-shrink: 0;
+        }
+
+        .slack-content {
+            flex: 1;
+        }
+
+        .slack-meta {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 6px;
+        }
+
+        .slack-sender {
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .slack-badge {
+            font-size: 10px;
+            padding: 2px 6px;
+            background: var(--accent-green);
+            color: white;
+            border-radius: 4px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .slack-time {
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+
+        .slack-text {
+            font-size: 14px;
+            line-height: 1.6;
+            color: var(--text-secondary);
+        }
+
+        .slack-text strong {
+            color: var(--text-primary);
+        }
+
+        .slack-attachment {
+            margin-top: 12px;
+            padding: 12px;
+            background: var(--bg-elevated);
+            border-left: 3px solid var(--accent-green);
+            border-radius: 0 8px 8px 0;
+        }
+
+        .attachment-company {
+            font-weight: 600;
+            font-size: 14px;
+            color: var(--accent-blue);
+            margin-bottom: 8px;
+        }
+
+        .attachment-details {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+        }
+
+        .attachment-item {
+            font-size: 12px;
+        }
+
+        .attachment-label {
+            color: var(--text-muted);
+        }
+
+        .attachment-value {
+            color: var(--text-primary);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        /* Email Preview */
+        .email-preview {
+            font-size: 14px;
+        }
+
+        .email-field {
+            display: flex;
+            padding: 8px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .email-field:last-of-type {
+            border-bottom: none;
+            margin-bottom: 16px;
+        }
+
+        .email-label {
+            width: 70px;
+            color: var(--text-muted);
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .email-value {
+            flex: 1;
+            color: var(--text-primary);
+        }
+
+        .email-body {
+            padding-top: 16px;
+            border-top: 1px solid var(--border);
+            line-height: 1.7;
+            color: var(--text-secondary);
+        }
+
+        .email-body p {
+            margin-bottom: 12px;
+        }
+
+        .personalized {
+            background: linear-gradient(90deg, rgba(59, 130, 246, 0.2), rgba(139, 92, 246, 0.2));
+            padding: 2px 6px;
+            border-radius: 4px;
+            color: var(--accent-blue);
+            font-weight: 500;
+        }
+
+        .email-signature {
+            margin-top: 16px;
+            padding-top: 16px;
+            border-top: 1px dashed var(--border);
+            color: var(--text-muted);
+            font-size: 13px;
+        }
+
+        /* Controls */
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            margin-top: 40px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 14px 28px;
+            font-family: 'Outfit', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background: var(--gradient-1);
+            color: white;
+            box-shadow: 0 4px 20px rgba(59, 130, 246, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(59, 130, 246, 0.4);
+        }
+
+        .btn-secondary {
+            background: var(--bg-elevated);
+            color: var(--text-primary);
+            border: 1px solid var(--border);
+        }
+
+        .btn-secondary:hover {
+            background: var(--bg-card);
+            border-color: var(--accent-blue);
+        }
+
+        .btn svg {
+            width: 18px;
+            height: 18px;
+            stroke: currentColor;
+        }
+
+        /* Lead Card */
+        .lead-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 40px;
+            opacity: 0;
+            transform: scale(0.95);
+            transition: all 0.5s ease;
+        }
+
+        .lead-card.visible {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .lead-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 20px;
+        }
+
+        .lead-info {
+            display: flex;
+            gap: 16px;
+            align-items: center;
+        }
+
+        .lead-avatar {
+            width: 56px;
+            height: 56px;
+            background: var(--gradient-1);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 20px;
+        }
+
+        .lead-name {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .lead-title {
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        .lead-company {
+            font-size: 13px;
+            color: var(--accent-blue);
+            font-weight: 500;
+        }
+
+        .lead-score {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+        }
+
+        .score-label {
+            font-size: 11px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 4px;
+        }
+
+        .score-value {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--accent-green);
+        }
+
+        .lead-signals {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .signal-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 12px;
+            background: var(--bg-elevated);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .signal-tag.funding {
+            border-color: var(--accent-green);
+            color: var(--accent-green);
+        }
+
+        .signal-tag.hiring {
+            border-color: var(--accent-purple);
+            color: var(--accent-purple);
+        }
+
+        .signal-tag.expansion {
+            border-color: var(--accent-orange);
+            color: var(--accent-orange);
+        }
+
+        .signal-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: currentColor;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 40px 0;
+            border-top: 1px solid var(--border);
+            margin-top: 40px;
+        }
+
+        .footer-brand {
+            font-weight: 700;
+            font-size: 18px;
+            margin-bottom: 8px;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .footer-tagline {
+            font-size: 14px;
+            color: var(--text-muted);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .pipeline-stages {
+                flex-direction: column;
+                gap: 24px;
+            }
+
+            .connection-line {
+                display: none;
+            }
+
+            .pipeline-stage {
+                flex-direction: row;
+                text-align: left;
+                gap: 16px;
+            }
+
+            .stage-icon {
+                margin-bottom: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="noise-overlay"></div>
+
+    <div class="container">
+        <header class="header">
+            <div class="badge">Live Demo</div>
+            <h1>Signal-Led Lead Machine</h1>
+            <p>Watch how buying signals automatically trigger hyper-personalized outreach in real-time</p>
+        </header>
+
+        <!-- Detected Lead -->
+        <div class="section-label">Signal Detected</div>
+        <div class="lead-card" id="leadCard">
+            <div class="lead-header">
+                <div class="lead-info">
+                    <div class="lead-avatar">SM</div>
+                    <div>
+                        <div class="lead-name">Sarah Mitchell</div>
+                        <div class="lead-title">CEO &amp; Co-founder</div>
+                        <div class="lead-company">ScaleForce Technologies</div>
+                    </div>
+                </div>
+                <div class="lead-score">
+                    <div class="score-label">Lead Score</div>
+                    <div class="score-value">94</div>
+                </div>
+            </div>
+            <div class="lead-signals">
+                <span class="signal-tag funding">
+                    <span class="signal-dot"></span>
+                    Series B: $18M
+                </span>
+                <span class="signal-tag hiring">
+                    <span class="signal-dot"></span>
+                    +47% Headcount
+                </span>
+                <span class="signal-tag expansion">
+                    <span class="signal-dot"></span>
+                    Opening UK Office
+                </span>
+            </div>
+        </div>
+
+        <!-- Pipeline -->
+        <div class="pipeline-section">
+            <div class="section-label">Automation Pipeline</div>
+            <div class="pipeline-container">
+                <div class="connection-line">
+                    <div class="connection-progress" id="connectionProgress"></div>
+                </div>
+                <div class="data-packet" id="dataPacket"></div>
+
+                <div class="pipeline-stages">
+                    <div class="pipeline-stage" id="stage1">
+                        <div class="stage-icon">
+                            <span class="stage-number">1</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="11" cy="11" r="8"></circle>
+                                <path d="m21 21-4.35-4.35"></path>
+                                <path d="M11 8v6"></path>
+                                <path d="M8 11h6"></path>
+                            </svg>
+                        </div>
+                        <div class="stage-name">Signal Detection</div>
+                        <div class="stage-tool">Apollo + Crunchbase</div>
+                    </div>
+
+                    <div class="pipeline-stage" id="stage2">
+                        <div class="stage-icon">
+                            <span class="stage-number">2</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M12 3v18"></path>
+                                <rect x="4" y="8" width="6" height="8" rx="1"></rect>
+                                <rect x="14" y="4" width="6" height="16" rx="1"></rect>
+                            </svg>
+                        </div>
+                        <div class="stage-name">Waterfall Enrichment</div>
+                        <div class="stage-tool">Clay</div>
+                    </div>
+
+                    <div class="pipeline-stage" id="stage3">
+                        <div class="stage-icon">
+                            <span class="stage-number">3</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M12 8V4H8"></path>
+                                <rect x="2" y="12" width="8" height="8" rx="2"></rect>
+                                <path d="M14 12h8"></path>
+                                <path d="M18 8v8"></path>
+                            </svg>
+                        </div>
+                        <div class="stage-name">AI Personalization</div>
+                        <div class="stage-tool">Claygent</div>
+                    </div>
+
+                    <div class="pipeline-stage" id="stage4">
+                        <div class="stage-icon">
+                            <span class="stage-number">4</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="2" y="4" width="20" height="16" rx="2"></rect>
+                                <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
+                            </svg>
+                        </div>
+                        <div class="stage-name">Sequence Launch</div>
+                        <div class="stage-tool">Instantly</div>
+                    </div>
+
+                    <div class="pipeline-stage" id="stage5">
+                        <div class="stage-icon">
+                            <span class="stage-number">5</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"></path>
+                                <path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"></path>
+                            </svg>
+                        </div>
+                        <div class="stage-name">Alert &amp; Reply</div>
+                        <div class="stage-tool">Slack</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Output Previews -->
+        <div class="section-label">Generated Outputs</div>
+        <div class="output-section">
+            <!-- Email Preview -->
+            <div class="output-card" id="emailCard">
+                <div class="output-header">
+                    <div class="output-icon email">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="2" y="4" width="20" height="16" rx="2"></rect>
+                            <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
+                        </svg>
+                    </div>
+                    <div>
+                        <div class="output-title">Personalized Email</div>
+                        <div class="output-subtitle">Auto-generated by Claygent</div>
+                    </div>
+                </div>
+                <div class="output-body">
+                    <div class="email-preview">
+                        <div class="email-field">
+                            <span class="email-label">To:</span>
+                            <span class="email-value">sarah.mitchell@scaleforce.io</span>
+                        </div>
+                        <div class="email-field">
+                            <span class="email-label">Subject:</span>
+                            <span class="email-value">Quick question about your UK expansion</span>
+                        </div>
+                        <div class="email-body">
+                            <p>Hi Sarah,</p>
+                            <p>Congrats on the <span class="personalized">$18M Series B</span>. Noticed you're <span class="personalized">opening your UK office</span> while scaling the team <span class="personalized">47% this year</span>.</p>
+                            <p>Curious: are you planning to build a local UK recruiting function, or extend your US team to cover both markets?</p>
+                            <p>Either way, I've helped 3 SaaS companies at your stage avoid the classic mistake of hiring UK recruiters too early.</p>
+                            <p>Worth a quick chat?</p>
+                            <div class="email-signature">
+                                Jordan<br>
+                                Embedded Talent Partners
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slack Notification -->
+            <div class="output-card" id="slackCard">
+                <div class="output-header">
+                    <div class="output-icon slack">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="13" y="2" width="3" height="8" rx="1.5"></rect>
+                            <path d="M19 8.5V10h1.5A1.5 1.5 0 1 0 19 8.5"></path>
+                            <rect x="8" y="14" width="3" height="8" rx="1.5"></rect>
+                            <path d="M5 15.5V14H3.5A1.5 1.5 0 1 0 5 15.5"></path>
+                            <rect x="14" y="13" width="8" height="3" rx="1.5"></rect>
+                            <path d="M15.5 19H14v1.5a1.5 1.5 0 1 0 1.5-1.5"></path>
+                            <rect x="2" y="8" width="8" height="3" rx="1.5"></rect>
+                            <path d="M8.5 5H10V3.5A1.5 1.5 0 1 0 8.5 5"></path>
+                        </svg>
+                    </div>
+                    <div>
+                        <div class="output-title">#hot-leads</div>
+                        <div class="output-subtitle">Positive Reply Alert</div>
+                    </div>
+                </div>
+                <div class="output-body">
+                    <div class="slack-message">
+                        <div class="slack-avatar">LM</div>
+                        <div class="slack-content">
+                            <div class="slack-meta">
+                                <span class="slack-sender">Lead Machine</span>
+                                <span class="slack-badge">Positive Reply</span>
+                                <span class="slack-time">2 min ago</span>
+                            </div>
+                            <div class="slack-text">
+                                <strong>Sarah Mitchell</strong> from <strong>ScaleForce Technologies</strong> replied to your outreach:
+                            </div>
+                            <div class="slack-attachment">
+                                <div class="attachment-company">ScaleForce Technologies</div>
+                                <div class="attachment-details">
+                                    <div class="attachment-item">
+                                        <span class="attachment-label">Signal: </span>
+                                        <span class="attachment-value">Series B + UK Expansion</span>
+                                    </div>
+                                    <div class="attachment-item">
+                                        <span class="attachment-label">Score: </span>
+                                        <span class="attachment-value">94/100</span>
+                                    </div>
+                                    <div class="attachment-item">
+                                        <span class="attachment-label">Reply: </span>
+                                        <span class="attachment-value">"Yes, let's chat Thursday"</span>
+                                    </div>
+                                    <div class="attachment-item">
+                                        <span class="attachment-label">Action: </span>
+                                        <span class="attachment-value">Send calendar link</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Controls -->
+        <div class="controls">
+            <button class="btn btn-primary" id="runDemo">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                </svg>
+                Run Pipeline Demo
+            </button>
+            <button class="btn btn-secondary" id="resetDemo">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"></path>
+                    <path d="M21 3v5h-5"></path>
+                    <path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"></path>
+                    <path d="M8 16H3v5"></path>
+                </svg>
+                Reset
+            </button>
+        </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-brand">ResultantAI</div>
+            <div class="footer-tagline">AI Automation for Revenue Teams</div>
+        </footer>
+    </div>
+
+    <script>
+        const stages = [
+            document.getElementById('stage1'),
+            document.getElementById('stage2'),
+            document.getElementById('stage3'),
+            document.getElementById('stage4'),
+            document.getElementById('stage5')
+        ];
+        const connectionProgress = document.getElementById('connectionProgress');
+        const dataPacket = document.getElementById('dataPacket');
+        const leadCard = document.getElementById('leadCard');
+        const emailCard = document.getElementById('emailCard');
+        const slackCard = document.getElementById('slackCard');
+        const runBtn = document.getElementById('runDemo');
+        const resetBtn = document.getElementById('resetDemo');
+
+        let isRunning = false;
+
+        function resetDemo() {
+            stages.forEach(stage => {
+                stage.classList.remove('active', 'complete');
+            });
+            connectionProgress.style.width = '0%';
+            dataPacket.classList.remove('moving');
+            leadCard.classList.remove('visible');
+            emailCard.classList.remove('visible');
+            slackCard.classList.remove('visible');
+            isRunning = false;
+            runBtn.disabled = false;
+        }
+
+        async function runDemo() {
+            if (isRunning) return;
+            isRunning = true;
+            runBtn.disabled = true;
+
+            resetDemo();
+            isRunning = true;
+            runBtn.disabled = true;
+
+            await delay(300);
+
+            // Show lead card
+            leadCard.classList.add('visible');
+            await delay(800);
+
+            // Stage 1: Signal Detection
+            stages[0].classList.add('active');
+            connectionProgress.style.width = '10%';
+            dataPacket.classList.add('moving');
+            await delay(800);
+            stages[0].classList.remove('active');
+            stages[0].classList.add('complete');
+
+            // Stage 2: Enrichment
+            connectionProgress.style.width = '30%';
+            stages[1].classList.add('active');
+            await delay(800);
+            stages[1].classList.remove('active');
+            stages[1].classList.add('complete');
+
+            // Stage 3: AI Personalization
+            connectionProgress.style.width = '50%';
+            stages[2].classList.add('active');
+            await delay(800);
+            stages[2].classList.remove('active');
+            stages[2].classList.add('complete');
+
+            // Show email card
+            emailCard.classList.add('visible');
+
+            // Stage 4: Sequence Launch
+            connectionProgress.style.width = '70%';
+            stages[3].classList.add('active');
+            await delay(800);
+            stages[3].classList.remove('active');
+            stages[3].classList.add('complete');
+
+            // Stage 5: Alert
+            connectionProgress.style.width = '90%';
+            stages[4].classList.add('active');
+            await delay(600);
+            stages[4].classList.remove('active');
+            stages[4].classList.add('complete');
+            connectionProgress.style.width = '100%';
+
+            // Show slack card
+            await delay(400);
+            slackCard.classList.add('visible');
+
+            isRunning = false;
+            runBtn.disabled = false;
+        }
+
+        function delay(ms) {
+            return new Promise(resolve => setTimeout(resolve, ms));
+        }
+
+        runBtn.addEventListener('click', runDemo);
+        resetBtn.addEventListener('click', resetDemo);
+
+        // Auto-run on load after brief delay
+        setTimeout(runDemo, 1000);
+    </script>
+</body>
+</html>
