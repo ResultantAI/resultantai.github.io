@@ -8,8 +8,80 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script type="module" crossorigin src="/demo/propane-demo/assets/index-Gbv6ExOC.js"></script>
     <link rel="stylesheet" crossorigin href="/demo/propane-demo/assets/index-DQ3P1g1z.css">
+    <style>
+      .demo-cta-banner {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: linear-gradient(135deg, #0a0f1a 0%, #0f172a 100%);
+        border-top: 2px solid #10b981;
+        padding: 16px 20px;
+        z-index: 9999;
+        box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.3);
+        animation: slideUp 0.4s ease-out;
+      }
+      @keyframes slideUp {
+        from { transform: translateY(100%); }
+        to { transform: translateY(0); }
+      }
+      .demo-cta-content {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        flex-wrap: wrap;
+      }
+      .demo-cta-text {
+        color: #ffffff;
+        font-size: 16px;
+        font-weight: 600;
+      }
+      .demo-cta-text span {
+        color: #10b981;
+        font-weight: 700;
+      }
+      .demo-cta-btn {
+        background: #10b981;
+        color: #0a0f1a;
+        padding: 12px 28px;
+        border-radius: 8px;
+        font-weight: 700;
+        text-decoration: none;
+        transition: all 0.2s;
+        white-space: nowrap;
+      }
+      .demo-cta-btn:hover {
+        background: #059669;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+      }
+      @media (max-width: 640px) {
+        .demo-cta-content {
+          flex-direction: column;
+          text-align: center;
+        }
+        .demo-cta-text {
+          font-size: 14px;
+        }
+      }
+    </style>
   </head>
   <body>
     <div id="root"></div>
+
+    <!-- CTA Banner -->
+    <div class="demo-cta-banner">
+      <div class="demo-cta-content">
+        <div class="demo-cta-text">
+          Like what you see? <span>Get this system for your fleet in 2-3 weeks.</span>
+        </div>
+        <a href="/propane.html" class="demo-cta-btn">
+          See Pricing & Timeline →
+        </a>
+      </div>
+    </div>
   </body>
 </html>
