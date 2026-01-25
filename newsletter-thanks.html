@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Thanks for Subscribing | ResultantAI</title>
+  <meta name="description" content="You're subscribed to ResultantAI's automation insights. Check your email for confirmation.">
+  <meta property="og:title" content="Thanks for Subscribing | ResultantAI">
+  <meta property="og:description" content="You're subscribed to ResultantAI's automation insights.">
+  <meta property="og:type" content="website">
+  <meta name="robots" content="noindex, follow">
+  <link rel="canonical" href="https://resultantai.com/newsletter-thanks">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-primary: #0a0f1a;
+      --bg-secondary: #0f172a;
+      --bg-card: #151d2e;
+      --border: #1e293b;
+      --border-light: #2d3a4f;
+      --text-primary: #fff;
+      --text-secondary: #94a3b8;
+      --text-muted: #64748b;
+      --accent: #10b981;
+      --accent-light: #34d399;
+      --accent-subtle: rgba(16, 185, 129, 0.08);
+      --accent-glow: rgba(16, 185, 129, 0.15);
+      --gradient-accent: linear-gradient(135deg, #10b981 0%, #34d399 100%);
+      --gradient-hero: radial-gradient(ellipse 80% 50% at 50% -20%, rgba(16, 185, 129, 0.15), transparent);
+      --radius-md: 10px;
+      --radius-lg: 16px;
+      --radius-xl: 24px;
+      --radius-full: 9999px;
+      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      --transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+    body {
+      font-family: var(--font-sans);
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      line-height: 1.6;
+      font-size: 16px;
+      overflow-x: hidden;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    a { color: var(--accent); text-decoration: none; transition: color var(--transition); }
+    a:hover { color: var(--accent-light); }
+    ::selection { background: var(--accent); color: var(--bg-primary); }
+
+    /* Background Effects */
+    .bg-grid {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-image:
+        linear-gradient(rgba(16, 185, 129, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(16, 185, 129, 0.03) 1px, transparent 1px);
+      background-size: 60px 60px;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .bg-gradient {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: 100vh;
+      background: var(--gradient-hero);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Navigation */
+    .nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 1000;
+      padding: 20px 0;
+      background: rgba(10, 15, 26, 0.85);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav__inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+    .nav__logo {
+      font-size: 22px;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      color: var(--text-primary);
+    }
+    .nav__logo span { color: var(--accent); }
+    .nav__links { display: flex; align-items: center; gap: 8px; }
+    .nav__link {
+      color: var(--text-secondary);
+      font-size: 14px;
+      font-weight: 500;
+      padding: 8px 16px;
+      border-radius: var(--radius-md);
+      transition: all var(--transition);
+    }
+    .nav__link:hover { color: var(--text-primary); }
+    .nav__cta {
+      background: var(--gradient-accent);
+      color: var(--bg-primary);
+      padding: 10px 24px;
+      border-radius: var(--radius-md);
+      font-size: 14px;
+      font-weight: 600;
+      transition: all var(--transition);
+      box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+      margin-left: 16px;
+    }
+    .nav__cta:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(16, 185, 129, 0.4);
+      color: var(--bg-primary);
+    }
+    @media (max-width: 768px) { .nav__links { display: none; } }
+
+    /* Main Content */
+    main {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 120px 24px 60px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .container {
+      max-width: 700px;
+      width: 100%;
+      text-align: center;
+    }
+
+    /* Success Card */
+    .success-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-xl);
+      padding: 56px 48px;
+      position: relative;
+      overflow: hidden;
+      animation: slideUp 0.6s ease-out;
+    }
+    .success-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 4px;
+      background: var(--gradient-accent);
+    }
+    .success-card::after {
+      content: '';
+      position: absolute;
+      top: -50%; left: -50%;
+      width: 200%; height: 200%;
+      background: radial-gradient(circle at center, var(--accent-glow) 0%, transparent 50%);
+      opacity: 0.5;
+      pointer-events: none;
+    }
+
+    .success-card__content {
+      position: relative;
+      z-index: 1;
+    }
+
+    .success-icon {
+      width: 80px;
+      height: 80px;
+      background: var(--accent-subtle);
+      border: 2px solid rgba(16, 185, 129, 0.3);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 28px;
+      animation: checkPop 0.5s ease-out 0.3s backwards;
+    }
+    .success-icon svg {
+      width: 40px;
+      height: 40px;
+      stroke: var(--accent);
+      stroke-width: 3;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      fill: none;
+    }
+
+    .success-title {
+      font-size: clamp(28px, 4vw, 36px);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 16px;
+      color: var(--text-primary);
+    }
+
+    .success-subtitle {
+      font-size: 18px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      margin-bottom: 32px;
+    }
+
+    /* Next Steps */
+    .next-steps {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 32px;
+      margin-top: 32px;
+      text-align: left;
+    }
+    .next-steps__title {
+      font-size: 20px;
+      font-weight: 600;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+    .next-steps__list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .next-steps__item {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      padding: 16px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      transition: all var(--transition);
+    }
+    .next-steps__item:hover {
+      border-color: var(--accent);
+      transform: translateX(4px);
+    }
+    .next-steps__icon {
+      flex-shrink: 0;
+      width: 32px;
+      height: 32px;
+      background: var(--accent-subtle);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+    }
+    .next-steps__text {
+      flex: 1;
+    }
+    .next-steps__text strong {
+      display: block;
+      color: var(--text-primary);
+      margin-bottom: 4px;
+    }
+    .next-steps__text span {
+      color: var(--text-secondary);
+      font-size: 14px;
+    }
+
+    /* CTA Section */
+    .cta-section {
+      margin-top: 40px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      align-items: center;
+    }
+    .cta-primary {
+      background: var(--gradient-accent);
+      color: var(--bg-primary);
+      padding: 16px 32px;
+      border-radius: var(--radius-md);
+      font-size: 16px;
+      font-weight: 600;
+      transition: all var(--transition);
+      box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .cta-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(16, 185, 129, 0.4);
+      color: var(--bg-primary);
+    }
+    .cta-secondary {
+      color: var(--text-secondary);
+      font-size: 14px;
+      transition: all var(--transition);
+    }
+    .cta-secondary:hover {
+      color: var(--accent);
+    }
+
+    /* Animations */
+    @keyframes slideUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    @keyframes checkPop {
+      0% {
+        opacity: 0;
+        transform: scale(0.5);
+      }
+      50% {
+        transform: scale(1.1);
+      }
+      100% {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    @media (max-width: 600px) {
+      .success-card {
+        padding: 40px 24px;
+      }
+      .next-steps {
+        padding: 24px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="bg-grid"></div>
+  <div class="bg-gradient"></div>
+
+  <!-- Navigation -->
+  <nav class="nav">
+    <div class="nav__inner">
+      <a href="/" class="nav__logo">Resultant<span>AI</span></a>
+      <div class="nav__links">
+        <a href="/" class="nav__link">Home</a>
+        <a href="/services" class="nav__link">Services</a>
+        <a href="/blog" class="nav__link">Blog</a>
+        <a href="https://meetings.hubspot.com/resultantai/paper-to-digital" class="nav__cta">Book a Call</a>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    <div class="container">
+      <div class="success-card">
+        <div class="success-card__content">
+          <div class="success-icon">
+            <svg viewBox="0 0 24 24">
+              <polyline points="20 6 9 17 4 12"></polyline>
+            </svg>
+          </div>
+
+          <h1 class="success-title">You're Subscribed!</h1>
+          <p class="success-subtitle">
+            Welcome to the ResultantAI newsletter. You'll receive one email per week with real automation strategies from real implementations—no fluff, no pitch decks.
+          </p>
+
+          <div class="next-steps">
+            <h2 class="next-steps__title">What Happens Next?</h2>
+            <ul class="next-steps__list">
+              <li class="next-steps__item">
+                <div class="next-steps__icon">📧</div>
+                <div class="next-steps__text">
+                  <strong>Check your email</strong>
+                  <span>Confirm your subscription to start receiving insights</span>
+                </div>
+              </li>
+              <li class="next-steps__item">
+                <div class="next-steps__icon">📬</div>
+                <div class="next-steps__text">
+                  <strong>First email arrives soon</strong>
+                  <span>You'll get our latest case study and automation framework</span>
+                </div>
+              </li>
+              <li class="next-steps__item">
+                <div class="next-steps__icon">📞</div>
+                <div class="next-steps__text">
+                  <strong>Want to talk sooner?</strong>
+                  <span>Book a 15-minute discovery call to discuss your specific needs</span>
+                </div>
+              </li>
+            </ul>
+          </div>
+
+          <div class="cta-section">
+            <a href="https://meetings.hubspot.com/resultantai/paper-to-digital" class="cta-primary">
+              Book a Discovery Call
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+              </svg>
+            </a>
+            <a href="/blog" class="cta-secondary">Or explore the blog →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- HubSpot Tracking -->
+  <script type="text/javascript" id="hs-script-loader" async defer src="//js.hs-scripts.com/48083086.js"></script>
+
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-XXXXXXXXXX');
+  </script>
+</body>
+</html>
