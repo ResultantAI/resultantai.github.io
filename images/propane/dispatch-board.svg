@@ -1,0 +1,165 @@
+<svg width="1600" height="900" viewBox="0 0 1600 900" xmlns="http://www.w3.org/2000/svg">
+  <!-- Dark gradient background -->
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0a0f1a;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#0f172a;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1600" height="900" fill="url(#bgGrad)"/>
+
+  <!-- Top Bar -->
+  <rect x="0" y="0" width="1600" height="80" fill="#151d2e" opacity="0.9"/>
+  <text x="30" y="50" font-family="'Inter', sans-serif" font-size="28" font-weight="700" fill="#ffffff">
+    Dispatch Board
+  </text>
+  <text x="1400" y="50" font-family="'Inter', sans-serif" font-size="18" fill="#64748b">
+    Today • Jan 26
+  </text>
+
+  <!-- Sidebar - Driver List -->
+  <rect x="0" y="80" width="320" height="820" fill="#151d2e" opacity="0.95"/>
+  <text x="20" y="120" font-family="'Inter', sans-serif" font-size="16" font-weight="700" fill="#ffffff">
+    DRIVERS (6)
+  </text>
+
+  <!-- Driver 1 - Active -->
+  <g transform="translate(20, 140)">
+    <rect width="280" height="90" rx="8" fill="#10b981" opacity="0.15"/>
+    <circle cx="30" cy="45" r="20" fill="#10b981"/>
+    <text x="30" y="53" font-family="'Inter', sans-serif" font-size="16" font-weight="700" fill="#0a0f1a" text-anchor="middle">M</text>
+    <text x="65" y="35" font-family="'Inter', sans-serif" font-size="16" font-weight="600" fill="#ffffff">Mike Rodriguez</text>
+    <text x="65" y="55" font-family="'Inter', sans-serif" font-size="13" fill="#10b981">● On Route</text>
+    <text x="65" y="75" font-family="'JetBrains Mono', monospace" font-size="12" fill="#64748b">7/12 stops</text>
+  </g>
+
+  <!-- Driver 2 -->
+  <g transform="translate(20, 245)">
+    <rect width="280" height="90" rx="8" fill="#0a0f1a" opacity="0.5"/>
+    <circle cx="30" cy="45" r="20" fill="#3b82f6"/>
+    <text x="30" y="53" font-family="'Inter', sans-serif" font-size="16" font-weight="700" fill="#ffffff" text-anchor="middle">J</text>
+    <text x="65" y="35" font-family="'Inter', sans-serif" font-size="16" font-weight="600" fill="#ffffff">James Chen</text>
+    <text x="65" y="55" font-family="'Inter', sans-serif" font-size="13" fill="#3b82f6">● On Route</text>
+    <text x="65" y="75" font-family="'JetBrains Mono', monospace" font-size="12" fill="#64748b">3/10 stops</text>
+  </g>
+
+  <!-- Driver 3 -->
+  <g transform="translate(20, 350)">
+    <rect width="280" height="90" rx="8" fill="#0a0f1a" opacity="0.5"/>
+    <circle cx="30" cy="45" r="20" fill="#8b5cf6"/>
+    <text x="30" y="53" font-family="'Inter', sans-serif" font-size="16" font-weight="700" fill="#ffffff" text-anchor="middle">S</text>
+    <text x="65" y="35" font-family="'Inter', sans-serif" font-size="16" font-weight="600" fill="#ffffff">Sarah Martinez</text>
+    <text x="65" y="55" font-family="'Inter', sans-serif" font-size="13" fill="#64748b">● Not Started</text>
+    <text x="65" y="75" font-family="'JetBrains Mono', monospace" font-size="12" fill="#64748b">0/15 stops</text>
+  </g>
+
+  <!-- Map Area -->
+  <rect x="340" y="100" width="1230" height="780" rx="12" fill="#1e293b" opacity="0.95"/>
+
+  <!-- Map Grid -->
+  <g opacity="0.05">
+    <line x1="340" y1="250" x2="1570" y2="250" stroke="#10b981" stroke-width="1"/>
+    <line x1="340" y1="400" x2="1570" y2="400" stroke="#10b981" stroke-width="1"/>
+    <line x1="340" y1="550" x2="1570" y2="550" stroke="#10b981" stroke-width="1"/>
+    <line x1="340" y1="700" x2="1570" y2="700" stroke="#10b981" stroke-width="1"/>
+    <line x1="600" y1="100" x2="600" y2="880" stroke="#10b981" stroke-width="1"/>
+    <line x1="850" y1="100" x2="850" y2="880" stroke="#10b981" stroke-width="1"/>
+    <line x1="1100" y1="100" x2="1100" y2="880" stroke="#10b981" stroke-width="1"/>
+    <line x1="1350" y1="100" x2="1350" y2="880" stroke="#10b981" stroke-width="1"/>
+  </g>
+
+  <!-- Route Lines -->
+  <path d="M 500 300 Q 650 250 800 300 T 1100 350 L 1200 380" stroke="#10b981" stroke-width="4" fill="none" opacity="0.3" stroke-dasharray="10,5"/>
+  <path d="M 600 500 L 750 450 L 900 480 L 1050 520" stroke="#3b82f6" stroke-width="4" fill="none" opacity="0.3" stroke-dasharray="10,5"/>
+
+  <!-- Stop Markers -->
+  <g>
+    <!-- Stop 1 - Completed -->
+    <circle cx="500" cy="300" r="18" fill="#10b981"/>
+    <text x="500" y="307" font-family="'Inter', sans-serif" font-size="14" font-weight="700" fill="#0a0f1a" text-anchor="middle">✓</text>
+  </g>
+
+  <g>
+    <!-- Stop 2 - Completed -->
+    <circle cx="800" cy="300" r="18" fill="#10b981"/>
+    <text x="800" y="307" font-family="'Inter', sans-serif" font-size="14" font-weight="700" fill="#0a0f1a" text-anchor="middle">✓</text>
+  </g>
+
+  <g>
+    <!-- Stop 3 - Active (Current) -->
+    <circle cx="1100" cy="350" r="24" fill="#f59e0b" stroke="#f59e0b" stroke-width="6" opacity="0.3"/>
+    <circle cx="1100" cy="350" r="18" fill="#f59e0b"/>
+    <text x="1100" y="357" font-family="'Inter', sans-serif" font-size="14" font-weight="700" fill="#0a0f1a" text-anchor="middle">7</text>
+  </g>
+
+  <g>
+    <!-- Stop 4 - Pending -->
+    <circle cx="1200" cy="380" r="18" fill="#64748b"/>
+    <text x="1200" y="387" font-family="'Inter', sans-serif" font-size="14" font-weight="700" fill="#ffffff" text-anchor="middle">8</text>
+  </g>
+
+  <!-- Driver Icon (truck) -->
+  <g transform="translate(1085, 330)">
+    <rect width="30" height="20" rx="3" fill="#10b981"/>
+    <rect width="12" height="14" x="18" y="3" rx="2" fill="#059669"/>
+    <circle cx="8" cy="24" r="4" fill="#0a0f1a"/>
+    <circle cx="22" cy="24" r="4" fill="#0a0f1a"/>
+  </g>
+
+  <!-- Info Cards on Map -->
+  <g transform="translate(1100, 180)">
+    <rect width="420" height="160" rx="8" fill="#0a0f1a" opacity="0.95"/>
+    <rect width="420" height="40" rx="8" fill="#10b981" opacity="0.2"/>
+    <text x="15" y="28" font-family="'Inter', sans-serif" font-size="16" font-weight="700" fill="#10b981">
+      Current Stop: Miller Residence
+    </text>
+    <text x="15" y="65" font-family="'Inter', sans-serif" font-size="14" fill="#ffffff">
+      254 Oak Street
+    </text>
+    <text x="15" y="88" font-family="'Inter', sans-serif" font-size="14" fill="#64748b">
+      Tank: 18% • Order: 250 gal
+    </text>
+    <text x="15" y="111" font-family="'Inter', sans-serif" font-size="14" fill="#64748b">
+      Driver: Mike Rodriguez
+    </text>
+    <text x="15" y="134" font-family="'Inter', sans-serif" font-size="14" fill="#64748b">
+      ETA: 2:15 PM
+    </text>
+  </g>
+
+  <!-- Weather Widget -->
+  <g transform="translate(370, 120)">
+    <rect width="180" height="80" rx="8" fill="#0a0f1a" opacity="0.9"/>
+    <text x="15" y="28" font-family="'Inter', sans-serif" font-size="14" fill="#64748b">Weather</text>
+    <text x="15" y="52" font-family="'Inter', sans-serif" font-size="24" font-weight="700" fill="#3b82f6">❄ 28°F</text>
+    <text x="15" y="72" font-family="'Inter', sans-serif" font-size="12" fill="#64748b">Snow expected 3PM</text>
+  </g>
+
+  <!-- Stats Bar at Bottom -->
+  <g transform="translate(370, 800)">
+    <rect width="1170" height="60" rx="8" fill="#0a0f1a" opacity="0.9"/>
+    <text x="20" y="25" font-family="'Inter', sans-serif" font-size="14" fill="#64748b">TODAY'S PROGRESS</text>
+
+    <text x="20" y="48" font-family="'JetBrains Mono', monospace" font-size="18" font-weight="700" fill="#10b981">42</text>
+    <text x="60" y="48" font-family="'Inter', sans-serif" font-size="13" fill="#64748b">Completed</text>
+
+    <text x="200" y="48" font-family="'JetBrains Mono', monospace" font-size="18" font-weight="700" fill="#f59e0b">8</text>
+    <text x="235" y="48" font-family="'Inter', sans-serif" font-size="13" fill="#64748b">In Progress</text>
+
+    <text x="370" y="48" font-family="'JetBrains Mono', monospace" font-size="18" font-weight="700" fill="#64748b">25</text>
+    <text x="410" y="48" font-family="'Inter', sans-serif" font-size="13" fill="#64748b">Scheduled</text>
+
+    <text x="570" y="48" font-family="'JetBrains Mono', monospace" font-size="18" font-weight="700" fill="#ffffff">6,850</text>
+    <text x="650" y="48" font-family="'Inter', sans-serif" font-size="13" fill="#64748b">Gallons Delivered</text>
+  </g>
+
+  <!-- Emergency Injection Button -->
+  <g transform="translate(1380, 730)">
+    <rect width="160" height="50" rx="8" fill="#ef4444"/>
+    <text x="80" y="33" font-family="'Inter', sans-serif" font-size="16" font-weight="700" fill="#ffffff" text-anchor="middle">
+      🚨 EMERGENCY
+    </text>
+  </g>
+</svg>

@@ -1,0 +1,165 @@
+<svg width="1600" height="900" viewBox="0 0 1600 900" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <defs>
+    <linearGradient id="mobileBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0a0f1a;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#0f172a;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <rect width="1600" height="900" fill="url(#mobileBg)"/>
+
+  <!-- Phone Mockup Container -->
+  <g transform="translate(500, 50)">
+    <!-- Phone Frame -->
+    <rect x="0" y="0" width="600" height="800" rx="40" fill="#1e293b" stroke="#334155" stroke-width="8"/>
+
+    <!-- Screen -->
+    <rect x="20" y="60" width="560" height="680" rx="20" fill="#0a0f1a"/>
+
+    <!-- Status Bar -->
+    <g transform="translate(20, 70)">
+      <text x="30" y="25" font-family="'Inter', sans-serif" font-size="16" font-weight="600" fill="#ffffff">
+        9:41 AM
+      </text>
+      <text x="500" y="25" font-family="'Inter', sans-serif" font-size="16" fill="#10b981">
+        100% 📶
+      </text>
+    </g>
+
+    <!-- App Header -->
+    <rect x="20" y="110" width="560" height="80" fill="#151d2e"/>
+    <text x="290" y="160" font-family="'Inter', sans-serif" font-size="24" font-weight="700" fill="#ffffff" text-anchor="middle">
+      Current Delivery
+    </text>
+
+    <!-- Customer Info Card -->
+    <g transform="translate(40, 210)">
+      <rect width="520" height="140" rx="12" fill="#151d2e"/>
+      <text x="20" y="35" font-family="'Inter', sans-serif" font-size="20" font-weight="700" fill="#ffffff">
+        Miller Residence
+      </text>
+      <text x="20" y="65" font-family="'Inter', sans-serif" font-size="16" fill="#94a3b8">
+        📍 254 Oak Street
+      </text>
+      <text x="20" y="95" font-family="'Inter', sans-serif" font-size="16" fill="#94a3b8">
+        🛢 Current: 18% • Order: 250 gal
+      </text>
+      <text x="20" y="125" font-family="'Inter', sans-serif" font-size="16" fill="#10b981">
+        ✓ Tank accessible from driveway
+      </text>
+    </g>
+
+    <!-- Large Action Buttons (Designed for Glove Use) -->
+    <g transform="translate(40, 370)">
+      <!-- Start Delivery Button -->
+      <rect width="520" height="90" rx="12" fill="#10b981"/>
+      <text x="260" y="58" font-family="'Inter', sans-serif" font-size="24" font-weight="700" fill="#0a0f1a" text-anchor="middle">
+        ▶ START DELIVERY
+      </text>
+    </g>
+
+    <g transform="translate(40, 480)">
+      <!-- Navigation Button -->
+      <rect width="520" height="90" rx="12" fill="#3b82f6"/>
+      <text x="260" y="58" font-family="'Inter', sans-serif" font-size="24" font-weight="700" fill="#ffffff" text-anchor="middle">
+        🧭 NAVIGATION
+      </text>
+    </g>
+
+    <g transform="translate(40, 590)">
+      <!-- Contact Customer Button -->
+      <rect width="250" height="80" rx="12" fill="#1e293b" stroke="#334155" stroke-width="2"/>
+      <text x="125" y="50" font-family="'Inter', sans-serif" font-size="18" font-weight="700" fill="#ffffff" text-anchor="middle">
+        📞 CALL
+      </text>
+    </g>
+
+    <g transform="translate(310, 590)">
+      <!-- Skip Button -->
+      <rect width="250" height="80" rx="12" fill="#1e293b" stroke="#334155" stroke-width="2"/>
+      <text x="125" y="50" font-family="'Inter', sans-serif" font-size="18" font-weight="700" fill="#64748b" text-anchor="middle">
+        SKIP ⏭
+      </text>
+    </g>
+
+    <!-- Bottom Navigation -->
+    <g transform="translate(20, 690)">
+      <rect width="560" height="70" fill="#151d2e"/>
+      <text x="90" y="45" font-family="'Inter', sans-serif" font-size="14" font-weight="600" fill="#10b981" text-anchor="middle">
+        📋 ROUTES
+      </text>
+      <text x="280" y="45" font-family="'Inter', sans-serif" font-size="14" fill="#64748b" text-anchor="middle">
+        ✓ COMPLETED
+      </text>
+      <text x="470" y="45" font-family="'Inter', sans-serif" font-size="14" fill="#64748b" text-anchor="middle">
+        ⚙ SETTINGS
+      </text>
+    </g>
+  </g>
+
+  <!-- Feature Callouts -->
+  <g transform="translate(1150, 150)">
+    <rect width="380" height="200" rx="12" fill="#151d2e" opacity="0.95"/>
+    <text x="20" y="35" font-family="'Inter', sans-serif" font-size="18" font-weight="700" fill="#10b981">
+      ✓ Winter-Optimized
+    </text>
+    <text x="20" y="70" font-family="'Inter', sans-serif" font-size="15" fill="#94a3b8">
+      • 90px touch targets
+    </text>
+    <text x="20" y="100" font-family="'Inter', sans-serif" font-size="15" fill="#94a3b8">
+      • Works with heavy gloves
+    </text>
+    <text x="20" y="130" font-family="'Inter', sans-serif" font-size="15" fill="#94a3b8">
+      • High contrast text
+    </text>
+    <text x="20" y="160" font-family="'Inter', sans-serif" font-size="15" fill="#94a3b8">
+      • Outdoor screen visibility
+    </text>
+    <text x="20" y="190" font-family="'Inter', sans-serif" font-size="15" fill="#94a3b8">
+      • Offline mode for rural areas
+    </text>
+  </g>
+
+  <g transform="translate(1150, 380)">
+    <rect width="380" height="150" rx="12" fill="#151d2e" opacity="0.95"/>
+    <text x="20" y="35" font-family="'Inter', sans-serif" font-size="18" font-weight="700" fill="#3b82f6">
+      📸 Safety Features
+    </text>
+    <text x="20" y="70" font-family="'Inter', sans-serif" font-size="15" fill="#94a3b8">
+      • Photo capture for tanks
+    </text>
+    <text x="20" y="100" font-family="'Inter', sans-serif" font-size="15" fill="#94a3b8">
+      • Digital signature
+    </text>
+    <text x="20" y="130" font-family="'Inter', sans-serif" font-size="15" fill="#94a3b8">
+      • Hazmat documentation
+    </text>
+  </g>
+
+  <g transform="translate(1150, 560)">
+    <rect width="380" height="120" rx="12" fill="#151d2e" opacity="0.95"/>
+    <text x="20" y="35" font-family="'Inter', sans-serif" font-size="18" font-weight="700" fill="#f59e0b">
+      ⚡ Real-Time Sync
+    </text>
+    <text x="20" y="70" font-family="'Inter', sans-serif" font-size="15" fill="#94a3b8">
+      • Auto-sync when connected
+    </text>
+    <text x="20" y="100" font-family="'Inter', sans-serif" font-size="15" fill="#94a3b8">
+      • Office sees updates instantly
+    </text>
+  </g>
+
+  <!-- Info Label -->
+  <g transform="translate(70, 150)">
+    <rect width="380" height="100" rx="12" fill="#151d2e" opacity="0.95"/>
+    <text x="20" y="35" font-family="'Inter', sans-serif" font-size="16" font-weight="700" fill="#ffffff">
+      Actual Interface ➡
+    </text>
+    <text x="20" y="65" font-family="'Inter', sans-serif" font-size="14" fill="#64748b">
+      Tested by drivers in -10°F
+    </text>
+    <text x="20" y="88" font-family="'Inter', sans-serif" font-size="14" fill="#64748b">
+      conditions with thick gloves
+    </text>
+  </g>
+</svg>
