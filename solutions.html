@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Revenue recovery, operations automation, and AI cost control solutions for service businesses. View by outcome, industry, or challenge.">
+  <title>Solutions - Systems That Run Without You | ResultantAI</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="css/styles.css">
+
+  <style>
+    .view-toggle {
+      display: flex;
+      gap: var(--space-md);
+      justify-content: center;
+      margin: var(--space-lg) 0;
+      flex-wrap: wrap;
+    }
+
+    .view-toggle__btn {
+      padding: 12px 24px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      color: var(--text-secondary);
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .view-toggle__btn.active {
+      background: var(--accent);
+      color: var(--bg-primary);
+      border-color: var(--accent);
+    }
+
+    .view-toggle__btn:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    .view-toggle__btn.active:hover {
+      color: var(--bg-primary);
+    }
+
+    .view-content {
+      display: none;
+    }
+
+    .view-content.active {
+      display: block;
+    }
+  </style>
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Solutions - Systems That Run Without You | ResultantAI">
+  <meta property="og:description" content="Revenue recovery, operations automation, and AI cost control for service businesses.">
+  <meta property="og:type" content="website">
+</head>
+<body>
+  <!-- Floating Orbs -->
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+
+  <!-- Navigation -->
+  <nav id="nav">
+    <div class="nav__inner">
+      <a href="/" class="nav__logo">Resultant<span>AI</span></a>
+      <div class="nav__links">
+        <a href="/" class="nav__link">Home</a>
+        <a href="case-studies.html" class="nav__link">Case Studies</a>
+        <a href="gateway.html" class="nav__link">AI Gateway</a>
+        <a href="/blog" class="nav__link">Blog</a>
+      </div>
+      <a href="https://meetings.hubspot.com/chris4642/ai-gateway-founding-partner" class="nav__cta">Book a Call</a>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="container">
+      <span class="hero__label reveal">Solutions</span>
+
+      <h1 class="hero__title reveal">
+        Systems That Run Without You
+      </h1>
+
+      <p class="hero__subtitle reveal">
+        Choose your path: by what you need, by your industry, or by your biggest headache.
+      </p>
+    </div>
+  </section>
+
+  <!-- View Toggle -->
+  <section>
+    <div class="container">
+      <div class="view-toggle reveal">
+        <button class="view-toggle__btn active" data-view-toggle="outcome">By Outcome</button>
+        <button class="view-toggle__btn" data-view-toggle="industry">By Industry</button>
+        <button class="view-toggle__btn" data-view-toggle="challenge">By Challenge</button>
+      </div>
+
+      <!-- VIEW 1: BY OUTCOME -->
+      <div class="view-content active" data-view="outcome">
+        <div class="grid grid-3" style="margin-top: var(--space-lg);">
+          <!-- Revenue Recovery -->
+          <div class="card reveal" id="revenue-recovery">
+            <svg width="48" height="48" viewBox="0 0 32 32" style="margin-bottom: var(--space-sm);">
+              <g stroke="#10b981" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="16" cy="16" r="12"/>
+                <path d="M16 10v12"/>
+                <path d="M19 12h-4a3 3 0 0 0 0 6h2a3 3 0 0 1 0 6h-4"/>
+              </g>
+            </svg>
+            <h3 class="card__title">Revenue Recovery</h3>
+            <p class="card__description" style="font-style: italic; color: var(--text-muted); margin-bottom: var(--space-md);">
+              "Capture the money you're currently missing"
+            </p>
+
+            <h4 style="font-size: 1rem; font-weight: 700; margin-bottom: var(--space-xs); color: var(--text-primary);">Systems:</h4>
+            <ul class="card__list" style="margin-bottom: var(--space-md);">
+              <li>The Qualifier — AI voice agent for inbound calls</li>
+              <li>The Closer — Automated follow-up sequences</li>
+              <li>Lead Router — Smart CRM integration</li>
+            </ul>
+
+            <div style="background: var(--accent-subtle); border: 1px solid var(--accent); border-radius: var(--radius-md); padding: var(--space-sm); margin-bottom: var(--space-sm);">
+              <p style="font-size: 0.875rem; color: var(--text-muted); margin-bottom: 4px;">Typical Outcome:</p>
+              <p style="font-weight: 700; color: var(--accent);">+$5K-15K/month in recovered revenue</p>
+            </div>
+
+            <p style="color: var(--text-muted); font-size: 0.875rem; margin-bottom: var(--space-md);">
+              <strong>Timeline:</strong> 2-4 weeks
+            </p>
+
+            <a href="#" class="btn btn-primary" style="width: 100%; justify-content: center;">
+              Explore Revenue Systems →
+            </a>
+          </div>
+
+          <!-- Operations Automation -->
+          <div class="card reveal" id="operations-automation">
+            <svg width="48" height="48" viewBox="0 0 32 32" style="margin-bottom: var(--space-sm);">
+              <g stroke="#3b82f6" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="16" cy="16" r="3"/>
+                <path d="M16 4v3m0 18v3m8-12h3m-18 0H4m15.36-7.36l2.12-2.12M10.52 21.48l-2.12 2.12m12.24 0l2.12-2.12M10.52 10.52l-2.12-2.12"/>
+              </g>
+            </svg>
+            <h3 class="card__title">Operations Automation</h3>
+            <p class="card__description" style="font-style: italic; color: var(--text-muted); margin-bottom: var(--space-md);">
+              "Turn 10-hour tasks into 10-minute automations"
+            </p>
+
+            <h4 style="font-size: 1rem; font-weight: 700; margin-bottom: var(--space-xs); color: var(--text-primary);">Systems:</h4>
+            <ul class="card__list" style="margin-bottom: var(--space-md);">
+              <li>The Auditor — Automated research & reporting</li>
+              <li>Workflow Builder — Custom automation systems</li>
+              <li>System Migration — Legacy to modern stack</li>
+            </ul>
+
+            <div style="background: var(--accent-subtle); border: 1px solid var(--accent); border-radius: var(--radius-md); padding: var(--space-sm); margin-bottom: var(--space-sm);">
+              <p style="font-size: 0.875rem; color: var(--text-muted); margin-bottom: 4px;">Typical Outcome:</p>
+              <p style="font-weight: 700; color: var(--accent);">5-20 hours/week freed</p>
+            </div>
+
+            <p style="color: var(--text-muted); font-size: 0.875rem; margin-bottom: var(--space-md);">
+              <strong>Timeline:</strong> 1-4 weeks
+            </p>
+
+            <a href="#" class="btn btn-primary" style="width: 100%; justify-content: center;">
+              Explore Automation Systems →
+            </a>
+          </div>
+
+          <!-- AI Cost Control -->
+          <div class="card reveal" id="ai-cost-control">
+            <svg width="48" height="48" viewBox="0 0 32 32" style="margin-bottom: var(--space-sm);">
+              <g stroke="#8b5cf6" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M16 3l-8 3v8a12 12 0 0 0 8 11.27A12 12 0 0 0 24 14V6l-8-3z"/>
+                <path d="M12 15l2 2 4-4"/>
+              </g>
+            </svg>
+            <h3 class="card__title">AI Cost Control</h3>
+            <p class="card__description" style="font-style: italic; color: var(--text-muted); margin-bottom: var(--space-md);">
+              "Predictable AI costs with zero surprises"
+            </p>
+
+            <h4 style="font-size: 1rem; font-weight: 700; margin-bottom: var(--space-xs); color: var(--text-primary);">Capabilities:</h4>
+            <ul class="card__list" style="margin-bottom: var(--space-md);">
+              <li>AI Gateway — Multi-provider routing, 60-80% savings</li>
+              <li>Per-Client Attribution — Know exactly what each client costs</li>
+              <li>Compliance Guardrails — HIPAA, GDPR toggles</li>
+            </ul>
+
+            <div style="background: var(--accent-subtle); border: 1px solid var(--accent); border-radius: var(--radius-md); padding: var(--space-sm); margin-bottom: var(--space-sm);">
+              <p style="font-size: 0.875rem; color: var(--text-muted); margin-bottom: 4px;">Typical Outcome:</p>
+              <p style="font-weight: 700; color: var(--accent);">60-80% reduction in AI spend</p>
+            </div>
+
+            <p style="color: var(--text-muted); font-size: 0.875rem; margin-bottom: var(--space-md);">
+              <strong>Timeline:</strong> Same-day setup
+            </p>
+
+            <a href="gateway.html" class="btn btn-primary" style="width: 100%; justify-content: center;">
+              Explore AI Gateway →
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- VIEW 2: BY INDUSTRY -->
+      <div class="view-content" data-view="industry">
+        <div class="grid grid-3" style="margin-top: var(--space-lg);">
+          <!-- Field Services -->
+          <div class="card reveal">
+            <svg width="48" height="48" viewBox="0 0 32 32" style="margin-bottom: var(--space-sm);">
+              <g stroke="#10b981" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M22 12l-8 8-4-4 8-8a6 6 0 0 1 8.5 0 6 6 0 0 1-4.5 10z"/>
+                <circle cx="12" cy="20" r="2"/>
+                <path d="M6 26l4-4"/>
+              </g>
+            </svg>
+            <h3 class="card__title">Field Services</h3>
+
+            <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: var(--space-md);">
+              HVAC • Plumbing • Propane • Electrical • Landscaping
+            </p>
+
+            <h4 style="font-size: 1rem; font-weight: 700; margin-bottom: var(--space-xs); color: var(--text-primary);">Common builds:</h4>
+            <ul class="card__list" style="margin-bottom: var(--space-md);">
+              <li>24/7 call handling</li>
+              <li>Digital dispatch systems</li>
+              <li>Customer self-service portals</li>
+              <li>Route optimization</li>
+            </ul>
+
+            <p class="card__proof">Case Study: Wayne Conn Plumbing → +$5K/mo</p>
+
+            <a href="solutions-field-services.html" class="btn btn-primary" style="width: 100%; justify-content: center;">
+              Field Services Solutions →
+            </a>
+          </div>
+
+          <!-- Marketing Agencies -->
+          <div class="card reveal">
+            <svg width="48" height="48" viewBox="0 0 32 32" style="margin-bottom: var(--space-sm);">
+              <g stroke="#3b82f6" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4 26h24M6 26V18M10 26V14M14 26V10M18 26V16M22 26V8M26 26V12"/>
+                <circle cx="22" cy="8" r="2" fill="#3b82f6"/>
+              </g>
+            </svg>
+            <h3 class="card__title">Marketing Agencies</h3>
+
+            <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: var(--space-md);">
+              Lead Gen • SEO • PPC • Content • Full-Service
+            </p>
+
+            <h4 style="font-size: 1rem; font-weight: 700; margin-bottom: var(--space-xs); color: var(--text-primary);">Common builds:</h4>
+            <ul class="card__list" style="margin-bottom: var(--space-md);">
+              <li>Client reporting automation</li>
+              <li>Lead qualification bots</li>
+              <li>Proposal generators</li>
+              <li>AI cost management</li>
+            </ul>
+
+            <p class="card__proof">Case Study: Adleg → 97% time savings</p>
+
+            <a href="solutions-agencies.html" class="btn btn-primary" style="width: 100%; justify-content: center;">
+              Agency Solutions →
+            </a>
+          </div>
+
+          <!-- B2B Services -->
+          <div class="card reveal">
+            <svg width="48" height="48" viewBox="0 0 32 32" style="margin-bottom: var(--space-sm);">
+              <g stroke="#8b5cf6" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M8 12h6v6H8zM18 14h6v6h-6z"/>
+                <path d="M14 15h4"/>
+                <circle cx="11" cy="9" r="2"/>
+                <circle cx="21" cy="11" r="2"/>
+                <path d="M11 11v1M21 13v1"/>
+              </g>
+            </svg>
+            <h3 class="card__title">B2B Services</h3>
+
+            <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: var(--space-md);">
+              Consulting • Staffing • Professional Services • SaaS
+            </p>
+
+            <h4 style="font-size: 1rem; font-weight: 700; margin-bottom: var(--space-xs); color: var(--text-primary);">Common builds:</h4>
+            <ul class="card__list" style="margin-bottom: var(--space-md);">
+              <li>Sales qualification systems</li>
+              <li>Client onboarding automation</li>
+              <li>Follow-up sequences</li>
+              <li>Knowledge base bots</li>
+            </ul>
+
+            <p class="card__proof">20+ deployed systems</p>
+
+            <a href="solutions-b2b.html" class="btn btn-primary" style="width: 100%; justify-content: center;">
+              B2B Solutions →
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- VIEW 3: BY CHALLENGE -->
+      <div class="view-content" data-view="challenge">
+        <div class="grid grid-2" style="margin-top: var(--space-lg);">
+          <!-- Missing Calls -->
+          <div class="card reveal">
+            <h3 class="card__title" style="font-size: 1.5rem; margin-bottom: var(--space-sm);">
+              "We're missing calls and losing leads"
+            </h3>
+
+            <div style="background: var(--bg-secondary); padding: var(--space-sm); border-radius: var(--radius-md); margin-bottom: var(--space-md);">
+              <p style="color: var(--accent); font-weight: 600;">You need: Revenue Recovery System</p>
+            </div>
+
+            <h4 style="font-size: 1rem; font-weight: 700; margin-bottom: var(--space-xs);">What we'll build:</h4>
+            <p class="card__description" style="margin-bottom: var(--space-md);">
+              AI voice agent + CRM integration + follow-up automation
+            </p>
+
+            <div style="background: var(--accent-subtle); border-left: 4px solid var(--accent); padding: var(--space-sm); border-radius: var(--radius-sm); margin-bottom: var(--space-md);">
+              <p style="font-weight: 600; color: var(--accent);">Typical result: +$5K-15K/month recovered</p>
+            </div>
+
+            <a href="https://meetings.hubspot.com/chris4642/ai-gateway-founding-partner" class="btn btn-primary">
+              Fix This Problem →
+            </a>
+          </div>
+
+          <!-- Manual Busywork -->
+          <div class="card reveal">
+            <h3 class="card__title" style="font-size: 1.5rem; margin-bottom: var(--space-sm);">
+              "We're drowning in manual busywork"
+            </h3>
+
+            <div style="background: var(--bg-secondary); padding: var(--space-sm); border-radius: var(--radius-md); margin-bottom: var(--space-md);">
+              <p style="color: var(--accent); font-weight: 600;">You need: Operations Automation</p>
+            </div>
+
+            <h4 style="font-size: 1rem; font-weight: 700; margin-bottom: var(--space-xs);">What we'll build:</h4>
+            <p class="card__description" style="margin-bottom: var(--space-md);">
+              Workflow audit + automation buildout + documentation
+            </p>
+
+            <div style="background: var(--accent-subtle); border-left: 4px solid var(--accent); padding: var(--space-sm); border-radius: var(--radius-sm); margin-bottom: var(--space-md);">
+              <p style="font-weight: 600; color: var(--accent);">Typical result: 5-20 hours/week freed</p>
+            </div>
+
+            <a href="https://meetings.hubspot.com/chris4642/ai-gateway-founding-partner" class="btn btn-primary">
+              Fix This Problem →
+            </a>
+          </div>
+
+          <!-- Systems Don't Talk -->
+          <div class="card reveal">
+            <h3 class="card__title" style="font-size: 1.5rem; margin-bottom: var(--space-sm);">
+              "Our systems don't talk to each other"
+            </h3>
+
+            <div style="background: var(--bg-secondary); padding: var(--space-sm); border-radius: var(--radius-md); margin-bottom: var(--space-md);">
+              <p style="color: var(--accent); font-weight: 600;">You need: System Transformation</p>
+            </div>
+
+            <h4 style="font-size: 1rem; font-weight: 700; margin-bottom: var(--space-xs);">What we'll build:</h4>
+            <p class="card__description" style="margin-bottom: var(--space-md);">
+              Integration mapping + data migration + unified workflow
+            </p>
+
+            <div style="background: var(--accent-subtle); border-left: 4px solid var(--accent); padding: var(--space-sm); border-radius: var(--radius-sm); margin-bottom: var(--space-md);">
+              <p style="font-weight: 600; color: var(--accent);">Typical result: Single source of truth, 40%+ efficiency gain</p>
+            </div>
+
+            <a href="https://meetings.hubspot.com/chris4642/ai-gateway-founding-partner" class="btn btn-primary">
+              Fix This Problem →
+            </a>
+          </div>
+
+          <!-- Unpredictable AI Costs -->
+          <div class="card reveal">
+            <h3 class="card__title" style="font-size: 1.5rem; margin-bottom: var(--space-sm);">
+              "AI costs are unpredictable and eating our margins"
+            </h3>
+
+            <div style="background: var(--bg-secondary); padding: var(--space-sm); border-radius: var(--radius-md); margin-bottom: var(--space-md);">
+              <p style="color: var(--accent); font-weight: 600;">You need: AI Gateway</p>
+            </div>
+
+            <h4 style="font-size: 1rem; font-weight: 700; margin-bottom: var(--space-xs);">What you'll get:</h4>
+            <p class="card__description" style="margin-bottom: var(--space-md);">
+              Flat-rate billing + provider routing + per-client tracking
+            </p>
+
+            <div style="background: var(--accent-subtle); border-left: 4px solid var(--accent); padding: var(--space-sm); border-radius: var(--radius-sm); margin-bottom: var(--space-md);">
+              <p style="font-weight: 600; color: var(--accent);">Typical result: 60-80% cost reduction, zero surprises</p>
+            </div>
+
+            <a href="gateway.html" class="btn btn-primary">
+              Fix This Problem →
+            </a>
+          </div>
+
+          <!-- Paper and Spreadsheets -->
+          <div class="card reveal">
+            <h3 class="card__title" style="font-size: 1.5rem; margin-bottom: var(--space-sm);">
+              "We're still running on paper and spreadsheets"
+            </h3>
+
+            <div style="background: var(--bg-secondary); padding: var(--space-sm); border-radius: var(--radius-md); margin-bottom: var(--space-md);">
+              <p style="color: var(--accent); font-weight: 600;">You need: Paper-to-Digital Transformation</p>
+            </div>
+
+            <h4 style="font-size: 1rem; font-weight: 700; margin-bottom: var(--space-xs);">What we'll build:</h4>
+            <p class="card__description" style="margin-bottom: var(--space-md);">
+              Digital forms + automated data entry + real-time dashboards
+            </p>
+
+            <div style="background: var(--accent-subtle); border-left: 4px solid var(--accent); padding: var(--space-sm); border-radius: var(--radius-sm); margin-bottom: var(--space-md);">
+              <p style="font-weight: 600; color: var(--accent);">Typical result: 90% reduction in manual entry, real-time data</p>
+            </div>
+
+            <a href="propane.html" class="btn btn-primary">
+              Fix This Problem →
+            </a>
+          </div>
+
+          <!-- Founder Bottleneck -->
+          <div class="card reveal">
+            <h3 class="card__title" style="font-size: 1.5rem; margin-bottom: var(--space-sm);">
+              "The founder is still the bottleneck"
+            </h3>
+
+            <div style="background: var(--bg-secondary); padding: var(--space-sm); border-radius: var(--radius-md); margin-bottom: var(--space-md);">
+              <p style="color: var(--accent); font-weight: 600;">You need: Founder Liberation System</p>
+            </div>
+
+            <h4 style="font-size: 1rem; font-weight: 700; margin-bottom: var(--space-xs);">What we'll build:</h4>
+            <p class="card__description" style="margin-bottom: var(--space-md);">
+              Process documentation + delegation automation + decision frameworks
+            </p>
+
+            <div style="background: var(--accent-subtle); border-left: 4px solid var(--accent); padding: var(--space-sm); border-radius: var(--radius-sm); margin-bottom: var(--space-md);">
+              <p style="font-weight: 600; color: var(--accent);">Typical result: 50%+ reduction in founder time, scalable operations</p>
+            </div>
+
+            <a href="https://meetings.hubspot.com/chris4642/ai-gateway-founding-partner" class="btn btn-primary">
+              Fix This Problem →
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Bottom CTA -->
+  <section style="background: linear-gradient(135deg, var(--bg-card), var(--bg-primary)); padding: var(--space-xl) 0;">
+    <div class="container text-center">
+      <div class="card reveal" style="max-width: 700px; margin: 0 auto; background: var(--bg-card); border: 2px solid var(--border-glow);">
+        <h2 style="font-size: 2rem; margin-bottom: var(--space-sm);">Not sure which path is right?</h2>
+
+        <p style="font-size: 1.125rem; color: var(--text-secondary); margin-bottom: var(--space-lg);">
+          Book a 30-minute discovery call. We'll map your current workflow and recommend the highest-ROI starting point.
+        </p>
+
+        <a href="https://meetings.hubspot.com/chris4642/ai-gateway-founding-partner" class="btn btn-primary">
+          Book Discovery Call
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer__grid">
+        <div>
+          <div class="footer__brand">Resultant<span>AI</span></div>
+          <p class="footer__description">
+            Revenue systems for service businesses.<br>
+            Built with AI. Run by humans.
+          </p>
+          <div class="footer__social">
+            <a href="https://www.linkedin.com/in/chrismott1/" class="footer__social-link" target="_blank">
+              <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+              </svg>
+            </a>
+            <a href="https://github.com/ResultantAI" class="footer__social-link" target="_blank">
+              <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+              </svg>
+            </a>
+            <a href="https://x.com/resultswithai" class="footer__social-link" target="_blank">
+              <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        <div>
+          <h4 class="footer__section-title">Solutions</h4>
+          <ul class="footer__links">
+            <li><a href="#revenue-recovery" class="footer__link">Revenue Recovery</a></li>
+            <li><a href="#operations-automation" class="footer__link">Operations Automation</a></li>
+            <li><a href="gateway.html" class="footer__link">AI Gateway</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="footer__section-title">Industries</h4>
+          <ul class="footer__links">
+            <li><a href="solutions-field-services.html" class="footer__link">Field Services</a></li>
+            <li><a href="solutions-agencies.html" class="footer__link">Agencies</a></li>
+            <li><a href="solutions-b2b.html" class="footer__link">B2B Services</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="footer__section-title">Contact</h4>
+          <ul class="footer__links">
+            <li><a href="mailto:support@resultantai.com" class="footer__link">Email Us</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer__bottom">
+        <div>© 2025 ResultantAI. All rights reserved.</div>
+        <div>Built with AI. Run by humans.</div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/main.js"></script>
+  <script src="js/view-toggle.js"></script>
+</body>
+</html>

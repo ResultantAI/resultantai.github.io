@@ -3,1847 +3,630 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ResultantAI — AI Systems That Run Without You</title>
-  <meta name="description" content="Voice agents, automation, and AI systems built in weeks, not months. Systems that capture leads, close deals, and run without you.">
-
-  <!-- Google Search Console Verification -->
-  <meta name="google-site-verification" content="EUs3oELHtHvHjcAdzN2HjjzWzEP_6KWVZFzaIoLdp70">
-
-  <!-- Canonical URL -->
-  <link rel="canonical" href="https://www.resultantai.com/">
-
-  <!-- Organization Schema -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Organization",
-    "name": "ResultantAI",
-    "url": "https://www.resultantai.com",
-    "logo": "https://www.resultantai.com/images/logo.png",
-    "description": "AI systems that run without you. Voice agents, automation, and AI systems built in weeks, not months.",
-    "founder": {
-      "@type": "Person",
-      "name": "Chris Mott",
-      "email": "chris@resultantai.com"
-    },
-    "email": "chris@resultantai.com",
-    "sameAs": [
-      "https://www.linkedin.com/company/resultantai",
-      "https://github.com/ResultantAI"
-    ],
-    "areaServed": "Worldwide",
-    "knowsAbout": [
-      "Artificial Intelligence",
-      "Voice Agents",
-      "Marketing Automation",
-      "AI API Integration",
-      "Chatbot Development"
-    ]
-  }
-  </script>
-
-  <!-- WebSite Schema with SearchAction -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "WebSite",
-    "name": "ResultantAI",
-    "url": "https://www.resultantai.com",
-    "description": "AI systems that run without you",
-    "publisher": {
-      "@type": "Organization",
-      "name": "ResultantAI"
-    },
-    "potentialAction": {
-      "@type": "SearchAction",
-      "target": {
-        "@type": "EntryPoint",
-        "urlTemplate": "https://www.resultantai.com/?s={search_term_string}"
-      },
-      "query-input": "required name=search_term_string"
-    }
-  }
-  </script>
+  <meta name="description" content="Revenue systems for service businesses. We build AI systems that recover revenue, not just save time. +$5K/mo captured. 97% time savings. 18-day payback.">
+  <title>ResultantAI - Revenue Systems for Service Businesses</title>
 
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-  
-  <!-- Favicon -->
-  <link rel="icon" type="image/png" href="/favicon.png">
-  
-  <style>
-    /* ============================================
-       CSS VARIABLES (Design Tokens)
-       ============================================ */
-    :root {
-      /* Core Colors */
-      --bg-primary: #0a0f1a;
-      --bg-secondary: #0f172a;
-      --bg-card: #151d2e;
-      --bg-card-hover: #1a2540;
-      --border: #1e293b;
-      --border-light: #334155;
-      --border-glow: rgba(16, 185, 129, 0.3);
-      
-      /* Text */
-      --text-primary: #ffffff;
-      --text-secondary: #94a3b8;
-      --text-muted: #64748b;
-      
-      /* Accent - Emerald */
-      --accent: #10b981;
-      --accent-light: #34d399;
-      --accent-dark: #059669;
-      --accent-subtle: rgba(16, 185, 129, 0.08);
-      --accent-glow: rgba(16, 185, 129, 0.4);
-      
-      /* Gradients */
-      --gradient-accent: linear-gradient(135deg, #10b981 0%, #34d399 100%);
-      --gradient-dark: linear-gradient(180deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
-      --gradient-card: linear-gradient(135deg, var(--bg-card) 0%, rgba(16, 185, 129, 0.02) 100%);
-      --gradient-hero: radial-gradient(ellipse 80% 50% at 50% -20%, rgba(16, 185, 129, 0.15), transparent);
-      
-      /* Radius */
-      --radius-sm: 6px;
-      --radius-md: 10px;
-      --radius-lg: 16px;
-      --radius-xl: 24px;
-      --radius-full: 9999px;
-      
-      /* Typography */
-      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-      --font-mono: 'JetBrains Mono', monospace;
-      
-      /* Shadows */
-      --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
-      --shadow-md: 0 4px 20px rgba(0, 0, 0, 0.4);
-      --shadow-lg: 0 8px 40px rgba(0, 0, 0, 0.5);
-      --shadow-glow: 0 0 40px var(--accent-glow);
-      --shadow-card: 0 4px 24px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.03);
-      
-      /* Transitions */
-      --transition-fast: 0.15s ease;
-      --transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-      --transition-slow: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-      --transition-bounce: 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
-    }
-
-    /* ============================================
-       RESET & BASE
-       ============================================ */
-    *, *::before, *::after {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    html {
-      scroll-behavior: smooth;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-    }
-
-    body {
-      font-family: var(--font-sans);
-      background: var(--bg-primary);
-      color: var(--text-primary);
-      line-height: 1.6;
-      font-size: 16px;
-      overflow-x: hidden;
-    }
-
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
-
-    img {
-      max-width: 100%;
-      display: block;
-    }
-
-    ::selection {
-      background: var(--accent);
-      color: var(--bg-primary);
-    }
-
-    /* Custom Scrollbar */
-    ::-webkit-scrollbar {
-      width: 8px;
-    }
-    ::-webkit-scrollbar-track {
-      background: var(--bg-primary);
-    }
-    ::-webkit-scrollbar-thumb {
-      background: var(--border-light);
-      border-radius: var(--radius-full);
-    }
-    ::-webkit-scrollbar-thumb:hover {
-      background: var(--accent);
-    }
-
-    /* ============================================
-       LAYOUT
-       ============================================ */
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 24px;
-    }
-
-    .section {
-      padding: 120px 0;
-      position: relative;
-    }
-
-    .section--tight {
-      padding: 80px 0;
-    }
-
-    /* ============================================
-       ANIMATED BACKGROUND
-       ============================================ */
-    .bg-grid {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background-image: 
-        linear-gradient(rgba(16, 185, 129, 0.03) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(16, 185, 129, 0.03) 1px, transparent 1px);
-      background-size: 60px 60px;
-      pointer-events: none;
-      z-index: 0;
-    }
-
-    .bg-gradient {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 100vh;
-      background: var(--gradient-hero);
-      pointer-events: none;
-      z-index: 0;
-    }
-
-    /* Floating orbs */
-    .bg-orb {
-      position: fixed;
-      border-radius: 50%;
-      filter: blur(80px);
-      opacity: 0.5;
-      pointer-events: none;
-      z-index: 0;
-      animation: float 20s ease-in-out infinite;
-    }
-
-    .bg-orb--1 {
-      width: 600px;
-      height: 600px;
-      background: rgba(16, 185, 129, 0.1);
-      top: -200px;
-      right: -100px;
-      animation-delay: 0s;
-    }
-
-    .bg-orb--2 {
-      width: 400px;
-      height: 400px;
-      background: rgba(16, 185, 129, 0.08);
-      bottom: 20%;
-      left: -100px;
-      animation-delay: -10s;
-    }
-
-    @keyframes float {
-      0%, 100% { transform: translate(0, 0) scale(1); }
-      25% { transform: translate(20px, -30px) scale(1.05); }
-      50% { transform: translate(-10px, 20px) scale(0.95); }
-      75% { transform: translate(15px, 10px) scale(1.02); }
-    }
-
-    /* ============================================
-       NAVIGATION
-       ============================================ */
-    .nav {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      z-index: 1000;
-      padding: 20px 0;
-      transition: all var(--transition);
-    }
-
-    .nav.scrolled {
-      padding: 12px 0;
-      background: rgba(10, 15, 26, 0.8);
-      backdrop-filter: blur(20px) saturate(180%);
-      -webkit-backdrop-filter: blur(20px) saturate(180%);
-      border-bottom: 1px solid var(--border);
-    }
-
-    .nav__inner {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .nav__logo {
-      font-size: 22px;
-      font-weight: 800;
-      letter-spacing: -0.03em;
-    }
-
-    .nav__logo span {
-      color: var(--accent);
-    }
-
-    .nav__links {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .nav__link {
-      color: var(--text-secondary);
-      font-size: 14px;
-      font-weight: 500;
-      padding: 8px 16px;
-      border-radius: var(--radius-md);
-      transition: all var(--transition);
-      position: relative;
-    }
-
-    .nav__link::after {
-      content: '';
-      position: absolute;
-      bottom: 4px;
-      left: 50%;
-      width: 0;
-      height: 2px;
-      background: var(--accent);
-      border-radius: var(--radius-full);
-      transition: all var(--transition);
-      transform: translateX(-50%);
-    }
-
-    .nav__link:hover {
-      color: var(--text-primary);
-    }
-
-    .nav__link:hover::after {
-      width: calc(100% - 32px);
-    }
-
-    .nav__cta {
-      background: var(--gradient-accent);
-      color: var(--bg-primary);
-      padding: 10px 24px;
-      border-radius: var(--radius-md);
-      font-size: 14px;
-      font-weight: 600;
-      transition: all var(--transition);
-      box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
-      margin-left: 16px;
-    }
-
-    .nav__cta:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 25px rgba(16, 185, 129, 0.4);
-    }
-
-    /* Mobile nav */
-    .nav__toggle {
-      display: none;
-      background: none;
-      border: none;
-      color: var(--text-primary);
-      cursor: pointer;
-      padding: 8px;
-      border-radius: var(--radius-sm);
-      transition: background var(--transition);
-    }
-
-    .nav__toggle:hover {
-      background: var(--bg-card);
-    }
-
-    @media (max-width: 768px) {
-      .nav__links {
-        display: none;
-      }
-      .nav__toggle {
-        display: block;
-      }
-    }
-
-    /* ============================================
-       HERO
-       ============================================ */
-    .hero {
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      padding-top: 100px;
-      position: relative;
-      z-index: 1;
-    }
-
-    .hero__content {
-      max-width: 900px;
-      position: relative;
-      z-index: 1;
-    }
-
-    .hero__badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      background: var(--accent-subtle);
-      border: 1px solid rgba(16, 185, 129, 0.2);
-      padding: 8px 16px 8px 12px;
-      border-radius: var(--radius-full);
-      font-size: 13px;
-      font-weight: 600;
-      color: var(--accent-light);
-      margin-bottom: 32px;
-      animation: fadeInUp 0.6s ease forwards;
-    }
-
-    .hero__badge-dot {
-      width: 8px;
-      height: 8px;
-      background: var(--accent);
-      border-radius: 50%;
-      animation: pulse 2s ease-in-out infinite;
-    }
-
-    @keyframes pulse {
-      0%, 100% { opacity: 1; transform: scale(1); }
-      50% { opacity: 0.5; transform: scale(1.2); }
-    }
-
-    .hero__title {
-      font-size: clamp(48px, 7vw, 80px);
-      font-weight: 800;
-      line-height: 1.05;
-      letter-spacing: -0.04em;
-      margin-bottom: 28px;
-      animation: fadeInUp 0.6s ease 0.1s forwards;
-      opacity: 0;
-    }
-
-    .hero__title-line {
-      display: block;
-    }
-
-    .hero__title-accent {
-      position: relative;
-      display: inline-block;
-    }
-
-    .hero__title-accent::after {
-      content: '';
-      position: absolute;
-      bottom: 8px;
-      left: 0;
-      right: 0;
-      height: 12px;
-      background: var(--accent);
-      opacity: 0.3;
-      border-radius: var(--radius-sm);
-      z-index: -1;
-    }
-
-    .hero__subtitle {
-      font-size: 20px;
-      color: var(--text-secondary);
-      max-width: 620px;
-      margin-bottom: 48px;
-      line-height: 1.7;
-      animation: fadeInUp 0.6s ease 0.2s forwards;
-      opacity: 0;
-    }
-
-    .hero__ctas {
-      display: flex;
-      gap: 16px;
-      flex-wrap: wrap;
-      margin-bottom: 72px;
-      animation: fadeInUp 0.6s ease 0.3s forwards;
-      opacity: 0;
-    }
-
-    /* Stats bar */
-    .hero__stats {
-      display: flex;
-      gap: 48px;
-      flex-wrap: wrap;
-      animation: fadeInUp 0.6s ease 0.4s forwards;
-      opacity: 0;
-    }
-
-    .hero__stat {
-      position: relative;
-      padding-left: 16px;
-    }
-
-    .hero__stat::before {
-      content: '';
-      position: absolute;
-      left: 0;
-      top: 4px;
-      bottom: 4px;
-      width: 3px;
-      background: var(--gradient-accent);
-      border-radius: var(--radius-full);
-    }
-
-    .hero__stat-value {
-      font-size: 32px;
-      font-weight: 800;
-      font-family: var(--font-mono);
-      letter-spacing: -0.03em;
-      color: var(--text-primary);
-      line-height: 1;
-      margin-bottom: 4px;
-    }
-
-    .hero__stat-label {
-      font-size: 14px;
-      color: var(--text-muted);
-      font-weight: 500;
-    }
-
-    /* Hero visual element */
-    .hero__visual {
-      position: absolute;
-      right: -100px;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 500px;
-      height: 500px;
-      opacity: 0.1;
-      pointer-events: none;
-    }
-
-    @keyframes fadeInUp {
-      from {
-        opacity: 0;
-        transform: translateY(30px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    /* ============================================
-       BUTTONS
-       ============================================ */
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      padding: 16px 32px;
-      border-radius: var(--radius-md);
-      font-size: 15px;
-      font-weight: 600;
-      transition: all var(--transition);
-      cursor: pointer;
-      border: none;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .btn--primary {
-      background: var(--gradient-accent);
-      color: var(--bg-primary);
-      box-shadow: 0 4px 20px rgba(16, 185, 129, 0.3);
-    }
-
-    .btn--primary::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(135deg, rgba(255,255,255,0.2) 0%, transparent 50%);
-      opacity: 0;
-      transition: opacity var(--transition);
-    }
-
-    .btn--primary:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 8px 30px rgba(16, 185, 129, 0.4);
-    }
-
-    .btn--primary:hover::before {
-      opacity: 1;
-    }
-
-    .btn--primary:active {
-      transform: translateY(-1px);
-    }
-
-    .btn--secondary {
-      background: var(--bg-card);
-      color: var(--text-primary);
-      border: 1px solid var(--border);
-    }
-
-    .btn--secondary:hover {
-      border-color: var(--accent);
-      background: var(--accent-subtle);
-      color: var(--accent-light);
-    }
-
-    .btn__icon {
-      transition: transform var(--transition);
-    }
-
-    .btn:hover .btn__icon {
-      transform: translateX(4px);
-    }
-
-    /* ============================================
-       SECTION HEADERS
-       ============================================ */
-    .section__header {
-      text-align: center;
-      margin-bottom: 72px;
-    }
-
-    .section__label {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 13px;
-      font-weight: 600;
-      color: var(--accent);
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      margin-bottom: 16px;
-    }
-
-    .section__label::before,
-    .section__label::after {
-      content: '';
-      width: 20px;
-      height: 1px;
-      background: var(--accent);
-      opacity: 0.5;
-    }
-
-    .section__title {
-      font-size: clamp(32px, 5vw, 48px);
-      font-weight: 800;
-      letter-spacing: -0.03em;
-      margin-bottom: 16px;
-    }
-
-    .section__subtitle {
-      color: var(--text-secondary);
-      font-size: 18px;
-      max-width: 600px;
-      margin: 0 auto;
-      line-height: 1.7;
-    }
-
-    /* ============================================
-       SERVICES
-       ============================================ */
-    .services {
-      background: var(--bg-secondary);
-      position: relative;
-      z-index: 1;
-    }
-
-    .services::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 1px;
-      background: linear-gradient(90deg, transparent, var(--border-light), transparent);
-    }
-
-    .services__grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
-      gap: 24px;
-    }
-
-    .service-card {
-      background: var(--gradient-card);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-xl);
-      padding: 36px;
-      transition: all var(--transition);
-      position: relative;
-      overflow: hidden;
-      cursor: pointer;
-    }
-
-    .service-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 3px;
-      background: var(--gradient-accent);
-      transform: scaleX(0);
-      transform-origin: left;
-      transition: transform var(--transition);
-    }
-
-    .service-card::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(circle at 50% 0%, var(--accent-subtle), transparent 60%);
-      opacity: 0;
-      transition: opacity var(--transition);
-    }
-
-    .service-card:hover {
-      border-color: rgba(16, 185, 129, 0.3);
-      transform: translateY(-8px);
-      box-shadow: var(--shadow-lg), 0 0 60px rgba(16, 185, 129, 0.1);
-    }
-
-    .service-card:hover::before {
-      transform: scaleX(1);
-    }
-
-    .service-card:hover::after {
-      opacity: 1;
-    }
-
-    .service-card__content {
-      position: relative;
-      z-index: 1;
-    }
-
-    .service-card__icon {
-      width: 56px;
-      height: 56px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: var(--accent-subtle);
-      border: 1px solid rgba(16, 185, 129, 0.2);
-      border-radius: var(--radius-lg);
-      margin-bottom: 24px;
-      color: var(--accent);
-      transition: all var(--transition);
-    }
-
-    .service-card:hover .service-card__icon {
-      background: var(--accent);
-      color: var(--bg-primary);
-      transform: scale(1.1) rotate(-5deg);
-    }
-
-    .service-card__price {
-      display: inline-block;
-      background: var(--bg-primary);
-      color: var(--accent);
-      padding: 6px 14px;
-      border-radius: var(--radius-full);
-      font-size: 13px;
-      font-weight: 600;
-      font-family: var(--font-mono);
-      margin-bottom: 16px;
-      border: 1px solid var(--border);
-    }
-
-    .service-card__title {
-      font-size: 24px;
-      font-weight: 700;
-      margin-bottom: 12px;
-      letter-spacing: -0.02em;
-    }
-
-    .service-card__desc {
-      color: var(--text-secondary);
-      font-size: 15px;
-      line-height: 1.7;
-      margin-bottom: 24px;
-    }
-
-    .service-card__stat {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      color: var(--text-muted);
-      font-size: 14px;
-      font-weight: 500;
-      padding-top: 20px;
-      border-top: 1px solid var(--border);
-    }
-
-    .service-card__stat-icon {
-      color: var(--accent);
-      flex-shrink: 0;
-    }
-
-    .services__footer {
-      text-align: center;
-      margin-top: 48px;
-    }
-
-    .services__link {
-      color: var(--text-secondary);
-      font-size: 15px;
-      font-weight: 500;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 12px 20px;
-      border-radius: var(--radius-md);
-      border: 1px solid var(--border);
-      transition: all var(--transition);
-    }
-
-    .services__link:hover {
-      color: var(--accent);
-      border-color: var(--accent);
-      background: var(--accent-subtle);
-    }
-
-    .services__link:hover svg {
-      transform: translateX(4px);
-    }
-
-    .services__link svg {
-      transition: transform var(--transition);
-    }
-
-    /* ============================================
-       PROCESS
-       ============================================ */
-    .process {
-      background: var(--bg-primary);
-      position: relative;
-      z-index: 1;
-    }
-
-    .process__grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 32px;
-      position: relative;
-    }
-
-    /* Connection line */
-    .process__grid::before {
-      content: '';
-      position: absolute;
-      top: 60px;
-      left: calc(16.67% + 24px);
-      right: calc(16.67% + 24px);
-      height: 2px;
-      background: linear-gradient(90deg, var(--accent), var(--border), var(--accent));
-      opacity: 0.3;
-    }
-
-    @media (max-width: 768px) {
-      .process__grid {
-        grid-template-columns: 1fr;
-        gap: 40px;
-      }
-      .process__grid::before {
-        display: none;
-      }
-    }
-
-    .process__step {
-      text-align: center;
-      position: relative;
-    }
-
-    .process__number {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 64px;
-      height: 64px;
-      background: var(--gradient-accent);
-      color: var(--bg-primary);
-      font-size: 24px;
-      font-weight: 800;
-      border-radius: var(--radius-lg);
-      margin-bottom: 28px;
-      position: relative;
-      z-index: 1;
-      transition: all var(--transition);
-      box-shadow: 0 8px 30px rgba(16, 185, 129, 0.3);
-    }
-
-    .process__step:hover .process__number {
-      transform: scale(1.1) rotate(-5deg);
-      box-shadow: 0 12px 40px rgba(16, 185, 129, 0.4);
-    }
-
-    .process__title {
-      font-size: 22px;
-      font-weight: 700;
-      margin-bottom: 8px;
-      letter-spacing: -0.02em;
-    }
-
-    .process__time {
-      color: var(--accent);
-      font-size: 14px;
-      font-weight: 600;
-      font-family: var(--font-mono);
-      margin-bottom: 16px;
-    }
-
-    .process__desc {
-      color: var(--text-secondary);
-      font-size: 15px;
-      line-height: 1.7;
-      max-width: 300px;
-      margin: 0 auto;
-    }
-
-    /* ============================================
-       PROOF / CASE STUDIES
-       ============================================ */
-    .proof {
-      background: var(--bg-secondary);
-      position: relative;
-      z-index: 1;
-    }
-
-    .proof::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 1px;
-      background: linear-gradient(90deg, transparent, var(--border-light), transparent);
-    }
-
-    .proof__featured {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-xl);
-      padding: 56px;
-      margin-bottom: 32px;
-      display: grid;
-      grid-template-columns: 1fr auto;
-      align-items: center;
-      gap: 48px;
-      position: relative;
-      overflow: hidden;
-      transition: all var(--transition);
-    }
-
-    .proof__featured::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      bottom: 0;
-      width: 4px;
-      background: var(--gradient-accent);
-    }
-
-    .proof__featured::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(circle at 0% 50%, var(--accent-subtle), transparent 50%);
-      opacity: 0.5;
-      pointer-events: none;
-    }
-
-    .proof__featured:hover {
-      border-color: var(--accent);
-      box-shadow: var(--shadow-glow);
-    }
-
-    @media (max-width: 768px) {
-      .proof__featured {
-        grid-template-columns: 1fr;
-        text-align: center;
-        padding: 40px;
-      }
-    }
-
-    .proof__featured-content {
-      position: relative;
-      z-index: 1;
-    }
-
-    .proof__featured-label {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      color: var(--accent);
-      font-size: 13px;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      margin-bottom: 16px;
-    }
-
-    .proof__featured-label::before {
-      content: '★';
-    }
-
-    .proof__featured-stat {
-      font-size: 72px;
-      font-weight: 800;
-      font-family: var(--font-mono);
-      letter-spacing: -0.04em;
-      background: var(--gradient-accent);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      line-height: 1;
-      margin-bottom: 12px;
-    }
-
-    .proof__featured-company {
-      font-size: 28px;
-      font-weight: 700;
-      margin-bottom: 16px;
-      letter-spacing: -0.02em;
-    }
-
-    .proof__featured-desc {
-      color: var(--text-secondary);
-      font-size: 17px;
-      max-width: 500px;
-      line-height: 1.7;
-    }
-
-    .proof__featured-cta {
-      position: relative;
-      z-index: 1;
-    }
-
-    .proof__grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 24px;
-    }
-
-    @media (max-width: 640px) {
-      .proof__grid {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    .proof-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-xl);
-      padding: 36px;
-      transition: all var(--transition);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .proof-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 2px;
-      background: var(--gradient-accent);
-      transform: scaleX(0);
-      transform-origin: left;
-      transition: transform var(--transition);
-    }
-
-    .proof-card:hover {
-      border-color: rgba(16, 185, 129, 0.3);
-      transform: translateY(-4px);
-      box-shadow: var(--shadow-md);
-    }
-
-    .proof-card:hover::before {
-      transform: scaleX(1);
-    }
-
-    .proof-card__stat {
-      font-size: 40px;
-      font-weight: 800;
-      font-family: var(--font-mono);
-      color: var(--accent);
-      margin-bottom: 8px;
-      letter-spacing: -0.03em;
-    }
-
-    .proof-card__company {
-      font-size: 20px;
-      font-weight: 700;
-      margin-bottom: 12px;
-    }
-
-    .proof-card__desc {
-      color: var(--text-secondary);
-      font-size: 15px;
-      margin-bottom: 24px;
-      line-height: 1.7;
-    }
-
-    .proof-card__link {
-      color: var(--accent);
-      font-size: 14px;
-      font-weight: 600;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      transition: gap var(--transition);
-    }
-
-    .proof-card__link:hover {
-      gap: 10px;
-    }
-
-    /* ============================================
-       FOUNDER
-       ============================================ */
-    .founder {
-      background: var(--bg-primary);
-      position: relative;
-      z-index: 1;
-    }
-
-    .founder__inner {
-      max-width: 720px;
-      margin: 0 auto;
-      text-align: center;
-    }
-
-    .founder__image {
-      width: 100px;
-      height: 100px;
-      border-radius: 50%;
-      margin: 0 auto 32px;
-      border: 3px solid var(--accent);
-      padding: 3px;
-      background: var(--bg-card);
-    }
-
-    .founder__image img {
-      width: 100%;
-      height: 100%;
-      border-radius: 50%;
-      object-fit: cover;
-    }
-
-    .founder__title {
-      font-size: 32px;
-      font-weight: 700;
-      margin-bottom: 32px;
-      letter-spacing: -0.02em;
-    }
-
-    .founder__text {
-      color: var(--text-secondary);
-      font-size: 18px;
-      line-height: 1.8;
-      margin-bottom: 20px;
-    }
-
-    .founder__text strong {
-      color: var(--text-primary);
-      font-weight: 600;
-    }
-
-    .founder__text--highlight {
-      color: var(--accent);
-      font-weight: 500;
-    }
-
-    .founder__signature {
-      color: var(--text-primary);
-      font-size: 20px;
-      font-weight: 700;
-      margin-top: 40px;
-      margin-bottom: 40px;
-      font-style: italic;
-    }
-
-    /* ============================================
-       CTA SECTION
-       ============================================ */
-    .cta-section {
-      background: var(--bg-secondary);
-      text-align: center;
-      position: relative;
-      overflow: hidden;
-      z-index: 1;
-    }
-
-    .cta-section::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 1px;
-      background: linear-gradient(90deg, transparent, var(--border-light), transparent);
-    }
-
-    .cta-section__inner {
-      position: relative;
-      z-index: 1;
-    }
-
-    .cta-section__title {
-      font-size: clamp(32px, 5vw, 48px);
-      font-weight: 800;
-      letter-spacing: -0.03em;
-      margin-bottom: 20px;
-    }
-
-    .cta-section__subtitle {
-      color: var(--text-secondary);
-      font-size: 18px;
-      margin-bottom: 48px;
-      max-width: 500px;
-      margin-left: auto;
-      margin-right: auto;
-      line-height: 1.7;
-    }
-
-    /* ============================================
-       FOOTER
-       ============================================ */
-    .footer {
-      background: var(--bg-secondary);
-      border-top: 1px solid var(--border);
-      padding: 60px 0 30px;
-    }
-
-    .footer__grid {
-      display: grid;
-      grid-template-columns: 2fr 1fr 1fr 1.2fr;
-      gap: 48px;
-      margin-bottom: 40px;
-    }
-
-    .footer__column h4 {
-      font-size: 12px;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      color: var(--accent);
-      margin-bottom: 16px;
-    }
-
-    .footer__brand-logo {
-      font-size: 24px;
-      font-weight: 800;
-      color: var(--text-primary);
-      margin-bottom: 12px;
-    }
-
-    .footer__brand-logo span {
-      background: linear-gradient(135deg, #10b981 0%, #34d399 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-
-    .footer__tagline {
-      font-size: 14px;
-      color: var(--text-muted);
-      margin-bottom: 24px;
-      line-height: 1.5;
-    }
-
-    .footer__links {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-
-    .footer__link {
-      color: var(--text-secondary);
-      text-decoration: none;
-      font-size: 15px;
-      transition: color 0.25s ease;
-    }
-
-    .footer__link:hover {
-      color: var(--accent);
-    }
-
-    .footer__cta {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 12px 24px;
-      background: var(--accent);
-      color: var(--bg-primary);
-      font-weight: 600;
-      font-size: 14px;
-      border-radius: 8px;
-      text-decoration: none;
-      transition: all 0.25s ease;
-      margin-bottom: 16px;
-    }
-
-    .footer__cta:hover {
-      background: var(--accent-light);
-      transform: translateY(-1px);
-    }
-
-    .footer__social {
-      display: flex;
-      gap: 16px;
-      margin-top: 12px;
-    }
-
-    .footer__social-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      color: var(--text-secondary);
-      text-decoration: none;
-      font-size: 14px;
-      transition: all 0.25s ease;
-    }
-
-    .footer__social-link:hover {
-      color: var(--accent);
-    }
-
-    .footer__social-link svg {
-      width: 18px;
-      height: 18px;
-    }
-
-    .footer__bottom {
-      padding-top: 30px;
-      border-top: 1px solid var(--border);
-      text-align: center;
-      color: var(--text-muted);
-      font-size: 14px;
-    }
-
-    @media (max-width: 768px) {
-      .footer {
-        padding: 48px 0 24px;
-      }
-      .footer__grid {
-        grid-template-columns: 1fr;
-        gap: 32px;
-      }
-      .footer__social {
-        flex-wrap: wrap;
-      }
-    }
-
-    /* ============================================
-       SCROLL ANIMATIONS
-       ============================================ */
-    .reveal {
-      opacity: 0;
-      transform: translateY(40px);
-      transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-
-    .reveal.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    .reveal-delay-1 { transition-delay: 0.1s; }
-    .reveal-delay-2 { transition-delay: 0.2s; }
-    .reveal-delay-3 { transition-delay: 0.3s; }
-
-    /* ============================================
-       UTILITIES
-       ============================================ */
-    .text-accent { color: var(--accent); }
-    .text-muted { color: var(--text-muted); }
-    .font-mono { font-family: var(--font-mono); }
-    .gradient-text {
-      background: var(--gradient-accent);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-  </style>
-
-  <!-- Google Analytics 4 (Direct) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-DY95GS9YX5"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-DY95GS9YX5');
-  </script>
-  <!-- End Google Analytics 4 -->
-
-  <!-- Google Tag Manager -->
-  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-  })(window,document,'script','dataLayer','GTM-WBGJ9J8X');</script>
-  <!-- End Google Tag Manager -->
-
-  <!-- Tracking Script -->
-  <script src="/js/tracking.js" defer></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="css/styles.css">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="ResultantAI - Revenue Systems for Service Businesses">
+  <meta property="og:description" content="+$5K/mo captured. 97% time savings. 18-day payback. We build AI systems that recover revenue.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://resultantai.com">
 </head>
 <body>
-  <!-- Google Tag Manager (noscript) -->
-  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WBGJ9J8X"
-  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-  <!-- End Google Tag Manager (noscript) -->
-
-  <!-- Background elements -->
-  <div class="bg-grid"></div>
-  <div class="bg-gradient"></div>
-  <div class="bg-orb bg-orb--1"></div>
-  <div class="bg-orb bg-orb--2"></div>
+  <!-- Floating Orbs -->
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
 
   <!-- Navigation -->
-  <nav class="nav" id="nav">
-    <div class="container">
-      <div class="nav__inner">
-        <a href="/" class="nav__logo">
-          Resultant<span>AI</span>
-        </a>
-        <div class="nav__links">
-          <a href="#services" class="nav__link">Services</a>
-          <a href="#process" class="nav__link">Process</a>
-          <a href="#work" class="nav__link">Work</a>
-          <a href="#about" class="nav__link">About</a>
-          <a href="https://meetings.hubspot.com/chris4642/ai-gateway-founding-partner" class="nav__cta">Book a Call</a>
+  <nav id="nav">
+    <div class="nav__inner">
+      <a href="/" class="nav__logo">Resultant<span>AI</span></a>
+
+      <div class="nav__links">
+        <div class="nav__dropdown">
+          <div class="nav__dropdown-trigger nav__link">
+            Solutions ▾
+          </div>
+          <div class="nav__dropdown-content">
+            <div class="nav__dropdown-grid">
+              <div class="nav__dropdown-section">
+                <h4>Pre-Built Solutions</h4>
+                <a href="propane.html" class="nav__dropdown-link" style="color: var(--accent); font-weight: 600;">Propane Dispatch System</a>
+                <a href="gateway.html" class="nav__dropdown-link">AI Gateway (Cost Control)</a>
+              </div>
+              <div class="nav__dropdown-section">
+                <h4>Custom Solutions</h4>
+                <a href="solutions-field-services.html" class="nav__dropdown-link">Field Services</a>
+                <a href="solutions-agencies.html" class="nav__dropdown-link">Marketing Agencies</a>
+                <a href="solutions-b2b.html" class="nav__dropdown-link">B2B Services</a>
+              </div>
+              <div class="nav__dropdown-section">
+                <h4>By Outcome</h4>
+                <a href="solutions.html#revenue-recovery" class="nav__dropdown-link">Revenue Recovery</a>
+                <a href="solutions.html#operations-automation" class="nav__dropdown-link">Operations Automation</a>
+              </div>
+            </div>
+          </div>
         </div>
-        <button class="nav__toggle" aria-label="Toggle menu">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
-            <line x1="3" y1="6" x2="21" y2="6"></line>
-            <line x1="3" y1="12" x2="21" y2="12"></line>
-            <line x1="3" y1="18" x2="21" y2="18"></line>
-          </svg>
-        </button>
+        <a href="case-studies.html" class="nav__link">Case Studies</a>
+        <a href="gateway.html" class="nav__link">AI Gateway</a>
+        <a href="/blog" class="nav__link">Blog</a>
       </div>
+
+      <a href="https://meetings.hubspot.com/chris4642/ai-gateway-founding-partner" class="nav__cta">Book a Call</a>
     </div>
   </nav>
 
-  <!-- Hero -->
+  <!-- Hero Section -->
   <section class="hero">
     <div class="container">
-      <div class="hero__content">
-        <div class="hero__badge">
-          <span class="hero__badge-dot"></span>
-          AI Systems for Agencies
-        </div>
-        <h1 class="hero__title">
-          <span class="hero__title-line">AI Systems That</span>
-          <span class="hero__title-line"><span class="hero__title-accent">Run Without You</span></span>
-        </h1>
-        <p class="hero__subtitle">Voice agents, automation, and chatbots — built in weeks, not months. Systems that capture leads, close deals, and run without you.</p>
-        <div class="hero__ctas">
-          <a href="https://meetings.hubspot.com/chris4642/ai-gateway-founding-partner" class="btn btn--primary">
-            Book a Discovery Call
-            <svg class="btn__icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-              <path d="M5 12h14M12 5l7 7-7 7"/>
-            </svg>
-          </a>
-          <a href="#work" class="btn btn--secondary">See Our Work</a>
-        </div>
-        <div class="hero__stats">
-          <div class="hero__stat">
-            <div class="hero__stat-value">3X</div>
-            <div class="hero__stat-label">Lead volume increase</div>
-          </div>
-          <div class="hero__stat">
-            <div class="hero__stat-value">75%</div>
-            <div class="hero__stat-label">Time savings</div>
-          </div>
-          <div class="hero__stat">
-            <div class="hero__stat-value">1.5 days</div>
-            <div class="hero__stat-label">Doc collection (was 5)</div>
-          </div>
-        </div>
+      <span class="hero__label reveal">Revenue Systems for Service Businesses</span>
+
+      <h1 class="hero__title reveal">
+        Stop Losing Money to Manual Processes
+      </h1>
+
+      <p class="hero__subtitle reveal">
+        We build AI systems that recover revenue, not just save time.<br>
+        +$5K/mo captured. 97% time savings. 18-day payback.
+      </p>
+
+      <div class="hero__ctas reveal">
+        <a href="https://meetings.hubspot.com/chris4642/ai-gateway-founding-partner" class="btn btn-primary">Book Revenue Audit</a>
+        <a href="solutions.html" class="btn btn-secondary">See Solutions →</a>
       </div>
     </div>
   </section>
 
-  <!-- Services -->
-  <section class="section services" id="services">
+  <!-- Trust Bar -->
+  <section class="trust-bar">
     <div class="container">
-      <div class="section__header reveal">
-        <div class="section__label">What We Build</div>
-        <h2 class="section__title">Production-Ready AI Systems</h2>
-        <p class="section__subtitle">Delivered in weeks, not quarters. Built to run without you.</p>
-      </div>
-      <div class="services__grid">
-        <div class="service-card reveal reveal-delay-1">
-          <div class="service-card__content">
-            <div class="service-card__icon">
-              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
-              </svg>
-            </div>
-            <span class="service-card__price">From $10K</span>
-            <h3 class="service-card__title">Voice Agents</h3>
-            <p class="service-card__desc">AI phone systems that qualify leads, handle objections, and book appointments. No scripts. No hold music. Just conversations that convert.</p>
-            <div class="service-card__stat">
-              <svg class="service-card__stat-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
-                <polyline points="22 4 12 14.01 9 11.01"/>
-              </svg>
-              Average 23% booking rate
-            </div>
-          </div>
+      <div class="trust-bar__metrics reveal">
+        <div class="trust-bar__metric">
+          <div class="trust-bar__metric-value">+$5K/mo</div>
+          <div class="trust-bar__metric-label">Revenue Captured</div>
         </div>
-        <div class="service-card reveal reveal-delay-2">
-          <div class="service-card__content">
-            <div class="service-card__icon">
-              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <polyline points="16 18 22 12 16 6"></polyline>
-                <polyline points="8 6 2 12 8 18"></polyline>
-              </svg>
-            </div>
-            <span class="service-card__price">From $5K</span>
-            <h3 class="service-card__title">Automation Systems</h3>
-            <p class="service-card__desc">Make.com and n8n workflows that kill manual processes. Stop paying humans to do robot work.</p>
-            <div class="service-card__stat">
-              <svg class="service-card__stat-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
-                <polyline points="22 4 12 14.01 9 11.01"/>
-              </svg>
-              Clients save 20+ hrs/week
-            </div>
-          </div>
+        <div class="trust-bar__metric">
+          <div class="trust-bar__metric-value">97%</div>
+          <div class="trust-bar__metric-label">Time Saved</div>
         </div>
-        <div class="service-card reveal reveal-delay-3">
-          <div class="service-card__content">
-            <div class="service-card__icon">
-              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
-              </svg>
-            </div>
-            <span class="service-card__price">From $6K</span>
-            <h3 class="service-card__title">AI Safety & Compliance</h3>
-            <p class="service-card__desc">PII scrubbing, sentiment routing, audit trails. Enterprise-grade security without enterprise pricing.</p>
-            <div class="service-card__stat">
-              <svg class="service-card__stat-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
-                <polyline points="22 4 12 14.01 9 11.01"/>
-              </svg>
-              SOC2-ready in 30 days
-            </div>
-          </div>
+        <div class="trust-bar__metric">
+          <div class="trust-bar__metric-value">18-Day</div>
+          <div class="trust-bar__metric-label">Average Payback</div>
+        </div>
+        <div class="trust-bar__metric">
+          <div class="trust-bar__metric-value">20+</div>
+          <div class="trust-bar__metric-label">Systems Deployed</div>
         </div>
       </div>
-      <div class="services__footer reveal">
-        <a href="/services" class="services__link">
-          Need something smaller? Quick Win packages start at $2,500
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M5 12h14M12 5l7 7-7 7"/>
-          </svg>
-        </a>
-      </div>
+      <p style="text-align: center; color: var(--text-muted); font-size: 0.95rem;">
+        Trusted by operators who hate busywork
+      </p>
     </div>
   </section>
 
-  <!-- Process -->
-  <section class="section process" id="process">
+  <!-- Solutions Preview Section -->
+  <section>
     <div class="container">
-      <div class="section__header reveal">
-        <div class="section__label">How It Works</div>
-        <h2 class="section__title">From Discovery to Delivery</h2>
-        <p class="section__subtitle">Three steps. No surprises. Full ownership.</p>
-      </div>
-      <div class="process__grid">
-        <div class="process__step reveal reveal-delay-1">
-          <div class="process__number">1</div>
-          <h3 class="process__title">Discovery Call</h3>
-          <div class="process__time">30 minutes</div>
-          <p class="process__desc">We learn your workflow, your pain points, and whether we're the right fit. No pitch deck.</p>
-        </div>
-        <div class="process__step reveal reveal-delay-2">
-          <div class="process__number">2</div>
-          <h3 class="process__title">Custom Build</h3>
-          <div class="process__time">2-4 weeks</div>
-          <p class="process__desc">We design, build, test, and document your solution. You see progress weekly.</p>
-        </div>
-        <div class="process__step reveal reveal-delay-3">
-          <div class="process__number">3</div>
-          <h3 class="process__title">Handoff + Support</h3>
-          <div class="process__time">You own everything</div>
-          <p class="process__desc">Code, workflows, documentation — it's all yours. We're here if you need us.</p>
-        </div>
-      </div>
-    </div>
-  </section>
+      <h2 class="section-title reveal">What We Build</h2>
+      <p class="section-subtitle reveal">Three ways to stop doing it manually.</p>
 
-  <!-- Proof -->
-  <section class="section proof" id="work">
-    <div class="container">
-      <div class="section__header reveal">
-        <div class="section__label">Case Studies</div>
-        <h2 class="section__title">Results, Not Promises</h2>
-        <p class="section__subtitle">What we've built. What it delivered.</p>
-      </div>
-      <div class="proof__featured reveal">
-        <div class="proof__featured-content">
-          <div class="proof__featured-label">Featured Case Study</div>
-          <div class="proof__featured-stat">97%</div>
-          <h3 class="proof__featured-company">Adleg</h3>
-          <p class="proof__featured-desc">Prospect audits that took 90 minutes now take 2. From 4 audits/week to 50 — closed 4 new clients in 30 days.</p>
-        </div>
-        <div class="proof__featured-cta">
-          <a href="/work/adleg" class="btn btn--secondary">
-            Read Case Study
-            <svg class="btn__icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M5 12h14M12 5l7 7-7 7"/>
+      <div class="grid grid-3">
+        <!-- Revenue Recovery -->
+        <div class="card reveal">
+          <div class="card__icon">
+            <svg width="24" height="24" viewBox="0 0 32 32">
+              <g stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="16" cy="16" r="12"/>
+                <path d="M16 10v12"/>
+                <path d="M19 12h-4a3 3 0 0 0 0 6h2a3 3 0 0 1 0 6h-4"/>
+              </g>
             </svg>
+          </div>
+          <h3 class="card__title">Revenue Recovery</h3>
+          <p class="card__description">Capture the calls and leads you're missing</p>
+
+          <ul class="card__list">
+            <li>AI voice agents for 24/7 qualification</li>
+            <li>Automated follow-up sequences</li>
+            <li>CRM integration that actually works</li>
+          </ul>
+
+          <p class="card__proof">PROOF: Wayne Conn Plumbing → +$5K/mo</p>
+
+          <a href="solutions.html#revenue-recovery" class="card__cta">
+            See Revenue Systems →
           </a>
         </div>
-      </div>
-      <div class="proof__grid">
-        <div class="proof-card reveal reveal-delay-1">
-          <div class="proof-card__stat">3X Leads</div>
-          <h3 class="proof-card__company">Jami Consulting</h3>
-          <p class="proof-card__desc">AI outbound system that qualifies MCA leads 24/7. 75% less manual calling, 3x faster doc collection.</p>
-          <a href="/work/hera-j" class="proof-card__link">
-            View Case Study
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-              <path d="M5 12h14M12 5l7 7-7 7"/>
+
+        <!-- Operations Automation -->
+        <div class="card reveal">
+          <div class="card__icon">
+            <svg width="24" height="24" viewBox="0 0 32 32">
+              <g stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="16" cy="16" r="3"/>
+                <path d="M16 4v3m0 18v3m8-12h3m-18 0H4m15.36-7.36l2.12-2.12M10.52 21.48l-2.12 2.12m12.24 0l2.12-2.12M10.52 10.52l-2.12-2.12"/>
+              </g>
             </svg>
+          </div>
+          <h3 class="card__title">Operations Automation</h3>
+          <p class="card__description">Turn 10-hour tasks into 10-minute automations</p>
+
+          <ul class="card__list">
+            <li>Workflow audits that find hidden waste</li>
+            <li>Custom automation workflow builds</li>
+            <li>Legacy system migrations</li>
+          </ul>
+
+          <p class="card__proof">PROOF: Adleg → 97% time savings on audits</p>
+
+          <a href="solutions.html#operations-automation" class="card__cta">
+            See Automation Systems →
           </a>
         </div>
-        <div class="proof-card reveal reveal-delay-2">
-          <div class="proof-card__stat">+$5K/mo</div>
-          <h3 class="proof-card__company">Wayne Conn Plumbing</h3>
-          <p class="proof-card__desc">AI voice agent that answers every call — nights, weekends, emergencies. Paid for itself in 18 days.</p>
-          <a href="/work/wayne-conn" class="proof-card__link">
-            View Case Study
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-              <path d="M5 12h14M12 5l7 7-7 7"/>
+
+        <!-- AI Cost Control -->
+        <div class="card reveal">
+          <div class="card__icon">
+            <svg width="24" height="24" viewBox="0 0 32 32">
+              <g stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M16 3l-8 3v8a12 12 0 0 0 8 11.27A12 12 0 0 0 24 14V6l-8-3z"/>
+                <path d="M12 15l2 2 4-4"/>
+              </g>
             </svg>
+          </div>
+          <h3 class="card__title">AI Cost Control</h3>
+          <p class="card__description">Predictable AI costs. Zero surprises.</p>
+
+          <ul class="card__list">
+            <li>Smart routing across LLM providers</li>
+            <li>Per-client cost attribution</li>
+            <li>Compliance guardrails built-in</li>
+          </ul>
+
+          <p class="card__proof">PROOF: Agencies saving 60-80% on AI costs</p>
+
+          <a href="gateway.html" class="card__cta">
+            Explore AI Gateway →
           </a>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Founder -->
-  <section class="section founder" id="about">
+  <!-- Industry Verticals Section -->
+  <section>
     <div class="container">
-      <div class="founder__inner reveal">
-        <h2 class="founder__title">Who's Behind This</h2>
-        <p class="founder__text">We're <strong>ResultantAI</strong>.</p>
-        <p class="founder__text">We've spent 3 years building AI systems that work while you sleep — voice agents that answer every call, workflows that qualify leads in seconds, and automations that cut 90-minute tasks to 2 minutes.</p>
-        <p class="founder__text">We don't do fluff. We don't do "strategy decks." We build things that work and hand them off with documentation so clean you'll never need us again.</p>
-        <p class="founder__text founder__text--highlight">Unless you want to.</p>
-        <div class="founder__signature">— ResultantAI</div>
-        <a href="https://meetings.hubspot.com/chris4642/ai-gateway-founding-partner" class="btn btn--primary">
-          Book a Call
-          <svg class="btn__icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-            <path d="M5 12h14M12 5l7 7-7 7"/>
-          </svg>
-        </a>
+      <h2 class="section-title reveal">Built for Your Industry</h2>
+      <p class="section-subtitle reveal">
+        We specialize in service businesses that run on relationships, not transactions.
+      </p>
+
+      <!-- Tabs -->
+      <div data-tabs>
+        <div class="tabs reveal">
+          <div class="tab active" data-tab="field-services">Field Services</div>
+          <div class="tab" data-tab="agencies">Marketing Agencies</div>
+          <div class="tab" data-tab="b2b">B2B Services</div>
+        </div>
+
+        <!-- Field Services Tab -->
+        <div class="tab-panel active" data-panel="field-services">
+          <div class="grid grid-2" style="margin-top: var(--space-lg);">
+            <div>
+              <h3 style="margin-bottom: var(--space-sm);">Still running on paper and phone calls?</h3>
+              <ul class="card__list" style="margin-bottom: var(--space-md);">
+                <li style="color: var(--text-secondary);">Dispatch changes = endless phone tag</li>
+                <li style="color: var(--text-secondary);">Missed calls = lost revenue</li>
+                <li style="color: var(--text-secondary);">Customer data = scattered spreadsheets</li>
+                <li style="color: var(--text-secondary);">Invoicing = manual entry nightmares</li>
+              </ul>
+            </div>
+
+            <div>
+              <h3 style="margin-bottom: var(--space-sm);">We digitize your operations in weeks, not months</h3>
+              <ul class="card__list" style="margin-bottom: var(--space-md);">
+                <li>AI receptionist for 24/7 call handling</li>
+                <li>Digital dispatch with real-time tracking</li>
+                <li>Customer portal for self-service</li>
+                <li>Automated invoicing and follow-up</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="testimonial">
+            <p class="testimonial__quote">
+              "Went from missing 40% of after-hours calls to capturing every lead. +$5K/month in 60 days."
+            </p>
+            <p class="testimonial__author">
+              <span class="testimonial__author-name">Wayne Conn Plumbing</span>
+            </p>
+          </div>
+
+          <div style="text-align: center; margin-top: var(--space-md);">
+            <a href="solutions-field-services.html" class="btn btn-primary">See Field Services Solutions →</a>
+          </div>
+        </div>
+
+        <!-- Marketing Agencies Tab -->
+        <div class="tab-panel" data-panel="agencies">
+          <div class="grid grid-2" style="margin-top: var(--space-lg);">
+            <div>
+              <h3 style="margin-bottom: var(--space-sm);">Drowning in client work and admin?</h3>
+              <ul class="card__list" style="margin-bottom: var(--space-md);">
+                <li style="color: var(--text-secondary);">Reporting = copy-paste spreadsheet hell</li>
+                <li style="color: var(--text-secondary);">Lead qualification = manual screening</li>
+                <li style="color: var(--text-secondary);">Client onboarding = 47 steps</li>
+                <li style="color: var(--text-secondary);">Proposals = reinventing the wheel</li>
+              </ul>
+            </div>
+
+            <div>
+              <h3 style="margin-bottom: var(--space-sm);">Systems that let you focus on strategy, not execution</h3>
+              <ul class="card__list" style="margin-bottom: var(--space-md);">
+                <li>Automated client reporting</li>
+                <li>AI-powered lead qualification</li>
+                <li>One-click proposal generation</li>
+                <li>Predictable AI costs with Gateway</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="testimonial">
+            <p class="testimonial__quote">
+              "Cut audit time from 10 hours to 18 minutes. 97% time savings. Now we can audit 40 prospects per week instead of 3."
+            </p>
+            <p class="testimonial__author">
+              <span class="testimonial__author-name">Adleg Marketing</span>
+            </p>
+          </div>
+
+          <div style="text-align: center; margin-top: var(--space-md);">
+            <a href="solutions-agencies.html" class="btn btn-primary">See Agency Solutions →</a>
+          </div>
+        </div>
+
+        <!-- B2B Services Tab -->
+        <div class="tab-panel" data-panel="b2b">
+          <div class="grid grid-2" style="margin-top: var(--space-lg);">
+            <div>
+              <h3 style="margin-bottom: var(--space-sm);">Founder still doing everything?</h3>
+              <ul class="card__list" style="margin-bottom: var(--space-md);">
+                <li style="color: var(--text-secondary);">Sales = you're the only closer</li>
+                <li style="color: var(--text-secondary);">Onboarding = different every time</li>
+                <li style="color: var(--text-secondary);">Follow-up = falls through cracks</li>
+                <li style="color: var(--text-secondary);">Scaling = means hiring (expensive)</li>
+              </ul>
+            </div>
+
+            <div>
+              <h3 style="margin-bottom: var(--space-sm);">Build the systems so you can step back</h3>
+              <ul class="card__list" style="margin-bottom: var(--space-md);">
+                <li>AI-assisted sales qualification</li>
+                <li>Automated client onboarding</li>
+                <li>Systematic follow-up sequences</li>
+                <li>Documentation that runs without you</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="testimonial">
+            <p class="testimonial__quote">
+              "We've deployed 20+ systems for B2B service companies. Book a call to see what's possible."
+            </p>
+            <p class="testimonial__author">
+              <span class="testimonial__author-name">Your Business Next?</span>
+            </p>
+          </div>
+
+          <div style="text-align: center; margin-top: var(--space-md);">
+            <a href="solutions-b2b.html" class="btn btn-primary">See B2B Solutions →</a>
+          </div>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- CTA -->
-  <section class="section cta-section">
+  <!-- ROI Calculator Section -->
+  <section style="background: var(--bg-secondary); padding: var(--space-xl) 0;">
     <div class="container">
-      <div class="cta-section__inner reveal">
-        <h2 class="cta-section__title">Ready to stop doing it manually?</h2>
-        <p class="cta-section__subtitle">Book a 30-minute discovery call. No sales pitch — just a conversation about what you need.</p>
-        <a href="https://meetings.hubspot.com/chris4642/ai-gateway-founding-partner" class="btn btn--primary">
-          Book a Discovery Call
-          <svg class="btn__icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-            <path d="M5 12h14M12 5l7 7-7 7"/>
-          </svg>
-        </a>
+      <h2 class="section-title reveal">How Much Are You Leaving on the Table?</h2>
+
+      <div class="roi-calculator reveal" id="roi-calculator">
+        <div class="roi-calculator__input-group">
+          <label class="roi-calculator__label" for="missed-calls">
+            Monthly missed/after-hours calls:
+          </label>
+          <input
+            type="number"
+            id="missed-calls"
+            class="roi-calculator__input"
+            value="50"
+            min="0"
+          />
+        </div>
+
+        <div class="roi-calculator__input-group">
+          <label class="roi-calculator__label" for="avg-value">
+            Average job/deal value:
+          </label>
+          <input
+            type="number"
+            id="avg-value"
+            class="roi-calculator__input"
+            value="500"
+            min="0"
+            step="10"
+          />
+        </div>
+
+        <div class="roi-calculator__input-group">
+          <label class="roi-calculator__label" for="close-rate">
+            Your close rate on returned calls (%):
+          </label>
+          <input
+            type="number"
+            id="close-rate"
+            class="roi-calculator__input"
+            value="30"
+            min="0"
+            max="100"
+          />
+        </div>
+
+        <div class="roi-calculator__results">
+          <p class="roi-calculator__results-label" style="display: flex; align-items: center; gap: 8px;">
+            <svg width="20" height="20" viewBox="0 0 32 32" style="flex-shrink: 0;">
+              <g stroke="#10b981" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="16" cy="16" r="12"/>
+                <path d="M16 10v12"/>
+                <path d="M19 12h-4a3 3 0 0 0 0 6h2a3 3 0 0 1 0 6h-4"/>
+              </g>
+            </svg>
+            <span>You're leaving on the table:</span>
+          </p>
+          <div class="roi-calculator__results-value" id="monthly-loss">$7,500</div>
+          <p class="roi-calculator__results-label" style="margin-bottom: 4px;">per month</p>
+          <p style="font-size: 1.125rem; color: var(--text-primary); font-weight: 600;">
+            That's <span id="annual-loss" style="color: var(--accent);">$90,000</span> per year in recoverable revenue.
+          </p>
+
+          <div style="margin-top: var(--space-md);">
+            <a href="https://meetings.hubspot.com/chris4642/ai-gateway-founding-partner" class="btn btn-primary">
+              Get a System to Capture It →
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Process Section -->
+  <section>
+    <div class="container">
+      <h2 class="section-title reveal">How It Works</h2>
+      <p class="section-subtitle reveal">From call to deployed system in weeks.</p>
+
+      <div class="grid grid-3">
+        <div class="card reveal">
+          <div style="font-size: 2.5rem; font-weight: 900; color: var(--accent); margin-bottom: var(--space-xs);">01</div>
+          <h3 class="card__title">Discovery Call</h3>
+          <p style="color: var(--text-muted); font-size: 0.875rem; margin-bottom: var(--space-sm);">[30 min]</p>
+          <p class="card__description">
+            We learn your workflow and find the biggest opportunities.<br><br>
+            No pitch deck. Just a conversation.
+          </p>
+        </div>
+
+        <div class="card reveal">
+          <div style="font-size: 2.5rem; font-weight: 900; color: var(--accent); margin-bottom: var(--space-xs);">02</div>
+          <h3 class="card__title">Scope & Proposal</h3>
+          <p style="color: var(--text-muted); font-size: 0.875rem; margin-bottom: var(--space-sm);">[24-48 hrs]</p>
+          <p class="card__description">
+            You get a clear scope, timeline, and outcome guarantee.<br><br>
+            No back-and-forth. Accept = we start.
+          </p>
+        </div>
+
+        <div class="card reveal">
+          <div style="font-size: 2.5rem; font-weight: 900; color: var(--accent); margin-bottom: var(--space-xs);">03</div>
+          <h3 class="card__title">Build & Deploy</h3>
+          <p style="color: var(--text-muted); font-size: 0.875rem; margin-bottom: var(--space-sm);">[1-4 weeks]</p>
+          <p class="card__description">
+            We build, test, and hand off. You own everything.<br><br>
+            Full documentation. Support included.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured Case Study Section -->
+  <section style="background: var(--bg-secondary); padding: var(--space-xl) 0;">
+    <div class="container">
+      <h2 class="section-title reveal">Results, Not Promises</h2>
+
+      <!-- Featured Case Study -->
+      <div class="card reveal" style="background: var(--bg-card); border: 2px solid var(--border-glow); margin-bottom: var(--space-lg);">
+        <span style="display: inline-block; padding: 4px 12px; background: var(--accent-subtle); color: var(--accent); border-radius: var(--radius-full); font-size: 0.75rem; font-weight: 700; text-transform: uppercase; margin-bottom: var(--space-sm);">Featured</span>
+
+        <div class="stats-callout" style="margin: var(--space-md) 0;">
+          <div class="stats-callout__number">+$5K/mo</div>
+          <div class="stats-callout__label">Revenue Captured</div>
+        </div>
+
+        <h3 style="font-size: 1.875rem; margin-bottom: var(--space-sm);">Wayne Conn Plumbing</h3>
+
+        <p class="testimonial__quote" style="border-left: none; padding: 0; margin-bottom: var(--space-md);">
+          "AI voice agent that captures every after-hours call. From 60% missed calls to 100% capture. 18-day payback."
+        </p>
+
+        <a href="case-studies.html#wayne-conn" class="btn btn-primary">Read Case Study →</a>
+      </div>
+
+      <!-- Other Case Studies -->
+      <div class="grid grid-2">
+        <div class="card reveal">
+          <div class="stats-callout" style="margin-bottom: var(--space-md);">
+            <div class="stats-callout__number">97%</div>
+            <div class="stats-callout__label">Time Saved</div>
+          </div>
+
+          <h3 class="card__title">Adleg Marketing</h3>
+          <p class="card__description">
+            Marketing audit automation<br>
+            90 min → 2 min per audit<br>
+            10X output increase
+          </p>
+
+          <a href="case-studies.html#adleg" class="card__cta">View Case Study →</a>
+        </div>
+
+        <div class="card reveal">
+          <div class="stats-callout" style="margin-bottom: var(--space-md);">
+            <div class="stats-callout__number">30s</div>
+            <div class="stats-callout__label">Per Ticket</div>
+          </div>
+
+          <h3 class="card__title">Beaver Pumice</h3>
+          <p class="card__description">
+            Paper-to-digital ticketing<br>
+            Zero lost tickets<br>
+            5-week payback
+          </p>
+
+          <a href="case-studies.html#beaver-pumice" class="card__cta">View Case Study →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section>
+    <div class="container" style="max-width: 800px;">
+      <h2 class="section-title reveal">How We Work</h2>
+
+      <div class="reveal" style="background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-xl); padding: var(--space-lg); margin-top: var(--space-lg);">
+        <p style="font-size: 1.125rem; line-height: 1.8; color: var(--text-secondary); margin-bottom: var(--space-sm);">
+          We've spent 3 years building AI systems for agencies and service businesses — voice agents, automation workflows, paper-to-digital transformations. Our deployments have helped clients capture +$5K/month in missed revenue, cut audit time by 97%, and 3X their qualified leads.
+        </p>
+
+        <p style="font-size: 1.125rem; line-height: 1.8; color: var(--text-secondary); margin-bottom: var(--space-sm);">
+          We don't do fluff. We don't do "strategy decks." We build things that work and hand them off with documentation so clean you'll never need us again.
+        </p>
+
+        <p style="font-size: 1.125rem; line-height: 1.8; color: var(--text-secondary); margin-bottom: var(--space-md);">
+          Unless you want to.
+        </p>
+
+        <div style="border-top: 1px solid var(--border); padding-top: var(--space-md); margin-top: var(--space-md);">
+          <p style="font-size: 0.95rem; color: var(--text-muted); margin-bottom: var(--space-sm);">
+            <strong style="color: var(--text-primary);">Founded by Chris Mott</strong> — Engineer with 3 years deploying AI systems for service businesses.
+          </p>
+        </div>
+
+        <a href="https://meetings.hubspot.com/chris4642/ai-gateway-founding-partner" class="btn btn-primary" style="margin-top: var(--space-md);">Book a Call</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Final CTA Section -->
+  <section style="background: linear-gradient(135deg, var(--bg-card), var(--bg-primary)); padding: var(--space-xl) 0;">
+    <div class="container text-center">
+      <div class="card reveal" style="max-width: 700px; margin: 0 auto; background: var(--bg-card); border: 2px solid var(--border-glow);">
+        <h2 style="font-size: 2.5rem; margin-bottom: var(--space-sm);">Ready to stop doing it manually?</h2>
+
+        <p style="font-size: 1.125rem; color: var(--text-secondary); margin-bottom: var(--space-lg);">
+          Book a 30-minute discovery call.<br>
+          No sales pitch — just a conversation about what you need.
+        </p>
+
+        <div style="display: flex; gap: var(--space-sm); justify-content: center; flex-wrap: wrap;">
+          <a href="https://meetings.hubspot.com/chris4642/ai-gateway-founding-partner" class="btn btn-primary">Book a Discovery Call</a>
+          <a href="mailto:chris@resultantai.com" class="btn btn-secondary">Or email chris@resultantai.com</a>
+        </div>
       </div>
     </div>
   </section>
 
   <!-- Footer -->
-  <footer class="footer">
+  <footer>
     <div class="container">
       <div class="footer__grid">
-
-        <!-- Column 1: Brand -->
-        <div class="footer__column">
-          <div class="footer__brand-logo">Resultant<span>AI</span></div>
-          <p class="footer__tagline">AI systems that work while you sleep — voice agents, automation, and chatbots built in weeks, not months.</p>
-          <div class="footer__bottom" style="text-align: left; padding: 0; border: none; margin-top: 16px;">
-            © 2025 ResultantAI. All rights reserved.
-          </div>
-        </div>
-
-        <!-- Column 2: Product -->
-        <div class="footer__column">
-          <h4>Product</h4>
-          <div class="footer__links">
-            <a href="/services" class="footer__link">Services</a>
-            <a href="/work" class="footer__link">Case Studies</a>
-            <a href="/services#pricing" class="footer__link">Pricing</a>
-            <a href="/#process" class="footer__link">Process</a>
-          </div>
-        </div>
-
-        <!-- Column 3: Company -->
-        <div class="footer__column">
-          <h4>Company</h4>
-          <div class="footer__links">
-            <a href="/about" class="footer__link">About</a>
-            <a href="/contact-us" class="footer__link">Contact</a>
-            <a href="/gateway" class="footer__link">Gateway</a>
-            <a href="/compare/portkey" class="footer__link">vs Portkey</a>
-            <a href="/compare/helicone" class="footer__link">vs Helicone</a>
-            <a href="/compare/litellm" class="footer__link">vs LiteLLM</a>
-            <a href="/compare/direct-api" class="footer__link">vs Direct API</a>
-            <a href="/" class="footer__link">Home</a>
-          </div>
-        </div>
-
-        <!-- Column 4: Connect -->
-        <div class="footer__column">
-          <h4>Connect</h4>
-          <a href="https://meetings.hubspot.com/chris4642/ai-gateway-founding-partner" target="_blank" rel="noopener" class="footer__cta">
-            Book a Call
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-              <path d="M5 12h14M12 5l7 7-7 7"/>
-            </svg>
-          </a>
+        <div>
+          <div class="footer__brand">Resultant<span>AI</span></div>
+          <p class="footer__description">
+            Revenue systems for service businesses.<br>
+            Built with AI. Run by humans.
+          </p>
           <div class="footer__social">
-            <a href="https://www.linkedin.com/in/chrismott1/" target="_blank" rel="noopener" class="footer__social-link">
-              <svg viewBox="0 0 24 24" fill="currentColor">
+            <a href="https://www.linkedin.com/in/chrismott1/" class="footer__social-link" target="_blank">
+              <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
               </svg>
-              LinkedIn
             </a>
-          </div>
-          <div class="footer__social">
-            <a href="https://github.com/ResultantAI" target="_blank" rel="noopener" class="footer__social-link">
-              <svg viewBox="0 0 24 24" fill="currentColor">
+            <a href="https://github.com/ResultantAI" class="footer__social-link" target="_blank">
+              <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
               </svg>
-              GitHub
             </a>
-          </div>
-          <div class="footer__social">
-            <a href="https://x.com/resultswithai" target="_blank" rel="noopener" class="footer__social-link">
-              <svg viewBox="0 0 24 24" fill="currentColor">
+            <a href="https://x.com/resultswithai" class="footer__social-link" target="_blank">
+              <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
               </svg>
-              X
             </a>
           </div>
         </div>
 
+        <div>
+          <h4 class="footer__section-title">Solutions</h4>
+          <ul class="footer__links">
+            <li><a href="solutions.html#revenue-recovery" class="footer__link">Revenue Recovery</a></li>
+            <li><a href="solutions.html#operations-automation" class="footer__link">Operations Automation</a></li>
+            <li><a href="solutions.html#ai-cost-control" class="footer__link">AI Cost Control</a></li>
+            <li><a href="solutions-field-services.html" class="footer__link">Field Services</a></li>
+            <li><a href="solutions-agencies.html" class="footer__link">Agencies</a></li>
+            <li><a href="solutions-b2b.html" class="footer__link">B2B Services</a></li>
+            <li><a href="gateway.html" class="footer__link">AI Gateway</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="footer__section-title">Company</h4>
+          <ul class="footer__links">
+            <li><a href="case-studies.html" class="footer__link">Case Studies</a></li>
+            <li><a href="/blog" class="footer__link">Blog</a></li>
+            <li><a href="https://meetings.hubspot.com/chris4642/ai-gateway-founding-partner" class="footer__link">Book a Call</a></li>
+            <li><a href="mailto:chris@resultantai.com" class="footer__link">Contact</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="footer__section-title">Contact</h4>
+          <ul class="footer__links">
+            <li><a href="mailto:support@resultantai.com" class="footer__link">Email Us</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer__bottom">
+        <div>© 2025 ResultantAI. All rights reserved.</div>
+        <div>Built with AI. Run by humans.</div>
       </div>
     </div>
   </footer>
 
   <!-- Scripts -->
-  <script>
-    // Nav scroll effect
-    const nav = document.getElementById('nav');
-    let lastScroll = 0;
-    
-    window.addEventListener('scroll', () => {
-      const currentScroll = window.scrollY;
-      
-      if (currentScroll > 50) {
-        nav.classList.add('scrolled');
-      } else {
-        nav.classList.remove('scrolled');
-      }
-      
-      lastScroll = currentScroll;
-    });
-
-    // Reveal on scroll
-    const reveals = document.querySelectorAll('.reveal');
-    
-    const revealOnScroll = () => {
-      reveals.forEach(el => {
-        const windowHeight = window.innerHeight;
-        const elementTop = el.getBoundingClientRect().top;
-        const elementVisible = 100;
-        
-        if (elementTop < windowHeight - elementVisible) {
-          el.classList.add('visible');
-        }
-      });
-    };
-    
-    window.addEventListener('scroll', revealOnScroll);
-    revealOnScroll(); // Initial check
-
-    // Smooth scroll for anchor links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-          target.scrollIntoView({
-            behavior: 'smooth',
-            block: 'start'
-          });
-        }
-      });
-    });
-
-    // Counter animation for stats
-    const animateCounters = () => {
-      const counters = document.querySelectorAll('[data-count]');
-      counters.forEach(counter => {
-        const target = parseInt(counter.dataset.count);
-        const duration = 2000;
-        const start = performance.now();
-        
-        const updateCounter = (currentTime) => {
-          const elapsed = currentTime - start;
-          const progress = Math.min(elapsed / duration, 1);
-          const easeOut = 1 - Math.pow(1 - progress, 3);
-          const current = Math.floor(target * easeOut);
-          
-          counter.textContent = `$${current}K`;
-          
-          if (progress < 1) {
-            requestAnimationFrame(updateCounter);
-          }
-        };
-        
-        requestAnimationFrame(updateCounter);
-      });
-    };
-    
-    // Trigger counter animation when hero is visible
-    const heroObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          animateCounters();
-          heroObserver.disconnect();
-        }
-      });
-    }, { threshold: 0.5 });
-    
-    heroObserver.observe(document.querySelector('.hero'));
-  </script>
+  <script src="js/main.js"></script>
+  <script src="js/roi-calculator.js"></script>
+  <script src="js/tabs.js"></script>
 </body>
 </html>
