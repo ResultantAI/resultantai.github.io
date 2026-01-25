@@ -1,524 +1,558 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>When the Polar Vortex Hits: Why Propane Dealers Lose $64K/Year in the Chaos</title>
-    <meta name="description" content="During winter emergencies, propane dealers face surge demand, dispatch chaos, and compliance risks. Industry data shows the average 8-truck operation misses $64K annually in surcharges alone.">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>When the Polar Vortex Hits: Why Propane Dealers Lose $64K/Year | ResultantAI</title>
+  <meta name="description" content="During winter emergencies, propane dealers face surge demand and operational chaos. Industry data shows the average 8-truck operation loses $64K annually to forgotten surcharges, compliance shortcuts, and dispatch inefficiencies.">
 
-    <meta name="google-site-verification" content="EUs3oELHtHvHjcAdzN2HjjzWzEP_6KWVZFzaIoLdp70">
+  <meta name="google-site-verification" content="EUs3oELHtHvHjcAdzN2HjjzWzEP_6KWVZFzaIoLdp70">
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+  <meta property="og:title" content="When the Polar Vortex Hits: Why Propane Dealers Lose $64K/Year">
+  <meta property="og:description" content="As the polar vortex creates 300% demand surge, propane operations bleed $64K annually in forgotten surcharges and chaos-driven inefficiencies.">
+  <meta property="og:type" content="article">
 
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "When the Polar Vortex Hits: Why Propane Dealers Lose $64K/Year",
+    "author": {"@type": "Person", "name": "Chris Mott"},
+    "datePublished": "2025-01-25",
+    "publisher": {"@type": "Organization", "name": "ResultantAI"},
+    "keywords": "propane management, winter operations, surcharge tracking, propane software, dispatch automation"
+  }
+  </script>
 
-        :root {
-            --bg: #0a0d12;
-            --card: #111820;
-            --border: #1e2a3a;
-            --text: #94a3b8;
-            --text-bright: #e2e8f0;
-            --accent: #10b981;
-            --accent-glow: rgba(16, 185, 129, 0.15);
-        }
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 
-        body {
-            font-family: 'DM Sans', -apple-system, sans-serif;
-            background: var(--bg);
-            color: var(--text);
-            min-height: 100vh;
-            line-height: 1.8;
-        }
+  <style>
+    :root {
+      --bg-primary: #0a0f1a;
+      --bg-secondary: #0f172a;
+      --bg-card: #151d2e;
+      --bg-card-hover: #1a2540;
+      --border: #1e293b;
+      --border-light: #334155;
+      --text-primary: #ffffff;
+      --text-secondary: #94a3b8;
+      --text-muted: #64748b;
+      --accent: #10b981;
+      --accent-light: #34d399;
+      --accent-subtle: rgba(16, 185, 129, 0.08);
+      --red: #ef4444;
+      --red-subtle: rgba(239, 68, 68, 0.08);
+      --gradient-accent: linear-gradient(135deg, #10b981 0%, #34d399 100%);
+      --gradient-hero: radial-gradient(ellipse 80% 50% at 50% -20%, rgba(16, 185, 129, 0.15), transparent);
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 16px;
+      --radius-xl: 24px;
+      --radius-full: 9999px;
+      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+      --transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    }
 
-        body::before {
-            content: '';
-            position: fixed;
-            inset: 0;
-            background-image:
-                linear-gradient(rgba(16, 185, 129, 0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(16, 185, 129, 0.03) 1px, transparent 1px);
-            background-size: 60px 60px;
-            pointer-events: none;
-            z-index: 0;
-        }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+    body { font-family: var(--font-sans); background: var(--bg-primary); color: var(--text-primary); line-height: 1.6; font-size: 16px; overflow-x: hidden; }
+    a { color: var(--accent); text-decoration: none; transition: color var(--transition); }
+    a:hover { color: var(--accent-light); }
+    img { max-width: 100%; display: block; }
+    ::selection { background: var(--accent); color: var(--bg-primary); }
 
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 60px 20px 80px;
-            position: relative;
-            z-index: 1;
-        }
+    .bg-grid { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background-image: linear-gradient(rgba(16, 185, 129, 0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(16, 185, 129, 0.03) 1px, transparent 1px); background-size: 60px 60px; pointer-events: none; z-index: 0; }
+    .bg-gradient { position: fixed; top: 0; left: 0; right: 0; height: 100vh; background: var(--gradient-hero); pointer-events: none; z-index: 0; }
 
-        .back-link {
-            display: inline-block;
-            color: var(--accent);
-            text-decoration: none;
-            margin-bottom: 24px;
-            font-size: 14px;
-        }
+    .container { max-width: 800px; margin: 0 auto; padding: 0 24px; }
+    .container--wide { max-width: 1200px; }
 
-        .back-link:hover {
-            text-decoration: underline;
-        }
+    /* Navigation */
+    .nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; padding: 20px 0; transition: all var(--transition); }
+    .nav.scrolled { padding: 12px 0; background: rgba(10, 15, 26, 0.8); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); }
+    .nav__inner { display: flex; align-items: center; justify-content: space-between; max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+    .nav__logo { font-size: 22px; font-weight: 800; letter-spacing: -0.03em; color: var(--text-primary); }
+    .nav__logo span { color: var(--accent); }
+    .nav__links { display: flex; align-items: center; gap: 8px; }
+    .nav__link { color: var(--text-secondary); font-size: 14px; font-weight: 500; padding: 8px 16px; border-radius: var(--radius-md); transition: all var(--transition); }
+    .nav__link:hover { color: var(--text-primary); }
+    .nav__cta { background: var(--gradient-accent); color: var(--bg-primary); padding: 10px 24px; border-radius: var(--radius-md); font-size: 14px; font-weight: 600; transition: all var(--transition); box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3); margin-left: 16px; }
+    .nav__cta:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(16, 185, 129, 0.4); color: var(--bg-primary); }
+    @media (max-width: 768px) { .nav__links { display: none; } }
 
-        h1 {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: clamp(32px, 5vw, 48px);
-            font-weight: 700;
-            color: var(--text-bright);
-            line-height: 1.2;
-            margin-bottom: 16px;
-            letter-spacing: -0.02em;
-        }
+    /* Article Header */
+    .article-header { padding: 140px 0 60px; position: relative; z-index: 1; }
+    .article-header__breadcrumb { display: flex; align-items: center; gap: 8px; font-size: 14px; color: var(--text-muted); margin-bottom: 24px; }
+    .article-header__breadcrumb a { color: var(--text-muted); }
+    .article-header__breadcrumb a:hover { color: var(--accent); }
+    .article-header__category { display: inline-block; padding: 6px 14px; background: rgba(59, 130, 246, 0.1); border: 1px solid rgba(59, 130, 246, 0.2); border-radius: var(--radius-full); font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: #3b82f6; margin-bottom: 20px; }
+    .article-header__title { font-size: clamp(32px, 5vw, 48px); font-weight: 800; line-height: 1.15; letter-spacing: -0.03em; margin-bottom: 20px; }
+    .article-header__excerpt { font-size: 18px; color: var(--text-secondary); line-height: 1.7; margin-bottom: 32px; }
+    .article-header__meta { display: flex; align-items: center; gap: 24px; padding-top: 24px; border-top: 1px solid var(--border); flex-wrap: wrap; }
+    .article-header__author { display: flex; align-items: center; gap: 12px; }
+    .article-header__author-avatar { width: 44px; height: 44px; border-radius: 50%; background: var(--accent-subtle); border: 2px solid var(--accent); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 16px; color: var(--accent); }
+    .article-header__author-name { font-weight: 600; font-size: 15px; }
+    .article-header__author-title { font-size: 13px; color: var(--text-muted); }
+    .article-header__info { display: flex; align-items: center; gap: 16px; font-size: 14px; color: var(--text-muted); }
 
-        .post-meta {
-            color: var(--text);
-            font-size: 14px;
-            margin-bottom: 32px;
-            padding-bottom: 24px;
-            border-bottom: 1px solid var(--border);
-        }
+    /* Article Content */
+    .article-content { position: relative; z-index: 1; padding-bottom: 80px; }
+    .article-content h2 { font-size: 28px; font-weight: 700; letter-spacing: -0.02em; margin: 56px 0 24px; padding-top: 24px; border-top: 1px solid var(--border); }
+    .article-content h2:first-of-type { border-top: none; padding-top: 0; margin-top: 0; }
+    .article-content h3 { font-size: 20px; font-weight: 600; margin: 40px 0 16px; color: var(--accent-light); }
+    .article-content p { font-size: 17px; line-height: 1.8; color: var(--text-secondary); margin-bottom: 24px; }
+    .article-content strong { color: var(--text-primary); font-weight: 600; }
+    .article-content ul, .article-content ol { margin: 24px 0; padding-left: 24px; }
+    .article-content li { font-size: 17px; line-height: 1.8; color: var(--text-secondary); margin-bottom: 12px; }
+    .article-content li::marker { color: var(--accent); }
 
-        .post-tag {
-            background: var(--accent-glow);
-            border: 1px solid rgba(16, 185, 129, 0.3);
-            color: var(--accent);
-            padding: 4px 10px;
-            border-radius: 4px;
-            font-weight: 500;
-        }
+    /* TL;DR Box */
+    .tldr-box { background: linear-gradient(135deg, var(--bg-card) 0%, rgba(16, 185, 129, 0.02) 100%); border: 1px solid var(--border); border-left: 4px solid var(--accent); border-radius: var(--radius-lg); padding: 28px 32px; margin: 32px 0; }
+    .tldr-box__title { display: flex; align-items: center; gap: 10px; font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--accent); margin-bottom: 16px; }
+    .tldr-box ul { margin: 0; padding-left: 20px; }
+    .tldr-box li { font-size: 15px; margin-bottom: 8px; color: var(--text-primary); }
 
-        h2 {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 28px;
-            font-weight: 700;
-            color: var(--text-bright);
-            margin: 48px 0 20px;
-        }
+    /* Stats Grid */
+    .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 16px; margin: 40px 0; }
+    .stat-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 20px; text-align: center; }
+    .stat-card__number { font-size: 32px; font-weight: 800; font-family: var(--font-mono); background: var(--gradient-accent); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 6px; }
+    .stat-card__label { font-size: 13px; color: var(--text-muted); line-height: 1.4; }
+    .stat-card--red .stat-card__number { background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 
-        h3 {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 22px;
-            font-weight: 700;
-            color: var(--text-bright);
-            margin: 32px 0 16px;
-        }
+    /* Warning Box */
+    .warning-box { background: var(--red-subtle); border-left: 4px solid var(--red); padding: 24px 32px; margin: 32px 0; border-radius: 0 var(--radius-lg) var(--radius-lg) 0; }
+    .warning-box p { color: var(--text-primary); font-size: 15px; margin-bottom: 12px; }
+    .warning-box p:last-child { margin-bottom: 0; }
 
-        p {
-            margin-bottom: 20px;
-        }
+    /* Callout */
+    .callout { background: var(--accent-subtle); border: 1px solid rgba(16, 185, 129, 0.2); border-radius: var(--radius-lg); padding: 24px 28px; margin: 32px 0; }
+    .callout p { margin: 0 0 12px 0; color: var(--text-primary); font-size: 15px; }
+    .callout p:last-child { margin-bottom: 0; }
 
-        strong {
-            color: var(--text-bright);
-        }
+    /* Quote */
+    .quote { border-left: 4px solid var(--accent); padding: 24px 32px; margin: 40px 0; background: var(--bg-card); border-radius: 0 var(--radius-lg) var(--radius-lg) 0; }
+    .quote__text { font-size: 18px; font-style: italic; line-height: 1.7; color: var(--text-primary); margin-bottom: 16px; }
+    .quote__author { font-size: 14px; color: var(--text-muted); }
+    .quote__author strong { color: var(--accent); }
 
-        ul, ol {
-            margin: 16px 0 20px 24px;
-        }
+    /* CTA */
+    .article-cta { background: linear-gradient(135deg, var(--bg-card) 0%, rgba(16, 185, 129, 0.02) 100%); border: 1px solid var(--border); border-radius: var(--radius-xl); padding: 48px; text-align: center; margin: 60px 0; position: relative; overflow: hidden; }
+    .article-cta::before { content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 400px; height: 200px; background: radial-gradient(ellipse, rgba(16, 185, 129, 0.15), transparent); pointer-events: none; }
+    .article-cta__title { font-size: 28px; font-weight: 800; margin-bottom: 12px; position: relative; }
+    .article-cta__text { font-size: 16px; color: var(--text-secondary); margin-bottom: 28px; position: relative; }
+    .article-cta__btn { display: inline-flex; align-items: center; gap: 10px; padding: 16px 32px; background: var(--gradient-accent); color: var(--bg-primary); font-size: 15px; font-weight: 600; border-radius: var(--radius-md); box-shadow: 0 4px 20px rgba(16, 185, 129, 0.3); position: relative; }
+    .article-cta__btn:hover { transform: translateY(-2px); color: var(--bg-primary); }
 
-        li {
-            margin-bottom: 12px;
-        }
+    /* Related Posts */
+    .related-posts { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-xl); padding: 32px; margin: 60px 0; }
+    .related-posts h3 { font-size: 20px; font-weight: 700; margin-bottom: 20px; color: var(--text-primary); }
+    .related-posts ul { margin: 0; padding: 0; list-style: none; }
+    .related-posts li { margin-bottom: 12px; padding-left: 0; }
+    .related-posts li::marker { content: none; }
+    .related-posts a { display: flex; align-items: center; gap: 10px; padding: 12px 16px; border-radius: var(--radius-md); color: var(--text-secondary); font-size: 15px; font-weight: 500; transition: all var(--transition); }
+    .related-posts a:hover { background: var(--bg-card-hover); color: var(--accent); }
+    .related-posts a::before { content: '→'; color: var(--accent); font-weight: 700; }
 
-        .warning-box {
-            background: rgba(239, 68, 68, 0.1);
-            border-left: 4px solid #ef4444;
-            padding: 20px 24px;
-            margin: 28px 0;
-            border-radius: 0 8px 8px 0;
-            color: var(--text-bright);
-        }
+    /* Author Bio */
+    .author-bio { display: flex; gap: 24px; padding: 32px; background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-xl); margin-top: 60px; }
+    @media (max-width: 560px) { .author-bio { flex-direction: column; text-align: center; } }
+    .author-bio__avatar { width: 80px; height: 80px; border-radius: var(--radius-lg); background: var(--accent-subtle); border: 2px solid var(--accent); display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 28px; color: var(--accent); flex-shrink: 0; }
+    .author-bio__content { flex: 1; }
+    .author-bio__name { font-size: 18px; font-weight: 700; margin-bottom: 4px; }
+    .author-bio__title { font-size: 14px; color: var(--accent); margin-bottom: 12px; }
+    .author-bio__text { font-size: 14px; color: var(--text-secondary); line-height: 1.6; margin-bottom: 16px; }
+    .author-bio__links { display: flex; gap: 16px; }
+    @media (max-width: 560px) { .author-bio__links { justify-content: center; } }
+    .author-bio__link { display: flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 500; color: var(--text-muted); }
+    .author-bio__link:hover { color: var(--accent); }
 
-        .callout {
-            background: var(--accent-glow);
-            border-left: 4px solid var(--accent);
-            padding: 20px 24px;
-            margin: 28px 0;
-            border-radius: 0 8px 8px 0;
-        }
+    /* Footer */
+    .footer { padding: 60px 0 32px; border-top: 1px solid var(--border); position: relative; z-index: 1; margin-top: 80px; }
+    .footer__inner { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 24px; max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+    .footer__copy { color: var(--text-muted); font-size: 14px; }
+    .footer__links { display: flex; gap: 24px; }
+    .footer__link { color: var(--text-secondary); font-size: 14px; font-weight: 500; }
+    .footer__link:hover { color: var(--accent); }
+  </style>
 
-        .stat-box {
-            background: var(--card);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 24px;
-            margin: 28px 0;
-            text-align: center;
-        }
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-DY95GS9YX5"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-DY95GS9YX5');
+  </script>
 
-        .stat-number {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 48px;
-            font-weight: 700;
-            color: var(--accent);
-            margin-bottom: 8px;
-        }
-
-        .stat-label {
-            color: var(--text);
-            font-size: 14px;
-        }
-
-        .cta-box {
-            background: linear-gradient(135deg, var(--card) 0%, rgba(16, 185, 129, 0.05) 100%);
-            border: 1px solid var(--accent);
-            border-radius: 12px;
-            padding: 32px;
-            text-align: center;
-            margin: 48px 0;
-        }
-
-        .cta-button {
-            display: inline-block;
-            background: var(--accent);
-            color: #000;
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 16px;
-            font-weight: 700;
-            padding: 14px 28px;
-            border-radius: 8px;
-            text-decoration: none;
-            transition: transform 0.2s;
-        }
-
-        .cta-button:hover {
-            transform: translateY(-2px);
-        }
-
-        .footer {
-            text-align: center;
-            margin-top: 60px;
-            padding-top: 24px;
-            border-top: 1px solid var(--border);
-        }
-
-        .footer-links a {
-            color: var(--accent);
-            text-decoration: none;
-            margin: 0 10px;
-        }
-
-        .footer-links a:hover {
-            text-decoration: underline;
-        }
-
-        blockquote {
-            border-left: 4px solid var(--border);
-            padding-left: 20px;
-            margin: 24px 0;
-            font-style: italic;
-            color: var(--text);
-        }
-    </style>
-
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-DY95GS9YX5"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'G-DY95GS9YX5');
-    </script>
-
-    <!-- Reddit Pixel -->
-    <script>
-    !function(w,d){if(!w.rdt){var p=w.rdt=function(){p.sendEvent?p.sendEvent.apply(p,arguments):p.callQueue.push(arguments)};p.callQueue=[];var t=d.createElement("script");t.src="https://www.redditstatic.com/ads/pixel.js",t.async=!0;var s=d.getElementsByTagName("script")[0];s.parentNode.insertBefore(t,s)}}(window,document);rdt('init','a2_htj8d1flphh9', {"optOut":false,"useDecimalCurrencyValues":true});rdt('track', 'PageVisit');
-    </script>
+  <!-- Reddit Pixel -->
+  <script>
+  !function(w,d){if(!w.rdt){var p=w.rdt=function(){p.sendEvent?p.sendEvent.apply(p,arguments):p.callQueue.push(arguments)};p.callQueue=[];var t=d.createElement("script");t.src="https://www.redditstatic.com/ads/pixel.js",t.async=!0;var s=d.getElementsByTagName("script")[0];s.parentNode.insertBefore(t,s)}}(window,document);rdt('init','a2_htj8d1flphh9', {"optOut":false,"useDecimalCurrencyValues":true});rdt('track', 'PageVisit');
+  </script>
 </head>
 <body>
-    <div class="container">
-        <a href="/blog" class="back-link">← Back to Blog</a>
+  <div class="bg-grid"></div>
+  <div class="bg-gradient"></div>
 
-        <article>
-            <h1>When the Polar Vortex Hits: Why Propane Dealers Lose $64K/Year in the Chaos</h1>
-
-            <div class="post-meta">
-                <span class="post-tag">Propane Operations</span>
-                January 25, 2025 • 8 min read
-            </div>
-
-            <p>
-                As the polar vortex blankets half the country in sub-zero temperatures this weekend, propane dealers are entering their most chaotic—and most profitable—week of the year. Demand surges 300%. Phones ring off the hook. Drivers work 12-hour days. And in the scramble to keep tanks filled, most operations are bleeding money they'll never recover.
-            </p>
-
-            <p>
-                This isn't about the obvious costs—overtime pay, fuel surcharges, or emergency deliveries. It's about the hidden leaks that compound during winter chaos: <strong>forgotten surcharges, compliance shortcuts, dispatch inefficiencies, and invoicing delays</strong> that turn record revenue weeks into mediocre profit months.
-            </p>
-
-            <div class="stat-box">
-                <div class="stat-number">$64,000</div>
-                <div class="stat-label">Average annual revenue lost to forgotten surcharges alone<br>(8-truck operation)</div>
-            </div>
-
-            <h2>The $75 Emergency That Nobody Remembers to Bill</h2>
-
-            <p>
-                It's 3 PM on Saturday. Your dispatcher gets an emergency call—a family's tank ran out, furnace is down, and temperatures are dropping to -15°F tonight. You inject a rush delivery into Mike's route. He drives 45 minutes out of his way, performs an out-of-gas leak check (NFPA 54 requirement), and delivers 180 gallons.
-            </p>
-
-            <p>
-                <strong>Here's what should have been billed:</strong>
-            </p>
-
-            <ul>
-                <li>Base delivery: 180 gallons × $2.85 = $513.00</li>
-                <li>Out-of-gas surcharge: $75.00</li>
-                <li>Same-day rush surcharge: $45.00</li>
-                <li>Saturday surcharge: $35.00</li>
-                <li><strong>Total: $668.00</strong></li>
-            </ul>
-
-            <p>
-                <strong>What actually gets billed:</strong> $513.00
-            </p>
-
-            <p>
-                Mike was focused on the delivery. The dispatcher was juggling six other emergencies. Nobody checked the surcharge boxes. <strong>$155 gone.</strong>
-            </p>
-
-            <div class="warning-box">
-                <strong>Multiply this across a winter season:</strong><br><br>
-                8 deliveries/day × 90 winter days = 720 deliveries<br>
-                If just 12% miss surcharges (industry average):<br>
-                720 × 0.12 = 86 deliveries<br>
-                86 × $75 average missed surcharge = <strong>$6,450 per truck per season</strong><br><br>
-                8 trucks × $6,450 = <strong>$51,600</strong><br><br>
-                Add in after-hours ($50), long pulls ($25), difficult access ($35), and standby fees ($25)?<br>
-                <strong>The real number is closer to $64,000 annually.</strong>
-            </div>
-
-            <h2>The Safety Shortcut That Becomes a Liability</h2>
-
-            <p>
-                That same emergency delivery? NFPA 54 code requires a leak check before refilling any tank that ran completely dry. It's a pressure test—11 PSI for 3 minutes—to ensure the system is safe.
-            </p>
-
-            <p>
-                When you're running 12 stops behind and temperatures are lethal, <strong>that 15-minute test feels like torture.</strong>
-            </p>
-
-            <p>
-                Some drivers skip it. Some do a "quick test" and don't document it properly. Either way, you're exposed:
-            </p>
-
-            <ul>
-                <li><strong>Liability exposure:</strong> If there's a leak and you didn't test, you're liable</li>
-                <li><strong>Insurance issues:</strong> Claims denied for non-compliance</li>
-                <li><strong>Lost revenue:</strong> That test is a $75 billable service</li>
-            </ul>
-
-            <blockquote>
-                "We had a driver fill an out-of-gas tank without a leak check. Turned out there was a rusty fitting. House filled with propane. Thank God nobody lit a match. Our insurance fought the claim for 18 months because we couldn't prove the test was done."
-                <br>— GM, 12-truck operation in Pennsylvania
-            </blockquote>
-
-            <p>
-                <strong>The fix isn't discipline—it's systems.</strong> The delivery system needs to make it impossible to deliver to an out-of-gas tank without completing and documenting the leak check first.
-            </p>
-
-            <h2>Dispatch Chaos: 2-3 Hours Per Day Lost to Manual Routing</h2>
-
-            <p>
-                Winter storms don't just increase volume—they create routing chaos:
-            </p>
-
-            <ul>
-                <li>Emergency calls inject into pre-planned routes</li>
-                <li>Road closures force last-minute reroutes</li>
-                <li>Drivers call in: "I've got 400 gallons left, where should I go next?"</li>
-                <li>Customers move up their will-call requests</li>
-            </ul>
-
-            <p>
-                Your dispatcher is juggling all of this on a whiteboard or Excel spreadsheet. Every time a new emergency comes in, they're mentally calculating:
-            </p>
-
-            <ul>
-                <li>Which driver is closest?</li>
-                <li>Who has enough gallons remaining?</li>
-                <li>What's the new ETA for everyone else on that route?</li>
-                <li>Are we going to push anyone into overtime?</li>
-            </ul>
-
-            <div class="stat-box">
-                <div class="stat-number">2.4 hours</div>
-                <div class="stat-label">Average time spent per day on manual dispatch and routing<br>(per dispatcher, during winter surge)</div>
-            </div>
-
-            <p>
-                That's 2.4 hours of high-wage labor doing puzzle-solving that software can do in seconds. During a 90-day winter season:
-            </p>
-
-            <ul>
-                <li>2.4 hours × 90 days = 216 hours</li>
-                <li>At $28/hour (dispatcher average): <strong>$6,048 in unnecessary labor costs</strong></li>
-            </ul>
-
-            <p>
-                And that's just <em>time</em>. It doesn't account for routing inefficiencies—sending drivers 15 minutes past a customer who needed a delivery tomorrow anyway.
-            </p>
-
-            <h2>The 4-Day Invoicing Backlog That Kills Cash Flow</h2>
-
-            <p>
-                It's Tuesday morning, and your office manager has a pile of delivery tickets from Friday, Saturday, Monday, and today. Each one needs to be:
-            </p>
-
-            <ol>
-                <li>Read (hopefully the handwriting is legible)</li>
-                <li>Entered into QuickBooks manually</li>
-                <li>Cross-referenced with customer records</li>
-                <li>Checked for surcharges (often missed—see above)</li>
-                <li>Invoice generated and sent</li>
-            </ol>
-
-            <p>
-                <strong>During normal weeks:</strong> Same-day invoicing, customers pay within 30 days<br>
-                <strong>During winter surge:</strong> 4-day backlog, customers pay 34+ days out
-            </p>
-
-            <div class="callout">
-                <strong>Cash flow impact example:</strong><br><br>
-                $120,000 in deliveries Mon-Thu<br>
-                4-day invoicing delay = customers receive invoices Friday instead of same-day<br>
-                Assuming Net-30 payment terms:<br>
-                <strong>Extra 4 days of outstanding receivables = $16,000 tied up in float</strong><br><br>
-                For a business with tight margins and seasonal cash flow, that matters.
-            </div>
-
-            <p>
-                One propane dealer in Pennsylvania (Valley Propane & Heating, 8 trucks) went from 4-day invoicing to same-day QuickBooks sync by eliminating manual data entry. Their drivers complete deliveries on mobile devices, and invoices generate automatically.
-            </p>
-
-            <p>
-                <strong>Result:</strong> Receivables improved by 11%, freeing up $34K in working capital during winter surge.
-            </p>
-
-            <h2>The Winter Storm Opportunity</h2>
-
-            <p>
-                Here's the paradox: <strong>winter emergencies are both your biggest revenue opportunity and your biggest operational leak.</strong>
-            </p>
-
-            <p>
-                When demand surges 300%, everything breaks:
-            </p>
-
-            <ul>
-                <li>Drivers forget surcharges ($64K/year)</li>
-                <li>Compliance shortcuts create liability</li>
-                <li>Manual dispatch wastes 2+ hours/day</li>
-                <li>Invoicing backlogs hurt cash flow</li>
-            </ul>
-
-            <p>
-                The dealers who thrive during winter chaos aren't working harder—<strong>they've built systems that don't break under surge load.</strong>
-            </p>
-
-            <h2>What "Surge-Proof" Operations Look Like</h2>
-
-            <p>
-                The best propane operations have three things in common:
-            </p>
-
-            <h3>1. Mandatory Surcharge Capture</h3>
-            <p>
-                Drivers don't have to remember to add surcharges—<strong>the system prompts them automatically</strong> based on delivery conditions:
-            </p>
-            <ul>
-                <li>Out of gas? Leak check surcharge automatically added</li>
-                <li>Saturday or after-hours? Surcharge applied</li>
-                <li>Same-day rush injection? $45 fee added</li>
-            </ul>
-            <p>
-                One-tap selection instead of memory-based billing.
-            </p>
-
-            <h3>2. Safety Interlocks (Not Trust)</h3>
-            <p>
-                Can't deliver to an out-of-gas tank without completing the leak check form:
-            </p>
-            <ul>
-                <li>Test pressure recorded</li>
-                <li>Hold time documented</li>
-                <li>Pass/fail status logged</li>
-                <li><strong>No leak check = delivery blocked</strong></li>
-            </ul>
-            <p>
-                This isn't about trusting drivers less—it's about <strong>removing the liability risk entirely.</strong>
-            </p>
-
-            <h3>3. Drag-and-Drop Dispatch</h3>
-            <p>
-                When an emergency call comes in, your dispatcher drags the order to the nearest driver. The system:
-            </p>
-            <ul>
-                <li>Recalculates the entire route automatically</li>
-                <li>Updates ETAs for all affected stops</li>
-                <li>Flags if the driver doesn't have enough gallons</li>
-                <li>Warns if the new route pushes into overtime</li>
-            </ul>
-            <p>
-                <strong>Time to dispatch an emergency: 30 seconds instead of 15 minutes.</strong>
-            </p>
-
-            <h2>See It In Action</h2>
-
-            <p>
-                We built an interactive demo showing how these systems work during a winter surge scenario. You'll see:
-            </p>
-
-            <ul>
-                <li>Live dispatch with drag-and-drop route optimization</li>
-                <li>Driver mobile app with mandatory surcharge capture</li>
-                <li>Leak check safety interlocks (NFPA 54 compliant)</li>
-                <li>Same-day QuickBooks invoicing automation</li>
-                <li>Real-time tank monitoring with automatic delivery scheduling</li>
-            </ul>
-
-            <div class="cta-box">
-                <h3>Interactive Demo: Propane Management During Winter Surge</h3>
-                <p>
-                    See how modern systems prevent the $64K surcharge leak, enforce safety compliance, and eliminate dispatch chaos—all during a simulated polar vortex scenario.
-                </p>
-                <a href="/demo/propane-demo" class="cta-button">Try the Demo →</a>
-                <p style="margin-top: 16px; font-size: 14px; color: var(--text);">
-                    No signup required • Interactive simulation • 5 minutes
-                </p>
-            </div>
-
-            <h2>The Takeaway</h2>
-
-            <p>
-                The polar vortex will pass. Temperatures will normalize. Demand will drop back to baseline. But if you're still losing $64K/year to forgotten surcharges, burning 2+ hours/day on manual dispatch, and invoicing 4 days late—<strong>next winter will look exactly the same.</strong>
-            </p>
-
-            <p>
-                The operations that win long-term aren't the ones working hardest during the surge. They're the ones who built systems that don't break when the phones won't stop ringing.
-            </p>
-
-            <div class="callout" style="background: rgba(16, 185, 129, 0.08); margin-top: 48px;">
-                <h3 style="margin-top: 0;">Want to see the numbers for your operation?</h3>
-                <p>
-                    Use the interactive demo's ROI calculator to estimate how much revenue you're losing to operational inefficiencies during winter surge.
-                </p>
-                <a href="/demo/propane-demo" style="color: var(--accent); font-weight: 600; text-decoration: none;">
-                    Calculate your surcharge leak →
-                </a>
-            </div>
-        </article>
-
-        <footer class="footer">
-            <p class="footer-links">
-                <a href="/">Home</a>
-                <a href="/blog">Blog</a>
-                <a href="/demo/propane-demo">Propane Demo</a>
-                <a href="mailto:chris@resultantai.com">Contact</a>
-            </p>
-        </footer>
+  <nav class="nav" id="nav">
+    <div class="nav__inner">
+      <a href="/" class="nav__logo">Resultant<span>AI</span></a>
+      <div class="nav__links">
+        <a href="/#services" class="nav__link">Services</a>
+        <a href="/#process" class="nav__link">Process</a>
+        <a href="/#work" class="nav__link">Work</a>
+        <a href="/blog" class="nav__link">Blog</a>
+        <a href="https://meetings.hubspot.com/chris4642/ai-gateway-founding-partner" class="nav__cta">Book a Call</a>
+      </div>
     </div>
+  </nav>
+
+  <header class="article-header">
+    <div class="container">
+      <nav class="article-header__breadcrumb">
+        <a href="/">Home</a><span>/</span><a href="/blog">Blog</a><span>/</span><span>Propane Winter Operations</span>
+      </nav>
+      <span class="article-header__category">Operations</span>
+      <h1 class="article-header__title">When the Polar Vortex Hits: Why Propane Dealers Lose $64K/Year</h1>
+      <p class="article-header__excerpt">As the polar vortex blankets the country with sub-zero temperatures, propane dealers enter their most chaotic—and most profitable—week. Yet most operations bleed $64,000 annually through forgotten surcharges, compliance shortcuts, and dispatch inefficiencies.</p>
+      <div class="article-header__meta">
+        <div class="article-header__author">
+          <div class="article-header__author-avatar">CM</div>
+          <div>
+            <div class="article-header__author-name">Chris Mott</div>
+            <div class="article-header__author-title">Founder, ResultantAI</div>
+          </div>
+        </div>
+        <div class="article-header__info">
+          <span>Jan 25, 2025</span>
+          <span>•</span>
+          <span>8 min read</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <article class="article-content">
+    <div class="container">
+
+      <div class="tldr-box">
+        <div class="tldr-box__title">🔥 Winter Surge Summary</div>
+        <ul>
+          <li><strong>The Problem:</strong> Demand surges 300% during polar vortex events, breaking manual operations</li>
+          <li><strong>The Leak:</strong> $64,000/year lost by average 8-truck operation (surcharges, dispatch time, invoicing delays)</li>
+          <li><strong>Root Cause:</strong> Systems built for normal weeks fail catastrophically under surge load</li>
+          <li><strong>The Fix:</strong> Mandatory surcharge capture, safety interlocks, drag-drop dispatch, same-day invoicing</li>
+        </ul>
+      </div>
+
+      <p>
+        As the polar vortex blankets half the country in sub-zero temperatures this weekend, propane dealers are entering their most chaotic—and most profitable—week of the year. Demand surges 300%. Phones ring off the hook. Drivers work 12-hour days. And in the scramble to keep tanks filled, most operations are bleeding money they'll never recover.
+      </p>
+
+      <p>
+        This isn't about the obvious costs—overtime pay, fuel surcharges, or emergency deliveries. It's about the hidden leaks that compound during winter chaos: <strong>forgotten surcharges, compliance shortcuts, dispatch inefficiencies, and invoicing delays</strong> that turn record revenue weeks into mediocre profit months.
+      </p>
+
+      <div class="stats-grid">
+        <div class="stat-card stat-card--red">
+          <div class="stat-card__number">$64,000</div>
+          <div class="stat-card__label">Annual revenue lost to operational chaos</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card__number">300%</div>
+          <div class="stat-card__label">Demand surge during polar vortex</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card__number">2.4 hrs</div>
+          <div class="stat-card__label">Daily time wasted on manual dispatch</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card__number">4 days</div>
+          <div class="stat-card__label">Average invoicing backlog during surge</div>
+        </div>
+      </div>
+
+      <h2>The $75 Emergency That Nobody Remembers to Bill</h2>
+
+      <p>
+        It's 3 PM on Saturday. Your dispatcher gets an emergency call—a family's tank ran out, furnace is down, and temperatures are dropping to -15°F tonight. You inject a rush delivery into Mike's route. He drives 45 minutes out of his way, performs an out-of-gas leak check (NFPA 54 requirement), and delivers 180 gallons.
+      </p>
+
+      <p>
+        <strong>Here's what should have been billed:</strong>
+      </p>
+
+      <ul>
+        <li>Base delivery: 180 gallons × $2.85 = $513.00</li>
+        <li>Out-of-gas surcharge: $75.00</li>
+        <li>Same-day rush surcharge: $45.00</li>
+        <li>Saturday surcharge: $35.00</li>
+        <li><strong>Total: $668.00</strong></li>
+      </ul>
+
+      <p>
+        <strong>What actually gets billed:</strong> $513.00
+      </p>
+
+      <p>
+        Mike was focused on the delivery. The dispatcher was juggling six other emergencies. Nobody checked the surcharge boxes. <strong>$155 gone.</strong>
+      </p>
+
+      <div class="warning-box">
+        <p><strong>Multiply this across a winter season:</strong></p>
+        <p>8 deliveries/day × 90 winter days = 720 deliveries<br>
+        If just 12% miss surcharges (industry average):<br>
+        720 × 0.12 = 86 deliveries<br>
+        86 × $75 average missed surcharge = <strong>$6,450 per truck per season</strong></p>
+        <p>8 trucks × $6,450 = <strong>$51,600</strong></p>
+        <p>Add in after-hours ($50), long pulls ($25), difficult access ($35), and standby fees ($25)?<br>
+        <strong>The real number is closer to $64,000 annually.</strong></p>
+      </div>
+
+      <h2>The Safety Shortcut That Becomes a Liability</h2>
+
+      <p>
+        That same emergency delivery? NFPA 54 code requires a leak check before refilling any tank that ran completely dry. It's a pressure test—11 PSI for 3 minutes—to ensure the system is safe.
+      </p>
+
+      <p>
+        When you're running 12 stops behind and temperatures are lethal, <strong>that 15-minute test feels like torture.</strong>
+      </p>
+
+      <p>
+        Some drivers skip it. Some do a "quick test" and don't document it properly. Either way, you're exposed:
+      </p>
+
+      <ul>
+        <li><strong>Liability exposure:</strong> If there's a leak and you didn't test, you're liable</li>
+        <li><strong>Insurance issues:</strong> Claims denied for non-compliance</li>
+        <li><strong>Lost revenue:</strong> That test is a $75 billable service</li>
+      </ul>
+
+      <div class="quote">
+        <div class="quote__text">"We had a driver fill an out-of-gas tank without a leak check. Turned out there was a rusty fitting. House filled with propane. Thank God nobody lit a match. Our insurance fought the claim for 18 months because we couldn't prove the test was done."</div>
+        <div class="quote__author">— GM, <strong>12-truck operation in Pennsylvania</strong></div>
+      </div>
+
+      <p>
+        <strong>The fix isn't discipline—it's systems.</strong> The delivery system needs to make it impossible to deliver to an out-of-gas tank without completing and documenting the leak check first.
+      </p>
+
+      <h2>Dispatch Chaos: 2-3 Hours Per Day Lost to Manual Routing</h2>
+
+      <p>
+        Winter storms don't just increase volume—they create routing chaos:
+      </p>
+
+      <ul>
+        <li>Emergency calls inject into pre-planned routes</li>
+        <li>Road closures force last-minute reroutes</li>
+        <li>Drivers call in: "I've got 400 gallons left, where should I go next?"</li>
+        <li>Customers move up their will-call requests</li>
+      </ul>
+
+      <p>
+        Your dispatcher is juggling all of this on a whiteboard or Excel spreadsheet. Every time a new emergency comes in, they're mentally calculating:
+      </p>
+
+      <ul>
+        <li>Which driver is closest?</li>
+        <li>Who has enough gallons remaining?</li>
+        <li>What's the new ETA for everyone else on that route?</li>
+        <li>Are we going to push anyone into overtime?</li>
+      </ul>
+
+      <div class="callout">
+        <p><strong>Time cost during winter surge:</strong></p>
+        <p>2.4 hours × 90 days = 216 hours<br>
+        At $28/hour (dispatcher average): <strong>$6,048 in unnecessary labor costs</strong></p>
+        <p>And that's just <em>time</em>. It doesn't account for routing inefficiencies—sending drivers 15 minutes past a customer who needed a delivery tomorrow anyway.</p>
+      </div>
+
+      <h2>The 4-Day Invoicing Backlog That Kills Cash Flow</h2>
+
+      <p>
+        It's Tuesday morning, and your office manager has a pile of delivery tickets from Friday, Saturday, Monday, and today. Each one needs to be:
+      </p>
+
+      <ol>
+        <li>Read (hopefully the handwriting is legible)</li>
+        <li>Entered into QuickBooks manually</li>
+        <li>Cross-referenced with customer records</li>
+        <li>Checked for surcharges (often missed—see above)</li>
+        <li>Invoice generated and sent</li>
+      </ol>
+
+      <p>
+        <strong>During normal weeks:</strong> Same-day invoicing, customers pay within 30 days<br>
+        <strong>During winter surge:</strong> 4-day backlog, customers pay 34+ days out
+      </p>
+
+      <div class="callout">
+        <p><strong>Cash flow impact example:</strong></p>
+        <p>$120,000 in deliveries Mon-Thu<br>
+        4-day invoicing delay = customers receive invoices Friday instead of same-day<br>
+        Assuming Net-30 payment terms:<br>
+        <strong>Extra 4 days of outstanding receivables = $16,000 tied up in float</strong></p>
+        <p>For a business with tight margins and seasonal cash flow, that matters.</p>
+      </div>
+
+      <p>
+        One propane dealer in Pennsylvania (Valley Propane & Heating, 8 trucks) went from 4-day invoicing to same-day QuickBooks sync by eliminating manual data entry. Their drivers complete deliveries on mobile devices, and invoices generate automatically.
+      </p>
+
+      <p>
+        <strong>Result:</strong> Receivables improved by 11%, freeing up $34K in working capital during winter surge.
+      </p>
+
+      <h2>The Winter Storm Opportunity</h2>
+
+      <p>
+        Here's the paradox: <strong>winter emergencies are both your biggest revenue opportunity and your biggest operational leak.</strong>
+      </p>
+
+      <p>
+        When demand surges 300%, everything breaks:
+      </p>
+
+      <ul>
+        <li>Drivers forget surcharges ($64K/year)</li>
+        <li>Compliance shortcuts create liability</li>
+        <li>Manual dispatch wastes 2+ hours/day</li>
+        <li>Invoicing backlogs hurt cash flow</li>
+      </ul>
+
+      <p>
+        The dealers who thrive during winter chaos aren't working harder—<strong>they've built systems that don't break under surge load.</strong>
+      </p>
+
+      <h2>What "Surge-Proof" Operations Look Like</h2>
+
+      <p>
+        The best propane operations have three things in common:
+      </p>
+
+      <h3>1. Mandatory Surcharge Capture</h3>
+      <p>
+        Drivers don't have to remember to add surcharges—<strong>the system prompts them automatically</strong> based on delivery conditions:
+      </p>
+      <ul>
+        <li>Out of gas? Leak check surcharge automatically added</li>
+        <li>Saturday or after-hours? Surcharge applied</li>
+        <li>Same-day rush injection? $45 fee added</li>
+      </ul>
+      <p>
+        One-tap selection instead of memory-based billing.
+      </p>
+
+      <h3>2. Safety Interlocks (Not Trust)</h3>
+      <p>
+        Can't deliver to an out-of-gas tank without completing the leak check form:
+      </p>
+      <ul>
+        <li>Test pressure recorded</li>
+        <li>Hold time documented</li>
+        <li>Pass/fail status logged</li>
+        <li><strong>No leak check = delivery blocked</strong></li>
+      </ul>
+      <p>
+        This isn't about trusting drivers less—it's about <strong>removing the liability risk entirely.</strong>
+      </p>
+
+      <h3>3. Drag-and-Drop Dispatch</h3>
+      <p>
+        When an emergency call comes in, your dispatcher drags the order to the nearest driver. The system:
+      </p>
+      <ul>
+        <li>Recalculates the entire route automatically</li>
+        <li>Updates ETAs for all affected stops</li>
+        <li>Flags if the driver doesn't have enough gallons</li>
+        <li>Warns if the new route pushes into overtime</li>
+      </ul>
+      <p>
+        <strong>Time to dispatch an emergency: 30 seconds instead of 15 minutes.</strong>
+      </p>
+
+      <h2>See It In Action</h2>
+
+      <p>
+        We built an interactive demo showing how these systems work during a winter surge scenario. You'll see:
+      </p>
+
+      <ul>
+        <li>Live dispatch with drag-and-drop route optimization</li>
+        <li>Driver mobile app with mandatory surcharge capture</li>
+        <li>Leak check safety interlocks (NFPA 54 compliant)</li>
+        <li>Same-day QuickBooks invoicing automation</li>
+        <li>Real-time tank monitoring with automatic delivery scheduling</li>
+      </ul>
+
+      <div class="article-cta">
+        <h2 class="article-cta__title">Interactive Demo: Propane Management During Winter Surge</h2>
+        <p class="article-cta__text">See how modern systems prevent the $64K surcharge leak, enforce safety compliance, and eliminate dispatch chaos—all during a simulated polar vortex scenario.</p>
+        <a href="/demo/propane-demo" class="article-cta__btn">
+          Try the Demo →
+        </a>
+        <p style="margin-top: 16px; font-size: 14px; color: var(--text-muted);">
+          No signup required • Interactive simulation • 5 minutes
+        </p>
+      </div>
+
+      <h2>The Takeaway</h2>
+
+      <p>
+        The polar vortex will pass. Temperatures will normalize. Demand will drop back to baseline. But if you're still losing $64K/year to forgotten surcharges, burning 2+ hours/day on manual dispatch, and invoicing 4 days late—<strong>next winter will look exactly the same.</strong>
+      </p>
+
+      <p>
+        The operations that win long-term aren't the ones working hardest during the surge. They're the ones who built systems that don't break when the phones won't stop ringing.
+      </p>
+
+      <div class="related-posts">
+        <h3>Related Articles</h3>
+        <ul>
+          <li><a href="/blog/voice-ai-lead-qualification-system/">Voice AI Lead Qualification: Complete Framework</a></li>
+          <li><a href="/blog/wayne-conn-plumbing-case-study/">How Wayne Conn Captures $5K/Month in After-Hours Calls</a></li>
+          <li><a href="/blog/airtable-trucking-operations/">How Airtable Runs $2M Trucking Operations</a></li>
+          <li><a href="/blog/make-vs-n8n/">Make.com vs n8n: Which Automation Platform for 2026?</a></li>
+        </ul>
+      </div>
+
+      <div class="author-bio">
+        <div class="author-bio__avatar">CM</div>
+        <div class="author-bio__content">
+          <div class="author-bio__name">Chris Mott</div>
+          <div class="author-bio__title">Founder, ResultantAI</div>
+          <p class="author-bio__text">Chris builds revenue systems for B2B service businesses. He's worked with home services companies on voice AI, workflow automation, and operational systems that scale profitably. The propane demo was built from real conversations with propane dealers facing these exact winter surge challenges.</p>
+          <div class="author-bio__links">
+            <a href="https://linkedin.com/in/chrismott1" class="author-bio__link">LinkedIn</a>
+            <a href="https://resultantai.com" class="author-bio__link">resultantai.com</a>
+            <a href="mailto:chris@resultantai.com" class="author-bio__link">Email</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </article>
+
+  <footer class="footer">
+    <div class="footer__inner">
+      <div class="footer__copy">© 2025 ResultantAI</div>
+      <div class="footer__links">
+        <a href="/" class="footer__link">Home</a>
+        <a href="/blog" class="footer__link">Blog</a>
+        <a href="/demo/propane-demo" class="footer__link">Propane Demo</a>
+        <a href="https://linkedin.com/in/chrismott1" class="footer__link">LinkedIn</a>
+        <a href="mailto:chris@resultantai.com" class="footer__link">Email</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    window.addEventListener('scroll', () => {
+      document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 50);
+    });
+  </script>
 </body>
 </html>
