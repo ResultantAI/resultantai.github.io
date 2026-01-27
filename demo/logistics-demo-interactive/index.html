@@ -49,6 +49,23 @@
       --radius-xl: 16px;
     }
 
+    /* Light Theme */
+    [data-theme="light"] {
+      /* Background Colors - Light */
+      --bg-primary: #ffffff;
+      --bg-secondary: #f8fafc;
+      --bg-elevated: #ffffff;
+      --bg-card: #ffffff;
+
+      /* Text Colors */
+      --text-primary: #0f172a;
+      --text-secondary: #475569;
+      --text-muted: #64748b;
+
+      /* Borders */
+      --border: #e2e8f0;
+    }
+
     body {
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
       background: var(--bg-primary);
@@ -392,7 +409,11 @@
 
     /* Form Elements */
     .form-group {
-      margin-bottom: 1.25rem;
+      margin-bottom: 0.875rem;
+    }
+
+    .ticket-form .form-group {
+      margin-bottom: 0.75rem;
     }
 
     .form-label {
@@ -516,6 +537,10 @@
     /* Ticket Form */
     .ticket-form {
       max-width: 600px;
+    }
+
+    #view-tickets .card {
+      padding: 1rem 1.5rem;
     }
 
     .ticket-preview {
@@ -995,12 +1020,76 @@
   </style>
 </head>
 <body>
+  <!-- Safety Check Modal (Tom's request for liability protection) -->
+  <div class="tutorial-overlay" id="safety-check-modal" style="display: none;">
+    <div class="tutorial-modal" style="max-width: 500px;">
+      <div class="tutorial-header">
+        <h2>Pre-Delivery Safety Check</h2>
+        <p style="color: var(--text-secondary);">Complete before creating ticket</p>
+      </div>
+
+      <div style="background: rgba(239, 68, 68, 0.1); border: 1px solid var(--danger); border-radius: var(--radius-md); padding: 1rem; margin-bottom: 1.5rem; position: relative; z-index: 1;">
+        <div style="font-size: 0.875rem; font-weight: 600; color: var(--danger); margin-bottom: 0.5rem;">
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="display: inline; vertical-align: middle; margin-right: 0.5rem;">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
+          </svg>
+          Required for Insurance Compliance
+        </div>
+        <p style="font-size: 0.75rem; color: var(--text-secondary);">Safety Director Tom: "This lowers our premiums and kills frivolous claims."</p>
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: 1rem; margin-bottom: 2rem; position: relative; z-index: 1;">
+        <label style="display: flex; align-items: center; gap: 1rem; padding: 1rem; background: var(--bg-secondary); border-radius: var(--radius-md); cursor: pointer; transition: all 0.2s;" class="safety-check-item">
+          <input type="checkbox" class="safety-checkbox" style="width: 20px; height: 20px; cursor: pointer;">
+          <div>
+            <div style="font-weight: 600; margin-bottom: 0.25rem;">Brakes Inspected</div>
+            <div style="font-size: 0.75rem; color: var(--text-muted);">Service brakes operational</div>
+          </div>
+        </label>
+
+        <label style="display: flex; align-items: center; gap: 1rem; padding: 1rem; background: var(--bg-secondary); border-radius: var(--radius-md); cursor: pointer; transition: all 0.2s;" class="safety-check-item">
+          <input type="checkbox" class="safety-checkbox" style="width: 20px; height: 20px; cursor: pointer;">
+          <div>
+            <div style="font-weight: 600; margin-bottom: 0.25rem;">Lights & Signals Working</div>
+            <div style="font-size: 0.75rem; color: var(--text-muted);">Headlights, brake lights, turn signals</div>
+          </div>
+        </label>
+
+        <label style="display: flex; align-items: center; gap: 1rem; padding: 1rem; background: var(--bg-secondary); border-radius: var(--radius-md); cursor: pointer; transition: all 0.2s;" class="safety-check-item">
+          <input type="checkbox" class="safety-checkbox" style="width: 20px; height: 20px; cursor: pointer;">
+          <div>
+            <div style="font-weight: 600; margin-bottom: 0.25rem;">Load Secured</div>
+            <div style="font-size: 0.75rem; color: var(--text-muted);">Tailgate latched, no loose material</div>
+          </div>
+        </label>
+
+        <label style="display: flex; align-items: center; gap: 1rem; padding: 1rem; background: var(--bg-secondary); border-radius: var(--radius-md); cursor: pointer; transition: all 0.2s;" class="safety-check-item">
+          <input type="checkbox" class="safety-checkbox" style="width: 20px; height: 20px; cursor: pointer;">
+          <div>
+            <div style="font-weight: 600; margin-bottom: 0.25rem;">Pre-Delivery Site Photo</div>
+            <div style="font-size: 0.75rem; color: var(--text-muted);">Timestamped proof of site conditions</div>
+          </div>
+        </label>
+      </div>
+
+      <div style="display: flex; gap: 1rem; position: relative; z-index: 1;">
+        <button class="btn btn-secondary" onclick="document.getElementById('safety-check-modal').style.display='none'" style="flex: 1;">Cancel</button>
+        <button class="btn btn-primary" id="confirm-safety-btn" disabled style="flex: 1;">
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+          </svg>
+          Confirm Safety Check
+        </button>
+      </div>
+    </div>
+  </div>
+
   <!-- Tutorial Overlay - Enabled by default for first-time visitors -->
   <div class="tutorial-overlay" id="tutorial-overlay" style="display: flex;">
     <div class="tutorial-modal">
       <div class="tutorial-header">
         <h2>Welcome to Valley Rock & Gravel</h2>
-        <p>Experience the system from different perspectives</p>
+        <p>See how we eliminated lost tickets, billing errors, and damage disputes</p>
       </div>
 
       <div class="stakeholder-grid">
@@ -1129,13 +1218,13 @@
 
         <div class="nav-section">
           <div class="nav-label">Integration</div>
-          <div class="nav-item" data-view="quickbooks">
+          <div class="nav-item" data-view="reports">
             <span class="nav-icon">
               <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
               </svg>
             </span>
-            <span>QuickBooks Sync</span>
+            <span>Reports</span>
           </div>
         </div>
 
@@ -1159,6 +1248,17 @@
             <span>Settings & Users</span>
           </div>
         </div>
+
+        <!-- Book a Demo CTA -->
+        <div style="padding: 1rem; margin-top: 2rem; border-top: 1px solid var(--border);">
+          <a href="https://meetings.hubspot.com/resultantai/paper-to-digital" target="_blank" class="btn btn-primary" style="width: 100%; justify-content: center; font-weight: 700; font-size: 0.9375rem; padding: 0.875rem 1rem; background: linear-gradient(135deg, var(--primary) 0%, rgba(16, 185, 129, 0.8) 100%); box-shadow: 0 4px 14px rgba(16, 185, 129, 0.4);">
+            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="margin-right: 0.5rem;">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+            </svg>
+            Book a Demo
+          </a>
+          <p style="text-align: center; font-size: 0.75rem; color: var(--text-muted); margin-top: 0.75rem; margin-bottom: 0;">See your system in 15 minutes</p>
+        </div>
       </nav>
     </aside>
 
@@ -1170,12 +1270,14 @@
           <p id="view-subtitle">Real-time fleet overview</p>
         </div>
         <div class="header-right">
-          <a href="https://meetings.hubspot.com/resultantai/paper-to-digital" target="_blank" class="btn btn-primary" style="padding: 0.5rem 1rem; font-size: 0.8125rem;">
-            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+          <button id="theme-toggle" class="btn btn-secondary" style="padding: 0.5rem 0.75rem;" title="Toggle light/dark mode">
+            <svg id="theme-icon-dark" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
             </svg>
-            Book a Demo
-          </a>
+            <svg id="theme-icon-light" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="display: none;">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
+            </svg>
+          </button>
           <div class="live-badge">
             <span class="live-dot"></span>
             <span>LIVE DEMO</span>
@@ -1445,11 +1547,29 @@
           <div class="card">
             <div class="card-header">
               <h3 class="card-title">Active Loads - Live Tracking</h3>
-              <div class="badge">
-                <span class="live-dot"></span>
-                <span>Real-time updates</span>
+              <div style="display: flex; gap: 1rem; align-items: center;">
+                <div style="display: flex; gap: 0.5rem; background: var(--bg-secondary); padding: 0.25rem; border-radius: var(--radius-md);">
+                  <button class="btn btn-secondary dispatcher-view-toggle active" data-dispatcher-view="list" style="padding: 0.5rem 0.75rem; font-size: 0.8125rem;">
+                    <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="display: inline; vertical-align: middle;">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 10h16M4 14h16M4 18h16"></path>
+                    </svg>
+                    List
+                  </button>
+                  <button class="btn btn-secondary dispatcher-view-toggle" data-dispatcher-view="scheduler" style="padding: 0.5rem 0.75rem; font-size: 0.8125rem;">
+                    <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="display: inline; vertical-align: middle;">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                    </svg>
+                    Scheduler
+                  </button>
+                </div>
+                <div class="badge">
+                  <span class="live-dot"></span>
+                  <span>Real-time updates</span>
+                </div>
               </div>
             </div>
+
+            <div id="dispatcher-list-view">
             <div class="load-list">
               <div class="load-card">
                 <div class="load-info">
@@ -1512,11 +1632,149 @@
                 </div>
               </div>
             </div>
+
+            <!-- Scheduler View (Big Al's Command Center) -->
+            <div id="dispatcher-scheduler-view" style="display: none;">
+              <div style="background: var(--bg-secondary); padding: 1rem; border-radius: var(--radius-lg); margin-bottom: 1rem;">
+                <div style="display: grid; grid-template-columns: 100px repeat(6, 1fr); gap: 0.5rem; font-size: 0.8125rem;">
+                  <!-- Header Row -->
+                  <div style="padding: 0.75rem; font-weight: 700; color: var(--text-muted);">Time Slot</div>
+                  <div style="padding: 0.75rem; background: var(--bg-elevated); border-radius: var(--radius-md); font-weight: 700; text-align: center;">
+                    <div>Truck #3</div>
+                    <div style="font-size: 0.75rem; color: var(--text-muted); font-weight: 400;">Sarah</div>
+                  </div>
+                  <div style="padding: 0.75rem; background: var(--bg-elevated); border-radius: var(--radius-md); font-weight: 700; text-align: center;">
+                    <div>Truck #5</div>
+                    <div style="font-size: 0.75rem; color: var(--text-muted); font-weight: 400;">Marcus</div>
+                  </div>
+                  <div style="padding: 0.75rem; background: var(--bg-elevated); border-radius: var(--radius-md); font-weight: 700; text-align: center;">
+                    <div>Truck #7</div>
+                    <div style="font-size: 0.75rem; color: var(--text-muted); font-weight: 400;">Mike</div>
+                  </div>
+                  <div style="padding: 0.75rem; background: var(--bg-elevated); border-radius: var(--radius-md); font-weight: 700; text-align: center;">
+                    <div>Truck #9</div>
+                    <div style="font-size: 0.75rem; color: var(--text-muted); font-weight: 400;">Lisa</div>
+                  </div>
+                  <div style="padding: 0.75rem; background: var(--bg-elevated); border-radius: var(--radius-md); font-weight: 700; text-align: center;">
+                    <div>Truck #11</div>
+                    <div style="font-size: 0.75rem; color: var(--text-muted); font-weight: 400;">Alex</div>
+                  </div>
+                  <div style="padding: 0.75rem; background: var(--bg-elevated); border-radius: var(--radius-md); font-weight: 700; text-align: center;">
+                    <div>Truck #15</div>
+                    <div style="font-size: 0.75rem; color: var(--text-muted); font-weight: 400;">Tom</div>
+                  </div>
+
+                  <!-- 14:00 - 14:30 Row -->
+                  <div style="padding: 0.75rem; font-weight: 700; color: var(--text-muted); border-top: 1px solid rgba(255, 255, 255, 0.05);">14:00<br>14:30</div>
+                  <div class="scheduler-slot" style="border-top: 1px solid rgba(255, 255, 255, 0.05); padding: 0.5rem; min-height: 80px;">
+                    <div class="scheduler-load" draggable="true" style="background: rgba(251, 146, 60, 0.2); border: 1px solid rgba(251, 146, 60, 0.5); padding: 0.5rem; border-radius: var(--radius-md); cursor: grab; font-size: 0.75rem;">
+                      <div style="font-weight: 700; color: rgb(251, 146, 60);">Loading</div>
+                      <div style="color: var(--text-muted);">Summit Building</div>
+                      <div style="color: var(--text-primary);">22 tons • $1,056</div>
+                    </div>
+                  </div>
+                  <div class="scheduler-slot" style="border-top: 1px solid rgba(255, 255, 255, 0.05); padding: 0.5rem; min-height: 80px;">
+                    <div class="scheduler-load" draggable="true" style="background: rgba(59, 130, 246, 0.2); border: 1px solid rgba(59, 130, 246, 0.5); padding: 0.5rem; border-radius: var(--radius-md); cursor: grab; font-size: 0.75rem;">
+                      <div style="font-weight: 700; color: rgb(59, 130, 246);">In Transit</div>
+                      <div style="color: var(--text-muted);">Summit Building</div>
+                      <div style="color: var(--text-primary);">21 tons • $945</div>
+                    </div>
+                  </div>
+                  <div class="scheduler-slot" style="border-top: 1px solid rgba(255, 255, 255, 0.05); padding: 0.5rem; min-height: 80px;">
+                    <div class="scheduler-load" draggable="true" style="background: rgba(59, 130, 246, 0.2); border: 1px solid rgba(59, 130, 246, 0.5); padding: 0.5rem; border-radius: var(--radius-md); cursor: grab; font-size: 0.75rem;">
+                      <div style="font-weight: 700; color: rgb(59, 130, 246);">In Transit</div>
+                      <div style="color: var(--text-muted);">Mountain View</div>
+                      <div style="color: var(--text-primary);">18 tons • $810</div>
+                    </div>
+                  </div>
+                  <div class="scheduler-slot" style="border-top: 1px solid rgba(255, 255, 255, 0.05); padding: 0.5rem; min-height: 80px;"></div>
+                  <div class="scheduler-slot" style="border-top: 1px solid rgba(255, 255, 255, 0.05); padding: 0.5rem; min-height: 80px;">
+                    <div class="scheduler-load" draggable="true" style="background: rgba(59, 130, 246, 0.2); border: 1px solid rgba(59, 130, 246, 0.5); padding: 0.5rem; border-radius: var(--radius-md); cursor: grab; font-size: 0.75rem;">
+                      <div style="font-weight: 700; color: rgb(59, 130, 246);">In Transit</div>
+                      <div style="color: var(--text-muted);">Cascade Contractors</div>
+                      <div style="color: var(--text-primary);">19 tons • $855</div>
+                    </div>
+                  </div>
+                  <div class="scheduler-slot" style="border-top: 1px solid rgba(255, 255, 255, 0.05); padding: 0.5rem; min-height: 80px;">
+                    <div class="scheduler-load" draggable="true" style="background: rgba(251, 146, 60, 0.2); border: 1px solid rgba(251, 146, 60, 0.5); padding: 0.5rem; border-radius: var(--radius-md); cursor: grab; font-size: 0.75rem;">
+                      <div style="font-weight: 700; color: rgb(251, 146, 60);">Loading</div>
+                      <div style="color: var(--text-muted);">Riverside Materials</div>
+                      <div style="color: var(--text-primary);">24 tons • $1,248</div>
+                    </div>
+                  </div>
+
+                  <!-- 14:30 - 15:00 Row -->
+                  <div style="padding: 0.75rem; font-weight: 700; color: var(--text-muted); border-top: 1px solid rgba(255, 255, 255, 0.05);">14:30<br>15:00</div>
+                  <div class="scheduler-slot" style="border-top: 1px solid rgba(255, 255, 255, 0.05); padding: 0.5rem; min-height: 80px;"></div>
+                  <div class="scheduler-slot" style="border-top: 1px solid rgba(255, 255, 255, 0.05); padding: 0.5rem; min-height: 80px;"></div>
+                  <div class="scheduler-slot" style="border-top: 1px solid rgba(255, 255, 255, 0.05); padding: 0.5rem; min-height: 80px;"></div>
+                  <div class="scheduler-slot" style="border-top: 1px solid rgba(255, 255, 255, 0.05); padding: 0.5rem; min-height: 80px;">
+                    <div class="scheduler-load" draggable="true" style="background: rgba(59, 130, 246, 0.2); border: 1px solid rgba(59, 130, 246, 0.5); padding: 0.5rem; border-radius: var(--radius-md); cursor: grab; font-size: 0.75rem;">
+                      <div style="font-weight: 700; color: rgb(59, 130, 246);">In Transit</div>
+                      <div style="color: var(--text-muted);">High Desert</div>
+                      <div style="color: var(--text-primary);">20 tons • $700</div>
+                    </div>
+                  </div>
+                  <div class="scheduler-slot" style="border-top: 1px solid rgba(255, 255, 255, 0.05); padding: 0.5rem; min-height: 80px;"></div>
+                  <div class="scheduler-slot" style="border-top: 1px solid rgba(255, 255, 255, 0.05); padding: 0.5rem; min-height: 80px;"></div>
+
+                  <!-- 15:00 - 15:30 Row -->
+                  <div style="padding: 0.75rem; font-weight: 700; color: var(--text-muted); border-top: 1px solid rgba(255, 255, 255, 0.05);">15:00<br>15:30</div>
+                  <div class="scheduler-slot" style="border-top: 1px solid rgba(255, 255, 255, 0.05); padding: 0.5rem; min-height: 80px; background: rgba(16, 185, 129, 0.05); border: 1px dashed rgba(16, 185, 129, 0.3);">
+                    <div style="color: var(--text-muted); font-size: 0.75rem; text-align: center; padding: 1rem;">
+                      <div>Next Available</div>
+                      <div style="color: var(--primary); font-weight: 700;">Drop Here</div>
+                    </div>
+                  </div>
+                  <div class="scheduler-slot" style="border-top: 1px solid rgba(255, 255, 255, 0.05); padding: 0.5rem; min-height: 80px; background: rgba(16, 185, 129, 0.05); border: 1px dashed rgba(16, 185, 129, 0.3);">
+                    <div style="color: var(--text-muted); font-size: 0.75rem; text-align: center; padding: 1rem;">
+                      <div>Next Available</div>
+                      <div style="color: var(--primary); font-weight: 700;">Drop Here</div>
+                    </div>
+                  </div>
+                  <div class="scheduler-slot" style="border-top: 1px solid rgba(255, 255, 255, 0.05); padding: 0.5rem; min-height: 80px; background: rgba(16, 185, 129, 0.05); border: 1px dashed rgba(16, 185, 129, 0.3);">
+                    <div style="color: var(--text-muted); font-size: 0.75rem; text-align: center; padding: 1rem;">
+                      <div>Next Available</div>
+                      <div style="color: var(--primary); font-weight: 700;">Drop Here</div>
+                    </div>
+                  </div>
+                  <div class="scheduler-slot" style="border-top: 1px solid rgba(255, 255, 255, 0.05); padding: 0.5rem; min-height: 80px;"></div>
+                  <div class="scheduler-slot" style="border-top: 1px solid rgba(255, 255, 255, 0.05); padding: 0.5rem; min-height: 80px; background: rgba(16, 185, 129, 0.05); border: 1px dashed rgba(16, 185, 129, 0.3);">
+                    <div style="color: var(--text-muted); font-size: 0.75rem; text-align: center; padding: 1rem;">
+                      <div>Next Available</div>
+                      <div style="color: var(--primary); font-weight: 700;">Drop Here</div>
+                    </div>
+                  </div>
+                  <div class="scheduler-slot" style="border-top: 1px solid rgba(255, 255, 255, 0.05); padding: 0.5rem; min-height: 80px;"></div>
+
+                  <!-- 15:30 - 16:00 Row -->
+                  <div style="padding: 0.75rem; font-weight: 700; color: var(--text-muted); border-top: 1px solid rgba(255, 255, 255, 0.05);">15:30<br>16:00</div>
+                  <div class="scheduler-slot" style="border-top: 1px solid rgba(255, 255, 255, 0.05); padding: 0.5rem; min-height: 80px;"></div>
+                  <div class="scheduler-slot" style="border-top: 1px solid rgba(255, 255, 255, 0.05); padding: 0.5rem; min-height: 80px;"></div>
+                  <div class="scheduler-slot" style="border-top: 1px solid rgba(255, 255, 255, 0.05); padding: 0.5rem; min-height: 80px;"></div>
+                  <div class="scheduler-slot" style="border-top: 1px solid rgba(255, 255, 255, 0.05); padding: 0.5rem; min-height: 80px;"></div>
+                  <div class="scheduler-slot" style="border-top: 1px solid rgba(255, 255, 255, 0.05); padding: 0.5rem; min-height: 80px;"></div>
+                  <div class="scheduler-slot" style="border-top: 1px solid rgba(255, 255, 255, 0.05); padding: 0.5rem; min-height: 80px;"></div>
+                </div>
+              </div>
+
+              <div style="background: rgba(59, 130, 246, 0.1); border: 1px solid rgba(59, 130, 246, 0.3); padding: 1rem; border-radius: var(--radius-lg); font-size: 0.875rem;">
+                <div style="display: flex; align-items: center; gap: 0.5rem; color: rgb(59, 130, 246); font-weight: 700; margin-bottom: 0.5rem;">
+                  <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                  </svg>
+                  Scheduler Demo Mode
+                </div>
+                <div style="color: var(--text-muted);">Drag and drop loads between time slots to reschedule. Green "Drop Here" slots show next available assignments. This is Big Al's "Command Center" for managing fleet assignments in real-time.</div>
+              </div>
+            </div>
+
           </div>
         </div>
 
         <!-- Driver App View -->
         <div class="view" id="view-driver">
+          <div style="display: grid; grid-template-columns: 400px 1fr; gap: 2rem; align-items: start;">
           <div class="phone-mockup">
             <div class="phone-screen">
               <div class="phone-header">
@@ -1605,6 +1863,91 @@
                 </div>
               </div>
             </div>
+          </div>
+
+          <!-- Feature Descriptions (right column) -->
+          <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+            <div style="background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.3); padding: 1.5rem; border-radius: var(--radius-lg);">
+              <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem;">
+                <div style="width: 40px; height: 40px; background: var(--primary); border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center;">
+                  <svg width="24" height="24" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M8.111 16.404a5.5 5.5 0 017.778 0M12 20h.01m-7.08-7.071c3.904-3.905 10.236-3.905 14.141 0M1.394 9.393c5.857-5.857 15.355-5.857 21.213 0"></path>
+                  </svg>
+                </div>
+                <div>
+                  <h3 style="margin: 0; color: var(--primary); font-size: 1.125rem;">Offline Mode - Rural Ready</h3>
+                  <div style="display: inline-block; background: rgba(16, 185, 129, 0.2); color: var(--primary); padding: 0.25rem 0.75rem; border-radius: 1rem; font-size: 0.75rem; font-weight: 700; margin-top: 0.25rem;">Works Everywhere</div>
+                </div>
+              </div>
+              <p style="color: var(--text-secondary); margin-bottom: 0.75rem; line-height: 1.6;">No cell signal in the quarry or remote jobsites? No problem. Drivers create tickets, take photos, and collect signatures completely offline.</p>
+              <ul style="color: var(--text-secondary); margin: 0; padding-left: 1.25rem; line-height: 1.8;">
+                <li>All data saved locally on device</li>
+                <li>Auto-sync when connection returns</li>
+                <li>Zero lost tickets or missed deliveries</li>
+              </ul>
+            </div>
+
+            <div style="background: rgba(251, 146, 60, 0.1); border: 1px solid rgba(251, 146, 60, 0.3); padding: 1.5rem; border-radius: var(--radius-lg);">
+              <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem;">
+                <div style="width: 40px; height: 40px; background: rgb(251, 146, 60); border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center;">
+                  <svg width="24" height="24" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                  </svg>
+                </div>
+                <div>
+                  <h3 style="margin: 0; color: rgb(251, 146, 60); font-size: 1.125rem;">Union Time Clock Integration</h3>
+                  <div style="display: inline-block; background: rgba(251, 146, 60, 0.2); color: rgb(251, 146, 60); padding: 0.25rem 0.75rem; border-radius: 1rem; font-size: 0.75rem; font-weight: 700; margin-top: 0.25rem;">Audit-Ready</div>
+                </div>
+              </div>
+              <p style="color: var(--text-secondary); margin-bottom: 0.75rem; line-height: 1.6;">Built-in time tracking meets union compliance requirements and DOT Hours of Service regulations.</p>
+              <ul style="color: var(--text-secondary); margin: 0; padding-left: 1.25rem; line-height: 1.8;">
+                <li>One-tap Clock In/Out from driver app</li>
+                <li>Automatic HOS countdown alerts</li>
+                <li>Export timesheets for payroll</li>
+              </ul>
+            </div>
+
+            <div style="background: rgba(59, 130, 246, 0.1); border: 1px solid rgba(59, 130, 246, 0.3); padding: 1.5rem; border-radius: var(--radius-lg);">
+              <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem;">
+                <div style="width: 40px; height: 40px; background: rgb(59, 130, 246); border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center;">
+                  <svg width="24" height="24" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"></path>
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                  </svg>
+                </div>
+                <div>
+                  <h3 style="margin: 0; color: rgb(59, 130, 246); font-size: 1.125rem;">Photo & Signature Capture</h3>
+                  <div style="display: inline-block; background: rgba(59, 130, 246, 0.2); color: rgb(59, 130, 246); padding: 0.25rem 0.75rem; border-radius: 1rem; font-size: 0.75rem; font-weight: 700; margin-top: 0.25rem;">Dispute Protection</div>
+                </div>
+              </div>
+              <p style="color: var(--text-secondary); margin-bottom: 0.75rem; line-height: 1.6;">Built-in camera and signature pad eliminate "they didn't deliver what I ordered" disputes.</p>
+              <ul style="color: var(--text-secondary); margin: 0; padding-left: 1.25rem; line-height: 1.8;">
+                <li>Timestamped delivery photos</li>
+                <li>Customer signature on device</li>
+                <li>Photos attached to invoice automatically</li>
+              </ul>
+            </div>
+
+            <div style="background: rgba(139, 92, 246, 0.1); border: 1px solid rgba(139, 92, 246, 0.3); padding: 1.5rem; border-radius: var(--radius-lg);">
+              <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem;">
+                <div style="width: 40px; height: 40px; background: rgb(139, 92, 246); border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center;">
+                  <svg width="24" height="24" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                  </svg>
+                </div>
+                <div>
+                  <h3 style="margin: 0; color: rgb(139, 92, 246); font-size: 1.125rem;">Instant Invoice Delivery</h3>
+                  <div style="display: inline-block; background: rgba(139, 92, 246, 0.2); color: rgb(139, 92, 246); padding: 0.25rem 0.75rem; border-radius: 1rem; font-size: 0.75rem; font-weight: 700; margin-top: 0.25rem;">Same-Day Payment</div>
+                </div>
+              </div>
+              <p style="color: var(--text-secondary); margin-bottom: 0.75rem; line-height: 1.6;">The moment a driver completes a delivery, the customer receives their invoice by email.</p>
+              <ul style="color: var(--text-secondary); margin: 0; padding-left: 1.25rem; line-height: 1.8;">
+                <li><strong>2:47 PM:</strong> Driver completes delivery</li>
+                <li><strong>2:48 PM:</strong> Invoice in QuickBooks</li>
+                <li><strong>2:48 PM:</strong> Customer receives email</li>
+              </ul>
+            </div>
+          </div>
           </div>
         </div>
 
@@ -2043,11 +2386,50 @@
           </div>
         </div>
 
-        <!-- QuickBooks View -->
-        <div class="view" id="view-quickbooks">
+        <!-- Reports View -->
+        <div class="view" id="view-reports">
+          <!-- Revenue Summary Card -->
+          <div class="card" style="background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(59, 130, 246, 0.1) 100%); border: 1px solid rgba(16, 185, 129, 0.3);">
+            <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 1.5rem;">
+              <div>
+                <h3 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 0.5rem;">Reports & Analytics</h3>
+                <p style="color: var(--text-muted); font-size: 0.875rem;">Real-time insights, QuickBooks sync, and export tools</p>
+              </div>
+              <button class="btn btn-secondary">
+                <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                </svg>
+                Export All Data
+              </button>
+            </div>
+
+            <div class="stats">
+              <div class="stat-card">
+                <div class="stat-label">Today's Revenue</div>
+                <div class="stat-value" style="font-size: 1.75rem;">$4,274</div>
+                <div class="stat-change positive">↑ 18 loads completed</div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-label">MTD Revenue</div>
+                <div class="stat-value" style="font-size: 1.75rem;">$287K</div>
+                <div class="stat-change positive">↑ 12% vs. last month</div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-label">QB Pending Review</div>
+                <div class="stat-value" style="font-size: 1.75rem;">15</div>
+                <div class="stat-change">$6,240 ready to sync</div>
+              </div>
+            </div>
+          </div>
+
           <div class="card">
             <div class="card-header">
-              <h3 class="card-title">QuickBooks Review Queue</h3>
+              <h3 class="card-title">
+                <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="display: inline; vertical-align: middle; margin-right: 0.5rem;">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                </svg>
+                QuickBooks Review Queue
+              </h3>
               <button class="btn btn-primary">
                 <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path>
@@ -2315,8 +2697,16 @@
                   <p>linda@valleyrock.com • Admin Access • QuickBooks Reviewer • Last active: 2 min ago</p>
                 </div>
                 <div class="load-status">
-                  <div class="status-badge status-completed">Active</div>
-                  <button class="btn btn-secondary" style="padding: 0.5rem 1rem; font-size: 0.8125rem;">Edit</button>
+                  <div class="status-badge status-completed" style="margin-bottom: 0.75rem;">Active</div>
+                  <div style="display: flex; gap: 0.5rem;">
+                    <button class="btn btn-secondary" style="padding: 0.5rem 1rem; font-size: 0.8125rem;">Edit</button>
+                    <button class="btn btn-secondary" style="padding: 0.5rem 1rem; font-size: 0.8125rem; background: var(--danger); color: white; border-color: var(--danger);">
+                      <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="display: inline; vertical-align: middle;">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"></path>
+                      </svg>
+                      Revoke
+                    </button>
+                  </div>
                 </div>
               </div>
               <div class="load-card">
@@ -2325,8 +2715,16 @@
                   <p>frank@valleyrock.com • Dispatcher Access • Fleet Manager • Last active: 5 min ago</p>
                 </div>
                 <div class="load-status">
-                  <div class="status-badge status-completed">Active</div>
-                  <button class="btn btn-secondary" style="padding: 0.5rem 1rem; font-size: 0.8125rem;">Edit</button>
+                  <div class="status-badge status-completed" style="margin-bottom: 0.75rem;">Active</div>
+                  <div style="display: flex; gap: 0.5rem;">
+                    <button class="btn btn-secondary" style="padding: 0.5rem 1rem; font-size: 0.8125rem;">Edit</button>
+                    <button class="btn btn-secondary" style="padding: 0.5rem 1rem; font-size: 0.8125rem; background: var(--danger); color: white; border-color: var(--danger);">
+                      <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="display: inline; vertical-align: middle;">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M18.364 18.364A9 18 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"></path>
+                      </svg>
+                      Revoke
+                    </button>
+                  </div>
                 </div>
               </div>
               <div class="load-card">
@@ -2335,8 +2733,16 @@
                   <p>mike@valleyrock.com • Driver Access • 3 loads today • Last active: 15 min ago</p>
                 </div>
                 <div class="load-status">
-                  <div class="status-badge status-completed">Active</div>
-                  <button class="btn btn-secondary" style="padding: 0.5rem 1rem; font-size: 0.8125rem;">Edit</button>
+                  <div class="status-badge status-completed" style="margin-bottom: 0.75rem;">Active</div>
+                  <div style="display: flex; gap: 0.5rem;">
+                    <button class="btn btn-secondary" style="padding: 0.5rem 1rem; font-size: 0.8125rem;">Edit</button>
+                    <button class="btn btn-secondary" style="padding: 0.5rem 1rem; font-size: 0.8125rem; background: var(--danger); color: white; border-color: var(--danger);">
+                      <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="display: inline; vertical-align: middle;">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"></path>
+                      </svg>
+                      Revoke
+                    </button>
+                  </div>
                 </div>
               </div>
               <div class="load-card">
@@ -2345,8 +2751,16 @@
                   <p>sarah@valleyrock.com • Driver Access • 4 loads today • Last active: 30 min ago</p>
                 </div>
                 <div class="load-status">
-                  <div class="status-badge status-completed">Active</div>
-                  <button class="btn btn-secondary" style="padding: 0.5rem 1rem; font-size: 0.8125rem;">Edit</button>
+                  <div class="status-badge status-completed" style="margin-bottom: 0.75rem;">Active</div>
+                  <div style="display: flex; gap: 0.5rem;">
+                    <button class="btn btn-secondary" style="padding: 0.5rem 1rem; font-size: 0.8125rem;">Edit</button>
+                    <button class="btn btn-secondary" style="padding: 0.5rem 1rem; font-size: 0.8125rem; background: var(--danger); color: white; border-color: var(--danger);">
+                      <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="display: inline; vertical-align: middle;">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"></path>
+                      </svg>
+                      Revoke
+                    </button>
+                  </div>
                 </div>
               </div>
               <div class="load-card">
@@ -2355,8 +2769,16 @@
                   <p>james@valleyrock.com • Driver Access • 2 loads today • Last active: 1 hr ago</p>
                 </div>
                 <div class="load-status">
-                  <div class="status-badge status-completed">Active</div>
-                  <button class="btn btn-secondary" style="padding: 0.5rem 1rem; font-size: 0.8125rem;">Edit</button>
+                  <div class="status-badge status-completed" style="margin-bottom: 0.75rem;">Active</div>
+                  <div style="display: flex; gap: 0.5rem;">
+                    <button class="btn btn-secondary" style="padding: 0.5rem 1rem; font-size: 0.8125rem;">Edit</button>
+                    <button class="btn btn-secondary" style="padding: 0.5rem 1rem; font-size: 0.8125rem; background: var(--danger); color: white; border-color: var(--danger);">
+                      <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="display: inline; vertical-align: middle;">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"></path>
+                      </svg>
+                      Revoke
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
@@ -2480,7 +2902,7 @@
       customers: { title: 'Customer Management', subtitle: 'Track accounts, pricing, and delivery history' },
       driver: { title: 'Driver Mobile App', subtitle: 'BYOD ready - no app download required' },
       customer: { title: 'Customer Portal', subtitle: '24/7 self-service for your customers' },
-      quickbooks: { title: 'QuickBooks Sync', subtitle: 'Review & approve before syncing' },
+      reports: { title: 'Reports & Analytics', subtitle: 'Revenue tracking, QuickBooks sync, and exports' },
       roi: { title: 'ROI & Analytics', subtitle: 'Track savings and system impact' },
       settings: { title: 'Settings & Users', subtitle: 'Manage users, features, and pricing' }
     };
@@ -2512,7 +2934,7 @@
         title: "Office Manager Tour",
         steps: [
           { view: 'dashboard', message: "Start with the dashboard to see today's activity at a glance" },
-          { view: 'quickbooks', message: "Review and approve tickets before syncing to QuickBooks - you stay in control" },
+          { view: 'reports', message: "Review revenue, approve tickets for QuickBooks sync, and export data - all in one place" },
           { view: 'tickets', message: "See how simple ticket creation works - same interface drivers use" },
           { view: 'roi', message: "Track your actual savings: time, money, and zero lost revenue" }
         ]
@@ -2778,12 +3200,116 @@
       });
     });
 
+    // Dispatcher scheduler toggle (Big Al's Command Center)
+    const dispatcherToggles = document.querySelectorAll('.dispatcher-view-toggle');
+    const dispatcherListView = document.getElementById('dispatcher-list-view');
+    const dispatcherSchedulerView = document.getElementById('dispatcher-scheduler-view');
+
+    dispatcherToggles.forEach(toggle => {
+      toggle.addEventListener('click', function() {
+        const viewType = this.dataset.dispatcherView;
+
+        // Update active state
+        dispatcherToggles.forEach(t => t.classList.remove('active'));
+        this.classList.add('active');
+
+        // Toggle views
+        if (viewType === 'list') {
+          dispatcherListView.style.display = 'block';
+          dispatcherSchedulerView.style.display = 'none';
+        } else {
+          dispatcherListView.style.display = 'none';
+          dispatcherSchedulerView.style.display = 'block';
+        }
+      });
+    });
+
+    // Drag and drop for scheduler (demo functionality)
+    let draggedElement = null;
+
+    document.querySelectorAll('.scheduler-load').forEach(load => {
+      load.addEventListener('dragstart', function(e) {
+        draggedElement = this;
+        this.style.opacity = '0.5';
+        e.dataTransfer.effectAllowed = 'move';
+      });
+
+      load.addEventListener('dragend', function(e) {
+        this.style.opacity = '1';
+        draggedElement = null;
+      });
+    });
+
+    document.querySelectorAll('.scheduler-slot').forEach(slot => {
+      slot.addEventListener('dragover', function(e) {
+        e.preventDefault();
+        e.dataTransfer.dropEffect = 'move';
+        this.style.background = 'rgba(16, 185, 129, 0.1)';
+      });
+
+      slot.addEventListener('dragleave', function(e) {
+        this.style.background = '';
+      });
+
+      slot.addEventListener('drop', function(e) {
+        e.preventDefault();
+        this.style.background = '';
+
+        if (draggedElement && this.classList.contains('scheduler-slot')) {
+          // Clear "Next Available" placeholder if it exists
+          const placeholder = this.querySelector('div:not(.scheduler-load)');
+          if (placeholder) {
+            placeholder.remove();
+          }
+
+          // Move the load to the new slot
+          this.appendChild(draggedElement);
+
+          // Show success toast
+          showToast('✓ Load Rescheduled', 'Assignment updated successfully', 2000);
+        }
+      });
+    });
+
     // Customer detail modal
     document.querySelectorAll('.load-card button, .card button').forEach(btn => {
       if (btn.textContent.includes('View Details') || btn.textContent.includes('View Full Details')) {
         btn.addEventListener('click', function() {
           document.getElementById('customer-detail-modal').style.display = 'block';
         });
+      }
+    });
+
+    // Light/Dark Mode Toggle
+    const themeToggle = document.getElementById('theme-toggle');
+    const themeIconDark = document.getElementById('theme-icon-dark');
+    const themeIconLight = document.getElementById('theme-icon-light');
+    const htmlElement = document.documentElement;
+
+    // Check for saved theme preference or default to 'dark'
+    const currentTheme = localStorage.getItem('theme') || 'dark';
+    htmlElement.setAttribute('data-theme', currentTheme);
+
+    // Update icon based on current theme
+    if (currentTheme === 'light') {
+      themeIconDark.style.display = 'none';
+      themeIconLight.style.display = 'block';
+    }
+
+    themeToggle.addEventListener('click', function() {
+      const currentTheme = htmlElement.getAttribute('data-theme');
+      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+
+      htmlElement.setAttribute('data-theme', newTheme);
+      localStorage.setItem('theme', newTheme);
+
+      // Toggle icons
+      if (newTheme === 'light') {
+        themeIconDark.style.display = 'none';
+        themeIconLight.style.display = 'block';
+      } else {
+        themeIconDark.style.display = 'block';
+        themeIconLight.style.display = 'none';
       }
     });
 
@@ -2813,6 +3339,87 @@
         );
       });
     }
+
+    // ===== RED TEAM FEATURES =====
+
+    // Safety Check Modal (Tom's liability protection request)
+    let safetyCheckPassed = false;
+    const safetyCheckboxes = document.querySelectorAll('.safety-checkbox');
+    const confirmSafetyBtn = document.getElementById('confirm-safety-btn');
+    const safetyModal = document.getElementById('safety-check-modal');
+
+    // Enable confirm button only when all checkboxes are checked
+    safetyCheckboxes.forEach(checkbox => {
+      checkbox.addEventListener('change', function() {
+        const allChecked = Array.from(safetyCheckboxes).every(cb => cb.checked);
+        confirmSafetyBtn.disabled = !allChecked;
+
+        if (allChecked) {
+          confirmSafetyBtn.style.opacity = '1';
+          confirmSafetyBtn.style.cursor = 'pointer';
+        } else {
+          confirmSafetyBtn.style.opacity = '0.5';
+          confirmSafetyBtn.style.cursor = 'not-allowed';
+        }
+      });
+    });
+
+    // Confirm safety check
+    confirmSafetyBtn.addEventListener('click', function() {
+      if (!confirmSafetyBtn.disabled) {
+        safetyCheckPassed = true;
+        safetyModal.style.display = 'none';
+        showToast(
+          '✅ Safety Check Complete',
+          'All safety requirements verified - ready to create ticket'
+        );
+        // Uncheck all for next time
+        safetyCheckboxes.forEach(cb => cb.checked = false);
+        confirmSafetyBtn.disabled = true;
+      }
+    });
+
+    // Intercept Create Ticket button to show safety check first
+    const originalCreateTicketBtn = document.getElementById('create-ticket-btn');
+    if (originalCreateTicketBtn) {
+      originalCreateTicketBtn.addEventListener('click', function(e) {
+        if (!safetyCheckPassed) {
+          e.stopPropagation();
+          safetyModal.style.display = 'flex';
+          return false;
+        }
+        // If safety check passed, continue with original ticket creation
+        safetyCheckPassed = false; // Reset for next ticket
+      });
+    }
+
+    // Revoke Access buttons (Kevin's security concern)
+    document.querySelectorAll('button').forEach(btn => {
+      if (btn.textContent.includes('Revoke')) {
+        btn.addEventListener('click', function() {
+          const userCard = this.closest('.load-card');
+          const userName = userCard.querySelector('h4').textContent;
+
+          // Show confirmation
+          if (confirm(`Revoke access for ${userName}?\n\nThis will immediately:\n• Deactivate their login\n• Invalidate all active sessions\n• Remove BYOD link access\n\nThis action is reversible from Edit > Reactivate.`)) {
+            // Update UI
+            const statusBadge = userCard.querySelector('.status-badge');
+            statusBadge.textContent = 'Revoked';
+            statusBadge.style.background = 'rgba(239, 68, 68, 0.2)';
+            statusBadge.style.color = 'var(--danger)';
+
+            this.textContent = 'Reactivate';
+            this.style.background = 'var(--primary)';
+            this.style.borderColor = 'var(--primary)';
+
+            showToast(
+              '🔒 Access Revoked',
+              `${userName} - All sessions terminated instantly`
+            );
+          }
+        });
+      }
+    });
   </script>
 </body>
 </html>
