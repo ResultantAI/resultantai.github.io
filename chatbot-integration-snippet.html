@@ -1,0 +1,134 @@
+<!--
+  ResultantAI Chatbot Integration Snippet
+  ========================================
+
+  Add this code to your HTML pages to enable the chatbot.
+-->
+
+<!-- 1. Add to <head> section -->
+<head>
+  <!-- ... your existing head content ... -->
+
+  <!-- Chatbot Styles -->
+  <link rel="stylesheet" href="/css/chatbot.css">
+</head>
+
+<!-- 2. Add before closing </body> tag -->
+<body>
+  <!-- ... your existing body content ... -->
+
+  <!-- Chatbot Widget -->
+  <script src="/js/chatbot.js"></script>
+</body>
+
+
+<!--
+  EXAMPLE: Full HTML page with chatbot
+  =====================================
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ResultantAI - Revenue Systems</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <!-- Existing Styles -->
+  <link rel="stylesheet" href="/css/styles.css">
+
+  <!-- Chatbot Styles -->
+  <link rel="stylesheet" href="/css/chatbot.css">
+</head>
+<body>
+
+  <!-- Your navigation -->
+  <nav>
+    <a href="/">ResultantAI</a>
+  </nav>
+
+  <!-- Your content -->
+  <main>
+    <h1>Welcome to ResultantAI</h1>
+    <p>We build revenue systems for service businesses.</p>
+  </main>
+
+  <!-- Your footer -->
+  <footer>
+    <p>&copy; 2026 ResultantAI</p>
+  </footer>
+
+  <!-- Existing Scripts -->
+  <script src="/js/main.js"></script>
+
+  <!-- Chatbot Widget -->
+  <script src="/js/chatbot.js"></script>
+
+</body>
+</html>
+
+
+<!--
+  OPTIONAL: Custom Configuration
+  ===============================
+
+  If you need to customize the chatbot behavior, you can add this
+  script BEFORE loading chatbot.js:
+-->
+
+<script>
+  // Custom chatbot configuration (optional)
+  window.RESULTANT_CHATBOT_CONFIG = {
+    // Override API endpoint
+    apiEndpoint: 'https://your-custom-api.com/chat',
+
+    // Override storage key
+    storageKey: 'custom_chat_history',
+
+    // Override max history length
+    maxHistoryLength: 30,
+
+    // Disable auto-welcome message
+    disableWelcome: false,
+
+    // Custom welcome delay (milliseconds)
+    welcomeDelay: 3000,
+  };
+</script>
+<script src="/js/chatbot.js"></script>
+
+
+<!--
+  BATCH UPDATE ALL PAGES
+  =======================
+
+  To quickly add the chatbot to all existing HTML pages, you can use
+  this bash command (run from the website root directory):
+
+  # Add chatbot CSS to all HTML files (if not already present)
+  for file in *.html; do
+    if ! grep -q "chatbot.css" "$file"; then
+      sed -i '' '/<\/head>/i\
+  <!-- Chatbot Styles -->\
+  <link rel="stylesheet" href="/css/chatbot.css">\
+' "$file"
+    fi
+  done
+
+  # Add chatbot JS to all HTML files (if not already present)
+  for file in *.html; do
+    if ! grep -q "chatbot.js" "$file"; then
+      sed -i '' '/<\/body>/i\
+  <!-- Chatbot Widget -->\
+  <script src="/js/chatbot.js"></script>\
+' "$file"
+    fi
+  done
+
+  Note: Make backups before running these commands!
+-->

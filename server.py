@@ -189,7 +189,8 @@ def health_check():
         'scripts_available': {
             'marketing_audit': os.path.exists(os.path.join(SCRIPT_DIR, 'marketing_audit.py')),
             'lead_enrichment': os.path.exists(os.path.join(SCRIPT_DIR, 'lead_enrichment.py')),
-            'mca_qualification': os.path.exists(os.path.join(SCRIPT_DIR, 'mca_qualification.py'))
+            'mca_qualification': os.path.exists(os.path.join(SCRIPT_DIR, 'mca_qualification.py')),
+            'chatbot': os.path.exists(os.path.join(SCRIPT_DIR, 'chatbot.py'))
         }
     }), 200
 
@@ -291,6 +292,44 @@ def qualify():
     return jsonify(result), status_code
 
 
+@app.route('/chat', methods=['POST'])
+def chat():
+    """
+    Website chatbot endpoint.
+
+    Expected JSON:
+    {
+        "message": "user's message",
+        "conversation_history": [
+            {"role": "user", "content": "previous message"},
+            {"role": "assistant", "content": "previous response"}
+        ],
+        "page_context": {
+            "url": "current page URL",
+            "page_type": "homepage|propane|concrete|field-services|agencies|b2b|case-studies|gateway",
+            "utm_source": "optional utm source",
+            "utm_campaign": "optional utm campaign"
+        }
+    }
+    """
+    # Validate request
+    data, status, is_valid = validate_json_request()
+    if not is_valid:
+        return jsonify(data), status
+
+    # Validate required fields
+    if 'message' not in data:
+        return jsonify({
+            'error': 'Missing required field: message',
+            'received_fields': list(data.keys()),
+            'timestamp': datetime.utcnow().isoformat() + 'Z'
+        }), 400
+
+    # Run chatbot script with longer timeout for AI responses
+    result, status_code = run_python_script('chatbot.py', data, timeout=90)
+    return jsonify(result), status_code
+
+
 @app.route('/', methods=['GET'])
 def index():
     """API documentation endpoint."""
@@ -301,7 +340,8 @@ def index():
             'GET /health': 'Health check',
             'POST /audit': 'Run marketing audit (requires: url, industry)',
             'POST /enrich': 'Enrich company data (requires: domain)',
-            'POST /qualify': 'Qualify MCA application (requires: company_name, annual_revenue, credit_score, business_age_months)'
+            'POST /qualify': 'Qualify MCA application (requires: company_name, annual_revenue, credit_score, business_age_months)',
+            'POST /chat': 'Website chatbot (requires: message)'
         },
         'documentation': {
             'audit': {
@@ -338,6 +378,21 @@ def index():
                     'business_age_months': 24,
                     'industry': 'Retail'
                 }
+            },
+            'chat': {
+                'method': 'POST',
+                'endpoint': '/chat',
+                'description': 'Website chatbot with industry detection and page-aware context',
+                'required_fields': ['message'],
+                'optional_fields': ['conversation_history', 'page_context'],
+                'example': {
+                    'message': 'We are looking for a propane delivery system',
+                    'conversation_history': [],
+                    'page_context': {
+                        'page_type': 'propane',
+                        'url': 'https://resultantai.com/propane.html'
+                    }
+                }
             }
         }
     }), 200
@@ -355,7 +410,7 @@ def not_found(error):
         'path': request.path,
         'method': request.method,
         'timestamp': datetime.utcnow().isoformat() + 'Z',
-        'available_endpoints': ['GET /', 'GET /health', 'POST /audit', 'POST /enrich', 'POST /qualify']
+        'available_endpoints': ['GET /', 'GET /health', 'POST /audit', 'POST /enrich', 'POST /qualify', 'POST /chat']
     }), 404
 
 
@@ -393,6 +448,7 @@ if __name__ == '__main__':
     print(f"  POST http://localhost:{PORT}/audit", file=sys.stderr)
     print(f"  POST http://localhost:{PORT}/enrich", file=sys.stderr)
     print(f"  POST http://localhost:{PORT}/qualify", file=sys.stderr)
+    print(f"  POST http://localhost:{PORT}/chat", file=sys.stderr)
     print(f"\nPress Ctrl+C to stop\n", file=sys.stderr)
 
     app.run(
