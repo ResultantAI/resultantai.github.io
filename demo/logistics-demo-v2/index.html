@@ -1,0 +1,1610 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Live Dispatcher Dashboard - Hauling & Logistics Demo | ResultantAI</title>
+  <meta name="description" content="Experience the power of real-time dispatch management. See how digital ticketing eliminates lost revenue and manual data entry.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-primary: #0a0f1e;
+      --bg-secondary: #0f172a;
+      --bg-card: #1e293b;
+      --text-primary: #f1f5f9;
+      --text-secondary: #cbd5e1;
+      --text-muted: #94a3b8;
+      --accent: #10b981;
+      --accent-glow: rgba(16, 185, 129, 0.2);
+      --accent-hover: #059669;
+      --warning: #f59e0b;
+      --danger: #ef4444;
+      --border: #334155;
+      --radius-md: 8px;
+      --radius-lg: 12px;
+      --radius-xl: 16px;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    .demo-wrapper {
+      min-height: 100vh;
+      padding: 1.5rem;
+    }
+
+    /* Hero Header with Live Badge */
+    .demo-hero {
+      max-width: 1400px;
+      margin: 0 auto 2rem;
+      text-align: center;
+    }
+
+    .live-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 1rem;
+      background: rgba(16, 185, 129, 0.1);
+      border: 1px solid var(--accent);
+      border-radius: 2rem;
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--accent);
+      margin-bottom: 1rem;
+      animation: pulse-glow 2s infinite;
+    }
+
+    @keyframes pulse-glow {
+      0%, 100% {
+        box-shadow: 0 0 0 0 var(--accent-glow);
+      }
+      50% {
+        box-shadow: 0 0 20px 5px var(--accent-glow);
+      }
+    }
+
+    .live-dot {
+      width: 8px;
+      height: 8px;
+      background: var(--accent);
+      border-radius: 50%;
+      animation: blink 1.5s infinite;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
+
+    .demo-hero h1 {
+      font-size: 2.25rem;
+      font-weight: 900;
+      margin-bottom: 0.75rem;
+      background: linear-gradient(135deg, var(--accent), #34d399);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .demo-hero p {
+      font-size: 1.125rem;
+      color: var(--text-muted);
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    /* Main Dashboard Container */
+    .dashboard-container {
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    /* ROI Stats Banner */
+    .roi-banner {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .roi-stat {
+      background: linear-gradient(135deg, var(--bg-card), var(--bg-secondary));
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .roi-stat:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(16, 185, 129, 0.15);
+      border-color: var(--accent);
+    }
+
+    .roi-stat::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: var(--accent);
+    }
+
+    .roi-stat-label {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.5rem;
+    }
+
+    .roi-stat-value {
+      font-size: 2.5rem;
+      font-weight: 900;
+      color: var(--accent);
+      font-variant-numeric: tabular-nums;
+      margin-bottom: 0.25rem;
+    }
+
+    .roi-stat-change {
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+    }
+
+    .roi-stat-change.positive {
+      color: var(--accent);
+    }
+
+    /* Main Dashboard Grid */
+    .dashboard-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    @media (max-width: 1024px) {
+      .dashboard-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Active Loads Panel */
+    .panel {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+    }
+
+    .panel-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .panel-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+
+    .panel-subtitle {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+    }
+
+    /* Load Cards */
+    .load-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .load-card {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 1rem;
+      transition: all 0.2s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .load-card:hover {
+      border-color: var(--accent);
+      transform: translateX(4px);
+    }
+
+    .load-card::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 4px;
+      background: var(--accent);
+    }
+
+    .load-card.in-transit::before {
+      background: #3b82f6;
+    }
+
+    .load-card.loading::before {
+      background: var(--warning);
+    }
+
+    .load-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.75rem;
+    }
+
+    .truck-id {
+      font-weight: 600;
+      font-size: 1rem;
+      color: var(--text-primary);
+    }
+
+    .status-badge {
+      padding: 0.25rem 0.75rem;
+      border-radius: 1rem;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .status-badge.completed {
+      background: rgba(16, 185, 129, 0.2);
+      color: var(--accent);
+    }
+
+    .status-badge.in-transit {
+      background: rgba(59, 130, 246, 0.2);
+      color: #3b82f6;
+    }
+
+    .status-badge.loading {
+      background: rgba(245, 158, 11, 0.2);
+      color: var(--warning);
+    }
+
+    .load-details {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.5rem;
+      font-size: 0.875rem;
+    }
+
+    .load-detail-item {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .load-detail-label {
+      color: var(--text-muted);
+      font-size: 0.75rem;
+    }
+
+    .load-detail-value {
+      color: var(--text-secondary);
+      font-weight: 500;
+    }
+
+    /* Progress Bar */
+    .progress-bar {
+      margin-top: 0.75rem;
+      background: var(--bg-primary);
+      border-radius: 1rem;
+      height: 6px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: var(--accent);
+      border-radius: 1rem;
+      transition: width 1s ease-out;
+    }
+
+    /* Today's Summary Panel */
+    .summary-stats {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .summary-stat {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .summary-stat-icon {
+      width: 48px;
+      height: 48px;
+      background: var(--accent-glow);
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--accent);
+      font-size: 1.5rem;
+    }
+
+    .summary-stat-content {
+      flex: 1;
+    }
+
+    .summary-stat-value {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .summary-stat-label {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+    }
+
+    /* Recent Activity Feed */
+    .activity-feed {
+      margin-top: 1.5rem;
+    }
+
+    .activity-item {
+      display: flex;
+      gap: 1rem;
+      padding: 0.75rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .activity-item:last-child {
+      border-bottom: none;
+    }
+
+    .activity-time {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      min-width: 60px;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .activity-content {
+      flex: 1;
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+    }
+
+    .activity-highlight {
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    /* ROI Impact Banner */
+    .roi-impact {
+      max-width: 1400px;
+      margin: 2rem auto;
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(16, 185, 129, 0.05));
+      border: 2px solid var(--accent);
+      border-radius: var(--radius-xl);
+      padding: 2rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .roi-impact::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(45deg, transparent, rgba(16, 185, 129, 0.1), transparent);
+      animation: shimmer 3s infinite;
+    }
+
+    @keyframes shimmer {
+      0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+      100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+    }
+
+    .roi-impact-content {
+      position: relative;
+      z-index: 1;
+    }
+
+    .roi-impact h3 {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      color: var(--text-primary);
+    }
+
+    .roi-impact-stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 2rem;
+      margin-top: 1.5rem;
+    }
+
+    .roi-impact-stat {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .roi-impact-value {
+      font-size: 2.5rem;
+      font-weight: 900;
+      color: var(--accent);
+      margin-bottom: 0.5rem;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .roi-impact-label {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    /* Live Revenue Comparison Chart */
+    .revenue-chart-section {
+      max-width: 1400px;
+      margin: 2rem auto;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 2rem;
+    }
+
+    .revenue-chart-header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .revenue-chart-header h3 {
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .revenue-bars {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+
+    @media (max-width: 768px) {
+      .revenue-bars {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .revenue-bar-container {
+      text-align: center;
+    }
+
+    .revenue-bar-label {
+      font-size: 0.875rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+
+    .revenue-bar-label.bad {
+      color: var(--danger);
+    }
+
+    .revenue-bar-label.good {
+      color: var(--accent);
+    }
+
+    .revenue-bar-track {
+      height: 300px;
+      background: var(--bg-secondary);
+      border-radius: var(--radius-md);
+      position: relative;
+      overflow: hidden;
+      border: 1px solid var(--border);
+    }
+
+    .revenue-bar-fill {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(to top, var(--accent), #34d399);
+      transition: height 1s ease-out;
+      border-radius: var(--radius-md) var(--radius-md) 0 0;
+    }
+
+    .revenue-bar-fill.bad {
+      background: linear-gradient(to top, var(--danger), #f87171);
+    }
+
+    .revenue-bar-value {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 2rem;
+      font-weight: 900;
+      color: var(--text-primary);
+      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .revenue-bar-subtext {
+      margin-top: 1rem;
+      font-size: 0.875rem;
+      color: var(--text-muted);
+    }
+
+    /* Truck Location Map */
+    .location-map-section {
+      max-width: 1400px;
+      margin: 2rem auto;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 2rem;
+    }
+
+    .location-map-header {
+      margin-bottom: 1.5rem;
+    }
+
+    .location-map-header h3 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .location-map {
+      height: 400px;
+      background: linear-gradient(135deg, var(--bg-secondary), var(--bg-primary));
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Simple grid background for map effect */
+    .location-map::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-image:
+        linear-gradient(var(--border) 1px, transparent 1px),
+        linear-gradient(90deg, var(--border) 1px, transparent 1px);
+      background-size: 50px 50px;
+      opacity: 0.3;
+    }
+
+    .map-location {
+      position: absolute;
+      width: 40px;
+      height: 40px;
+      background: var(--accent);
+      border: 3px solid var(--bg-card);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+      cursor: pointer;
+      transition: all 0.3s;
+      box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4);
+    }
+
+    .map-location:hover {
+      transform: scale(1.2);
+      box-shadow: 0 6px 20px rgba(16, 185, 129, 0.6);
+    }
+
+    .map-location.quarry {
+      background: #3b82f6;
+      box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
+    }
+
+    .map-truck {
+      position: absolute;
+      width: 32px;
+      height: 32px;
+      background: var(--warning);
+      border: 2px solid var(--bg-card);
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      transition: all 2s linear;
+      box-shadow: 0 4px 12px rgba(245, 158, 11, 0.4);
+      animation: truck-pulse 2s infinite;
+    }
+
+    @keyframes truck-pulse {
+      0%, 100% { box-shadow: 0 4px 12px rgba(245, 158, 11, 0.4); }
+      50% { box-shadow: 0 6px 20px rgba(245, 158, 11, 0.7); }
+    }
+
+    .map-truck.completed {
+      background: var(--accent);
+      animation: none;
+      opacity: 0.5;
+    }
+
+    /* Celebration Confetti */
+    .confetti {
+      position: fixed;
+      width: 10px;
+      height: 10px;
+      background: var(--accent);
+      position: absolute;
+      animation: confetti-fall 2s ease-out forwards;
+      pointer-events: none;
+      z-index: 999;
+    }
+
+    @keyframes confetti-fall {
+      to {
+        transform: translateY(100vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+
+    /* Speed Controls */
+    .speed-controls {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1rem;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+      z-index: 100;
+    }
+
+    .speed-controls-label {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.5rem;
+    }
+
+    .speed-buttons {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .speed-button {
+      padding: 0.5rem 1rem;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      color: var(--text-secondary);
+      font-size: 0.875rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .speed-button:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    .speed-button.active {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: var(--bg-primary);
+    }
+
+    /* Comparison Panel */
+    .comparison-panel {
+      grid-column: 1 / -1;
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.05), rgba(16, 185, 129, 0.02));
+      border: 1px solid var(--accent);
+      border-radius: var(--radius-lg);
+      padding: 2rem;
+    }
+
+    .comparison-header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .comparison-header h3 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .comparison-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+    }
+
+    @media (max-width: 768px) {
+      .comparison-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .comparison-side {
+      text-align: center;
+    }
+
+    .comparison-label {
+      font-size: 0.875rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+      margin-bottom: 1rem;
+    }
+
+    .comparison-value {
+      font-size: 3rem;
+      font-weight: 900;
+      margin-bottom: 0.5rem;
+    }
+
+    .comparison-value.bad {
+      color: var(--danger);
+    }
+
+    .comparison-value.good {
+      color: var(--accent);
+    }
+
+    .comparison-description {
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+    }
+
+    /* Notification Toast */
+    .notification {
+      position: fixed;
+      top: 2rem;
+      right: 2rem;
+      background: var(--bg-card);
+      border: 1px solid var(--accent);
+      border-radius: var(--radius-md);
+      padding: 1rem 1.5rem;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      z-index: 1000;
+      animation: slideInRight 0.3s ease-out;
+      max-width: 400px;
+    }
+
+    @keyframes slideInRight {
+      from {
+        opacity: 0;
+        transform: translateX(100px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    .notification-icon {
+      font-size: 1.5rem;
+    }
+
+    .notification-content {
+      flex: 1;
+    }
+
+    .notification-title {
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+      color: var(--text-primary);
+    }
+
+    .notification-text {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+    }
+
+    .notification.success {
+      border-color: var(--accent);
+    }
+
+    .notification.success .notification-icon {
+      color: var(--accent);
+    }
+
+    /* Counter Animation */
+    .counter-animated {
+      display: inline-block;
+      min-width: 60px;
+      text-align: left;
+    }
+
+    /* Animations */
+    @keyframes slideInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .animate-in {
+      animation: slideInUp 0.4s ease-out forwards;
+    }
+
+    /* CTA Section */
+    .cta-section {
+      max-width: 1400px;
+      margin: 3rem auto 0;
+      text-align: center;
+      padding: 2rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+    }
+
+    .cta-section h3 {
+      font-size: 1.75rem;
+      margin-bottom: 1rem;
+    }
+
+    .cta-section p {
+      font-size: 1.125rem;
+      color: var(--text-muted);
+      margin-bottom: 2rem;
+    }
+
+    .cta-button {
+      display: inline-block;
+      padding: 1rem 2rem;
+      background: var(--accent);
+      color: var(--bg-primary);
+      font-weight: 600;
+      font-size: 1.125rem;
+      border-radius: var(--radius-md);
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+
+    .cta-button:hover {
+      background: var(--accent-hover);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px var(--accent-glow);
+    }
+
+    /* Mobile Responsive */
+    @media (max-width: 768px) {
+      .demo-hero h1 {
+        font-size: 1.75rem;
+      }
+
+      .roi-banner {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .roi-stat-value {
+        font-size: 2rem;
+      }
+
+      .notification {
+        top: 1rem;
+        right: 1rem;
+        left: 1rem;
+        max-width: none;
+      }
+
+      .speed-controls {
+        bottom: 1rem;
+        right: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="demo-wrapper">
+    <!-- Hero Header -->
+    <div class="demo-hero">
+      <div class="live-badge">
+        <span class="live-dot"></span>
+        LIVE DEMO
+      </div>
+      <h1>Real-Time Dispatcher Dashboard</h1>
+      <p>Watch how digital ticketing eliminates lost revenue and manual data entry. All updates happen automatically.</p>
+    </div>
+
+    <!-- Dashboard Container -->
+    <div class="dashboard-container">
+      <!-- ROI Stats Banner -->
+      <div class="roi-banner">
+        <div class="roi-stat">
+          <div class="roi-stat-label">Revenue Today</div>
+          <div class="roi-stat-value" id="revenue-today">$0</div>
+          <div class="roi-stat-change positive">↑ Real-time updates</div>
+        </div>
+        <div class="roi-stat">
+          <div class="roi-stat-label">Loads Completed</div>
+          <div class="roi-stat-value" id="loads-completed">0</div>
+          <div class="roi-stat-change positive">↑ vs. yesterday</div>
+        </div>
+        <div class="roi-stat">
+          <div class="roi-stat-label">Time Saved</div>
+          <div class="roi-stat-value" id="time-saved">0 hrs</div>
+          <div class="roi-stat-change">No manual entry</div>
+        </div>
+        <div class="roi-stat">
+          <div class="roi-stat-label">Zero Lost Tickets</div>
+          <div class="roi-stat-value">100%</div>
+          <div class="roi-stat-change positive">All digital</div>
+        </div>
+      </div>
+
+      <!-- Main Dashboard Grid -->
+      <div class="dashboard-grid">
+        <!-- Active Loads Panel -->
+        <div class="panel">
+          <div class="panel-header">
+            <div>
+              <h2 class="panel-title">Active Loads</h2>
+              <p class="panel-subtitle">Live updates from the field</p>
+            </div>
+          </div>
+          <div class="load-list" id="load-list">
+            <!-- Loads will be populated by JavaScript -->
+          </div>
+        </div>
+
+        <!-- Today's Summary Panel -->
+        <div class="panel">
+          <div class="panel-header">
+            <h2 class="panel-title">Today's Summary</h2>
+          </div>
+          <div class="summary-stats">
+            <div class="summary-stat">
+              <div class="summary-stat-icon">🚛</div>
+              <div class="summary-stat-content">
+                <div class="summary-stat-value" id="trucks-active">0/15</div>
+                <div class="summary-stat-label">Trucks Active</div>
+              </div>
+            </div>
+            <div class="summary-stat">
+              <div class="summary-stat-icon">⚖️</div>
+              <div class="summary-stat-content">
+                <div class="summary-stat-value" id="total-tonnage">0</div>
+                <div class="summary-stat-label">Tons Delivered</div>
+              </div>
+            </div>
+            <div class="summary-stat">
+              <div class="summary-stat-icon">💰</div>
+              <div class="summary-stat-content">
+                <div class="summary-stat-value" id="avg-revenue">$0</div>
+                <div class="summary-stat-label">Avg Revenue/Load</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Recent Activity Feed -->
+          <div class="activity-feed">
+            <h3 style="font-size: 1rem; font-weight: 600; margin-bottom: 1rem; color: var(--text-muted);">Recent Activity</h3>
+            <div id="activity-list">
+              <!-- Activity items will be populated by JavaScript -->
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ROI Impact Banner -->
+      <div class="roi-impact">
+        <div class="roi-impact-content">
+          <h3>💰 Your ROI Impact (Based on This Session)</h3>
+          <p style="color: var(--text-secondary); margin-bottom: 0;">Calculating savings in real-time as loads complete...</p>
+          <div class="roi-impact-stats">
+            <div class="roi-impact-stat">
+              <div class="roi-impact-value"><span class="counter-animated" id="time-saved-total">0</span> min</div>
+              <div class="roi-impact-label">Time Saved vs. Paper</div>
+            </div>
+            <div class="roi-impact-stat">
+              <div class="roi-impact-value">$<span class="counter-animated" id="revenue-protected">0</span></div>
+              <div class="roi-impact-label">Revenue Protected</div>
+            </div>
+            <div class="roi-impact-stat">
+              <div class="roi-impact-value"><span class="counter-animated" id="errors-prevented">0</span></div>
+              <div class="roi-impact-label">Billing Errors Prevented</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Live Revenue Comparison Chart -->
+      <div class="revenue-chart-section">
+        <div class="revenue-chart-header">
+          <h3>💸 Real-Time Revenue Impact</h3>
+          <p style="color: var(--text-muted);">See the financial difference between paper and digital systems</p>
+        </div>
+        <div class="revenue-bars">
+          <div class="revenue-bar-container">
+            <div class="revenue-bar-label bad">
+              ❌ Paper System (Est. Lost Revenue)
+            </div>
+            <div class="revenue-bar-track">
+              <div class="revenue-bar-fill bad" id="paper-revenue-bar" style="height: 0%">
+                <div class="revenue-bar-value">$<span id="paper-lost-revenue">0</span></div>
+              </div>
+            </div>
+            <div class="revenue-bar-subtext">Lost to missing tickets (~3/week @ $200 avg)</div>
+          </div>
+          <div class="revenue-bar-container">
+            <div class="revenue-bar-label good">
+              ✅ Digital System (Revenue Captured)
+            </div>
+            <div class="revenue-bar-track">
+              <div class="revenue-bar-fill" id="digital-revenue-bar" style="height: 0%">
+                <div class="revenue-bar-value">$<span id="digital-revenue">0</span></div>
+              </div>
+            </div>
+            <div class="revenue-bar-subtext">100% captured, auto-synced to QuickBooks</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Truck Location Map -->
+      <div class="location-map-section">
+        <div class="location-map-header">
+          <h3>📍 Live Fleet Tracking</h3>
+          <p style="color: var(--text-muted); font-size: 0.875rem;">Watch trucks move in real-time between quarry and customer sites</p>
+        </div>
+        <div class="location-map" id="location-map">
+          <!-- Quarry locations (fixed) -->
+          <div class="map-location quarry" style="left: 15%; top: 50%;" title="Main Quarry">
+            🏭
+          </div>
+          <div class="map-location quarry" style="left: 25%; top: 25%;" title="North Pit">
+            ⛏️
+          </div>
+          <!-- Customer locations (fixed) -->
+          <div class="map-location" style="left: 70%; top: 30%;" title="Customer Site">
+            🏗️
+          </div>
+          <div class="map-location" style="left: 80%; top: 60%;" title="Customer Site">
+            🏗️
+          </div>
+          <div class="map-location" style="left: 65%; top: 75%;" title="Customer Site">
+            🏗️
+          </div>
+          <!-- Trucks will be added dynamically -->
+        </div>
+      </div>
+
+      <!-- Comparison Panel -->
+      <div class="comparison-panel">
+        <div class="comparison-header">
+          <h3>The Difference: Paper vs. Digital</h3>
+          <p style="color: var(--text-muted);">Real impact on your bottom line</p>
+        </div>
+        <div class="comparison-grid">
+          <div class="comparison-side">
+            <div class="comparison-label">❌ Paper Tickets</div>
+            <div class="comparison-value bad">5+ min</div>
+            <div class="comparison-description">Per ticket + 2 hrs/day data entry</div>
+            <div style="margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--border);">
+              <div class="comparison-value bad" style="font-size: 2rem;">$500/wk</div>
+              <div class="comparison-description">Lost to missing tickets</div>
+            </div>
+          </div>
+          <div class="comparison-side">
+            <div class="comparison-label">✅ Digital System</div>
+            <div class="comparison-value good">30 sec</div>
+            <div class="comparison-description">Auto-sync to QuickBooks</div>
+            <div style="margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--border);">
+              <div class="comparison-value good" style="font-size: 2rem;">$0</div>
+              <div class="comparison-description">Zero lost tickets</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Notification Container -->
+    <div id="notification-container"></div>
+
+    <!-- Speed Controls -->
+    <div class="speed-controls">
+      <div class="speed-controls-label">Demo Speed</div>
+      <div class="speed-buttons">
+        <button class="speed-button" data-speed="1" title="Normal speed">1x</button>
+        <button class="speed-button active" data-speed="2.5" title="Default speed">2.5x</button>
+        <button class="speed-button" data-speed="5" title="Fast speed">5x</button>
+      </div>
+    </div>
+
+    <!-- CTA Section -->
+    <div class="cta-section">
+      <h3>Ready to Eliminate Lost Tickets?</h3>
+      <p>Book a 30-minute discovery call. We'll show you exactly how much time and money you can save.</p>
+      <a href="https://meetings.hubspot.com/resultantai/paper-to-digital?source=logistics-demo-v2" class="cta-button">
+        Schedule Discovery Call →
+      </a>
+    </div>
+  </div>
+
+  <script>
+    // Sample data for realistic demo
+    const customers = [
+      'Mountain View Construction', 'High Desert Landscaping',
+      'Valley Concrete Co.', 'Summit Building Supply',
+      'Riverside Materials', 'Cascade Contractors'
+    ];
+
+    const materials = [
+      { name: 'Gravel 3/4"', pricePerTon: 45 },
+      { name: 'Sand', pricePerTon: 38 },
+      { name: 'Crushed Rock', pricePerTon: 52 },
+      { name: 'Topsoil', pricePerTon: 35 },
+      { name: 'Base Rock', pricePerTon: 48 }
+    ];
+
+    const locations = [
+      'North Quarry', 'South Pit', 'Main Plant'
+    ];
+
+    // State
+    let loads = [];
+    let completedLoads = 0;
+    let totalRevenue = 0;
+    let totalTonnage = 0;
+    let activities = [];
+    let timeSavedMinutes = 0;
+    let revenueProtected = 0;
+    let errorsPrevented = 0;
+    let simulationInterval = null;
+    let currentSpeed = 2.5; // Default speed multiplier
+    let paperSystemLostRevenue = 0; // Simulated lost revenue from paper system
+
+    // Animated counter utility
+    function animateCounter(elementId, targetValue, duration = 1000, suffix = '') {
+      const element = document.getElementById(elementId);
+      if (!element) return;
+
+      const startValue = parseInt(element.textContent) || 0;
+      const startTime = Date.now();
+
+      function update() {
+        const elapsed = Date.now() - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+
+        // Easing function for smooth animation
+        const easeOutQuart = 1 - Math.pow(1 - progress, 4);
+        const currentValue = Math.floor(startValue + (targetValue - startValue) * easeOutQuart);
+
+        element.textContent = currentValue.toLocaleString() + suffix;
+
+        if (progress < 1) {
+          requestAnimationFrame(update);
+        }
+      }
+
+      requestAnimationFrame(update);
+    }
+
+    // Show toast notification
+    function showNotification(title, text, type = 'success') {
+      const container = document.getElementById('notification-container');
+      const notification = document.createElement('div');
+      notification.className = `notification ${type}`;
+
+      const icon = type === 'success' ? '✅' : 'ℹ️';
+
+      notification.innerHTML = `
+        <div class="notification-icon">${icon}</div>
+        <div class="notification-content">
+          <div class="notification-title">${title}</div>
+          <div class="notification-text">${text}</div>
+        </div>
+      `;
+
+      container.appendChild(notification);
+
+      // Auto-remove after 4 seconds
+      setTimeout(() => {
+        notification.style.opacity = '0';
+        notification.style.transform = 'translateX(100px)';
+        setTimeout(() => notification.remove(), 300);
+      }, 4000);
+    }
+
+    // Create confetti celebration
+    function createConfetti(count = 50) {
+      const colors = ['#10b981', '#34d399', '#6ee7b7', '#f59e0b', '#fbbf24'];
+
+      for (let i = 0; i < count; i++) {
+        const confetti = document.createElement('div');
+        confetti.className = 'confetti';
+        confetti.style.left = Math.random() * 100 + '%';
+        confetti.style.top = '-10px';
+        confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
+        confetti.style.animationDelay = Math.random() * 0.5 + 's';
+        confetti.style.animationDuration = (Math.random() * 1 + 1.5) + 's';
+
+        document.body.appendChild(confetti);
+
+        setTimeout(() => confetti.remove(), 3000);
+      }
+    }
+
+    // Update revenue comparison chart
+    function updateRevenueChart() {
+      // Calculate paper system lost revenue (3 lost tickets/week @ $200 avg)
+      const weeksSimulated = completedLoads / 40; // Assume 40 loads/week
+      paperSystemLostRevenue = Math.round(weeksSimulated * 3 * 200);
+
+      const maxRevenue = Math.max(totalRevenue, paperSystemLostRevenue, 1000);
+      const paperHeight = (paperSystemLostRevenue / maxRevenue) * 100;
+      const digitalHeight = (totalRevenue / maxRevenue) * 100;
+
+      document.getElementById('paper-revenue-bar').style.height = paperHeight + '%';
+      document.getElementById('digital-revenue-bar').style.height = digitalHeight + '%';
+      document.getElementById('paper-lost-revenue').textContent = paperSystemLostRevenue.toLocaleString();
+      document.getElementById('digital-revenue').textContent = totalRevenue.toLocaleString();
+    }
+
+    // Update truck positions on map
+    function updateTruckMap() {
+      const map = document.getElementById('location-map');
+
+      // Clear existing trucks
+      const existingTrucks = map.querySelectorAll('.map-truck');
+      existingTrucks.forEach(truck => truck.remove());
+
+      // Add current active loads as trucks
+      loads.forEach((load, index) => {
+        if (load.status === 'completed') return; // Don't show completed
+
+        const truck = document.createElement('div');
+        truck.className = `map-truck ${load.status}`;
+        truck.innerHTML = '🚛';
+        truck.title = `Truck ${load.truck} - ${load.status}`;
+
+        // Position based on status and progress
+        let left, top;
+        if (load.status === 'loading') {
+          // At quarry
+          left = 15 + (index % 2) * 10;
+          top = 50 + (index % 2) * -25;
+        } else if (load.status === 'in-transit') {
+          // Moving to customer (interpolate based on progress)
+          const startLeft = 20;
+          const endLeft = 70 + (index % 3) * 10;
+          const startTop = 40;
+          const endTop = 30 + (index % 3) * 20;
+
+          const progress = load.progress / 100;
+          left = startLeft + (endLeft - startLeft) * progress;
+          top = startTop + (endTop - startTop) * progress;
+        }
+
+        truck.style.left = left + '%';
+        truck.style.top = top + '%';
+
+        map.appendChild(truck);
+      });
+    }
+
+    // Set demo speed
+    function setDemoSpeed(speed) {
+      currentSpeed = speed;
+
+      // Clear existing interval
+      if (simulationInterval) {
+        clearInterval(simulationInterval);
+      }
+
+      // Calculate interval (base is 2500ms at 1x speed)
+      const baseInterval = 2500;
+      const interval = baseInterval / speed;
+
+      // Start new interval
+      simulationInterval = setInterval(simulateUpdate, interval);
+
+      // Update button states
+      document.querySelectorAll('.speed-button').forEach(btn => {
+        btn.classList.toggle('active', parseFloat(btn.dataset.speed) === speed);
+      });
+    }
+
+    // Initialize with some loads
+    function initializeLoads() {
+      // Create 6 initial loads with different statuses
+      const statuses = ['loading', 'in-transit', 'in-transit', 'completed', 'completed', 'completed'];
+      const times = ['09:15', '09:42', '10:08', '10:35', '10:58', '11:23'];
+
+      statuses.forEach((status, index) => {
+        const material = materials[Math.floor(Math.random() * materials.length)];
+        const tonnage = Math.floor(Math.random() * 10 + 15);
+        const revenue = tonnage * material.pricePerTon;
+
+        const load = {
+          id: index + 1,
+          truck: `#${(index + 3) * 2}`,
+          driver: `Driver ${String.fromCharCode(65 + index)}`,
+          customer: customers[Math.floor(Math.random() * customers.length)],
+          material: material.name,
+          tonnage: tonnage,
+          revenue: revenue,
+          status: status,
+          time: times[index],
+          location: locations[Math.floor(Math.random() * locations.length)],
+          progress: status === 'completed' ? 100 : status === 'in-transit' ? 65 : 25
+        };
+
+        loads.push(load);
+
+        if (status === 'completed') {
+          completedLoads++;
+          totalRevenue += revenue;
+          totalTonnage += tonnage;
+        }
+      });
+
+      // Add initial activities
+      activities = [
+        { time: '11:23 AM', text: 'Truck #12 completed delivery to High Desert Landscaping' },
+        { time: '10:58 AM', text: 'Ticket #TK-0887 auto-synced to QuickBooks' },
+        { time: '10:35 AM', text: 'Truck #8 completed delivery to Mountain View Construction' }
+      ];
+    }
+
+    // Render loads
+    function renderLoads() {
+      const loadList = document.getElementById('load-list');
+      loadList.innerHTML = loads.map((load, index) => `
+        <div class="load-card ${load.status} animate-in" style="animation-delay: ${index * 0.1}s">
+          <div class="load-card-header">
+            <span class="truck-id">Truck ${load.truck} - ${load.driver}</span>
+            <span class="status-badge ${load.status}">${load.status.replace('-', ' ')}</span>
+          </div>
+          <div class="load-details">
+            <div class="load-detail-item">
+              <span class="load-detail-label">Customer</span>
+              <span class="load-detail-value">${load.customer}</span>
+            </div>
+            <div class="load-detail-item">
+              <span class="load-detail-label">Material</span>
+              <span class="load-detail-value">${load.material}</span>
+            </div>
+            <div class="load-detail-item">
+              <span class="load-detail-label">Tonnage</span>
+              <span class="load-detail-value">${load.tonnage} tons</span>
+            </div>
+            <div class="load-detail-item">
+              <span class="load-detail-label">Revenue</span>
+              <span class="load-detail-value">$${load.revenue.toLocaleString()}</span>
+            </div>
+          </div>
+          ${load.status !== 'completed' ? `
+            <div class="progress-bar">
+              <div class="progress-fill" style="width: ${load.progress}%"></div>
+            </div>
+          ` : ''}
+        </div>
+      `).join('');
+    }
+
+    // Render activities
+    function renderActivities() {
+      const activityList = document.getElementById('activity-list');
+      activityList.innerHTML = activities.slice(0, 5).map(activity => `
+        <div class="activity-item">
+          <span class="activity-time">${activity.time}</span>
+          <div class="activity-content">${activity.text}</div>
+        </div>
+      `).join('');
+    }
+
+    // Update stats with animations
+    function updateStats(animated = false) {
+      const activeLoads = loads.filter(l => l.status !== 'completed').length;
+      const activeTrucks = loads.length;
+      const avgRevenue = completedLoads > 0 ? Math.round(totalRevenue / completedLoads) : 0;
+
+      // Calculate ROI metrics
+      timeSavedMinutes = completedLoads * 4.5; // 4.5 min saved per load (5 min - 0.5 min)
+      revenueProtected = totalRevenue; // All revenue protected (vs. lost paper tickets)
+      errorsPrevented = completedLoads; // One potential error per ticket
+
+      if (animated) {
+        // Animate main stats
+        animateCounter('revenue-today', totalRevenue);
+        animateCounter('loads-completed', completedLoads);
+        animateCounter('total-tonnage', totalTonnage);
+
+        // Animate ROI impact
+        animateCounter('time-saved-total', Math.round(timeSavedMinutes));
+        animateCounter('revenue-protected', revenueProtected);
+        animateCounter('errors-prevented', errorsPrevented);
+      } else {
+        // Direct update
+        document.getElementById('revenue-today').textContent = `$${totalRevenue.toLocaleString()}`;
+        document.getElementById('loads-completed').textContent = completedLoads;
+        document.getElementById('time-saved').textContent = `${(timeSavedMinutes / 60).toFixed(1)} hrs`;
+        document.getElementById('trucks-active').textContent = `${activeTrucks}/15`;
+        document.getElementById('total-tonnage').textContent = `${totalTonnage} tons`;
+        document.getElementById('avg-revenue').textContent = `$${avgRevenue.toLocaleString()}`;
+
+        // ROI Impact
+        document.getElementById('time-saved-total').textContent = Math.round(timeSavedMinutes);
+        document.getElementById('revenue-protected').textContent = revenueProtected.toLocaleString();
+        document.getElementById('errors-prevented').textContent = errorsPrevented;
+      }
+    }
+
+    // Simulate real-time updates
+    function simulateUpdate() {
+      let hasChanges = false;
+
+      // Randomly progress loads
+      loads.forEach(load => {
+        if (load.status === 'loading' && Math.random() > 0.7) {
+          load.status = 'in-transit';
+          load.progress = 65;
+          hasChanges = true;
+
+          activities.unshift({
+            time: new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' }),
+            text: `Truck ${load.truck} en route to ${load.customer}`
+          });
+        } else if (load.status === 'in-transit') {
+          load.progress = Math.min(100, load.progress + Math.random() * 15);
+
+          if (load.progress >= 100 && Math.random() > 0.5) {
+            load.status = 'completed';
+            completedLoads++;
+            totalRevenue += load.revenue;
+            totalTonnage += load.tonnage;
+            hasChanges = true;
+
+            activities.unshift({
+              time: new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' }),
+              text: `Truck ${load.truck} completed delivery to <span class="activity-highlight">${load.customer}</span>`
+            });
+
+            // Show notification for completed load
+            showNotification(
+              '✅ Load Completed!',
+              `Truck ${load.truck} delivered ${load.tonnage} tons to ${load.customer}. Revenue: $${load.revenue.toLocaleString()}`
+            );
+
+            // Celebration confetti!
+            createConfetti(30);
+
+            // Add a new loading truck after a delay
+            setTimeout(() => addNewLoad(), 3000);
+          }
+        }
+      });
+
+      if (hasChanges) {
+        renderLoads();
+        renderActivities();
+        updateStats(true); // Use animated updates
+        updateRevenueChart();
+        updateTruckMap();
+      } else {
+        updateStats(false); // Just refresh without animation
+      }
+    }
+
+    // Add a new load
+    function addNewLoad() {
+      const material = materials[Math.floor(Math.random() * materials.length)];
+      const tonnage = Math.floor(Math.random() * 10 + 15);
+      const revenue = tonnage * material.pricePerTon;
+      const truckNum = Math.floor(Math.random() * 20 + 1) * 2;
+
+      const newLoad = {
+        id: loads.length + 1,
+        truck: `#${truckNum}`,
+        driver: `Driver ${String.fromCharCode(65 + Math.floor(Math.random() * 6))}`,
+        customer: customers[Math.floor(Math.random() * customers.length)],
+        material: material.name,
+        tonnage: tonnage,
+        revenue: revenue,
+        status: 'loading',
+        time: new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' }),
+        location: locations[Math.floor(Math.random() * locations.length)],
+        progress: 25
+      };
+
+      // Remove oldest completed load if we have more than 6 loads
+      if (loads.length >= 6) {
+        const completedIndex = loads.findIndex(l => l.status === 'completed');
+        if (completedIndex !== -1) {
+          loads.splice(completedIndex, 1);
+        }
+      }
+
+      loads.push(newLoad);
+
+      activities.unshift({
+        time: newLoad.time,
+        text: `Truck ${newLoad.truck} started loading at ${newLoad.location}`
+      });
+    }
+
+    // Initialize
+    initializeLoads();
+    renderLoads();
+    renderActivities();
+    updateStats();
+    updateRevenueChart();
+    updateTruckMap();
+
+    // Wire up speed controls
+    document.querySelectorAll('.speed-button').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const speed = parseFloat(btn.dataset.speed);
+        setDemoSpeed(speed);
+      });
+    });
+
+    // Welcome notification
+    setTimeout(() => {
+      showNotification(
+        '🚀 Live Demo Active',
+        'Watch real-time updates as loads complete. All data syncs automatically to QuickBooks.'
+      );
+    }, 1000);
+
+    // Start simulation at default speed (2.5x)
+    setDemoSpeed(currentSpeed);
+  </script>
+</body>
+</html>
