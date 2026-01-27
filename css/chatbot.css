@@ -128,13 +128,13 @@
 .chat-header-text h3 {
   font-size: 16px;
   font-weight: 600;
-  color: #ffffff;
+  color: var(--text-primary);
   margin: 0;
 }
 
 .chat-header-text p {
   font-size: 13px;
-  color: #94a3b8;
+  color: var(--text-secondary);
   margin: 0;
 }
 
@@ -242,7 +242,7 @@
 
 .message.assistant .message-content {
   background: var(--bg-secondary);
-  color: #ffffff;
+  color: var(--text-primary);
   border: 1px solid var(--border);
 }
 
@@ -371,7 +371,7 @@
   background: var(--bg-card);
   border: 1px solid var(--border);
   border-radius: var(--radius-md);
-  color: #ffffff;
+  color: var(--text-primary);
   padding: 12px 14px;
   font-size: 15px;
   font-family: var(--font-sans);
@@ -385,11 +385,11 @@
 .chat-input:focus {
   outline: none;
   border-color: var(--accent);
-  box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.1);
+  box-shadow: 0 0 0 2px var(--accent-subtle);
 }
 
 .chat-input::placeholder {
-  color: #64748b;
+  color: var(--text-muted);
 }
 
 .chat-send-btn {
