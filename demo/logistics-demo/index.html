@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Beaver Pumice - Hauling & Logistics Demo | ResultantAI</title>
+  <meta name="description" content="Interactive demo of ResultantAI's digital ticketing system for hauling and trucking. See digital ticketing, dispatcher dashboard, and real-time tracking in action.">
+  <style>
+    :root {
+      --bg-primary: #0f172a;
+      --bg-secondary: #1e293b;
+      --bg-card: #1e293b;
+      --text-primary: #f1f5f9;
+      --text-secondary: #cbd5e1;
+      --text-muted: #94a3b8;
+      --accent: #10b981;
+      --accent-hover: #059669;
+      --border: #334155;
+      --radius-md: 8px;
+      --radius-lg: 12px;
+      --space-xs: 0.25rem;
+      --space-sm: 0.5rem;
+      --space-md: 1rem;
+      --space-lg: 1.5rem;
+      --space-xl: 2rem;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    .demo-container {
+      min-height: 100vh;
+      padding: var(--space-lg);
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .demo-header {
+      text-align: center;
+      margin-bottom: var(--space-xl);
+    }
+
+    .demo-header h1 {
+      font-size: 1.75rem;
+      margin-bottom: var(--space-sm);
+      color: var(--accent);
+    }
+
+    .demo-header p {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+
+    .tabs {
+      display: flex;
+      gap: var(--space-sm);
+      margin-bottom: var(--space-lg);
+      overflow-x: auto;
+      padding-bottom: var(--space-sm);
+    }
+
+    .tab {
+      padding: var(--space-md) var(--space-lg);
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: all 0.2s;
+      white-space: nowrap;
+      font-size: 0.9rem;
+      font-weight: 500;
+    }
+
+    .tab:hover {
+      border-color: var(--accent);
+      color: var(--text-primary);
+    }
+
+    .tab.active {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: var(--bg-primary);
+    }
+
+    .tab-content {
+      display: none;
+      animation: fadeIn 0.3s ease-in;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: var(--space-lg);
+    }
+
+    .form-group {
+      margin-bottom: var(--space-md);
+    }
+
+    .form-label {
+      display: block;
+      margin-bottom: var(--space-xs);
+      color: var(--text-secondary);
+      font-size: 0.875rem;
+      font-weight: 500;
+    }
+
+    .form-input, .form-select {
+      width: 100%;
+      padding: var(--space-md);
+      background: var(--bg-primary);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      color: var(--text-primary);
+      font-size: 1rem;
+    }
+
+    .form-input:focus, .form-select:focus {
+      outline: none;
+      border-color: var(--accent);
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-md);
+    }
+
+    @media (max-width: 640px) {
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .btn {
+      padding: var(--space-md) var(--space-lg);
+      background: var(--accent);
+      color: var(--bg-primary);
+      border: none;
+      border-radius: var(--radius-md);
+      font-weight: 600;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.2s;
+      width: 100%;
+      margin-top: var(--space-md);
+    }
+
+    .btn:hover {
+      background: var(--accent-hover);
+    }
+
+    .btn-secondary {
+      background: var(--bg-secondary);
+      color: var(--text-primary);
+      border: 1px solid var(--border);
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--accent);
+    }
+
+    .result-box {
+      background: rgba(16, 185, 129, 0.1);
+      border: 1px solid var(--accent);
+      border-radius: var(--radius-md);
+      padding: var(--space-lg);
+      margin-top: var(--space-lg);
+    }
+
+    .result-box h3 {
+      color: var(--accent);
+      margin-bottom: var(--space-md);
+      font-size: 1.25rem;
+    }
+
+    .result-item {
+      display: flex;
+      justify-content: space-between;
+      padding: var(--space-sm) 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .result-item:last-child {
+      border-bottom: none;
+    }
+
+    .result-label {
+      color: var(--text-muted);
+      font-size: 0.875rem;
+    }
+
+    .result-value {
+      color: var(--text-primary);
+      font-weight: 600;
+    }
+
+    .dashboard-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: var(--space-md);
+      margin-bottom: var(--space-lg);
+    }
+
+    .stat-card {
+      background: var(--bg-primary);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: var(--space-md);
+      text-align: center;
+    }
+
+    .stat-value {
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--accent);
+      margin-bottom: var(--space-xs);
+    }
+
+    .stat-label {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+    }
+
+    .load-list {
+      list-style: none;
+    }
+
+    .load-item {
+      background: var(--bg-primary);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: var(--space-md);
+      margin-bottom: var(--space-md);
+      transition: border-color 0.2s;
+    }
+
+    .load-item:hover {
+      border-color: var(--accent);
+    }
+
+    .load-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: var(--space-sm);
+    }
+
+    .load-title {
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .load-status {
+      padding: var(--space-xs) var(--space-sm);
+      border-radius: var(--radius-md);
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+
+    .status-completed {
+      background: rgba(16, 185, 129, 0.2);
+      color: var(--accent);
+    }
+
+    .status-in-progress {
+      background: rgba(59, 130, 246, 0.2);
+      color: #3b82f6;
+    }
+
+    .status-pending {
+      background: rgba(148, 163, 184, 0.2);
+      color: var(--text-muted);
+    }
+
+    .load-details {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap: var(--space-sm);
+      margin-top: var(--space-sm);
+    }
+
+    .load-detail {
+      font-size: 0.875rem;
+    }
+
+    .load-detail-label {
+      color: var(--text-muted);
+      font-size: 0.75rem;
+    }
+
+    .load-detail-value {
+      color: var(--text-primary);
+      font-weight: 500;
+    }
+
+    .offline-indicator {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-xs);
+      padding: var(--space-xs) var(--space-sm);
+      background: rgba(245, 158, 11, 0.2);
+      color: #f59e0b;
+      border-radius: var(--radius-md);
+      font-size: 0.75rem;
+      font-weight: 600;
+      margin-left: var(--space-sm);
+    }
+
+    .offline-dot {
+      width: 6px;
+      height: 6px;
+      background: #f59e0b;
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% {
+        opacity: 1;
+      }
+      50% {
+        opacity: 0.5;
+      }
+    }
+
+    .table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: var(--space-md);
+    }
+
+    .table th {
+      text-align: left;
+      padding: var(--space-sm);
+      color: var(--text-muted);
+      font-size: 0.875rem;
+      border-bottom: 2px solid var(--border);
+    }
+
+    .table td {
+      padding: var(--space-sm);
+      border-bottom: 1px solid var(--border);
+      color: var(--text-secondary);
+    }
+
+    .table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: var(--space-xs) var(--space-sm);
+      background: rgba(16, 185, 129, 0.2);
+      color: var(--accent);
+      border-radius: var(--radius-md);
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+  <div class="demo-container">
+    <div class="demo-header">
+      <h1>🚛 Beaver Pumice - Digital Ticketing System</h1>
+      <p>Interactive demo showing digital ticketing, dispatcher dashboard, driver app, and customer portal</p>
+    </div>
+
+    <div class="tabs">
+      <div class="tab active" data-tab="ticketing">Digital Ticketing</div>
+      <div class="tab" data-tab="dashboard">Dispatcher Dashboard</div>
+      <div class="tab" data-tab="driver">Driver Mobile App</div>
+      <div class="tab" data-tab="customer">Customer Portal</div>
+    </div>
+
+    <!-- Digital Ticketing Tab -->
+    <div class="tab-content active" data-content="ticketing">
+      <div class="card">
+        <h2 style="margin-bottom: var(--space-lg); display: flex; align-items: center;">
+          📋 New Load Ticket
+          <span class="offline-indicator">
+            <span class="offline-dot"></span>
+            Offline Mode
+          </span>
+        </h2>
+
+        <form id="ticketForm">
+          <div class="form-group">
+            <label class="form-label" for="customer">Customer</label>
+            <select class="form-select" id="customer">
+              <option>Mountain View Construction</option>
+              <option>High Desert Landscaping</option>
+              <option>Valley Concrete Co.</option>
+              <option>Summit Building Supply</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="material">Material</label>
+            <select class="form-select" id="material">
+              <option>Pumice - 3/8"</option>
+              <option>Pumice - 3/4"</option>
+              <option>Pumice - 1 1/2"</option>
+              <option>Pumice - Fines</option>
+            </select>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="weightLbs">Weight (lbs)</label>
+              <input type="number" class="form-input" id="weightLbs" value="36000" step="100">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Weight (tons)</label>
+              <input type="text" class="form-input" id="weightTons" value="18.0" readonly style="background: var(--bg-secondary);">
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="cubicYards">Volume (cubic yards)</label>
+              <input type="text" class="form-input" id="cubicYards" value="24.0" readonly style="background: var(--bg-secondary);">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="unitPrice">Unit Price ($/ton)</label>
+              <input type="number" class="form-input" id="unitPrice" value="45.00" step="0.01">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="driver">Driver</label>
+            <select class="form-select" id="driver">
+              <option>Mike Johnson - Truck #7</option>
+              <option>Sarah Chen - Truck #12</option>
+              <option>Tom Rodriguez - Truck #3</option>
+              <option>Lisa Martinez - Truck #9</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="notes">Notes</label>
+            <input type="text" class="form-input" id="notes" placeholder="Delivery instructions, gate codes, etc.">
+          </div>
+
+          <button type="button" class="btn" id="generateTicketBtn">Generate PDF Ticket (3 sec) →</button>
+        </form>
+
+        <div class="result-box" id="ticketResult" style="display: none;">
+          <h3>✅ Ticket Generated Successfully</h3>
+          <div class="result-item">
+            <span class="result-label">Ticket Number</span>
+            <span class="result-value">#BV-2025-0442</span>
+          </div>
+          <div class="result-item">
+            <span class="result-label">Customer</span>
+            <span class="result-value">Mountain View Construction</span>
+          </div>
+          <div class="result-item">
+            <span class="result-label">Material</span>
+            <span class="result-value">Pumice - 3/8"</span>
+          </div>
+          <div class="result-item">
+            <span class="result-label">Weight</span>
+            <span class="result-value">36,000 lbs (18.0 tons)</span>
+          </div>
+          <div class="result-item">
+            <span class="result-label">Volume</span>
+            <span class="result-value">24.0 cubic yards</span>
+          </div>
+          <div class="result-item">
+            <span class="result-label">Total</span>
+            <span class="result-value" style="font-size: 1.25rem; color: var(--accent);">$810.00</span>
+          </div>
+          <button type="button" class="btn-secondary btn" style="margin-top: var(--space-md);">📥 Download PDF Ticket</button>
+          <button type="button" class="btn" style="margin-top: var(--space-sm);">📧 Email to Customer & QuickBooks</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Dispatcher Dashboard Tab -->
+    <div class="tab-content" data-content="dashboard">
+      <div class="card">
+        <h2 style="margin-bottom: var(--space-lg);">📊 Real-Time Dispatcher Dashboard</h2>
+
+        <div class="dashboard-grid">
+          <div class="stat-card">
+            <div class="stat-value">47</div>
+            <div class="stat-label">Loads Today</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value">846</div>
+            <div class="stat-label">Tons Delivered</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value">$38,070</div>
+            <div class="stat-label">Revenue Today</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value">12/15</div>
+            <div class="stat-label">Trucks Active</div>
+          </div>
+        </div>
+
+        <h3 style="margin-bottom: var(--space-md); color: var(--text-secondary);">Active Loads</h3>
+        <ul class="load-list">
+          <li class="load-item">
+            <div class="load-header">
+              <span class="load-title">Truck #7 - Mike Johnson</span>
+              <span class="load-status status-in-progress">In Transit</span>
+            </div>
+            <div class="load-details">
+              <div class="load-detail">
+                <div class="load-detail-label">Customer</div>
+                <div class="load-detail-value">Mountain View Const.</div>
+              </div>
+              <div class="load-detail">
+                <div class="load-detail-label">Material</div>
+                <div class="load-detail-value">Pumice 3/8"</div>
+              </div>
+              <div class="load-detail">
+                <div class="load-detail-label">Weight</div>
+                <div class="load-detail-value">18.0 tons</div>
+              </div>
+              <div class="load-detail">
+                <div class="load-detail-label">ETA</div>
+                <div class="load-detail-value">11:45 AM</div>
+              </div>
+            </div>
+          </li>
+
+          <li class="load-item">
+            <div class="load-header">
+              <span class="load-title">Truck #12 - Sarah Chen</span>
+              <span class="load-status status-completed">Completed</span>
+            </div>
+            <div class="load-details">
+              <div class="load-detail">
+                <div class="load-detail-label">Customer</div>
+                <div class="load-detail-value">High Desert Landscaping</div>
+              </div>
+              <div class="load-detail">
+                <div class="load-detail-label">Material</div>
+                <div class="load-detail-value">Pumice 3/4"</div>
+              </div>
+              <div class="load-detail">
+                <div class="load-detail-label">Weight</div>
+                <div class="load-detail-value">20.5 tons</div>
+              </div>
+              <div class="load-detail">
+                <div class="load-detail-label">Completed</div>
+                <div class="load-detail-value">11:23 AM</div>
+              </div>
+            </div>
+          </li>
+
+          <li class="load-item">
+            <div class="load-header">
+              <span class="load-title">Truck #3 - Tom Rodriguez</span>
+              <span class="load-status status-in-progress">Loading</span>
+            </div>
+            <div class="load-details">
+              <div class="load-detail">
+                <div class="load-detail-label">Customer</div>
+                <div class="load-detail-value">Valley Concrete Co.</div>
+              </div>
+              <div class="load-detail">
+                <div class="load-detail-label">Material</div>
+                <div class="load-detail-value">Pumice Fines</div>
+              </div>
+              <div class="load-detail">
+                <div class="load-detail-label">Weight</div>
+                <div class="load-detail-value">--</div>
+              </div>
+              <div class="load-detail">
+                <div class="load-detail-label">Status</div>
+                <div class="load-detail-value">At Quarry</div>
+              </div>
+            </div>
+          </li>
+        </ul>
+
+        <button type="button" class="btn" style="margin-top: var(--space-lg);">📤 Export to QuickBooks</button>
+        <button type="button" class="btn-secondary btn" style="margin-top: var(--space-sm);">📊 Download Daily Report</button>
+      </div>
+    </div>
+
+    <!-- Driver Mobile App Tab -->
+    <div class="tab-content" data-content="driver">
+      <div class="card">
+        <h2 style="margin-bottom: var(--space-lg);">📱 Driver Mobile App - Truck #7</h2>
+
+        <div style="background: var(--bg-primary); padding: var(--space-md); border-radius: var(--radius-md); margin-bottom: var(--space-lg); border: 1px solid var(--border);">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-sm);">
+            <span style="font-weight: 600; color: var(--text-primary);">Mike Johnson</span>
+            <span class="badge">Offline Mode Active</span>
+          </div>
+          <div style="color: var(--text-muted); font-size: 0.875rem;">
+            Today: 6 loads completed • 108 tons • $4,860 revenue
+          </div>
+        </div>
+
+        <h3 style="margin-bottom: var(--space-md); color: var(--text-secondary);">Today's Routes</h3>
+
+        <ul class="load-list">
+          <li class="load-item" style="border-left: 4px solid var(--accent);">
+            <div class="load-header">
+              <span class="load-title">Load #7 - NEXT</span>
+              <span class="load-status status-pending">Pending</span>
+            </div>
+            <div style="margin-top: var(--space-md);">
+              <div style="margin-bottom: var(--space-sm);">
+                <span style="color: var(--text-muted); font-size: 0.875rem;">Customer:</span><br>
+                <span style="color: var(--text-primary); font-weight: 500;">Summit Building Supply</span>
+              </div>
+              <div style="margin-bottom: var(--space-sm);">
+                <span style="color: var(--text-muted); font-size: 0.875rem;">Material:</span><br>
+                <span style="color: var(--text-primary); font-weight: 500;">Pumice 1 1/2" - 22 tons</span>
+              </div>
+              <div style="margin-bottom: var(--space-sm);">
+                <span style="color: var(--text-muted); font-size: 0.875rem;">Delivery Address:</span><br>
+                <span style="color: var(--text-primary); font-weight: 500;">1847 Industrial Park Rd, Bend, OR</span>
+              </div>
+              <div style="margin-bottom: var(--space-md);">
+                <span style="color: var(--text-muted); font-size: 0.875rem;">Notes:</span><br>
+                <span style="color: var(--text-primary);">Gate code: #4521 • Contact: Ray (541) 555-0199</span>
+              </div>
+              <button type="button" class="btn">🗺️ Start Navigation</button>
+              <button type="button" class="btn" style="margin-top: var(--space-sm);">📋 Create Ticket</button>
+            </div>
+          </li>
+
+          <li class="load-item">
+            <div class="load-header">
+              <span class="load-title">Load #6</span>
+              <span class="load-status status-completed">Completed 10:15 AM</span>
+            </div>
+            <div style="margin-top: var(--space-sm); color: var(--text-muted); font-size: 0.875rem;">
+              High Desert Landscaping • 20.5 tons • $922.50<br>
+              <span style="color: var(--accent);">✓ Signed & Synced to QuickBooks</span>
+            </div>
+          </li>
+
+          <li class="load-item">
+            <div class="load-header">
+              <span class="load-title">Load #5</span>
+              <span class="load-status status-completed">Completed 9:42 AM</span>
+            </div>
+            <div style="margin-top: var(--space-sm); color: var(--text-muted); font-size: 0.875rem;">
+              Mountain View Construction • 18.0 tons • $810.00<br>
+              <span style="color: var(--accent);">✓ Signed & Synced to QuickBooks</span>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Customer Portal Tab -->
+    <div class="tab-content" data-content="customer">
+      <div class="card">
+        <h2 style="margin-bottom: var(--space-lg);">🏢 Customer Portal - Mountain View Construction</h2>
+
+        <div class="dashboard-grid" style="margin-bottom: var(--space-xl);">
+          <div class="stat-card">
+            <div class="stat-value">127</div>
+            <div class="stat-label">Loads YTD</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value">2,286</div>
+            <div class="stat-label">Tons Delivered</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value">$102,870</div>
+            <div class="stat-label">Total Invoiced</div>
+          </div>
+        </div>
+
+        <h3 style="margin-bottom: var(--space-md); color: var(--text-secondary);">Recent Deliveries</h3>
+
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Material</th>
+              <th>Quantity</th>
+              <th>Amount</th>
+              <th>Ticket</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Jan 26, 2026</td>
+              <td>Pumice 3/8"</td>
+              <td>18.0 tons</td>
+              <td>$810.00</td>
+              <td><a href="#" style="color: var(--accent);">Download</a></td>
+            </tr>
+            <tr>
+              <td>Jan 25, 2026</td>
+              <td>Pumice 3/4"</td>
+              <td>22.5 tons</td>
+              <td>$1,012.50</td>
+              <td><a href="#" style="color: var(--accent);">Download</a></td>
+            </tr>
+            <tr>
+              <td>Jan 24, 2026</td>
+              <td>Pumice Fines</td>
+              <td>15.0 tons</td>
+              <td>$600.00</td>
+              <td><a href="#" style="color: var(--accent);">Download</a></td>
+            </tr>
+            <tr>
+              <td>Jan 23, 2026</td>
+              <td>Pumice 1 1/2"</td>
+              <td>20.0 tons</td>
+              <td>$900.00</td>
+              <td><a href="#" style="color: var(--accent);">Download</a></td>
+            </tr>
+            <tr>
+              <td>Jan 22, 2026</td>
+              <td>Pumice 3/8"</td>
+              <td>19.5 tons</td>
+              <td>$877.50</td>
+              <td><a href="#" style="color: var(--accent);">Download</a></td>
+            </tr>
+          </tbody>
+        </table>
+
+        <button type="button" class="btn" style="margin-top: var(--space-lg);">📝 Request New Delivery</button>
+        <button type="button" class="btn-secondary btn" style="margin-top: var(--space-sm);">📊 Download Statement</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Tab switching functionality
+    const tabs = document.querySelectorAll('.tab');
+    const tabContents = document.querySelectorAll('.tab-content');
+
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        const targetTab = tab.dataset.tab;
+
+        // Remove active class from all tabs and contents
+        tabs.forEach(t => t.classList.remove('active'));
+        tabContents.forEach(content => content.classList.remove('active'));
+
+        // Add active class to clicked tab and corresponding content
+        tab.classList.add('active');
+        document.querySelector(`[data-content="${targetTab}"]`).classList.add('active');
+      });
+    });
+
+    // Digital ticketing form functionality
+    const weightLbsInput = document.getElementById('weightLbs');
+    const weightTonsInput = document.getElementById('weightTons');
+    const cubicYardsInput = document.getElementById('cubicYards');
+    const generateTicketBtn = document.getElementById('generateTicketBtn');
+    const ticketResult = document.getElementById('ticketResult');
+
+    // Auto-calculate conversions
+    weightLbsInput.addEventListener('input', () => {
+      const lbs = parseFloat(weightLbsInput.value) || 0;
+      const tons = lbs / 2000;
+      const cubicYards = tons * 1.33; // Approximate conversion for pumice
+
+      weightTonsInput.value = tons.toFixed(1);
+      cubicYardsInput.value = cubicYards.toFixed(1);
+    });
+
+    // Generate ticket button
+    generateTicketBtn.addEventListener('click', () => {
+      generateTicketBtn.textContent = 'Generating...';
+      generateTicketBtn.disabled = true;
+
+      setTimeout(() => {
+        ticketResult.style.display = 'block';
+        ticketResult.scrollIntoView({ behavior: 'smooth' });
+        generateTicketBtn.textContent = '✅ Ticket Generated - Create Another';
+        generateTicketBtn.disabled = false;
+      }, 1000);
+    });
+
+    // Trigger initial calculation
+    weightLbsInput.dispatchEvent(new Event('input'));
+  </script>
+</body>
+</html>
