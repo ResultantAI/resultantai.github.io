@@ -3,7 +3,7 @@
    Version: 2.0 (Outcome-Driven Rebuild)
    ============================================================================ */
 
-/* CSS Variables */
+/* CSS Variables - Dark Mode (Default) */
 :root {
   /* Core Colors */
   --bg-primary: #0a0f1a;
@@ -58,6 +58,33 @@
   --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
   --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
   --shadow-glow: 0 0 20px rgba(16, 185, 129, 0.3);
+}
+
+/* Light Mode Theme */
+:root[data-theme="light"] {
+  /* Core Colors - Light */
+  --bg-primary: #ffffff;
+  --bg-secondary: #f8fafc;
+  --bg-card: #ffffff;
+  --bg-card-hover: #f1f5f9;
+  --border: #e2e8f0;
+  --border-light: #cbd5e1;
+  --border-glow: rgba(16, 185, 129, 0.2);
+
+  /* Text - Light */
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+  --text-muted: #64748b;
+
+  /* Accent stays the same but adjust subtle */
+  --accent-subtle: rgba(16, 185, 129, 0.1);
+  --accent-glow: rgba(16, 185, 129, 0.3);
+
+  /* Shadows - Light */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  --shadow-glow: 0 0 20px rgba(16, 185, 129, 0.15);
 }
 
 /* Reset & Base Styles */
@@ -918,4 +945,73 @@ footer {
 
 .mt-lg {
   margin-top: var(--space-lg);
+}
+
+/* ============================================================================
+   THEME TOGGLE
+   ============================================================================ */
+
+.theme-toggle {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 10000;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-full);
+  padding: 12px 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  box-shadow: var(--shadow-lg);
+  transition: all 0.3s ease;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.theme-toggle:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 24px -6px rgba(0, 0, 0, 0.2);
+  border-color: var(--accent);
+}
+
+.theme-toggle svg {
+  width: 20px;
+  height: 20px;
+  color: var(--accent);
+}
+
+.theme-toggle .theme-label {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+/* Hide sun in dark mode, moon in light mode */
+.theme-toggle .sun-icon {
+  display: none;
+}
+
+:root[data-theme="light"] .theme-toggle .sun-icon {
+  display: block;
+}
+
+:root[data-theme="light"] .theme-toggle .moon-icon {
+  display: none;
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+  .theme-toggle {
+    top: 10px;
+    right: 10px;
+    padding: 10px 16px;
+    font-size: 13px;
+  }
+  
+  .theme-toggle svg {
+    width: 18px;
+    height: 18px;
+  }
 }
