@@ -959,7 +959,7 @@
         LIVE DEMO
       </div>
       <h1>Real-Time Dispatcher Dashboard</h1>
-      <p>Watch how digital ticketing eliminates lost revenue and manual data entry. All updates happen automatically.</p>
+      <p>Watch how digital ticketing eliminates lost revenue and manual data entry. <strong>Offline-first.</strong> Configurable for tons, gallons, barrels, or pallets. All updates happen automatically.</p>
     </div>
 
     <!-- Dashboard Container -->
@@ -1020,7 +1020,7 @@
               <div class="summary-stat-icon">⚖️</div>
               <div class="summary-stat-content">
                 <div class="summary-stat-value" id="total-tonnage">0</div>
-                <div class="summary-stat-label">Tons Delivered</div>
+                <div class="summary-stat-label">Units Delivered</div>
               </div>
             </div>
             <div class="summary-stat">
@@ -1168,8 +1168,8 @@
 
     <!-- CTA Section -->
     <div class="cta-section">
-      <h3>Ready to Eliminate Lost Tickets?</h3>
-      <p>Book a 30-minute discovery call. We'll show you exactly how much time and money you can save.</p>
+      <h3>Ready to Digitize Your Dispatch & Ticketing?</h3>
+      <p>Book a 30-minute discovery call. Built for bulk transport: aggregate, propane, septic, grain haulers. Offline-first with QuickBooks integration.</p>
       <a href="https://meetings.hubspot.com/resultantai/paper-to-digital?source=logistics-demo-v2" class="cta-button">
         Schedule Discovery Call →
       </a>
@@ -1188,6 +1188,7 @@
       { name: 'Gravel 3/4"', pricePerTon: 45 },
       { name: 'Sand', pricePerTon: 38 },
       { name: 'Crushed Rock', pricePerTon: 52 },
+      { name: 'Propane (Gal)', pricePerTon: 2.5 }, // Showing unit flexibility
       { name: 'Topsoil', pricePerTon: 35 },
       { name: 'Base Rock', pricePerTon: 48 }
     ];
@@ -1421,8 +1422,8 @@
               <span class="load-detail-value">${load.material}</span>
             </div>
             <div class="load-detail-item">
-              <span class="load-detail-label">Tonnage</span>
-              <span class="load-detail-value">${load.tonnage} tons</span>
+              <span class="load-detail-label">Quantity</span>
+              <span class="load-detail-value">${load.tonnage} ${load.material.includes('Propane') ? 'gal' : 'tons'}</span>
             </div>
             <div class="load-detail-item">
               <span class="load-detail-label">Revenue</span>
@@ -1476,7 +1477,7 @@
         document.getElementById('loads-completed').textContent = completedLoads;
         document.getElementById('time-saved').textContent = `${(timeSavedMinutes / 60).toFixed(1)} hrs`;
         document.getElementById('trucks-active').textContent = `${activeTrucks}/15`;
-        document.getElementById('total-tonnage').textContent = `${totalTonnage} tons`;
+        document.getElementById('total-tonnage').textContent = `${totalTonnage} units`;
         document.getElementById('avg-revenue').textContent = `$${avgRevenue.toLocaleString()}`;
 
         // ROI Impact
@@ -1517,9 +1518,10 @@
             });
 
             // Show notification for completed load
+            const unit = load.material.includes('Propane') ? 'gal' : 'tons';
             showNotification(
               '✅ Load Completed!',
-              `Truck ${load.truck} delivered ${load.tonnage} tons to ${load.customer}. Revenue: $${load.revenue.toLocaleString()}`
+              `Truck ${load.truck} delivered ${load.tonnage} ${unit} to ${load.customer}. Revenue: $${load.revenue.toLocaleString()}`
             );
 
             // Celebration confetti!
