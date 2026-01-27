@@ -214,6 +214,17 @@ nav.scrolled {
   box-shadow: var(--shadow-lg);
 }
 
+/* Light mode navigation */
+:root[data-theme="light"] nav {
+  background: rgba(255, 255, 255, 0.9);
+  border-bottom: 1px solid var(--border);
+}
+
+:root[data-theme="light"] nav.scrolled {
+  background: rgba(255, 255, 255, 0.98);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+}
+
 .nav__inner {
   max-width: 1400px;
   margin: 0 auto;
@@ -250,10 +261,20 @@ nav.scrolled {
   color: var(--accent);
 }
 
+/* Light mode nav links - darker for better visibility */
+:root[data-theme="light"] .nav__link {
+  color: #475569;
+  font-weight: 600;
+}
+
+:root[data-theme="light"] .nav__link:hover {
+  color: var(--accent-dark);
+}
+
 .nav__cta {
   padding: 10px 20px;
   background: var(--accent);
-  color: var(--bg-primary);
+  color: white;
   border-radius: var(--radius-md);
   font-weight: 600;
   transition: all 0.2s ease;
@@ -263,6 +284,12 @@ nav.scrolled {
   background: var(--accent-light);
   box-shadow: var(--shadow-glow);
   transform: translateY(-1px);
+}
+
+/* Light mode CTA button - ensure white text */
+:root[data-theme="light"] .nav__cta {
+  color: white;
+  box-shadow: 0 2px 8px rgba(16, 185, 129, 0.2);
 }
 
 /* Dropdown Menu */
