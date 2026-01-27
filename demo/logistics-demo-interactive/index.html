@@ -795,7 +795,9 @@
     }
 
     .tutorial-footer {
-      text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
       padding-top: 1.5rem;
       border-top: 1px solid var(--border);
       position: relative;
@@ -817,7 +819,7 @@
     }
 
     .hint {
-      position: absolute;
+      position: fixed;
       background: var(--primary);
       color: white;
       padding: 0.75rem 1rem;
@@ -825,7 +827,7 @@
       font-size: 0.875rem;
       font-weight: 600;
       box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4);
-      z-index: 100;
+      z-index: 999;
       animation: bounce 0.6s infinite alternate;
       max-width: 300px;
     }
@@ -1085,7 +1087,7 @@
   </div>
 
   <!-- Tutorial Overlay - Enabled by default for first-time visitors -->
-  <div class="tutorial-overlay" id="tutorial-overlay" style="display: flex;">
+  <div class="tutorial-overlay" id="tutorial-overlay" style="display: none;">
     <div class="tutorial-modal">
       <div class="tutorial-header">
         <h2>Welcome to Valley Rock & Gravel</h2>
@@ -1100,7 +1102,7 @@
             </svg>
           </div>
           <div class="stakeholder-title">Office Manager</div>
-          <div class="stakeholder-desc">Review tickets, sync to QuickBooks</div>
+          <div class="stakeholder-desc">Review reports, approve tickets</div>
         </div>
 
         <div class="stakeholder-card" data-role="dispatcher">
@@ -1135,6 +1137,10 @@
       </div>
 
       <div class="tutorial-footer">
+        <label style="display: flex; align-items: center; gap: 0.5rem; font-size: 0.875rem; color: var(--text-secondary); cursor: pointer;">
+          <input type="checkbox" id="dont-show-again" style="width: 18px; height: 18px; cursor: pointer;">
+          <span>Don't show this again</span>
+        </label>
         <button onclick="skipTutorial()">Skip and explore freely</button>
       </div>
     </div>
@@ -3007,6 +3013,12 @@
     }
 
     function skipTutorial() {
+      const dontShowAgain = document.getElementById('dont-show-again').checked;
+
+      if (dontShowAgain) {
+        localStorage.setItem('hideTutorial', 'true');
+      }
+
       document.getElementById('tutorial-overlay').style.display = 'none';
     }
 
@@ -3016,6 +3028,16 @@
         const role = card.getAttribute('data-role');
         startTutorial(role);
       });
+    });
+
+    // Check if tutorial should be shown on page load
+    window.addEventListener('DOMContentLoaded', function() {
+      const hideTutorial = localStorage.getItem('hideTutorial');
+
+      if (hideTutorial !== 'true') {
+        // Show tutorial for first-time visitors
+        document.getElementById('tutorial-overlay').style.display = 'flex';
+      }
     });
 
     // ===== INTERACTIVE FEATURES =====
