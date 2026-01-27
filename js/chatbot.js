@@ -17,7 +17,7 @@
   const CONFIG = {
     apiEndpoint: window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
       ? 'http://localhost:5000/chat'
-      : 'https://api.resultantai.com/chat', // Update with your production API URL
+      : 'https://resultantai-github-io.onrender.com/chat',
     storageKey: 'resultant_chat_history',
     maxHistoryLength: 20, // Keep last 20 messages
   };
