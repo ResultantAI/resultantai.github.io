@@ -845,6 +845,37 @@
         font-size: 2rem;
       }
     }
+
+    /* Demo Identity Banner */
+    .demo-banner {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+      color: white;
+      padding: 0.75rem 1.5rem;
+      text-align: center;
+      font-weight: 700;
+      font-size: 0.9375rem;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+      letter-spacing: 0.025em;
+    }
+
+    .demo-banner-emoji {
+      margin: 0 0.5rem;
+    }
+
+    /* Clickable Load Cards */
+    .load-card {
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .load-card:hover {
+      background: rgba(16, 185, 129, 0.05);
+      border-color: var(--primary);
+      transform: translateX(4px);
+    }
   </style>
 </head>
 <body>
@@ -910,6 +941,13 @@
         </button>
       </div>
     </div>
+  </div>
+
+  <!-- Demo Identity Banner -->
+  <div class="demo-banner">
+    <span class="demo-banner-emoji">🚧</span>
+    LIVE INTERACTIVE DEMO: Feel free to click around
+    <span class="demo-banner-emoji">🚧</span>
   </div>
 
   <div class="app">
@@ -2167,6 +2205,12 @@
               <div>
                 <h3 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 0.5rem;">Reports & Analytics</h3>
                 <p style="color: var(--text-muted); font-size: 0.875rem;">Real-time insights, QuickBooks sync, and export tools</p>
+                <p style="color: var(--text-secondary); font-size: 0.8125rem; margin-top: 0.5rem;">
+                  <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="display: inline; vertical-align: middle; margin-right: 0.25rem;">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                  </svg>
+                  <strong>ERP Integrations:</strong> NetSuite, Sage, and SAP available via Enterprise API
+                </p>
               </div>
               <button class="btn btn-secondary">
                 <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
@@ -2438,13 +2482,13 @@
 
           <div class="roi-callout">
             <div class="roi-callout-content">
-              <h3 style="font-size: 1.75rem; font-weight: 900; margin-bottom: 0.75rem;">See This Configured for <em>Your</em> Products & Customers</h3>
-              <p style="color: var(--text-secondary); margin-bottom: 1.5rem; font-size: 1rem;">We'll show you Valley Rock configured with your actual pricing, trucks, and customer list. 30-minute discovery call — we calculate your specific ROI together.</p>
+              <h3 style="font-size: 1.75rem; font-weight: 900; margin-bottom: 0.75rem;">Steal This ROI Model</h3>
+              <p style="color: var(--text-secondary); margin-bottom: 1.5rem; font-size: 1rem;">Book a 30-minute call and we'll build your custom ROI spreadsheet — plug in your truck count, average haul rate, and current lost ticket percentage. You'll have the numbers to show your CFO before we hang up.</p>
               <a href="https://meetings.hubspot.com/resultantai/paper-to-digital" target="_blank" class="btn btn-primary" style="font-size: 1rem; padding: 1rem 2rem;">
                 <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
                 </svg>
-                Book 30-Min Personalized Demo →
+                Book Your ROI Call →
               </a>
             </div>
           </div>
@@ -2727,6 +2771,24 @@
         setTimeout(() => toast.remove(), 300);
       }, duration);
     }
+
+    // Make load cards clickable (UX feedback from Derek)
+    document.querySelectorAll('.load-card').forEach(card => {
+      card.addEventListener('click', function(e) {
+        // Don't trigger if clicking a button inside the card
+        if (e.target.closest('button')) return;
+
+        // Get truck info from the card
+        const truckInfo = this.querySelector('h4')?.textContent || 'this load';
+
+        // Show user what would happen in the full app
+        showToast(
+          '🗺️ GPS Tracking',
+          `In the full app, clicking ${truckInfo} opens the real-time GPS map with live location, route history, and ETA updates.`,
+          5000
+        );
+      });
+    });
 
     // Customer-specific pricing auto-fill
     const customerSelect = document.getElementById('customer');
