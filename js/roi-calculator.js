@@ -116,8 +116,76 @@ function initPropaneROICalculator() {
   calculate();
 }
 
+// Logistics-specific ROI calculator
+function initLogisticsROICalculator() {
+  const form = document.getElementById('logistics-roi-calculator');
+  if (!form) return;
+
+  const trucksInput = document.getElementById('num-trucks-logistics');
+  const loadsPerDayInput = document.getElementById('loads-per-day');
+  const dataEntryHoursInput = document.getElementById('data-entry-hours');
+  const lostTicketsWeekInput = document.getElementById('lost-tickets-week');
+
+  const timeSavedResult = document.getElementById('time-saved-logistics');
+  const lostRevenueResult = document.getElementById('lost-revenue-logistics');
+  const laborCostResult = document.getElementById('labor-cost-logistics');
+  const totalImpactResult = document.getElementById('total-impact-logistics');
+
+  function calculate() {
+    const numTrucks = parseInt(trucksInput.value) || 0;
+    const loadsPerDay = parseInt(loadsPerDayInput.value) || 0;
+    const dataEntryHours = parseFloat(dataEntryHoursInput.value) || 0;
+    const lostTicketsWeek = parseInt(lostTicketsWeekInput.value) || 0;
+
+    // Time saved per week (assume 80% reduction in data entry time)
+    const timeSavedWeek = dataEntryHours * 5 * 0.80;
+
+    // Lost ticket revenue recovered (avg $200 per lost ticket)
+    const lostRevenueWeek = lostTicketsWeek * 200;
+
+    // Labor cost reduction annually ($30/hour for data entry labor)
+    const laborCostAnnual = timeSavedWeek * 30 * 52;
+
+    // Total annual impact (lost tickets + labor savings)
+    const totalAnnual = (lostRevenueWeek * 52) + laborCostAnnual;
+
+    if (timeSavedResult) {
+      timeSavedResult.textContent = timeSavedWeek.toFixed(1);
+    }
+    if (lostRevenueResult) {
+      lostRevenueResult.textContent = formatCurrency(lostRevenueWeek);
+    }
+    if (laborCostResult) {
+      laborCostResult.textContent = formatCurrency(laborCostAnnual);
+    }
+    if (totalImpactResult) {
+      totalImpactResult.textContent = formatCurrency(totalAnnual);
+    }
+  }
+
+  function formatCurrency(num) {
+    return new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: 'USD',
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0
+    }).format(num);
+  }
+
+  // Attach event listeners
+  [trucksInput, loadsPerDayInput, dataEntryHoursInput, lostTicketsWeekInput].forEach(input => {
+    if (input) {
+      input.addEventListener('input', calculate);
+    }
+  });
+
+  // Initial calculation
+  calculate();
+}
+
 // Initialize on DOM ready
 document.addEventListener('DOMContentLoaded', () => {
   initROICalculator();
   initPropaneROICalculator();
+  initLogisticsROICalculator();
 });
