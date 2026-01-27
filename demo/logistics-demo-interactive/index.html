@@ -3162,16 +3162,11 @@
     const btnText = document.getElementById('btn-text');
     const btnLoader = document.getElementById('btn-loader');
 
-    createTicketBtn.addEventListener('click', function() {
+    function executeTicketCreation() {
       const customer = customerSelect.options[customerSelect.selectedIndex].textContent;
       const material = materialSelect.options[materialSelect.selectedIndex].textContent;
       const qty = quantityInput.value;
       const total = (parseFloat(quantityInput.value) || 0) * (parseFloat(priceInput.value) || 0);
-
-      if (!customer || customer === 'Select customer...' || !material || material === 'Select material...') {
-        showToast('⚠️ Missing Information', 'Please select a customer and material before creating a ticket.', 3000);
-        return;
-      }
 
       // Show loading state
       btnText.style.display = 'none';
@@ -3196,6 +3191,20 @@
 
         ticketNumber++;
       }, 1500);
+    }
+
+    // Click handler - Check safety first, then show modal (ticket created after safety confirmation)
+    createTicketBtn.addEventListener('click', function(e) {
+      const customer = customerSelect.options[customerSelect.selectedIndex].textContent;
+      const material = materialSelect.options[materialSelect.selectedIndex].textContent;
+
+      if (!customer || customer === 'Select customer...' || !material || material === 'Select material...') {
+        showToast('⚠️ Missing Information', 'Please select a customer and material before creating a ticket.', 3000);
+        return;
+      }
+
+      // Always show safety check modal before creating ticket
+      document.getElementById('safety-check-modal').style.display = 'flex';
     });
 
     // Customer view toggle (list/blocks)
@@ -3365,7 +3374,6 @@
     // ===== RED TEAM FEATURES =====
 
     // Safety Check Modal (Tom's liability protection request)
-    let safetyCheckPassed = false;
     const safetyCheckboxes = document.querySelectorAll('.safety-checkbox');
     const confirmSafetyBtn = document.getElementById('confirm-safety-btn');
     const safetyModal = document.getElementById('safety-check-modal');
@@ -3389,31 +3397,21 @@
     // Confirm safety check
     confirmSafetyBtn.addEventListener('click', function() {
       if (!confirmSafetyBtn.disabled) {
-        safetyCheckPassed = true;
         safetyModal.style.display = 'none';
         showToast(
           '✅ Safety Check Complete',
-          'All safety requirements verified - ready to create ticket'
+          'All safety requirements verified - creating ticket...'
         );
         // Uncheck all for next time
         safetyCheckboxes.forEach(cb => cb.checked = false);
         confirmSafetyBtn.disabled = true;
+
+        // Automatically create the ticket after safety check passes
+        setTimeout(() => {
+          executeTicketCreation();
+        }, 500); // Small delay for UX smoothness
       }
     });
-
-    // Intercept Create Ticket button to show safety check first
-    const originalCreateTicketBtn = document.getElementById('create-ticket-btn');
-    if (originalCreateTicketBtn) {
-      originalCreateTicketBtn.addEventListener('click', function(e) {
-        if (!safetyCheckPassed) {
-          e.stopPropagation();
-          safetyModal.style.display = 'flex';
-          return false;
-        }
-        // If safety check passed, continue with original ticket creation
-        safetyCheckPassed = false; // Reset for next ticket
-      });
-    }
 
     // Revoke Access buttons (Kevin's security concern)
     document.querySelectorAll('button').forEach(btn => {
