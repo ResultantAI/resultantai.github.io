@@ -663,178 +663,6 @@
       color: var(--text-muted);
     }
 
-    /* Tutorial Overlay */
-    .tutorial-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: rgba(0, 0, 0, 0.9);
-      backdrop-filter: blur(10px);
-      z-index: 1000;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      animation: fadeIn 0.3s;
-    }
-
-    .tutorial-modal {
-      background: var(--bg-elevated);
-      border: 2px solid var(--primary);
-      border-radius: var(--radius-xl);
-      max-width: 700px;
-      width: 90%;
-      padding: 2.5rem;
-      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5), 0 0 100px var(--primary-glow);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .tutorial-modal::before {
-      content: '';
-      position: absolute;
-      top: -50%;
-      left: -50%;
-      width: 200%;
-      height: 200%;
-      background: linear-gradient(45deg, transparent, rgba(16, 185, 129, 0.1), transparent);
-      animation: shimmer 3s infinite;
-    }
-
-    .tutorial-header {
-      margin-bottom: 2rem;
-      text-align: center;
-      position: relative;
-      z-index: 1;
-    }
-
-    .tutorial-header h2 {
-      font-size: 2rem;
-      font-weight: 900;
-      margin-bottom: 0.5rem;
-      background: linear-gradient(135deg, var(--primary), var(--primary-light));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-
-    .tutorial-header p {
-      color: var(--text-secondary);
-      font-size: 1rem;
-    }
-
-    .stakeholder-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 1rem;
-      margin-bottom: 2rem;
-      position: relative;
-      z-index: 1;
-    }
-
-    .stakeholder-card {
-      background: var(--bg-secondary);
-      border: 2px solid var(--border);
-      border-radius: var(--radius-lg);
-      padding: 1.5rem;
-      text-align: center;
-      cursor: pointer;
-      transition: all 0.3s;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .stakeholder-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 3px;
-      background: linear-gradient(90deg, var(--primary), var(--primary-light));
-      transform: scaleX(0);
-      transition: transform 0.3s;
-    }
-
-    .stakeholder-card:hover {
-      border-color: var(--primary);
-      transform: translateY(-4px);
-      box-shadow: 0 12px 32px var(--primary-glow);
-    }
-
-    .stakeholder-card:hover::before {
-      transform: scaleX(1);
-    }
-
-    .stakeholder-icon {
-      width: 64px;
-      height: 64px;
-      margin: 0 auto 1rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: var(--primary-glow);
-      border-radius: 50%;
-    }
-
-    .stakeholder-icon svg {
-      width: 32px;
-      height: 32px;
-    }
-
-    .stakeholder-title {
-      font-size: 1.125rem;
-      font-weight: 700;
-      margin-bottom: 0.5rem;
-    }
-
-    .stakeholder-desc {
-      font-size: 0.875rem;
-      color: var(--text-muted);
-    }
-
-    .tutorial-footer {
-      text-align: center;
-      padding-top: 1.5rem;
-      border-top: 1px solid var(--border);
-      position: relative;
-      z-index: 1;
-    }
-
-    .tutorial-footer button {
-      background: transparent;
-      border: none;
-      color: var(--text-muted);
-      font-size: 0.875rem;
-      cursor: pointer;
-      text-decoration: underline;
-      transition: color 0.2s;
-    }
-
-    .tutorial-footer button:hover {
-      color: var(--text-primary);
-    }
-
-    .hint {
-      position: absolute;
-      background: var(--primary);
-      color: white;
-      padding: 0.75rem 1rem;
-      border-radius: var(--radius-md);
-      font-size: 0.875rem;
-      font-weight: 600;
-      box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4);
-      z-index: 100;
-      animation: bounce 0.6s infinite alternate;
-      max-width: 300px;
-    }
-
-    @keyframes bounce {
-      from { transform: translateY(0); }
-      to { transform: translateY(-8px); }
-    }
-
     @keyframes spin {
       from { transform: rotate(0deg); }
       to { transform: rotate(360deg); }
@@ -1080,62 +908,6 @@
           </svg>
           Confirm Safety Check
         </button>
-      </div>
-    </div>
-  </div>
-
-  <!-- Tutorial Overlay - Enabled by default for first-time visitors -->
-  <div class="tutorial-overlay" id="tutorial-overlay" style="display: flex;">
-    <div class="tutorial-modal">
-      <div class="tutorial-header">
-        <h2>Welcome to Valley Rock & Gravel</h2>
-        <p>See how we eliminated lost tickets, billing errors, and damage disputes</p>
-      </div>
-
-      <div class="stakeholder-grid">
-        <div class="stakeholder-card" data-role="office">
-          <div class="stakeholder-icon">
-            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="color: var(--primary)">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
-            </svg>
-          </div>
-          <div class="stakeholder-title">Office Manager</div>
-          <div class="stakeholder-desc">Review tickets, sync to QuickBooks</div>
-        </div>
-
-        <div class="stakeholder-card" data-role="dispatcher">
-          <div class="stakeholder-icon">
-            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="color: var(--primary)">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"></path>
-            </svg>
-          </div>
-          <div class="stakeholder-title">Dispatcher</div>
-          <div class="stakeholder-desc">Track loads, manage fleet</div>
-        </div>
-
-        <div class="stakeholder-card" data-role="driver">
-          <div class="stakeholder-icon">
-            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="color: var(--primary)">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"></path>
-            </svg>
-          </div>
-          <div class="stakeholder-title">Driver</div>
-          <div class="stakeholder-desc">Create tickets, offline mode</div>
-        </div>
-
-        <div class="stakeholder-card" data-role="customer">
-          <div class="stakeholder-icon">
-            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="color: var(--primary)">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
-            </svg>
-          </div>
-          <div class="stakeholder-title">Customer</div>
-          <div class="stakeholder-desc">View deliveries, download tickets</div>
-        </div>
-      </div>
-
-      <div class="tutorial-footer">
-        <button onclick="skipTutorial()">Skip and explore freely</button>
       </div>
     </div>
   </div>
@@ -1570,65 +1342,66 @@
             </div>
 
             <div id="dispatcher-list-view">
-            <div class="load-list">
-              <div class="load-card">
-                <div class="load-info">
-                  <h4>Truck #7 - Mike Johnson</h4>
-                  <p>North Quarry → Mountain View Construction • ETA 14:30 • 3.2 mi remaining</p>
+              <div class="load-list">
+                <div class="load-card">
+                  <div class="load-info">
+                    <h4>Truck #7 - Mike Johnson</h4>
+                    <p>North Quarry → Mountain View Construction • ETA 14:30 • 3.2 mi remaining</p>
+                  </div>
+                  <div class="load-status">
+                    <div class="status-badge status-in-transit">In Transit</div>
+                    <p class="revenue">18 tons • $810.00</p>
+                  </div>
                 </div>
-                <div class="load-status">
-                  <div class="status-badge status-in-transit">In Transit</div>
-                  <p class="revenue">18 tons • $810.00</p>
+                <div class="load-card">
+                  <div class="load-info">
+                    <h4>Truck #3 - Sarah Williams</h4>
+                    <p>Loading at North Quarry → Summit Building • Base Rock • 12 min elapsed</p>
+                  </div>
+                  <div class="load-status">
+                    <div class="status-badge status-loading">Loading</div>
+                    <p class="revenue">22 tons • $1,056.00</p>
+                  </div>
                 </div>
-              </div>
-              <div class="load-card">
-                <div class="load-info">
-                  <h4>Truck #3 - Sarah Williams</h4>
-                  <p>Loading at North Quarry → Summit Building • Base Rock • 12 min elapsed</p>
+                <div class="load-card">
+                  <div class="load-info">
+                    <h4>Truck #9 - Lisa Martinez</h4>
+                    <p>South Pit → High Desert Landscaping • ETA 15:15 • 5.8 mi remaining</p>
+                  </div>
+                  <div class="load-status">
+                    <div class="status-badge status-in-transit">In Transit</div>
+                    <p class="revenue">20 tons • $700.00</p>
+                  </div>
                 </div>
-                <div class="load-status">
-                  <div class="status-badge status-loading">Loading</div>
-                  <p class="revenue">22 tons • $1,056.00</p>
+                <div class="load-card">
+                  <div class="load-info">
+                    <h4>Truck #15 - Tom Bradley</h4>
+                    <p>Loading at South Pit → Riverside Materials • Crushed Rock • 6 min elapsed</p>
+                  </div>
+                  <div class="load-status">
+                    <div class="status-badge status-loading">Loading</div>
+                    <p class="revenue">24 tons • $1,248.00</p>
+                  </div>
                 </div>
-              </div>
-              <div class="load-card">
-                <div class="load-info">
-                  <h4>Truck #9 - Lisa Martinez</h4>
-                  <p>South Pit → High Desert Landscaping • ETA 15:15 • 5.8 mi remaining</p>
+                <div class="load-card">
+                  <div class="load-info">
+                    <h4>Truck #11 - Alex Rivera</h4>
+                    <p>Main Plant → Cascade Contractors • ETA 14:50 • 2.1 mi remaining</p>
+                  </div>
+                  <div class="load-status">
+                    <div class="status-badge status-in-transit">In Transit</div>
+                    <p class="revenue">19 tons • $855.00</p>
+                  </div>
                 </div>
-                <div class="load-status">
-                  <div class="status-badge status-in-transit">In Transit</div>
-                  <p class="revenue">20 tons • $700.00</p>
-                </div>
-              </div>
-              <div class="load-card">
-                <div class="load-info">
-                  <h4>Truck #15 - Tom Bradley</h4>
-                  <p>Loading at South Pit → Riverside Materials • Crushed Rock • 6 min elapsed</p>
-                </div>
-                <div class="load-status">
-                  <div class="status-badge status-loading">Loading</div>
-                  <p class="revenue">24 tons • $1,248.00</p>
-                </div>
-              </div>
-              <div class="load-card">
-                <div class="load-info">
-                  <h4>Truck #11 - Alex Rivera</h4>
-                  <p>Main Plant → Cascade Contractors • ETA 14:50 • 2.1 mi remaining</p>
-                </div>
-                <div class="load-status">
-                  <div class="status-badge status-in-transit">In Transit</div>
-                  <p class="revenue">19 tons • $855.00</p>
-                </div>
-              </div>
-              <div class="load-card">
-                <div class="load-info">
-                  <h4>Truck #5 - Marcus Lee</h4>
-                  <p>North Quarry → Summit Building • ETA 15:30 • 4.6 mi remaining</p>
-                </div>
-                <div class="load-status">
-                  <div class="status-badge status-in-transit">In Transit</div>
-                  <p class="revenue">21 tons • $945.00</p>
+                <div class="load-card">
+                  <div class="load-info">
+                    <h4>Truck #5 - Marcus Lee</h4>
+                    <p>North Quarry → Summit Building • ETA 15:30 • 4.6 mi remaining</p>
+                  </div>
+                  <div class="load-status">
+                    <div class="status-badge status-in-transit">In Transit</div>
+                    <p class="revenue">21 tons • $945.00</p>
+                  </div>
                 </div>
               </div>
             </div>
@@ -1775,14 +1548,14 @@
         <!-- Driver App View -->
         <div class="view" id="view-driver">
           <div style="display: grid; grid-template-columns: 400px 1fr; gap: 2rem; align-items: start;">
-          <div class="phone-mockup">
-            <div class="phone-screen">
-              <div class="phone-header">
-                <h3>Driver App</h3>
-                <p>Truck #7 • Mike Johnson • Today 2:15 PM</p>
-              </div>
-              <div class="phone-content">
-                <div class="phone-card" style="background: rgba(16, 185, 129, 0.15); border-color: var(--primary);">
+            <div class="phone-mockup">
+              <div class="phone-screen">
+                <div class="phone-header">
+                  <h3>Driver App</h3>
+                  <p>Truck #7 • Mike Johnson • Today 2:15 PM</p>
+                </div>
+                <div class="phone-content">
+                  <div class="phone-card" style="background: rgba(16, 185, 129, 0.15); border-color: var(--primary);">
                   <h4 style="color: var(--primary);">
                     <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="display: inline; vertical-align: middle; margin-right: 0.5rem;">
                       <path stroke-linecap="round" stroke-linejoin="round" d="M8.111 16.404a5.5 5.5 0 017.778 0M12 20h.01m-7.08-7.071c3.904-3.905 10.236-3.905 14.141 0M1.394 9.393c5.857-5.857 15.355-5.857 21.213 0"></path>
@@ -1862,11 +1635,11 @@
                   </p>
                 </div>
               </div>
+              </div>
             </div>
-          </div>
 
-          <!-- Feature Descriptions (right column) -->
-          <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+            <!-- Feature Descriptions (right column) -->
+            <div style="display: flex; flex-direction: column; gap: 1.5rem;">
             <div style="background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.3); padding: 1.5rem; border-radius: var(--radius-lg);">
               <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem;">
                 <div style="width: 40px; height: 40px; background: var(--primary); border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center;">
@@ -1947,7 +1720,7 @@
                 <li><strong>2:48 PM:</strong> Customer receives email</li>
               </ul>
             </div>
-          </div>
+            </div>
           </div>
         </div>
 
@@ -2928,96 +2701,6 @@
       });
     });
 
-    // Tutorial system
-    const tutorials = {
-      office: {
-        title: "Office Manager Tour",
-        steps: [
-          { view: 'dashboard', message: "Start with the dashboard to see today's activity at a glance" },
-          { view: 'reports', message: "Review revenue, approve tickets for QuickBooks sync, and export data - all in one place" },
-          { view: 'tickets', message: "See how simple ticket creation works - same interface drivers use" },
-          { view: 'roi', message: "Track your actual savings: time, money, and zero lost revenue" }
-        ]
-      },
-      dispatcher: {
-        title: "Dispatcher Tour",
-        steps: [
-          { view: 'dashboard', message: "Monitor fleet performance and revenue in real-time" },
-          { view: 'dispatcher', message: "Track all active loads - see who's in transit, loading, or completed" },
-          { view: 'tickets', message: "Create new tickets for walk-in customers or phone orders" }
-        ]
-      },
-      driver: {
-        title: "Driver Experience",
-        steps: [
-          { view: 'driver', message: "Mobile app works on personal phones - no app download required, just a web link" },
-          { view: 'tickets', message: "Simple ticket creation takes 30 seconds - works offline in dead zones" },
-          { view: 'dispatcher', message: "Your tickets appear here instantly when you're back in signal range" }
-        ]
-      },
-      customer: {
-        title: "Customer Portal",
-        steps: [
-          { view: 'customer', message: "24/7 self-service portal for your customers - reduces phone calls" },
-          { view: 'dashboard', message: "They see their activity, you see the full fleet view" }
-        ]
-      }
-    };
-
-    let currentTutorial = null;
-    let currentStep = 0;
-
-    function startTutorial(role) {
-      currentTutorial = tutorials[role];
-      currentStep = 0;
-      document.getElementById('tutorial-overlay').style.display = 'none';
-
-      // Show first step
-      showTutorialStep();
-    }
-
-    function showTutorialStep() {
-      if (!currentTutorial || currentStep >= currentTutorial.steps.length) {
-        currentTutorial = null;
-        return;
-      }
-
-      const step = currentTutorial.steps[currentStep];
-
-      // Switch to the view
-      setTimeout(() => {
-        switchView(step.view);
-
-        // Show hint message
-        const hint = document.createElement('div');
-        hint.className = 'hint';
-        hint.textContent = step.message;
-        hint.style.top = '100px';
-        hint.style.right = '20px';
-
-        document.body.appendChild(hint);
-
-        // Remove hint and advance
-        setTimeout(() => {
-          hint.remove();
-          currentStep++;
-          showTutorialStep();
-        }, 4000);
-      }, 500);
-    }
-
-    function skipTutorial() {
-      document.getElementById('tutorial-overlay').style.display = 'none';
-    }
-
-    // Set up stakeholder selection
-    document.querySelectorAll('.stakeholder-card').forEach(card => {
-      card.addEventListener('click', () => {
-        const role = card.getAttribute('data-role');
-        startTutorial(role);
-      });
-    });
-
     // ===== INTERACTIVE FEATURES =====
 
     // Toast notification system
@@ -3140,16 +2823,11 @@
     const btnText = document.getElementById('btn-text');
     const btnLoader = document.getElementById('btn-loader');
 
-    createTicketBtn.addEventListener('click', function() {
+    function executeTicketCreation() {
       const customer = customerSelect.options[customerSelect.selectedIndex].textContent;
       const material = materialSelect.options[materialSelect.selectedIndex].textContent;
       const qty = quantityInput.value;
       const total = (parseFloat(quantityInput.value) || 0) * (parseFloat(priceInput.value) || 0);
-
-      if (!customer || customer === 'Select customer...' || !material || material === 'Select material...') {
-        showToast('⚠️ Missing Information', 'Please select a customer and material before creating a ticket.', 3000);
-        return;
-      }
 
       // Show loading state
       btnText.style.display = 'none';
@@ -3174,6 +2852,20 @@
 
         ticketNumber++;
       }, 1500);
+    }
+
+    // Click handler - Check safety first, then show modal (ticket created after safety confirmation)
+    createTicketBtn.addEventListener('click', function(e) {
+      const customer = customerSelect.options[customerSelect.selectedIndex].textContent;
+      const material = materialSelect.options[materialSelect.selectedIndex].textContent;
+
+      if (!customer || customer === 'Select customer...' || !material || material === 'Select material...') {
+        showToast('⚠️ Missing Information', 'Please select a customer and material before creating a ticket.', 3000);
+        return;
+      }
+
+      // Always show safety check modal before creating ticket
+      document.getElementById('safety-check-modal').style.display = 'flex';
     });
 
     // Customer view toggle (list/blocks)
@@ -3343,7 +3035,6 @@
     // ===== RED TEAM FEATURES =====
 
     // Safety Check Modal (Tom's liability protection request)
-    let safetyCheckPassed = false;
     const safetyCheckboxes = document.querySelectorAll('.safety-checkbox');
     const confirmSafetyBtn = document.getElementById('confirm-safety-btn');
     const safetyModal = document.getElementById('safety-check-modal');
@@ -3367,31 +3058,21 @@
     // Confirm safety check
     confirmSafetyBtn.addEventListener('click', function() {
       if (!confirmSafetyBtn.disabled) {
-        safetyCheckPassed = true;
         safetyModal.style.display = 'none';
         showToast(
           '✅ Safety Check Complete',
-          'All safety requirements verified - ready to create ticket'
+          'All safety requirements verified - creating ticket...'
         );
         // Uncheck all for next time
         safetyCheckboxes.forEach(cb => cb.checked = false);
         confirmSafetyBtn.disabled = true;
+
+        // Automatically create the ticket after safety check passes
+        setTimeout(() => {
+          executeTicketCreation();
+        }, 500); // Small delay for UX smoothness
       }
     });
-
-    // Intercept Create Ticket button to show safety check first
-    const originalCreateTicketBtn = document.getElementById('create-ticket-btn');
-    if (originalCreateTicketBtn) {
-      originalCreateTicketBtn.addEventListener('click', function(e) {
-        if (!safetyCheckPassed) {
-          e.stopPropagation();
-          safetyModal.style.display = 'flex';
-          return false;
-        }
-        // If safety check passed, continue with original ticket creation
-        safetyCheckPassed = false; // Reset for next ticket
-      });
-    }
 
     // Revoke Access buttons (Kevin's security concern)
     document.querySelectorAll('button').forEach(btn => {
