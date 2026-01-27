@@ -1,0 +1,1528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Valley Rock & Gravel - Digital Ticketing Demo | ResultantAI</title>
+  <meta name="description" content="Interactive demo of ResultantAI's Dispatch & Ticketing system for bulk transport. See offline ticketing, real-time dispatch, and QuickBooks integration.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-primary: #0a0f1e;
+      --bg-secondary: #0f172a;
+      --bg-card: #1e293b;
+      --bg-hover: #334155;
+      --text-primary: #f1f5f9;
+      --text-secondary: #cbd5e1;
+      --text-muted: #94a3b8;
+      --accent: #10b981;
+      --accent-glow: rgba(16, 185, 129, 0.2);
+      --accent-hover: #059669;
+      --accent-subtle: rgba(16, 185, 129, 0.1);
+      --warning: #f59e0b;
+      --danger: #ef4444;
+      --info: #3b82f6;
+      --border: #334155;
+      --border-light: #475569;
+      --radius-sm: 6px;
+      --radius-md: 8px;
+      --radius-lg: 12px;
+      --radius-xl: 16px;
+      --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+      --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+      --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+      --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* Layout */
+    .app-container {
+      display: flex;
+      min-height: 100vh;
+    }
+
+    /* Sidebar Navigation */
+    .sidebar {
+      width: 280px;
+      background: var(--bg-secondary);
+      border-right: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      position: fixed;
+      height: 100vh;
+      z-index: 100;
+    }
+
+    .sidebar-header {
+      padding: 1.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .company-badge {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.75rem;
+      background: var(--bg-card);
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border);
+    }
+
+    .company-icon {
+      width: 40px;
+      height: 40px;
+      background: var(--accent-subtle);
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+    }
+
+    .company-info h3 {
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 0.125rem;
+    }
+
+    .company-info p {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    .nav-section {
+      padding: 1rem;
+      flex: 1;
+      overflow-y: auto;
+    }
+
+    .nav-label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+      padding: 0.5rem 0.75rem;
+      margin-bottom: 0.25rem;
+    }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.75rem;
+      margin-bottom: 0.25rem;
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      transition: all 0.2s;
+      border: 1px solid transparent;
+    }
+
+    .nav-item:hover {
+      background: var(--bg-hover);
+      border-color: var(--border-light);
+    }
+
+    .nav-item.active {
+      background: var(--accent-subtle);
+      border-color: var(--accent);
+    }
+
+    .nav-item-icon {
+      font-size: 1.25rem;
+      width: 24px;
+      text-align: center;
+    }
+
+    .nav-item-content {
+      flex: 1;
+    }
+
+    .nav-item-title {
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 0.125rem;
+    }
+
+    .nav-item.active .nav-item-title {
+      color: var(--accent);
+    }
+
+    .nav-item-subtitle {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    .nav-badge {
+      padding: 0.125rem 0.5rem;
+      background: var(--accent);
+      color: var(--bg-primary);
+      font-size: 0.625rem;
+      font-weight: 700;
+      border-radius: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .sidebar-footer {
+      padding: 1rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .demo-badge {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem;
+      background: var(--accent-subtle);
+      border: 1px solid var(--accent);
+      border-radius: var(--radius-md);
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+    }
+
+    .demo-badge-dot {
+      width: 8px;
+      height: 8px;
+      background: var(--accent);
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+
+    /* Main Content */
+    .main-content {
+      flex: 1;
+      margin-left: 280px;
+    }
+
+    .content-header {
+      background: var(--bg-secondary);
+      border-bottom: 1px solid var(--border);
+      padding: 1.5rem 2rem;
+      position: sticky;
+      top: 0;
+      z-index: 90;
+    }
+
+    .header-breadcrumb {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-bottom: 0.5rem;
+    }
+
+    .header-title {
+      font-size: 1.75rem;
+      font-weight: 800;
+      color: var(--text-primary);
+      margin-bottom: 0.25rem;
+    }
+
+    .header-subtitle {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+    }
+
+    .content-body {
+      padding: 2rem;
+    }
+
+    /* Section Container */
+    .section-container {
+      display: none;
+      animation: fadeIn 0.3s ease-out;
+    }
+
+    .section-container.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Feature Grid */
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    /* Feature Card */
+    .feature-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+      transition: all 0.3s;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .feature-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: var(--accent);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .feature-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-xl), 0 0 0 1px var(--accent-glow);
+    }
+
+    .feature-card:hover::before {
+      opacity: 1;
+    }
+
+    .feature-card-header {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .feature-icon {
+      width: 48px;
+      height: 48px;
+      background: var(--accent-subtle);
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      flex-shrink: 0;
+    }
+
+    .feature-card-content {
+      flex: 1;
+    }
+
+    .feature-title {
+      font-size: 1.125rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 0.5rem;
+    }
+
+    .feature-description {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    .feature-badge {
+      display: inline-block;
+      padding: 0.25rem 0.625rem;
+      background: var(--accent-subtle);
+      color: var(--accent);
+      font-size: 0.625rem;
+      font-weight: 700;
+      border-radius: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-top: 0.75rem;
+    }
+
+    /* Detail Panel */
+    .detail-panel {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    .detail-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1.5rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .detail-title {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--text-primary);
+    }
+
+    .status-indicator {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 1rem;
+      background: var(--accent-subtle);
+      border: 1px solid var(--accent);
+      border-radius: var(--radius-md);
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--accent);
+    }
+
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      background: var(--accent);
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+
+    /* Interactive Elements */
+    .interactive-demo {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+      margin-top: 1.5rem;
+    }
+
+    .demo-controls {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .demo-button {
+      padding: 0.75rem 1.5rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      color: var(--text-secondary);
+      font-size: 0.875rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .demo-button:hover {
+      background: var(--bg-hover);
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    .demo-button.active {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: var(--bg-primary);
+    }
+
+    /* Stats Grid */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .stat-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1.25rem;
+      text-align: center;
+    }
+
+    .stat-value {
+      font-size: 2.5rem;
+      font-weight: 900;
+      color: var(--accent);
+      font-variant-numeric: tabular-nums;
+      margin-bottom: 0.25rem;
+    }
+
+    .stat-label {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    /* Mobile Responsive */
+    @media (max-width: 1024px) {
+      .sidebar {
+        transform: translateX(-100%);
+        transition: transform 0.3s;
+      }
+
+      .sidebar.open {
+        transform: translateX(0);
+      }
+
+      .main-content {
+        margin-left: 0;
+      }
+
+      .feature-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Utility Classes */
+    .mb-1 { margin-bottom: 0.5rem; }
+    .mb-2 { margin-bottom: 1rem; }
+    .mb-3 { margin-bottom: 1.5rem; }
+    .mb-4 { margin-bottom: 2rem; }
+
+    .text-accent { color: var(--accent); }
+    .text-muted { color: var(--text-muted); }
+    .text-center { text-align: center; }
+
+    .font-mono { font-family: 'Courier New', monospace; }
+  </style>
+</head>
+<body>
+  <div class="app-container">
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <div class="company-badge">
+          <div class="company-icon">🏔️</div>
+          <div class="company-info">
+            <h3>Valley Rock & Gravel</h3>
+            <p>15 Trucks • 45 Employees</p>
+          </div>
+        </div>
+      </div>
+
+      <nav class="nav-section">
+        <div class="nav-label">System Overview</div>
+
+        <div class="nav-item active" data-section="ticketing">
+          <span class="nav-item-icon">📋</span>
+          <div class="nav-item-content">
+            <div class="nav-item-title">Digital Ticketing</div>
+            <div class="nav-item-subtitle">Offline-first tablet system</div>
+          </div>
+          <span class="nav-badge">New</span>
+        </div>
+
+        <div class="nav-item" data-section="dispatcher">
+          <span class="nav-item-icon">🎯</span>
+          <div class="nav-item-content">
+            <div class="nav-item-title">Dispatcher Dashboard</div>
+            <div class="nav-item-subtitle">Real-time fleet tracking</div>
+          </div>
+        </div>
+
+        <div class="nav-item" data-section="driver">
+          <span class="nav-item-icon">📱</span>
+          <div class="nav-item-content">
+            <div class="nav-item-title">Driver Mobile App</div>
+            <div class="nav-item-subtitle">BYOD ready</div>
+          </div>
+        </div>
+
+        <div class="nav-item" data-section="customer">
+          <span class="nav-item-icon">🏗️</span>
+          <div class="nav-item-content">
+            <div class="nav-item-title">Customer Portal</div>
+            <div class="nav-item-subtitle">Self-service ticketing</div>
+          </div>
+        </div>
+
+        <div class="nav-label" style="margin-top: 1.5rem;">Integration</div>
+
+        <div class="nav-item" data-section="quickbooks">
+          <span class="nav-item-icon">💚</span>
+          <div class="nav-item-content">
+            <div class="nav-item-title">QuickBooks Sync</div>
+            <div class="nav-item-subtitle">Review & approve workflow</div>
+          </div>
+        </div>
+      </nav>
+
+      <div class="sidebar-footer">
+        <div style="margin-bottom: 1rem; padding: 0.75rem; background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-md); font-size: 0.75rem;">
+          <div style="font-weight: 700; color: var(--accent); margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 0.05em;">✅ Best For</div>
+          <div style="color: var(--text-muted); line-height: 1.4;">Aggregate • Timber • Waste • Simple Fluids (Propane/Heating Oil)</div>
+          <div style="margin-top: 0.5rem; padding-top: 0.5rem; border-top: 1px solid var(--border); font-size: 0.7rem; color: var(--text-muted);">
+            <strong>Enterprise Add-Ons:</strong> Multi-stop routing, Full ELD integration
+          </div>
+        </div>
+
+        <div class="demo-badge">
+          <span class="demo-badge-dot"></span>
+          <span><strong>COMPREHENSIVE DEMO</strong> • Feature tour</span>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <!-- Content will be loaded dynamically -->
+      <div id="content-area"></div>
+    </main>
+  </div>
+
+  <script>
+    // Section data and content
+    const sections = {
+      ticketing: {
+        breadcrumb: 'System Overview',
+        title: 'Digital Ticketing',
+        subtitle: 'Offline-first tablet system that replaces paper tickets. Works in the pit with zero cell service.',
+        content: `
+          <div class="stats-grid">
+            <div class="stat-card">
+              <div class="stat-value">30s</div>
+              <div class="stat-label">Per Ticket (was 5+ min)</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-value">100%</div>
+              <div class="stat-label">Captured (Zero Lost)</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-value">2.5 hrs</div>
+              <div class="stat-label">Time Saved Daily</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-value">$26K</div>
+              <div class="stat-label">Annual Savings</div>
+            </div>
+          </div>
+
+          <div class="feature-grid">
+            <div class="feature-card">
+              <div class="feature-card-header">
+                <div class="feature-icon">📡</div>
+                <div class="feature-card-content">
+                  <h3 class="feature-title">Offline-First Architecture</h3>
+                  <p class="feature-description">
+                    Tablets work independently with zero internet. Create tickets, capture signatures, print receipts.
+                    Syncs automatically when connection returns. Designed for quarries and rural routes.
+                  </p>
+                  <span class="feature-badge">Beaver Pumice Feature</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="feature-card">
+              <div class="feature-card-header">
+                <div class="feature-icon">⚖️</div>
+                <div class="feature-card-content">
+                  <h3 class="feature-title">Configurable Units</h3>
+                  <p class="feature-description">
+                    Tons, Gallons, Barrels, Pallets, or Cubic Yards. Auto-converts between units.
+                    No more manual calculator math. Works for aggregate, propane, septic, or grain.
+                  </p>
+                  <span class="feature-badge">Multi-Industry</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="feature-card">
+              <div class="feature-card-header">
+                <div class="feature-icon">✍️</div>
+                <div class="feature-card-content">
+                  <h3 class="feature-title">Digital Signature Capture</h3>
+                  <p class="feature-description">
+                    Customer signs on screen. Instant PDF generation. Email or print on-site.
+                    Legal proof of delivery. Eliminates "he said, she said" billing disputes.
+                  </p>
+                  <span class="feature-badge">Dispute Prevention</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="feature-card">
+              <div class="feature-card-header">
+                <div class="feature-icon">📸</div>
+                <div class="feature-card-content">
+                  <h3 class="feature-title">Photo Documentation</h3>
+                  <p class="feature-description">
+                    Attach site photos to tickets. Scale weight displays, delivery conditions, or damage.
+                    Critical for septic and waste haulers. Photos sync with ticket data.
+                  </p>
+                  <span class="feature-badge">High-Value Add</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="feature-card">
+              <div class="feature-card-header">
+                <div class="feature-icon">🏷️</div>
+                <div class="feature-card-content">
+                  <h3 class="feature-title">Custom Field Configuration</h3>
+                  <p class="feature-description">
+                    Add Job Codes, Phase Numbers, Cost Centers, PO Numbers. Nested dropdowns: Customer → Job → Phase.
+                    Perfect for construction haulers tracking multiple projects.
+                  </p>
+                  <span class="feature-badge">Construction Ready</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="feature-card">
+              <div class="feature-card-header">
+                <div class="feature-icon">🖨️</div>
+                <div class="feature-card-content">
+                  <h3 class="feature-title">Instant Receipt Printing</h3>
+                  <p class="feature-description">
+                    Wireless receipt printer in truck cab. Customer gets copy immediately.
+                    No more "I'll mail it later." Professional presentation at delivery site.
+                  </p>
+                  <span class="feature-badge">Professional Touch</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="feature-card">
+              <div class="feature-card-header">
+                <div class="feature-icon">⚠️</div>
+                <div class="feature-card-content">
+                  <h3 class="feature-title">Hazmat/DOT Compliance Notes</h3>
+                  <p class="feature-description">
+                    Add regulatory declarations: UN numbers, Hazmat class, gallonage. Prints bold on PDF for DOT inspections.
+                    Critical for fuel oil, propane, brine, and oilfield haulers. Avoid $10K fines.
+                  </p>
+                  <span class="feature-badge">DOT Compliant</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="feature-card">
+              <div class="feature-card-header">
+                <div class="feature-icon">✓</div>
+                <div class="feature-card-content">
+                  <h3 class="feature-title">Mandatory Fields Enforcement</h3>
+                  <p class="feature-description">
+                    Make photos or signatures required. Driver cannot submit ticket without completing mandatory fields.
+                    Perfect for waste haulers and dispute prevention. Admin configurable per ticket type.
+                  </p>
+                  <span class="feature-badge">Dispute Prevention</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="detail-panel">
+            <div class="detail-header">
+              <h3 class="detail-title">Live Ticket Creation Flow</h3>
+              <div class="status-indicator">
+                <span class="status-dot"></span>
+                <span>INTERACTIVE DEMO</span>
+              </div>
+            </div>
+
+            <div class="interactive-demo">
+              <div class="demo-controls">
+                <button class="demo-button active" data-step="1">1. Select Customer</button>
+                <button class="demo-button" data-step="2">2. Material & Quantity</button>
+                <button class="demo-button" data-step="3">3. Signature & Print</button>
+              </div>
+
+              <div id="demo-content" style="background: var(--bg-primary); border-radius: var(--radius-md); padding: 2rem; min-height: 300px; display: flex; align-items: center; justify-content: center; color: var(--text-muted);">
+                <div style="text-align: center;">
+                  <div style="font-size: 3rem; margin-bottom: 1rem;">📋</div>
+                  <p style="font-size: 1.125rem; margin-bottom: 0.5rem;">Step 1: Customer Selection</p>
+                  <p style="font-size: 0.875rem;">Tap to select from pre-loaded customer list. No typing required.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        `
+      },
+      dispatcher: {
+        breadcrumb: 'System Overview',
+        title: 'Dispatcher Dashboard',
+        subtitle: 'Real-time fleet tracking and load management. See all trucks at a glance.',
+        content: `
+          <div class="stats-grid">
+            <div class="stat-card">
+              <div class="stat-value">12/15</div>
+              <div class="stat-label">Trucks Active</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-value">$24,580.00</div>
+              <div class="stat-label">Revenue Today</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-value">387</div>
+              <div class="stat-label">Tons Delivered</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-value">8.5/11</div>
+              <div class="stat-label">Driver A Hours (HOS)</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-value">0</div>
+              <div class="stat-label">Lost Tickets</div>
+            </div>
+          </div>
+
+          <div class="feature-grid">
+            <div class="feature-card">
+              <div class="feature-card-header">
+                <div class="feature-icon">🗺️</div>
+                <div class="feature-card-content">
+                  <h3 class="feature-title">Live Fleet Map</h3>
+                  <p class="feature-description">
+                    See truck locations updating in real-time. Color-coded by status: loading, in-transit, completed.
+                    Click any truck for details. No more calling drivers "Where are you?"
+                  </p>
+                  <span class="feature-badge">Real-Time GPS</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="feature-card">
+              <div class="feature-card-header">
+                <div class="feature-icon">📊</div>
+                <div class="feature-card-content">
+                  <h3 class="feature-title">Revenue Dashboard</h3>
+                  <p class="feature-description">
+                    See daily revenue update as loads complete. Compare to yesterday, last week, same day last year.
+                    Export reports for management. Paper vs. Digital comparison chart.
+                  </p>
+                  <span class="feature-badge">CFO Favorite</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="feature-card">
+              <div class="feature-card-header">
+                <div class="feature-icon">⏱️</div>
+                <div class="feature-card-content">
+                  <h3 class="feature-title">Load Time Analytics</h3>
+                  <p class="feature-description">
+                    Track average time per load. Identify bottlenecks. See which quarries load fastest.
+                    Which customers delay trucks? Data-driven dispatch decisions.
+                  </p>
+                  <span class="feature-badge">Optimization</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="feature-card">
+              <div class="feature-card-header">
+                <div class="feature-icon">🔍</div>
+                <div class="feature-card-content">
+                  <h3 class="feature-title">Instant Ticket Search</h3>
+                  <p class="feature-description">
+                    Customer calls about delivery 3 weeks ago? Search by name, date, driver, or ticket number.
+                    Find it in 5 seconds. No more digging through file cabinets.
+                  </p>
+                  <span class="feature-badge">Time Saver</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="feature-card">
+              <div class="feature-card-header">
+                <div class="feature-icon">🚨</div>
+                <div class="feature-card-content">
+                  <h3 class="feature-title">Smart Alerts</h3>
+                  <p class="feature-description">
+                    Truck stopped longer than expected? Get notified. Low inventory alert. Maintenance due.
+                    Driver hasn't submitted ticket in 2+ hours? System reminds them.
+                  </p>
+                  <span class="feature-badge">Proactive</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="feature-card">
+              <div class="feature-card-header">
+                <div class="feature-icon">📈</div>
+                <div class="feature-card-content">
+                  <h3 class="feature-title">Driver Performance Metrics</h3>
+                  <p class="feature-description">
+                    Loads per day per driver. On-time delivery rate. Ticket accuracy.
+                    Not for punishment - for recognizing top performers and coaching.
+                  </p>
+                  <span class="feature-badge">Team Management</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="feature-card">
+              <div class="feature-card-header">
+                <div class="feature-icon">⏰</div>
+                <div class="feature-card-content">
+                  <h3 class="feature-title">Hours of Service (HOS) Tracking</h3>
+                  <p class="feature-description">
+                    See driver hours at a glance: "8.5 / 11 hrs available." Yellow/red alerts before DOT violations.
+                    Integrates with Samsara, Geotab ELDs via API. Tracks time-on-site for billing and compliance.
+                  </p>
+                  <span class="feature-badge">Union & DOT Compliant</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="detail-panel">
+            <div class="detail-header">
+              <h3 class="detail-title">Active Loads - Live View</h3>
+              <div class="status-indicator">
+                <span class="status-dot"></span>
+                <span>UPDATING EVERY 30s</span>
+              </div>
+            </div>
+
+            <div class="interactive-demo" style="background: var(--bg-primary); padding: 2rem;">
+              <div style="display: grid; gap: 1rem;">
+                ${[1, 2, 3, 4].map(i => `
+                  <div style="background: var(--bg-card); border: 1px solid var(--border); border-left: 4px solid var(--accent); border-radius: var(--radius-md); padding: 1rem; display: flex; justify-content: space-between; align-items: center;">
+                    <div>
+                      <div style="font-weight: 700; margin-bottom: 0.25rem;">Truck #${i * 3} - Driver ${String.fromCharCode(64 + i)}</div>
+                      <div style="font-size: 0.875rem; color: var(--text-muted);">Mountain View Construction • 18 tons Gravel 3/4"</div>
+                    </div>
+                    <div style="text-align: right;">
+                      <div style="font-size: 0.75rem; padding: 0.25rem 0.75rem; background: var(--accent-subtle); color: var(--accent); border-radius: 1rem; font-weight: 600; text-transform: uppercase; margin-bottom: 0.25rem;">In Transit</div>
+                      <div style="font-size: 0.875rem; color: var(--text-muted);">$810 revenue</div>
+                    </div>
+                  </div>
+                `).join('')}
+              </div>
+            </div>
+          </div>
+        `
+      },
+      driver: {
+        breadcrumb: 'System Overview',
+        title: 'Driver Mobile App',
+        subtitle: 'Simple interface for company drivers and sub-contractors. BYOD ready - no app download required.',
+        content: `
+          <div class="stats-grid">
+            <div class="stat-card">
+              <div class="stat-value">30 sec</div>
+              <div class="stat-label">Training Time</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-value">Works</div>
+              <div class="stat-label">With Gloves On</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-value">Zero</div>
+              <div class="stat-label">App Downloads</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-value">100%</div>
+              <div class="stat-label">Offline Capable</div>
+            </div>
+          </div>
+
+          <div class="feature-grid">
+            <div class="feature-card">
+              <div class="feature-card-header">
+                <div class="feature-icon">📲</div>
+                <div class="feature-card-content">
+                  <h3 class="feature-title">BYOD - Bring Your Own Device</h3>
+                  <p class="feature-description">
+                    Text secure link to sub-contractor's personal phone. They click and start ticketing.
+                    No app store. No account creation. Perfect for dirt brokers hiring daily.
+                  </p>
+                  <span class="feature-badge">Contractor Ready</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="feature-card">
+              <div class="feature-card-header">
+                <div class="feature-icon">👆</div>
+                <div class="feature-card-content">
+                  <h3 class="feature-title">Big Buttons Interface</h3>
+                  <p class="feature-description">
+                    Designed for dusty hands, gloves, and bright sunlight. High contrast. Large tap targets.
+                    Minimal typing - mostly dropdowns and buttons. Easier than a GPS.
+                  </p>
+                  <span class="feature-badge">Field-Tested</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="feature-card">
+              <div class="feature-card-header">
+                <div class="feature-icon">🗺️</div>
+                <div class="feature-card-content">
+                  <h3 class="feature-title">Turn-by-Turn Navigation</h3>
+                  <p class="feature-description">
+                    Tap customer name → Get directions. Integrates with Google Maps or Apple Maps.
+                    No more calling dispatch for addresses. Especially helpful for new drivers.
+                  </p>
+                  <span class="feature-badge">Driver Favorite</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="feature-card">
+              <div class="feature-card-header">
+                <div class="feature-icon">📡</div>
+                <div class="feature-card-content">
+                  <h3 class="feature-title">Offline Queue System</h3>
+                  <p class="feature-description">
+                    Create 10 tickets in a dead zone. All saved locally. Drive back to the scale house.
+                    System auto-syncs in background. Driver never waits. Never loses work.
+                  </p>
+                  <span class="feature-badge">Rural Proof</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="feature-card">
+              <div class="feature-card-header">
+                <div class="feature-icon">💬</div>
+                <div class="feature-card-content">
+                  <h3 class="feature-title">Driver-Dispatch Messaging</h3>
+                  <p class="feature-description">
+                    Quick message buttons: "Running late", "Truck issue", "Customer not ready".
+                    Dispatch sees status instantly. No more phone tag while driving.
+                  </p>
+                  <span class="feature-badge">Safety Feature</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="feature-card">
+              <div class="feature-card-header">
+                <div class="feature-icon">🌐</div>
+                <div class="feature-card-content">
+                  <h3 class="feature-title">Multi-Language Support</h3>
+                  <p class="feature-description">
+                    English, Spanish, and custom options. Icons and colors supplement text.
+                    Works for crews where English isn't first language. Reduces errors.
+                  </p>
+                  <span class="feature-badge">Inclusive</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="feature-card">
+              <div class="feature-card-header">
+                <div class="feature-icon">🔒</div>
+                <div class="feature-card-content">
+                  <h3 class="feature-title">Instant Access Revocation</h3>
+                  <p class="feature-description">
+                    Dispatcher clicks "Deactivate Link" and contractor loses access immediately.
+                    No lingering permissions. Critical for brokers hiring daily. BYOD security without risk.
+                  </p>
+                  <span class="feature-badge">Contractor Security</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="detail-panel">
+            <div class="detail-header">
+              <h3 class="detail-title">Driver View - Mobile UI</h3>
+              <div class="status-indicator">
+                <span class="status-dot"></span>
+                <span>TOUCH-OPTIMIZED</span>
+              </div>
+            </div>
+
+            <div class="interactive-demo" style="background: linear-gradient(135deg, #1e3a8a 0%, #1e293b 100%); padding: 2rem; display: flex; justify-content: center;">
+              <div style="width: 375px; height: 667px; background: var(--bg-primary); border-radius: 2rem; border: 8px solid #1f2937; box-shadow: 0 20px 50px rgba(0,0,0,0.5); overflow: hidden;">
+                <!-- Phone mockup -->
+                <div style="padding: 1rem;">
+                  <div style="text-align: center; margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 1px solid var(--border);">
+                    <div style="font-size: 0.75rem; color: var(--text-muted); margin-bottom: 0.25rem;">Good morning,</div>
+                    <div style="font-size: 1.25rem; font-weight: 700;">Driver Mike</div>
+                    <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 0.25rem;">Truck #7 • 3 loads today</div>
+                  </div>
+
+                  <div style="background: var(--accent-subtle); border: 1px solid var(--accent); border-radius: var(--radius-md); padding: 1rem; margin-bottom: 1rem;">
+                    <div style="font-size: 0.875rem; font-weight: 600; color: var(--accent); margin-bottom: 0.5rem;">📡 Offline Mode Active</div>
+                    <div style="font-size: 0.75rem; color: var(--text-secondary);">Working without connection. Will sync automatically.</div>
+                  </div>
+
+                  <button style="width: 100%; padding: 1rem; background: var(--accent); border: none; border-radius: var(--radius-md); color: var(--bg-primary); font-size: 1rem; font-weight: 700; cursor: pointer; margin-bottom: 0.75rem;">
+                    ➕ Create New Ticket
+                  </button>
+
+                  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem;">
+                    <button style="padding: 0.875rem; background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-md); color: var(--text-secondary); font-size: 0.875rem; font-weight: 600; cursor: pointer;">
+                      📋 Today's Loads
+                    </button>
+                    <button style="padding: 0.875rem; background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-md); color: var(--text-secondary); font-size: 0.875rem; font-weight: 600; cursor: pointer;">
+                      🗺️ Navigation
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        `
+      },
+      customer: {
+        breadcrumb: 'System Overview',
+        title: 'Customer Portal',
+        subtitle: '24/7 self-service for your customers. Request loads online, view history, download tickets.',
+        content: `
+          <div class="stats-grid">
+            <div class="stat-card">
+              <div class="stat-value">60%</div>
+              <div class="stat-label">Fewer Phone Calls</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-value">24/7</div>
+              <div class="stat-label">Online Ordering</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-value">Instant</div>
+              <div class="stat-label">Ticket Downloads</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-value">$0</div>
+              <div class="stat-label">Setup Cost</div>
+            </div>
+          </div>
+
+          <div class="feature-grid">
+            <div class="feature-card">
+              <div class="feature-card-header">
+                <div class="feature-icon">🌙</div>
+                <div class="feature-card-content">
+                  <h3 class="feature-title">24/7 Load Requests</h3>
+                  <p class="feature-description">
+                    Customer submits load request at 9 PM. You see it in the morning. Confirm and schedule.
+                    No more missed calls. No more voicemail tag. Especially valuable for contractors.
+                  </p>
+                  <span class="feature-badge">Always Open</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="feature-card">
+              <div class="feature-card-header">
+                <div class="feature-icon">🔍</div>
+                <div class="feature-card-content">
+                  <h3 class="feature-title">Complete Delivery History</h3>
+                  <p class="feature-description">
+                    Customers log in and see every delivery. Date, material, tons, driver, ticket PDF.
+                    Construction companies love this for job costing and billing their clients.
+                  </p>
+                  <span class="feature-badge">Contractor Value</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="feature-card">
+              <div class="feature-card-header">
+                <div class="feature-icon">📄</div>
+                <div class="feature-card-content">
+                  <h3 class="feature-title">Self-Service Ticket Downloads</h3>
+                  <p class="feature-description">
+                    Customer calls: "I need a copy of last Tuesday's ticket." You say: "Check your portal."
+                    They download it themselves. Saves you 15 minutes. Happens 5+ times per week.
+                  </p>
+                  <span class="feature-badge">Time Saver</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="feature-card">
+              <div class="feature-card-header">
+                <div class="feature-icon">🚛</div>
+                <div class="feature-card-content">
+                  <h3 class="feature-title">Real-Time Delivery Tracking</h3>
+                  <p class="feature-description">
+                    Customer sees "Truck en route - ETA 2:30 PM". Job site supervisor can plan.
+                    No more "Is my load coming today?" calls. Transparency builds trust.
+                  </p>
+                  <span class="feature-badge">Customer Favorite</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="feature-card">
+              <div class="feature-card-header">
+                <div class="feature-icon">💳</div>
+                <div class="feature-card-content">
+                  <h3 class="feature-title">Invoice & Payment History</h3>
+                  <p class="feature-description">
+                    Integrated with QuickBooks. Customers see open invoices, payment history, account balance.
+                    Optional: Accept payments online. Accelerates cash flow.
+                  </p>
+                  <span class="feature-badge">Cash Flow</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="feature-card">
+              <div class="feature-card-header">
+                <div class="feature-icon">📊</div>
+                <div class="feature-card-content">
+                  <h3 class="feature-title">Usage Reports & Analytics</h3>
+                  <p class="feature-description">
+                    Customers export their delivery data to Excel. Tonnage by month, spend by material type.
+                    Helps them with budgeting. Makes you look professional and tech-forward.
+                  </p>
+                  <span class="feature-badge">Professional Touch</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="detail-panel">
+            <div class="detail-header">
+              <h3 class="detail-title">Customer Portal Preview</h3>
+              <div class="status-indicator">
+                <span class="status-dot"></span>
+                <span>LIVE INTERFACE</span>
+              </div>
+            </div>
+
+            <div class="interactive-demo" style="background: var(--bg-primary); padding: 2rem;">
+              <div style="background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); overflow: hidden;">
+                <!-- Portal header -->
+                <div style="background: var(--bg-secondary); padding: 1rem 1.5rem; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center;">
+                  <div>
+                    <div style="font-size: 0.75rem; color: var(--text-muted);">Welcome back,</div>
+                    <div style="font-size: 1.125rem; font-weight: 700;">Mountain View Construction</div>
+                  </div>
+                  <div style="text-align: right;">
+                    <div style="font-size: 0.75rem; color: var(--text-muted);">Account Balance</div>
+                    <div style="font-size: 1.25rem; font-weight: 700; color: var(--accent);">$0.00</div>
+                  </div>
+                </div>
+
+                <!-- Quick actions -->
+                <div style="padding: 1.5rem; display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem;">
+                  <div style="background: var(--accent-subtle); border: 1px solid var(--accent); border-radius: var(--radius-md); padding: 1rem; text-align: center; cursor: pointer;">
+                    <div style="font-size: 2rem; margin-bottom: 0.5rem;">➕</div>
+                    <div style="font-size: 0.875rem; font-weight: 600; color: var(--accent);">Request Load</div>
+                  </div>
+                  <div style="background: var(--bg-secondary); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 1rem; text-align: center; cursor: pointer;">
+                    <div style="font-size: 2rem; margin-bottom: 0.5rem;">📋</div>
+                    <div style="font-size: 0.875rem; font-weight: 600;">View Tickets</div>
+                  </div>
+                  <div style="background: var(--bg-secondary); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 1rem; text-align: center; cursor: pointer;">
+                    <div style="font-size: 2rem; margin-bottom: 0.5rem;">📊</div>
+                    <div style="font-size: 0.875rem; font-weight: 600;">Reports</div>
+                  </div>
+                </div>
+
+                <!-- Recent deliveries -->
+                <div style="padding: 0 1.5rem 1.5rem;">
+                  <div style="font-size: 0.875rem; font-weight: 600; color: var(--text-muted); margin-bottom: 1rem; text-transform: uppercase; letter-spacing: 0.05em;">Recent Deliveries</div>
+                  ${[1, 2, 3].map(i => `
+                    <div style="background: var(--bg-secondary); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 1rem; margin-bottom: 0.75rem; display: flex; justify-content: space-between; align-items: center;">
+                      <div>
+                        <div style="font-weight: 600; margin-bottom: 0.25rem;">Gravel 3/4" - 18 tons</div>
+                        <div style="font-size: 0.75rem; color: var(--text-muted);">Today at ${10 + i}:${30 + i * 5} AM • Truck #${i * 2}</div>
+                      </div>
+                      <button style="padding: 0.5rem 1rem; background: var(--accent); border: none; border-radius: var(--radius-md); color: var(--bg-primary); font-size: 0.75rem; font-weight: 600; cursor: pointer;">
+                        Download PDF
+                      </button>
+                    </div>
+                  `).join('')}
+                </div>
+              </div>
+            </div>
+          </div>
+        `
+      },
+      quickbooks: {
+        breadcrumb: 'Integration',
+        title: 'QuickBooks Sync',
+        subtitle: 'Review & approve workflow. You control the books. Auto-sync with class tracking and pricing rules.',
+        content: `
+          <div class="stats-grid">
+            <div class="stat-card">
+              <div class="stat-value">1-Click</div>
+              <div class="stat-label">Sync to QB</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-value">100%</div>
+              <div class="stat-label">Your Control</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-value">Zero</div>
+              <div class="stat-label">Manual Entry</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-value">Same Day</div>
+              <div class="stat-label">Invoicing</div>
+            </div>
+          </div>
+
+          <div class="feature-grid">
+            <div class="feature-card">
+              <div class="feature-card-header">
+                <div class="feature-icon">✅</div>
+                <div class="feature-card-content">
+                  <h3 class="feature-title">Review Queue System</h3>
+                  <p class="feature-description">
+                    Drivers create tickets. You see review queue. Check quantities, verify customers, apply pricing.
+                    Click "Approve & Sync." That's it. You stay gatekeeper. No surprises in QuickBooks.
+                  </p>
+                  <span class="feature-badge">Office Manager Favorite</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="feature-card">
+              <div class="feature-card-header">
+                <div class="feature-icon">🏷️</div>
+                <div class="feature-card-content">
+                  <h3 class="feature-title">Class Tracking Automation</h3>
+                  <p class="feature-description">
+                    Map trucks to QB Classes. Truck #7 ticket → Auto-tagged "Class: Truck 7" in QuickBooks.
+                    Track profit/loss by truck, by driver, by material type. Set it once, works forever.
+                  </p>
+                  <span class="feature-badge">CFO Dream</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="feature-card">
+              <div class="feature-card-header">
+                <div class="feature-icon">💰</div>
+                <div class="feature-card-content">
+                  <h3 class="feature-title">Dynamic Pricing Rules</h3>
+                  <p class="feature-description">
+                    Smith Construction gets 5% off gravel, but not sand. Configure rules in system.
+                    System applies automatically. Driver never sees pricing. No more pricing errors.
+                  </p>
+                  <span class="feature-badge">Beaver Pumice Feature</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="feature-card">
+              <div class="feature-card-header">
+                <div class="feature-icon">🔗</div>
+                <div class="feature-card-content">
+                  <h3 class="feature-title">Customer Matching</h3>
+                  <p class="feature-description">
+                    System matches ticket customer to QB customer. Handles slight variations automatically.
+                    "Mountain View" matches "Mountain View Construction LLC." Flags true mismatches for review.
+                  </p>
+                  <span class="feature-badge">Smart Matching</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="feature-card">
+              <div class="feature-card-header">
+                <div class="feature-icon">📊</div>
+                <div class="feature-card-content">
+                  <h3 class="feature-title">Sales Receipt or Invoice</h3>
+                  <p class="feature-description">
+                    Configure per customer: Cash customers → Sales Receipt. Terms customers → Invoice.
+                    System creates the right QB transaction type. Matches your existing workflow.
+                  </p>
+                  <span class="feature-badge">Flexible</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="feature-card">
+              <div class="feature-card-header">
+                <div class="feature-icon">🔄</div>
+                <div class="feature-card-content">
+                  <h3 class="feature-title">Batch Sync</h3>
+                  <p class="feature-description">
+                    End of day: 80 tickets waiting. Review all at once. Approve batch. System syncs all 80 in background.
+                    You go home at 5 PM instead of 7 PM. Linda's carpal tunnel thanks you.
+                  </p>
+                  <span class="feature-badge">Time Saver</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="feature-card">
+              <div class="feature-card-header">
+                <div class="feature-icon">📧</div>
+                <div class="feature-card-content">
+                  <h3 class="feature-title">Flexible Billing Frequency</h3>
+                  <p class="feature-description">
+                    Toggle: "Send Invoice Immediately" or "Create as Pending." Perfect for bundled weekly statements.
+                    Approve tickets to QB but hold emails until Friday. Matches your existing customer billing schedule.
+                  </p>
+                  <span class="feature-badge">Billing Control</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="detail-panel">
+            <div class="detail-header">
+              <h3 class="detail-title">Review & Approve Workflow</h3>
+              <div class="status-indicator">
+                <span class="status-dot"></span>
+                <span>15 TICKETS PENDING</span>
+              </div>
+            </div>
+
+            <div class="interactive-demo" style="background: var(--bg-primary); padding: 2rem;">
+              <div style="background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); overflow: hidden;">
+                <!-- Queue header -->
+                <div style="background: var(--bg-secondary); padding: 1rem 1.5rem; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center;">
+                  <div>
+                    <div style="font-size: 1.125rem; font-weight: 700;">QuickBooks Review Queue</div>
+                    <div style="font-size: 0.75rem; color: var(--text-muted);">Review and approve tickets before syncing</div>
+                  </div>
+                  <button style="padding: 0.75rem 1.5rem; background: var(--accent); border: none; border-radius: var(--radius-md); color: var(--bg-primary); font-size: 0.875rem; font-weight: 700; cursor: pointer;">
+                    ✓ Approve All (15)
+                  </button>
+                </div>
+
+                <!-- Pending tickets -->
+                <div style="padding: 1.5rem;">
+                  ${[1, 2, 3].map(i => `
+                    <div style="background: var(--bg-secondary); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 1.25rem; margin-bottom: 1rem;">
+                      <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 0.75rem;">
+                        <div>
+                          <div style="font-weight: 700; margin-bottom: 0.25rem;">TK-${1000 + i} • Mountain View Construction</div>
+                          <div style="font-size: 0.875rem; color: var(--text-muted);">Truck #${i * 2} • Driver ${String.fromCharCode(64 + i)} • Today ${10 + i}:30 AM</div>
+                        </div>
+                        <div style="text-align: right;">
+                          <div style="font-size: 1.25rem; font-weight: 700; color: var(--accent);">$810.00</div>
+                          <div style="font-size: 0.75rem; color: var(--text-muted);">18 tons @ $45/ton</div>
+                        </div>
+                      </div>
+
+                      <div style="display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 0.75rem; padding-top: 0.75rem; border-top: 1px solid var(--border);">
+                        <div>
+                          <div style="font-size: 0.75rem; color: var(--text-muted); margin-bottom: 0.25rem;">Material</div>
+                          <div style="font-size: 0.875rem; font-weight: 600;">Gravel 3/4"</div>
+                        </div>
+                        <div>
+                          <div style="font-size: 0.75rem; color: var(--text-muted); margin-bottom: 0.25rem;">QB Class</div>
+                          <div style="font-size: 0.875rem; font-weight: 600;">Truck ${i * 2}</div>
+                        </div>
+                        <div style="display: flex; gap: 0.5rem; align-items: end; justify-content: end;">
+                          <button style="padding: 0.5rem 1rem; background: var(--danger); border: none; border-radius: var(--radius-md); color: white; font-size: 0.75rem; font-weight: 600; cursor: pointer;">
+                            Reject
+                          </button>
+                          <button style="padding: 0.5rem 1rem; background: var(--accent); border: none; border-radius: var(--radius-md); color: var(--bg-primary); font-size: 0.75rem; font-weight: 600; cursor: pointer;">
+                            ✓ Approve
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  `).join('')}
+                </div>
+              </div>
+            </div>
+          </div>
+        `
+      }
+    };
+
+    // Navigation functionality
+    function loadSection(sectionId) {
+      const section = sections[sectionId];
+      if (!section) return;
+
+      // Update nav items
+      document.querySelectorAll('.nav-item').forEach(item => {
+        item.classList.remove('active');
+      });
+      document.querySelector(`[data-section="${sectionId}"]`).classList.add('active');
+
+      // Update content
+      const contentArea = document.getElementById('content-area');
+      contentArea.innerHTML = `
+        <div class="content-header">
+          <div class="header-breadcrumb">
+            <span>${section.breadcrumb}</span>
+            <span>›</span>
+            <span>${section.title}</span>
+          </div>
+          <h1 class="header-title">${section.title}</h1>
+          <p class="header-subtitle">${section.subtitle}</p>
+        </div>
+        <div class="content-body">
+          <div class="section-container active">
+            ${section.content}
+          </div>
+        </div>
+      `;
+
+      // Scroll to top
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Initialize
+    document.addEventListener('DOMContentLoaded', () => {
+      // Load initial section
+      loadSection('ticketing');
+
+      // Add click handlers to nav items
+      document.querySelectorAll('.nav-item').forEach(item => {
+        item.addEventListener('click', () => {
+          const sectionId = item.getAttribute('data-section');
+          loadSection(sectionId);
+        });
+      });
+
+      // Demo button interactions
+      document.addEventListener('click', (e) => {
+        if (e.target.classList.contains('demo-button')) {
+          // Remove active from all demo buttons in the same group
+          const parent = e.target.closest('.demo-controls');
+          if (parent) {
+            parent.querySelectorAll('.demo-button').forEach(btn => {
+              btn.classList.remove('active');
+            });
+            e.target.classList.add('active');
+
+            // Update demo content based on step
+            const step = e.target.getAttribute('data-step');
+            const demoContent = document.getElementById('demo-content');
+            if (demoContent) {
+              const steps = {
+                '1': { icon: '📋', title: 'Step 1: Customer Selection', desc: 'Tap to select from pre-loaded customer list. No typing required.' },
+                '2': { icon: '⚖️', title: 'Step 2: Material & Quantity', desc: 'Select material, enter weight. Auto-converts units. Calculate total.' },
+                '3': { icon: '✍️', title: 'Step 3: Signature & Print', desc: 'Customer signs on screen. PDF generated. Print or email receipt.' }
+              };
+              const stepData = steps[step];
+              demoContent.innerHTML = `
+                <div style="text-align: center;">
+                  <div style="font-size: 3rem; margin-bottom: 1rem;">${stepData.icon}</div>
+                  <p style="font-size: 1.125rem; margin-bottom: 0.5rem;">${stepData.title}</p>
+                  <p style="font-size: 0.875rem;">${stepData.desc}</p>
+                </div>
+              `;
+            }
+          }
+        }
+      });
+    });
+  </script>
+</body>
+</html>
