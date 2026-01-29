@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Free Construction Material Portal Demo - ResultantAI</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      line-height: 1.6;
+      color: #1a1a1a;
+      background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 40px auto;
+      background: white;
+      border-radius: 20px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+      overflow: hidden;
+    }
+
+    .header {
+      background: linear-gradient(135deg, #1e40af 0%, #1e3a8a 100%);
+      color: white;
+      padding: 60px 40px;
+      text-align: center;
+      position: relative;
+    }
+
+    .header:before {
+      content: "🚧";
+      position: absolute;
+      top: 20px;
+      left: 30px;
+      font-size: 4em;
+      opacity: 0.2;
+    }
+
+    .header:after {
+      content: "📱";
+      position: absolute;
+      bottom: 20px;
+      right: 30px;
+      font-size: 4em;
+      opacity: 0.2;
+    }
+
+    .header h1 {
+      font-size: 2.8em;
+      margin-bottom: 20px;
+      font-weight: 700;
+    }
+
+    .header .subtitle {
+      font-size: 1.4em;
+      opacity: 0.95;
+      margin-bottom: 30px;
+      line-height: 1.5;
+    }
+
+    .badge {
+      display: inline-block;
+      background: rgba(255,255,255,0.25);
+      padding: 10px 24px;
+      border-radius: 30px;
+      font-size: 1em;
+      font-weight: 600;
+      margin-top: 15px;
+    }
+
+    .content {
+      padding: 60px 40px;
+    }
+
+    .demo-preview {
+      background: linear-gradient(135deg, #f8fafc 0%, #e0e7ff 100%);
+      padding: 50px;
+      border-radius: 16px;
+      margin-bottom: 50px;
+      text-align: center;
+    }
+
+    .demo-preview h2 {
+      color: #1e3a8a;
+      margin-bottom: 30px;
+      font-size: 2em;
+    }
+
+    .demo-screenshot {
+      max-width: 800px;
+      margin: 0 auto 30px;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+      background: white;
+      padding: 20px;
+    }
+
+    .demo-screenshot img {
+      width: 100%;
+      border-radius: 8px;
+    }
+
+    .demo-placeholder {
+      background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+      color: white;
+      padding: 100px 40px;
+      border-radius: 8px;
+      font-size: 1.2em;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 25px;
+      margin-bottom: 50px;
+    }
+
+    .feature-card {
+      background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+      padding: 30px;
+      border-radius: 12px;
+      border-left: 4px solid #f59e0b;
+    }
+
+    .feature-card .icon {
+      font-size: 2.5em;
+      margin-bottom: 15px;
+    }
+
+    .feature-card h3 {
+      color: #92400e;
+      margin-bottom: 12px;
+      font-size: 1.3em;
+    }
+
+    .feature-card p {
+      color: #78350f;
+      line-height: 1.6;
+    }
+
+    .form-section {
+      background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+      padding: 50px;
+      border-radius: 16px;
+      margin-bottom: 50px;
+      border: 3px solid #93c5fd;
+    }
+
+    .form-section h2 {
+      text-align: center;
+      margin-bottom: 15px;
+      color: #1e3a8a;
+      font-size: 2em;
+    }
+
+    .form-section .subheading {
+      text-align: center;
+      color: #475569;
+      margin-bottom: 35px;
+      font-size: 1.1em;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin-bottom: 20px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .form-group.full-width {
+      grid-column: 1 / -1;
+    }
+
+    label {
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: #334155;
+      font-size: 0.95em;
+    }
+
+    input, select, textarea {
+      padding: 14px;
+      border: 2px solid #e2e8f0;
+      border-radius: 8px;
+      font-size: 1em;
+      transition: border-color 0.3s;
+      font-family: inherit;
+      background: white;
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 80px;
+    }
+
+    input:focus, select:focus, textarea:focus {
+      outline: none;
+      border-color: #3b82f6;
+    }
+
+    .submit-btn {
+      background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
+      color: white;
+      padding: 20px 40px;
+      border: none;
+      border-radius: 8px;
+      font-size: 1.2em;
+      font-weight: 600;
+      cursor: pointer;
+      width: 100%;
+      transition: transform 0.3s, box-shadow 0.3s;
+      margin-top: 20px;
+    }
+
+    .submit-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(249, 115, 22, 0.4);
+    }
+
+    .benefits-list {
+      list-style: none;
+      margin-bottom: 50px;
+    }
+
+    .benefits-list li {
+      padding: 20px;
+      border-bottom: 2px solid #e2e8f0;
+      display: flex;
+      align-items: flex-start;
+      font-size: 1.1em;
+    }
+
+    .benefits-list li:before {
+      content: "✓";
+      display: inline-block;
+      width: 35px;
+      height: 35px;
+      background: #10b981;
+      color: white;
+      border-radius: 50%;
+      text-align: center;
+      line-height: 35px;
+      margin-right: 20px;
+      flex-shrink: 0;
+      font-weight: bold;
+      font-size: 1.2em;
+    }
+
+    .social-proof {
+      background: #f8fafc;
+      padding: 40px;
+      border-radius: 12px;
+      margin-bottom: 40px;
+    }
+
+    .social-proof h2 {
+      text-align: center;
+      margin-bottom: 30px;
+      color: #1e3a8a;
+    }
+
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 30px;
+      text-align: center;
+    }
+
+    .stat {
+      padding: 20px;
+    }
+
+    .stat-number {
+      font-size: 3em;
+      font-weight: 700;
+      color: #f97316;
+      display: block;
+      margin-bottom: 10px;
+    }
+
+    .stat-label {
+      color: #475569;
+      font-size: 0.95em;
+      line-height: 1.4;
+    }
+
+    @media (max-width: 768px) {
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .header h1 {
+        font-size: 2em;
+      }
+
+      .content {
+        padding: 40px 20px;
+      }
+
+      .demo-preview {
+        padding: 30px 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>🏗️ Custom Portal Demo for Construction Materials</h1>
+      <p class="subtitle">See How Digital Ticketing Transforms Your Operation<br>(Like We Built for Beaver Pumice)</p>
+      <span class="badge">FREE Interactive Demo • See It Work in 15 Minutes</span>
+    </div>
+
+    <div class="content">
+      <div class="demo-preview">
+        <h2>Experience Your Custom Portal</h2>
+        <div class="demo-screenshot">
+          <div class="demo-placeholder">
+            <p style="margin-bottom: 20px;">📱 <strong>Interactive Demo Preview</strong></p>
+            <p style="font-size: 0.9em; opacity: 0.9;">Tablet-optimized digital ticketing interface</p>
+            <p style="font-size: 0.9em; opacity: 0.9;">Real-time inventory tracking • Instant PDF generation</p>
+            <p style="font-size: 0.9em; opacity: 0.9;">QuickBooks sync • Customer portal access</p>
+          </div>
+        </div>
+        <p style="color: #475569; font-size: 1.05em; max-width: 700px; margin: 0 auto;">
+          We'll build you a <strong>working prototype</strong> in your call. Watch your exact workflow come to life—from tablet ticketing to automated invoicing.
+        </p>
+      </div>
+
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="icon">📱</div>
+          <h3>Tablet-First Design</h3>
+          <p>Drivers generate tickets on tablets at the job site. No paper, no office data entry, no delays.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="icon">📊</div>
+          <h3>Real-Time Inventory</h3>
+          <p>Track material levels across all locations. Automated low-stock alerts and reorder triggers.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="icon">💼</div>
+          <h3>Customer Portal</h3>
+          <p>Contractors log in to see delivery history, download invoices, and track order status 24/7.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="icon">💰</div>
+          <h3>QuickBooks Integration</h3>
+          <p>Tickets auto-sync to QuickBooks. End-of-day reconciliation takes minutes, not hours.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="icon">📧</div>
+          <h3>Automated Workflows</h3>
+          <p>Email tickets instantly to customers. Send weekly summaries. Alert on credit limits.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="icon">🔒</div>
+          <h3>Secure & Compliant</h3>
+          <p>SOC 2 hosting, encrypted data, role-based permissions. Your customers' data stays safe.</p>
+        </div>
+      </div>
+
+      <div class="form-section">
+        <h2>Get Your Custom Demo</h2>
+        <p class="subheading">15-minute video call • We'll build a working prototype during the session</p>
+        <form id="portalDemoForm">
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="firstName">First Name *</label>
+              <input type="text" id="firstName" name="firstName" required>
+            </div>
+
+            <div class="form-group">
+              <label for="lastName">Last Name *</label>
+              <input type="text" id="lastName" name="lastName" required>
+            </div>
+
+            <div class="form-group">
+              <label for="email">Work Email *</label>
+              <input type="email" id="email" name="email" required>
+            </div>
+
+            <div class="form-group">
+              <label for="phone">Phone Number *</label>
+              <input type="tel" id="phone" name="phone" required>
+            </div>
+
+            <div class="form-group full-width">
+              <label for="company">Company Name *</label>
+              <input type="text" id="company" name="company" required>
+            </div>
+
+            <div class="form-group">
+              <label for="materialType">Material Type</label>
+              <select id="materialType" name="materialType">
+                <option value="">Select...</option>
+                <option value="Pumice/Aggregates">Pumice/Aggregates</option>
+                <option value="Concrete/Ready-Mix">Concrete/Ready-Mix</option>
+                <option value="Sand & Gravel">Sand & Gravel</option>
+                <option value="Asphalt">Asphalt</option>
+                <option value="Lumber/Building Materials">Lumber/Building Materials</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="trucks">Number of Trucks</label>
+              <select id="trucks" name="trucks">
+                <option value="">Select...</option>
+                <option value="1-5">1-5 trucks</option>
+                <option value="6-10">6-10 trucks</option>
+                <option value="11-20">11-20 trucks</option>
+                <option value="21-50">21-50 trucks</option>
+                <option value="50+">50+ trucks</option>
+              </select>
+            </div>
+
+            <div class="form-group full-width">
+              <label for="currentProcess">How do you currently handle ticketing?</label>
+              <textarea id="currentProcess" name="currentProcess" placeholder="e.g., 'Paper tickets, drivers bring them back, office enters into QuickBooks'"></textarea>
+            </div>
+          </div>
+
+          <button type="submit" class="submit-btn">
+            📅 Book My Custom Demo
+          </button>
+
+          <p style="text-align: center; margin-top: 20px; color: #64748b; font-size: 0.9em;">
+            You'll receive a calendar invite within 1 hour. We'll build your prototype live on the call.
+          </p>
+        </form>
+      </div>
+
+      <h2 style="text-align: center; margin-bottom: 30px; color: #1e3a8a; font-size: 2em;">
+        What You'll See in Your Demo
+      </h2>
+
+      <ul class="benefits-list">
+        <li><strong>Your Exact Workflow</strong> - We'll replicate how your drivers currently create tickets, but 100% digital</li>
+        <li><strong>Real Tablet Interface</strong> - See the actual interface drivers will use (not mockups—the real thing)</li>
+        <li><strong>Live QuickBooks Sync</strong> - Watch a ticket generate and appear in QuickBooks in real-time</li>
+        <li><strong>Customer Portal Demo</strong> - See what your contractors will see when they log in</li>
+        <li><strong>Custom Pricing Setup</strong> - We'll configure your product catalog, pricing tiers, and tax rules during the call</li>
+        <li><strong>Mobile-First Design</strong> - Test it on your phone, iPad, or any tablet right in the demo</li>
+      </ul>
+
+      <div class="social-proof">
+        <h2>Real Results from Construction Material Operations</h2>
+
+        <div class="stats-row">
+          <div class="stat">
+            <span class="stat-number">90%</span>
+            <span class="stat-label">Reduction in data entry time</span>
+          </div>
+
+          <div class="stat">
+            <span class="stat-number">$38K</span>
+            <span class="stat-label">Average annual savings (10-20 truck operations)</span>
+          </div>
+
+          <div class="stat">
+            <span class="stat-number">2-3 Weeks</span>
+            <span class="stat-label">From demo to live deployment</span>
+          </div>
+
+          <div class="stat">
+            <span class="stat-number">24/7</span>
+            <span class="stat-label">Customer portal access</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById('portalDemoForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+
+      const formData = {
+        firstName: document.getElementById('firstName').value,
+        lastName: document.getElementById('lastName').value,
+        email: document.getElementById('email').value,
+        phone: document.getElementById('phone').value,
+        company: document.getElementById('company').value,
+        materialType: document.getElementById('materialType').value,
+        trucks: document.getElementById('trucks').value,
+        currentProcess: document.getElementById('currentProcess').value,
+        leadMagnet: 'Construction Portal Demo',
+        source: 'Lead Magnet Page'
+      };
+
+      // Submit to HubSpot
+      try {
+        const response = await fetch('https://api.hsforms.com/submissions/v3/integration/submit/YOUR_PORTAL_ID/YOUR_FORM_ID', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            fields: Object.keys(formData).map(key => ({
+              name: key,
+              value: formData[key]
+            }))
+          })
+        });
+
+        if (response.ok) {
+          window.location.href = '/thank-you-portal-demo.html';
+        }
+      } catch (error) {
+        console.error('Error:', error);
+        alert('Thank you! We\'ll send you a calendar invite within 1 hour.');
+      }
+    });
+  </script>
+</body>
+</html>
