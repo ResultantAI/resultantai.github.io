@@ -284,13 +284,32 @@
         }
 
         .footer {
-            margin-top: 64px;
-            padding-top: 32px;
-            border-top: 1px solid var(--border);
             text-align: center;
-            font-size: 14px;
+            margin-top: 60px;
+            padding-top: 24px;
+            border-top: 1px solid var(--border);
+        }
+
+        .footer-links a {
+            color: var(--accent);
+            text-decoration: none;
+            margin: 0 10px;
         }
     </style>
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-DY95GS9YX5"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-DY95GS9YX5');
+    </script>
+
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-WBGJ9J8X');</script>
 </head>
 <body>
     <div class="container">
@@ -775,26 +794,19 @@ console.log('Today:', {
 
         <p><strong>Questions? Found a bug in the code?</strong> Email me: <a href="mailto:chris@resultantai.com">chris@resultantai.com</a></p>
 
-        <div class="footer">
-            <p><strong>About the Author:</strong> Chris Mott builds AI automation systems for B2B service businesses. He specializes in cost optimization, Make.com workflows, and Airtable architectures.</p>
-            <p style="margin-top: 16px;">
-                <a href="/blog">← Back to Blog</a> |
-                <a href="/">ResultantAI Home</a> |
-                <a href="/contact-us">Work With Us</a>
-            </p>
-            <p style="margin-top: 24px; color: var(--text-muted); font-size: 13px;">
-                © 2026 ResultantAI. All rights reserved.
-            </p>
-        </div>
-    </div>
+        <p style="margin-top: 48px;">
+            <strong>Related:</strong> <a href="/blog/prevent-ai-bill-shock-makecom.html" style="color: var(--accent);">How to Prevent AI Bill Shock in Make.com</a>
+        </p>
+    </article>
 
-    <!-- Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-7NJXHKJQFX"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-7NJXHKJQFX');
-    </script>
+    <footer class="footer">
+        <p class="footer-links">
+            <a href="/">Home</a>
+            <a href="/blog">Blog</a>
+            <a href="/gateway">AI Gateway</a>
+            <a href="mailto:support@resultantai.com">Contact</a>
+        </p>
+    </footer>
+</div>
 </body>
 </html>
