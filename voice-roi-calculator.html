@@ -33,45 +33,88 @@
       // Point to Vercel API backend
       window.ROI_API_BASE = 'https://roi-calculator-orpin-ten.vercel.app';
     </script>
+
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+      }
+      /* Header styles */
+      .resultant-header {
+        background: #0f172a;
+        border-bottom: 1px solid rgba(51, 65, 85, 0.3);
+        padding: 20px 0;
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        backdrop-filter: blur(10px);
+      }
+      .resultant-header-inner {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 24px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .resultant-logo {
+        font-size: 24px;
+        font-weight: 800;
+        font-family: 'IBM Plex Sans', sans-serif;
+        color: #f1f5f9;
+      }
+      .resultant-logo span {
+        color: #f97316;
+      }
+      /* Footer styles */
+      .resultant-footer {
+        background: #0f172a;
+        border-top: 1px solid rgba(51, 65, 85, 0.3);
+        padding: 40px 20px 20px;
+        margin-top: 60px;
+        text-align: center;
+      }
+      .resultant-footer-brand {
+        font-size: 28px;
+        font-weight: 800;
+        font-family: 'IBM Plex Sans', sans-serif;
+        color: #f1f5f9;
+        margin-bottom: 12px;
+      }
+      .resultant-footer-brand span {
+        color: #f97316;
+      }
+      .resultant-footer-tagline {
+        color: #94a3b8;
+        font-size: 16px;
+        margin-bottom: 30px;
+        font-family: 'IBM Plex Sans', sans-serif;
+      }
+      .resultant-footer-copyright {
+        color: #64748b;
+        font-size: 14px;
+        padding-top: 20px;
+        border-top: 1px solid rgba(51, 65, 85, 0.3);
+        font-family: 'IBM Plex Mono', monospace;
+      }
+    </style>
   </head>
   <body>
+    <!-- Header -->
+    <header class="resultant-header">
+      <div class="resultant-header-inner">
+        <div class="resultant-logo">Resultant<span>AI</span></div>
+      </div>
+    </header>
+
+    <!-- Calculator App -->
     <div id="root"></div>
-  
+
   <!-- Footer -->
-  <footer style="background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); color: #fff; padding: 60px 20px 30px; margin-top: 80px;">
-    <div style="max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 40px;">
-      <div>
-        <h3 style="font-size: 24px; font-weight: 700; margin-bottom: 20px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">ResultantAI</h3>
-        <p style="color: #b0b0b0; line-height: 1.6; margin-bottom: 20px;">Revenue systems for service businesses. AI automation that pays for itself.</p>
-        <a href="/" style="color: #667eea; text-decoration: none; font-weight: 600;">← Back to Home</a>
-      </div>
-      <div>
-        <h4 style="font-size: 16px; font-weight: 600; margin-bottom: 15px; color: #e0e0e0;">Solutions</h4>
-        <ul style="list-style: none; padding: 0; margin: 0;">
-          <li style="margin-bottom: 10px;"><a href="/gateway.html" style="color: #b0b0b0; text-decoration: none; transition: color 0.2s;">AI Gateway</a></li>
-          <li style="margin-bottom: 10px;"><a href="/propane.html" style="color: #b0b0b0; text-decoration: none; transition: color 0.2s;">Propane Dispatch</a></li>
-          <li style="margin-bottom: 10px;"><a href="/concrete.html" style="color: #b0b0b0; text-decoration: none; transition: color 0.2s;">Concrete Dispatch</a></li>
-          <li style="margin-bottom: 10px;"><a href="/logistics.html" style="color: #b0b0b0; text-decoration: none; transition: color 0.2s;">Logistics & Freight</a></li>
-        </ul>
-      </div>
-      <div>
-        <h4 style="font-size: 16px; font-weight: 600; margin-bottom: 15px; color: #e0e0e0;">Resources</h4>
-        <ul style="list-style: none; padding: 0; margin: 0;">
-          <li style="margin-bottom: 10px;"><a href="/blog/" style="color: #b0b0b0; text-decoration: none; transition: color 0.2s;">Blog</a></li>
-          <li style="margin-bottom: 10px;"><a href="/case-studies.html" style="color: #b0b0b0; text-decoration: none; transition: color 0.2s;">Case Studies</a></li>
-          <li style="margin-bottom: 10px;"><a href="/voice-roi-calculator.html" style="color: #b0b0b0; text-decoration: none; transition: color 0.2s;">ROI Calculator</a></li>
-          <li style="margin-bottom: 10px;"><a href="/about/" style="color: #b0b0b0; text-decoration: none; transition: color 0.2s;">About Us</a></li>
-        </ul>
-      </div>
-      <div>
-        <h4 style="font-size: 16px; font-weight: 600; margin-bottom: 15px; color: #e0e0e0;">Get Started</h4>
-        <p style="color: #b0b0b0; line-height: 1.6; margin-bottom: 15px;">Ready to recover lost revenue?</p>
-        <a href="https://meetings.hubspot.com/resultantai/paper-to-digital" style="display: inline-block; padding: 12px 24px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: #fff; text-decoration: none; border-radius: 8px; font-weight: 600; transition: transform 0.2s;">Book a Call</a>
-      </div>
-    </div>
-    <div style="text-align: center; margin-top: 40px; padding-top: 30px; border-top: 1px solid rgba(255,255,255,0.1); color: #666;">
-      <p>&copy; 2026 ResultantAI. All rights reserved.</p>
-    </div>
+  <footer class="resultant-footer">
+    <div class="resultant-footer-brand">Resultant<span>AI</span></div>
+    <div class="resultant-footer-tagline">Revenue systems for service businesses.<br>Built with AI. Run by humans.</div>
+    <div class="resultant-footer-copyright">&copy; 2026 ResultantAI. All rights reserved.</div>
   </footer>
 
 </body>
