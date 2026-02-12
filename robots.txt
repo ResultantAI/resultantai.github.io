@@ -1,11 +1,16 @@
 # ResultantAI GitHub Pages
-# https://resultantai.github.io
+# https://resultantai.com
 
 User-agent: *
 Allow: /
 
+# Block duplicate/non-canonical pages
+Disallow: /new-site/
+Disallow: /test-demo.html
+Disallow: /newsletter-thanks.html
+
 # Sitemap location
-Sitemap: https://resultantai.github.io/sitemap.xml
+Sitemap: https://resultantai.com/sitemap.xml
 
 # AI Crawlers - Welcome
 User-agent: GPTBot
