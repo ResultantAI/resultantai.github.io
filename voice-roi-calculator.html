@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en">
+  <head>
+  <!-- SEO -->
+  <link rel="canonical" href="https://resultantai.com/voice-roi-calculator">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Voice Agent ROI Calculator | ResultantAI">
+  <meta property="og:description" content="Calculate how much revenue your business loses from missed calls. Free ROI analysis + custom implementation roadmap.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://resultantai.com/voice-roi-calculator">
+  <meta property="og:site_name" content="ResultantAI">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Voice Agent ROI Calculator | ResultantAI">
+  <meta name="twitter:description" content="Calculate how much revenue your business loses from missed calls. Free ROI analysis + custom implementation roadmap.">
+
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Voice Agent ROI Calculator | ResultantAI</title>
+    <meta name="description" content="Calculate how much revenue your business loses from missed calls. Free ROI analysis + custom implementation roadmap." />
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+    <!-- Built assets -->
+    <script type="module" crossorigin src="/roi-calculator/assets/index-jpSNQgMF.js"></script>
+    <link rel="stylesheet" crossorigin href="/roi-calculator/assets/index-BKsmhWe1.css">
+
+    <!-- API Configuration -->
+    <script>
+      // Point to Vercel API backend
+      window.ROI_API_BASE = 'https://roi-calculator-orpin-ten.vercel.app';
+    </script>
+
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+      }
+      /* Header styles */
+      .resultant-header {
+        background: #0f172a;
+        border-bottom: 1px solid rgba(51, 65, 85, 0.3);
+        padding: 20px 0;
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        backdrop-filter: blur(10px);
+      }
+      .resultant-header-inner {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 24px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .resultant-logo {
+        font-size: 24px;
+        font-weight: 800;
+        font-family: 'IBM Plex Sans', sans-serif;
+        color: #f1f5f9;
+      }
+      .resultant-logo span {
+        color: #10b981;
+      }
+      /* Footer styles */
+      .resultant-footer {
+        background: #0f172a;
+        border-top: 1px solid rgba(51, 65, 85, 0.3);
+        padding: 40px 20px 20px;
+        margin-top: 60px;
+        text-align: center;
+      }
+      .resultant-footer-brand {
+        font-size: 28px;
+        font-weight: 800;
+        font-family: 'IBM Plex Sans', sans-serif;
+        color: #f1f5f9;
+        margin-bottom: 12px;
+      }
+      .resultant-footer-brand span {
+        color: #10b981;
+      }
+      .resultant-footer-tagline {
+        color: #94a3b8;
+        font-size: 16px;
+        margin-bottom: 30px;
+        font-family: 'IBM Plex Sans', sans-serif;
+      }
+      .resultant-footer-copyright {
+        color: #64748b;
+        font-size: 14px;
+        padding-top: 20px;
+        border-top: 1px solid rgba(51, 65, 85, 0.3);
+        font-family: 'IBM Plex Mono', monospace;
+      }
+
+      /* Override React app orange colors with emerald green to match site */
+      #root {
+        --color-orange: #10b981 !important;
+        --color-orange-light: #34d399 !important;
+        --color-orange-dark: #059669 !important;
+      }
+      /* Force all orange gradients to emerald */
+      #root button[style*="linear-gradient(135deg,#f97316"],
+      #root button[style*="linear-gradient(135deg, #f97316"] {
+        background: linear-gradient(135deg, #10b981, #059669) !important;
+      }
+      /* Override all #f97316 orange with emerald */
+      #root [style*="#f97316"],
+      #root [style*="#fb923c"],
+      #root [style*="rgba(249,115,22"] {
+        color: #10b981 !important;
+      }
+      #root [style*="background: #f97316"],
+      #root [style*="background:#f97316"] {
+        background: #10b981 !important;
+      }
+      #root [style*="border: 1px solid rgba(249,115,22"],
+      #root [style*="border:1px solid rgba(249,115,22"] {
+        border-color: rgba(16, 185, 129, 0.2) !important;
+      }
+      #root [style*="background: rgba(249,115,22"] {
+        background: rgba(16, 185, 129, 0.06) !important;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Header -->
+    <header class="resultant-header">
+      <div class="resultant-header-inner">
+        <div class="resultant-logo">Resultant<span>AI</span></div>
+      </div>
+    </header>
+
+    <!-- Calculator App -->
+    <div id="root"></div>
+
+  <!-- Footer -->
+  <footer class="resultant-footer">
+    <div class="resultant-footer-brand">Resultant<span>AI</span></div>
+    <div class="resultant-footer-tagline">Revenue systems for service businesses.<br>Built with AI. Run by humans.</div>
+    <div class="resultant-footer-copyright">&copy; 2026 ResultantAI. All rights reserved.</div>
+  </footer>
+
+</body>
+</html>

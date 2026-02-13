@@ -1,0 +1,3221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- SEO -->
+  <link rel="canonical" href="https://resultantai.com/demo/logistics-demo-interactive/">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Valley Rock & Gravel - Live Dispatch Demo | ResultantAI">
+  <meta property="og:description" content="Experience a Top 1% field service management demo. See offline-first digital ticketing, real-time dispatch, and QuickBooks integration in action.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://resultantai.com/demo/logistics-demo-interactive/">
+  <meta property="og:site_name" content="ResultantAI">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Valley Rock & Gravel - Live Dispatch Demo | ResultantAI">
+  <meta name="twitter:description" content="Experience a Top 1% field service management demo. See offline-first digital ticketing, real-time dispatch, and QuickBooks integration in action.">
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Valley Rock & Gravel - Live Dispatch Demo | ResultantAI</title>
+  <meta name="description" content="Experience a Top 1% field service management demo. See offline-first digital ticketing, real-time dispatch, and QuickBooks integration in action.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      /* Primary Colors - Emerald Green */
+      --primary: #10b981;
+      --primary-dark: #059669;
+      --primary-light: #34d399;
+      --primary-glow: rgba(16, 185, 129, 0.2);
+
+      /* Background Colors - Dark Slate */
+      --bg-primary: #0a0f1e;
+      --bg-secondary: #0f172a;
+      --bg-elevated: #1e293b;
+      --bg-card: #1e293b;
+
+      /* Text Colors */
+      --text-primary: #f1f5f9;
+      --text-secondary: #cbd5e1;
+      --text-muted: #94a3b8;
+
+      /* Borders */
+      --border: #334155;
+
+      /* Status Colors */
+      --success: #10b981;
+      --warning: #f59e0b;
+      --danger: #ef4444;
+      --info: #3b82f6;
+
+      /* Radii */
+      --radius-sm: 6px;
+      --radius-md: 8px;
+      --radius-lg: 12px;
+      --radius-xl: 16px;
+    }
+
+    /* Light Theme */
+    [data-theme="light"] {
+      /* Background Colors - Light */
+      --bg-primary: #ffffff;
+      --bg-secondary: #f8fafc;
+      --bg-elevated: #ffffff;
+      --bg-card: #ffffff;
+
+      /* Text Colors */
+      --text-primary: #0f172a;
+      --text-secondary: #475569;
+      --text-muted: #64748b;
+
+      /* Borders */
+      --border: #e2e8f0;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    .app {
+      display: flex;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      width: 280px;
+      background: var(--bg-elevated);
+      border-right: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 0;
+    }
+
+    .logo {
+      padding: 1.5rem;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .logo-icon {
+      width: 40px;
+      height: 40px;
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 12px var(--primary-glow);
+    }
+
+    .logo-text h1 {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+
+    .logo-text p {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    .nav {
+      flex: 1;
+      padding: 1rem;
+      overflow-y: auto;
+    }
+
+    .nav-section {
+      margin-bottom: 1.5rem;
+    }
+
+    .nav-label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+      padding: 0 0.75rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.75rem;
+      margin-bottom: 0.25rem;
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      transition: all 0.2s;
+      color: var(--text-muted);
+    }
+
+    .nav-item:hover {
+      background: rgba(16, 185, 129, 0.1);
+      color: var(--text-primary);
+    }
+
+    .nav-item.active {
+      background: rgba(16, 185, 129, 0.15);
+      color: var(--primary);
+      font-weight: 600;
+      box-shadow: 0 0 0 1px var(--primary-glow);
+    }
+
+    .nav-icon {
+      width: 24px;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .nav-icon svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    /* Main Content */
+    .main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .header {
+      background: var(--bg-elevated);
+      border-bottom: 1px solid var(--border);
+      padding: 1rem 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .header-left h2 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 0.25rem;
+    }
+
+    .header-left p {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+    }
+
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .live-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 1rem;
+      background: rgba(16, 185, 129, 0.1);
+      border: 1px solid var(--primary);
+      border-radius: 2rem;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--primary);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      animation: pulse-glow 2s infinite;
+    }
+
+    @keyframes pulse-glow {
+      0%, 100% {
+        box-shadow: 0 0 0 0 var(--primary-glow);
+      }
+      50% {
+        box-shadow: 0 0 20px 5px var(--primary-glow);
+      }
+    }
+
+    .live-dot {
+      width: 8px;
+      height: 8px;
+      background: var(--primary);
+      border-radius: 50%;
+      animation: blink 1.5s infinite;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
+
+    .content {
+      flex: 1;
+      overflow-y: auto;
+      padding: 1.5rem;
+    }
+
+    /* View Containers */
+    .view {
+      display: none;
+      animation: fadeIn 0.3s;
+    }
+
+    .view.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Stats Grid */
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .stat-card {
+      background: linear-gradient(135deg, var(--bg-card), var(--bg-secondary));
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .stat-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(16, 185, 129, 0.15);
+      border-color: var(--primary);
+    }
+
+    .stat-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: var(--primary);
+    }
+
+    .stat-card::after {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(45deg, transparent, rgba(16, 185, 129, 0.03), transparent);
+      animation: shimmer 3s infinite;
+      pointer-events: none;
+    }
+
+    @keyframes shimmer {
+      0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+      100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+    }
+
+    .stat-label {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.5rem;
+    }
+
+    .stat-value {
+      font-size: 2.5rem;
+      font-weight: 900;
+      color: var(--text-primary);
+      font-variant-numeric: tabular-nums;
+      margin-bottom: 0.25rem;
+    }
+
+    .stat-change {
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+    }
+
+    .stat-change.positive {
+      color: var(--primary);
+    }
+
+    /* Cards */
+    .card {
+      background: var(--bg-elevated);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1.5rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .card-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+    }
+
+    /* Buttons */
+    .btn {
+      padding: 0.75rem 1.25rem;
+      border-radius: var(--radius-md);
+      font-size: 0.875rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      border: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      text-decoration: none;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px var(--primary-glow);
+    }
+
+    .btn-secondary {
+      background: var(--bg-card);
+      color: var(--text-primary);
+      border: 1px solid var(--border);
+    }
+
+    .btn-secondary:hover {
+      background: var(--bg-elevated);
+      border-color: var(--primary);
+    }
+
+    /* Form Elements */
+    .form-group {
+      margin-bottom: 0.875rem;
+    }
+
+    .ticket-form .form-group {
+      margin-bottom: 0.75rem;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 0.5rem;
+    }
+
+    .form-input, .form-select {
+      width: 100%;
+      padding: 0.75rem;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      color: var(--text-primary);
+      font-size: 0.9375rem;
+      transition: all 0.2s;
+    }
+
+    .form-input:focus, .form-select:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px var(--primary-glow);
+    }
+
+    /* Grid Layouts */
+    .grid {
+      display: grid;
+      gap: 1.5rem;
+    }
+
+    .grid-2 {
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    }
+
+    /* Load Cards */
+    .load-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .load-card {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: all 0.2s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .load-card::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 4px;
+      background: var(--primary);
+    }
+
+    .load-card:hover {
+      border-color: var(--primary);
+      transform: translateX(4px);
+    }
+
+    .load-info h4 {
+      font-size: 0.9375rem;
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+    }
+
+    .load-info p {
+      font-size: 0.8125rem;
+      color: var(--text-muted);
+    }
+
+    .load-status {
+      text-align: right;
+    }
+
+    .status-badge {
+      display: inline-block;
+      padding: 0.25rem 0.75rem;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.5rem;
+    }
+
+    .status-in-transit {
+      background: rgba(59, 130, 246, 0.2);
+      color: var(--info);
+    }
+
+    .status-loading {
+      background: rgba(245, 158, 11, 0.2);
+      color: var(--warning);
+    }
+
+    .status-completed {
+      background: rgba(16, 185, 129, 0.2);
+      color: var(--success);
+    }
+
+    .revenue {
+      font-size: 0.8125rem;
+      color: var(--text-muted);
+      font-variant-numeric: tabular-nums;
+      line-height: 1.4;
+    }
+
+    /* Ticket Form */
+    .ticket-form {
+      max-width: 600px;
+    }
+
+    #view-tickets .card {
+      padding: 1rem 1.5rem;
+    }
+
+    .ticket-preview {
+      background: white;
+      color: #1f2937;
+      border-radius: var(--radius-lg);
+      padding: 2rem;
+      margin-top: 2rem;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    }
+
+    .ticket-header {
+      border-bottom: 2px solid #e5e7eb;
+      padding-bottom: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .ticket-header h3 {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: #111827;
+    }
+
+    .ticket-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 0.75rem 0;
+      border-bottom: 1px solid #e5e7eb;
+    }
+
+    .ticket-row:last-child {
+      border-bottom: none;
+      font-weight: 700;
+      font-size: 1.125rem;
+    }
+
+    .ticket-label {
+      color: #6b7280;
+    }
+
+    .ticket-value {
+      color: #111827;
+      font-weight: 600;
+    }
+
+    /* Mobile Phone Mockup */
+    .phone-mockup {
+      width: 375px;
+      height: 667px;
+      background: var(--bg-secondary);
+      border-radius: 40px;
+      border: 12px solid #1f2937;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+      overflow: hidden;
+      margin: 0 auto;
+    }
+
+    .phone-screen {
+      height: 100%;
+      overflow-y: auto;
+      background: var(--bg-secondary);
+    }
+
+    .phone-header {
+      padding: 1rem;
+      background: var(--bg-elevated);
+      border-bottom: 1px solid var(--border);
+      text-align: center;
+    }
+
+    .phone-header h3 {
+      font-size: 1.125rem;
+      font-weight: 700;
+    }
+
+    .phone-header p {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-top: 0.25rem;
+    }
+
+    .phone-content {
+      padding: 1rem;
+    }
+
+    .phone-button {
+      width: 100%;
+      padding: 1rem;
+      background: var(--primary);
+      color: white;
+      border: none;
+      border-radius: var(--radius-lg);
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      margin-bottom: 0.75rem;
+      transition: all 0.2s;
+    }
+
+    .phone-button:hover {
+      background: var(--primary-dark);
+    }
+
+    .phone-card {
+      background: var(--bg-elevated);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .phone-card h4 {
+      font-size: 0.9375rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    .phone-card p {
+      font-size: 0.8125rem;
+      color: var(--text-muted);
+    }
+
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    /* Toast Notification */
+    .toast {
+      position: fixed;
+      top: 100px;
+      right: 20px;
+      background: var(--bg-elevated);
+      border: 2px solid var(--primary);
+      border-radius: var(--radius-lg);
+      padding: 1rem 1.5rem;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3), 0 0 40px var(--primary-glow);
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      z-index: 1001;
+      animation: slideInRight 0.3s ease-out;
+      max-width: 400px;
+    }
+
+    @keyframes slideInRight {
+      from {
+        opacity: 0;
+        transform: translateX(100px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    .toast-icon {
+      font-size: 1.5rem;
+      color: var(--primary);
+    }
+
+    .toast-content {
+      flex: 1;
+    }
+
+    .toast-title {
+      font-weight: 700;
+      margin-bottom: 0.25rem;
+      color: var(--text-primary);
+      font-size: 0.9375rem;
+    }
+
+    .toast-text {
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+    }
+
+    .hint::after {
+      content: '';
+      position: absolute;
+      bottom: -6px;
+      left: 20px;
+      width: 0;
+      height: 0;
+      border-left: 6px solid transparent;
+      border-right: 6px solid transparent;
+      border-top: 6px solid var(--primary);
+    }
+
+    /* ROI Callout Card */
+    .roi-callout {
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(16, 185, 129, 0.05));
+      border: 2px solid var(--primary);
+      border-radius: var(--radius-lg);
+      padding: 2rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .roi-callout::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(45deg, transparent, rgba(16, 185, 129, 0.1), transparent);
+      animation: shimmer 3s infinite;
+    }
+
+    .roi-callout-content {
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Badge */
+    .badge {
+      padding: 0.375rem 0.75rem;
+      background: rgba(16, 185, 129, 0.15);
+      border: 1px solid var(--primary);
+      border-radius: var(--radius-sm);
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--primary);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    /* Table Styles */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    thead tr {
+      border-bottom: 2px solid var(--border);
+    }
+
+    th {
+      text-align: left;
+      padding: 1rem;
+      color: var(--text-muted);
+      font-size: 0.875rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    th:not(:first-child) {
+      text-align: center;
+    }
+
+    tbody tr {
+      border-bottom: 1px solid var(--border);
+      transition: background 0.2s;
+    }
+
+    tbody tr:hover {
+      background: rgba(16, 185, 129, 0.05);
+    }
+
+    td {
+      padding: 1rem;
+    }
+
+    td:not(:first-child) {
+      text-align: center;
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .sidebar {
+        position: absolute;
+        left: -280px;
+        height: 100vh;
+        z-index: 100;
+        transition: left 0.3s;
+      }
+
+      .sidebar.open {
+        left: 0;
+      }
+
+      .phone-mockup {
+        width: 100%;
+        max-width: 375px;
+        border-radius: 20px;
+        border-width: 8px;
+      }
+
+      .stakeholder-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .stats {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      }
+
+      .stat-value {
+        font-size: 2rem;
+      }
+    }
+
+    /* Demo Identity Banner */
+    .demo-banner {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+      color: white;
+      padding: 0.75rem 1.5rem;
+      text-align: center;
+      font-weight: 700;
+      font-size: 0.9375rem;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+      letter-spacing: 0.025em;
+    }
+
+    .demo-banner-emoji {
+      margin: 0 0.5rem;
+    }
+
+    /* Clickable Load Cards */
+    .load-card {
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .load-card:hover {
+      background: rgba(16, 185, 129, 0.05);
+      border-color: var(--primary);
+      transform: translateX(4px);
+    }
+  </style>
+</head>
+<body>
+  <!-- Safety Check Modal (Tom's request for liability protection) -->
+  <div class="tutorial-overlay" id="safety-check-modal" style="display: none;">
+    <div class="tutorial-modal" style="max-width: 500px;">
+      <div class="tutorial-header">
+        <h2>Pre-Delivery Safety Check</h2>
+        <p style="color: var(--text-secondary);">Complete before creating ticket</p>
+      </div>
+
+      <div style="background: rgba(239, 68, 68, 0.1); border: 1px solid var(--danger); border-radius: var(--radius-md); padding: 1rem; margin-bottom: 1.5rem; position: relative; z-index: 1;">
+        <div style="font-size: 0.875rem; font-weight: 600; color: var(--danger); margin-bottom: 0.5rem;">
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="display: inline; vertical-align: middle; margin-right: 0.5rem;">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
+          </svg>
+          Required for Insurance Compliance
+        </div>
+        <p style="font-size: 0.75rem; color: var(--text-secondary);">Safety Director Tom: "This lowers our premiums and kills frivolous claims."</p>
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: 1rem; margin-bottom: 2rem; position: relative; z-index: 1;">
+        <label style="display: flex; align-items: center; gap: 1rem; padding: 1rem; background: var(--bg-secondary); border-radius: var(--radius-md); cursor: pointer; transition: all 0.2s;" class="safety-check-item">
+          <input type="checkbox" class="safety-checkbox" style="width: 20px; height: 20px; cursor: pointer;">
+          <div>
+            <div style="font-weight: 600; margin-bottom: 0.25rem;">Brakes Inspected</div>
+            <div style="font-size: 0.75rem; color: var(--text-muted);">Service brakes operational</div>
+          </div>
+        </label>
+
+        <label style="display: flex; align-items: center; gap: 1rem; padding: 1rem; background: var(--bg-secondary); border-radius: var(--radius-md); cursor: pointer; transition: all 0.2s;" class="safety-check-item">
+          <input type="checkbox" class="safety-checkbox" style="width: 20px; height: 20px; cursor: pointer;">
+          <div>
+            <div style="font-weight: 600; margin-bottom: 0.25rem;">Lights & Signals Working</div>
+            <div style="font-size: 0.75rem; color: var(--text-muted);">Headlights, brake lights, turn signals</div>
+          </div>
+        </label>
+
+        <label style="display: flex; align-items: center; gap: 1rem; padding: 1rem; background: var(--bg-secondary); border-radius: var(--radius-md); cursor: pointer; transition: all 0.2s;" class="safety-check-item">
+          <input type="checkbox" class="safety-checkbox" style="width: 20px; height: 20px; cursor: pointer;">
+          <div>
+            <div style="font-weight: 600; margin-bottom: 0.25rem;">Load Secured</div>
+            <div style="font-size: 0.75rem; color: var(--text-muted);">Tailgate latched, no loose material</div>
+          </div>
+        </label>
+
+        <label style="display: flex; align-items: center; gap: 1rem; padding: 1rem; background: var(--bg-secondary); border-radius: var(--radius-md); cursor: pointer; transition: all 0.2s;" class="safety-check-item">
+          <input type="checkbox" class="safety-checkbox" style="width: 20px; height: 20px; cursor: pointer;">
+          <div>
+            <div style="font-weight: 600; margin-bottom: 0.25rem;">Pre-Delivery Site Photo</div>
+            <div style="font-size: 0.75rem; color: var(--text-muted);">Timestamped proof of site conditions</div>
+          </div>
+        </label>
+      </div>
+
+      <div style="display: flex; gap: 1rem; position: relative; z-index: 1;">
+        <button class="btn btn-secondary" onclick="document.getElementById('safety-check-modal').style.display='none'" style="flex: 1;">Cancel</button>
+        <button class="btn btn-primary" id="confirm-safety-btn" disabled style="flex: 1;">
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+          </svg>
+          Confirm Safety Check
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Demo Identity Banner -->
+  <div class="demo-banner">
+    <span class="demo-banner-emoji">🚧</span>
+    LIVE INTERACTIVE DEMO: Feel free to click around
+    <span class="demo-banner-emoji">🚧</span>
+  </div>
+
+  <div class="app">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="logo">
+        <div class="logo-icon">
+          <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="color: white">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path>
+          </svg>
+        </div>
+        <div class="logo-text">
+          <h1>Valley Rock & Gravel</h1>
+          <p>15 Trucks • Live Demo</p>
+        </div>
+      </div>
+
+      <nav class="nav">
+        <div class="nav-section">
+          <div class="nav-label">Operations</div>
+          <div class="nav-item active" data-view="dashboard">
+            <span class="nav-icon">
+              <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+              </svg>
+            </span>
+            <span>Dashboard</span>
+          </div>
+          <div class="nav-item" data-view="tickets">
+            <span class="nav-icon">
+              <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+              </svg>
+            </span>
+            <span>Create Ticket</span>
+          </div>
+          <div class="nav-item" data-view="dispatcher">
+            <span class="nav-icon">
+              <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"></path>
+              </svg>
+            </span>
+            <span>Active Loads</span>
+          </div>
+        </div>
+
+        <div class="nav-section">
+          <div class="nav-label">CRM</div>
+          <div class="nav-item" data-view="customers">
+            <span class="nav-icon">
+              <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+              </svg>
+            </span>
+            <span>Customers</span>
+          </div>
+        </div>
+
+        <div class="nav-section">
+          <div class="nav-label">Mobile & Portal</div>
+          <div class="nav-item" data-view="driver">
+            <span class="nav-icon">
+              <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"></path>
+              </svg>
+            </span>
+            <span>Driver App</span>
+          </div>
+          <div class="nav-item" data-view="customer">
+            <span class="nav-icon">
+              <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
+              </svg>
+            </span>
+            <span>Customer Portal</span>
+          </div>
+        </div>
+
+        <div class="nav-section">
+          <div class="nav-label">Integration</div>
+          <div class="nav-item" data-view="reports">
+            <span class="nav-icon">
+              <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+              </svg>
+            </span>
+            <span>Reports</span>
+          </div>
+        </div>
+
+        <div class="nav-section">
+          <div class="nav-label">Analytics & Settings</div>
+          <div class="nav-item" data-view="roi">
+            <span class="nav-icon">
+              <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
+              </svg>
+            </span>
+            <span>ROI & Analytics</span>
+          </div>
+          <div class="nav-item" data-view="settings">
+            <span class="nav-icon">
+              <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+              </svg>
+            </span>
+            <span>Settings & Users</span>
+          </div>
+        </div>
+
+        <!-- Book a Demo CTA -->
+        <div style="padding: 1rem; margin-top: 2rem; border-top: 1px solid var(--border);">
+          <a href="https://meetings.hubspot.com/resultantai/paper-to-digital" target="_blank" class="btn btn-primary" style="width: 100%; justify-content: center; font-weight: 700; font-size: 0.9375rem; padding: 0.875rem 1rem; background: linear-gradient(135deg, var(--primary) 0%, rgba(16, 185, 129, 0.8) 100%); box-shadow: 0 4px 14px rgba(16, 185, 129, 0.4);">
+            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="margin-right: 0.5rem;">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+            </svg>
+            Book a Demo
+          </a>
+          <p style="text-align: center; font-size: 0.75rem; color: var(--text-muted); margin-top: 0.75rem; margin-bottom: 0;">See your system in 15 minutes</p>
+        </div>
+      </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main">
+      <header class="header">
+        <div class="header-left">
+          <h2 id="view-title">Dashboard</h2>
+          <p id="view-subtitle">Real-time fleet overview</p>
+        </div>
+        <div class="header-right">
+          <button id="theme-toggle" class="btn btn-secondary" style="padding: 0.5rem 0.75rem;" title="Toggle light/dark mode">
+            <svg id="theme-icon-dark" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
+            </svg>
+            <svg id="theme-icon-light" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="display: none;">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
+            </svg>
+          </button>
+          <div class="live-badge">
+            <span class="live-dot"></span>
+            <span>LIVE DEMO</span>
+          </div>
+        </div>
+      </header>
+
+      <div class="content">
+        <!-- Dashboard View -->
+        <div class="view active" id="view-dashboard">
+          <div class="stats">
+            <div class="stat-card">
+              <div class="stat-label">Revenue Today</div>
+              <div class="stat-value">$24,580.00</div>
+              <div class="stat-change positive">↑ 12% vs yesterday</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-label">Active Trucks</div>
+              <div class="stat-value">12/15</div>
+              <div class="stat-change">3 trucks available</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-label">Loads Today</div>
+              <div class="stat-value">47</div>
+              <div class="stat-change positive">↑ 8% vs yesterday</div>
+            </div>
+            <div class="stat-card" style="border: 2px solid var(--primary); background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), var(--bg-card));">
+              <div class="stat-label">Tons Delivered</div>
+              <div class="stat-value">387</div>
+              <div class="stat-change positive" style="display: flex; align-items: center; gap: 0.5rem; font-weight: 700; font-size: 0.9375rem;">
+                <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+                </svg>
+                Zero Lost Tickets
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-header">
+              <h3 class="card-title">Recent Activity</h3>
+              <button class="btn btn-secondary">View All</button>
+            </div>
+            <div class="load-list">
+              <div class="load-card">
+                <div class="load-info">
+                  <h4>Truck #7 - Driver Mike Johnson</h4>
+                  <p>Mountain View Construction • 18 tons Gravel 3/4" • ETA 2:30 PM</p>
+                </div>
+                <div class="load-status">
+                  <div class="status-badge status-in-transit">In Transit</div>
+                  <p class="revenue">$810.00</p>
+                </div>
+              </div>
+              <div class="load-card">
+                <div class="load-info">
+                  <h4>Truck #3 - Driver Sarah Williams</h4>
+                  <p>Summit Building Supply • 22 tons Base Rock • Loading at North Quarry</p>
+                </div>
+                <div class="load-status">
+                  <div class="status-badge status-loading">Loading</div>
+                  <p class="revenue">$1,056.00</p>
+                </div>
+              </div>
+              <div class="load-card">
+                <div class="load-info">
+                  <h4>Truck #12 - Driver James Chen</h4>
+                  <p>Valley Concrete Co. • 16 tons Sand • Delivered 11:47 AM</p>
+                </div>
+                <div class="load-status">
+                  <div class="status-badge status-completed">Completed</div>
+                  <p class="revenue">$608.00</p>
+                </div>
+              </div>
+              <div class="load-card">
+                <div class="load-info">
+                  <h4>Truck #9 - Driver Lisa Martinez</h4>
+                  <p>High Desert Landscaping • 20 tons Topsoil • ETA 3:15 PM</p>
+                </div>
+                <div class="load-status">
+                  <div class="status-badge status-in-transit">In Transit</div>
+                  <p class="revenue">$700.00</p>
+                </div>
+              </div>
+              <div class="load-card">
+                <div class="load-info">
+                  <h4>Truck #15 - Driver Tom Bradley</h4>
+                  <p>Riverside Materials • 24 tons Crushed Rock • Loading at South Pit</p>
+                </div>
+                <div class="load-status">
+                  <div class="status-badge status-loading">Loading</div>
+                  <p class="revenue">$1,248.00</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Create Ticket View -->
+        <div class="view" id="view-tickets">
+          <div class="card">
+            <div class="card-header">
+              <h3 class="card-title">New Load Ticket</h3>
+              <div class="badge">
+                <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path>
+                </svg>
+                <span>Offline Ready</span>
+              </div>
+            </div>
+
+            <form class="ticket-form">
+              <div class="form-group">
+                <label class="form-label">Customer</label>
+                <select class="form-select" id="customer">
+                  <option value="">Select customer...</option>
+                  <option value="mountain-view" data-discount="5" data-discount-material="gravel">Mountain View Construction</option>
+                  <option value="summit" data-discount="0">Summit Building Supply</option>
+                  <option value="valley" data-discount="0">Valley Concrete Co.</option>
+                  <option value="high-desert" data-discount="3" data-discount-material="topsoil">High Desert Landscaping</option>
+                  <option value="riverside" data-discount="0">Riverside Materials</option>
+                  <option value="cascade" data-discount="0">Cascade Contractors</option>
+                </select>
+              </div>
+              <div id="discount-badge" style="display: none; padding: 0.75rem; background: rgba(16, 185, 129, 0.1); border: 1px solid var(--primary); border-radius: var(--radius-md); margin-bottom: 1.25rem;">
+                <div style="font-size: 0.875rem; font-weight: 600; color: var(--primary); margin-bottom: 0.25rem;">
+                  <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="display: inline; vertical-align: middle; margin-right: 0.5rem;">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                  </svg>
+                  <span id="discount-text">Volume discount applied</span>
+                </div>
+                <div style="font-size: 0.75rem; color: var(--text-secondary);" id="discount-details"></div>
+              </div>
+
+              <div class="grid grid-2">
+                <div class="form-group">
+                  <label class="form-label">Material</label>
+                  <select class="form-select" id="material">
+                    <option value="">Select material...</option>
+                    <option value="gravel" data-price="45.00">Gravel 3/4"</option>
+                    <option value="baserock" data-price="48.00">Base Rock</option>
+                    <option value="sand" data-price="38.00">Sand</option>
+                    <option value="topsoil" data-price="35.00">Topsoil</option>
+                    <option value="crushedrock" data-price="52.00">Crushed Rock</option>
+                    <option value="diesel" data-price="3.85" data-hazmat="true">Diesel Fuel</option>
+                    <option value="heating-oil" data-price="4.12" data-hazmat="true">Heating Oil</option>
+                  </select>
+                </div>
+                <div class="form-group" id="hazmat-field" style="display: none;">
+                  <label class="form-label">Hazmat Class <span style="color: var(--danger);">*</span></label>
+                  <select class="form-select" id="hazmat-class">
+                    <option value="">Select class...</option>
+                    <option value="class-3">Class 3 - Flammable Liquids</option>
+                    <option value="un1202">UN 1202 - Diesel Fuel</option>
+                    <option value="un1993">UN 1993 - Combustible Liquid</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="grid grid-2">
+                <div class="form-group">
+                  <label class="form-label">Quantity (tons)</label>
+                  <input type="number" class="form-input" id="quantity" value="18" />
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Price per Ton</label>
+                  <input type="number" class="form-input" id="price" value="45.00" step="0.01" />
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">Truck & Driver</label>
+                <select class="form-select" id="truck">
+                  <option>Truck #7 - Mike Johnson</option>
+                  <option>Truck #3 - Sarah Williams</option>
+                  <option>Truck #12 - James Chen</option>
+                  <option>Truck #9 - Lisa Martinez</option>
+                  <option>Truck #15 - Tom Bradley</option>
+                </select>
+              </div>
+
+              <div style="display: flex; gap: 0.75rem;">
+                <button type="button" class="btn btn-primary" id="create-ticket-btn" style="flex: 1;">
+                  <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path>
+                  </svg>
+                  <span id="btn-text">Create Ticket</span>
+                  <span id="btn-loader" style="display: none;">
+                    <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="animation: spin 1s linear infinite;">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
+                    </svg>
+                  </span>
+                </button>
+                <button type="button" class="btn btn-secondary" id="print-ticket-btn" onclick="window.print()">
+                  <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path>
+                  </svg>
+                  Print
+                </button>
+                <button type="button" class="btn btn-secondary" id="pdf-ticket-btn">
+                  <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                  </svg>
+                  PDF
+                </button>
+              </div>
+            </form>
+
+            <div class="ticket-preview">
+              <div class="ticket-header">
+                <h3>Valley Rock & Gravel</h3>
+                <p style="color: #6b7280; font-size: 0.875rem;">Load Ticket #TK-1247 • Today 2:47 PM</p>
+              </div>
+              <div class="ticket-row">
+                <span class="ticket-label">Customer</span>
+                <span class="ticket-value">Mountain View Construction</span>
+              </div>
+              <div class="ticket-row">
+                <span class="ticket-label">Material</span>
+                <span class="ticket-value">Gravel 3/4"</span>
+              </div>
+              <div class="ticket-row">
+                <span class="ticket-label">Quantity</span>
+                <span class="ticket-value">18 tons</span>
+              </div>
+              <div class="ticket-row">
+                <span class="ticket-label">Rate</span>
+                <span class="ticket-value">$45.00/ton</span>
+              </div>
+              <div class="ticket-row">
+                <span class="ticket-label">Truck & Driver</span>
+                <span class="ticket-value">Truck #7 • Mike Johnson</span>
+              </div>
+              <div class="ticket-row">
+                <span class="ticket-label">Total</span>
+                <span class="ticket-value">$810.00</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Active Loads View -->
+        <div class="view" id="view-dispatcher">
+          <div class="stats">
+            <div class="stat-card">
+              <div class="stat-label">In Transit</div>
+              <div class="stat-value">8</div>
+              <div class="stat-change">Trucks en route</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-label">Loading</div>
+              <div class="stat-value">4</div>
+              <div class="stat-change">At quarry sites</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-label">Avg Load Time</div>
+              <div class="stat-value">42 min</div>
+              <div class="stat-change positive">↓ 8 min improvement</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-label">On-Time Rate</div>
+              <div class="stat-value">94%</div>
+              <div class="stat-change positive">↑ 6% this month</div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-header">
+              <h3 class="card-title">Active Loads - Live Tracking</h3>
+              <div style="display: flex; gap: 1rem; align-items: center;">
+                <div style="display: flex; gap: 0.5rem; background: var(--bg-secondary); padding: 0.25rem; border-radius: var(--radius-md);">
+                  <button class="btn btn-secondary dispatcher-view-toggle active" data-dispatcher-view="list" style="padding: 0.5rem 0.75rem; font-size: 0.8125rem;">
+                    <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="display: inline; vertical-align: middle;">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 10h16M4 14h16M4 18h16"></path>
+                    </svg>
+                    List
+                  </button>
+                  <button class="btn btn-secondary dispatcher-view-toggle" data-dispatcher-view="scheduler" style="padding: 0.5rem 0.75rem; font-size: 0.8125rem;">
+                    <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="display: inline; vertical-align: middle;">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                    </svg>
+                    Scheduler
+                  </button>
+                </div>
+                <div class="badge">
+                  <span class="live-dot"></span>
+                  <span>Real-time updates</span>
+                </div>
+              </div>
+            </div>
+
+            <div id="dispatcher-list-view">
+              <div class="load-list">
+                <div class="load-card">
+                  <div class="load-info">
+                    <h4>Truck #7 - Mike Johnson</h4>
+                    <p>North Quarry → Mountain View Construction • ETA 14:30 • 3.2 mi remaining</p>
+                  </div>
+                  <div class="load-status">
+                    <div class="status-badge status-in-transit">In Transit</div>
+                    <p class="revenue">18 tons • $810.00</p>
+                  </div>
+                </div>
+                <div class="load-card">
+                  <div class="load-info">
+                    <h4>Truck #3 - Sarah Williams</h4>
+                    <p>Loading at North Quarry → Summit Building • Base Rock • 12 min elapsed</p>
+                  </div>
+                  <div class="load-status">
+                    <div class="status-badge status-loading">Loading</div>
+                    <p class="revenue">22 tons • $1,056.00</p>
+                  </div>
+                </div>
+                <div class="load-card">
+                  <div class="load-info">
+                    <h4>Truck #9 - Lisa Martinez</h4>
+                    <p>South Pit → High Desert Landscaping • ETA 15:15 • 5.8 mi remaining</p>
+                  </div>
+                  <div class="load-status">
+                    <div class="status-badge status-in-transit">In Transit</div>
+                    <p class="revenue">20 tons • $700.00</p>
+                  </div>
+                </div>
+                <div class="load-card">
+                  <div class="load-info">
+                    <h4>Truck #15 - Tom Bradley</h4>
+                    <p>Loading at South Pit → Riverside Materials • Crushed Rock • 6 min elapsed</p>
+                  </div>
+                  <div class="load-status">
+                    <div class="status-badge status-loading">Loading</div>
+                    <p class="revenue">24 tons • $1,248.00</p>
+                  </div>
+                </div>
+                <div class="load-card">
+                  <div class="load-info">
+                    <h4>Truck #11 - Alex Rivera</h4>
+                    <p>Main Plant → Cascade Contractors • ETA 14:50 • 2.1 mi remaining</p>
+                  </div>
+                  <div class="load-status">
+                    <div class="status-badge status-in-transit">In Transit</div>
+                    <p class="revenue">19 tons • $855.00</p>
+                  </div>
+                </div>
+                <div class="load-card">
+                  <div class="load-info">
+                    <h4>Truck #5 - Marcus Lee</h4>
+                    <p>North Quarry → Summit Building • ETA 15:30 • 4.6 mi remaining</p>
+                  </div>
+                  <div class="load-status">
+                    <div class="status-badge status-in-transit">In Transit</div>
+                    <p class="revenue">21 tons • $945.00</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Scheduler View (Big Al's Command Center) -->
+            <div id="dispatcher-scheduler-view" style="display: none;">
+              <div style="background: var(--bg-secondary); padding: 1rem; border-radius: var(--radius-lg); margin-bottom: 1rem;">
+                <div style="display: grid; grid-template-columns: 100px repeat(6, 1fr); gap: 0.5rem; font-size: 0.8125rem;">
+                  <!-- Header Row -->
+                  <div style="padding: 0.75rem; font-weight: 700; color: var(--text-muted);">Time Slot</div>
+                  <div style="padding: 0.75rem; background: var(--bg-elevated); border-radius: var(--radius-md); font-weight: 700; text-align: center;">
+                    <div>Truck #3</div>
+                    <div style="font-size: 0.75rem; color: var(--text-muted); font-weight: 400;">Sarah</div>
+                  </div>
+                  <div style="padding: 0.75rem; background: var(--bg-elevated); border-radius: var(--radius-md); font-weight: 700; text-align: center;">
+                    <div>Truck #5</div>
+                    <div style="font-size: 0.75rem; color: var(--text-muted); font-weight: 400;">Marcus</div>
+                  </div>
+                  <div style="padding: 0.75rem; background: var(--bg-elevated); border-radius: var(--radius-md); font-weight: 700; text-align: center;">
+                    <div>Truck #7</div>
+                    <div style="font-size: 0.75rem; color: var(--text-muted); font-weight: 400;">Mike</div>
+                  </div>
+                  <div style="padding: 0.75rem; background: var(--bg-elevated); border-radius: var(--radius-md); font-weight: 700; text-align: center;">
+                    <div>Truck #9</div>
+                    <div style="font-size: 0.75rem; color: var(--text-muted); font-weight: 400;">Lisa</div>
+                  </div>
+                  <div style="padding: 0.75rem; background: var(--bg-elevated); border-radius: var(--radius-md); font-weight: 700; text-align: center;">
+                    <div>Truck #11</div>
+                    <div style="font-size: 0.75rem; color: var(--text-muted); font-weight: 400;">Alex</div>
+                  </div>
+                  <div style="padding: 0.75rem; background: var(--bg-elevated); border-radius: var(--radius-md); font-weight: 700; text-align: center;">
+                    <div>Truck #15</div>
+                    <div style="font-size: 0.75rem; color: var(--text-muted); font-weight: 400;">Tom</div>
+                  </div>
+
+                  <!-- 14:00 - 14:30 Row -->
+                  <div style="padding: 0.75rem; font-weight: 700; color: var(--text-muted); border-top: 1px solid rgba(255, 255, 255, 0.05);">14:00<br>14:30</div>
+                  <div class="scheduler-slot" style="border-top: 1px solid rgba(255, 255, 255, 0.05); padding: 0.5rem; min-height: 80px;">
+                    <div class="scheduler-load" draggable="true" style="background: rgba(251, 146, 60, 0.2); border: 1px solid rgba(251, 146, 60, 0.5); padding: 0.5rem; border-radius: var(--radius-md); cursor: grab; font-size: 0.75rem;">
+                      <div style="font-weight: 700; color: rgb(251, 146, 60);">Loading</div>
+                      <div style="color: var(--text-muted);">Summit Building</div>
+                      <div style="color: var(--text-primary);">22 tons • $1,056</div>
+                    </div>
+                  </div>
+                  <div class="scheduler-slot" style="border-top: 1px solid rgba(255, 255, 255, 0.05); padding: 0.5rem; min-height: 80px;">
+                    <div class="scheduler-load" draggable="true" style="background: rgba(59, 130, 246, 0.2); border: 1px solid rgba(59, 130, 246, 0.5); padding: 0.5rem; border-radius: var(--radius-md); cursor: grab; font-size: 0.75rem;">
+                      <div style="font-weight: 700; color: rgb(59, 130, 246);">In Transit</div>
+                      <div style="color: var(--text-muted);">Summit Building</div>
+                      <div style="color: var(--text-primary);">21 tons • $945</div>
+                    </div>
+                  </div>
+                  <div class="scheduler-slot" style="border-top: 1px solid rgba(255, 255, 255, 0.05); padding: 0.5rem; min-height: 80px;">
+                    <div class="scheduler-load" draggable="true" style="background: rgba(59, 130, 246, 0.2); border: 1px solid rgba(59, 130, 246, 0.5); padding: 0.5rem; border-radius: var(--radius-md); cursor: grab; font-size: 0.75rem;">
+                      <div style="font-weight: 700; color: rgb(59, 130, 246);">In Transit</div>
+                      <div style="color: var(--text-muted);">Mountain View</div>
+                      <div style="color: var(--text-primary);">18 tons • $810</div>
+                    </div>
+                  </div>
+                  <div class="scheduler-slot" style="border-top: 1px solid rgba(255, 255, 255, 0.05); padding: 0.5rem; min-height: 80px;"></div>
+                  <div class="scheduler-slot" style="border-top: 1px solid rgba(255, 255, 255, 0.05); padding: 0.5rem; min-height: 80px;">
+                    <div class="scheduler-load" draggable="true" style="background: rgba(59, 130, 246, 0.2); border: 1px solid rgba(59, 130, 246, 0.5); padding: 0.5rem; border-radius: var(--radius-md); cursor: grab; font-size: 0.75rem;">
+                      <div style="font-weight: 700; color: rgb(59, 130, 246);">In Transit</div>
+                      <div style="color: var(--text-muted);">Cascade Contractors</div>
+                      <div style="color: var(--text-primary);">19 tons • $855</div>
+                    </div>
+                  </div>
+                  <div class="scheduler-slot" style="border-top: 1px solid rgba(255, 255, 255, 0.05); padding: 0.5rem; min-height: 80px;">
+                    <div class="scheduler-load" draggable="true" style="background: rgba(251, 146, 60, 0.2); border: 1px solid rgba(251, 146, 60, 0.5); padding: 0.5rem; border-radius: var(--radius-md); cursor: grab; font-size: 0.75rem;">
+                      <div style="font-weight: 700; color: rgb(251, 146, 60);">Loading</div>
+                      <div style="color: var(--text-muted);">Riverside Materials</div>
+                      <div style="color: var(--text-primary);">24 tons • $1,248</div>
+                    </div>
+                  </div>
+
+                  <!-- 14:30 - 15:00 Row -->
+                  <div style="padding: 0.75rem; font-weight: 700; color: var(--text-muted); border-top: 1px solid rgba(255, 255, 255, 0.05);">14:30<br>15:00</div>
+                  <div class="scheduler-slot" style="border-top: 1px solid rgba(255, 255, 255, 0.05); padding: 0.5rem; min-height: 80px;"></div>
+                  <div class="scheduler-slot" style="border-top: 1px solid rgba(255, 255, 255, 0.05); padding: 0.5rem; min-height: 80px;"></div>
+                  <div class="scheduler-slot" style="border-top: 1px solid rgba(255, 255, 255, 0.05); padding: 0.5rem; min-height: 80px;"></div>
+                  <div class="scheduler-slot" style="border-top: 1px solid rgba(255, 255, 255, 0.05); padding: 0.5rem; min-height: 80px;">
+                    <div class="scheduler-load" draggable="true" style="background: rgba(59, 130, 246, 0.2); border: 1px solid rgba(59, 130, 246, 0.5); padding: 0.5rem; border-radius: var(--radius-md); cursor: grab; font-size: 0.75rem;">
+                      <div style="font-weight: 700; color: rgb(59, 130, 246);">In Transit</div>
+                      <div style="color: var(--text-muted);">High Desert</div>
+                      <div style="color: var(--text-primary);">20 tons • $700</div>
+                    </div>
+                  </div>
+                  <div class="scheduler-slot" style="border-top: 1px solid rgba(255, 255, 255, 0.05); padding: 0.5rem; min-height: 80px;"></div>
+                  <div class="scheduler-slot" style="border-top: 1px solid rgba(255, 255, 255, 0.05); padding: 0.5rem; min-height: 80px;"></div>
+
+                  <!-- 15:00 - 15:30 Row -->
+                  <div style="padding: 0.75rem; font-weight: 700; color: var(--text-muted); border-top: 1px solid rgba(255, 255, 255, 0.05);">15:00<br>15:30</div>
+                  <div class="scheduler-slot" style="border-top: 1px solid rgba(255, 255, 255, 0.05); padding: 0.5rem; min-height: 80px; background: rgba(16, 185, 129, 0.05); border: 1px dashed rgba(16, 185, 129, 0.3);">
+                    <div style="color: var(--text-muted); font-size: 0.75rem; text-align: center; padding: 1rem;">
+                      <div>Next Available</div>
+                      <div style="color: var(--primary); font-weight: 700;">Drop Here</div>
+                    </div>
+                  </div>
+                  <div class="scheduler-slot" style="border-top: 1px solid rgba(255, 255, 255, 0.05); padding: 0.5rem; min-height: 80px; background: rgba(16, 185, 129, 0.05); border: 1px dashed rgba(16, 185, 129, 0.3);">
+                    <div style="color: var(--text-muted); font-size: 0.75rem; text-align: center; padding: 1rem;">
+                      <div>Next Available</div>
+                      <div style="color: var(--primary); font-weight: 700;">Drop Here</div>
+                    </div>
+                  </div>
+                  <div class="scheduler-slot" style="border-top: 1px solid rgba(255, 255, 255, 0.05); padding: 0.5rem; min-height: 80px; background: rgba(16, 185, 129, 0.05); border: 1px dashed rgba(16, 185, 129, 0.3);">
+                    <div style="color: var(--text-muted); font-size: 0.75rem; text-align: center; padding: 1rem;">
+                      <div>Next Available</div>
+                      <div style="color: var(--primary); font-weight: 700;">Drop Here</div>
+                    </div>
+                  </div>
+                  <div class="scheduler-slot" style="border-top: 1px solid rgba(255, 255, 255, 0.05); padding: 0.5rem; min-height: 80px;"></div>
+                  <div class="scheduler-slot" style="border-top: 1px solid rgba(255, 255, 255, 0.05); padding: 0.5rem; min-height: 80px; background: rgba(16, 185, 129, 0.05); border: 1px dashed rgba(16, 185, 129, 0.3);">
+                    <div style="color: var(--text-muted); font-size: 0.75rem; text-align: center; padding: 1rem;">
+                      <div>Next Available</div>
+                      <div style="color: var(--primary); font-weight: 700;">Drop Here</div>
+                    </div>
+                  </div>
+                  <div class="scheduler-slot" style="border-top: 1px solid rgba(255, 255, 255, 0.05); padding: 0.5rem; min-height: 80px;"></div>
+
+                  <!-- 15:30 - 16:00 Row -->
+                  <div style="padding: 0.75rem; font-weight: 700; color: var(--text-muted); border-top: 1px solid rgba(255, 255, 255, 0.05);">15:30<br>16:00</div>
+                  <div class="scheduler-slot" style="border-top: 1px solid rgba(255, 255, 255, 0.05); padding: 0.5rem; min-height: 80px;"></div>
+                  <div class="scheduler-slot" style="border-top: 1px solid rgba(255, 255, 255, 0.05); padding: 0.5rem; min-height: 80px;"></div>
+                  <div class="scheduler-slot" style="border-top: 1px solid rgba(255, 255, 255, 0.05); padding: 0.5rem; min-height: 80px;"></div>
+                  <div class="scheduler-slot" style="border-top: 1px solid rgba(255, 255, 255, 0.05); padding: 0.5rem; min-height: 80px;"></div>
+                  <div class="scheduler-slot" style="border-top: 1px solid rgba(255, 255, 255, 0.05); padding: 0.5rem; min-height: 80px;"></div>
+                  <div class="scheduler-slot" style="border-top: 1px solid rgba(255, 255, 255, 0.05); padding: 0.5rem; min-height: 80px;"></div>
+                </div>
+              </div>
+
+              <div style="background: rgba(59, 130, 246, 0.1); border: 1px solid rgba(59, 130, 246, 0.3); padding: 1rem; border-radius: var(--radius-lg); font-size: 0.875rem;">
+                <div style="display: flex; align-items: center; gap: 0.5rem; color: rgb(59, 130, 246); font-weight: 700; margin-bottom: 0.5rem;">
+                  <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                  </svg>
+                  Scheduler Demo Mode
+                </div>
+                <div style="color: var(--text-muted);">Drag and drop loads between time slots to reschedule. Green "Drop Here" slots show next available assignments. This is Big Al's "Command Center" for managing fleet assignments in real-time.</div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Driver App View -->
+        <div class="view" id="view-driver">
+          <div style="display: grid; grid-template-columns: 400px 1fr; gap: 2rem; align-items: start;">
+            <div class="phone-mockup">
+              <div class="phone-screen">
+                <div class="phone-header">
+                  <h3>Driver App</h3>
+                  <p>Truck #7 • Mike Johnson • Today 2:15 PM</p>
+                </div>
+                <div class="phone-content">
+                  <div class="phone-card" style="background: rgba(16, 185, 129, 0.15); border-color: var(--primary);">
+                  <h4 style="color: var(--primary);">
+                    <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="display: inline; vertical-align: middle; margin-right: 0.5rem;">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M8.111 16.404a5.5 5.5 0 017.778 0M12 20h.01m-7.08-7.071c3.904-3.905 10.236-3.905 14.141 0M1.394 9.393c5.857-5.857 15.355-5.857 21.213 0"></path>
+                    </svg>
+                    Offline Mode Active
+                  </h4>
+                  <p>Working without connection. Will sync automatically when back in range.</p>
+                </div>
+
+                <div class="phone-card" style="background: rgba(16, 185, 129, 0.15); border-color: var(--primary);">
+                  <h4 style="color: var(--primary); display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.75rem;">
+                    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                    Time Clock
+                  </h4>
+                  <p style="margin-bottom: 0.75rem;"><strong>Clocked In:</strong> 6:45 AM • 7 hrs 30 min elapsed<br>
+                  <span style="color: var(--text-secondary); font-size: 0.75rem;">Hours of Service: 6.5 remaining today</span></p>
+                  <button class="btn btn-secondary" style="width: 100%; background: var(--danger); color: white; border: none;">
+                    <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="display: inline; vertical-align: middle;">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M9 10a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1h-4a1 1 0 01-1-1v-4z"></path>
+                    </svg>
+                    Clock Out
+                  </button>
+                </div>
+
+                <button class="phone-button">
+                  <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="display: inline; vertical-align: middle; margin-right: 0.5rem;">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"></path>
+                  </svg>
+                  Create New Ticket
+                </button>
+
+                <div class="phone-card">
+                  <h4>Today's Route Summary</h4>
+                  <p>3 loads assigned • 2 completed • 1 in progress<br>
+                  Next up: Mountain View Construction</p>
+                </div>
+
+                <div class="phone-card">
+                  <h4>Current Delivery</h4>
+                  <p><strong>Mountain View Construction</strong><br>
+                  18 tons Gravel 3/4" @ $45.00/ton<br>
+                  Total: $810.00<br>
+                  <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="display: inline; vertical-align: middle; color: var(--primary);">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                  </svg>
+                  Get Directions (3.2 mi, ETA 2:30 PM)</p>
+                </div>
+
+                <div class="phone-card">
+                  <h4>Completed Today</h4>
+                  <p>
+                    <strong>✓ Summit Building</strong> - 22 tons Base Rock - $1,056.00<br>
+                    <strong>✓ Valley Concrete</strong> - 16 tons Sand - $608.00
+                  </p>
+                </div>
+
+                <div class="phone-card">
+                  <h4>Quick Actions</h4>
+                  <p style="display: flex; flex-direction: column; gap: 0.5rem;">
+                    <button class="btn btn-secondary" style="width: 100%; justify-content: center;">
+                      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"></path>
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                      </svg>
+                      Take Photo
+                    </button>
+                    <button class="btn btn-secondary" style="width: 100%; justify-content: center;">
+                      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                      </svg>
+                      View All Tickets
+                    </button>
+                  </p>
+                </div>
+              </div>
+              </div>
+            </div>
+
+            <!-- Feature Descriptions (right column) -->
+            <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+            <div style="background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.3); padding: 1.5rem; border-radius: var(--radius-lg);">
+              <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem;">
+                <div style="width: 40px; height: 40px; background: var(--primary); border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center;">
+                  <svg width="24" height="24" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M8.111 16.404a5.5 5.5 0 017.778 0M12 20h.01m-7.08-7.071c3.904-3.905 10.236-3.905 14.141 0M1.394 9.393c5.857-5.857 15.355-5.857 21.213 0"></path>
+                  </svg>
+                </div>
+                <div>
+                  <h3 style="margin: 0; color: var(--primary); font-size: 1.125rem;">Offline Mode - Rural Ready</h3>
+                  <div style="display: inline-block; background: rgba(16, 185, 129, 0.2); color: var(--primary); padding: 0.25rem 0.75rem; border-radius: 1rem; font-size: 0.75rem; font-weight: 700; margin-top: 0.25rem;">Works Everywhere</div>
+                </div>
+              </div>
+              <p style="color: var(--text-secondary); margin-bottom: 0.75rem; line-height: 1.6;">No cell signal in the quarry or remote jobsites? No problem. Drivers create tickets, take photos, and collect signatures completely offline.</p>
+              <ul style="color: var(--text-secondary); margin: 0; padding-left: 1.25rem; line-height: 1.8;">
+                <li>All data saved locally on device</li>
+                <li>Auto-sync when connection returns</li>
+                <li>Zero lost tickets or missed deliveries</li>
+              </ul>
+            </div>
+
+            <div style="background: rgba(251, 146, 60, 0.1); border: 1px solid rgba(251, 146, 60, 0.3); padding: 1.5rem; border-radius: var(--radius-lg);">
+              <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem;">
+                <div style="width: 40px; height: 40px; background: rgb(251, 146, 60); border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center;">
+                  <svg width="24" height="24" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                  </svg>
+                </div>
+                <div>
+                  <h3 style="margin: 0; color: rgb(251, 146, 60); font-size: 1.125rem;">Union Time Clock Integration</h3>
+                  <div style="display: inline-block; background: rgba(251, 146, 60, 0.2); color: rgb(251, 146, 60); padding: 0.25rem 0.75rem; border-radius: 1rem; font-size: 0.75rem; font-weight: 700; margin-top: 0.25rem;">Audit-Ready</div>
+                </div>
+              </div>
+              <p style="color: var(--text-secondary); margin-bottom: 0.75rem; line-height: 1.6;">Built-in time tracking meets union compliance requirements and DOT Hours of Service regulations.</p>
+              <ul style="color: var(--text-secondary); margin: 0; padding-left: 1.25rem; line-height: 1.8;">
+                <li>One-tap Clock In/Out from driver app</li>
+                <li>Automatic HOS countdown alerts</li>
+                <li>Export timesheets for payroll</li>
+              </ul>
+            </div>
+
+            <div style="background: rgba(59, 130, 246, 0.1); border: 1px solid rgba(59, 130, 246, 0.3); padding: 1.5rem; border-radius: var(--radius-lg);">
+              <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem;">
+                <div style="width: 40px; height: 40px; background: rgb(59, 130, 246); border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center;">
+                  <svg width="24" height="24" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"></path>
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                  </svg>
+                </div>
+                <div>
+                  <h3 style="margin: 0; color: rgb(59, 130, 246); font-size: 1.125rem;">Photo & Signature Capture</h3>
+                  <div style="display: inline-block; background: rgba(59, 130, 246, 0.2); color: rgb(59, 130, 246); padding: 0.25rem 0.75rem; border-radius: 1rem; font-size: 0.75rem; font-weight: 700; margin-top: 0.25rem;">Dispute Protection</div>
+                </div>
+              </div>
+              <p style="color: var(--text-secondary); margin-bottom: 0.75rem; line-height: 1.6;">Built-in camera and signature pad eliminate "they didn't deliver what I ordered" disputes.</p>
+              <ul style="color: var(--text-secondary); margin: 0; padding-left: 1.25rem; line-height: 1.8;">
+                <li>Timestamped delivery photos</li>
+                <li>Customer signature on device</li>
+                <li>Photos attached to invoice automatically</li>
+              </ul>
+            </div>
+
+            <div style="background: rgba(139, 92, 246, 0.1); border: 1px solid rgba(139, 92, 246, 0.3); padding: 1.5rem; border-radius: var(--radius-lg);">
+              <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem;">
+                <div style="width: 40px; height: 40px; background: rgb(139, 92, 246); border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center;">
+                  <svg width="24" height="24" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                  </svg>
+                </div>
+                <div>
+                  <h3 style="margin: 0; color: rgb(139, 92, 246); font-size: 1.125rem;">Instant Invoice Delivery</h3>
+                  <div style="display: inline-block; background: rgba(139, 92, 246, 0.2); color: rgb(139, 92, 246); padding: 0.25rem 0.75rem; border-radius: 1rem; font-size: 0.75rem; font-weight: 700; margin-top: 0.25rem;">Same-Day Payment</div>
+                </div>
+              </div>
+              <p style="color: var(--text-secondary); margin-bottom: 0.75rem; line-height: 1.6;">The moment a driver completes a delivery, the customer receives their invoice by email.</p>
+              <ul style="color: var(--text-secondary); margin: 0; padding-left: 1.25rem; line-height: 1.8;">
+                <li><strong>2:47 PM:</strong> Driver completes delivery</li>
+                <li><strong>2:48 PM:</strong> Invoice in QuickBooks</li>
+                <li><strong>2:48 PM:</strong> Customer receives email</li>
+              </ul>
+            </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Customers View -->
+        <div class="view" id="view-customers">
+          <div class="card">
+            <div class="card-header">
+              <h3 class="card-title">Customer Management</h3>
+              <button class="btn btn-primary">
+                <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"></path>
+                </svg>
+                Add Customer
+              </button>
+            </div>
+
+            <div class="stats">
+              <div class="stat-card">
+                <div class="stat-label">Total Customers</div>
+                <div class="stat-value">47</div>
+                <div class="stat-change positive">↑ 3 this month</div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-label">Active This Month</div>
+                <div class="stat-value">38</div>
+                <div class="stat-change">81% active rate</div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-label">Total Revenue (MTD)</div>
+                <div class="stat-value">$287,450.00</div>
+                <div class="stat-change positive">↑ 14% vs last month</div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-label">Avg Revenue/Customer</div>
+                <div class="stat-value">$7,564.00</div>
+                <div class="stat-change">Per month</div>
+              </div>
+            </div>
+
+            <div style="margin-bottom: 1.5rem; display: flex; gap: 1rem; align-items: center;">
+              <input type="text" class="form-input" placeholder="Search customers..." style="flex: 1;">
+              <select class="form-select" style="width: 200px;">
+                <option>All Customers</option>
+                <option>Active</option>
+                <option>Inactive</option>
+                <option>Volume Discount</option>
+              </select>
+              <div style="display: flex; gap: 0.5rem; background: var(--bg-secondary); padding: 0.25rem; border-radius: var(--radius-md);">
+                <button class="btn btn-secondary view-toggle active" data-view="list" style="padding: 0.5rem 0.75rem;">
+                  <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 10h16M4 14h16M4 18h16"></path>
+                  </svg>
+                </button>
+                <button class="btn btn-secondary view-toggle" data-view="blocks" style="padding: 0.5rem 0.75rem;">
+                  <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M4 5a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM14 5a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1h-4a1 1 0 01-1-1V5zM4 15a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1H5a1 1 0 01-1-1v-4zM14 15a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1h-4a1 1 0 01-1-1v-4z"></path>
+                  </svg>
+                </button>
+              </div>
+            </div>
+
+            <div id="customer-list-view" style="display: block;">
+
+            <div class="load-list">
+              <div class="load-card">
+                <div class="load-info">
+                  <h4>Mountain View Construction</h4>
+                  <p>Contact: Tom Henderson • tom@mountainviewconstruction.com • (541) 555-0123<br>
+                  42 loads this month • 756 tons • Last delivery: Today 2:47 PM</p>
+                </div>
+                <div class="load-status">
+                  <div class="badge" style="background: rgba(16, 185, 129, 0.15); margin-bottom: 0.5rem;">5% Volume Discount</div>
+                  <p class="revenue" style="font-weight: 700; font-size: 1rem; color: var(--text-primary);">$34,020.00</p>
+                  <button class="btn btn-secondary" style="padding: 0.5rem 1rem; font-size: 0.8125rem; margin-top: 0.5rem;">View Details</button>
+                </div>
+              </div>
+
+              <div class="load-card">
+                <div class="load-info">
+                  <h4>Summit Building Supply</h4>
+                  <p>Contact: Lisa Chen • lisa@summitbuilding.com • (541) 555-0156<br>
+                  38 loads this month • 891 tons • Last delivery: Today 11:23 AM</p>
+                </div>
+                <div class="load-status">
+                  <div class="badge" style="background: rgba(100, 116, 139, 0.15); margin-bottom: 0.5rem; color: var(--text-secondary); border-color: var(--border);">Standard Pricing</div>
+                  <p class="revenue" style="font-weight: 700; font-size: 1rem; color: var(--text-primary);">$42,768.00</p>
+                  <button class="btn btn-secondary" style="padding: 0.5rem 1rem; font-size: 0.8125rem; margin-top: 0.5rem;">View Details</button>
+                </div>
+              </div>
+
+              <div class="load-card">
+                <div class="load-info">
+                  <h4>Valley Concrete Co.</h4>
+                  <p>Contact: Mike Rodriguez • mike@valleyconcrete.com • (541) 555-0189<br>
+                  29 loads this month • 612 tons • Last delivery: Yesterday 3:15 PM</p>
+                </div>
+                <div class="load-status">
+                  <div class="badge" style="background: rgba(100, 116, 139, 0.15); margin-bottom: 0.5rem; color: var(--text-secondary); border-color: var(--border);">Standard Pricing</div>
+                  <p class="revenue" style="font-weight: 700; font-size: 1rem; color: var(--text-primary);">$23,256.00</p>
+                  <button class="btn btn-secondary" style="padding: 0.5rem 1rem; font-size: 0.8125rem; margin-top: 0.5rem;">View Details</button>
+                </div>
+              </div>
+
+              <div class="load-card">
+                <div class="load-info">
+                  <h4>High Desert Landscaping</h4>
+                  <p>Contact: Sarah Martinez • sarah@highdesertlandscaping.com • (541) 555-0201<br>
+                  24 loads this month • 480 tons • Last delivery: Yesterday 10:30 AM</p>
+                </div>
+                <div class="load-status">
+                  <div class="badge" style="background: rgba(16, 185, 129, 0.15); margin-bottom: 0.5rem;">3% Topsoil Discount</div>
+                  <p class="revenue" style="font-weight: 700; font-size: 1rem; color: var(--text-primary);">$16,800.00</p>
+                  <button class="btn btn-secondary" style="padding: 0.5rem 1rem; font-size: 0.8125rem; margin-top: 0.5rem;">View Details</button>
+                </div>
+              </div>
+
+              <div class="load-card">
+                <div class="load-info">
+                  <h4>Riverside Materials</h4>
+                  <p>Contact: James Wilson • james@riversidematerials.com • (541) 555-0234<br>
+                  31 loads this month • 744 tons • Last delivery: Today 9:15 AM</p>
+                </div>
+                <div class="load-status">
+                  <div class="badge" style="background: rgba(100, 116, 139, 0.15); margin-bottom: 0.5rem; color: var(--text-secondary); border-color: var(--border);">Standard Pricing</div>
+                  <p class="revenue" style="font-weight: 700; font-size: 1rem; color: var(--text-primary);">$35,712.00</p>
+                  <button class="btn btn-secondary" style="padding: 0.5rem 1rem; font-size: 0.8125rem; margin-top: 0.5rem;">View Details</button>
+                </div>
+              </div>
+
+              <div class="load-card">
+                <div class="load-info">
+                  <h4>Cascade Contractors</h4>
+                  <p>Contact: Robert Thompson • robert@cascadecontractors.com • (541) 555-0267<br>
+                  19 loads this month • 456 tons • Last delivery: 2 days ago</p>
+                </div>
+                <div class="load-status">
+                  <div class="badge" style="background: rgba(100, 116, 139, 0.15); margin-bottom: 0.5rem; color: var(--text-secondary); border-color: var(--border);">Standard Pricing</div>
+                  <p class="revenue" style="font-weight: 700; font-size: 1rem; color: var(--text-primary);">$21,888.00</p>
+                  <button class="btn btn-secondary" style="padding: 0.5rem 1rem; font-size: 0.8125rem; margin-top: 0.5rem;">View Details</button>
+                </div>
+              </div>
+            </div>
+            </div>
+
+            <!-- Blocks View -->
+            <div id="customer-blocks-view" style="display: none;">
+              <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem;">
+                <div class="card" style="margin: 0;">
+                  <div style="padding: 1.5rem;">
+                    <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem;">
+                      <h4 style="font-size: 1.125rem; font-weight: 700;">Mountain View Construction</h4>
+                      <div class="badge" style="background: rgba(16, 185, 129, 0.15);">5% Discount</div>
+                    </div>
+                    <div style="font-size: 0.875rem; color: var(--text-secondary); margin-bottom: 1rem;">
+                      <p><strong>Tom Henderson</strong></p>
+                      <p>tom@mountainviewconstruction.com</p>
+                      <p>(541) 555-0123</p>
+                    </div>
+                    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; margin-bottom: 1rem; padding-top: 1rem; border-top: 1px solid var(--border);">
+                      <div>
+                        <div style="font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase;">Loads MTD</div>
+                        <div style="font-size: 1.25rem; font-weight: 700;">42</div>
+                      </div>
+                      <div>
+                        <div style="font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase;">Tons MTD</div>
+                        <div style="font-size: 1.25rem; font-weight: 700;">756</div>
+                      </div>
+                    </div>
+                    <div style="font-size: 1.5rem; font-weight: 900; color: var(--primary); margin-bottom: 1rem;">$34,020.00</div>
+                    <button class="btn btn-primary" style="width: 100%;">View Full Details</button>
+                  </div>
+                </div>
+
+                <div class="card" style="margin: 0;">
+                  <div style="padding: 1.5rem;">
+                    <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem;">
+                      <h4 style="font-size: 1.125rem; font-weight: 700;">Summit Building Supply</h4>
+                      <div class="badge" style="background: rgba(100, 116, 139, 0.15); color: var(--text-secondary); border-color: var(--border);">Standard</div>
+                    </div>
+                    <div style="font-size: 0.875rem; color: var(--text-secondary); margin-bottom: 1rem;">
+                      <p><strong>Lisa Chen</strong></p>
+                      <p>lisa@summitbuilding.com</p>
+                      <p>(541) 555-0156</p>
+                    </div>
+                    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; margin-bottom: 1rem; padding-top: 1rem; border-top: 1px solid var(--border);">
+                      <div>
+                        <div style="font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase;">Loads MTD</div>
+                        <div style="font-size: 1.25rem; font-weight: 700;">38</div>
+                      </div>
+                      <div>
+                        <div style="font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase;">Tons MTD</div>
+                        <div style="font-size: 1.25rem; font-weight: 700;">891</div>
+                      </div>
+                    </div>
+                    <div style="font-size: 1.5rem; font-weight: 900; color: var(--primary); margin-bottom: 1rem;">$42,768.00</div>
+                    <button class="btn btn-primary" style="width: 100%;">View Full Details</button>
+                  </div>
+                </div>
+
+                <div class="card" style="margin: 0;">
+                  <div style="padding: 1.5rem;">
+                    <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem;">
+                      <h4 style="font-size: 1.125rem; font-weight: 700;">Valley Concrete Co.</h4>
+                      <div class="badge" style="background: rgba(100, 116, 139, 0.15); color: var(--text-secondary); border-color: var(--border);">Standard</div>
+                    </div>
+                    <div style="font-size: 0.875rem; color: var(--text-secondary); margin-bottom: 1rem;">
+                      <p><strong>Mike Rodriguez</strong></p>
+                      <p>mike@valleyconcrete.com</p>
+                      <p>(541) 555-0189</p>
+                    </div>
+                    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; margin-bottom: 1rem; padding-top: 1rem; border-top: 1px solid var(--border);">
+                      <div>
+                        <div style="font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase;">Loads MTD</div>
+                        <div style="font-size: 1.25rem; font-weight: 700;">29</div>
+                      </div>
+                      <div>
+                        <div style="font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase;">Tons MTD</div>
+                        <div style="font-size: 1.25rem; font-weight: 700;">612</div>
+                      </div>
+                    </div>
+                    <div style="font-size: 1.5rem; font-weight: 900; color: var(--primary); margin-bottom: 1rem;">$23,256.00</div>
+                    <button class="btn btn-primary" style="width: 100%;">View Full Details</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Customer Detail Modal (Hidden by default) -->
+            <div id="customer-detail-modal" style="display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0, 0, 0, 0.9); z-index: 1000; padding: 2rem; overflow-y: auto;">
+              <div style="max-width: 900px; margin: 0 auto; background: var(--bg-elevated); border-radius: var(--radius-xl); border: 2px solid var(--primary);">
+                <div style="padding: 2rem; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between;">
+                  <div>
+                    <h2 style="font-size: 1.75rem; font-weight: 900; margin-bottom: 0.5rem;">Mountain View Construction</h2>
+                    <p style="color: var(--text-secondary);">Customer since March 2023 • Account #MVW-2301</p>
+                  </div>
+                  <button class="btn btn-secondary" onclick="document.getElementById('customer-detail-modal').style.display='none'">
+                    <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                    Close
+                  </button>
+                </div>
+
+                <div style="padding: 2rem;">
+                  <div class="grid grid-2" style="margin-bottom: 2rem;">
+                    <div class="card" style="margin: 0;">
+                      <div class="card-header" style="margin-bottom: 1rem; padding-bottom: 0.75rem;">
+                        <h3 class="card-title" style="font-size: 1rem;">Contact Information</h3>
+                      </div>
+                      <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+                        <div>
+                          <div style="font-size: 0.75rem; color: var(--text-muted); margin-bottom: 0.25rem;">Primary Contact</div>
+                          <div style="font-weight: 600;">Tom Henderson</div>
+                        </div>
+                        <div>
+                          <div style="font-size: 0.75rem; color: var(--text-muted); margin-bottom: 0.25rem;">Email</div>
+                          <div style="font-weight: 600;">tom@mountainviewconstruction.com</div>
+                        </div>
+                        <div>
+                          <div style="font-size: 0.75rem; color: var(--text-muted); margin-bottom: 0.25rem;">Phone</div>
+                          <div style="font-weight: 600;">(541) 555-0123</div>
+                        </div>
+                        <div>
+                          <div style="font-size: 0.75rem; color: var(--text-muted); margin-bottom: 0.25rem;">Billing Address</div>
+                          <div style="font-weight: 600;">2485 Mountain View Rd<br>Bend, OR 97702</div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="card" style="margin: 0;">
+                      <div class="card-header" style="margin-bottom: 1rem; padding-bottom: 0.75rem;">
+                        <h3 class="card-title" style="font-size: 1rem;">Custom Pricing</h3>
+                      </div>
+                      <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+                        <div style="padding: 0.75rem; background: rgba(16, 185, 129, 0.1); border: 1px solid var(--primary); border-radius: var(--radius-md);">
+                          <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                            <span style="font-weight: 600;">Gravel 3/4"</span>
+                            <span style="color: var(--primary); font-weight: 700;">$42.75/ton</span>
+                          </div>
+                          <div style="font-size: 0.75rem; color: var(--text-secondary);">Base: $45.00 • 5% volume discount</div>
+                        </div>
+                        <div style="padding: 0.75rem; background: var(--bg-secondary); border-radius: var(--radius-md);">
+                          <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                            <span style="font-weight: 600;">Base Rock</span>
+                            <span style="font-weight: 700;">$48.00/ton</span>
+                          </div>
+                          <div style="font-size: 0.75rem; color: var(--text-secondary);">Standard pricing</div>
+                        </div>
+                        <div style="padding: 0.75rem; background: var(--bg-secondary); border-radius: var(--radius-md);">
+                          <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                            <span style="font-weight: 600;">Sand</span>
+                            <span style="font-weight: 700;">$38.00/ton</span>
+                          </div>
+                          <div style="font-size: 0.75rem; color: var(--text-secondary);">Standard pricing</div>
+                        </div>
+                        <button class="btn btn-secondary" style="width: 100%; margin-top: 0.5rem;">
+                          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="display: inline; vertical-align: middle;">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"></path>
+                          </svg>
+                          Add Custom Rate
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="card" style="margin: 0;">
+                    <div class="card-header">
+                      <h3 class="card-title">Delivery History (Last 30 Days)</h3>
+                    </div>
+                    <div class="load-list">
+                      <div class="load-card">
+                        <div class="load-info">
+                          <h4>TK-1247 • 18 tons Gravel 3/4"</h4>
+                          <p>Today 2:47 PM • Truck #7 (Mike Johnson) • Status: Delivered</p>
+                        </div>
+                        <div class="load-status">
+                          <p class="revenue" style="font-weight: 700; font-size: 1rem;">$810.00</p>
+                        </div>
+                      </div>
+                      <div class="load-card">
+                        <div class="load-info">
+                          <h4>TK-1189 • 22 tons Base Rock</h4>
+                          <p>Jan 25 • Truck #3 (Sarah Williams) • Status: Delivered</p>
+                        </div>
+                        <div class="load-status">
+                          <p class="revenue" style="font-weight: 700; font-size: 1rem;">$1,056.00</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Customer Portal View -->
+        <div class="view" id="view-customer">
+          <div class="card">
+            <div class="card-header">
+              <h3 class="card-title">Customer Portal</h3>
+              <div class="badge">
+                <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
+                </svg>
+                <span>Mountain View Construction</span>
+              </div>
+            </div>
+
+            <div class="stats">
+              <div class="stat-card">
+                <div class="stat-label">This Month</div>
+                <div class="stat-value">42</div>
+                <div class="stat-change">Loads delivered</div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-label">Total Tonnage</div>
+                <div class="stat-value">756</div>
+                <div class="stat-change">Tons this month</div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-label">Total Spend</div>
+                <div class="stat-value">$34,020.00</div>
+                <div class="stat-change">This month</div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-label">Account Status</div>
+                <div class="stat-value">Current</div>
+                <div class="stat-change positive">Paid in full</div>
+              </div>
+            </div>
+
+            <h4 style="margin-bottom: 1rem; font-size: 1.125rem; font-weight: 700;">Recent Deliveries</h4>
+            <div class="load-list">
+              <div class="load-card">
+                <div class="load-info">
+                  <h4>Gravel 3/4" - 18 tons @ $45.00/ton</h4>
+                  <p>Today at 2:47 PM • Truck #7 • Mike Johnson • TK-1247</p>
+                </div>
+                <div class="load-status">
+                  <div class="status-badge status-completed">Delivered</div>
+                  <button class="btn btn-secondary" style="padding: 0.5rem 1rem; font-size: 0.8125rem;">
+                    <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                    </svg>
+                    Download PDF
+                  </button>
+                </div>
+              </div>
+              <div class="load-card">
+                <div class="load-info">
+                  <h4>Base Rock - 22 tons @ $48.00/ton</h4>
+                  <p>Today at 11:23 AM • Truck #3 • Sarah Williams • TK-1246</p>
+                </div>
+                <div class="load-status">
+                  <div class="status-badge status-completed">Delivered</div>
+                  <button class="btn btn-secondary" style="padding: 0.5rem 1rem; font-size: 0.8125rem;">
+                    <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                    </svg>
+                    Download PDF
+                  </button>
+                </div>
+              </div>
+              <div class="load-card">
+                <div class="load-info">
+                  <h4>Sand - 16 tons @ $38.00/ton</h4>
+                  <p>Yesterday at 3:15 PM • Truck #12 • James Chen • TK-1245</p>
+                </div>
+                <div class="load-status">
+                  <div class="status-badge status-completed">Delivered</div>
+                  <button class="btn btn-secondary" style="padding: 0.5rem 1rem; font-size: 0.8125rem;">
+                    <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                    </svg>
+                    Download PDF
+                  </button>
+                </div>
+              </div>
+              <div class="load-card">
+                <div class="load-info">
+                  <h4>Topsoil - 20 tons @ $35.00/ton</h4>
+                  <p>Yesterday at 10:30 AM • Truck #9 • Lisa Martinez • TK-1244</p>
+                </div>
+                <div class="load-status">
+                  <div class="status-badge status-completed">Delivered</div>
+                  <button class="btn btn-secondary" style="padding: 0.5rem 1rem; font-size: 0.8125rem;">
+                    <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                    </svg>
+                    Download PDF
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Reports View -->
+        <div class="view" id="view-reports">
+          <!-- Revenue Summary Card -->
+          <div class="card" style="background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(59, 130, 246, 0.1) 100%); border: 1px solid rgba(16, 185, 129, 0.3);">
+            <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 1.5rem;">
+              <div>
+                <h3 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 0.5rem;">Reports & Analytics</h3>
+                <p style="color: var(--text-muted); font-size: 0.875rem;">Real-time insights, QuickBooks sync, and export tools</p>
+                <p style="color: var(--text-secondary); font-size: 0.8125rem; margin-top: 0.5rem;">
+                  <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="display: inline; vertical-align: middle; margin-right: 0.25rem;">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                  </svg>
+                  <strong>ERP Integrations:</strong> NetSuite, Sage, and SAP available via Enterprise API
+                </p>
+              </div>
+              <button class="btn btn-secondary">
+                <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                </svg>
+                Export All Data
+              </button>
+            </div>
+
+            <div class="stats">
+              <div class="stat-card">
+                <div class="stat-label">Today's Revenue</div>
+                <div class="stat-value" style="font-size: 1.75rem;">$4,274</div>
+                <div class="stat-change positive">↑ 18 loads completed</div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-label">MTD Revenue</div>
+                <div class="stat-value" style="font-size: 1.75rem;">$287K</div>
+                <div class="stat-change positive">↑ 12% vs. last month</div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-label">QB Pending Review</div>
+                <div class="stat-value" style="font-size: 1.75rem;">15</div>
+                <div class="stat-change">$6,240 ready to sync</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-header">
+              <h3 class="card-title">
+                <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="display: inline; vertical-align: middle; margin-right: 0.5rem;">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                </svg>
+                QuickBooks Review Queue
+              </h3>
+              <button class="btn btn-primary">
+                <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path>
+                </svg>
+                Approve All (15)
+              </button>
+            </div>
+
+            <div style="padding: 1rem; background: rgba(16, 185, 129, 0.1); border: 1px solid var(--primary); border-radius: var(--radius-md); margin-bottom: 1.5rem;">
+              <h4 style="font-size: 0.9375rem; font-weight: 700; color: var(--primary); margin-bottom: 0.5rem;">
+                <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="display: inline; vertical-align: middle;">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+                Same-Day Invoicing
+              </h4>
+              <p style="font-size: 0.875rem; color: var(--text-secondary);">
+                Tickets appear here immediately after delivery. Review & approve to sync to QuickBooks.
+                Your average time from delivery to invoice: <strong style="color: var(--primary);">2.3 minutes</strong> (vs. 45-60 days with paper).
+              </p>
+            </div>
+
+            <div class="load-list">
+              <div class="load-card">
+                <div class="load-info">
+                  <h4>TK-1247 • Mountain View Construction</h4>
+                  <p>18 tons Gravel 3/4" @ $45.00/ton • Truck #7 (Mike Johnson) • Today 2:47 PM</p>
+                </div>
+                <div class="load-status">
+                  <div style="display: flex; gap: 0.5rem; margin-bottom: 0.5rem;">
+                    <button class="btn btn-secondary" style="padding: 0.5rem 1rem;">Reject</button>
+                    <button class="btn btn-primary" style="padding: 0.5rem 1rem;">
+                      <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path>
+                      </svg>
+                      Approve
+                    </button>
+                  </div>
+                  <p class="revenue" style="font-weight: 700; font-size: 1rem; color: var(--text-primary);">$810.00</p>
+                </div>
+              </div>
+              <div class="load-card">
+                <div class="load-info">
+                  <h4>TK-1246 • Summit Building Supply</h4>
+                  <p>22 tons Base Rock @ $48.00/ton • Truck #3 (Sarah Williams) • Today 11:23 AM</p>
+                </div>
+                <div class="load-status">
+                  <div style="display: flex; gap: 0.5rem; margin-bottom: 0.5rem;">
+                    <button class="btn btn-secondary" style="padding: 0.5rem 1rem;">Reject</button>
+                    <button class="btn btn-primary" style="padding: 0.5rem 1rem;">
+                      <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path>
+                      </svg>
+                      Approve
+                    </button>
+                  </div>
+                  <p class="revenue" style="font-weight: 700; font-size: 1rem; color: var(--text-primary);">$1,056.00</p>
+                </div>
+              </div>
+              <div class="load-card">
+                <div class="load-info">
+                  <h4>TK-1245 • Valley Concrete Co.</h4>
+                  <p>16 tons Sand @ $38.00/ton • Truck #12 (James Chen) • Yesterday 3:15 PM</p>
+                </div>
+                <div class="load-status">
+                  <div style="display: flex; gap: 0.5rem; margin-bottom: 0.5rem;">
+                    <button class="btn btn-secondary" style="padding: 0.5rem 1rem;">Reject</button>
+                    <button class="btn btn-primary" style="padding: 0.5rem 1rem;">
+                      <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path>
+                      </svg>
+                      Approve
+                    </button>
+                  </div>
+                  <p class="revenue" style="font-weight: 700; font-size: 1rem; color: var(--text-primary);">$608.00</p>
+                </div>
+              </div>
+              <div class="load-card">
+                <div class="load-info">
+                  <h4>TK-1244 • High Desert Landscaping</h4>
+                  <p>20 tons Topsoil @ $35.00/ton • Truck #9 (Lisa Martinez) • Yesterday 10:30 AM</p>
+                </div>
+                <div class="load-status">
+                  <div style="display: flex; gap: 0.5rem; margin-bottom: 0.5rem;">
+                    <button class="btn btn-secondary" style="padding: 0.5rem 1rem;">Reject</button>
+                    <button class="btn btn-primary" style="padding: 0.5rem 1rem;">
+                      <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path>
+                      </svg>
+                      Approve
+                    </button>
+                  </div>
+                  <p class="revenue" style="font-weight: 700; font-size: 1rem; color: var(--text-primary);">$700.00</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="grid grid-2">
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">Sync Settings</h3>
+              </div>
+              <div style="display: flex; flex-direction: column; gap: 1rem;">
+                <div style="display: flex; align-items: center; justify-content: space-between; padding: 0.75rem; background: var(--bg-secondary); border-radius: var(--radius-md);">
+                  <div>
+                    <div style="font-size: 0.9375rem; font-weight: 600; margin-bottom: 0.25rem;">Auto-Sync After Approval</div>
+                    <div style="font-size: 0.75rem; color: var(--text-muted);">Sync immediately when you click Approve</div>
+                  </div>
+                  <div style="width: 48px; height: 24px; background: var(--primary); border-radius: 12px; position: relative; cursor: pointer;">
+                    <div style="position: absolute; right: 2px; top: 2px; width: 20px; height: 20px; background: white; border-radius: 50%;"></div>
+                  </div>
+                </div>
+                <div style="display: flex; align-items: center; justify-content: space-between; padding: 0.75rem; background: var(--bg-secondary); border-radius: var(--radius-md);">
+                  <div>
+                    <div style="font-size: 0.9375rem; font-weight: 600; margin-bottom: 0.25rem;">Include Driver Notes</div>
+                    <div style="font-size: 0.75rem; color: var(--text-muted);">Add delivery notes to QB memo field</div>
+                  </div>
+                  <div style="width: 48px; height: 24px; background: var(--primary); border-radius: 12px; position: relative; cursor: pointer;">
+                    <div style="position: absolute; right: 2px; top: 2px; width: 20px; height: 20px; background: white; border-radius: 50%;"></div>
+                  </div>
+                </div>
+                <div style="display: flex; align-items: center; justify-content: space-between; padding: 0.75rem; background: var(--bg-secondary); border-radius: var(--radius-md);">
+                  <div>
+                    <div style="font-size: 0.9375rem; font-weight: 600; margin-bottom: 0.25rem;">Photo Attachments</div>
+                    <div style="font-size: 0.75rem; color: var(--text-muted);">Attach delivery photos to invoices</div>
+                  </div>
+                  <div style="width: 48px; height: 24px; background: var(--border); border-radius: 12px; position: relative; cursor: pointer;">
+                    <div style="position: absolute; left: 2px; top: 2px; width: 20px; height: 20px; background: white; border-radius: 50%;"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">Account Mapping</h3>
+              </div>
+              <div style="display: flex; flex-direction: column; gap: 1rem;">
+                <div style="padding: 0.75rem; background: var(--bg-secondary); border-radius: var(--radius-md);">
+                  <div style="font-size: 0.875rem; color: var(--text-muted); margin-bottom: 0.5rem;">Income Account</div>
+                  <div style="font-weight: 600;">Sales → Aggregate Sales</div>
+                </div>
+                <div style="padding: 0.75rem; background: var(--bg-secondary); border-radius: var(--radius-md);">
+                  <div style="font-size: 0.875rem; color: var(--text-muted); margin-bottom: 0.5rem;">Tax Rate</div>
+                  <div style="font-weight: 600;">Oregon 8.5% Sales Tax</div>
+                </div>
+                <div style="padding: 0.75rem; background: var(--bg-secondary); border-radius: var(--radius-md);">
+                  <div style="font-size: 0.875rem; color: var(--text-muted); margin-bottom: 0.5rem;">Payment Terms</div>
+                  <div style="font-weight: 600;">Net 30</div>
+                </div>
+                <div style="padding: 0.75rem; background: var(--bg-secondary); border-radius: var(--radius-md);">
+                  <div style="font-size: 0.875rem; color: var(--text-muted); margin-bottom: 0.5rem;">Last Sync</div>
+                  <div style="font-weight: 600; color: var(--primary);">2 minutes ago</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ROI & Analytics View -->
+        <div class="view" id="view-roi">
+          <div class="stats">
+            <div class="stat-card">
+              <div class="stat-label">Time Saved This Month</div>
+              <div class="stat-value">87 hrs</div>
+              <div class="stat-change positive">↓ Manual data entry eliminated</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-label">Revenue Recovered</div>
+              <div class="stat-value">$6,240.00</div>
+              <div class="stat-change positive">Zero lost tickets this month</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-label">Labor Cost Savings</div>
+              <div class="stat-value">$18,750/yr</div>
+              <div class="stat-change">2.5 hrs/day × $30/hr × 250 days</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-label">Payback Period</div>
+              <div class="stat-value">63 days</div>
+              <div class="stat-change positive">Based on $26K annual savings</div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-header">
+              <h3 class="card-title">Paper vs. Digital Comparison</h3>
+            </div>
+            <div style="overflow-x: auto;">
+              <table>
+                <thead>
+                  <tr>
+                    <th style="text-align: left;">Metric</th>
+                    <th style="color: var(--danger);">❌ Paper System</th>
+                    <th style="color: var(--primary);">✅ Digital System</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Time per ticket</td>
+                    <td style="color: var(--text-muted);">5+ minutes</td>
+                    <td style="color: var(--primary); font-weight: 700;">30 seconds</td>
+                  </tr>
+                  <tr>
+                    <td>Lost tickets / week</td>
+                    <td style="color: var(--text-muted);">3-5 ($600)</td>
+                    <td style="color: var(--primary); font-weight: 700;">0 ($0)</td>
+                  </tr>
+                  <tr>
+                    <td>Daily data entry</td>
+                    <td style="color: var(--text-muted);">2.5 hours manual</td>
+                    <td style="color: var(--primary); font-weight: 700;">Automatic</td>
+                  </tr>
+                  <tr>
+                    <td>Billing disputes</td>
+                    <td style="color: var(--text-muted);">Frequent</td>
+                    <td style="color: var(--primary); font-weight: 700;">Eliminated</td>
+                  </tr>
+                  <tr>
+                    <td>QuickBooks sync</td>
+                    <td style="color: var(--text-muted);">45-60 days</td>
+                    <td style="color: var(--primary); font-weight: 700;">Same-day (2.3 min avg)</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Annual Cost</strong></td>
+                    <td style="color: var(--danger); font-weight: 700; font-size: 1.125rem;">$45,500</td>
+                    <td style="color: var(--primary); font-weight: 700; font-size: 1.125rem;">$19,500</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="roi-callout">
+            <div class="roi-callout-content">
+              <h3 style="font-size: 1.75rem; font-weight: 900; margin-bottom: 0.75rem;">Steal This ROI Model</h3>
+              <p style="color: var(--text-secondary); margin-bottom: 1.5rem; font-size: 1rem;">Book a 30-minute call and we'll build your custom ROI spreadsheet — plug in your truck count, average haul rate, and current lost ticket percentage. You'll have the numbers to show your CFO before we hang up.</p>
+              <a href="https://meetings.hubspot.com/resultantai/paper-to-digital" target="_blank" class="btn btn-primary" style="font-size: 1rem; padding: 1rem 2rem;">
+                <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                </svg>
+                Book Your ROI Call →
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Settings & Users View -->
+        <div class="view" id="view-settings">
+          <div class="card">
+            <div class="card-header">
+              <h3 class="card-title">User Management</h3>
+              <button class="btn btn-primary">
+                <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"></path>
+                </svg>
+                Add User
+              </button>
+            </div>
+
+            <div class="load-list">
+              <div class="load-card">
+                <div class="load-info">
+                  <h4>Linda Chen - Office Manager</h4>
+                  <p>linda@valleyrock.com • Admin Access • QuickBooks Reviewer • Last active: 2 min ago</p>
+                </div>
+                <div class="load-status">
+                  <div class="status-badge status-completed" style="margin-bottom: 0.75rem;">Active</div>
+                  <div style="display: flex; gap: 0.5rem;">
+                    <button class="btn btn-secondary" style="padding: 0.5rem 1rem; font-size: 0.8125rem;">Edit</button>
+                    <button class="btn btn-secondary" style="padding: 0.5rem 1rem; font-size: 0.8125rem; background: var(--danger); color: white; border-color: var(--danger);">
+                      <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="display: inline; vertical-align: middle;">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"></path>
+                      </svg>
+                      Revoke
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <div class="load-card">
+                <div class="load-info">
+                  <h4>Frank Williams - Dispatcher</h4>
+                  <p>frank@valleyrock.com • Dispatcher Access • Fleet Manager • Last active: 5 min ago</p>
+                </div>
+                <div class="load-status">
+                  <div class="status-badge status-completed" style="margin-bottom: 0.75rem;">Active</div>
+                  <div style="display: flex; gap: 0.5rem;">
+                    <button class="btn btn-secondary" style="padding: 0.5rem 1rem; font-size: 0.8125rem;">Edit</button>
+                    <button class="btn btn-secondary" style="padding: 0.5rem 1rem; font-size: 0.8125rem; background: var(--danger); color: white; border-color: var(--danger);">
+                      <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="display: inline; vertical-align: middle;">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M18.364 18.364A9 18 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"></path>
+                      </svg>
+                      Revoke
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <div class="load-card">
+                <div class="load-info">
+                  <h4>Mike Johnson - Driver (Truck #7)</h4>
+                  <p>mike@valleyrock.com • Driver Access • 3 loads today • Last active: 15 min ago</p>
+                </div>
+                <div class="load-status">
+                  <div class="status-badge status-completed" style="margin-bottom: 0.75rem;">Active</div>
+                  <div style="display: flex; gap: 0.5rem;">
+                    <button class="btn btn-secondary" style="padding: 0.5rem 1rem; font-size: 0.8125rem;">Edit</button>
+                    <button class="btn btn-secondary" style="padding: 0.5rem 1rem; font-size: 0.8125rem; background: var(--danger); color: white; border-color: var(--danger);">
+                      <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="display: inline; vertical-align: middle;">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"></path>
+                      </svg>
+                      Revoke
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <div class="load-card">
+                <div class="load-info">
+                  <h4>Sarah Williams - Driver (Truck #3)</h4>
+                  <p>sarah@valleyrock.com • Driver Access • 4 loads today • Last active: 30 min ago</p>
+                </div>
+                <div class="load-status">
+                  <div class="status-badge status-completed" style="margin-bottom: 0.75rem;">Active</div>
+                  <div style="display: flex; gap: 0.5rem;">
+                    <button class="btn btn-secondary" style="padding: 0.5rem 1rem; font-size: 0.8125rem;">Edit</button>
+                    <button class="btn btn-secondary" style="padding: 0.5rem 1rem; font-size: 0.8125rem; background: var(--danger); color: white; border-color: var(--danger);">
+                      <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="display: inline; vertical-align: middle;">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"></path>
+                      </svg>
+                      Revoke
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <div class="load-card">
+                <div class="load-info">
+                  <h4>James Chen - Driver (Truck #12)</h4>
+                  <p>james@valleyrock.com • Driver Access • 2 loads today • Last active: 1 hr ago</p>
+                </div>
+                <div class="load-status">
+                  <div class="status-badge status-completed" style="margin-bottom: 0.75rem;">Active</div>
+                  <div style="display: flex; gap: 0.5rem;">
+                    <button class="btn btn-secondary" style="padding: 0.5rem 1rem; font-size: 0.8125rem;">Edit</button>
+                    <button class="btn btn-secondary" style="padding: 0.5rem 1rem; font-size: 0.8125rem; background: var(--danger); color: white; border-color: var(--danger);">
+                      <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="display: inline; vertical-align: middle;">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"></path>
+                      </svg>
+                      Revoke
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="grid grid-2">
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">System Features</h3>
+              </div>
+              <div style="display: flex; flex-direction: column; gap: 1rem;">
+                <div style="display: flex; align-items: center; justify-content: space-between; padding: 0.75rem; background: var(--bg-secondary); border-radius: var(--radius-md);">
+                  <div>
+                    <div style="font-size: 0.9375rem; font-weight: 600; margin-bottom: 0.25rem;">Offline Mode</div>
+                    <div style="font-size: 0.75rem; color: var(--text-muted);">Works in rural dead zones</div>
+                  </div>
+                  <div style="width: 48px; height: 24px; background: var(--primary); border-radius: 12px; position: relative; cursor: pointer;">
+                    <div style="position: absolute; right: 2px; top: 2px; width: 20px; height: 20px; background: white; border-radius: 50%;"></div>
+                  </div>
+                </div>
+                <div style="display: flex; align-items: center; justify-content: space-between; padding: 0.75rem; background: var(--bg-secondary); border-radius: var(--radius-md);">
+                  <div>
+                    <div style="font-size: 0.9375rem; font-weight: 600; margin-bottom: 0.25rem;">QuickBooks Auto-Sync</div>
+                    <div style="font-size: 0.75rem; color: var(--text-muted);">Review first, then auto-sync</div>
+                  </div>
+                  <div style="width: 48px; height: 24px; background: var(--border); border-radius: 12px; position: relative; cursor: pointer;">
+                    <div style="position: absolute; left: 2px; top: 2px; width: 20px; height: 20px; background: white; border-radius: 50%;"></div>
+                  </div>
+                </div>
+                <div style="display: flex; align-items: center; justify-content: space-between; padding: 0.75rem; background: var(--bg-secondary); border-radius: var(--radius-md);">
+                  <div>
+                    <div style="font-size: 0.9375rem; font-weight: 600; margin-bottom: 0.25rem;">Photo Requirements</div>
+                    <div style="font-size: 0.75rem; color: var(--text-muted);">Require delivery photos</div>
+                  </div>
+                  <div style="width: 48px; height: 24px; background: var(--primary); border-radius: 12px; position: relative; cursor: pointer;">
+                    <div style="position: absolute; right: 2px; top: 2px; width: 20px; height: 20px; background: white; border-radius: 50%;"></div>
+                  </div>
+                </div>
+                <div style="display: flex; align-items: center; justify-content: space-between; padding: 0.75rem; background: var(--bg-secondary); border-radius: var(--radius-md);">
+                  <div>
+                    <div style="font-size: 0.9375rem; font-weight: 600; margin-bottom: 0.25rem;">Email Notifications</div>
+                    <div style="font-size: 0.75rem; color: var(--text-muted);">Instant delivery alerts</div>
+                  </div>
+                  <div style="width: 48px; height: 24px; background: var(--primary); border-radius: 12px; position: relative; cursor: pointer;">
+                    <div style="position: absolute; right: 2px; top: 2px; width: 20px; height: 20px; background: white; border-radius: 50%;"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">Pricing Configuration</h3>
+              </div>
+              <div style="display: flex; flex-direction: column; gap: 1rem;">
+                <div style="padding: 0.75rem; background: var(--bg-secondary); border-radius: var(--radius-md);">
+                  <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                    <span style="font-size: 0.875rem; color: var(--text-muted);">Gravel 3/4"</span>
+                    <span style="font-weight: 700; font-variant-numeric: tabular-nums;">$45.00/ton</span>
+                  </div>
+                  <div style="font-size: 0.75rem; color: var(--text-muted);">5% discount for Mountain View Construction</div>
+                </div>
+                <div style="padding: 0.75rem; background: var(--bg-secondary); border-radius: var(--radius-md);">
+                  <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                    <span style="font-size: 0.875rem; color: var(--text-muted);">Base Rock</span>
+                    <span style="font-weight: 700; font-variant-numeric: tabular-nums;">$48.00/ton</span>
+                  </div>
+                  <div style="font-size: 0.75rem; color: var(--text-muted);">Standard pricing</div>
+                </div>
+                <div style="padding: 0.75rem; background: var(--bg-secondary); border-radius: var(--radius-md);">
+                  <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                    <span style="font-size: 0.875rem; color: var(--text-muted);">Sand</span>
+                    <span style="font-weight: 700; font-variant-numeric: tabular-nums;">$38.00/ton</span>
+                  </div>
+                  <div style="font-size: 0.75rem; color: var(--text-muted);">Standard pricing</div>
+                </div>
+                <div style="padding: 0.75rem; background: var(--bg-secondary); border-radius: var(--radius-md);">
+                  <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                    <span style="font-size: 0.875rem; color: var(--text-muted);">Topsoil</span>
+                    <span style="font-weight: 700; font-variant-numeric: tabular-nums;">$35.00/ton</span>
+                  </div>
+                  <div style="font-size: 0.75rem; color: var(--text-muted);">Standard pricing</div>
+                </div>
+                <div style="padding: 0.75rem; background: var(--bg-secondary); border-radius: var(--radius-md);">
+                  <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                    <span style="font-size: 0.875rem; color: var(--text-muted);">Crushed Rock</span>
+                    <span style="font-weight: 700; font-variant-numeric: tabular-nums;">$52.00/ton</span>
+                  </div>
+                  <div style="font-size: 0.75rem; color: var(--text-muted);">Premium grade</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="roi-callout">
+            <div class="roi-callout-content">
+              <h3 style="font-size: 1.75rem; font-weight: 900; margin-bottom: 0.75rem;">Ready to See Your Custom Configuration?</h3>
+              <p style="color: var(--text-secondary); margin-bottom: 1.5rem; font-size: 1rem;">We'll configure fields, pricing rules, user roles, and workflows to match your exact setup. Bring your product list and customer names — we'll show you what it looks like.</p>
+              <a href="https://meetings.hubspot.com/resultantai/paper-to-digital" target="_blank" class="btn btn-primary" style="font-size: 1rem; padding: 1rem 2rem;">
+                <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                </svg>
+                Book Implementation Call →
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    // View switching
+    const navItems = document.querySelectorAll('.nav-item');
+    const views = document.querySelectorAll('.view');
+
+    const viewTitles = {
+      dashboard: { title: 'Dashboard', subtitle: 'Real-time fleet overview' },
+      tickets: { title: 'Create Ticket', subtitle: 'Generate new load tickets - works offline' },
+      dispatcher: { title: 'Active Loads', subtitle: 'Live tracking and dispatch management' },
+      customers: { title: 'Customer Management', subtitle: 'Track accounts, pricing, and delivery history' },
+      driver: { title: 'Driver Mobile App', subtitle: 'BYOD ready - no app download required' },
+      customer: { title: 'Customer Portal', subtitle: '24/7 self-service for your customers' },
+      reports: { title: 'Reports & Analytics', subtitle: 'Revenue tracking, QuickBooks sync, and exports' },
+      roi: { title: 'ROI & Analytics', subtitle: 'Track savings and system impact' },
+      settings: { title: 'Settings & Users', subtitle: 'Manage users, features, and pricing' }
+    };
+
+    function switchView(viewId) {
+      // Update nav active state
+      navItems.forEach(nav => nav.classList.remove('active'));
+      document.querySelector(`[data-view="${viewId}"]`).classList.add('active');
+
+      // Switch views
+      views.forEach(view => view.classList.remove('active'));
+      document.getElementById('view-' + viewId).classList.add('active');
+
+      // Update header
+      document.getElementById('view-title').textContent = viewTitles[viewId].title;
+      document.getElementById('view-subtitle').textContent = viewTitles[viewId].subtitle;
+    }
+
+    navItems.forEach(item => {
+      item.addEventListener('click', () => {
+        const viewId = item.getAttribute('data-view');
+        switchView(viewId);
+      });
+    });
+
+    // ===== INTERACTIVE FEATURES =====
+
+    // Toast notification system
+    function showToast(title, text, duration = 4000) {
+      const toast = document.createElement('div');
+      toast.className = 'toast';
+      toast.innerHTML = `
+        <div class="toast-icon">
+          <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+          </svg>
+        </div>
+        <div class="toast-content">
+          <div class="toast-title">${title}</div>
+          <div class="toast-text">${text}</div>
+        </div>
+      `;
+
+      document.body.appendChild(toast);
+
+      setTimeout(() => {
+        toast.style.opacity = '0';
+        toast.style.transform = 'translateX(100px)';
+        setTimeout(() => toast.remove(), 300);
+      }, duration);
+    }
+
+    // Make load cards clickable (UX feedback from Derek)
+    document.querySelectorAll('.load-card').forEach(card => {
+      card.addEventListener('click', function(e) {
+        // Don't trigger if clicking a button inside the card
+        if (e.target.closest('button')) return;
+
+        // Get truck info from the card
+        const truckInfo = this.querySelector('h4')?.textContent || 'this load';
+
+        // Show user what would happen in the full app
+        showToast(
+          '🗺️ GPS Tracking',
+          `In the full app, clicking ${truckInfo} opens the real-time GPS map with live location, route history, and ETA updates.`,
+          5000
+        );
+      });
+    });
+
+    // Customer-specific pricing auto-fill
+    const customerSelect = document.getElementById('customer');
+    const materialSelect = document.getElementById('material');
+    const priceInput = document.getElementById('price');
+    const discountBadge = document.getElementById('discount-badge');
+    const discountText = document.getElementById('discount-text');
+    const discountDetails = document.getElementById('discount-details');
+
+    customerSelect.addEventListener('change', function() {
+      updatePricing();
+    });
+
+    materialSelect.addEventListener('change', function() {
+      const selectedMaterial = materialSelect.options[materialSelect.selectedIndex];
+      const basePrice = selectedMaterial.dataset.price;
+      const isHazmat = selectedMaterial.dataset.hazmat === 'true';
+
+      // Show/hide Hazmat field based on material
+      const hazmatField = document.getElementById('hazmat-field');
+      if (isHazmat) {
+        hazmatField.style.display = 'block';
+      } else {
+        hazmatField.style.display = 'none';
+      }
+
+      if (basePrice) {
+        priceInput.value = basePrice;
+        updatePricing();
+        calculateTotal();
+      }
+    });
+
+    function updatePricing() {
+      const selectedCustomer = customerSelect.options[customerSelect.selectedIndex];
+      const selectedMaterial = materialSelect.options[materialSelect.selectedIndex];
+
+      const discount = parseFloat(selectedCustomer.dataset.discount) || 0;
+      const discountMaterial = selectedCustomer.dataset.discountMaterial;
+      const materialValue = selectedMaterial.value;
+      const basePrice = parseFloat(selectedMaterial.dataset.price) || 0;
+
+      if (discount > 0 && (!discountMaterial || discountMaterial === materialValue)) {
+        // Apply discount
+        const discountedPrice = basePrice * (1 - discount / 100);
+        priceInput.value = discountedPrice.toFixed(2);
+
+        // Show discount badge
+        discountBadge.style.display = 'block';
+        discountText.textContent = `${discount}% Volume Discount Applied`;
+        discountDetails.textContent = `${selectedCustomer.textContent}: $${basePrice.toFixed(2)}/ton → $${discountedPrice.toFixed(2)}/ton (saves $${(basePrice - discountedPrice).toFixed(2)}/ton)`;
+      } else {
+        discountBadge.style.display = 'none';
+        if (basePrice > 0) {
+          priceInput.value = basePrice.toFixed(2);
+        }
+      }
+
+      calculateTotal();
+    }
+
+    // Live ticket calculation
+    const quantityInput = document.getElementById('quantity');
+    quantityInput.addEventListener('input', calculateTotal);
+    priceInput.addEventListener('input', calculateTotal);
+
+    function calculateTotal() {
+      const qty = parseFloat(quantityInput.value) || 0;
+      const price = parseFloat(priceInput.value) || 0;
+      const total = qty * price;
+
+      // Update ticket preview
+      const totalValueElement = document.querySelector('.ticket-row:last-child .ticket-value');
+      if (totalValueElement) {
+        totalValueElement.textContent = '$' + total.toFixed(2);
+      }
+
+      // Update quantity display
+      const qtyValueElement = document.querySelector('.ticket-row:nth-child(3) .ticket-value');
+      if (qtyValueElement && qty > 0) {
+        qtyValueElement.textContent = qty + ' tons';
+      }
+
+      // Update rate display
+      const rateValueElement = document.querySelector('.ticket-row:nth-child(4) .ticket-value');
+      if (rateValueElement && price > 0) {
+        rateValueElement.textContent = '$' + price.toFixed(2) + '/ton';
+      }
+    }
+
+    // Ticket creation animation
+    let ticketNumber = 1248; // Start after TK-1247
+    const createTicketBtn = document.getElementById('create-ticket-btn');
+    const btnText = document.getElementById('btn-text');
+    const btnLoader = document.getElementById('btn-loader');
+
+    function executeTicketCreation() {
+      const customer = customerSelect.options[customerSelect.selectedIndex].textContent;
+      const material = materialSelect.options[materialSelect.selectedIndex].textContent;
+      const qty = quantityInput.value;
+      const total = (parseFloat(quantityInput.value) || 0) * (parseFloat(priceInput.value) || 0);
+
+      // Show loading state
+      btnText.style.display = 'none';
+      btnLoader.style.display = 'inline-block';
+      createTicketBtn.disabled = true;
+
+      // Simulate ticket creation (1.5 seconds)
+      setTimeout(() => {
+        // Reset button
+        btnText.style.display = 'inline';
+        btnLoader.style.display = 'none';
+        createTicketBtn.disabled = false;
+
+        // Show success toast
+        showToast(
+          `✓ Ticket #TK-${ticketNumber} Created`,
+          `${qty} tons ${material} for ${customer} • Total: $${total.toFixed(2)}`
+        );
+
+        // Update ticket preview with new number
+        document.querySelector('.ticket-header p').textContent = `Load Ticket #TK-${ticketNumber} • Today ${new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })}`;
+
+        ticketNumber++;
+      }, 1500);
+    }
+
+    // Click handler - Check safety first, then show modal (ticket created after safety confirmation)
+    createTicketBtn.addEventListener('click', function(e) {
+      const customer = customerSelect.options[customerSelect.selectedIndex].textContent;
+      const material = materialSelect.options[materialSelect.selectedIndex].textContent;
+
+      if (!customer || customer === 'Select customer...' || !material || material === 'Select material...') {
+        showToast('⚠️ Missing Information', 'Please select a customer and material before creating a ticket.', 3000);
+        return;
+      }
+
+      // Always show safety check modal before creating ticket
+      document.getElementById('safety-check-modal').style.display = 'flex';
+    });
+
+    // Customer view toggle (list/blocks)
+    const viewToggles = document.querySelectorAll('.view-toggle');
+    const listView = document.getElementById('customer-list-view');
+    const blocksView = document.getElementById('customer-blocks-view');
+
+    viewToggles.forEach(toggle => {
+      toggle.addEventListener('click', function() {
+        const viewType = this.dataset.view;
+
+        // Update active state
+        viewToggles.forEach(t => t.classList.remove('active'));
+        this.classList.add('active');
+
+        // Toggle views
+        if (viewType === 'list') {
+          listView.style.display = 'block';
+          blocksView.style.display = 'none';
+        } else {
+          listView.style.display = 'none';
+          blocksView.style.display = 'block';
+        }
+      });
+    });
+
+    // Dispatcher scheduler toggle (Big Al's Command Center)
+    const dispatcherToggles = document.querySelectorAll('.dispatcher-view-toggle');
+    const dispatcherListView = document.getElementById('dispatcher-list-view');
+    const dispatcherSchedulerView = document.getElementById('dispatcher-scheduler-view');
+
+    dispatcherToggles.forEach(toggle => {
+      toggle.addEventListener('click', function() {
+        const viewType = this.dataset.dispatcherView;
+
+        // Update active state
+        dispatcherToggles.forEach(t => t.classList.remove('active'));
+        this.classList.add('active');
+
+        // Toggle views
+        if (viewType === 'list') {
+          dispatcherListView.style.display = 'block';
+          dispatcherSchedulerView.style.display = 'none';
+        } else {
+          dispatcherListView.style.display = 'none';
+          dispatcherSchedulerView.style.display = 'block';
+        }
+      });
+    });
+
+    // Drag and drop for scheduler (demo functionality)
+    let draggedElement = null;
+
+    document.querySelectorAll('.scheduler-load').forEach(load => {
+      load.addEventListener('dragstart', function(e) {
+        draggedElement = this;
+        this.style.opacity = '0.5';
+        e.dataTransfer.effectAllowed = 'move';
+      });
+
+      load.addEventListener('dragend', function(e) {
+        this.style.opacity = '1';
+        draggedElement = null;
+      });
+    });
+
+    document.querySelectorAll('.scheduler-slot').forEach(slot => {
+      slot.addEventListener('dragover', function(e) {
+        e.preventDefault();
+        e.dataTransfer.dropEffect = 'move';
+        this.style.background = 'rgba(16, 185, 129, 0.1)';
+      });
+
+      slot.addEventListener('dragleave', function(e) {
+        this.style.background = '';
+      });
+
+      slot.addEventListener('drop', function(e) {
+        e.preventDefault();
+        this.style.background = '';
+
+        if (draggedElement && this.classList.contains('scheduler-slot')) {
+          // Clear "Next Available" placeholder if it exists
+          const placeholder = this.querySelector('div:not(.scheduler-load)');
+          if (placeholder) {
+            placeholder.remove();
+          }
+
+          // Move the load to the new slot
+          this.appendChild(draggedElement);
+
+          // Show success toast
+          showToast('✓ Load Rescheduled', 'Assignment updated successfully', 2000);
+        }
+      });
+    });
+
+    // Customer detail modal
+    document.querySelectorAll('.load-card button, .card button').forEach(btn => {
+      if (btn.textContent.includes('View Details') || btn.textContent.includes('View Full Details')) {
+        btn.addEventListener('click', function() {
+          document.getElementById('customer-detail-modal').style.display = 'block';
+        });
+      }
+    });
+
+    // Light/Dark Mode Toggle
+    const themeToggle = document.getElementById('theme-toggle');
+    const themeIconDark = document.getElementById('theme-icon-dark');
+    const themeIconLight = document.getElementById('theme-icon-light');
+    const htmlElement = document.documentElement;
+
+    // Check for saved theme preference or default to 'dark'
+    const currentTheme = localStorage.getItem('theme') || 'dark';
+    htmlElement.setAttribute('data-theme', currentTheme);
+
+    // Update icon based on current theme
+    if (currentTheme === 'light') {
+      themeIconDark.style.display = 'none';
+      themeIconLight.style.display = 'block';
+    }
+
+    themeToggle.addEventListener('click', function() {
+      const currentTheme = htmlElement.getAttribute('data-theme');
+      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+
+      htmlElement.setAttribute('data-theme', newTheme);
+      localStorage.setItem('theme', newTheme);
+
+      // Toggle icons
+      if (newTheme === 'light') {
+        themeIconDark.style.display = 'none';
+        themeIconLight.style.display = 'block';
+      } else {
+        themeIconDark.style.display = 'block';
+        themeIconLight.style.display = 'none';
+      }
+    });
+
+    // Initialize form with default values
+    setTimeout(() => {
+      // Set default customer to Mountain View (has discount)
+      customerSelect.value = 'mountain-view';
+
+      // Set default material to Gravel
+      materialSelect.value = 'gravel';
+
+      // Trigger updates
+      updatePricing();
+
+      // Update ticket preview customer/material
+      document.querySelectorAll('.ticket-row')[0].querySelector('.ticket-value').textContent = 'Mountain View Construction';
+      document.querySelectorAll('.ticket-row')[1].querySelector('.ticket-value').textContent = 'Gravel 3/4"';
+    }, 500);
+
+    // PDF Generation (simulated)
+    const pdfBtn = document.getElementById('pdf-ticket-btn');
+    if (pdfBtn) {
+      pdfBtn.addEventListener('click', function() {
+        showToast(
+          '📄 PDF Generated',
+          'Ticket saved as TK-1247.pdf - Ready to email or print'
+        );
+      });
+    }
+
+    // ===== RED TEAM FEATURES =====
+
+    // Safety Check Modal (Tom's liability protection request)
+    const safetyCheckboxes = document.querySelectorAll('.safety-checkbox');
+    const confirmSafetyBtn = document.getElementById('confirm-safety-btn');
+    const safetyModal = document.getElementById('safety-check-modal');
+
+    // Enable confirm button only when all checkboxes are checked
+    safetyCheckboxes.forEach(checkbox => {
+      checkbox.addEventListener('change', function() {
+        const allChecked = Array.from(safetyCheckboxes).every(cb => cb.checked);
+        confirmSafetyBtn.disabled = !allChecked;
+
+        if (allChecked) {
+          confirmSafetyBtn.style.opacity = '1';
+          confirmSafetyBtn.style.cursor = 'pointer';
+        } else {
+          confirmSafetyBtn.style.opacity = '0.5';
+          confirmSafetyBtn.style.cursor = 'not-allowed';
+        }
+      });
+    });
+
+    // Confirm safety check
+    confirmSafetyBtn.addEventListener('click', function() {
+      if (!confirmSafetyBtn.disabled) {
+        safetyModal.style.display = 'none';
+        showToast(
+          '✅ Safety Check Complete',
+          'All safety requirements verified - creating ticket...'
+        );
+        // Uncheck all for next time
+        safetyCheckboxes.forEach(cb => cb.checked = false);
+        confirmSafetyBtn.disabled = true;
+
+        // Automatically create the ticket after safety check passes
+        setTimeout(() => {
+          executeTicketCreation();
+        }, 500); // Small delay for UX smoothness
+      }
+    });
+
+    // Revoke Access buttons (Kevin's security concern)
+    document.querySelectorAll('button').forEach(btn => {
+      if (btn.textContent.includes('Revoke')) {
+        btn.addEventListener('click', function() {
+          const userCard = this.closest('.load-card');
+          const userName = userCard.querySelector('h4').textContent;
+
+          // Show confirmation
+          if (confirm(`Revoke access for ${userName}?\n\nThis will immediately:\n• Deactivate their login\n• Invalidate all active sessions\n• Remove BYOD link access\n\nThis action is reversible from Edit > Reactivate.`)) {
+            // Update UI
+            const statusBadge = userCard.querySelector('.status-badge');
+            statusBadge.textContent = 'Revoked';
+            statusBadge.style.background = 'rgba(239, 68, 68, 0.2)';
+            statusBadge.style.color = 'var(--danger)';
+
+            this.textContent = 'Reactivate';
+            this.style.background = 'var(--primary)';
+            this.style.borderColor = 'var(--primary)';
+
+            showToast(
+              '🔒 Access Revoked',
+              `${userName} - All sessions terminated instantly`
+            );
+          }
+        });
+      }
+    });
+  </script>
+
+  <!-- Footer -->
+  <footer style="background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); color: #fff; padding: 60px 20px 30px; margin-top: 80px;">
+    <div style="max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 40px;">
+      <div>
+        <h3 style="font-size: 24px; font-weight: 700; margin-bottom: 20px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">ResultantAI</h3>
+        <p style="color: #b0b0b0; line-height: 1.6; margin-bottom: 20px;">Revenue systems for service businesses. AI automation that pays for itself.</p>
+        <a href="/" style="color: #667eea; text-decoration: none; font-weight: 600;">← Back to Home</a>
+      </div>
+      <div>
+        <h4 style="font-size: 16px; font-weight: 600; margin-bottom: 15px; color: #e0e0e0;">Solutions</h4>
+        <ul style="list-style: none; padding: 0; margin: 0;">
+          <li style="margin-bottom: 10px;"><a href="/gateway.html" style="color: #b0b0b0; text-decoration: none; transition: color 0.2s;">AI Gateway</a></li>
+          <li style="margin-bottom: 10px;"><a href="/propane.html" style="color: #b0b0b0; text-decoration: none; transition: color 0.2s;">Propane Dispatch</a></li>
+          <li style="margin-bottom: 10px;"><a href="/concrete.html" style="color: #b0b0b0; text-decoration: none; transition: color 0.2s;">Concrete Dispatch</a></li>
+          <li style="margin-bottom: 10px;"><a href="/logistics.html" style="color: #b0b0b0; text-decoration: none; transition: color 0.2s;">Logistics & Freight</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 style="font-size: 16px; font-weight: 600; margin-bottom: 15px; color: #e0e0e0;">Resources</h4>
+        <ul style="list-style: none; padding: 0; margin: 0;">
+          <li style="margin-bottom: 10px;"><a href="/blog/" style="color: #b0b0b0; text-decoration: none; transition: color 0.2s;">Blog</a></li>
+          <li style="margin-bottom: 10px;"><a href="/case-studies.html" style="color: #b0b0b0; text-decoration: none; transition: color 0.2s;">Case Studies</a></li>
+          <li style="margin-bottom: 10px;"><a href="/voice-roi-calculator.html" style="color: #b0b0b0; text-decoration: none; transition: color 0.2s;">ROI Calculator</a></li>
+          <li style="margin-bottom: 10px;"><a href="/about/" style="color: #b0b0b0; text-decoration: none; transition: color 0.2s;">About Us</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 style="font-size: 16px; font-weight: 600; margin-bottom: 15px; color: #e0e0e0;">Get Started</h4>
+        <p style="color: #b0b0b0; line-height: 1.6; margin-bottom: 15px;">Ready to recover lost revenue?</p>
+        <a href="https://meetings.hubspot.com/resultantai/paper-to-digital" style="display: inline-block; padding: 12px 24px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: #fff; text-decoration: none; border-radius: 8px; font-weight: 600; transition: transform 0.2s;">Book a Call</a>
+      </div>
+    </div>
+    <div style="text-align: center; margin-top: 40px; padding-top: 30px; border-top: 1px solid rgba(255,255,255,0.1); color: #666;">
+      <p>&copy; 2026 ResultantAI. All rights reserved.</p>
+    </div>
+  </footer>
+
+</body>
+</html>

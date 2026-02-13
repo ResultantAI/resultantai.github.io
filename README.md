@@ -1,436 +1,254 @@
-# ResultantAI Gateway - Marketing Website
+# ResultantAI - Revenue Systems for Service Businesses
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![GitHub Pages](https://img.shields.io/badge/Hosted%20on-GitHub%20Pages-blue.svg)](https://resultantai.github.io)
-[![Website Status](https://img.shields.io/website?url=https%3A%2F%2Fresultantai.github.io)](https://resultantai.github.io)
+[![GitHub Pages](https://img.shields.io/badge/Hosted%20on-GitHub%20Pages-blue.svg)](https://resultantai.com)
+[![Website Status](https://img.shields.io/website?url=https%3A%2F%2Fresultantai.com)](https://resultantai.com)
 
-**AI Gateway marketing website and landing pages.** Built for developers, agencies, and builders who need predictable AI API pricing with multi-provider support.
+Revenue systems for service businesses. We build AI systems that recover revenue lost to missed calls, paper tickets, and manual work.
 
-🌐 **Live Site:** [resultantai.github.io](https://resultantai.github.io)
+🌐 **Live Site:** [resultantai.com](https://resultantai.com)
 
 ---
 
-## 📁 Repository Structure
+## What We Build
 
-This repository contains the complete marketing website for AI Gateway, a unified API for OpenAI, Anthropic Claude, and Google Gemini.
+AI automation systems that pay for themselves in weeks:
+
+- **Voice AI Receptionists** - Answer 100% of calls, book appointments, reduce no-shows
+- **Digital Dispatch Systems** - Replace paper tickets with real-time mobile coordination
+- **Revenue Recovery Tools** - Capture missed revenue from calls, tickets, and manual processes
+
+**Industries Served:**
+- Healthcare (Medical, Dental, Specialty Practices)
+- HVAC / Plumbing / Home Services
+- Propane & Fuel Delivery
+- Ready-Mix Concrete
+- Logistics & Freight
+
+---
+
+## Repository Structure
 
 ```
 resultantai.github.io/
-├── index.html                    # Homepage
-├── gateway/
-│   └── index.html               # Main gateway landing page
-├── pricing/
-│   └── index.html               # Pricing tiers and Founding Partner offer
-├── blog/
-│   ├── index.html               # Blog hub page
-│   ├── llm-cost-optimization-guide.html
-│   ├── intelligent-llm-routing-guide.html
-│   ├── llm-pricing-comparison-2025.html
-│   ├── openai-vs-anthropic-cost-comparison.html
-│   ├── per-client-billing-agencies.html
-│   └── prevent-ai-bill-shock-makecom.html
-├── compare/
-│   ├── index.html               # Comparison hub
-│   ├── direct-api.html          # vs Direct API
-│   ├── portkey.html             # vs Portkey
-│   ├── helicone.html            # vs Helicone
-│   └── litellm.html             # vs LiteLLM
-├── reddit/
-│   ├── index.html               # Bill Shock landing page
-│   ├── bill-shock/
-│   │   └── index.html           # Interactive cost calculator
-│   └── one-key/
-│       └── index.html           # Developer-focused SDK page
+├── index.html                          # Homepage
+├── voice-roi-calculator.html           # Voice Agent ROI Calculator
+├── healthcare-voice-ai.html            # Healthcare AI landing page
+├── propane.html                        # Propane dispatch landing page
+├── concrete.html                       # Concrete dispatch landing page
+├── logistics.html                      # Logistics & freight page
+├── gateway.html                        # AI Gateway (cost control)
+├── case-studies.html                   # Customer case studies
+├── roi-calculator/                     # ROI calculator React app assets
+│   └── assets/                        # Compiled JS/CSS bundles
+├── demo/
+│   ├── logistics-demo-interactive/    # Live logistics dispatch demo
+│   └── propane-demo/                  # Live propane dispatch demo
+├── blog/                              # SEO-optimized content
+│   ├── index.html                     # Blog hub
+│   ├── propane-dispatch-roi/          # Propane ROI guide
+│   ├── propane-emergency-calls/       # Emergency call handling
+│   ├── concrete-dispatch-software/    # Concrete automation
+│   └── ... (20+ vertical-specific guides)
+├── css/
+│   └── styles.css                     # Design system (emerald green accent)
 ├── js/
-│   └── tracking.js              # Analytics and event tracking
-└── sitemap.xml                  # SEO sitemap
+│   └── main.js                        # Scroll effects, nav, utilities
+└── sitemap.xml                        # SEO sitemap
 ```
 
 ---
 
-## 🎯 What is AI Gateway?
+## Key Features
 
-AI Gateway is a unified API that provides:
+### Voice Agent ROI Calculator
 
-- **Flat-rate pricing:** $99/month includes 3M tokens (no surprises)
-- **Multi-provider support:** OpenAI, Claude, Gemini through one API key
-- **Intelligent routing:** Automatically select cheapest model for each task (40-50% savings)
-- **Per-client tracking:** Built-in cost tracking for agencies
-- **Budget controls:** Spending caps, alerts, and automatic kill switches
-- **Automatic failover:** Zero downtime when providers go down
+**Live:** [resultantai.com/voice-roi-calculator](https://resultantai.com/voice-roi-calculator)
 
-**Target Audience:**
-- Agencies managing multiple client AI costs
-- Developers building AI-powered products
-- Make.com/Zapier users preventing bill shock
-- SaaS companies needing predictable LLM pricing
+Interactive calculator that helps businesses quantify revenue lost from missed calls:
+- 8-step industry-specific quiz
+- Real-time ROI calculations
+- Free analysis + $29 premium report with implementation roadmap
+- Stripe checkout integration
+- Separate backend API (Vercel serverless functions)
 
----
+**Tech Stack:**
+- Frontend: React 18 + Vite (178KB bundle)
+- Backend: Vercel serverless functions
+- Payment: Stripe Checkout
+- API Repo: [github.com/ResultantAI/roi-calculator](https://github.com/ResultantAI/roi-calculator)
 
-## 🚀 Key Pages
+### Interactive Demos
 
-### Landing Pages
+**Logistics Dispatch:** [resultantai.com/demo/logistics-demo-interactive](https://resultantai.com/demo/logistics-demo-interactive)
+- Full working prototype
+- 9 different views (Dashboard, Create Ticket, Active Loads, Driver App, etc.)
+- Mobile-responsive design
+- No backend required (pure frontend demo)
 
-1. **[Gateway Landing Page](/gateway/index.html)**
-   - Main product landing page
-   - Founding Partner offer ($499/year, 58% off)
-   - Social proof and trust signals
-   - Email capture form with Make.com integration
+**Propane Dispatch:** [resultantai.com/demo/propane-demo](https://resultantai.com/demo/propane-demo)
+- Customer portal, tank monitoring, emergency call handling
+- Industry-specific workflows
+- Interactive customer cards and tank clusters
 
-2. **[Pricing Page](/pricing/index.html)**
-   - 6 pricing tiers (Free, Starter, Pro, Agency, Scale, Enterprise)
-   - Founding Partner section with social proof
-   - Feature comparison table
-   - FAQ section
+### Healthcare Voice AI
 
-3. **[Homepage](/index.html)**
-   - Product overview
-   - Feature highlights
-   - Social proof elements
+**Live:** [resultantai.com/healthcare-voice-ai](https://resultantai.com/healthcare-voice-ai)
 
-### Reddit Campaign Landing Pages
-
-1. **[Bill Shock Page](/reddit/index.html)**
-   - Focused on preventing unexpected AI bills
-   - Minimal design, fast load
-   - Tracking: `source: 'reddit-billshock'`
-
-2. **[Bill Shock Calculator](/reddit/bill-shock/index.html)**
-   - Interactive cost predictor slider
-   - Real-time savings calculation
-   - Email capture with calculator results
-
-3. **[One-Key Page](/reddit/one-key/index.html)**
-   - Developer-focused SDK messaging
-   - Code examples and integrations
-   - "One API key. Every AI provider."
-
-### Content Marketing
-
-**Blog Posts** (6 published):
-- [LLM Cost Optimization Guide](/blog/llm-cost-optimization-guide.html)
-- [Intelligent LLM Routing Guide](/blog/intelligent-llm-routing-guide.html)
-- [LLM Pricing Comparison 2025](/blog/llm-pricing-comparison-2025.html)
-- [OpenAI vs Anthropic: Cost Comparison](/blog/openai-vs-anthropic-cost-comparison.html)
-- [Per-Client Billing for Agencies](/blog/per-client-billing-agencies.html)
-- [Prevent AI Bill Shock with Make.com](/blog/prevent-ai-bill-shock-makecom.html)
-
-**Comparison Pages** (5 published):
-- [AI Gateway vs Direct API](/compare/direct-api.html)
-- [AI Gateway vs Portkey](/compare/portkey.html)
-- [AI Gateway vs Helicone](/compare/helicone.html)
-- [AI Gateway vs LiteLLM](/compare/litellm.html)
+HIPAA-compliant AI receptionist landing page:
+- Transparent pricing (setup + monthly support)
+- Research-backed stats ($150K/year lost to no-shows)
+- EHR integration (Epic, Athena, eClinicalWorks)
+- No contact info (all CTAs → HubSpot scheduling)
 
 ---
 
-## 🔧 Technical Stack
+## Design System
 
-### Frontend
-- **Framework:** Static HTML/CSS/JavaScript (GitHub Pages)
-- **Styling:** Custom CSS with CSS variables, Tailwind CSS (pricing page)
-- **Fonts:** Space Grotesk (headings), DM Sans (body)
-- **Design:** Dark theme (#0a0d12 background), emerald accent (#10b981)
+**Brand Colors:**
+- Primary Background: `#0f172a` (dark navy)
+- Secondary Background: `#0a0f1a` (darker navy)
+- Accent: `#10b981` (emerald green)
+- Text Primary: `#f1f5f9` (off-white)
+- Text Secondary: `#94a3b8` (slate gray)
 
-### Analytics & Tracking
-- **Google Analytics 4:** G-DY95GS9YX5
-- **Google Tag Manager:** GTM-WBGJ9J8X
-- **Reddit Pixel:** a2_htj8d1flphh9
-- **Custom Events:** CTA clicks, form submissions, scroll depth
-- **Tracking Script:** `/js/tracking.js` (comprehensive event tracking)
+**Typography:**
+- Sans: Inter (400, 500, 600, 700, 800, 900)
+- Mono: JetBrains Mono (400, 500, 600)
 
-### Integrations
-- **Form Submissions:** Make.com webhook
-  - Endpoint: `https://hook.us2.make.com/n8deqd9mfxcqxeoe19j0etwfxnuq12pa`
-  - Payload includes: email, use_case, source, landing_page, variant, UTM params
-- **Scheduling:** HubSpot Meetings (Founding Partner calls)
-- **SEO:** Schema.org markup (FAQPage, Product, Organization)
-
-### Form Tracking Fields
-
-All forms submit with:
-```javascript
-{
-  email: "user@example.com",
-  use_case: "agency|saas|nocode|internal|other",
-  source: "gateway-founding-partner|reddit-billshock|reddit-onekey",
-  landing_page: "gateway|bill-shock|one-key|billing",
-  variant: "social-proof-v1|dark",
-  utm_source: "...",
-  utm_medium: "...",
-  utm_campaign: "...",
-  utm_content: "...",
-  utm_term: "...",
-  timestamp: "2024-12-04T...",
-  page_url: "https://...",
-  referrer: "https://..."
-}
-```
+**Components:**
+- Cards: `#151d2e` background, rounded corners, hover effects
+- Buttons: Emerald gradient (`#10b981` → `#059669`)
+- Navigation: Sticky header with backdrop blur
+- Grid Background: Subtle emerald grid overlay
 
 ---
 
-## 🎨 Design System
+## SEO Strategy
 
-### Colors
-```css
---bg: #0a0d12          /* Dark background */
---card: #111820         /* Card backgrounds */
---border: #1e2a3a      /* Borders */
---text: #94a3b8        /* Body text */
---text-bright: #e2e8f0 /* Headings */
---accent: #10b981      /* Emerald green (primary CTA) */
---danger: #ef4444      /* Red (urgency elements) */
-```
+### Content Pillars
 
-### Typography
-- **Headings:** Space Grotesk (700 weight)
-- **Body:** DM Sans (400 regular, 500 medium, 600 semibold)
-- **Code/Monospace:** Monaco, monospace
+1. **Vertical-Specific ROI Guides**
+   - Propane dispatch ROI
+   - Concrete dispatch automation
+   - HVAC voice AI
+   - Medical practice automation
 
-### Components
-- **Badges:** Pill-shaped with accent glow background
-- **Forms:** Dark cards with emerald focus states
-- **Buttons:** Emerald background, hover lift effect
-- **FAQ:** Collapsible accordion with + icon toggle
+2. **Problem-Solution Content**
+   - Emergency call handling (propane)
+   - No-show reduction (healthcare)
+   - Paper ticket elimination (construction)
 
----
+3. **Competitive Positioning**
+   - "Best alternative to [competitor]"
+   - Feature comparison pages
+   - Transparent pricing vs. enterprise-only
 
-## 📊 Conversion Optimization
+### Internal Linking
 
-### Current Strategy (Professional, Trust-Focused)
-
-**What We Do:**
-- ✅ Subtle urgency banner (no countdown timer)
-- ✅ Social proof ("Join 25+ Founding Partners")
-- ✅ Clear price anchoring ($499/year vs $1,188)
-- ✅ Professional CTAs ("Get Started" vs "Claim Now")
-- ✅ Value-focused messaging (14-day trial, no credit card)
-
-**What We Avoid:**
-- ❌ Countdown timers (27+ days doesn't create urgency)
-- ❌ Fake scarcity ("Only 12 spots" that never changes)
-- ❌ Excessive emojis and urgency signals
-- ❌ "Guru course" marketing patterns
-- ❌ Aggressive sales language
-
-**Reasoning:**
-Our ICP (developers, agency owners) is highly skeptical of marketing tactics. They pattern-match urgency overload to scams. Professional, trust-building design converts better than aggressive urgency.
+- All orphan pages now have navigation paths
+- Blog posts link to relevant landing pages
+- Case studies link to product pages
+- Footer navigation on all pages
 
 ---
 
-## 🚀 Deployment
+## Analytics & Tracking
 
-### GitHub Pages Configuration
+**HubSpot Integration:**
+- All CTAs route to HubSpot meeting scheduler
+- Lead capture forms on ROI calculator
+- Email sequences triggered on form submission
 
-This site is hosted on **GitHub Pages** and automatically deploys from the `main` branch.
-
-**Deployment Process:**
-1. Push changes to `main` branch
-2. GitHub Actions builds and deploys automatically
-3. Live at: https://resultantai.github.io
-4. Custom domain (if configured): https://resultantai.com
-
-**Build Time:** ~2-3 minutes after push
-
-### Local Development
-
-```bash
-# Clone repository
-git clone https://github.com/ResultantAI/resultantai.github.io.git
-cd resultantai.github.io
-
-# Start local server (Python)
-python -m http.server 8000
-
-# Or use Live Server (VS Code extension)
-# Right-click index.html → "Open with Live Server"
-
-# View site
-open http://localhost:8000
-```
+**Event Tracking:**
+- Page views
+- Button clicks
+- Form submissions
+- Demo interactions
+- Calculator completions
 
 ---
 
-## 📈 SEO & Performance
+## Deployment
 
-### SEO Features
-- ✅ Google Search Console verification
-- ✅ Canonical URLs on all pages
-- ✅ Schema.org structured data (FAQPage, Product, Organization)
-- ✅ Comprehensive sitemap.xml (268 URLs)
-- ✅ Meta descriptions on all pages
-- ✅ humans.txt and robots.txt
-- ✅ AI-quotable definitions for LLM discovery
-- ⚠️ Open Graph tags (partial - needs expansion)
-- ⚠️ Twitter Card markup (missing on most pages)
+**Hosting:** GitHub Pages (automatic deployment on push to `main`)
 
-### Performance
-- **Load Time:** < 2 seconds (static HTML, minimal JS)
-- **Page Size:** ~50-100KB per page (no heavy frameworks)
-- **Mobile-Friendly:** Responsive design with viewport meta tag
-- **Accessibility:** ARIA labels, semantic HTML, keyboard navigation
+**Custom Domain:** resultantai.com (DNS via CloudFlare)
 
-### AI Discovery (AISEO)
-All pages include AI-quotable definitions:
-- "What is an LLM Gateway?"
-- "What is Intelligent LLM Routing?"
-- "What is AI Bill Shock?"
+**SSL:** Automatic via GitHub Pages
 
-These are structured with Schema.org DefinedTerm markup for AI search engines (Perplexity, Claude, ChatGPT).
+**Build Process:**
+- Static HTML/CSS/JS (no build step for main site)
+- ROI Calculator: Vite build → `/roi-calculator/assets/`
+- Demos: Vite build → `/demo/[demo-name]/`
 
----
-
-## 🧪 Testing
-
-### Pre-Deployment Checklist
-
-Before merging to `main`:
-- [ ] All forms submit correctly to Make.com webhook
-- [ ] Reddit Pixel fires Lead event on form submission
-- [ ] Google Analytics tracks PageView events
-- [ ] All internal links work (no 404s)
-- [ ] Mobile responsive on iPhone/Android
-- [ ] Dark theme displays correctly
-- [ ] Countdown timers removed (professional approach)
-- [ ] Social proof numbers are accurate
-- [ ] Tracking variant matches current A/B test
-
-### Form Testing
-
-```bash
-# Test payload structure
-# Open browser console on /gateway/index.html
-# Submit form and check Network tab for webhook payload
-
-Expected payload:
-{
-  "email": "test@example.com",
-  "use_case": "agency",
-  "source": "gateway-founding-partner",
-  "landing_page": "gateway",
-  "variant": "social-proof-v1",
-  "utm_source": "reddit",
-  "timestamp": "2024-12-04T...",
-  "page_url": "https://resultantai.github.io/gateway/",
-  "referrer": ""
-}
-```
-
----
-
-## 📝 Content Guidelines
-
-### Voice & Tone
-- **Professional, not salesy:** We're building for skeptical developers
-- **Technical, not fluffy:** Specific numbers, clear comparisons
-- **Transparent, not hypey:** Honest about limitations and trade-offs
-- **Helpful, not pushy:** Educate first, sell second
-
-### Messaging Framework
-
-**Problem:**
-- Unpredictable AI bills (OpenAI jumped from $47 to $312)
-- Managing multiple API keys (OpenAI, Claude, Gemini)
-- No per-client cost tracking for agencies
-
-**Solution:**
-- Flat-rate pricing ($99/month includes 3M tokens)
-- One API key for all providers
-- Built-in per-client tracking
-
-**Proof:**
-- 25+ Founding Partners (social proof)
-- 40-50% cost savings (intelligent routing)
-- $689/year savings (price locked forever)
-
----
-
-## 🛠️ Maintenance
-
-### Regular Updates
-
-**Monthly:**
-- Update social proof numbers ("25+ Founding Partners" → "50+")
-- Review and refresh blog content for SEO
-- Check for broken links (dead competitor sites, etc.)
-- Update pricing if plans change
-
-**Quarterly:**
-- Refresh comparison pages (competitor pricing changes)
-- Update LLM pricing tables (model costs change frequently)
-- Review Google Analytics for top-performing content
-- A/B test new landing page variants
-
-**Annually:**
-- Update copyright year in footers
-- Refresh testimonials and case studies
-- Review and update technical documentation
-- Archive outdated blog posts
-
----
-
-## 🤝 Contributing
-
-### Quick Edits
-- Fix typos → Edit directly in GitHub web interface → Commit to `main`
-- Update pricing → Edit `/pricing/index.html` → Commit
-- Add blog post → Create new HTML in `/blog/` → Update index
-
-### Major Changes (Use Pull Requests)
-1. Create new branch: `git checkout -b feature/your-feature`
+**Deployment Workflow:**
+1. Create feature branch
 2. Make changes
-3. Test locally (http://localhost:8000)
-4. Commit with descriptive message
-5. Push: `git push origin feature/your-feature`
-6. Open PR on GitHub
-7. Review, merge to `main`
-
-### Branch Naming
-- `feature/` - New features (landing pages, blog posts)
-- `fix/` - Bug fixes (broken links, typos)
-- `update/` - Content updates (pricing, social proof numbers)
-- `redesign/` - Visual/UX changes
+3. Push to GitHub
+4. Create PR
+5. Merge to `main`
+6. GitHub Pages auto-deploys (30-60 seconds)
 
 ---
 
-## 📄 License
+## External Dependencies
 
-This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) file for details.
+**Fonts:**
+- Google Fonts (Inter, JetBrains Mono)
+- ROI Calculator: IBM Plex Sans, IBM Plex Mono, Instrument Serif
 
----
+**APIs:**
+- HubSpot (meeting scheduling, forms)
+- Stripe (ROI calculator payments)
+- Vercel (ROI calculator backend)
 
-## 🏢 About ResultantAI
-
-**ResultantAI** builds AI Gateway - the unified API for OpenAI, Anthropic, and Google.
-
-**Product:**
-- Flat-rate AI pricing ($99/month)
-- Multi-provider support (one API key)
-- Intelligent routing (40-50% savings)
-- Per-client tracking (for agencies)
-- Budget controls and failover
-
-**Team:**
-- Founded 2024
-- Bootstrapped (no VC)
-- Remote-first
-
-**Contact:**
-- Website: [resultantai.github.io](https://resultantai.github.io)
-- Email: chris@resultantai.com
-- GitHub: [@ResultantAI](https://github.com/ResultantAI)
+**CDNs:**
+- None (self-hosted for performance)
 
 ---
 
-## 🔗 Links
+## Contributing
 
-- **Live Site:** [resultantai.github.io](https://resultantai.github.io)
-- **Documentation:** [Gateway Docs](/gateway)
-- **Pricing:** [Pricing Page](/pricing)
-- **Blog:** [Content Library](/blog)
-- **Comparisons:** [vs Competitors](/compare)
+This is the public marketing website for ResultantAI. Internal development documentation is in private repos.
+
+**Public Issues Welcome:**
+- Typos and content errors
+- Broken links
+- Mobile responsiveness issues
+- Accessibility improvements
+
+**Not Accepting:**
+- Feature requests (use internal roadmap)
+- Design changes (maintain brand consistency)
+- Copy rewrites (internal marketing team owns messaging)
 
 ---
 
-**Built with ❤️ by ResultantAI** | **Powered by Claude AI** | **MIT Licensed**
+## License
 
-*Transparent AI pricing. No surprises.*
+MIT License - See LICENSE file for details
+
+Website content © 2026 ResultantAI. All rights reserved.
+
+---
+
+## Contact
+
+**ResultantAI**
+Revenue systems for service businesses.
+Built with AI. Run by humans.
+
+- **Website:** [resultantai.com](https://resultantai.com)
+- **ROI Calculator:** [resultantai.com/voice-roi-calculator](https://resultantai.com/voice-roi-calculator)
+- **Case Studies:** [resultantai.com/case-studies](https://resultantai.com/case-studies)
+- **Blog:** [resultantai.com/blog](https://resultantai.com/blog)
+- **Book a Demo:** [meetings.hubspot.com/resultantai](https://meetings.hubspot.com/resultantai/paper-to-digital)
+
+---
+
+## Related Repositories
+
+- **ROI Calculator Backend:** [github.com/ResultantAI/roi-calculator](https://github.com/ResultantAI/roi-calculator)
+- **Beaver Pumice System:** Private (customer deployment)
+- **Clawdbot System:** Private (internal operations)
