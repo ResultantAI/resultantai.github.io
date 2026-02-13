@@ -64,7 +64,7 @@
         color: #f1f5f9;
       }
       .resultant-logo span {
-        color: #f97316;
+        color: #10b981;
       }
       /* Footer styles */
       .resultant-footer {
@@ -82,7 +82,7 @@
         margin-bottom: 12px;
       }
       .resultant-footer-brand span {
-        color: #f97316;
+        color: #10b981;
       }
       .resultant-footer-tagline {
         color: #94a3b8;
@@ -96,6 +96,35 @@
         padding-top: 20px;
         border-top: 1px solid rgba(51, 65, 85, 0.3);
         font-family: 'IBM Plex Mono', monospace;
+      }
+
+      /* Override React app orange colors with emerald green to match site */
+      #root {
+        --color-orange: #10b981 !important;
+        --color-orange-light: #34d399 !important;
+        --color-orange-dark: #059669 !important;
+      }
+      /* Force all orange gradients to emerald */
+      #root button[style*="linear-gradient(135deg,#f97316"],
+      #root button[style*="linear-gradient(135deg, #f97316"] {
+        background: linear-gradient(135deg, #10b981, #059669) !important;
+      }
+      /* Override all #f97316 orange with emerald */
+      #root [style*="#f97316"],
+      #root [style*="#fb923c"],
+      #root [style*="rgba(249,115,22"] {
+        color: #10b981 !important;
+      }
+      #root [style*="background: #f97316"],
+      #root [style*="background:#f97316"] {
+        background: #10b981 !important;
+      }
+      #root [style*="border: 1px solid rgba(249,115,22"],
+      #root [style*="border:1px solid rgba(249,115,22"] {
+        border-color: rgba(16, 185, 129, 0.2) !important;
+      }
+      #root [style*="background: rgba(249,115,22"] {
+        background: rgba(16, 185, 129, 0.06) !important;
       }
     </style>
   </head>
