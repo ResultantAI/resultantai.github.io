@@ -23,7 +23,15 @@
     <!-- Canonical URL -->
     <link rel="canonical" href="https://resultantai.com/healthcare-scheduling">
 
-    <!-- Tailwind CSS CDN -->
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <!-- Main Site Styles -->
+    <link rel="stylesheet" href="css/styles.css">
+
+    <!-- Tailwind CSS CDN for additional utility classes -->
     <script src="https://cdn.tailwindcss.com"></script>
 
     <!-- Tailwind Config -->
@@ -41,11 +49,6 @@
         }
     </script>
 
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-
     <!-- Google Analytics Placeholder -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
     <script>
@@ -56,8 +59,10 @@
     </script>
 
     <style>
+        /* Page-specific overrides */
         body {
             font-family: 'Inter', sans-serif;
+            background: #ffffff;
         }
 
         /* Configuration Variables */
@@ -96,15 +101,38 @@
             box-shadow: 0 4px 12px rgba(13, 115, 119, 0.2);
         }
 
-        /* Button hover effects */
+        /* High-contrast CTA buttons */
         .cta-button {
             transition: all 0.3s ease;
-            background: linear-gradient(135deg, #0D7377 0%, #14919B 100%);
+            background: #ffffff;
+            color: #0D7377;
+            border: 3px solid #ffffff;
+            font-weight: 700;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
         }
 
         .cta-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(13, 115, 119, 0.3);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+            background: #E0F7FA;
+            border-color: #E0F7FA;
+        }
+
+        /* Alternate CTA style for white backgrounds */
+        .cta-button-alt {
+            transition: all 0.3s ease;
+            background: #0D7377;
+            color: #ffffff;
+            border: 3px solid #0D7377;
+            font-weight: 700;
+            box-shadow: 0 4px 20px rgba(13, 115, 119, 0.3);
+        }
+
+        .cta-button-alt:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(13, 115, 119, 0.5);
+            background: #14919B;
+            border-color: #14919B;
         }
 
         /* Phone number pulse effect */
@@ -137,12 +165,80 @@
         .faq-answer.open {
             max-height: 500px;
         }
+
+        /* SVG icon styling */
+        .icon-svg {
+            width: 64px;
+            height: 64px;
+            margin: 0 auto 1rem;
+        }
+
+        .icon-svg-sm {
+            width: 48px;
+            height: 48px;
+            margin: 0 auto 0.75rem;
+        }
     </style>
 </head>
-<body class="bg-white text-charcoal antialiased">
+<body>
+
+    <!-- Navigation (from main site) -->
+    <nav id="nav">
+        <div class="nav__inner">
+            <a href="/" class="nav__logo">Resultant<span>AI</span></a>
+
+            <div class="nav__links">
+                <div class="nav__dropdown">
+                    <div class="nav__dropdown-trigger nav__link">
+                        Industries ▾
+                    </div>
+                    <div class="nav__dropdown-content">
+                        <div class="nav__dropdown-grid">
+                            <div class="nav__dropdown-section">
+                                <h4>High-ROI Verticals</h4>
+                                <a href="staffing.html" class="nav__dropdown-link">Staffing Agencies</a>
+                                <a href="cpa.html" class="nav__dropdown-link">CPA Firms</a>
+                                <a href="logistics.html" class="nav__dropdown-link">Logistics & Freight</a>
+                            </div>
+                            <div class="nav__dropdown-section">
+                                <h4>Healthcare</h4>
+                                <a href="healthcare-scheduling.html" class="nav__dropdown-link" style="color: #0D7377; font-weight: 600;">Medical Practices</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="nav__dropdown">
+                    <div class="nav__dropdown-trigger nav__link">
+                        Solutions ▾
+                    </div>
+                    <div class="nav__dropdown-content">
+                        <div class="nav__dropdown-grid">
+                            <div class="nav__dropdown-section">
+                                <h4>Pre-Built Solutions</h4>
+                                <a href="propane.html" class="nav__dropdown-link">Propane Dispatch System</a>
+                                <a href="gateway.html" class="nav__dropdown-link">AI Gateway (Cost Control)</a>
+                            </div>
+                            <div class="nav__dropdown-section">
+                                <h4>Custom Solutions</h4>
+                                <a href="solutions-field-services.html" class="nav__dropdown-link">Field Services</a>
+                                <a href="solutions-agencies.html" class="nav__dropdown-link">Marketing Agencies</a>
+                                <a href="solutions-b2b.html" class="nav__dropdown-link">B2B Services</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <a href="case-studies.html" class="nav__link">Case Studies</a>
+                <a href="gateway.html" class="nav__link">AI Gateway</a>
+                <a href="voice-roi-calculator.html" class="nav__link">ROI Calculator</a>
+                <a href="/blog" class="nav__link">Blog</a>
+            </div>
+
+            <a href="https://meetings.hubspot.com/chris4642" class="nav__cta">Book a Call</a>
+        </div>
+    </nav>
 
     <!-- Hero Section -->
-    <section class="relative bg-gradient-to-br from-deep-teal to-[#14919B] text-white py-20 px-4 overflow-hidden">
+    <section class="relative bg-gradient-to-br from-deep-teal to-[#14919B] text-white py-20 px-4 overflow-hidden" style="margin-top: 80px;">
         <div class="absolute inset-0 opacity-10">
             <svg class="w-full h-full" xmlns="http://www.w3.org/2000/svg">
                 <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
@@ -156,13 +252,22 @@
             <!-- Trust Badges -->
             <div class="flex flex-wrap justify-center gap-4 mb-8 fade-in">
                 <div class="trust-badge bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full text-sm font-medium border border-white/20">
-                    ✓ HIPAA Compliant
+                    <svg class="inline-block w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                    </svg>
+                    HIPAA Compliant
                 </div>
                 <div class="trust-badge bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full text-sm font-medium border border-white/20">
-                    ✓ SOC 2 Type II
+                    <svg class="inline-block w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                    </svg>
+                    SOC 2 Type II
                 </div>
                 <div class="trust-badge bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full text-sm font-medium border border-white/20">
-                    ✓ BAA Available
+                    <svg class="inline-block w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                    </svg>
+                    BAA Available
                 </div>
             </div>
 
@@ -175,7 +280,7 @@
                     and sends confirmations — all while your staff focuses on in-office patients.
                 </p>
                 <a href="https://meetings.hubspot.com/chris4642"
-                   class="cta-button inline-block bg-white text-deep-teal px-8 py-4 rounded-lg text-lg font-bold shadow-xl">
+                   class="cta-button inline-block px-8 py-4 rounded-lg text-lg">
                     Book a 15-Min Demo →
                 </a>
                 <p class="mt-4 text-sm text-white/70">
@@ -200,7 +305,11 @@
             <div class="grid md:grid-cols-3 gap-8">
                 <!-- Problem 1: Missed Calls -->
                 <div class="bg-white p-8 rounded-xl shadow-lg border-t-4 border-deep-teal slide-in">
-                    <div class="text-5xl mb-4">📞</div>
+                    <svg class="icon-svg" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="32" cy="32" r="28" fill="#E0F7FA"/>
+                        <path d="M42 22L22 42M22 22L42 42" stroke="#0D7377" stroke-width="3" stroke-linecap="round"/>
+                        <path d="M20 44C20 44 18 42 18 38C18 34 20 32 20 32C20 32 18 30 18 26C18 22 20 20 20 20M44 20C44 20 46 22 46 26C46 30 44 32 44 32C44 32 46 34 46 38C46 42 44 44 44 44" stroke="#0D7377" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
                     <h3 class="text-2xl font-bold mb-3 text-charcoal">Missed Calls</h3>
                     <div class="text-4xl font-bold text-deep-teal mb-2">$8-12K/mo</div>
                     <p class="text-gray-600 leading-relaxed">
@@ -211,7 +320,12 @@
 
                 <!-- Problem 2: No-Shows -->
                 <div class="bg-white p-8 rounded-xl shadow-lg border-t-4 border-deep-teal slide-in" style="animation-delay: 0.2s">
-                    <div class="text-5xl mb-4">❌</div>
+                    <svg class="icon-svg" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="32" cy="32" r="28" fill="#E0F7FA"/>
+                        <circle cx="32" cy="32" r="20" stroke="#0D7377" stroke-width="3"/>
+                        <path d="M32 16V32L40 40" stroke="#0D7377" stroke-width="3" stroke-linecap="round"/>
+                        <path d="M48 16L56 8M56 16L48 8" stroke="#DC2626" stroke-width="3" stroke-linecap="round"/>
+                    </svg>
                     <h3 class="text-2xl font-bold mb-3 text-charcoal">No-Shows</h3>
                     <div class="text-4xl font-bold text-deep-teal mb-2">15-20%</div>
                     <p class="text-gray-600 leading-relaxed">
@@ -222,7 +336,12 @@
 
                 <!-- Problem 3: Staff Burnout -->
                 <div class="bg-white p-8 rounded-xl shadow-lg border-t-4 border-deep-teal slide-in" style="animation-delay: 0.4s">
-                    <div class="text-5xl mb-4">😓</div>
+                    <svg class="icon-svg" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="32" cy="32" r="28" fill="#E0F7FA"/>
+                        <circle cx="32" cy="24" r="8" fill="#0D7377"/>
+                        <path d="M16 52C16 52 16 40 32 40C48 40 48 52 48 52" stroke="#0D7377" stroke-width="3" stroke-linecap="round"/>
+                        <path d="M20 28C18 28 16 26 16 24M44 28C46 28 48 26 48 24" stroke="#DC2626" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
                     <h3 class="text-2xl font-bold mb-3 text-charcoal">Staff Burnout</h3>
                     <div class="text-4xl font-bold text-deep-teal mb-2">60%</div>
                     <p class="text-gray-600 leading-relaxed">
@@ -250,9 +369,12 @@
             <div class="flex flex-col md:flex-row items-center justify-between gap-6">
                 <!-- Step 1 -->
                 <div class="flex-1 text-center fade-in">
-                    <div class="bg-light-teal rounded-full w-20 h-20 flex items-center justify-center mx-auto mb-4 text-3xl">
-                        📱
-                    </div>
+                    <svg class="icon-svg mx-auto" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="32" cy="32" r="28" fill="#E0F7FA"/>
+                        <rect x="20" y="12" width="24" height="40" rx="4" stroke="#0D7377" stroke-width="3"/>
+                        <path d="M28 18H36M32 52V54" stroke="#0D7377" stroke-width="2" stroke-linecap="round"/>
+                        <circle cx="32" cy="32" r="6" fill="#0D7377"/>
+                    </svg>
                     <h3 class="font-bold text-lg mb-2">Patient Calls</h3>
                     <p class="text-gray-600 text-sm">New patient or existing patient needs appointment</p>
                 </div>
@@ -261,9 +383,14 @@
 
                 <!-- Step 2 -->
                 <div class="flex-1 text-center fade-in" style="animation-delay: 0.1s">
-                    <div class="bg-light-teal rounded-full w-20 h-20 flex items-center justify-center mx-auto mb-4 text-3xl">
-                        🤖
-                    </div>
+                    <svg class="icon-svg mx-auto" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="32" cy="32" r="28" fill="#E0F7FA"/>
+                        <rect x="16" y="20" width="32" height="28" rx="4" stroke="#0D7377" stroke-width="3"/>
+                        <circle cx="24" cy="30" r="2" fill="#0D7377"/>
+                        <circle cx="32" cy="30" r="2" fill="#0D7377"/>
+                        <circle cx="40" cy="30" r="2" fill="#0D7377"/>
+                        <path d="M22 40C22 40 26 36 32 36C38 36 42 40 42 40" stroke="#0D7377" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
                     <h3 class="font-bold text-lg mb-2">AI Answers (3 sec)</h3>
                     <p class="text-gray-600 text-sm">Natural conversation, collects reason for visit</p>
                 </div>
@@ -272,9 +399,11 @@
 
                 <!-- Step 3 -->
                 <div class="flex-1 text-center fade-in" style="animation-delay: 0.2s">
-                    <div class="bg-light-teal rounded-full w-20 h-20 flex items-center justify-center mx-auto mb-4 text-3xl">
-                        📋
-                    </div>
+                    <svg class="icon-svg mx-auto" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="32" cy="32" r="28" fill="#E0F7FA"/>
+                        <rect x="18" y="16" width="28" height="32" rx="2" stroke="#0D7377" stroke-width="3"/>
+                        <path d="M24 24H40M24 32H40M24 40H34" stroke="#0D7377" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
                     <h3 class="font-bold text-lg mb-2">Checks Availability</h3>
                     <p class="text-gray-600 text-sm">Real-time EHR integration for open slots</p>
                 </div>
@@ -283,9 +412,11 @@
 
                 <!-- Step 4 -->
                 <div class="flex-1 text-center fade-in" style="animation-delay: 0.3s">
-                    <div class="bg-light-teal rounded-full w-20 h-20 flex items-center justify-center mx-auto mb-4 text-3xl">
-                        ✅
-                    </div>
+                    <svg class="icon-svg mx-auto" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="32" cy="32" r="28" fill="#E0F7FA"/>
+                        <circle cx="32" cy="32" r="20" stroke="#0D7377" stroke-width="3"/>
+                        <path d="M24 32L30 38L40 26" stroke="#0D7377" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
                     <h3 class="font-bold text-lg mb-2">Books Into EHR</h3>
                     <p class="text-gray-600 text-sm">Automatically creates appointment record</p>
                 </div>
@@ -294,9 +425,10 @@
 
                 <!-- Step 5 -->
                 <div class="flex-1 text-center fade-in" style="animation-delay: 0.4s">
-                    <div class="bg-light-teal rounded-full w-20 h-20 flex items-center justify-center mx-auto mb-4 text-3xl">
-                        📧
-                    </div>
+                    <svg class="icon-svg mx-auto" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="32" cy="32" r="28" fill="#E0F7FA"/>
+                        <path d="M12 20L32 34L52 20M12 20V44L32 58L52 44V20" stroke="#0D7377" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
                     <h3 class="font-bold text-lg mb-2">Sends Confirmation</h3>
                     <p class="text-gray-600 text-sm">SMS + email with appointment details</p>
                 </div>
@@ -349,72 +481,106 @@
             </div>
 
             <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-                <!-- Feature 1 -->
+                <!-- Feature 1: 24/7 -->
                 <div class="bg-gray-50 p-6 rounded-xl border border-gray-200 hover:border-deep-teal hover:shadow-lg transition-all">
-                    <div class="text-4xl mb-3">🌙</div>
+                    <svg class="icon-svg-sm" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="24" cy="24" r="20" fill="#E0F7FA"/>
+                        <path d="M24 8V24L32 28" stroke="#0D7377" stroke-width="2.5" stroke-linecap="round"/>
+                        <path d="M36 12C36 12 38 10 40 12M40 12C40 12 42 14 40 16M40 12H36M12 36C12 36 10 38 12 40M12 40C12 40 14 42 16 40M12 40V36" stroke="#0D7377" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
                     <h3 class="font-bold text-lg mb-2">24/7 Answering</h3>
                     <p class="text-gray-600 text-sm">
                         Every call answered in under 3 seconds, day or night
                     </p>
                 </div>
 
-                <!-- Feature 2 -->
+                <!-- Feature 2: EHR -->
                 <div class="bg-gray-50 p-6 rounded-xl border border-gray-200 hover:border-deep-teal hover:shadow-lg transition-all">
-                    <div class="text-4xl mb-3">🔗</div>
+                    <svg class="icon-svg-sm" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="24" cy="24" r="20" fill="#E0F7FA"/>
+                        <rect x="14" y="12" width="20" height="24" rx="2" stroke="#0D7377" stroke-width="2.5"/>
+                        <path d="M20 18H28M20 24H28M20 30H24" stroke="#0D7377" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
                     <h3 class="font-bold text-lg mb-2">EHR Integration</h3>
                     <p class="text-gray-600 text-sm">
                         Works with Athena, eClinicalWorks, Epic, and more
                     </p>
                 </div>
 
-                <!-- Feature 3 -->
+                <!-- Feature 3: Smart Routing -->
                 <div class="bg-gray-50 p-6 rounded-xl border border-gray-200 hover:border-deep-teal hover:shadow-lg transition-all">
-                    <div class="text-4xl mb-3">🎯</div>
+                    <svg class="icon-svg-sm" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="24" cy="24" r="20" fill="#E0F7FA"/>
+                        <circle cx="24" cy="16" r="4" fill="#0D7377"/>
+                        <circle cx="16" cy="32" r="4" fill="#0D7377"/>
+                        <circle cx="32" cy="32" r="4" fill="#0D7377"/>
+                        <path d="M24 20V28M24 28L16 32M24 28L32 32" stroke="#0D7377" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
                     <h3 class="font-bold text-lg mb-2">Smart Routing</h3>
                     <p class="text-gray-600 text-sm">
                         Routes to right provider based on specialty and availability
                     </p>
                 </div>
 
-                <!-- Feature 4 -->
+                <!-- Feature 4: Emergency -->
                 <div class="bg-gray-50 p-6 rounded-xl border border-gray-200 hover:border-deep-teal hover:shadow-lg transition-all">
-                    <div class="text-4xl mb-3">🚨</div>
+                    <svg class="icon-svg-sm" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="24" cy="24" r="20" fill="#E0F7FA"/>
+                        <path d="M24 14V24M24 28V30" stroke="#DC2626" stroke-width="3" stroke-linecap="round"/>
+                        <circle cx="24" cy="24" r="16" stroke="#0D7377" stroke-width="2.5"/>
+                    </svg>
                     <h3 class="font-bold text-lg mb-2">Emergency Triage</h3>
                     <p class="text-gray-600 text-sm">
                         Recognizes urgent cases and escalates to on-call staff
                     </p>
                 </div>
 
-                <!-- Feature 5 -->
+                <!-- Feature 5: Multi-Location -->
                 <div class="bg-gray-50 p-6 rounded-xl border border-gray-200 hover:border-deep-teal hover:shadow-lg transition-all">
-                    <div class="text-4xl mb-3">🏢</div>
+                    <svg class="icon-svg-sm" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="24" cy="24" r="20" fill="#E0F7FA"/>
+                        <path d="M24 10C19 10 15 14 15 19C15 24 24 34 24 34C24 34 33 24 33 19C33 14 29 10 24 10Z" stroke="#0D7377" stroke-width="2.5"/>
+                        <circle cx="24" cy="19" r="3" fill="#0D7377"/>
+                    </svg>
                     <h3 class="font-bold text-lg mb-2">Multi-Location</h3>
                     <p class="text-gray-600 text-sm">
                         Manages scheduling across multiple practice locations
                     </p>
                 </div>
 
-                <!-- Feature 6 -->
+                <!-- Feature 6: Multilingual -->
                 <div class="bg-gray-50 p-6 rounded-xl border border-gray-200 hover:border-deep-teal hover:shadow-lg transition-all">
-                    <div class="text-4xl mb-3">🌍</div>
+                    <svg class="icon-svg-sm" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="24" cy="24" r="20" fill="#E0F7FA"/>
+                        <circle cx="24" cy="24" r="16" stroke="#0D7377" stroke-width="2.5"/>
+                        <path d="M8 24H40M24 8C24 8 18 14 18 24C18 34 24 40 24 40M24 8C24 8 30 14 30 24C30 34 24 40 24 40" stroke="#0D7377" stroke-width="2"/>
+                    </svg>
                     <h3 class="font-bold text-lg mb-2">Multilingual</h3>
                     <p class="text-gray-600 text-sm">
                         Supports English, Spanish, Mandarin, and 40+ languages
                     </p>
                 </div>
 
-                <!-- Feature 7 -->
+                <!-- Feature 7: After Hours -->
                 <div class="bg-gray-50 p-6 rounded-xl border border-gray-200 hover:border-deep-teal hover:shadow-lg transition-all">
-                    <div class="text-4xl mb-3">🌜</div>
+                    <svg class="icon-svg-sm" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="24" cy="24" r="20" fill="#E0F7FA"/>
+                        <path d="M24 10C24 10 14 14 14 24C14 34 24 38 24 38" stroke="#0D7377" stroke-width="2.5" stroke-linecap="round"/>
+                        <circle cx="30" cy="20" r="6" fill="#0D7377"/>
+                    </svg>
                     <h3 class="font-bold text-lg mb-2">After-Hours</h3>
                     <p class="text-gray-600 text-sm">
                         Captures appointment requests when office is closed
                     </p>
                 </div>
 
-                <!-- Feature 8 -->
+                <!-- Feature 8: Insurance -->
                 <div class="bg-gray-50 p-6 rounded-xl border border-gray-200 hover:border-deep-teal hover:shadow-lg transition-all">
-                    <div class="text-4xl mb-3">💳</div>
+                    <svg class="icon-svg-sm" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="24" cy="24" r="20" fill="#E0F7FA"/>
+                        <rect x="12" y="16" width="24" height="16" rx="2" stroke="#0D7377" stroke-width="2.5"/>
+                        <path d="M16 24H32M20 20H28" stroke="#0D7377" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
                     <h3 class="font-bold text-lg mb-2">Insurance Questions</h3>
                     <p class="text-gray-600 text-sm">
                         Answers coverage questions based on your panel
@@ -477,12 +643,12 @@
         </div>
     </section>
 
-    <!-- Pricing Section -->
+    <!-- Pricing Section (Soft Pricing) -->
     <section class="py-20 px-4 bg-white">
         <div class="max-w-4xl mx-auto">
             <div class="text-center mb-12 fade-in">
                 <h2 class="text-4xl md:text-5xl font-bold mb-4 text-charcoal">
-                    Transparent Pricing
+                    Simple, Transparent Pricing
                 </h2>
                 <p class="text-xl text-gray-600">
                     Professional-tier service for practices serious about growth
@@ -494,51 +660,67 @@
                     <div class="text-sm font-semibold uppercase tracking-wider mb-2 text-white/80">
                         Professional Tier
                     </div>
-                    <div class="text-6xl font-bold mb-2">$8,500</div>
-                    <div class="text-xl text-white/90 mb-6">One-time setup</div>
-                    <div class="text-5xl font-bold mb-2">$1,500<span class="text-2xl">/mo</span></div>
-                    <div class="text-white/90">Ongoing optimization & support</div>
+                    <div class="text-5xl font-bold mb-2">Starting at</div>
+                    <div class="text-6xl font-bold mb-2">$1,500<span class="text-3xl">/mo</span></div>
+                    <div class="text-xl text-white/90 mb-6">Custom setup fee based on your EHR integration and call volume</div>
+                    <div class="bg-white/10 backdrop-blur-sm rounded-lg px-6 py-3 inline-block">
+                        <div class="text-sm text-white/90">
+                            Most practices: $1,500-2,500/mo all-in
+                        </div>
+                    </div>
                 </div>
 
                 <div class="border-t border-white/20 pt-8 mb-8">
                     <div class="grid md:grid-cols-2 gap-4">
                         <div class="flex items-start gap-3">
-                            <div class="text-light-teal text-xl">✓</div>
+                            <svg class="w-6 h-6 flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                            </svg>
                             <div>
                                 <div class="font-semibold mb-1">2-Week Pilot Phase</div>
                                 <div class="text-sm text-white/80">Test with real calls before full deployment</div>
                             </div>
                         </div>
                         <div class="flex items-start gap-3">
-                            <div class="text-light-teal text-xl">✓</div>
+                            <svg class="w-6 h-6 flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                            </svg>
                             <div>
                                 <div class="font-semibold mb-1">Custom Foundation Build</div>
                                 <div class="text-sm text-white/80">Tailored to your specialty and workflows</div>
                             </div>
                         </div>
                         <div class="flex items-start gap-3">
-                            <div class="text-light-teal text-xl">✓</div>
+                            <svg class="w-6 h-6 flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                            </svg>
                             <div>
                                 <div class="font-semibold mb-1">EHR Integration</div>
                                 <div class="text-sm text-white/80">Direct booking into your system</div>
                             </div>
                         </div>
                         <div class="flex items-start gap-3">
-                            <div class="text-light-teal text-xl">✓</div>
+                            <svg class="w-6 h-6 flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                            </svg>
                             <div>
                                 <div class="font-semibold mb-1">Weekly Optimization</div>
                                 <div class="text-sm text-white/80">Continuous improvement based on call data</div>
                             </div>
                         </div>
                         <div class="flex items-start gap-3">
-                            <div class="text-light-teal text-xl">✓</div>
+                            <svg class="w-6 h-6 flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                            </svg>
                             <div>
                                 <div class="font-semibold mb-1">HIPAA Compliance</div>
                                 <div class="text-sm text-white/80">BAA included, encrypted call storage</div>
                             </div>
                         </div>
                         <div class="flex items-start gap-3">
-                            <div class="text-light-teal text-xl">✓</div>
+                            <svg class="w-6 h-6 flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                            </svg>
                             <div>
                                 <div class="font-semibold mb-1">Dedicated Support</div>
                                 <div class="text-sm text-white/80">Direct access to implementation team</div>
@@ -548,18 +730,23 @@
                 </div>
 
                 <div class="bg-white/10 backdrop-blur-sm rounded-xl p-6 mb-8">
-                    <div class="font-semibold mb-2">Getting Started:</div>
-                    <div class="text-white/90">
-                        50% deposit ($4,250) to begin pilot phase. Remaining balance due at full deployment.
-                        Monthly support begins after 2-week pilot.
-                    </div>
+                    <div class="font-semibold mb-2">Custom Pricing Based On:</div>
+                    <ul class="text-white/90 space-y-1 text-sm">
+                        <li>• Monthly call volume</li>
+                        <li>• EHR system complexity (Athena, eClinicalWorks, Epic, etc.)</li>
+                        <li>• Number of locations and providers</li>
+                        <li>• Specialty-specific workflows (dermatology, family med, dental, etc.)</li>
+                    </ul>
                 </div>
 
                 <div class="text-center">
                     <a href="https://meetings.hubspot.com/chris4642"
-                       class="inline-block bg-white text-deep-teal px-8 py-4 rounded-lg text-lg font-bold hover:bg-light-teal hover:text-charcoal transition-all shadow-xl">
-                        Schedule Your Strategy Call →
+                       class="cta-button inline-block px-8 py-4 rounded-lg text-lg">
+                        Get Custom Pricing →
                     </a>
+                    <p class="mt-4 text-sm text-white/70">
+                        15-minute call • Custom ROI analysis • No commitment required
+                    </p>
                 </div>
             </div>
         </div>
@@ -666,16 +853,16 @@
                 <div class="bg-white rounded-xl shadow-md overflow-hidden">
                     <button class="faq-question w-full text-left p-6 font-semibold text-lg flex justify-between items-center hover:bg-gray-50 transition-colors"
                             onclick="toggleFaq(this)">
-                        <span>Why does this cost more than other AI receptionists?</span>
+                        <span>What affects the pricing?</span>
                         <span class="text-2xl text-deep-teal">+</span>
                     </button>
                     <div class="faq-answer px-6 pb-6">
                         <p class="text-gray-600 leading-relaxed">
-                            Most AI phone services are generic scripts that can't book into your EHR or handle
-                            medical-specific scenarios. We build a custom foundation for your specialty, integrate
-                            directly with your EHR, and provide ongoing weekly optimization. You're getting a
-                            custom solution, not a one-size-fits-all chatbot. The ROI justifies the investment —
-                            practices typically recover the full annual cost in the first 2 months.
+                            Pricing is based on your monthly call volume, EHR integration complexity, number of
+                            locations, and specialty-specific customization. Most practices pay $1,500-2,500/mo
+                            all-in. We provide transparent custom pricing during your strategy call based on your
+                            specific needs. The typical ROI is 2-3 months, with practices recovering $150K/year
+                            in previously lost revenue.
                         </p>
                     </div>
                 </div>
@@ -711,7 +898,7 @@
                 Book a 15-minute demo and see how we can recover $150K/year for your practice.
             </p>
             <a href="https://meetings.hubspot.com/chris4642"
-               class="cta-button inline-block bg-white text-deep-teal px-10 py-5 rounded-lg text-xl font-bold shadow-2xl mb-6">
+               class="cta-button inline-block px-10 py-5 rounded-lg text-xl mb-6">
                 Schedule Your Demo Now →
             </a>
             <div class="text-sm text-white/70">
@@ -734,9 +921,25 @@
                         Built with AI. Run by humans.
                     </p>
                     <div class="space-y-2 text-gray-400">
-                        <div>📧 <a href="mailto:chris@resultantai.com" class="hover:text-light-teal transition-colors">chris@resultantai.com</a></div>
-                        <div>📍 Walnut Creek, CA</div>
-                        <div>📞 <a href="tel:6233002294" class="hover:text-light-teal transition-colors">(623) 300-2294</a></div>
+                        <div>
+                            <svg class="inline-block w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/>
+                                <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/>
+                            </svg>
+                            <a href="mailto:chris@resultantai.com" class="hover:text-light-teal transition-colors">chris@resultantai.com</a>
+                        </div>
+                        <div>
+                            <svg class="inline-block w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"/>
+                            </svg>
+                            Walnut Creek, CA
+                        </div>
+                        <div>
+                            <svg class="inline-block w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/>
+                            </svg>
+                            <a href="tel:6233002294" class="hover:text-light-teal transition-colors">(623) 300-2294</a>
+                        </div>
                     </div>
                 </div>
 
@@ -769,6 +972,7 @@
     </footer>
 
     <!-- JavaScript -->
+    <script src="js/main.js"></script>
     <script>
         // FAQ Toggle
         function toggleFaq(button) {
@@ -792,39 +996,6 @@
             answer.classList.toggle('open');
             icon.textContent = answer.classList.contains('open') ? '−' : '+';
         }
-
-        // Smooth scroll for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
-        });
-
-        // Intersection Observer for fade-in animations
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
-                }
-            });
-        }, observerOptions);
-
-        document.querySelectorAll('.fade-in, .slide-in').forEach(el => {
-            observer.observe(el);
-        });
 
         // Track CTA clicks
         document.querySelectorAll('a[href*="hubspot"]').forEach(link => {
