@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- SEO -->
+  <link rel="canonical" href="https://resultantai.com/roi-calculator">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Propane Dispatch ROI Calculator - Free Download">
+  <meta property="og:description" content="ResultantAI - Revenue Systems for Service Businesses. AI automation that pays for itself.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://resultantai.com/roi-calculator">
+  <meta property="og:site_name" content="ResultantAI">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Propane Dispatch ROI Calculator - Free Download">
+  <meta name="twitter:description" content="ResultantAI - Revenue Systems for Service Businesses. AI automation that pays for itself.">
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Propane Dispatch ROI Calculator - Free Download</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      line-height: 1.6;
+      color: #1a1a1a;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 40px auto;
+      background: white;
+      border-radius: 20px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+      overflow: hidden;
+    }
+
+    .header {
+      background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+      color: white;
+      padding: 60px 40px;
+      text-align: center;
+    }
+
+    .header h1 {
+      font-size: 2.5em;
+      margin-bottom: 20px;
+      font-weight: 700;
+    }
+
+    .header .subtitle {
+      font-size: 1.3em;
+      opacity: 0.95;
+      margin-bottom: 30px;
+    }
+
+    .badge {
+      display: inline-block;
+      background: rgba(255,255,255,0.2);
+      padding: 8px 20px;
+      border-radius: 30px;
+      font-size: 0.9em;
+      font-weight: 600;
+      margin-top: 10px;
+    }
+
+    .content {
+      padding: 60px 40px;
+    }
+
+    .value-props {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 30px;
+      margin-bottom: 50px;
+    }
+
+    .value-prop {
+      text-align: center;
+      padding: 30px;
+      background: #f8fafc;
+      border-radius: 12px;
+      transition: transform 0.3s;
+    }
+
+    .value-prop:hover {
+      transform: translateY(-5px);
+    }
+
+    .value-prop .icon {
+      font-size: 3em;
+      margin-bottom: 15px;
+    }
+
+    .value-prop h3 {
+      font-size: 1.3em;
+      margin-bottom: 10px;
+      color: #1e3a8a;
+    }
+
+    .value-prop p {
+      color: #64748b;
+      line-height: 1.5;
+    }
+
+    .form-section {
+      background: linear-gradient(135deg, #f8fafc 0%, #e0e7ff 100%);
+      padding: 40px;
+      border-radius: 12px;
+      margin-bottom: 40px;
+    }
+
+    .form-section h2 {
+      text-align: center;
+      margin-bottom: 30px;
+      color: #1e3a8a;
+      font-size: 1.8em;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin-bottom: 20px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .form-group.full-width {
+      grid-column: 1 / -1;
+    }
+
+    label {
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: #334155;
+      font-size: 0.95em;
+    }
+
+    input, select {
+      padding: 14px;
+      border: 2px solid #e2e8f0;
+      border-radius: 8px;
+      font-size: 1em;
+      transition: border-color 0.3s;
+    }
+
+    input:focus, select:focus {
+      outline: none;
+      border-color: #3b82f6;
+    }
+
+    .submit-btn {
+      background: linear-gradient(135deg, #3b82f6 0%, #1e3a8a 100%);
+      color: white;
+      padding: 18px 40px;
+      border: none;
+      border-radius: 8px;
+      font-size: 1.1em;
+      font-weight: 600;
+      cursor: pointer;
+      width: 100%;
+      transition: transform 0.3s, box-shadow 0.3s;
+      margin-top: 20px;
+    }
+
+    .submit-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(59, 130, 246, 0.4);
+    }
+
+    .features-list {
+      list-style: none;
+      margin-bottom: 40px;
+    }
+
+    .features-list li {
+      padding: 15px 0;
+      border-bottom: 1px solid #e2e8f0;
+      display: flex;
+      align-items: center;
+      font-size: 1.05em;
+    }
+
+    .features-list li:before {
+      content: "✓";
+      display: inline-block;
+      width: 30px;
+      height: 30px;
+      background: #10b981;
+      color: white;
+      border-radius: 50%;
+      text-align: center;
+      line-height: 30px;
+      margin-right: 15px;
+      flex-shrink: 0;
+      font-weight: bold;
+    }
+
+    .trust-signals {
+      background: #f8fafc;
+      padding: 30px;
+      border-radius: 12px;
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .trust-signals h3 {
+      margin-bottom: 20px;
+      color: #1e3a8a;
+    }
+
+    .trust-stat {
+      display: inline-block;
+      margin: 0 30px;
+    }
+
+    .trust-stat .number {
+      font-size: 2.5em;
+      font-weight: 700;
+      color: #3b82f6;
+      display: block;
+    }
+
+    .trust-stat .label {
+      color: #64748b;
+      font-size: 0.9em;
+    }
+
+    @media (max-width: 768px) {
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .header h1 {
+        font-size: 1.8em;
+      }
+
+      .trust-stat {
+        display: block;
+        margin: 20px 0;
+      }
+
+      .content {
+        padding: 40px 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>🧮 Propane Dispatch ROI Calculator</h1>
+      <p class="subtitle">Calculate Your Winter Efficiency Savings in 60 Seconds</p>
+      <span class="badge">FREE Excel Template • Used by 50+ Operators</span>
+    </div>
+
+    <div class="content">
+      <div class="value-props">
+        <div class="value-prop">
+          <div class="icon">💰</div>
+          <h3>Find Hidden Costs</h3>
+          <p>Discover exactly how much phone tag, manual routing, and coordination overhead is costing you per winter season</p>
+        </div>
+
+        <div class="value-prop">
+          <div class="icon">📊</div>
+          <h3>Show Your CFO</h3>
+          <p>Plug in your truck count and delivery rate. Get a CFO-ready P&L impact analysis in minutes</p>
+        </div>
+
+        <div class="value-prop">
+          <div class="icon">⚡</div>
+          <h3>Built for Propane</h3>
+          <p>Pre-loaded with industry benchmarks from 10-50 truck operations across the Midwest and Northeast</p>
+        </div>
+      </div>
+
+      <div class="form-section">
+        <h2>Get Your Free ROI Calculator</h2>
+        <form id="leadMagnetForm">
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="firstName">First Name *</label>
+              <input type="text" id="firstName" name="firstName" required>
+            </div>
+
+            <div class="form-group">
+              <label for="lastName">Last Name *</label>
+              <input type="text" id="lastName" name="lastName" required>
+            </div>
+
+            <div class="form-group">
+              <label for="email">Work Email *</label>
+              <input type="email" id="email" name="email" required>
+            </div>
+
+            <div class="form-group">
+              <label for="phone">Phone Number</label>
+              <input type="tel" id="phone" name="phone">
+            </div>
+
+            <div class="form-group full-width">
+              <label for="company">Company Name *</label>
+              <input type="text" id="company" name="company" required>
+            </div>
+
+            <div class="form-group">
+              <label for="trucks">Number of Trucks</label>
+              <select id="trucks" name="trucks">
+                <option value="">Select...</option>
+                <option value="1-5">1-5 trucks</option>
+                <option value="6-10">6-10 trucks</option>
+                <option value="11-20">11-20 trucks</option>
+                <option value="21-50">21-50 trucks</option>
+                <option value="50+">50+ trucks</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="role">Your Role</label>
+              <select id="role" name="role">
+                <option value="">Select...</option>
+                <option value="Owner">Owner</option>
+                <option value="President/CEO">President/CEO</option>
+                <option value="CFO">CFO</option>
+                <option value="Operations Manager">Operations Manager</option>
+                <option value="General Manager">General Manager</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+          </div>
+
+          <button type="submit" class="submit-btn">
+            📥 Download ROI Calculator (Excel)
+          </button>
+
+          <p style="text-align: center; margin-top: 20px; color: #64748b; font-size: 0.9em;">
+            We'll email you the calculator instantly. No spam, no sales calls unless you ask.
+          </p>
+        </form>
+      </div>
+
+      <h2 style="text-align: center; margin-bottom: 30px; color: #1e3a8a; font-size: 1.8em;">
+        What's Inside the Calculator
+      </h2>
+
+      <ul class="features-list">
+        <li><strong>Emergency Call Cost Calculator</strong> - Quantify the true cost of phone tag during winter storms</li>
+        <li><strong>Route Efficiency Analysis</strong> - Calculate margin leak from manual route planning</li>
+        <li><strong>Coordination Overhead Tracker</strong> - Measure hours lost to dispatch coordination</li>
+        <li><strong>Digital ROI Projector</strong> - See your 12-month payback from paper-to-digital transition</li>
+        <li><strong>Industry Benchmarks</strong> - Compare your metrics to 50+ propane operations</li>
+        <li><strong>CFO Presentation Template</strong> - Pre-built executive summary slide</li>
+      </ul>
+
+      <div class="trust-signals">
+        <h3>Trusted by Propane Operators Nationwide</h3>
+        <div>
+          <div class="trust-stat">
+            <span class="number">83%</span>
+            <span class="label">Avg. Emergency Call Reduction</span>
+          </div>
+          <div class="trust-stat">
+            <span class="number">$64K</span>
+            <span class="label">Avg. Winter Season Savings</span>
+          </div>
+          <div class="trust-stat">
+            <span class="number">2-3 Weeks</span>
+            <span class="label">Implementation Time</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById('leadMagnetForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+
+      const formData = {
+        firstName: document.getElementById('firstName').value,
+        lastName: document.getElementById('lastName').value,
+        email: document.getElementById('email').value,
+        phone: document.getElementById('phone').value,
+        company: document.getElementById('company').value,
+        trucks: document.getElementById('trucks').value,
+        role: document.getElementById('role').value,
+        leadMagnet: 'Propane ROI Calculator',
+        source: 'Lead Magnet Page'
+      };
+
+      // Submit to HubSpot (you'll need to replace with your form endpoint)
+      try {
+        const response = await fetch('https://api.hsforms.com/submissions/v3/integration/submit/YOUR_PORTAL_ID/YOUR_FORM_ID', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            fields: Object.keys(formData).map(key => ({
+              name: key,
+              value: formData[key]
+            }))
+          })
+        });
+
+        if (response.ok) {
+          // Redirect to thank you page with download
+          window.location.href = '/thank-you-roi-calculator.html';
+        }
+      } catch (error) {
+        console.error('Error:', error);
+        alert('Thank you! We\'ll email you the calculator within 5 minutes.');
+      }
+    });
+  </script>
+
+  <!-- Footer -->
+  <footer style="background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); color: #fff; padding: 60px 20px 30px; margin-top: 80px;">
+    <div style="max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 40px;">
+      <div>
+        <h3 style="font-size: 24px; font-weight: 700; margin-bottom: 20px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">ResultantAI</h3>
+        <p style="color: #b0b0b0; line-height: 1.6; margin-bottom: 20px;">Revenue systems for service businesses. AI automation that pays for itself.</p>
+        <a href="/" style="color: #667eea; text-decoration: none; font-weight: 600;">← Back to Home</a>
+      </div>
+      <div>
+        <h4 style="font-size: 16px; font-weight: 600; margin-bottom: 15px; color: #e0e0e0;">Solutions</h4>
+        <ul style="list-style: none; padding: 0; margin: 0;">
+          <li style="margin-bottom: 10px;"><a href="/gateway.html" style="color: #b0b0b0; text-decoration: none; transition: color 0.2s;">AI Gateway</a></li>
+          <li style="margin-bottom: 10px;"><a href="/propane.html" style="color: #b0b0b0; text-decoration: none; transition: color 0.2s;">Propane Dispatch</a></li>
+          <li style="margin-bottom: 10px;"><a href="/concrete.html" style="color: #b0b0b0; text-decoration: none; transition: color 0.2s;">Concrete Dispatch</a></li>
+          <li style="margin-bottom: 10px;"><a href="/logistics.html" style="color: #b0b0b0; text-decoration: none; transition: color 0.2s;">Logistics & Freight</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 style="font-size: 16px; font-weight: 600; margin-bottom: 15px; color: #e0e0e0;">Resources</h4>
+        <ul style="list-style: none; padding: 0; margin: 0;">
+          <li style="margin-bottom: 10px;"><a href="/blog/" style="color: #b0b0b0; text-decoration: none; transition: color 0.2s;">Blog</a></li>
+          <li style="margin-bottom: 10px;"><a href="/case-studies.html" style="color: #b0b0b0; text-decoration: none; transition: color 0.2s;">Case Studies</a></li>
+          <li style="margin-bottom: 10px;"><a href="/voice-roi-calculator.html" style="color: #b0b0b0; text-decoration: none; transition: color 0.2s;">ROI Calculator</a></li>
+          <li style="margin-bottom: 10px;"><a href="/about/" style="color: #b0b0b0; text-decoration: none; transition: color 0.2s;">About Us</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 style="font-size: 16px; font-weight: 600; margin-bottom: 15px; color: #e0e0e0;">Get Started</h4>
+        <p style="color: #b0b0b0; line-height: 1.6; margin-bottom: 15px;">Ready to recover lost revenue?</p>
+        <a href="https://meetings.hubspot.com/resultantai/paper-to-digital" style="display: inline-block; padding: 12px 24px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: #fff; text-decoration: none; border-radius: 8px; font-weight: 600; transition: transform 0.2s;">Book a Call</a>
+      </div>
+    </div>
+    <div style="text-align: center; margin-top: 40px; padding-top: 30px; border-top: 1px solid rgba(255,255,255,0.1); color: #666;">
+      <p>&copy; 2026 ResultantAI. All rights reserved.</p>
+    </div>
+  </footer>
+
+</body>
+</html>
