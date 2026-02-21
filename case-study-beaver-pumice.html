@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Case Study: Beaver Pumice | ResultantAI</title>
+  <meta name="description" content="How Beaver Pumice eliminated manual invoice processing and moved to same-day billing with ResultantAI back-office automation.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: #0f172a;
+      color: #e2e8f0;
+      font-family: 'IBM Plex Sans', -apple-system, sans-serif;
+      line-height: 1.6;
+    }
+
+    a { color: #10b981; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ── Header ── */
+    .site-header {
+      background: #0f172a;
+      border-bottom: 1px solid #1e293b;
+      padding: 16px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .logo { font-size: 18px; font-weight: 600; color: #f8fafc; letter-spacing: -0.3px; }
+    .logo span { color: #10b981; }
+    .header-cta {
+      background: #10b981;
+      color: #0f172a;
+      padding: 8px 20px;
+      border-radius: 6px;
+      font-size: 14px;
+      font-weight: 600;
+    }
+    .header-cta:hover { background: #059669; text-decoration: none; }
+
+    /* ── Hero ── */
+    .hero {
+      max-width: 760px;
+      margin: 64px auto 0;
+      padding: 0 24px;
+    }
+    .label {
+      display: inline-block;
+      background: rgba(16, 185, 129, 0.12);
+      color: #10b981;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 4px 12px;
+      border-radius: 4px;
+      margin-bottom: 20px;
+    }
+    .hero h1 {
+      font-size: clamp(28px, 5vw, 44px);
+      font-weight: 600;
+      line-height: 1.2;
+      color: #f8fafc;
+      letter-spacing: -0.5px;
+      margin-bottom: 20px;
+    }
+    .hero h1 em {
+      color: #10b981;
+      font-style: normal;
+    }
+    .hero-meta {
+      display: flex;
+      gap: 32px;
+      flex-wrap: wrap;
+      margin-bottom: 48px;
+    }
+    .hero-meta-item { }
+    .hero-meta-item .meta-label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #64748b;
+      font-family: 'IBM Plex Mono', monospace;
+      margin-bottom: 2px;
+    }
+    .hero-meta-item .meta-value {
+      font-size: 14px;
+      color: #94a3b8;
+    }
+
+    /* ── Stats Bar ── */
+    .stats-bar {
+      background: #1e293b;
+      border: 1px solid #334155;
+      border-radius: 12px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      margin: 0 auto 64px;
+      max-width: 760px;
+      padding: 0 24px;
+      overflow: hidden;
+    }
+    .stat {
+      padding: 32px 24px;
+      text-align: center;
+      border-right: 1px solid #334155;
+    }
+    .stat:last-child { border-right: none; }
+    .stat-number {
+      font-size: clamp(32px, 6vw, 48px);
+      font-weight: 600;
+      color: #10b981;
+      line-height: 1;
+      font-family: 'IBM Plex Mono', monospace;
+      letter-spacing: -1px;
+      margin-bottom: 6px;
+    }
+    .stat-label {
+      font-size: 13px;
+      color: #64748b;
+      line-height: 1.4;
+    }
+
+    /* ── Body Content ── */
+    .content {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 0 24px 80px;
+    }
+
+    .section { margin-bottom: 56px; }
+    .section-label {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: #10b981;
+      margin-bottom: 16px;
+    }
+    .section h2 {
+      font-size: 22px;
+      font-weight: 600;
+      color: #f8fafc;
+      margin-bottom: 16px;
+      letter-spacing: -0.3px;
+    }
+    .section p {
+      color: #94a3b8;
+      font-size: 16px;
+      line-height: 1.75;
+      margin-bottom: 16px;
+    }
+
+    /* ── Before / After ── */
+    .before-after {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin: 24px 0;
+    }
+    .ba-card {
+      background: #1e293b;
+      border: 1px solid #334155;
+      border-radius: 10px;
+      padding: 24px;
+    }
+    .ba-card.before { border-top: 3px solid #ef4444; }
+    .ba-card.after  { border-top: 3px solid #10b981; }
+    .ba-title {
+      font-size: 11px;
+      font-family: 'IBM Plex Mono', monospace;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 16px;
+    }
+    .before .ba-title { color: #ef4444; }
+    .after  .ba-title { color: #10b981; }
+    .ba-card ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .ba-card li {
+      font-size: 14px;
+      color: #94a3b8;
+      padding-left: 20px;
+      position: relative;
+      line-height: 1.5;
+    }
+    .before li::before { content: '✗'; position: absolute; left: 0; color: #ef4444; }
+    .after  li::before { content: '✓'; position: absolute; left: 0; color: #10b981; }
+
+    /* ── Quote ── */
+    .quote-block {
+      border-left: 3px solid #10b981;
+      background: rgba(16, 185, 129, 0.05);
+      padding: 24px 28px;
+      border-radius: 0 8px 8px 0;
+      margin: 32px 0;
+    }
+    .quote-block blockquote {
+      font-size: 17px;
+      color: #e2e8f0;
+      line-height: 1.7;
+      font-style: italic;
+      margin-bottom: 12px;
+    }
+    .quote-block cite {
+      font-size: 13px;
+      color: #64748b;
+      font-style: normal;
+    }
+
+    /* ── How It Works ── */
+    .steps {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin: 24px 0;
+    }
+    .step {
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+      background: #1e293b;
+      border: 1px solid #334155;
+      border-radius: 10px;
+      padding: 20px 24px;
+    }
+    .step-num {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 13px;
+      font-weight: 500;
+      color: #10b981;
+      background: rgba(16, 185, 129, 0.1);
+      border-radius: 6px;
+      padding: 4px 10px;
+      white-space: nowrap;
+      margin-top: 2px;
+    }
+    .step-content h3 {
+      font-size: 15px;
+      font-weight: 600;
+      color: #f8fafc;
+      margin-bottom: 4px;
+    }
+    .step-content p {
+      font-size: 14px;
+      color: #64748b;
+      margin: 0;
+      line-height: 1.5;
+    }
+
+    /* ── Results Table ── */
+    .results-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 24px 0;
+      font-size: 14px;
+    }
+    .results-table th {
+      text-align: left;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #64748b;
+      font-family: 'IBM Plex Mono', monospace;
+      padding: 12px 16px;
+      border-bottom: 1px solid #334155;
+    }
+    .results-table td {
+      padding: 14px 16px;
+      border-bottom: 1px solid #1e293b;
+      color: #94a3b8;
+      vertical-align: top;
+    }
+    .results-table tr:last-child td { border-bottom: none; }
+    .results-table .metric { color: #f8fafc; font-weight: 500; }
+    .results-table .before-val { color: #ef4444; }
+    .results-table .after-val  { color: #10b981; font-weight: 600; }
+
+    /* ── CTA ── */
+    .cta-block {
+      background: linear-gradient(135deg, #0f2d1f 0%, #0d1f38 100%);
+      border: 1px solid #10b981;
+      border-radius: 12px;
+      padding: 48px 40px;
+      text-align: center;
+      margin-top: 64px;
+    }
+    .cta-block h2 {
+      font-size: 26px;
+      font-weight: 600;
+      color: #f8fafc;
+      margin-bottom: 12px;
+      letter-spacing: -0.3px;
+    }
+    .cta-block p {
+      color: #94a3b8;
+      font-size: 16px;
+      max-width: 480px;
+      margin: 0 auto 28px;
+      line-height: 1.6;
+    }
+    .cta-primary {
+      display: inline-block;
+      background: #10b981;
+      color: #0f172a;
+      padding: 14px 32px;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 16px;
+      margin-bottom: 12px;
+    }
+    .cta-primary:hover { background: #059669; text-decoration: none; }
+    .cta-secondary {
+      display: block;
+      font-size: 13px;
+      color: #64748b;
+      margin-top: 8px;
+    }
+
+    /* ── Footer ── */
+    footer {
+      border-top: 1px solid #1e293b;
+      padding: 32px 24px;
+      text-align: center;
+      font-size: 13px;
+      color: #334155;
+    }
+
+    @media (max-width: 600px) {
+      .before-after { grid-template-columns: 1fr; }
+      .stats-bar { grid-template-columns: 1fr; }
+      .stat { border-right: none; border-bottom: 1px solid #334155; }
+      .stat:last-child { border-bottom: none; }
+      .hero-meta { gap: 20px; }
+      .cta-block { padding: 32px 24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="logo">Resultant<span>AI</span></div>
+    <a href="https://meetings.hubspot.com/chris4642" class="header-cta">Book a Call</a>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="label">Case Study</div>
+    <h1>How Beaver Pumice eliminated <em>manual invoice processing</em> and moved to same-day billing</h1>
+    <div class="hero-meta">
+      <div class="hero-meta-item">
+        <div class="meta-label">Industry</div>
+        <div class="meta-value">Mining / Bulk Materials</div>
+      </div>
+      <div class="hero-meta-item">
+        <div class="meta-label">Fleet Size</div>
+        <div class="meta-value">10-20 trucks</div>
+      </div>
+      <div class="hero-meta-item">
+        <div class="meta-label">Location</div>
+        <div class="meta-value">Nevada</div>
+      </div>
+      <div class="hero-meta-item">
+        <div class="meta-label">Time to Deploy</div>
+        <div class="meta-value">3 weeks</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats -->
+  <div class="stats-bar">
+    <div class="stat">
+      <div class="stat-number">80%</div>
+      <div class="stat-label">Reduction in manual back-office time per day</div>
+    </div>
+    <div class="stat">
+      <div class="stat-number">Same<br>day</div>
+      <div class="stat-label">Invoice generation (was end-of-week batch)</div>
+    </div>
+    <div class="stat">
+      <div class="stat-number">Zero</div>
+      <div class="stat-label">Manual QuickBooks data entry</div>
+    </div>
+  </div>
+
+  <!-- Body -->
+  <div class="content">
+
+    <!-- The Problem -->
+    <div class="section">
+      <div class="section-label">The Problem</div>
+      <h2>Every delivery created a manual data entry job</h2>
+      <p>
+        Beaver Pumice runs a high-volume pumice and aggregate delivery operation out of Nevada.
+        Each truck delivery generates a ticket: material type, quantity in tons and yards,
+        truck tare weight, customer, freight rate, and billing unit. Before ResultantAI,
+        that information was recorded on paper or in spreadsheets, then manually re-entered
+        into QuickBooks at the end of the day or week.
+      </p>
+      <p>
+        With 15 to 25 deliveries per day, the back-office staff was spending the last two
+        hours of every shift on data entry. Pricing errors crept in when billing units
+        (per-ton vs. per-yard) were misapplied. Invoices went out days after delivery.
+        Collections lagged because customers received invoices late.
+      </p>
+
+      <div class="before-after">
+        <div class="ba-card before">
+          <div class="ba-title">Before</div>
+          <ul>
+            <li>Paper tickets collected at end of shift</li>
+            <li>Manual re-entry into QuickBooks, one line at a time</li>
+            <li>Billing unit errors (ton vs. yard) discovered after invoices sent</li>
+            <li>Invoices batched weekly, not daily</li>
+            <li>Collections delayed by late invoicing</li>
+            <li>No audit trail linking ticket to invoice</li>
+          </ul>
+        </div>
+        <div class="ba-card after">
+          <div class="ba-title">After</div>
+          <ul>
+            <li>Dispatcher enters ticket in web app at time of delivery</li>
+            <li>System calculates weight, billing unit, freight automatically</li>
+            <li>One-click QuickBooks IIF export, no re-entry</li>
+            <li>Invoices generated same day as delivery</li>
+            <li>Billing unit per customer locked in system, no manual errors</li>
+            <li>Every ticket links directly to its QuickBooks transaction</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- How It Works -->
+    <div class="section">
+      <div class="section-label">The Solution</div>
+      <h2>A dispatch-to-invoice loop with no manual steps</h2>
+      <p>
+        ResultantAI built a web-based ticket system that captures delivery data once
+        at the point of dispatch and automates everything downstream.
+      </p>
+
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">01</div>
+          <div class="step-content">
+            <h3>Dispatcher enters the ticket</h3>
+            <p>Truck number, customer, material, gross weight, tare weight. The system calculates net tons and yards automatically from scale data. Takes under 90 seconds per ticket.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">02</div>
+          <div class="step-content">
+            <h3>Pricing applied automatically</h3>
+            <p>Each customer's product rate, freight rate, and billing unit (per-ton or per-yard) is stored in the system. No manual lookups, no unit errors. The invoice amount is calculated the moment the ticket is saved.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">03</div>
+          <div class="step-content">
+            <h3>QuickBooks export in one click</h3>
+            <p>At any point, staff exports a QuickBooks IIF file covering any date range. Import takes 30 seconds. No re-entry, no reconciliation step, no errors from transcription.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">04</div>
+          <div class="step-content">
+            <h3>Customer portal for delivery history</h3>
+            <p>Customers can log in to view their delivery tickets, weights, and invoice history. Fewer inbound calls asking for copies of paperwork.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Results -->
+    <div class="section">
+      <div class="section-label">Results</div>
+      <h2>Back-office time cut. Billing speed doubled.</h2>
+
+      <table class="results-table">
+        <thead>
+          <tr>
+            <th>Metric</th>
+            <th>Before</th>
+            <th>After</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="metric">Daily back-office data entry time</td>
+            <td class="before-val">90-120 min/day</td>
+            <td class="after-val">Under 15 min/day</td>
+          </tr>
+          <tr>
+            <td class="metric">Time from delivery to invoice</td>
+            <td class="before-val">3-7 days (batched weekly)</td>
+            <td class="after-val">Same day</td>
+          </tr>
+          <tr>
+            <td class="metric">Manual QuickBooks entries</td>
+            <td class="before-val">15-25 per day, typed by hand</td>
+            <td class="after-val">Zero, automated export</td>
+          </tr>
+          <tr>
+            <td class="metric">Billing unit errors (ton vs. yard)</td>
+            <td class="before-val">Occasional, found after invoice sent</td>
+            <td class="after-val">Eliminated, locked per customer</td>
+          </tr>
+          <tr>
+            <td class="metric">Audit trail from ticket to QB</td>
+            <td class="before-val">None</td>
+            <td class="after-val">Complete, linked by ticket ID</td>
+          </tr>
+          <tr>
+            <td class="metric">Staff needed for back-office</td>
+            <td class="before-val">1 FTE dedicated to data entry</td>
+            <td class="after-val">Same person, now focused on exceptions</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="quote-block">
+        <blockquote>
+          "We were spending the last part of every shift just catching up on data entry.
+          Now that work is done the moment the ticket is created. Invoices go out the same day
+          and collections have improved because customers get the paperwork faster."
+        </blockquote>
+        <cite>Operations, Beaver Pumice</cite>
+      </div>
+    </div>
+
+    <!-- Applicability -->
+    <div class="section">
+      <div class="section-label">Who This Applies To</div>
+      <h2>If you run trucks and bill by the load, this is your problem too</h2>
+      <p>
+        The same back-office loop, ticket to invoice, creates the same bottleneck across
+        propane delivery, concrete, aggregate, landscaping, HVAC, and any fleet-based
+        operation billing per job or per load. The materials differ. The workflow does not.
+      </p>
+      <p>
+        ResultantAI builds the automation for your specific billing rules, your existing
+        QuickBooks setup, and your driver and dispatcher workflow. Typical deployment is
+        two to four weeks. No new software subscriptions required beyond the system itself.
+      </p>
+    </div>
+
+    <!-- CTA -->
+    <div class="cta-block">
+      <h2>See what this looks like for your operation</h2>
+      <p>
+        Book a 20-minute call. Bring your current billing workflow.
+        We will show you exactly where the hours are going and what automating them is worth.
+      </p>
+      <a href="https://meetings.hubspot.com/chris4642" class="cta-primary">Book a Call with Chris</a>
+      <span class="cta-secondary">No sales pitch. Just a workflow review and a number.</span>
+    </div>
+
+  </div>
+
+  <footer>
+    <p>&copy; 2026 ResultantAI &nbsp;|&nbsp; <a href="https://resultantai.com">resultantai.com</a> &nbsp;|&nbsp; <a href="https://resultantai.com/unsubscribe">Unsubscribe</a></p>
+  </footer>
+
+</body>
+</html>
