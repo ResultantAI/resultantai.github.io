@@ -1,78 +1,58 @@
 ﻿# ResultantAI
 
+> AI automation agency for B2B service businesses. Voice agents, workflow automation, and AI safety — systems that generate revenue, not complexity.
 
-> AI systems that generate revenue, not complexity.
+ResultantAI (https://resultantai.com) is an AI automation agency founded by Chris Mott. We build production-ready AI systems for field service companies, trades contractors, healthcare practices, and B2B service businesses. Based in the US, serving clients nationwide.
 
+## What We Do
 
-## Agency Services
+ResultantAI specializes in three core services:
 
+### Voice AI Agents (from $10K)
+AI-powered phone systems that answer calls, qualify leads, handle objections, and book appointments 24/7. Built on Retell AI and custom voice pipelines. Average 23% booking rate across clients. Ideal for HVAC, plumbing, electrical, and other field service companies that lose revenue to missed calls.
 
-We build production-ready AI systems for B2B service businesses.
-
-
-### Voice Agents (from $10K)
-AI phone systems that qualify leads, handle objections, and book appointments. Average 23% booking rate. No scripts, no hold music — conversations that convert.
-
-
-### Automation Systems (from $5K)
-Make.com and n8n workflows that eliminate manual processes. Clients save 20+ hours per week.
-
+### Workflow Automation (from $5K)
+End-to-end business process automation using Make.com and n8n. We eliminate manual data entry, automate follow-ups, sync CRMs, and build custom integrations. Clients typically save 20+ hours per week. Common use cases: lead routing, invoice processing, appointment scheduling, and customer onboarding.
 
 ### AI Safety & Compliance (from $6K)
-PII scrubbing, sentiment routing, audit trails. Enterprise-grade security without enterprise pricing. SOC2-ready in 30 days.
+Enterprise-grade AI guardrails for businesses deploying AI systems. PII scrubbing, sentiment-based routing, audit trails, and compliance monitoring. SOC2-ready implementations in 30 days. Protects businesses using AI from data leaks, hallucinations, and regulatory risk.
 
+## Proven Results
 
-## Case Studies
+- **Wayne Conn Plumbing** (HVAC/Plumbing): Voice AI recovered +$5K/month in previously missed calls, saved 20+ hours/week in admin time
+- **CisionVision** (Tech): AI automation delivered 10X ROI within 60 days
+- **Adleg** (Marketing Agency): AI-powered audits reduced from 90 minutes to 2 minutes per client
 
+## AI Gateway Platform (2026)
 
-- **Wayne Conn Plumbing**: +$5K/month in recovered revenue, 20+ hours/week saved
-- **CisionVision**: 10X ROI in 60 days
-- **Adleg**: Marketing audits reduced from 90 minutes to 2 minutes
+ResultantAI is building an AI Gateway — consumption insurance for AI API costs. Features include:
 
+- **Intelligence Router**: Automatically selects the cheapest AI model capable of handling each request. Typical savings: 80-90% on API costs.
+- **Safety Brain**: Real-time scanning of every AI request for PII, sentiment issues, and compliance red flags. Block or flag before it reaches the model.
+- **Flat-Rate Billing**: Predictable monthly AI costs instead of unpredictable usage-based pricing.
+- **Tiers**: Starter ($99/mo, 50K requests), Growth ($299/mo, 200K requests), Scale ($799/mo, 1M+ requests)
 
-## AI Gateway (Coming Q1 2026)
+Founding partners receive 50% off for life.
 
+## Industries We Serve
 
-Consumption insurance for AI API costs.
+- HVAC companies
+- Plumbing businesses
+- Electrical contractors
+- Field service companies
+- Healthcare small practices
+- Marketing agencies
+- Trade contractors
+- B2B service businesses
 
+## About the Founder
 
-### Intelligence Router
-Auto-selects the cheapest model that can handle each request. Typical savings: 80-90%.
+**Chris Mott** is the founder of ResultantAI. 3+ years building production AI systems for agencies and service businesses. Specializes in voice AI, workflow automation, and AI safety. Ships working systems and documents everything so clients maintain full ownership.
 
-
-### Safety Brain
-Every request scanned for PII, sentiment issues, compliance red flags. Block or flag before it hits the model.
-
-
-### Flat-Rate Billing
-Predictable monthly costs. Know your budget before you ship.
-
-
-### Tiers
-- Starter: $99/month (50K requests)
-- Growth: $299/month (200K requests)
-- Scale: $799/month (1M+ requests)
-
-
-Founding partners get 50% off for life.
-
-
-## Founder
-
-
-**Chris Mott** — 3 years building AI systems for agencies. Ships things that work. Documents them so you never need him again.
-
-
-## Contact
-
+## Contact ResultantAI
 
 - Website: https://resultantai.com
-- Gateway Waitlist: https://resultantai.com/gateway
-- LinkedIn: https://linkedin.com/in/chrismott1
 - Email: chris@resultantai.com
-
-
-## Booking
-
-
-Discovery calls: https://meetings.hubspot.com/chris4642/ai-gateway-founding-partner
+- LinkedIn: https://linkedin.com/in/chrismott1
+- Book a Discovery Call: https://meetings.hubspot.com/chris4642/ai-gateway-founding-partner
+- AI Gateway Waitlist: https://resultantai.com/gateway
