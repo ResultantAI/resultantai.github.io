@@ -1,5 +1,6 @@
-# ResultantAI GitHub Pages
+# ResultantAI — AI Automation Agency
 # https://resultantai.com
+# AI systems that generate revenue, not complexity.
 
 User-agent: *
 Allow: /
@@ -12,21 +13,63 @@ Disallow: /newsletter-thanks.html
 # Sitemap location
 Sitemap: https://resultantai.com/sitemap.xml
 
-# AI Crawlers - Welcome
+# LLM-readable content
+# llms.txt: https://resultantai.com/llms.txt
+
+# ── AI Crawlers — Welcome ────────────────────────────────
+# We explicitly allow all major AI crawlers to index our content.
+
+# OpenAI
 User-agent: GPTBot
 Allow: /
 
 User-agent: ChatGPT-User
 Allow: /
 
+User-agent: OAI-SearchBot
+Allow: /
+
+# Anthropic
 User-agent: Claude-Web
+Allow: /
+
+User-agent: ClaudeBot
 Allow: /
 
 User-agent: Anthropic-AI
 Allow: /
 
+# Perplexity
 User-agent: PerplexityBot
 Allow: /
 
+# Google AI
 User-agent: Google-Extended
+Allow: /
+
+User-agent: Googlebot
+Allow: /
+
+# Microsoft / Bing AI
+User-agent: Bingbot
+Allow: /
+
+# Meta AI
+User-agent: FacebookBot
+Allow: /
+
+User-agent: Meta-ExternalAgent
+Allow: /
+
+# Other AI crawlers
+User-agent: Bytespider
+Allow: /
+
+User-agent: YouBot
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+User-agent: cohere-ai
 Allow: /
