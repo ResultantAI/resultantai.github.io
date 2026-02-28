@@ -341,7 +341,7 @@
         </div>
 
         <div class="warning-box">
-            <strong>⚠️ Real Cost Impact:</strong> If you're calling Claude API 1,000 times/day with the same 500-token system prompt, you're burning <strong>$15/day ($450/month)</strong> on redundant API calls. This pattern will cut that to $9/day—a <strong>$270/month</strong> savings.
+            <strong>⚠️ Real Cost Impact:</strong> If you're calling Claude API 1,000 times/day with the same 500-token system prompt, you're burning <strong>$15/day ($450/month)</strong> on redundant API calls. This pattern will cut that to $9/day-a <strong>$270/month</strong> savings.
         </div>
 
         <p>I just finished building <strong>ProspectEngine</strong>, a Clay.com alternative for B2B lead enrichment. During development, I hit a wall: our AI personalization pipeline was calling Claude API 10,000+ times per day, with costs spiraling to $500+/month.</p>
@@ -581,7 +581,7 @@ body: JSON.stringify({
         </ul>
 
         <div class="callout">
-            <strong>💡 Pro Tip:</strong> Combine Redis caching (for identical requests) with prompt caching (for same system prompt, different user prompts). This stacks savings—we went from $36/day to $9/day.
+            <strong>💡 Pro Tip:</strong> Combine Redis caching (for identical requests) with prompt caching (for same system prompt, different user prompts). This stacks savings-we went from $36/day to $9/day.
         </div>
 
         <h3>Optimization 2: Deduplication by Contact ID</h3>
@@ -640,7 +640,7 @@ if (dailyCount > 10000) {
                     <td>Cache Hit Rate</td>
                     <td>0%</td>
                     <td>65%</td>
-                    <td>—</td>
+                    <td>-</td>
                 </tr>
                 <tr>
                     <td>Daily Cost</td>
@@ -786,7 +786,7 @@ console.log('Today:', {
 
         <h2>Conclusion</h2>
 
-        <p>If you're running LLM-powered automation at scale, <strong>caching isn't optional</strong>—it's the difference between $1,000/month and $400/month.</p>
+        <p>If you're running LLM-powered automation at scale, <strong>caching isn't optional</strong>-it's the difference between $1,000/month and $400/month.</p>
 
         <p>The AI Gateway pattern is especially powerful for:</p>
         <ul>
@@ -805,7 +805,7 @@ console.log('Today:', {
             <li>Iterate on cache keys for better deduplication</li>
         </ol>
 
-        <p>In our case, this single optimization saved <strong>$454/month</strong>—enough to cover our entire Redis hosting, serverless functions, and still pocket $400.</p>
+        <p>In our case, this single optimization saved <strong>$454/month</strong>-enough to cover our entire Redis hosting, serverless functions, and still pocket $400.</p>
 
         <p><strong>Questions? Found a bug in the code?</strong> Email me: <a href="mailto:chris@resultantai.com">chris@resultantai.com</a></p>
 
