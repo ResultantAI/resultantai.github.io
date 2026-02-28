@@ -6,7 +6,7 @@
 
   <!-- Open Graph -->
   <meta property="og:title" content="Voice AI for Healthcare: What Actually Works (And What Doesn't) | ResultantAI">
-  <meta property="og:description" content="HIPAA compliance, appointment scheduling, patient intake — the real constraints of building voice AI for healthcare. Lessons from 3 deployments.">
+  <meta property="og:description" content="HIPAA compliance, appointment scheduling, patient intake  -  the real constraints of building voice AI for healthcare. Lessons from 3 deployments.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://resultantai.com/blog/voice-ai-healthcare/">
   <meta property="og:site_name" content="ResultantAI">
@@ -14,12 +14,12 @@
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Voice AI for Healthcare: What Actually Works (And What Doesn't) | ResultantAI">
-  <meta name="twitter:description" content="HIPAA compliance, appointment scheduling, patient intake — the real constraints of building voice AI for healthcare. Lessons from 3 deployments.">
+  <meta name="twitter:description" content="HIPAA compliance, appointment scheduling, patient intake  -  the real constraints of building voice AI for healthcare. Lessons from 3 deployments.">
 
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Voice AI for Healthcare: What Actually Works (And What Doesn't) | ResultantAI</title>
-  <meta name="description" content="HIPAA compliance, appointment scheduling, patient intake — the real constraints of building voice AI for healthcare. Lessons from 3 deployments.">
+  <meta name="description" content="HIPAA compliance, appointment scheduling, patient intake  -  the real constraints of building voice AI for healthcare. Lessons from 3 deployments.">
   
   <meta property="og:title" content="Voice AI for Healthcare: What Actually Works (And What Doesn't)">
   <meta property="og:description" content="Lessons from 3 healthcare voice AI deployments. HIPAA compliance, appointment scheduling, and what to avoid.">
@@ -204,6 +204,9 @@
     .footer__link { color: var(--text-secondary); font-size: 14px; font-weight: 500; }
     .footer__link:hover { color: var(--accent); }
   </style>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="icon" type="image/png" href="/favicon.png">
+
 </head>
 <body>
   <div class="bg-grid"></div>
@@ -230,7 +233,7 @@
       </nav>
       <span class="article-header__category">Voice AI</span>
       <h1 class="article-header__title">Voice AI for Healthcare: What Actually Works (And What Doesn't)</h1>
-      <p class="article-header__excerpt">HIPAA compliance, appointment scheduling, patient intake — the real constraints of building voice AI for healthcare. Lessons from 3 deployments.</p>
+      <p class="article-header__excerpt">HIPAA compliance, appointment scheduling, patient intake  -  the real constraints of building voice AI for healthcare. Lessons from 3 deployments.</p>
       <div class="article-header__meta">
         <div class="article-header__author">
           <div class="article-header__author-avatar">CM</div>
@@ -263,12 +266,12 @@
           <li><strong>Works great:</strong> Appointment scheduling, prescription refill requests, general inquiries</li>
           <li><strong>Works with caveats:</strong> Patient intake, insurance verification, symptom triage</li>
           <li><strong>Doesn't work (yet):</strong> Clinical advice, diagnosis support, emergency routing</li>
-          <li><strong>HIPAA reality:</strong> Most voice AI platforms aren't compliant out of the box — you need BAAs</li>
+          <li><strong>HIPAA reality:</strong> Most voice AI platforms aren't compliant out of the box  -  you need BAAs</li>
           <li><strong>ROI sweet spot:</strong> 40-60% of front desk calls can be automated</li>
         </ul>
       </div>
 
-      <p>I've deployed voice AI systems for three healthcare organizations in the past 18 months: a multi-location dental practice, a specialty clinic network, and a mental health provider group. Each project taught me something different about what works — and what absolutely doesn't — when AI answers the phone for healthcare.</p>
+      <p>I've deployed voice AI systems for three healthcare organizations in the past 18 months: a multi-location dental practice, a specialty clinic network, and a mental health provider group. Each project taught me something different about what works  -  and what absolutely doesn't  -  when AI answers the phone for healthcare.</p>
       
       <p>This is the honest breakdown.</p>
 
@@ -276,7 +279,7 @@
       
       <p>Let's get this out of the way first: <strong>most voice AI platforms are not HIPAA-compliant by default.</strong></p>
       
-      <p>HIPAA (Health Insurance Portability and Accountability Act) requires any technology handling Protected Health Information (PHI) to meet specific security and privacy standards. PHI includes names, addresses, dates of birth, medical records, and — crucially — voice recordings of patients discussing their health.</p>
+      <p>HIPAA (Health Insurance Portability and Accountability Act) requires any technology handling Protected Health Information (PHI) to meet specific security and privacy standards. PHI includes names, addresses, dates of birth, medical records, and  -  crucially  -  voice recordings of patients discussing their health.</p>
 
       <div class="warning-box">
         <div class="warning-box__title">⚠️ Critical: You Need a BAA</div>
@@ -330,7 +333,7 @@
         </table>
       </div>
 
-      <p>The dental practice I worked with initially wanted to use a cheaper platform without a BAA. Their compliance officer shut that down immediately — and rightfully so. A single HIPAA violation can cost $100-$50,000 per incident, with annual maximums of $1.5M per violation category.</p>
+      <p>The dental practice I worked with initially wanted to use a cheaper platform without a BAA. Their compliance officer shut that down immediately  -  and rightfully so. A single HIPAA violation can cost $100-$50,000 per incident, with annual maximums of $1.5M per violation category.</p>
 
       <h2>What Actually Works</h2>
 
@@ -338,12 +341,12 @@
         <div class="use-case-card use-case-card--works">
           <div class="use-case-card__icon">📅</div>
           <div class="use-case-card__title">Appointment Scheduling</div>
-          <div class="use-case-card__desc">Checking availability, booking new appointments, confirming existing appointments, rescheduling. This is the sweet spot — high volume, repetitive, low clinical risk.</div>
+          <div class="use-case-card__desc">Checking availability, booking new appointments, confirming existing appointments, rescheduling. This is the sweet spot  -  high volume, repetitive, low clinical risk.</div>
         </div>
         <div class="use-case-card use-case-card--works">
           <div class="use-case-card__icon">💊</div>
           <div class="use-case-card__title">Prescription Refill Requests</div>
-          <div class="use-case-card__desc">Taking refill requests and routing to pharmacy. AI collects medication name, pharmacy preference, and patient verification — then hands off to staff for approval.</div>
+          <div class="use-case-card__desc">Taking refill requests and routing to pharmacy. AI collects medication name, pharmacy preference, and patient verification  -  then hands off to staff for approval.</div>
         </div>
         <div class="use-case-card use-case-card--works">
           <div class="use-case-card__icon">❓</div>
@@ -359,7 +362,7 @@
 
       <h3>Case Study: Dental Practice Scheduling</h3>
       
-      <p>A 4-location dental practice was drowning in phone calls. Two front desk staff spent 60% of their time on the phone — mostly scheduling and rescheduling appointments.</p>
+      <p>A 4-location dental practice was drowning in phone calls. Two front desk staff spent 60% of their time on the phone  -  mostly scheduling and rescheduling appointments.</p>
       
       <p>We deployed a voice AI that:</p>
       <ul>
@@ -382,7 +385,7 @@
 
       <div class="quote">
         <div class="quote__text">"The AI actually schedules faster than we do. It doesn't have to put anyone on hold to check the calendar."</div>
-        <div class="quote__author">— <strong>Practice Manager</strong>, Multi-location Dental Group</div>
+        <div class="quote__author"> -  <strong>Practice Manager</strong>, Multi-location Dental Group</div>
       </div>
 
       <h2>What Works With Caveats</h2>
@@ -391,7 +394,7 @@
         <div class="use-case-card" style="border-top: 3px solid #f59e0b;">
           <div class="use-case-card__icon">📋</div>
           <div class="use-case-card__title">Patient Intake</div>
-          <div class="use-case-card__desc">Collecting demographic info, insurance details, reason for visit. Works for straightforward intake — but complex medical histories should go to staff.</div>
+          <div class="use-case-card__desc">Collecting demographic info, insurance details, reason for visit. Works for straightforward intake  -  but complex medical histories should go to staff.</div>
         </div>
         <div class="use-case-card" style="border-top: 3px solid #f59e0b;">
           <div class="use-case-card__icon">🏥</div>
@@ -443,7 +446,7 @@
         <div class="use-case-card use-case-card--fails">
           <div class="use-case-card__icon">⚕️</div>
           <div class="use-case-card__title">Clinical Advice</div>
-          <div class="use-case-card__desc">"Is this rash serious?" — AI cannot and should not provide clinical guidance. Legal liability is enormous, and it's outside the AI's competence.</div>
+          <div class="use-case-card__desc">"Is this rash serious?"  -  AI cannot and should not provide clinical guidance. Legal liability is enormous, and it's outside the AI's competence.</div>
         </div>
         <div class="use-case-card use-case-card--fails">
           <div class="use-case-card__icon">🚨</div>
@@ -473,7 +476,7 @@
       
       <p>The mental health provider group wanted to automate everything on day one. We pushed back hard. Started with appointment scheduling only. After 60 days of clean operation, added prescription refill requests. After another 60 days, added intake form collection.</p>
       
-      <p>This phased approach let us catch edge cases before they became problems. By month 4, the system was handling 52% of calls — but we got there safely.</p>
+      <p>This phased approach let us catch edge cases before they became problems. By month 4, the system was handling 52% of calls  -  but we got there safely.</p>
 
       <h3>2. Over-Engineer the Transfers</h3>
       
@@ -526,7 +529,7 @@
         <li><strong>Plus:</strong> After-hours coverage, faster answer times, no hold music</li>
       </ul>
 
-      <p>The ROI isn't just about cost savings — it's about capacity. Those 54 hours can go toward patient care, insurance follow-ups, or reducing staff burnout.</p>
+      <p>The ROI isn't just about cost savings  -  it's about capacity. Those 54 hours can go toward patient care, insurance follow-ups, or reducing staff burnout.</p>
 
       <h2>What's Coming Next</h2>
       
@@ -539,7 +542,7 @@
         <li><strong>More sophisticated triage:</strong> AI that can safely collect symptoms for nurse review (with appropriate guardrails)</li>
       </ul>
 
-      <p>But the fundamentals won't change: AI handles administrative, humans handle clinical. That's the bright line that protects patients — and protects you.</p>
+      <p>But the fundamentals won't change: AI handles administrative, humans handle clinical. That's the bright line that protects patients  -  and protects you.</p>
 
       <div class="article-cta">
         <h2 class="article-cta__title">Considering Voice AI for Your Practice?</h2>

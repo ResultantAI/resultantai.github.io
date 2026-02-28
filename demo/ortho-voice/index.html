@@ -686,6 +686,9 @@
       font-size: 14px;
     }
   </style>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="icon" type="image/png" href="/favicon.png">
+
 </head>
 <body>
   <div class="container">
@@ -697,7 +700,7 @@
         <span>Interactive Demo</span>
       </div>
       <h1>AI Receptionist for Orthodontic Practices</h1>
-      <p>Experience how the voice AI handles a new patient inquiry—from first ring to structured summary for your team.</p>
+      <p>Experience how the voice AI handles a new patient inquiry - from first ring to structured summary for your team.</p>
     </header>
 
     <!-- TUTORIAL BANNER -->
@@ -881,9 +884,9 @@
       {
         ai: "Thank you for calling Smile Orthodontics. This is our AI assistant. Are you calling about a new consultation or an existing appointment?",
         options: [
-          { text: "New patient—I'm interested in braces for my daughter", value: "new_patient", patientType: "Minor (Parent Calling)" },
+          { text: "New patient - I'm interested in braces for my daughter", value: "new_patient", patientType: "Minor (Parent Calling)" },
           { text: "I'd like to schedule a consultation for myself", value: "new_adult", patientType: "Adult Patient" },
-          { text: "Existing patient—need to reschedule", value: "existing", patientType: "Existing Patient" }
+          { text: "Existing patient - need to reschedule", value: "existing", patientType: "Existing Patient" }
         ],
         field: "patient"
       },
@@ -910,7 +913,7 @@
         options: [
           { text: "Traditional metal braces", value: "Metal Braces" },
           { text: "Invisalign clear aligners", value: "Invisalign" },
-          { text: "Not sure yet—need a consultation", value: "Consultation (Undecided)" }
+          { text: "Not sure yet - need a consultation", value: "Consultation (Undecided)" }
         ],
         field: "treatment"
       },
@@ -919,7 +922,7 @@
         options: [
           { text: "Yes, through Delta Dental", value: "Delta Dental (Verified)" },
           { text: "Yes, but I'm not sure about ortho coverage", value: "Has Insurance (Coverage TBD)" },
-          { text: "No insurance—interested in payment plans", value: "Self-Pay (Payment Plan Interest)" }
+          { text: "No insurance - interested in payment plans", value: "Self-Pay (Payment Plan Interest)" }
         ],
         field: "insurance"
       },
@@ -944,7 +947,7 @@
       {
         ai: "Is there anything else I should note for your consultation? Any concerns or questions?",
         options: [
-          { text: "My daughter is nervous—she's never had braces", value: "Patient is anxious, first-time orthodontic treatment" },
+          { text: "My daughter is nervous - she's never had braces", value: "Patient is anxious, first-time orthodontic treatment" },
           { text: "We need to discuss financing options", value: "Wants detailed financing/payment plan discussion" },
           { text: "Just want to get started ASAP", value: "Motivated, ready to begin treatment quickly" }
         ],
