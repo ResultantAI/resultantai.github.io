@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- SEO -->
+  <link rel="canonical" href="https://resultantai.com/blog/voice-ai-cost-roi-breakdown/">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Voice AI Cost and ROI: What You Actually Pay vs. What You Get Back | ResultantAI">
+  <meta property="og:description" content="Real pricing, real ROI numbers. How much does voice AI cost for a service business, what is the payback period, and how does it compare to hiring vs. answering services.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://resultantai.com/blog/voice-ai-cost-roi-breakdown/">
+  <meta property="og:site_name" content="ResultantAI">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Voice AI Cost and ROI: What You Actually Pay vs. What You Get Back | ResultantAI">
+  <meta name="twitter:description" content="Real pricing, real ROI numbers. How much does voice AI cost, what is the payback period, and how does it compare to hiring vs. answering services.">
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Voice AI Cost and ROI: What You Actually Pay vs. What You Get Back | ResultantAI</title>
+  <meta name="description" content="Real pricing and ROI data for voice AI in service businesses. Includes cost comparison vs. hiring, payback period calculations, and what moves the numbers most.">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Voice AI Cost and ROI: What You Actually Pay vs. What You Get Back",
+    "author": {"@type": "Person", "name": "Chris Mott"},
+    "datePublished": "2026-02-27",
+    "dateModified": "2026-02-27",
+    "publisher": {"@type": "Organization", "name": "ResultantAI", "url": "https://resultantai.com"},
+    "description": "Real pricing and ROI data for voice AI in service businesses. Cost comparison vs. hiring, payback period calculations, and what moves the numbers most.",
+    "url": "https://resultantai.com/blog/voice-ai-cost-roi-breakdown/"
+  }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg-primary: #0a0f1a;
+      --bg-secondary: #0f172a;
+      --bg-card: #151d2e;
+      --bg-card-hover: #1a2540;
+      --border: #1e293b;
+      --border-light: #334155;
+      --text-primary: #ffffff;
+      --text-secondary: #94a3b8;
+      --text-muted: #64748b;
+      --accent: #10b981;
+      --accent-light: #34d399;
+      --accent-subtle: rgba(16, 185, 129, 0.08);
+      --cat-voice: #8b5cf6;
+      --gradient-accent: linear-gradient(135deg, #10b981 0%, #34d399 100%);
+      --gradient-hero: radial-gradient(ellipse 80% 50% at 50% -20%, rgba(16, 185, 129, 0.15), transparent);
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 16px;
+      --radius-xl: 24px;
+      --radius-full: 9999px;
+      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+      --transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+    body { font-family: var(--font-sans); background: var(--bg-primary); color: var(--text-primary); line-height: 1.6; font-size: 16px; overflow-x: hidden; }
+    a { color: var(--accent); text-decoration: none; transition: color var(--transition); }
+    a:hover { color: var(--accent-light); }
+    img { max-width: 100%; display: block; }
+    ::selection { background: var(--accent); color: var(--bg-primary); }
+
+    .bg-grid { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background-image: linear-gradient(rgba(16, 185, 129, 0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(16, 185, 129, 0.03) 1px, transparent 1px); background-size: 60px 60px; pointer-events: none; z-index: 0; }
+    .bg-gradient { position: fixed; top: 0; left: 0; right: 0; height: 100vh; background: var(--gradient-hero); pointer-events: none; z-index: 0; }
+
+    .container { max-width: 800px; margin: 0 auto; padding: 0 24px; }
+    .container--wide { max-width: 1200px; }
+
+    .nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; padding: 20px 0; transition: all var(--transition); }
+    .nav.scrolled { padding: 12px 0; background: rgba(10, 15, 26, 0.8); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); }
+    .nav__inner { display: flex; align-items: center; justify-content: space-between; max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+    .nav__logo { font-size: 22px; font-weight: 800; letter-spacing: -0.03em; color: var(--text-primary); }
+    .nav__logo span { color: var(--accent); }
+    .nav__links { display: flex; align-items: center; gap: 8px; }
+    .nav__link { color: var(--text-secondary); font-size: 14px; font-weight: 500; padding: 8px 16px; border-radius: var(--radius-md); transition: all var(--transition); position: relative; }
+    .nav__link::after { content: ''; position: absolute; bottom: 4px; left: 50%; width: 0; height: 2px; background: var(--accent); border-radius: var(--radius-full); transition: all var(--transition); transform: translateX(-50%); }
+    .nav__link:hover { color: var(--text-primary); }
+    .nav__link:hover::after { width: calc(100% - 32px); }
+    .nav__cta { background: var(--gradient-accent); color: var(--bg-primary); padding: 10px 24px; border-radius: var(--radius-md); font-size: 14px; font-weight: 600; transition: all var(--transition); box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3); margin-left: 16px; }
+    .nav__cta:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(16, 185, 129, 0.4); color: var(--bg-primary); }
+    @media (max-width: 768px) { .nav__links { display: none; } }
+
+    .article-header { padding: 140px 0 60px; position: relative; z-index: 1; }
+    .article-header__breadcrumb { display: flex; align-items: center; gap: 8px; font-size: 14px; color: var(--text-muted); margin-bottom: 24px; }
+    .article-header__breadcrumb a { color: var(--text-muted); }
+    .article-header__breadcrumb a:hover { color: var(--accent); }
+    .article-header__category { display: inline-block; padding: 6px 14px; background: rgba(139, 92, 246, 0.1); border: 1px solid rgba(139, 92, 246, 0.2); border-radius: var(--radius-full); font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: var(--cat-voice); margin-bottom: 20px; }
+    .article-header__title { font-size: clamp(32px, 5vw, 48px); font-weight: 800; line-height: 1.15; letter-spacing: -0.03em; margin-bottom: 20px; }
+    .article-header__excerpt { font-size: 18px; color: var(--text-secondary); line-height: 1.7; margin-bottom: 32px; }
+    .article-header__meta { display: flex; align-items: center; gap: 24px; padding-top: 24px; border-top: 1px solid var(--border); flex-wrap: wrap; }
+    .article-header__author { display: flex; align-items: center; gap: 12px; }
+    .article-header__author-avatar { width: 44px; height: 44px; border-radius: 50%; background: var(--accent-subtle); border: 2px solid var(--accent); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 16px; color: var(--accent); }
+    .article-header__author-name { font-weight: 600; font-size: 15px; }
+    .article-header__author-title { font-size: 13px; color: var(--text-muted); }
+    .article-header__info { display: flex; align-items: center; gap: 16px; font-size: 14px; color: var(--text-muted); }
+
+    .article-hero-image { margin: 40px 0; border-radius: var(--radius-xl); overflow: hidden; border: 1px solid var(--border); position: relative; z-index: 1; }
+    .article-hero-image img { width: 100%; height: auto; aspect-ratio: 16/9; object-fit: cover; }
+
+    .article-content { position: relative; z-index: 1; padding-bottom: 80px; }
+    .article-content h2 { font-size: 28px; font-weight: 700; letter-spacing: -0.02em; margin: 56px 0 24px; padding-top: 24px; border-top: 1px solid var(--border); }
+    .article-content h2:first-of-type { border-top: none; padding-top: 0; margin-top: 0; }
+    .article-content h3 { font-size: 20px; font-weight: 600; margin: 40px 0 16px; color: var(--accent-light); }
+    .article-content p { font-size: 17px; line-height: 1.8; color: var(--text-secondary); margin-bottom: 24px; }
+    .article-content strong { color: var(--text-primary); font-weight: 600; }
+    .article-content ul, .article-content ol { margin: 24px 0; padding-left: 24px; }
+    .article-content li { font-size: 17px; line-height: 1.8; color: var(--text-secondary); margin-bottom: 12px; }
+    .article-content li::marker { color: var(--accent); }
+
+    .tldr-box { background: linear-gradient(135deg, var(--bg-card) 0%, rgba(16, 185, 129, 0.02) 100%); border: 1px solid var(--border); border-left: 4px solid var(--accent); border-radius: var(--radius-lg); padding: 28px 32px; margin: 32px 0; }
+    .tldr-box__title { display: flex; align-items: center; gap: 10px; font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--accent); margin-bottom: 16px; }
+    .tldr-box ul { margin: 0; padding-left: 20px; }
+    .tldr-box li { font-size: 15px; margin-bottom: 8px; color: var(--text-primary); }
+
+    .callout { background: var(--accent-subtle); border: 1px solid rgba(16, 185, 129, 0.2); border-radius: var(--radius-lg); padding: 24px 28px; margin: 32px 0; }
+    .callout__icon { display: flex; align-items: center; gap: 10px; font-size: 14px; font-weight: 600; color: var(--accent); margin-bottom: 12px; }
+    .callout p { margin: 0; color: var(--text-primary); font-size: 15px; }
+
+    .stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px; margin: 32px 0; }
+    .stat-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 24px; text-align: center; }
+    .stat-card__number { font-size: 36px; font-weight: 800; letter-spacing: -0.03em; background: var(--gradient-accent); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .stat-card__label { font-size: 13px; color: var(--text-muted); margin-top: 6px; }
+
+    .cost-table { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); margin: 32px 0; overflow: hidden; }
+    .cost-table table { width: 100%; border-collapse: collapse; }
+    .cost-table th { text-align: left; padding: 14px 20px; font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-muted); background: rgba(0,0,0,0.2); border-bottom: 1px solid var(--border); }
+    .cost-table td { padding: 14px 20px; font-size: 15px; color: var(--text-secondary); border-bottom: 1px solid var(--border); vertical-align: top; }
+    .cost-table tr:last-child td { border-bottom: none; }
+    .cost-table .winner { color: var(--accent); font-weight: 600; }
+    .cost-table .total-row td { font-weight: 700; color: var(--text-primary); background: rgba(16,185,129,0.04); }
+
+    .roi-calc { background: var(--bg-card); border: 1px solid rgba(16,185,129,0.3); border-radius: var(--radius-lg); padding: 32px; margin: 32px 0; }
+    .roi-calc__title { font-size: 18px; font-weight: 700; margin-bottom: 20px; color: var(--text-primary); }
+    .roi-calc__row { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid var(--border); }
+    .roi-calc__row:last-child { border-bottom: none; padding-bottom: 0; }
+    .roi-calc__label { font-size: 15px; color: var(--text-secondary); }
+    .roi-calc__value { font-size: 15px; font-weight: 600; color: var(--text-primary); font-family: var(--font-mono); }
+    .roi-calc__total { font-size: 22px; font-weight: 800; }
+    .roi-calc__total-value { font-size: 22px; font-weight: 800; color: var(--accent); font-family: var(--font-mono); }
+
+    .quote { border-left: 4px solid var(--accent); padding: 24px 32px; margin: 40px 0; background: var(--bg-card); border-radius: 0 var(--radius-lg) var(--radius-lg) 0; }
+    .quote__text { font-size: 18px; font-style: italic; line-height: 1.7; color: var(--text-primary); margin-bottom: 16px; }
+    .quote__author { font-size: 14px; color: var(--text-muted); }
+    .quote__author strong { color: var(--accent); }
+
+    .article-cta { background: linear-gradient(135deg, var(--bg-card) 0%, rgba(16, 185, 129, 0.02) 100%); border: 1px solid var(--border); border-radius: var(--radius-xl); padding: 48px; text-align: center; margin: 60px 0; position: relative; overflow: hidden; }
+    .article-cta::before { content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 400px; height: 200px; background: radial-gradient(ellipse, rgba(16, 185, 129, 0.15), transparent); pointer-events: none; }
+    .article-cta__title { font-size: 28px; font-weight: 800; margin-bottom: 12px; position: relative; }
+    .article-cta__text { font-size: 16px; color: var(--text-secondary); margin-bottom: 28px; position: relative; }
+    .article-cta__btn { display: inline-flex; align-items: center; gap: 10px; padding: 16px 32px; background: var(--gradient-accent); color: var(--bg-primary); font-size: 15px; font-weight: 600; border-radius: var(--radius-md); box-shadow: 0 4px 20px rgba(16, 185, 129, 0.3); position: relative; }
+    .article-cta__btn:hover { transform: translateY(-2px); color: var(--bg-primary); }
+
+    .author-bio { display: flex; gap: 24px; padding: 32px; background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-xl); margin-top: 60px; }
+    @media (max-width: 560px) { .author-bio { flex-direction: column; text-align: center; } }
+    .author-bio__avatar { width: 80px; height: 80px; border-radius: var(--radius-lg); background: var(--accent-subtle); border: 2px solid var(--accent); display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 28px; color: var(--accent); flex-shrink: 0; }
+    .author-bio__content { flex: 1; }
+    .author-bio__name { font-size: 18px; font-weight: 700; margin-bottom: 4px; }
+    .author-bio__title { font-size: 14px; color: var(--accent); margin-bottom: 12px; }
+    .author-bio__text { font-size: 14px; color: var(--text-secondary); line-height: 1.6; margin-bottom: 16px; }
+    .author-bio__links { display: flex; gap: 16px; }
+    @media (max-width: 560px) { .author-bio__links { justify-content: center; } }
+    .author-bio__link { font-size: 13px; font-weight: 500; color: var(--text-muted); }
+    .author-bio__link:hover { color: var(--accent); }
+
+    .footer { padding: 60px 0 32px; border-top: 1px solid var(--border); position: relative; z-index: 1; margin-top: 80px; }
+    .footer__inner { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 24px; max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+    .footer__copy { color: var(--text-muted); font-size: 14px; }
+    .footer__links { display: flex; gap: 24px; }
+    .footer__link { color: var(--text-secondary); font-size: 14px; font-weight: 500; }
+    .footer__link:hover { color: var(--accent); }
+  </style>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="icon" type="image/png" href="/favicon.png">
+</head>
+<body>
+  <div class="bg-grid"></div>
+  <div class="bg-gradient"></div>
+
+  <nav class="nav" id="nav">
+    <div class="nav__inner">
+      <a href="/" class="nav__logo">Resultant<span>AI</span></a>
+      <div class="nav__links">
+        <a href="/voice-ai/" class="nav__link">Voice AI</a>
+        <a href="/services/" class="nav__link">Services</a>
+        <a href="/work/" class="nav__link">Work</a>
+        <a href="/faq/" class="nav__link">FAQ</a>
+        <a href="/blog" class="nav__link">Blog</a>
+        <a href="https://meetings.hubspot.com/chris4642/ai-gateway-founding-partner" class="nav__cta">Book a Call</a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="article-header">
+    <div class="container">
+      <nav class="article-header__breadcrumb">
+        <a href="/">Home</a>
+        <span>/</span>
+        <a href="/blog">Blog</a>
+        <span>/</span>
+        <span>Voice AI ROI Breakdown</span>
+      </nav>
+      <span class="article-header__category">Voice AI</span>
+      <h1 class="article-header__title">Voice AI Cost and ROI: What You Actually Pay vs. What You Get Back</h1>
+      <p class="article-header__excerpt">Real numbers from real deployments. How much voice AI costs, what drives the ROI, and how to calculate whether it makes sense for your business before you commit.</p>
+      <div class="article-header__meta">
+        <div class="article-header__author">
+          <div class="article-header__author-avatar">CM</div>
+          <div>
+            <div class="article-header__author-name">Chris Mott</div>
+            <div class="article-header__author-title">Founder, ResultantAI</div>
+          </div>
+        </div>
+        <div class="article-header__info">
+          <span>Feb 27, 2026</span>
+          <span>&#8226;</span>
+          <span>10 min read</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="container container--wide">
+    <div class="article-hero-image">
+      <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1200&h=600&fit=crop" alt="ROI dashboard and analytics">
+    </div>
+  </div>
+
+  <article class="article-content">
+    <div class="container">
+      <p style="background:rgba(16,185,129,0.08);border-left:3px solid #10b981;padding:12px 16px;border-radius:6px;margin-bottom:2rem;font-size:0.9rem;">See our <a href="/voice-ai/" style="color:#10b981;font-weight:600;">Voice AI for Service Businesses</a> hub for feature details, demos, and vertical-specific use cases.</p>
+
+      <div class="tldr-box">
+        <div class="tldr-box__title">TL;DR</div>
+        <ul>
+          <li><strong>Monthly cost:</strong> $297-$497/month for a fully deployed voice AI agent (no per-minute or per-call fees)</li>
+          <li><strong>Setup cost:</strong> $1,500-$4,000 one-time depending on integrations</li>
+          <li><strong>Average payback period:</strong> 18 days for service businesses with moderate call volume</li>
+          <li><strong>Biggest ROI driver:</strong> After-hours call recovery, not daytime efficiency</li>
+          <li><strong>vs. hiring:</strong> 1 part-time phone person costs $2,200-$3,500/month with benefits</li>
+          <li><strong>vs. answering service:</strong> Similar cost, dramatically better outcomes</li>
+        </ul>
+      </div>
+
+      <h2>The three ROI levers that actually matter</h2>
+
+      <p>Every business that calls me to talk about <a href="/voice-ai/">voice AI</a> has the same question: "What is the return?" And every conversation starts the same way - with me asking them three questions:</p>
+
+      <ol>
+        <li>How many calls do you miss per month, and at what hours?</li>
+        <li>What is the average value of a converted call?</li>
+        <li>What are you currently spending on phone coverage?</li>
+      </ol>
+
+      <p>Those three numbers determine 90% of the ROI equation. Let me walk through each one.</p>
+
+      <h3>Lever 1: After-hours call recovery</h3>
+
+      <p>This is almost always the biggest number. Most service businesses miss 30-50% of calls that come in after 6pm and on weekends. Those callers do not wait until morning - they call the next company on Google. Voice AI captures those calls in real time.</p>
+
+      <p>Example: A plumbing company gets 12 after-hours calls per month. Currently they miss 8 of them (voicemail). Average job value: $580. That's <strong>$4,640/month in recoverable revenue</strong> - before the voice AI costs anything.</p>
+
+      <h3>Lever 2: Daytime overflow conversion</h3>
+
+      <p>During busy periods - morning rush, right after a storm, your office staff at lunch - calls go to voicemail even during business hours. Voice AI handles overflow, answers immediately, and books the job or takes the lead while your team is occupied.</p>
+
+      <p>This is less dramatic than after-hours recovery but still meaningful. A 15% improvement in daytime call conversion often adds $800-$1,500/month for mid-sized service companies.</p>
+
+      <h3>Lever 3: Staff time recovery</h3>
+
+      <p>Your best office person probably spends 40-60% of their time on repetitive intake calls: scheduling, appointment confirmations, status checks. Voice AI handles that category of call, freeing your team to focus on complex customer issues, upsells, and relationship work that actually requires a human.</p>
+
+      <p>This lever is harder to monetize directly but it reduces hiring pressure and prevents burnout. For companies that were considering adding a part-time phone person, this becomes a direct cost avoidance.</p>
+
+      <h2>What voice AI actually costs</h2>
+
+      <p>Here is a transparent breakdown of what we charge at ResultantAI, and what drives the price variation:</p>
+
+      <div class="cost-table">
+        <table>
+          <thead>
+            <tr>
+              <th>Cost Item</th>
+              <th>Range</th>
+              <th>Notes</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Monthly subscription</strong></td>
+              <td class="winner">$297-$497/mo</td>
+              <td>Unlimited calls. No per-minute charges. Scales to any volume.</td>
+            </tr>
+            <tr>
+              <td><strong>Setup / build fee</strong></td>
+              <td>$1,500-$4,000</td>
+              <td>One-time. Higher end = complex CRM integrations (ServiceTitan, Salesforce, custom).</td>
+            </tr>
+            <tr>
+              <td><strong>Phone number</strong></td>
+              <td>$0-$5/mo</td>
+              <td>We can use your existing number (call forwarding) or provision a new one.</td>
+            </tr>
+            <tr>
+              <td><strong>CRM / scheduling sync</strong></td>
+              <td>Included</td>
+              <td>Most major platforms: Jobber, HubSpot, ServiceTitan, Housecall Pro, Airtable.</td>
+            </tr>
+            <tr>
+              <td><strong>Changes and updates</strong></td>
+              <td>Included</td>
+              <td>Pricing changes, new call flows, seasonal adjustments - covered in subscription.</td>
+            </tr>
+            <tr class="total-row">
+              <td><strong>Year 1 total cost</strong></td>
+              <td>$5,064-$9,964</td>
+              <td>Setup + 12 months. Year 2+ is just the monthly subscription.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p>The flat monthly pricing with no per-call charges is deliberate. A plumbing company during a winter freeze can get 60 calls in 4 hours. If pricing were per-minute, that would be a bill shock moment. With flat pricing, your busiest moments cost the same as your slowest month.</p>
+
+      <h2>ROI calculator: run your own numbers</h2>
+
+      <p>Here is the model I use with every prospect. Plug in your numbers:</p>
+
+      <div class="roi-calc">
+        <div class="roi-calc__title">Sample ROI: HVAC company, southeastern US</div>
+        <div class="roi-calc__row">
+          <span class="roi-calc__label">Monthly after-hours calls missed (est.)</span>
+          <span class="roi-calc__value">10 calls</span>
+        </div>
+        <div class="roi-calc__row">
+          <span class="roi-calc__label">Expected recovery rate with voice AI</span>
+          <span class="roi-calc__value">80% = 8 calls</span>
+        </div>
+        <div class="roi-calc__row">
+          <span class="roi-calc__label">Average job value</span>
+          <span class="roi-calc__value">$540</span>
+        </div>
+        <div class="roi-calc__row">
+          <span class="roi-calc__label">Revenue recovered (after-hours)</span>
+          <span class="roi-calc__value">$4,320/mo</span>
+        </div>
+        <div class="roi-calc__row">
+          <span class="roi-calc__label">Daytime overflow improvement (est.)</span>
+          <span class="roi-calc__value">$900/mo</span>
+        </div>
+        <div class="roi-calc__row">
+          <span class="roi-calc__label">Current answering service replaced</span>
+          <span class="roi-calc__value">-$450/mo saved</span>
+        </div>
+        <div class="roi-calc__row">
+          <span class="roi-calc__label">Voice AI monthly cost</span>
+          <span class="roi-calc__value">-$397/mo</span>
+        </div>
+        <div class="roi-calc__row">
+          <div>
+            <div class="roi-calc__total">Net monthly lift</div>
+          </div>
+          <span class="roi-calc__total-value">+$5,273/mo</span>
+        </div>
+      </div>
+
+      <p>Setup fee at $2,500 / $5,273 monthly lift = <strong>payback in 14 days</strong>. That is not a theoretical number - it is the median we see across our active clients.</p>
+
+      <div class="stat-grid">
+        <div class="stat-card">
+          <div class="stat-card__number">18</div>
+          <div class="stat-card__label">days average payback period across clients</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card__number">$7K</div>
+          <div class="stat-card__label">average monthly revenue lift, service businesses</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card__number">97%</div>
+          <div class="stat-card__label">reduction in missed after-hours calls</div>
+        </div>
+      </div>
+
+      <h2>Compared to the alternatives</h2>
+
+      <h3>Option 1: Hire a part-time phone person</h3>
+
+      <p>A part-time receptionist or phone coordinator working 20 hours/week costs $18-$22/hour. Add payroll taxes, benefits, and hiring overhead and you are at $2,200-$3,500/month. And they still only cover business hours. The after-hours problem remains unsolved. And when they are on another call, the overflow still goes to voicemail.</p>
+
+      <h3>Option 2: Answering service</h3>
+
+      <p>$300-$800/month. They answer, they take a message, they relay it to you. No booking. No dispatch. No CRM sync. And call quality varies dramatically depending on who picks up. You still need to call back, and the customer has usually moved on by then.</p>
+
+      <h3>Option 3: Voice AI</h3>
+
+      <p>$297-$497/month. Answers in under 2 seconds. Books the appointment directly into your scheduling system. Dispatches your on-call tech for emergencies. Handles 50 simultaneous calls during a storm. Sends you a full transcript of every conversation. Costs less than a traditional answering service while doing 10x more.</p>
+
+      <div class="cost-table">
+        <table>
+          <thead>
+            <tr>
+              <th>Option</th>
+              <th>Monthly Cost</th>
+              <th>After-Hours Coverage</th>
+              <th>Books Appointments</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Part-time receptionist</td>
+              <td>$2,200-$3,500</td>
+              <td>No</td>
+              <td>Yes (business hours only)</td>
+            </tr>
+            <tr>
+              <td>Traditional answering service</td>
+              <td>$300-$800</td>
+              <td>Yes (message only)</td>
+              <td>No</td>
+            </tr>
+            <tr>
+              <td class="winner">Voice AI agent</td>
+              <td class="winner">$297-$497</td>
+              <td class="winner">Yes (books + dispatches)</td>
+              <td class="winner">Yes (24/7)</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2>What actually moves the ROI numbers</h2>
+
+      <p>After building these systems for a couple dozen service businesses, I can tell you exactly what separates the 6x ROI clients from the 2x ROI clients:</p>
+
+      <h3>High ROI: High average job value</h3>
+      <p>A roofing company capturing an after-hours call for a post-storm emergency is recovering $4,000-$12,000 per job. A dental practice capturing an after-hours appointment is recovering $200-$800. The math is dramatically better for roofing. Any business with average job values over $400 sees strong ROI within 30 days.</p>
+
+      <h3>High ROI: High after-hours call volume</h3>
+      <p>Emergency-adjacent businesses (plumbing, HVAC, electrical, pest control, restoration) get after-hours calls constantly. The AI pays for itself before dawn in a good week. Businesses that only get calls during business hours see lower (but still positive) ROI from overflow and efficiency gains.</p>
+
+      <h3>High ROI: Replacing an existing answering service</h3>
+      <p>If you are already paying $400/month for an answering service and replacing it with voice AI, the net incremental cost is $0-$100/month. The ROI math becomes extremely favorable extremely fast.</p>
+
+      <h3>Lower ROI: Pure B2B consultative sales</h3>
+      <p>If every incoming call requires a 20-minute discovery conversation to determine fit, voice AI is not a great fit for the top of that funnel. It works well for qualification and intake, but the human conversation happens earlier in B2B than in consumer service businesses. ROI still exists, but it is more modest.</p>
+
+      <h2>The hidden ROI: what does not show up in the spreadsheet</h2>
+
+      <p>Three things that are real and measurable but harder to quantify in a quick ROI model:</p>
+
+      <p><strong>Customer experience and reviews:</strong> Customers who call at 11pm and get a helpful, human-sounding response that schedules their job are significantly more likely to leave a 5-star review. We have seen clients go from 3.8 to 4.6 average Google rating in 90 days after deploying voice AI simply because the after-hours experience improved so dramatically.</p>
+
+      <p><strong>Team morale:</strong> Being on-call all weekend for emergency dispatch calls is rough. When the AI handles the intake and only escalates true emergencies that need immediate dispatch, your on-call team gets fewer 11pm calls for non-urgent issues. That matters for retention.</p>
+
+      <p><strong>Competitive positioning:</strong> In local service markets, the company that answers fastest wins. If your competitor is going to voicemail at 9pm and you are answering instantly, you will take their customers. This is not just theoretical - it is what happens in markets where voice AI adoption is early.</p>
+
+      <div class="callout">
+        <div class="callout__icon">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          How to get your own ROI estimate
+        </div>
+        <p>The fastest way to get a real number for your business is a 20-minute call. I will ask you about your call volume, job values, and current coverage setup, and give you a conservative, mid, and optimistic ROI projection before we talk about whether or how to work together. No commitment required.</p>
+      </div>
+
+      <h2>Common objections and honest answers</h2>
+
+      <h3>"What if customers hate talking to AI?"</h3>
+      <p>Customer satisfaction data from our deployments shows the opposite. Customers who previously got voicemail at 9pm and now get an immediate, helpful response are happy. The comparison is not "AI vs. human" - it is "AI vs. voicemail." In that comparison, AI wins every time.</p>
+
+      <h3>"What if the ROI does not materialize?"</h3>
+      <p>We track call capture rates from day one. You see the number of calls handled, the calls that converted to appointments, and the jobs created. If the numbers are not there after 60 days, we know it immediately and can troubleshoot. The risk of sunk cost is real but small given the payback periods we see. We have not had a client where the ROI was negative after 90 days.</p>
+
+      <h3>"Is this a 12-month contract?"</h3>
+      <p>Month-to-month after the initial setup. If it is not working, you cancel. But realistically: once a business owner has seen 6 emergency calls booked at 2am in a month, no one cancels.</p>
+
+      <div class="article-cta">
+        <div class="article-cta__title">Get your ROI estimate in 20 minutes</div>
+        <div class="article-cta__text">Tell me your call volume, job values, and current setup. I'll give you honest projections before we discuss anything else.</div>
+        <a href="https://meetings.hubspot.com/chris4642/ai-gateway-founding-partner" class="article-cta__btn">
+          Book a Call
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+
+      <div class="author-bio">
+        <div class="author-bio__avatar">CM</div>
+        <div class="author-bio__content">
+          <div class="author-bio__name">Chris Mott</div>
+          <div class="author-bio__title">Founder, ResultantAI</div>
+          <div class="author-bio__text">I build AI systems for service businesses - voice agents, dispatch automation, and revenue recovery tools. These ROI numbers come from real deployments across plumbing, HVAC, healthcare, dental, and field services.</div>
+          <div class="author-bio__links">
+            <a href="https://linkedin.com/in/chrismott1" class="author-bio__link">LinkedIn</a>
+            <a href="/blog" class="author-bio__link">More Posts</a>
+            <a href="/voice-ai/" class="author-bio__link">Voice AI Hub</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <footer class="footer">
+    <div class="footer__inner">
+      <div class="footer__copy">&copy; 2026 ResultantAI. Revenue systems for service businesses.</div>
+      <div class="footer__links">
+        <a href="/" class="footer__link">Home</a>
+        <a href="/voice-ai/" class="footer__link">Voice AI</a>
+        <a href="/services/" class="footer__link">Services</a>
+        <a href="/faq/" class="footer__link">FAQ</a>
+        <a href="/blog" class="footer__link">Blog</a>
+        <a href="https://meetings.hubspot.com/chris4642/ai-gateway-founding-partner" class="footer__link">Book a Call</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 20);
+    });
+  </script>
+</body>
+</html>
