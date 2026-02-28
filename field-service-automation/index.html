@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Field Service Automation: AI That Runs Your Dispatch, Calls & Follow-Up | ResultantAI</title>
+  <meta name="description" content="Field service companies using ServiceTitan, Jobber, or Housecall Pro still lose jobs every day to slow response, missed calls, and manual work. Here's how AI automation fixes all three.">
+
+  <link rel="canonical" href="https://resultantai.com/field-service-automation/">
+
+  <meta property="og:title" content="Field Service Automation: AI That Runs Your Dispatch, Calls & Follow-Up | ResultantAI">
+  <meta property="og:description" content="Field service companies using ServiceTitan, Jobber, or Housecall Pro still lose jobs every day to slow response, missed calls, and manual work. Here's how AI automation fixes all three.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://resultantai.com/field-service-automation/">
+  <meta property="og:site_name" content="ResultantAI">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Field Service Automation: AI That Runs Your Dispatch, Calls & Follow-Up | ResultantAI">
+  <meta name="twitter:description" content="Field service companies using ServiceTitan, Jobber, or Housecall Pro still lose jobs every day to slow response, missed calls, and manual work. Here's how AI automation fixes all three.">
+
+  <meta name="google-site-verification" content="EUs3oELHtHvHjcAdzN2HjjzWzEP_6KWVZFzaIoLdp70">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Field Service Automation",
+    "description": "AI-powered automation for field service companies — HVAC, plumbing, electrical, landscaping, pest control. Handles after-hours calls, job dispatching, estimate follow-up, and customer communications.",
+    "provider": {"@type": "Organization", "name": "ResultantAI", "url": "https://resultantai.com"},
+    "url": "https://resultantai.com/field-service-automation/",
+    "areaServed": "US",
+    "serviceType": "Field Service Automation"
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://resultantai.com/"},
+      {"@type": "ListItem", "position": 2, "name": "Field Service Automation", "item": "https://resultantai.com/field-service-automation/"}
+    ]
+  }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="/favicon.png">
+
+  <style>
+    :root {
+      --bg-primary: #0a0f1a;
+      --bg-secondary: #0f172a;
+      --bg-card: #151d2e;
+      --bg-card-hover: #1a2540;
+      --border: #1e293b;
+      --border-light: #334155;
+      --text-primary: #ffffff;
+      --text-secondary: #94a3b8;
+      --text-muted: #64748b;
+      --accent: #10b981;
+      --accent-light: #34d399;
+      --accent-subtle: rgba(16, 185, 129, 0.08);
+      --accent-glow: rgba(16, 185, 129, 0.4);
+      --blue: #3b82f6;
+      --blue-subtle: rgba(59, 130, 246, 0.1);
+      --purple: #8b5cf6;
+      --purple-subtle: rgba(139, 92, 246, 0.1);
+      --red: #ef4444;
+      --red-subtle: rgba(239, 68, 68, 0.1);
+      --amber: #f59e0b;
+      --amber-subtle: rgba(245, 158, 11, 0.1);
+      --slate: #64748b;
+      --slate-subtle: rgba(100, 116, 139, 0.1);
+      --orange: #f97316;
+      --gradient-accent: linear-gradient(135deg, #10b981 0%, #34d399 100%);
+      --gradient-purple: linear-gradient(135deg, #8b5cf6 0%, #a78bfa 100%);
+      --gradient-amber: linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%);
+      --gradient-hero: radial-gradient(ellipse 80% 50% at 50% -20%, rgba(16, 185, 129, 0.15), transparent);
+      --font-sans: 'Inter', -apple-system, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 16px;
+      --radius-xl: 24px;
+      --radius-full: 9999px;
+      --shadow-card: 0 4px 24px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.03);
+      --transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+    body { font-family: var(--font-sans); background: var(--bg-primary); color: var(--text-primary); line-height: 1.6; overflow-x: hidden; }
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+
+    .bg-grid {
+      position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+      background-image: linear-gradient(rgba(16, 185, 129, 0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(16, 185, 129, 0.03) 1px, transparent 1px);
+      background-size: 60px 60px; pointer-events: none; z-index: 0;
+    }
+    .bg-gradient { position: fixed; top: 0; left: 0; right: 0; height: 100vh; background: var(--gradient-hero); pointer-events: none; z-index: 0; }
+
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+    .container--narrow { max-width: 860px; margin: 0 auto; padding: 0 24px; }
+    .section { padding: 120px 0; position: relative; }
+    .section--tight { padding: 80px 0; }
+
+    /* HERO */
+    .hero { min-height: 100vh; display: flex; align-items: center; padding: 140px 0 100px; position: relative; z-index: 1; }
+    .hero__inner { max-width: 900px; }
+    .hero__badge { display: inline-flex; align-items: center; gap: 8px; background: var(--accent-subtle); border: 1px solid rgba(16,185,129,0.2); color: var(--accent); font-size: 13px; font-weight: 600; padding: 8px 16px; border-radius: var(--radius-full); margin-bottom: 24px; font-family: var(--font-mono); }
+    .hero__badge-dot { width: 6px; height: 6px; background: var(--accent); border-radius: 50%; animation: pulse 2s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1}50%{opacity:0.4} }
+    .hero__stats-pills { display: flex; gap: 12px; margin-bottom: 32px; flex-wrap: wrap; }
+    .hero__stat-pill { background: var(--bg-card); border: 1px solid var(--border); color: var(--text-secondary); font-size: 13px; font-weight: 500; padding: 10px 16px; border-radius: var(--radius-full); font-family: var(--font-mono); }
+    .hero__title { font-size: clamp(42px, 7vw, 72px); font-weight: 800; letter-spacing: -0.04em; line-height: 1.1; margin-bottom: 28px; }
+    .hero__title .accent { background: var(--gradient-accent); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .hero__definition { background: var(--accent-subtle); border-left: 3px solid var(--accent); padding: 20px 24px; border-radius: var(--radius-md); margin-bottom: 24px; font-size: 16px; line-height: 1.7; color: var(--text-secondary); }
+    .hero__definition strong { color: var(--accent); font-weight: 700; }
+    .hero__subtitle { font-size: 18px; color: var(--text-secondary); line-height: 1.7; max-width: 740px; margin-bottom: 40px; }
+    .hero__buttons { display: flex; gap: 16px; flex-wrap: wrap; }
+    .btn { display: inline-flex; align-items: center; gap: 8px; padding: 14px 28px; font-size: 15px; font-weight: 600; border-radius: var(--radius-md); transition: all var(--transition); cursor: pointer; border: none; }
+    .btn--primary { background: var(--accent); color: #000; }
+    .btn--primary:hover { background: var(--accent-light); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(16,185,129,0.3); }
+    .btn--ghost { background: transparent; color: var(--text-primary); border: 1px solid var(--border-light); }
+    .btn--ghost:hover { border-color: var(--accent); color: var(--accent); }
+    .btn__icon { width: 16px; height: 16px; }
+
+    /* SECTIONS */
+    .section-label { font-family: var(--font-mono); font-size: 12px; font-weight: 600; color: var(--accent); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 16px; }
+    .section-title { font-size: clamp(32px, 4vw, 52px); font-weight: 800; letter-spacing: -0.03em; line-height: 1.1; margin-bottom: 20px; }
+    .section-subtitle { font-size: 18px; color: var(--text-secondary); line-height: 1.7; max-width: 660px; }
+
+    /* PAIN CARDS */
+    .pain-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-top: 64px; }
+    .pain-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 28px; transition: all var(--transition); position: relative; }
+    .pain-card:hover { border-color: var(--border-light); transform: translateY(-2px); }
+    .pain-card__icon { width: 48px; height: 48px; margin-bottom: 16px; }
+    .pain-card__title { font-size: 18px; font-weight: 700; margin-bottom: 10px; }
+    .pain-card__desc { font-size: 14px; color: var(--text-secondary); line-height: 1.6; }
+
+    /* STEPS */
+    .steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 2px; margin-top: 64px; background: var(--border); border-radius: var(--radius-xl); overflow: hidden; }
+    .step { background: var(--bg-card); padding: 40px 32px; position: relative; }
+    .step__number { font-family: var(--font-mono); font-size: 48px; font-weight: 800; color: var(--border-light); line-height: 1; margin-bottom: 20px; }
+    .step__title { font-size: 20px; font-weight: 700; margin-bottom: 12px; }
+    .step__desc { font-size: 15px; color: var(--text-secondary); line-height: 1.6; }
+    .step--active .step__number { background: var(--gradient-accent); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+
+    /* VERTICALS GRID */
+    .verticals-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; margin-top: 64px; }
+    .vertical-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 32px; transition: all var(--transition); }
+    .vertical-card:hover { border-color: rgba(16,185,129,0.3); transform: translateY(-2px); }
+    .vertical-card__title { font-size: 18px; font-weight: 700; margin-bottom: 10px; color: var(--accent); }
+    .vertical-card__desc { font-size: 14px; color: var(--text-secondary); line-height: 1.6; }
+
+    /* COMPARISON TABLE */
+    .comparison-table { margin-top: 64px; background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-xl); overflow: hidden; }
+    .comparison-table__header { display: grid; grid-template-columns: 2fr 1.5fr 1.5fr; background: var(--bg-secondary); padding: 20px 32px; border-bottom: 1px solid var(--border); gap: 16px; }
+    .comparison-table__header div { font-size: 14px; font-weight: 700; }
+    .comparison-table__header div:nth-child(2) { color: var(--accent); }
+    .comparison-table__row { display: grid; grid-template-columns: 2fr 1.5fr 1.5fr; padding: 20px 32px; border-bottom: 1px solid var(--border); align-items: center; gap: 16px; }
+    .comparison-table__row:last-child { border-bottom: none; }
+    .comparison-table__cell { font-size: 14px; color: var(--text-secondary); line-height: 1.5; }
+    .comparison-table__cell--label { font-weight: 600; color: var(--text-primary); }
+    @media (max-width: 768px) {
+      .comparison-table__header, .comparison-table__row { grid-template-columns: 1.5fr 1fr; }
+      .comparison-table__header div:last-child, .comparison-table__row div:last-child { display: none; }
+    }
+
+    /* INTEGRATIONS */
+    .integration-tags { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 48px; }
+    .integration-tag { background: var(--bg-card); border: 1px solid var(--border); color: var(--text-secondary); font-size: 14px; font-weight: 500; padding: 10px 18px; border-radius: var(--radius-full); transition: all var(--transition); }
+    .integration-tag:hover { border-color: var(--accent); color: var(--accent); }
+
+    /* ROI GRID */
+    .roi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 24px; margin-top: 64px; }
+    .roi-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 36px; text-align: center; position: relative; overflow: hidden; }
+    .roi-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; }
+    .roi-card--purple::before { background: var(--gradient-purple); }
+    .roi-card--green::before { background: var(--gradient-accent); }
+    .roi-card--amber::before { background: var(--gradient-amber); }
+    .roi-card__value { font-size: 56px; font-weight: 800; font-family: var(--font-mono); line-height: 1; margin-bottom: 16px; }
+    .roi-card--purple .roi-card__value { background: var(--gradient-purple); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .roi-card--green .roi-card__value { background: var(--gradient-accent); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .roi-card--amber .roi-card__value { background: var(--gradient-amber); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .roi-card__label { font-size: 16px; font-weight: 700; margin-bottom: 8px; color: var(--text-primary); }
+    .roi-card__desc { font-size: 14px; color: var(--text-muted); line-height: 1.5; }
+
+    /* FAQ */
+    .faq-list { margin-top: 64px; display: grid; gap: 12px; }
+    .faq-item { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 24px; }
+    .faq-q { font-size: 16px; font-weight: 600; margin-bottom: 12px; color: var(--text-primary); }
+    .faq-a { font-size: 15px; color: var(--text-secondary); line-height: 1.7; }
+
+    /* CTA */
+    .cta-section { position: relative; z-index: 1; }
+    .cta-inner { background: linear-gradient(135deg, rgba(16,185,129,0.1), rgba(16,185,129,0.03)); border: 1px solid rgba(16,185,129,0.2); border-radius: var(--radius-xl); padding: 80px 48px; text-align: center; }
+    .cta-inner__title { font-size: 48px; font-weight: 800; letter-spacing: -0.03em; margin-bottom: 16px; line-height: 1.2; }
+    .cta-inner__sub { font-size: 18px; color: var(--text-secondary); margin-bottom: 32px; max-width: 800px; margin-left: auto; margin-right: auto; line-height: 1.7; }
+    .cta-inner__btns { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+    .cta-inner__note { font-size: 13px; color: var(--text-muted); margin-top: 16px; font-family: var(--font-mono); }
+
+    /* FOOTER */
+    .footer { border-top: 1px solid var(--border); padding: 64px 0 40px; position: relative; z-index: 1; }
+    .footer__grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px; margin-bottom: 48px; }
+    @media (max-width: 768px) { .footer__grid { grid-template-columns: 1fr 1fr; } }
+    .footer__brand-logo { font-size: 22px; font-weight: 800; letter-spacing: -0.03em; margin-bottom: 16px; }
+    .footer__brand-logo span { background: var(--gradient-accent); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .footer__tagline { font-size: 14px; color: var(--text-muted); line-height: 1.6; margin-bottom: 8px; }
+    .footer__column h4 { font-size: 13px; font-weight: 700; color: var(--text-primary); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 16px; }
+    .footer__links { display: flex; flex-direction: column; gap: 10px; }
+    .footer__link { font-size: 14px; color: var(--text-muted); transition: color var(--transition); }
+    .footer__link:hover { color: var(--accent); }
+    .footer__bottom { border-top: 1px solid var(--border); padding-top: 32px; font-size: 13px; color: var(--text-muted); text-align: center; }
+
+    /* REVEAL */
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+  </style>
+</head>
+<body>
+
+<div class="bg-grid"></div>
+<div class="bg-gradient"></div>
+
+<!-- NAV -->
+<nav style="position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 16px 24px; background: rgba(10,15,26,0.9); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between;">
+  <a href="/" style="font-size: 1.125rem; font-weight: 700; color: var(--text-primary); text-decoration: none;">Resultant<span style="color: var(--accent);">AI</span></a>
+  <div style="display: flex; gap: 32px; align-items: center;">
+    <a href="/voice-ai/" style="color: var(--text-secondary); text-decoration: none; font-size: 0.9rem;">Voice AI</a>
+    <a href="/automation/" style="color: var(--text-secondary); text-decoration: none; font-size: 0.9rem;">Automation</a>
+    <a href="/field-service-automation/" style="color: var(--accent); text-decoration: none; font-size: 0.9rem; font-weight: 600;">Field Service</a>
+    <a href="/blog" style="color: var(--text-secondary); text-decoration: none; font-size: 0.9rem;">Blog</a>
+  </div>
+  <a href="https://meetings.hubspot.com/chris4642/ai-gateway-founding-partner" style="background: var(--accent); color: #000; padding: 10px 20px; border-radius: 8px; font-weight: 600; text-decoration: none; font-size: 0.9rem;">Book a Call</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="container">
+    <div class="hero__inner">
+      <div class="hero__badge">
+        <span class="hero__badge-dot"></span>
+        For HVAC · Plumbing · Electrical · Pest Control · Landscaping
+      </div>
+
+      <div class="hero__stats-pills">
+        <div class="hero__stat-pill">68% of jobs go to the first responder</div>
+        <div class="hero__stat-pill">78% of after-hours calls go unanswered</div>
+        <div class="hero__stat-pill">4.2 hrs/day lost to manual admin</div>
+      </div>
+
+      <h1 class="hero__title">
+        Field Service Automation<br>
+        <span class="accent">That Actually Works in the Field</span>
+      </h1>
+
+      <div class="hero__definition">
+        <strong>Field Service Automation</strong> is an AI system that handles the operational work your team does manually today — answering calls, qualifying jobs, dispatching technicians, following up on estimates, and updating customers — without replacing your existing software.
+      </div>
+
+      <p class="hero__subtitle">Most field service companies are leaving 15-25% of their revenue on the table due to slow response times, missed after-hours calls, and estimates that never get followed up. We fix all three.</p>
+
+      <div class="hero__buttons">
+        <a href="https://meetings.hubspot.com/chris4642/ai-gateway-founding-partner?source=field-service-hero" class="btn btn--primary">
+          Book a Free Operations Audit
+          <svg class="btn__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+        <a href="#how-it-works" class="btn btn--ghost">
+          See How It Works →
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PAIN SECTION -->
+<section class="section section--tight" style="z-index: 1; position: relative;">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-label">Common Pain Points</div>
+      <h2 class="section-title">Why field service companies lose revenue every single day</h2>
+      <p class="section-subtitle">These aren't software problems. They're operational gaps that automation solves immediately.</p>
+    </div>
+    <div class="pain-grid reveal">
+      <div class="pain-card">
+        <svg class="pain-card__icon" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="24" cy="24" r="20" stroke="#ef4444" stroke-width="2.5"/>
+          <path d="M24 14v10l6 6" stroke="#ef4444" stroke-width="2.5" stroke-linecap="round"/>
+        </svg>
+        <div class="pain-card__title">The 5-Minute Window</div>
+        <div class="pain-card__desc">78% of customers book with the first company that calls back. If your response time is measured in hours, you're already losing to whoever responds in minutes.</div>
+      </div>
+      <div class="pain-card">
+        <svg class="pain-card__icon" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M8 36V12c0-2 1-4 4-4h24c3 0 4 2 4 4v24c0 2-1 4-4 4H12c-3 0-4-2-4-4z" stroke="#f59e0b" stroke-width="2.5"/>
+          <path d="M8 20h32M16 8v8M32 8v8" stroke="#f59e0b" stroke-width="2.5" stroke-linecap="round"/>
+        </svg>
+        <div class="pain-card__title">After-Hours Revenue Drain</div>
+        <div class="pain-card__desc">Your phones go dark at 6pm. Emergency calls, new customer inquiries, and seasonal surges keep coming. Every missed call is a competitor's booked job.</div>
+      </div>
+      <div class="pain-card">
+        <svg class="pain-card__icon" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="8" y="12" width="32" height="24" rx="2" stroke="#8b5cf6" stroke-width="2.5"/>
+          <path d="M14 20h8M14 26h12" stroke="#8b5cf6" stroke-width="2.5" stroke-linecap="round"/>
+          <circle cx="32" cy="23" r="3" stroke="#8b5cf6" stroke-width="2.5"/>
+        </svg>
+        <div class="pain-card__title">Dispatching Still Runs on Tribal Knowledge</div>
+        <div class="pain-card__desc">Your best dispatcher knows which tech is closest, fastest, and right for the job. When she calls in sick, scheduling falls apart.</div>
+      </div>
+      <div class="pain-card">
+        <svg class="pain-card__icon" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="10" y="8" width="28" height="32" rx="2" stroke="#64748b" stroke-width="2.5"/>
+          <path d="M18 18h12M18 24h12M18 30h8" stroke="#64748b" stroke-width="2.5" stroke-linecap="round"/>
+        </svg>
+        <div class="pain-card__title">Estimates That Go Cold</div>
+        <div class="pain-card__desc">A tech leaves a $3,500 quote. Nobody follows up for 5 days. Customer already called someone else. That's not a sales problem — it's an operations problem.</div>
+      </div>
+      <div class="pain-card">
+        <svg class="pain-card__icon" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="12" y="8" width="24" height="32" rx="3" stroke="#3b82f6" stroke-width="2.5"/>
+          <path d="M20 16h8M20 22h8M20 28h5" stroke="#3b82f6" stroke-width="2.5" stroke-linecap="round"/>
+          <circle cx="34" cy="34" r="6" fill="#0a0f1a" stroke="#3b82f6" stroke-width="2.5"/>
+          <path d="M34 31v3l2 2" stroke="#3b82f6" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        <div class="pain-card__title">Manual Status Updates Eat Hours</div>
+        <div class="pain-card__desc">Customers calling to ask 'where is my tech?' — these calls represent 30% of inbound volume at most field service companies. Fully automatable.</div>
+      </div>
+      <div class="pain-card">
+        <svg class="pain-card__icon" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="24" cy="24" r="18" stroke="#10b981" stroke-width="2.5"/>
+          <path d="M18 24h4l3 6 6-12 3 6h4" stroke="#10b981" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <div class="pain-card__title">Seasonal Surge Leaves Money Uncaptured</div>
+        <div class="pain-card__desc">You can't scale a human team fast enough for peak season. AI scales in hours, not weeks — no hiring, no training, no HR.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="section" id="how-it-works" style="background: var(--bg-secondary); z-index: 1; position: relative;">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-label">Process</div>
+      <h2 class="section-title">How it works</h2>
+      <p class="section-subtitle">From audit to live automation in 2-3 weeks. We integrate with your existing field service software — no rip-and-replace.</p>
+    </div>
+    <div class="steps reveal">
+      <div class="step step--active">
+        <div class="step__number">01</div>
+        <div class="step__title">Connect Your Stack</div>
+        <div class="step__desc">We integrate with your existing FSM: ServiceTitan, Jobber, Housecall Pro, FieldEdge. No rip-and-replace.</div>
+      </div>
+      <div class="step">
+        <div class="step__number">02</div>
+        <div class="step__title">Map Your Call & Job Flow</div>
+        <div class="step__desc">We document every inbound scenario: new customer calls, emergency requests, estimate follow-ups, recall appointments.</div>
+      </div>
+      <div class="step">
+        <div class="step__number">03</div>
+        <div class="step__title">Deploy AI Agents</div>
+        <div class="step__desc">Voice AI answers calls 24/7. Automation agents handle follow-up sequences, dispatching suggestions, and customer status updates.</div>
+      </div>
+      <div class="step">
+        <div class="step__number">04</div>
+        <div class="step__title">You Manage Exceptions</div>
+        <div class="step__desc">Your team focuses on complex jobs and customer relationships. Routine operations run on autopilot.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VERTICALS -->
+<section class="section section--tight" style="z-index: 1; position: relative;">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-label">Industries</div>
+      <h2 class="section-title">Verticals we automate</h2>
+      <p class="section-subtitle">Field service automation built for the trades, customized for your business model.</p>
+    </div>
+    <div class="verticals-grid reveal">
+      <div class="vertical-card">
+        <div class="vertical-card__title">HVAC</div>
+        <div class="vertical-card__desc">ServiceTitan + AI answering + unsold estimate recovery</div>
+      </div>
+      <div class="vertical-card">
+        <div class="vertical-card__title">Plumbing</div>
+        <div class="vertical-card__desc">24/7 emergency call answering + dispatch + follow-up</div>
+      </div>
+      <div class="vertical-card">
+        <div class="vertical-card__title">Electrical</div>
+        <div class="vertical-card__desc">Job qualification + scheduling + technician routing</div>
+      </div>
+      <div class="vertical-card">
+        <div class="vertical-card__title">Pest Control</div>
+        <div class="vertical-card__desc">Recurring appointment scheduling + customer outreach</div>
+      </div>
+      <div class="vertical-card">
+        <div class="vertical-card__title">Landscaping</div>
+        <div class="vertical-card__desc">Estimate follow-up + seasonal outreach + routing</div>
+      </div>
+      <div class="vertical-card">
+        <div class="vertical-card__title">General Contractors</div>
+        <div class="vertical-card__desc">Lead qualification + sub-contractor coordination</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COMPARISON TABLE -->
+<section class="section" style="z-index: 1; position: relative;">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-label">Manual vs. Automated</div>
+      <h2 class="section-title">Manual Field Service Operations vs. AI-Automated Stack</h2>
+      <p class="section-subtitle">Same work gets done. One approach costs 80% less and runs 24/7.</p>
+    </div>
+
+    <div class="comparison-table reveal">
+      <div class="comparison-table__header">
+        <div>Task</div>
+        <div>Manual Operations</div>
+        <div>With AI Automation</div>
+      </div>
+      <div class="comparison-table__row">
+        <div class="comparison-table__cell comparison-table__cell--label">After-hours call answer</div>
+        <div class="comparison-table__cell">Voicemail (78% don't call back)</div>
+        <div class="comparison-table__cell">AI answers, qualifies, books job</div>
+      </div>
+      <div class="comparison-table__row">
+        <div class="comparison-table__cell comparison-table__cell--label">New lead response time</div>
+        <div class="comparison-table__cell">4-8 hours average</div>
+        <div class="comparison-table__cell">Under 5 minutes, 24/7</div>
+      </div>
+      <div class="comparison-table__row">
+        <div class="comparison-table__cell comparison-table__cell--label">Unsold estimate follow-up</div>
+        <div class="comparison-table__cell">Manual, rarely happens</div>
+        <div class="comparison-table__cell">Automated 24hr → 72hr → 7-day sequence</div>
+      </div>
+      <div class="comparison-table__row">
+        <div class="comparison-table__cell comparison-table__cell--label">Dispatching</div>
+        <div class="comparison-table__cell">Office manager + phone calls</div>
+        <div class="comparison-table__cell">AI recommends, manager approves</div>
+      </div>
+      <div class="comparison-table__row">
+        <div class="comparison-table__cell comparison-table__cell--label">Customer status updates</div>
+        <div class="comparison-table__cell">Customer calls to ask</div>
+        <div class="comparison-table__cell">Automated SMS at job start + completion</div>
+      </div>
+      <div class="comparison-table__row">
+        <div class="comparison-table__cell comparison-table__cell--label">Review collection</div>
+        <div class="comparison-table__cell">Forgotten post-job</div>
+        <div class="comparison-table__cell">Auto-requested 2hrs after job close</div>
+      </div>
+      <div class="comparison-table__row">
+        <div class="comparison-table__cell comparison-table__cell--label">Seasonal surge capacity</div>
+        <div class="comparison-table__cell">Hire, train, still miss calls</div>
+        <div class="comparison-table__cell">AI scales in hours, no overhead</div>
+      </div>
+      <div class="comparison-table__row">
+        <div class="comparison-table__cell comparison-table__cell--label">Cost per covered hour</div>
+        <div class="comparison-table__cell">$35-55/hr fully loaded</div>
+        <div class="comparison-table__cell">&lt;$3/hr AI layer</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- INTEGRATIONS -->
+<section class="section section--tight" style="background: var(--bg-secondary); z-index: 1; position: relative;">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-label">Integrations</div>
+      <h2 class="section-title">Works with your existing tools</h2>
+      <p class="section-subtitle">We build on top of your current field service management software. No rip-and-replace required.</p>
+    </div>
+    <div class="integration-tags reveal">
+      <span class="integration-tag">ServiceTitan</span>
+      <span class="integration-tag">Jobber</span>
+      <span class="integration-tag">Housecall Pro</span>
+      <span class="integration-tag">FieldEdge</span>
+      <span class="integration-tag">HubSpot</span>
+      <span class="integration-tag">Slack</span>
+      <span class="integration-tag">Google Calendar</span>
+      <span class="integration-tag">Twilio</span>
+      <span class="integration-tag">QuickBooks</span>
+    </div>
+  </div>
+</section>
+
+<!-- ROI SECTION -->
+<section class="section" style="z-index: 1; position: relative;">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-label">Return on Investment</div>
+      <h2 class="section-title">What Field Service Companies Recover</h2>
+      <p class="section-subtitle">Real results from field service companies that automated their operations with us.</p>
+    </div>
+
+    <div class="roi-grid reveal">
+      <div class="roi-card roi-card--purple">
+        <div class="roi-card__value">78%</div>
+        <div class="roi-card__label">More Jobs Booked from Existing Lead Flow</div>
+        <div class="roi-card__desc">By responding faster and following up automatically</div>
+      </div>
+      <div class="roi-card roi-card--green">
+        <div class="roi-card__value">$3,800</div>
+        <div class="roi-card__label">Average Monthly Revenue Recovered</div>
+        <div class="roi-card__desc">From missed calls, cold estimates, and after-hours jobs</div>
+      </div>
+      <div class="roi-card roi-card--amber">
+        <div class="roi-card__value">35 hrs</div>
+        <div class="roi-card__label">Admin Time Saved Per Month</div>
+        <div class="roi-card__desc">Status calls, dispatching, and follow-up handled by AI</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="section section--tight" id="faq" style="z-index: 1; position: relative;">
+  <div class="container--narrow">
+    <div class="reveal">
+      <div class="section-label">FAQ</div>
+      <h2 class="section-title">Common Questions</h2>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item reveal">
+        <div class="faq-q">Do we have to replace ServiceTitan or Jobber?</div>
+        <div class="faq-a">No. We build on top of whatever FSM you're already using. Your team keeps the same workflows. The AI layer handles what falls through the cracks.</div>
+      </div>
+      <div class="faq-item reveal">
+        <div class="faq-q">How long does setup take?</div>
+        <div class="faq-a">2-3 weeks for most field service companies. We handle the FSM integration, call flow mapping, and agent configuration. No IT team required.</div>
+      </div>
+      <div class="faq-item reveal">
+        <div class="faq-q">What happens after hours?</div>
+        <div class="faq-a">A voice AI agent answers every call, qualifies the job (emergency vs. routine), captures contact info, and either books directly into your schedule or creates a job ticket for morning review.</div>
+      </div>
+      <div class="faq-item reveal">
+        <div class="faq-q">What's the pricing model?</div>
+        <div class="faq-a">We charge a flat monthly retainer based on call volume and automation scope. Most field service companies see ROI within the first month from recovered after-hours jobs alone.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="section cta-section">
+  <div class="container">
+    <div class="cta-inner reveal">
+      <h2 class="cta-inner__title">Your Competitors Are Already Automating. Don't Fall Behind.</h2>
+      <p class="cta-inner__sub">Book a free 30-minute operations audit. We'll review your current call flow, dispatching process, and estimate follow-up rate. You'll leave with a clear picture of how many jobs you're losing — and what it costs to fix it.</p>
+      <div class="cta-inner__btns">
+        <a href="https://meetings.hubspot.com/chris4642/ai-gateway-founding-partner?source=field-service-cta" class="btn btn--primary">
+          Book My Free Operations Audit
+          <svg class="btn__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+      <div class="cta-inner__note">30 minutes, no commitment · FSM audit included · Revenue loss estimate</div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer__grid">
+      <div class="footer__column">
+        <div class="footer__brand-logo">Resultant<span>AI</span></div>
+        <p class="footer__tagline">AI voice agents and automation for service businesses. Built in weeks, not months.</p>
+        <p style="font-size: 13px; color: var(--text-muted); margin-top: 16px;">© 2026 ResultantAI. All rights reserved.</p>
+      </div>
+      <div class="footer__column">
+        <h4>Solutions</h4>
+        <div class="footer__links">
+          <a href="/voice-ai/" class="footer__link">Voice AI</a>
+          <a href="/automation/" class="footer__link">Automation</a>
+          <a href="/field-service-automation/" class="footer__link">Field Service</a>
+          <a href="/integrations/" class="footer__link">Integrations</a>
+        </div>
+      </div>
+      <div class="footer__column">
+        <h4>Company</h4>
+        <div class="footer__links">
+          <a href="/blog" class="footer__link">Blog</a>
+          <a href="/work/" class="footer__link">Case Studies</a>
+          <a href="/faq/" class="footer__link">FAQ</a>
+        </div>
+      </div>
+      <div class="footer__column">
+        <h4>Contact</h4>
+        <div class="footer__links">
+          <a href="mailto:support@resultantai.com" class="footer__link">support@resultantai.com</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer__bottom">Built by humans. Deployed by AI. ResultantAI.</div>
+  </div>
+</footer>
+
+<script>
+  // Reveal on scroll
+  const reveals = document.querySelectorAll('.reveal');
+  const revealOnScroll = () => {
+    reveals.forEach(el => {
+      if (el.getBoundingClientRect().top < window.innerHeight - 80) {
+        el.classList.add('visible');
+      }
+    });
+  };
+  window.addEventListener('scroll', revealOnScroll);
+  revealOnScroll();
+</script>
+
+<script src="/js/main.js"></script>
+
+</body>
+</html>
