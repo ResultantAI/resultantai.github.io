@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Receptionist for Dental Practices | ResultantAI</title>
+  <meta name="description" content="Dental practices miss 30% of calls — that's $100K+/year walking out. Our AI receptionist answers every call 24/7, books appointments, handles insurance questions, and syncs with your practice management software.">
+
+  <link rel="canonical" href="https://resultantai.com/dental/">
+
+  <meta property="og:title" content="AI Receptionist for Dental Practices | ResultantAI">
+  <meta property="og:description" content="Dental practices miss 30% of calls — that's $100K+/year walking out. Our AI receptionist answers every call 24/7, books appointments, handles insurance questions, and syncs with your practice management software.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://resultantai.com/dental/">
+  <meta property="og:site_name" content="ResultantAI">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="AI Receptionist for Dental Practices | ResultantAI">
+  <meta name="twitter:description" content="Dental practices miss 30% of calls — that's $100K+/year walking out. Our AI receptionist answers every call 24/7.">
+
+  <meta name="google-site-verification" content="EUs3oELHtHvHjcAdzN2HjjzWzEP_6KWVZFzaIoLdp70">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "AI Receptionist for Dental Practices",
+    "serviceType": "AI Voice Agent for Dental",
+    "provider": {
+      "@type": "Organization",
+      "name": "ResultantAI",
+      "url": "https://resultantai.com"
+    },
+    "description": "AI voice agents that answer every dental office call 24/7, book appointments, handle insurance questions, and sync with Dentrix, Eaglesoft, and Open Dental.",
+    "areaServed": "United States",
+    "offers": {
+      "@type": "Offer",
+      "url": "https://resultantai.com/dental/",
+      "name": "Dental AI Receptionist Build",
+      "price": "2500",
+      "priceCurrency": "USD"
+    }
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Is this HIPAA compliant?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. All call recordings are encrypted at rest and in transit. We sign a BAA (Business Associate Agreement) before deployment. No PHI is stored beyond what's necessary for appointment booking."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Will patients know they're talking to AI?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Most don't, but we're transparent if asked. Our voices are natural and conversational, not robotic. You can listen to real call samples before deciding."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What practice management systems do you support?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Dentrix, Eaglesoft, Open Dental, and Curve Dental natively. For other systems, we integrate via API or a middle-layer connector. We'll confirm compatibility during your audit."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can the AI handle complex calls like treatment plan questions?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "For clinical questions, the AI collects the caller's info and routes to the right team member with a full summary. It handles booking, insurance basics, and scheduling — complex clinical questions always go to your team."
+        }
+      }
+    ]
+  }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="/favicon.png">
+
+  <style>
+    :root {
+      --bg-primary: #0a0f1a;
+      --bg-secondary: #0f172a;
+      --bg-card: #151d2e;
+      --bg-card-hover: #1a2540;
+      --border: #1e293b;
+      --border-light: #334155;
+      --text-primary: #ffffff;
+      --text-secondary: #94a3b8;
+      --text-muted: #64748b;
+      --accent: #10b981;
+      --accent-light: #34d399;
+      --accent-subtle: rgba(16, 185, 129, 0.08);
+      --accent-glow: rgba(16, 185, 129, 0.4);
+      --blue: #3b82f6;
+      --blue-subtle: rgba(59, 130, 246, 0.1);
+      --purple: #8b5cf6;
+      --orange: #f59e0b;
+      --gradient-accent: linear-gradient(135deg, #10b981 0%, #34d399 100%);
+      --gradient-hero: radial-gradient(ellipse 80% 50% at 50% -20%, rgba(16, 185, 129, 0.15), transparent);
+      --font-sans: 'Inter', -apple-system, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 16px;
+      --radius-xl: 24px;
+      --radius-full: 9999px;
+      --shadow-card: 0 4px 24px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.03);
+      --transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+    body { font-family: var(--font-sans); background: var(--bg-primary); color: var(--text-primary); line-height: 1.6; overflow-x: hidden; }
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+
+    .bg-grid {
+      position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+      background-image: linear-gradient(rgba(16, 185, 129, 0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(16, 185, 129, 0.03) 1px, transparent 1px);
+      background-size: 60px 60px; pointer-events: none; z-index: 0;
+    }
+    .bg-gradient { position: fixed; top: 0; left: 0; right: 0; height: 100vh; background: var(--gradient-hero); pointer-events: none; z-index: 0; }
+
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+    .container--narrow { max-width: 860px; margin: 0 auto; padding: 0 24px; }
+    .section { padding: 120px 0; position: relative; }
+    .section--tight { padding: 80px 0; }
+
+    /* NAV */
+    .nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; padding: 20px 0; transition: all var(--transition); }
+    .nav.scrolled { padding: 12px 0; background: rgba(10,15,26,0.9); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); }
+    .nav__inner { display: flex; align-items: center; justify-content: space-between; max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+    .nav__logo { font-size: 22px; font-weight: 800; letter-spacing: -0.03em; color: var(--text-primary); }
+    .nav__logo span { color: var(--accent); }
+    .nav__links { display: flex; align-items: center; gap: 8px; }
+    .nav__link { padding: 8px 14px; font-size: 14px; font-weight: 500; color: var(--text-secondary); border-radius: var(--radius-md); transition: all var(--transition); }
+    .nav__link:hover { color: var(--text-primary); background: rgba(255,255,255,0.05); }
+    .nav__link.active { color: var(--text-primary); background: var(--accent-subtle); }
+    .nav__cta { padding: 10px 20px; font-size: 14px; font-weight: 600; background: var(--accent); color: #000; border-radius: var(--radius-md); transition: all var(--transition); }
+    .nav__cta:hover { background: var(--accent-light); transform: translateY(-1px); }
+
+    /* HERO */
+    .hero { padding: 180px 0 120px; position: relative; text-align: center; }
+    .badge { display: inline-flex; align-items: center; padding: 6px 14px; font-size: 12px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; background: var(--accent-subtle); color: var(--accent); border-radius: var(--radius-full); border: 1px solid rgba(16, 185, 129, 0.2); margin-bottom: 24px; }
+    .hero__h1 { font-size: clamp(40px, 6vw, 64px); font-weight: 800; line-height: 1.1; letter-spacing: -0.03em; margin-bottom: 24px; background: linear-gradient(135deg, #ffffff 0%, #94a3b8 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .hero__subhead { font-size: clamp(18px, 2.5vw, 22px); color: var(--text-secondary); max-width: 900px; margin: 0 auto 40px; line-height: 1.5; }
+    .hero__pills { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 12px; margin-bottom: 40px; }
+    .pill { padding: 10px 18px; font-size: 14px; font-weight: 600; background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-full); color: var(--text-secondary); }
+    .hero__cta-group { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 16px; }
+    .btn { display: inline-flex; align-items: center; justify-content: center; padding: 16px 32px; font-size: 16px; font-weight: 600; border-radius: var(--radius-md); transition: all var(--transition); cursor: pointer; }
+    .btn--primary { background: var(--accent); color: #000; box-shadow: 0 4px 16px rgba(16, 185, 129, 0.3); }
+    .btn--primary:hover { background: var(--accent-light); transform: translateY(-2px); box-shadow: 0 6px 24px rgba(16, 185, 129, 0.4); }
+    .btn--secondary { background: transparent; color: var(--text-primary); border: 1px solid var(--border-light); }
+    .btn--secondary:hover { background: rgba(255,255,255,0.05); border-color: var(--accent); }
+
+    /* STAT GRID */
+    .stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; margin-bottom: 40px; }
+    .stat-card { padding: 40px 32px; background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); box-shadow: var(--shadow-card); text-align: center; }
+    .stat-card__number { font-size: clamp(48px, 8vw, 72px); font-weight: 800; color: var(--accent); line-height: 1; margin-bottom: 12px; }
+    .stat-card__label { font-size: 16px; color: var(--text-secondary); line-height: 1.5; }
+    .stat-grid--compact .stat-card { padding: 32px 24px; }
+    .stat-grid--compact .stat-card__number { font-size: clamp(36px, 6vw, 56px); }
+
+    /* FEATURE GRID */
+    .feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px; }
+    .feature-card { padding: 32px; background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); box-shadow: var(--shadow-card); transition: all var(--transition); }
+    .feature-card:hover { background: var(--bg-card-hover); border-color: var(--border-light); transform: translateY(-2px); }
+    .feature-card__title { font-size: 20px; font-weight: 700; margin-bottom: 12px; color: var(--text-primary); }
+    .feature-card__body { font-size: 15px; color: var(--text-secondary); line-height: 1.6; }
+
+    /* STEPS */
+    .steps { display: grid; gap: 32px; max-width: 900px; margin: 0 auto; }
+    .step { padding: 32px; background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); box-shadow: var(--shadow-card); display: flex; gap: 24px; }
+    .step__number { flex-shrink: 0; width: 48px; height: 48px; display: flex; align-items: center; justify-content: center; font-size: 20px; font-weight: 800; background: var(--accent); color: #000; border-radius: var(--radius-md); }
+    .step__content { flex: 1; }
+    .step__title { font-size: 22px; font-weight: 700; margin-bottom: 8px; color: var(--text-primary); }
+    .step__body { font-size: 15px; color: var(--text-secondary); line-height: 1.6; }
+
+    /* COMPARISON TABLE */
+    .comparison-table { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-card); max-width: 900px; margin: 0 auto; }
+    .comparison-table__header { display: grid; grid-template-columns: 1fr 1fr; background: var(--bg-secondary); border-bottom: 1px solid var(--border); }
+    .comparison-table__header-cell { padding: 20px 24px; font-size: 16px; font-weight: 700; text-align: center; }
+    .comparison-table__header-cell:first-child { background: rgba(16, 185, 129, 0.1); color: var(--accent); border-right: 1px solid var(--border); }
+    .comparison-table__row { display: grid; grid-template-columns: 1fr 1fr; border-bottom: 1px solid var(--border); }
+    .comparison-table__row:last-child { border-bottom: none; }
+    .comparison-table__cell { padding: 20px 24px; font-size: 14px; color: var(--text-secondary); border-right: 1px solid var(--border); }
+    .comparison-table__cell:last-child { border-right: none; }
+    .comparison-table__label { display: block; font-weight: 600; color: var(--text-primary); margin-bottom: 4px; }
+
+    /* ROI BOX */
+    .roi-box { padding: 32px; background: var(--bg-secondary); border: 1px solid var(--border); border-radius: var(--radius-lg); box-shadow: var(--shadow-card); margin-top: 40px; max-width: 900px; margin-left: auto; margin-right: auto; }
+    .roi-box__label { font-size: 14px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--accent); margin-bottom: 12px; }
+    .roi-box__content { font-size: 16px; color: var(--text-secondary); line-height: 1.6; }
+
+    /* INTEGRATIONS */
+    .integrations { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 12px; max-width: 900px; margin: 0 auto; }
+    .integration-pill { padding: 10px 18px; font-size: 14px; font-weight: 600; background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-full); color: var(--text-secondary); }
+
+    /* FAQ */
+    .faq-list { max-width: 860px; margin: 0 auto; }
+    .faq-item { padding: 28px 0; border-bottom: 1px solid var(--border); }
+    .faq-item:last-child { border-bottom: none; }
+    .faq-item__question { font-size: 20px; font-weight: 700; color: var(--text-primary); margin-bottom: 12px; }
+    .faq-item__answer { font-size: 15px; color: var(--text-secondary); line-height: 1.6; }
+
+    /* CTA SECTION */
+    .cta-section { padding: 80px 0; text-align: center; background: var(--bg-secondary); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); position: relative; }
+    .cta-section__title { font-size: clamp(32px, 5vw, 48px); font-weight: 800; line-height: 1.2; margin-bottom: 20px; }
+    .cta-section__body { font-size: 18px; color: var(--text-secondary); max-width: 700px; margin: 0 auto 40px; line-height: 1.5; }
+    .cta-section__buttons { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 16px; margin-bottom: 20px; }
+    .cta-section__link { font-size: 16px; color: var(--accent); font-weight: 600; transition: all var(--transition); }
+    .cta-section__link:hover { color: var(--accent-light); }
+
+    /* SECTION HEADER */
+    .section-header { text-align: center; margin-bottom: 64px; }
+    .section-header__title { font-size: clamp(32px, 5vw, 48px); font-weight: 800; line-height: 1.2; margin-bottom: 16px; }
+    .section-header__subtitle { font-size: 18px; color: var(--text-secondary); max-width: 700px; margin: 0 auto; }
+
+    /* PARAGRAPH */
+    .text-block { max-width: 860px; margin: 0 auto; font-size: 16px; color: var(--text-secondary); line-height: 1.7; }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      .section { padding: 80px 0; }
+      .hero { padding: 140px 0 80px; }
+      .nav__links { gap: 4px; }
+      .nav__link { padding: 8px 10px; font-size: 13px; }
+      .nav__cta { padding: 8px 16px; font-size: 13px; }
+      .stat-grid { grid-template-columns: 1fr; }
+      .feature-grid { grid-template-columns: 1fr; }
+      .step { flex-direction: column; padding: 24px; }
+      .comparison-table__header, .comparison-table__row { grid-template-columns: 1fr; }
+      .comparison-table__cell { border-right: none; border-bottom: 1px solid var(--border); }
+      .comparison-table__cell:last-child { border-bottom: none; }
+      .comparison-table__label::before { content: ""; }
+    }
+  </style>
+</head>
+<body>
+  <div class="bg-grid"></div>
+  <div class="bg-gradient"></div>
+
+  <!-- NAV -->
+  <nav class="nav" id="nav">
+    <div class="nav__inner">
+      <a href="/" class="nav__logo">Resultant<span>AI</span></a>
+      <div class="nav__links">
+        <a href="/voice-ai/" class="nav__link">Voice AI</a>
+        <a href="/automation/" class="nav__link">Automation</a>
+        <a href="/services/" class="nav__link">Services</a>
+        <a href="/work/" class="nav__link">Work</a>
+        <a href="/faq/" class="nav__link">FAQ</a>
+        <a href="/blog" class="nav__link">Blog</a>
+        <a href="https://meetings.hubspot.com/chris4642/ai-gateway-founding-partner" class="nav__cta">Book a Call</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="container">
+      <div class="badge">AI FOR DENTAL PRACTICES</div>
+      <h1 class="hero__h1">Your Dental Practice Is Losing $100K/Year to Missed Calls</h1>
+      <p class="hero__subhead">30% of dental office calls go unanswered. 86% of those patients don't leave a voicemail — they call the next dentist on Google. Our AI receptionist answers every call, 24/7, books appointments, handles insurance questions, and syncs with your practice management software.</p>
+
+      <div class="hero__pills">
+        <div class="pill">30% of calls go unanswered</div>
+        <div class="pill">86% don't leave voicemail</div>
+        <div class="pill">$100K+/year in lost revenue</div>
+      </div>
+
+      <div class="hero__cta-group">
+        <a href="https://meetings.hubspot.com/chris4642/ai-gateway-founding-partner" class="btn btn--primary">Book a Free Practice Audit</a>
+        <a href="#how-it-works" class="btn btn--secondary">See How It Works &rarr;</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- PAIN SECTION -->
+  <section class="section section--tight">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-header__title">The missed call problem is worse than you think</h2>
+      </div>
+
+      <div class="stat-grid">
+        <div class="stat-card">
+          <div class="stat-card__number">30%</div>
+          <div class="stat-card__label">of inbound calls to dental offices go unanswered during business hours</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card__number">86%</div>
+          <div class="stat-card__label">of missed callers don't leave a voicemail — they call your competitor</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card__number">$800</div>
+          <div class="stat-card__label">average value of a new patient. Every missed new patient call = $800 gone</div>
+        </div>
+      </div>
+
+      <p class="text-block" style="margin-top: 40px;">Your front desk is handling check-ins, insurance verifications, treatment plan questions, and payment processing — all at once. Calls fall through the cracks. After-hours calls go straight to voicemail. Monday morning brings 15 messages and zero way to prioritize them.</p>
+    </div>
+  </section>
+
+  <!-- WHAT IT DOES -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-header__title">What our AI receptionist handles</h2>
+        <p class="section-header__subtitle">Built specifically for dental practices. Powered by our <a href="/voice-ai/" style="color: var(--accent);">voice AI agents</a> that understand dental workflows.</p>
+      </div>
+
+      <div class="feature-grid">
+        <div class="feature-card">
+          <h3 class="feature-card__title">New Patient Booking</h3>
+          <p class="feature-card__body">Answers new patient calls 24/7, collects name, DOB, insurance, chief complaint, and books directly into your schedule.</p>
+        </div>
+        <div class="feature-card">
+          <h3 class="feature-card__title">Appointment Reminders & Confirmations</h3>
+          <p class="feature-card__body">Outbound calls and texts 48hrs before appointments. Reschedule no-shows before they happen. Fill cancelled slots automatically.</p>
+        </div>
+        <div class="feature-card">
+          <h3 class="feature-card__title">Insurance Verification Questions</h3>
+          <p class="feature-card__body">Handles 'do you take my insurance?' questions, lists accepted plans, and routes complex questions to your billing team.</p>
+        </div>
+        <div class="feature-card">
+          <h3 class="feature-card__title">After-Hours Capture</h3>
+          <p class="feature-card__body">Your office closes at 5pm. Dental emergencies don't. The AI captures after-hours callers, triages urgency, and books them first thing in the morning.</p>
+        </div>
+        <div class="feature-card">
+          <h3 class="feature-card__title">Recall & Reactivation Calls</h3>
+          <p class="feature-card__body">Patients overdue for their 6-month cleaning? The AI calls them, confirms interest, and books the appointment — no staff time required.</p>
+        </div>
+        <div class="feature-card">
+          <h3 class="feature-card__title">Practice Management Sync</h3>
+          <p class="feature-card__body">Integrates with Dentrix, Eaglesoft, Open Dental, and Curve Dental. Appointments book directly into your schedule — no double-entry.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="section section--tight" id="how-it-works" style="background: var(--bg-secondary); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-header__title">How it works</h2>
+        <p class="section-header__subtitle">From audit to deployment in 2-3 weeks</p>
+      </div>
+
+      <div class="steps">
+        <div class="step">
+          <div class="step__number">1</div>
+          <div class="step__content">
+            <h3 class="step__title">Practice Audit</h3>
+            <p class="step__body">30-minute call. We map your current call flow, identify where patients fall through, and show you what we'd automate.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step__number">2</div>
+          <div class="step__content">
+            <h3 class="step__title">Custom Script</h3>
+            <p class="step__body">We write scripts specific to your practice: your services, insurance, providers, and tone. You review and approve before anything goes live.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step__number">3</div>
+          <div class="step__content">
+            <h3 class="step__title">Integration & Testing</h3>
+            <p class="step__body">We connect to your practice management software and phone system. Extensive call testing before you ever hear it on a real patient call.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step__number">4</div>
+          <div class="step__content">
+            <h3 class="step__title">Go Live</h3>
+            <p class="step__body">Typically 2-3 weeks from kickoff. Your team gets a dashboard to monitor calls, listen to recordings, and update the AI anytime.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMPARISON TABLE -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-header__title">AI Receptionist vs. Traditional Front Desk Coverage</h2>
+      </div>
+
+      <div class="comparison-table">
+        <div class="comparison-table__header">
+          <div class="comparison-table__header-cell">AI Receptionist</div>
+          <div class="comparison-table__header-cell">Front Desk Only</div>
+        </div>
+        <div class="comparison-table__row">
+          <div class="comparison-table__cell">
+            <span class="comparison-table__label">After-hours calls</span>
+            Answered 24/7
+          </div>
+          <div class="comparison-table__cell">
+            <span class="comparison-table__label">After-hours calls</span>
+            Goes to voicemail
+          </div>
+        </div>
+        <div class="comparison-table__row">
+          <div class="comparison-table__cell">
+            <span class="comparison-table__label">New patient booking</span>
+            Any time of day, instantly
+          </div>
+          <div class="comparison-table__cell">
+            <span class="comparison-table__label">New patient booking</span>
+            During office hours only
+          </div>
+        </div>
+        <div class="comparison-table__row">
+          <div class="comparison-table__cell">
+            <span class="comparison-table__label">Appointment reminders</span>
+            Automated, 100% sent
+          </div>
+          <div class="comparison-table__cell">
+            <span class="comparison-table__label">Appointment reminders</span>
+            When staff has time
+          </div>
+        </div>
+        <div class="comparison-table__row">
+          <div class="comparison-table__cell">
+            <span class="comparison-table__label">Recall outreach</span>
+            Runs automatically
+          </div>
+          <div class="comparison-table__cell">
+            <span class="comparison-table__label">Recall outreach</span>
+            Rarely happens — too busy
+          </div>
+        </div>
+        <div class="comparison-table__row">
+          <div class="comparison-table__cell">
+            <span class="comparison-table__label">Cost</span>
+            $500–$1,500/mo
+          </div>
+          <div class="comparison-table__cell">
+            <span class="comparison-table__label">Cost</span>
+            $35–50K/yr per FTE + benefits
+          </div>
+        </div>
+        <div class="comparison-table__row">
+          <div class="comparison-table__cell">
+            <span class="comparison-table__label">Consistency</span>
+            Same quality every call
+          </div>
+          <div class="comparison-table__cell">
+            <span class="comparison-table__label">Consistency</span>
+            Varies by staff member
+          </div>
+        </div>
+        <div class="comparison-table__row">
+          <div class="comparison-table__cell">
+            <span class="comparison-table__label">Scalability</span>
+            Handles 1 or 100 simultaneous calls
+          </div>
+          <div class="comparison-table__cell">
+            <span class="comparison-table__label">Scalability</span>
+            One call at a time
+          </div>
+        </div>
+        <div class="comparison-table__row">
+          <div class="comparison-table__cell">
+            <span class="comparison-table__label">Onboarding time</span>
+            2–3 weeks
+          </div>
+          <div class="comparison-table__cell">
+            <span class="comparison-table__label">Onboarding time</span>
+            4–8 weeks to hire + train
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ROI SECTION -->
+  <section class="section section--tight" style="background: var(--bg-secondary); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-header__title">What does this mean for your practice?</h2>
+        <p class="section-header__subtitle">Real numbers from real dental practices. Check out <a href="/work/" style="color: var(--accent);">our work</a> to see actual implementations.</p>
+      </div>
+
+      <div class="stat-grid stat-grid--compact">
+        <div class="stat-card">
+          <div class="stat-card__number">$100K+</div>
+          <div class="stat-card__label">missed revenue/year (avg practice)</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card__number">2-3 wks</div>
+          <div class="stat-card__label">to go live</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card__number">24/7</div>
+          <div class="stat-card__label">coverage</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card__number">30 days</div>
+          <div class="stat-card__label">avg payback</div>
+        </div>
+      </div>
+
+      <div class="roi-box">
+        <div class="roi-box__label">Sample ROI Calculation</div>
+        <div class="roi-box__content">A 2-provider dental practice answering 40 more calls/month at $800 new patient value = $32,000/mo in recovered revenue potential. AI cost: $500–$1,500/mo. Month 1 net: +$30,000.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- INTEGRATIONS -->
+  <section class="section section--tight">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-header__title">Integrations</h2>
+        <p class="section-header__subtitle">Works with your existing practice management software and phone system. Pair with <a href="/automation/" style="color: var(--accent);">workflow automation</a> for end-to-end patient journey automation.</p>
+      </div>
+
+      <div class="integrations">
+        <div class="integration-pill">Dentrix</div>
+        <div class="integration-pill">Eaglesoft</div>
+        <div class="integration-pill">Open Dental</div>
+        <div class="integration-pill">Curve Dental</div>
+        <div class="integration-pill">Weave</div>
+        <div class="integration-pill">Lighthouse 360</div>
+        <div class="integration-pill">RevenueWell</div>
+        <div class="integration-pill">Twilio</div>
+        <div class="integration-pill">HubSpot</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section" style="background: var(--bg-secondary); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-header__title">Frequently Asked Questions</h2>
+      </div>
+
+      <div class="faq-list">
+        <div class="faq-item">
+          <h3 class="faq-item__question">Is this HIPAA compliant?</h3>
+          <p class="faq-item__answer">Yes. All call recordings are encrypted at rest and in transit. We sign a BAA (Business Associate Agreement) before deployment. No PHI is stored beyond what's necessary for appointment booking.</p>
+        </div>
+        <div class="faq-item">
+          <h3 class="faq-item__question">Will patients know they're talking to AI?</h3>
+          <p class="faq-item__answer">Most don't, but we're transparent if asked. Our voices are natural and conversational, not robotic. You can listen to real call samples before deciding.</p>
+        </div>
+        <div class="faq-item">
+          <h3 class="faq-item__question">What practice management systems do you support?</h3>
+          <p class="faq-item__answer">Dentrix, Eaglesoft, Open Dental, and Curve Dental natively. For other systems, we integrate via API or a middle-layer connector. We'll confirm compatibility during your audit.</p>
+        </div>
+        <div class="faq-item">
+          <h3 class="faq-item__question">Can the AI handle complex calls like treatment plan questions?</h3>
+          <p class="faq-item__answer">For clinical questions, the AI collects the caller's info and routes to the right team member with a full summary. It handles booking, insurance basics, and scheduling — complex clinical questions always go to your team.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BOTTOM CTA -->
+  <section class="cta-section">
+    <div class="container">
+      <h2 class="cta-section__title">Ready to stop losing $100K/year to missed calls?</h2>
+      <p class="cta-section__body">Book a free 30-minute practice audit. We'll show you exactly how many calls you're missing, what they're worth, and how we'd set up your AI receptionist.</p>
+      <div class="cta-section__buttons">
+        <a href="https://meetings.hubspot.com/chris4642/ai-gateway-founding-partner" class="btn btn--primary">Book Free Practice Audit</a>
+      </div>
+      <a href="mailto:support@resultantai.com" class="cta-section__link">Questions? Email us &rarr;</a>
+    </div>
+  </section>
+
+  <script>
+    // Scroll nav behavior
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        nav.classList.add('scrolled');
+      } else {
+        nav.classList.remove('scrolled');
+      }
+    });
+  </script>
+</body>
+</html>
