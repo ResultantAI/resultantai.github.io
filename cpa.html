@@ -203,7 +203,7 @@
         <div id="roi-results" style="margin-top: var(--space-lg); padding: var(--space-md); background: var(--bg-primary); border-radius: 8px; border-left: 4px solid #10b981; display: none;">
           <h3 style="margin: 0 0 var(--space-sm) 0; color: #10b981; font-size: 20px;">Your AP Automation ROI</h3>
           <div id="roi-output"></div>
-          <a href="https://meetings.hubspot.com/resultantai/discovery?source=cpa-calculator" class="btn btn-primary" style="width: 100%; margin-top: var(--space-md); text-align: center; display: block;">Book Assessment Call</a>
+          <a href="https://meetings.hubspot.com/chris4642/ai-gateway-founding-partner?source=cpa-pricing" class="btn btn-primary" style="width: 100%; margin-top: var(--space-md); text-align: center; display: block;">Get a Custom Quote →</a>
         </div>
       </div>
     </div>
@@ -422,9 +422,9 @@
       const annualSavings = annualCost - automatedAnnualCost;
       const monthlySavings = annualSavings / 12;
 
-      // ROI calculation
-      const implementationCost = 15000; // One-time setup
-      const roi = ((annualSavings / implementationCost) * 100).toFixed(0);
+      // ROI calculation (implementation cost varies by firm size)
+      const implementationCost = 0; // Custom scoped - contact for quote
+      const roi = annualSavings > 0 ? 'Calculate with us' : 0;
 
       // Display results
       const resultsDiv = document.getElementById('roi-results');
@@ -450,15 +450,15 @@
           </div>
           <div style="display: flex; justify-content: space-between; padding: var(--space-sm) 0; border-bottom: 1px solid var(--border);">
             <span style="font-weight: 600;">Implementation Cost:</span>
-            <span style="font-weight: 700;">$${implementationCost.toLocaleString()}</span>
+            <span style="font-weight: 700;">Custom scoped to your firm size and workflow complexity</span>
           </div>
           <div style="display: flex; justify-content: space-between; padding: var(--space-md) 0; background: rgba(16, 185, 129, 0.1); margin-top: var(--space-sm); padding: var(--space-md); border-radius: 8px;">
-            <span style="font-weight: 700; font-size: 18px;">Payback Period:</span>
-            <span style="color: #10b981; font-weight: 900; font-size: 20px;">${(implementationCost / monthlySavings).toFixed(1)} months</span>
+            <span style="font-weight: 700; font-size: 18px;">Potential Annual Savings:</span>
+            <span style="color: #10b981; font-weight: 900; font-size: 20px;">$${annualSavings.toLocaleString()}</span>
           </div>
           <div style="text-align: center; padding: var(--space-md); background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%); border-radius: 8px; margin-top: var(--space-sm);">
-            <div style="color: white; font-size: 14px; font-weight: 600; margin-bottom: 4px;">First-Year ROI</div>
-            <div style="color: white; font-size: 36px; font-weight: 900;">${roi}%</div>
+            <div style="color: white; font-size: 14px; font-weight: 600; margin-bottom: 4px;">Get a Custom Quote</div>
+            <div style="color: white; font-size: 18px; font-weight: 700; padding: 10px;">Contact us to discuss pricing scoped to your firm</div>
           </div>
         </div>
       `;

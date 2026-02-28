@@ -216,7 +216,7 @@
         <div id="roi-results" style="margin-top: var(--space-lg); padding: var(--space-md); background: var(--bg-primary); border-radius: 8px; border-left: 4px solid #10b981; display: none;">
           <h3 style="margin: 0 0 var(--space-sm) 0; color: #10b981; font-size: 20px;">Your Potential Savings</h3>
           <div id="roi-output"></div>
-          <a href="https://meetings.hubspot.com/resultantai/discovery?source=staffing-calculator" class="btn btn-primary" style="width: 100%; margin-top: var(--space-md); text-align: center; display: block;">Book a Call to Get Started</a>
+          <a href="https://meetings.hubspot.com/chris4642/ai-gateway-founding-partner?source=staffing-pricing" class="btn btn-primary" style="width: 100%; margin-top: var(--space-md); text-align: center; display: block;">Get a Custom Quote →</a>
         </div>
       </div>
     </div>
@@ -410,12 +410,12 @@
       const hoursSaved = annualHoursWasted * 0.80;
       const dollarsSaved = annualDollarWaste * 0.80;
 
-      // Cost of automation (estimate: $2,500/month per recruiter for first year)
-      const automationCost = recruiterCount * 2500 * 12;
+      // Cost of automation (scoped to recruiter count and complexity)
+      const automationCost = 0; // Pricing scoped to team size - contact for quote
 
       // ROI calculation
-      const netSavings = dollarsSaved - automationCost;
-      const roi = ((netSavings / automationCost) * 100).toFixed(0);
+      const netSavings = dollarsSaved;
+      const roi = 'Contact us for custom quote';
 
       // Display results
       const resultsDiv = document.getElementById('roi-results');
@@ -441,15 +441,15 @@
           </div>
           <div style="display: flex; justify-content: space-between; padding: var(--space-sm) 0; border-bottom: 1px solid var(--border);">
             <span style="font-weight: 600;">Automation Investment:</span>
-            <span style="font-weight: 700;">$${automationCost.toLocaleString()}</span>
+            <span style="font-weight: 700;">Pricing scoped to recruiter count and workflow complexity</span>
           </div>
           <div style="display: flex; justify-content: space-between; padding: var(--space-md) 0; background: rgba(16, 185, 129, 0.1); margin-top: var(--space-sm); padding: var(--space-md); border-radius: 8px;">
-            <span style="font-weight: 700; font-size: 18px;">Net First-Year Savings:</span>
-            <span style="color: #10b981; font-weight: 900; font-size: 20px;">$${netSavings.toLocaleString()}</span>
+            <span style="font-weight: 700; font-size: 18px;">Potential Annual Savings:</span>
+            <span style="color: #10b981; font-weight: 900; font-size: 20px;">$${dollarsSaved.toLocaleString()}</span>
           </div>
           <div style="text-align: center; padding: var(--space-md); background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%); border-radius: 8px; margin-top: var(--space-sm);">
-            <div style="color: white; font-size: 14px; font-weight: 600; margin-bottom: 4px;">Return on Investment</div>
-            <div style="color: white; font-size: 36px; font-weight: 900;">${roi}%</div>
+            <div style="color: white; font-size: 14px; font-weight: 600; margin-bottom: 4px;">Get a Custom Quote</div>
+            <div style="color: white; font-size: 18px; font-weight: 700; padding: 10px;">Contact us for pricing scoped to your team</div>
           </div>
         </div>
       `;
