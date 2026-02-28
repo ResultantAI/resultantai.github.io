@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- SEO -->
+  <link rel="canonical" href="https://resultantai.com/blog/servicetitan-automation-guide/">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="ServiceTitan Automation Guide 2026: 5 Automations That Actually Pay Off | ResultantAI">
+  <meta property="og:description" content="The honest guide to automating ServiceTitan for HVAC, plumbing, and electrical contractors. What works, what doesn't, and where to start.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://resultantai.com/blog/servicetitan-automation-guide/">
+  <meta property="og:site_name" content="ResultantAI">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="ServiceTitan Automation Guide 2026: 5 Automations That Actually Pay Off | ResultantAI">
+  <meta name="twitter:description" content="The honest guide to automating ServiceTitan for HVAC, plumbing, and electrical contractors. What works, what doesn't, and where to start.">
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ServiceTitan Automation Guide 2026: 5 Automations That Actually Pay Off | ResultantAI</title>
+  <meta name="description" content="The honest guide to automating ServiceTitan for HVAC, plumbing, and electrical contractors. What works, what doesn't, and where to start.">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "ServiceTitan Automation in 2026: What You Can Automate (And What Still Requires a Human)",
+    "author": {"@type": "Person", "name": "Chris Mott", "url": "https://resultantai.com"},
+    "datePublished": "2026-02-28",
+    "dateModified": "2026-02-28",
+    "publisher": {"@type": "Organization", "name": "ResultantAI", "url": "https://resultantai.com", "logo": {"@type": "ImageObject", "url": "https://resultantai.com/favicon.png"}},
+    "image": {"@type": "ImageObject", "url": "https://resultantai.com/og-image.png", "width": 1200, "height": 630},
+    "url": "https://resultantai.com/blog/servicetitan-automation-guide/",
+    "mainEntityOfPage": {"@type": "WebPage", "@id": "https://resultantai.com/blog/servicetitan-automation-guide/"}
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://resultantai.com/"},
+      {"@type": "ListItem", "position": 2, "name": "Blog", "item": "https://resultantai.com/blog"},
+      {"@type": "ListItem", "position": 3, "name": "ServiceTitan Automation Guide 2026", "item": "https://resultantai.com/blog/servicetitan-automation-guide/"}
+    ]
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Does ServiceTitan have an open API?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. ServiceTitan provides a robust REST API available on Pro and above plans. The API gives you access to customer records, job data, appointment scheduling, pricebook items, and more. It supports both reading data and creating/updating records, which makes it suitable for two-way integrations with automation platforms."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I connect ServiceTitan to Make.com?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. You can connect ServiceTitan to Make.com in two ways: using Make's built-in ServiceTitan modules (which provide pre-configured actions for common tasks) or via webhooks and direct API calls for more complex workflows. Most contractors use a combination of both depending on what they're automating."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How long does a custom ServiceTitan automation take to build?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Simple automations like SMS reminders or estimate follow-ups typically take 1-2 days to build and test. Multi-step workflows that involve conditional logic, data transformation, or multiple system integrations usually take 1-2 weeks. The timeline depends on complexity, how many systems you're connecting, and how much testing you want before going live."
+        }
+      }
+    ]
+  }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg-primary: #0a0f1a;
+      --bg-secondary: #0f172a;
+      --bg-card: #151d2e;
+      --bg-card-hover: #1a2540;
+      --border: #1e293b;
+      --border-light: #334155;
+      --text-primary: #ffffff;
+      --text-secondary: #94a3b8;
+      --text-muted: #64748b;
+      --accent: #10b981;
+      --accent-light: #34d399;
+      --accent-subtle: rgba(16, 185, 129, 0.08);
+      --cat-automation: #f59e0b;
+      --gradient-accent: linear-gradient(135deg, #10b981 0%, #34d399 100%);
+      --gradient-hero: radial-gradient(ellipse 80% 50% at 50% -20%, rgba(16, 185, 129, 0.15), transparent);
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 16px;
+      --radius-xl: 24px;
+      --radius-full: 9999px;
+      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+      --transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+    body { font-family: var(--font-sans); background: var(--bg-primary); color: var(--text-primary); line-height: 1.6; font-size: 16px; overflow-x: hidden; }
+    a { color: var(--accent); text-decoration: none; transition: color var(--transition); }
+    a:hover { color: var(--accent-light); }
+    img { max-width: 100%; display: block; }
+    ::selection { background: var(--accent); color: var(--bg-primary); }
+
+    .bg-grid { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background-image: linear-gradient(rgba(16, 185, 129, 0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(16, 185, 129, 0.03) 1px, transparent 1px); background-size: 60px 60px; pointer-events: none; z-index: 0; }
+    .bg-gradient { position: fixed; top: 0; left: 0; right: 0; height: 100vh; background: var(--gradient-hero); pointer-events: none; z-index: 0; }
+
+    .container { max-width: 800px; margin: 0 auto; padding: 0 24px; }
+    .container--wide { max-width: 1200px; }
+
+    .nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; padding: 20px 0; transition: all var(--transition); }
+    .nav.scrolled { padding: 12px 0; background: rgba(10, 15, 26, 0.8); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); }
+    .nav__inner { display: flex; align-items: center; justify-content: space-between; max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+    .nav__logo { font-size: 22px; font-weight: 800; letter-spacing: -0.03em; color: var(--text-primary); }
+    .nav__logo span { color: var(--accent); }
+    .nav__links { display: flex; align-items: center; gap: 8px; }
+    .nav__link { color: var(--text-secondary); font-size: 14px; font-weight: 500; padding: 8px 16px; border-radius: var(--radius-md); transition: all var(--transition); position: relative; }
+    .nav__link::after { content: ''; position: absolute; bottom: 4px; left: 50%; width: 0; height: 2px; background: var(--accent); border-radius: var(--radius-full); transition: all var(--transition); transform: translateX(-50%); }
+    .nav__link:hover { color: var(--text-primary); }
+    .nav__link:hover::after { width: calc(100% - 32px); }
+
+    .nav__dropdown { position: relative; }
+    .nav__dropdown-trigger { cursor: pointer; display: flex; align-items: center; gap: 4px; }
+    .nav__dropdown-content { position: absolute; top: 100%; left: 50%; transform: translateX(-50%); margin-top: 8px; background: rgba(15, 23, 42, 0.95); backdrop-filter: blur(20px); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 16px; min-width: 500px; opacity: 0; visibility: hidden; transition: all var(--transition); box-shadow: 0 20px 60px rgba(0,0,0,0.4); }
+    .nav__dropdown:hover .nav__dropdown-content { opacity: 1; visibility: visible; }
+    .nav__dropdown-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+    .nav__dropdown-section h4 { font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); margin-bottom: 12px; font-weight: 600; }
+    .nav__dropdown-link { display: block; padding: 8px 12px; color: var(--text-secondary); font-size: 14px; border-radius: var(--radius-sm); transition: all var(--transition); }
+    .nav__dropdown-link:hover { background: var(--bg-card); color: var(--text-primary); }
+
+    .nav__cta { background: var(--gradient-accent); color: var(--bg-primary); padding: 10px 24px; border-radius: var(--radius-md); font-size: 14px; font-weight: 600; transition: all var(--transition); box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3); margin-left: 16px; }
+    .nav__cta:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(16, 185, 129, 0.4); color: var(--bg-primary); }
+    @media (max-width: 768px) { .nav__links { display: none; } }
+
+    .article-header { padding: 140px 0 60px; position: relative; z-index: 1; }
+    .article-header__breadcrumb { display: flex; align-items: center; gap: 8px; font-size: 14px; color: var(--text-muted); margin-bottom: 24px; }
+    .article-header__breadcrumb a { color: var(--text-muted); }
+    .article-header__breadcrumb a:hover { color: var(--accent); }
+    .article-header__category { display: inline-block; padding: 6px 14px; background: rgba(245, 158, 11, 0.1); border: 1px solid rgba(245, 158, 11, 0.2); border-radius: var(--radius-full); font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: var(--cat-automation); margin-bottom: 20px; }
+    .article-header__title { font-size: clamp(32px, 5vw, 48px); font-weight: 800; line-height: 1.15; letter-spacing: -0.03em; margin-bottom: 20px; }
+    .article-header__excerpt { font-size: 18px; color: var(--text-secondary); line-height: 1.7; margin-bottom: 32px; }
+    .article-header__meta { display: flex; align-items: center; gap: 24px; padding-top: 24px; border-top: 1px solid var(--border); flex-wrap: wrap; }
+    .article-header__author { display: flex; align-items: center; gap: 12px; }
+    .article-header__author-avatar { width: 44px; height: 44px; border-radius: 50%; background: var(--accent-subtle); border: 2px solid var(--accent); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 16px; color: var(--accent); }
+    .article-header__author-name { font-weight: 600; font-size: 15px; }
+    .article-header__author-title { font-size: 13px; color: var(--text-muted); }
+    .article-header__info { display: flex; align-items: center; gap: 16px; font-size: 14px; color: var(--text-muted); }
+
+    .article-hero-image { margin: 40px 0; border-radius: var(--radius-xl); overflow: hidden; border: 1px solid var(--border); position: relative; z-index: 1; }
+    .article-hero-image img { width: 100%; height: auto; aspect-ratio: 16/9; object-fit: cover; }
+
+    .article-content { position: relative; z-index: 1; padding-bottom: 80px; }
+    .article-content h2 { font-size: 28px; font-weight: 700; letter-spacing: -0.02em; margin: 56px 0 24px; padding-top: 24px; border-top: 1px solid var(--border); }
+    .article-content h2:first-of-type { border-top: none; padding-top: 0; margin-top: 0; }
+    .article-content h3 { font-size: 20px; font-weight: 600; margin: 40px 0 16px; color: var(--accent-light); }
+    .article-content p { font-size: 17px; line-height: 1.8; color: var(--text-secondary); margin-bottom: 24px; }
+    .article-content strong { color: var(--text-primary); font-weight: 600; }
+    .article-content ul, .article-content ol { margin: 24px 0; padding-left: 24px; }
+    .article-content li { font-size: 17px; line-height: 1.8; color: var(--text-secondary); margin-bottom: 12px; }
+    .article-content li::marker { color: var(--accent); }
+
+    .tldr-box { background: linear-gradient(135deg, var(--bg-card) 0%, rgba(16, 185, 129, 0.02) 100%); border: 1px solid var(--border); border-left: 4px solid var(--accent); border-radius: var(--radius-lg); padding: 28px 32px; margin: 32px 0; }
+    .tldr-box__title { display: flex; align-items: center; gap: 10px; font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--accent); margin-bottom: 16px; }
+    .tldr-box ul { margin: 0; padding-left: 20px; }
+    .tldr-box li { font-size: 15px; margin-bottom: 8px; color: var(--text-primary); }
+
+    .callout { background: var(--accent-subtle); border: 1px solid rgba(16, 185, 129, 0.2); border-radius: var(--radius-lg); padding: 24px 28px; margin: 32px 0; }
+    .callout__icon { display: flex; align-items: center; gap: 10px; font-size: 14px; font-weight: 600; color: var(--accent); margin-bottom: 12px; }
+    .callout p { margin: 0; color: var(--text-primary); font-size: 15px; }
+
+    .stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px; margin: 32px 0; }
+    .stat-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 24px; text-align: center; }
+    .stat-card__number { font-size: 36px; font-weight: 800; letter-spacing: -0.03em; background: var(--gradient-accent); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .stat-card__label { font-size: 13px; color: var(--text-muted); margin-top: 6px; }
+
+    .automation-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 28px; margin: 32px 0; }
+    .automation-card__header { display: flex; align-items: start; gap: 16px; margin-bottom: 16px; }
+    .automation-card__number { width: 40px; height: 40px; border-radius: 50%; background: var(--accent-subtle); border: 2px solid var(--accent); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 18px; color: var(--accent); flex-shrink: 0; }
+    .automation-card__title { font-size: 20px; font-weight: 700; color: var(--text-primary); margin: 4px 0 8px; }
+    .automation-card__description { font-size: 15px; color: var(--text-secondary); line-height: 1.7; margin-bottom: 16px; }
+    .automation-card__roi { display: inline-block; padding: 6px 12px; background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.2); border-radius: var(--radius-sm); font-size: 13px; font-weight: 600; color: var(--accent); }
+
+    .tool-list { display: grid; gap: 16px; margin: 32px 0; }
+    .tool-item { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 20px 24px; display: flex; align-items: start; gap: 16px; }
+    .tool-item__icon { width: 12px; height: 12px; border-radius: 50%; background: var(--accent); flex-shrink: 0; margin-top: 6px; }
+    .tool-item__content { flex: 1; }
+    .tool-item__title { font-size: 16px; font-weight: 600; color: var(--text-primary); margin-bottom: 6px; }
+    .tool-item__description { font-size: 14px; color: var(--text-secondary); line-height: 1.6; }
+
+    .scenario-block { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 28px; margin: 32px 0; }
+    .scenario-block__label { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); margin-bottom: 12px; }
+    .scenario-block__title { font-size: 18px; font-weight: 700; color: var(--text-primary); margin-bottom: 12px; }
+    .scenario-block p { font-size: 15px; color: var(--text-secondary); margin: 0; line-height: 1.7; }
+
+    .quote { border-left: 4px solid var(--accent); padding: 24px 32px; margin: 40px 0; background: var(--bg-card); border-radius: 0 var(--radius-lg) var(--radius-lg) 0; }
+    .quote__text { font-size: 18px; font-style: italic; line-height: 1.7; color: var(--text-primary); margin-bottom: 16px; }
+    .quote__author { font-size: 14px; color: var(--text-muted); }
+    .quote__author strong { color: var(--accent); }
+
+    .article-cta { background: linear-gradient(135deg, var(--bg-card) 0%, rgba(16, 185, 129, 0.02) 100%); border: 1px solid var(--border); border-radius: var(--radius-xl); padding: 48px; text-align: center; margin: 60px 0; position: relative; overflow: hidden; }
+    .article-cta::before { content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 400px; height: 200px; background: radial-gradient(ellipse, rgba(16, 185, 129, 0.15), transparent); pointer-events: none; }
+    .article-cta__title { font-size: 28px; font-weight: 800; margin-bottom: 12px; position: relative; }
+    .article-cta__text { font-size: 16px; color: var(--text-secondary); margin-bottom: 28px; position: relative; }
+    .article-cta__btn { display: inline-flex; align-items: center; gap: 10px; padding: 16px 32px; background: var(--gradient-accent); color: var(--bg-primary); font-size: 15px; font-weight: 600; border-radius: var(--radius-md); box-shadow: 0 4px 20px rgba(16, 185, 129, 0.3); position: relative; }
+    .article-cta__btn:hover { transform: translateY(-2px); color: var(--bg-primary); }
+
+    .author-bio { display: flex; gap: 24px; padding: 32px; background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-xl); margin-top: 60px; }
+    @media (max-width: 560px) { .author-bio { flex-direction: column; text-align: center; } }
+    .author-bio__avatar { width: 80px; height: 80px; border-radius: var(--radius-lg); background: var(--accent-subtle); border: 2px solid var(--accent); display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 28px; color: var(--accent); flex-shrink: 0; }
+    .author-bio__content { flex: 1; }
+    .author-bio__name { font-size: 18px; font-weight: 700; margin-bottom: 4px; }
+    .author-bio__title { font-size: 14px; color: var(--accent); margin-bottom: 12px; }
+    .author-bio__text { font-size: 14px; color: var(--text-secondary); line-height: 1.6; margin-bottom: 16px; }
+    .author-bio__links { display: flex; gap: 16px; }
+    @media (max-width: 560px) { .author-bio__links { justify-content: center; } }
+    .author-bio__link { font-size: 13px; font-weight: 500; color: var(--text-muted); }
+    .author-bio__link:hover { color: var(--accent); }
+
+    .footer { padding: 60px 0 32px; border-top: 1px solid var(--border); position: relative; z-index: 1; margin-top: 80px; }
+    .footer__inner { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 24px; max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+    .footer__copy { color: var(--text-muted); font-size: 14px; }
+    .footer__links { display: flex; gap: 24px; }
+    .footer__link { color: var(--text-secondary); font-size: 14px; font-weight: 500; }
+    .footer__link:hover { color: var(--accent); }
+  </style>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="icon" type="image/png" href="/favicon.png">
+</head>
+<body>
+  <div class="bg-grid"></div>
+  <div class="bg-gradient"></div>
+
+  <nav class="nav" id="nav">
+    <div class="nav__inner">
+      <a href="/" class="nav__logo">Resultant<span>AI</span></a>
+      <div class="nav__links">
+        <div class="nav__dropdown">
+          <div class="nav__dropdown-trigger nav__link">
+            Industries ▾
+          </div>
+          <div class="nav__dropdown-content">
+            <div class="nav__dropdown-grid">
+              <div class="nav__dropdown-section">
+                <h4>High-ROI Verticals</h4>
+                <a href="/staffing.html" class="nav__dropdown-link">Staffing Agencies</a>
+                <a href="/cpa.html" class="nav__dropdown-link">CPA Firms</a>
+                <a href="/logistics.html" class="nav__dropdown-link">Logistics & Freight</a>
+              </div>
+              <div class="nav__dropdown-section">
+                <h4>More Verticals</h4>
+                <a href="/dental/" class="nav__dropdown-link">Dental Practices</a>
+                <a href="/healthcare/" class="nav__dropdown-link">Healthcare & Medical</a>
+                <a href="/concrete.html" class="nav__dropdown-link">Concrete & Dispatch</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="nav__dropdown">
+          <div class="nav__dropdown-trigger nav__link">
+            Solutions ▾
+          </div>
+          <div class="nav__dropdown-content">
+            <div class="nav__dropdown-grid">
+              <div class="nav__dropdown-section">
+                <h4>Pre-Built Solutions</h4>
+                <a href="/voice-ai/" class="nav__dropdown-link">Voice AI Agents</a>
+                <a href="/automation/" class="nav__dropdown-link">Workflow Automation</a>
+                <a href="/dental/" class="nav__dropdown-link">Dental AI Receptionist</a>
+                <a href="/integrations/" class="nav__dropdown-link">Integrations</a>
+              </div>
+              <div class="nav__dropdown-section">
+                <h4>Custom Solutions</h4>
+                <a href="/field-service-automation/" class="nav__dropdown-link">Field Service Automation</a>
+                <a href="/lp/hvac-automation/" class="nav__dropdown-link">HVAC Automation</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <a href="/faq/" class="nav__link">FAQ</a>
+        <a href="/blog" class="nav__link">Blog</a>
+        <a href="https://meetings.hubspot.com/chris4642/ai-gateway-founding-partner" class="nav__cta">Book a Call</a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="article-header">
+    <div class="container">
+      <nav class="article-header__breadcrumb">
+        <a href="/">Home</a>
+        <span>/</span>
+        <a href="/blog">Blog</a>
+        <span>/</span>
+        <span>ServiceTitan Automation Guide</span>
+      </nav>
+      <span class="article-header__category">Automation</span>
+      <h1 class="article-header__title">ServiceTitan Automation in 2026: What You Can Automate (And What Still Requires a Human)</h1>
+      <p class="article-header__excerpt">ServiceTitan is the gold standard for field service businesses. But most contractors use maybe 30% of what it can do and miss the biggest ROI opportunities entirely. This guide covers what is actually worth automating in ServiceTitan and how to do it.</p>
+      <div class="article-header__meta">
+        <div class="article-header__author">
+          <div class="article-header__author-avatar">CM</div>
+          <div>
+            <div class="article-header__author-name">Chris Mott</div>
+            <div class="article-header__author-title">Founder, ResultantAI</div>
+          </div>
+        </div>
+        <div class="article-header__info">
+          <span>Feb 28, 2026</span>
+          <span>&#8226;</span>
+          <span>10 min read</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="container container--wide">
+    <div class="article-hero-image">
+      <img src="https://images.unsplash.com/photo-1621905251918-48416bd8575a?w=1200&h=600&fit=crop" alt="ServiceTitan dashboard on laptop">
+    </div>
+  </div>
+
+  <article class="article-content">
+    <div class="container">
+      <p style="background:rgba(16,185,129,0.08);border-left:3px solid #10b981;padding:12px 16px;border-radius:6px;margin-bottom:2rem;font-size:0.9rem;">Running an HVAC, plumbing, or electrical business? See our complete <a href="/lp/hvac-automation/" style="color:#10b981;font-weight:600;">HVAC automation guide</a> with pre-built ServiceTitan workflows.</p>
+
+      <div class="tldr-box">
+        <div class="tldr-box__title">TL;DR</div>
+        <ul>
+          <li><strong>ServiceTitan is powerful</strong> but most contractors only use the basics: scheduling, dispatch, and customer records.</li>
+          <li><strong>The automation gap:</strong> After-hours calls, estimate follow-ups, pre-appointment reminders, and job alerts still require manual work or third-party tools.</li>
+          <li><strong>Top 5 automations:</strong> After-hours call capture, unsold estimate follow-up, appointment confirmations, review requests, and dispatch overtime alerts.</li>
+          <li><strong>Best tools:</strong> ServiceTitan API + Make.com for custom logic, Zapier for simple triggers, or voice AI platforms for call handling.</li>
+          <li><strong>What not to automate:</strong> Complex dispatching, customer complaints, and relationship-driven sales.</li>
+        </ul>
+      </div>
+
+      <h2>What ServiceTitan Already Does (Built-In)</h2>
+
+      <p>Before we talk about what to automate, let's acknowledge what ServiceTitan already handles out of the box. If you are on the Pro or above plan, you have access to:</p>
+
+      <ul>
+        <li><strong>Job scheduling and dispatch board:</strong> Visual drag-and-drop scheduling with zone-based routing and technician assignments.</li>
+        <li><strong>Customer history and tags:</strong> Every job, invoice, and interaction logged in one place with custom tagging for segmentation.</li>
+        <li><strong>Technician mobile app:</strong> Field techs can view job details, capture photos, collect signatures, and process payments on-site.</li>
+        <li><strong>Basic booking forms:</strong> Embed a form on your website that creates leads directly in ServiceTitan.</li>
+        <li><strong>Memberships and recurring jobs:</strong> Set up maintenance plans and auto-schedule recurring service visits.</li>
+        <li><strong>Pricebook management:</strong> Centralized pricing with materials, labor, and markup all configured in one system.</li>
+      </ul>
+
+      <p>This is solid infrastructure. Most field service businesses would kill for this level of integration. But here is the problem: <strong>ServiceTitan handles the work that happens inside your four walls.</strong> It does not handle the work that happens in the gaps between customer touchpoints.</p>
+
+      <h2>The Automation Gap (What ServiceTitan Doesn't Do)</h2>
+
+      <p>ServiceTitan is a system of record, not a system of automation. It tracks what happened, but it does not proactively do things on your behalf unless you configure workflows or connect external tools. Here is what still falls through the cracks:</p>
+
+      <ul>
+        <li><strong>Answer your phones at 2am:</strong> ServiceTitan does not pick up the phone. After-hours calls go to voicemail or an answering service you pay for separately.</li>
+        <li><strong>Follow up on unsold estimates:</strong> You can see opportunities sitting in "Estimate Sent" status, but ServiceTitan will not automatically nudge the customer 3 days later.</li>
+        <li><strong>Send pre-appointment reminders automatically:</strong> ServiceTitan has basic SMS reminders, but they are limited. You cannot build conditional logic like "send different messages for emergency vs. routine jobs."</li>
+        <li><strong>Push job notes to Google Sheets or accounting systems:</strong> ServiceTitan integrates with QuickBooks, but custom workflows (like logging job profitability to a dashboard) require API work.</li>
+        <li><strong>Alert on jobs going past estimated time:</strong> If a 2-hour job is now on hour 3, ServiceTitan does not automatically ping the dispatcher or text the customer with an update.</li>
+        <li><strong>Auto-assign jobs based on technician skills, not just zones:</strong> ServiceTitan can route by location, but matching jobs to certifications (like "needs backflow certification") requires manual checks or custom scripting.</li>
+      </ul>
+
+      <p>These gaps are where revenue leaks. A missed after-hours call is a lost job worth $500 to $2,000. An unsold estimate that never gets followed up on is a 15-25% close rate improvement left on the table. This is where automation pays for itself.</p>
+
+      <h2>5 ServiceTitan Automations Worth Building</h2>
+
+      <div class="automation-card">
+        <div class="automation-card__header">
+          <div class="automation-card__number">1</div>
+          <div style="flex: 1;">
+            <h3 class="automation-card__title">After-Hours Call Capture</h3>
+          </div>
+        </div>
+        <p class="automation-card__description">A voice AI agent answers after-hours calls, qualifies the emergency, collects customer details, and creates a ServiceTitan job automatically with full call notes and transcription. The on-call technician gets a text alert with the job link, customer info, and problem summary.</p>
+        <span class="automation-card__roi">ROI: Recover $500-$2K per emergency job you would have otherwise missed</span>
+      </div>
+
+      <div class="automation-card">
+        <div class="automation-card__header">
+          <div class="automation-card__number">2</div>
+          <div style="flex: 1;">
+            <h3 class="automation-card__title">Unsold Estimate Follow-Up</h3>
+          </div>
+        </div>
+        <p class="automation-card__description">When an estimate sits in "Opportunity" status for 3 days without being sold or declined, trigger an automated text and email sequence. First message: "Still thinking it over? Here's what we can do for you." Second message 2 days later: "We have availability this week if you'd like to move forward."</p>
+        <span class="automation-card__roi">ROI: Close rate improvement of 15-25% on warm estimates</span>
+      </div>
+
+      <div class="automation-card">
+        <div class="automation-card__header">
+          <div class="automation-card__number">3</div>
+          <div style="flex: 1;">
+            <h3 class="automation-card__title">Pre-Appointment Confirmation</h3>
+          </div>
+        </div>
+        <p class="automation-card__description">Send an automated SMS 24 hours before the scheduled appointment: "Your HVAC tune-up is tomorrow at 2pm. Reply YES to confirm or CALL to reschedule." Then send a second reminder 2 hours before arrival: "Your tech will arrive in the next 2 hours. His name is Mike and here's his photo."</p>
+        <span class="automation-card__roi">ROI: Reduce no-shows from 20-30% down to under 5%</span>
+      </div>
+
+      <div class="automation-card">
+        <div class="automation-card__header">
+          <div class="automation-card__number">4</div>
+          <div style="flex: 1;">
+            <h3 class="automation-card__title">Job Completion to Review Request</h3>
+          </div>
+        </div>
+        <p class="automation-card__description">When a job status changes to "Completed" in ServiceTitan, wait 2 hours, then automatically send the customer a text: "Thanks for choosing us! Mind leaving a quick Google review?" Include a direct link to your Google Business Profile review form.</p>
+        <span class="automation-card__roi">ROI: Build your reputation automatically without manual outreach</span>
+      </div>
+
+      <div class="automation-card">
+        <div class="automation-card__header">
+          <div class="automation-card__number">5</div>
+          <div style="flex: 1;">
+            <h3 class="automation-card__title">Dispatch Alert on Overtime</h3>
+          </div>
+        </div>
+        <p class="automation-card__description">Monitor job duration in real-time. When a job runs 30 minutes past the estimated completion time, send an automatic alert to the dispatcher and a proactive text to the customer: "Your tech is working through a complexity with your system. He'll need about 30 more minutes. Thanks for your patience."</p>
+        <span class="automation-card__roi">ROI: Prevent complaints and improve customer satisfaction on long jobs</span>
+      </div>
+
+      <h2>How to Build These (Tools)</h2>
+
+      <p>You have four main options for building ServiceTitan automations. Each has trade-offs in flexibility, cost, and setup time.</p>
+
+      <div class="tool-list">
+        <div class="tool-item">
+          <div class="tool-item__icon"></div>
+          <div class="tool-item__content">
+            <div class="tool-item__title">ServiceTitan API + Make.com</div>
+            <div class="tool-item__description">The most flexible approach for custom logic. Make.com lets you build visual workflows that connect ServiceTitan to 1,500+ apps. You can add conditional logic, data transformations, multi-step sequences, and error handling. Best for contractors who want full control and have complex workflows. Setup time: 2-5 days per automation depending on complexity.</div>
+          </div>
+        </div>
+
+        <div class="tool-item">
+          <div class="tool-item__icon"></div>
+          <div class="tool-item__content">
+            <div class="tool-item__title">ServiceTitan Zapier Integration</div>
+            <div class="tool-item__description">Good for simple triggers like "when job status changes, do X." Zapier has pre-built ServiceTitan actions but less flexibility than Make.com for complex logic. Best for straightforward automations like "new job creates a Slack notification." Setup time: 30 minutes to 2 hours.</div>
+          </div>
+        </div>
+
+        <div class="tool-item">
+          <div class="tool-item__icon"></div>
+          <div class="tool-item__content">
+            <div class="tool-item__title">ServiceTitan's Built-In Automations</div>
+            <div class="tool-item__description">ServiceTitan offers basic reminder workflows and booking confirmations inside the platform. These work fine for simple use cases but lack the conditional logic and third-party integrations you need for advanced automation. Best for getting started without external tools. Setup time: minutes.</div>
+          </div>
+        </div>
+
+        <div class="tool-item">
+          <div class="tool-item__icon"></div>
+          <div class="tool-item__content">
+            <div class="tool-item__title">Third-Party Voice AI (like ResultantAI)</div>
+            <div class="tool-item__description">Purpose-built for call handling and customer communication. A voice AI agent can answer calls, qualify jobs, book appointments, and push data directly into ServiceTitan via API. Best for after-hours coverage, overflow calls, and lead qualification. See our <a href="/lp/hvac-automation/">HVAC automation service</a> for pre-built ServiceTitan integrations. Setup time: 5-14 days including testing.</div>
+          </div>
+        </div>
+      </div>
+
+      <p>For most contractors, the winning combination is <strong>Make.com for workflow automation + voice AI for call handling.</strong> You get the best of both: intelligent call routing and human-like conversations on the phone, plus custom logic for everything that happens after the call ends.</p>
+
+      <h2>What NOT to Automate in ServiceTitan</h2>
+
+      <p>Automation is not a blanket solution. Some parts of your business still need human judgment, relationship skills, or real-time decision-making. Here is what you should leave to your team:</p>
+
+      <ul>
+        <li><strong>Dispatching complex jobs:</strong> Zone logic plus skill matching plus travel time plus customer priority equals a decision that still benefits from human judgment. Automation can suggest options, but your dispatcher should make the final call.</li>
+        <li><strong>Customer complaints:</strong> If a customer calls angry about a job gone wrong, they need a human who can listen, empathize, and problem-solve in real time. Do not route complaint calls to a bot or automation sequence.</li>
+        <li><strong>New membership sales:</strong> Selling a recurring maintenance plan is relationship-driven. Customers want to ask questions, negotiate terms, and feel confident in the commitment. Automate the follow-up reminders, but keep the sales conversation human.</li>
+      </ul>
+
+      <p>The rule of thumb: <strong>automate the repetitive tasks that do not require empathy or judgment.</strong> Everything else should stay with your team.</p>
+
+      <h2>Getting Started (3 Steps)</h2>
+
+      <p>If you are ready to build your first ServiceTitan automation, here is how to start without getting overwhelmed:</p>
+
+      <ol>
+        <li><strong>Audit your current ServiceTitan usage:</strong> What tasks are you doing manually that could be automated? Look at your call logs, estimate pipeline, and job completion workflows. Identify the biggest time sinks and revenue leaks.</li>
+        <li><strong>Pick one automation to start:</strong> Do not try to automate everything at once. Start with the highest ROI opportunity. For most contractors, that is after-hours call capture because it directly recovers lost revenue on emergency jobs.</li>
+        <li><strong>Connect your tools:</strong> If you are building custom workflows, sign up for Make.com and connect it to ServiceTitan via API. If you are automating call handling, evaluate voice AI platforms that have pre-built ServiceTitan integrations. Test thoroughly before going live.</li>
+      </ol>
+
+      <p>Give yourself 2-4 weeks for the first automation. Once it is live and working, you will have the template and confidence to build the next one faster.</p>
+
+      <h2>Real Example</h2>
+
+      <div class="scenario-block">
+        <div class="scenario-block__label">Case Study: HVAC Contractor</div>
+        <div class="scenario-block__title">Automated Call Logging Saves 2 Hours Per Day</div>
+        <p>One HVAC client we worked with was manually logging 40-50 calls per day into ServiceTitan. Their office manager would listen to voicemails, transcribe the details, and create job records by hand. We built a Make.com scenario that pushed call transcripts from their phone system directly into ServiceTitan as new jobs, complete with customer name, callback number, and problem description. The automation saved 2 hours per day and eliminated transcription errors that used to cause dispatch confusion.</p>
+      </div>
+
+      <div class="callout">
+        <div class="callout__icon">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          ROI math on after-hours automation
+        </div>
+        <p>If you miss 10 after-hours calls per month at an average job value of $800, that is <strong>$8,000/month in lost revenue.</strong> A voice AI agent that captures those calls costs $297-$497/month. Even if you only recover half the missed calls, you are looking at a 8x ROI in month one.</p>
+      </div>
+
+      <div class="article-cta">
+        <div class="article-cta__title">Need Help Automating ServiceTitan?</div>
+        <div class="article-cta__text">We build custom ServiceTitan automations for HVAC, plumbing, and electrical contractors. Pre-built workflows, voice AI integration, and full API setup included.</div>
+        <a href="https://meetings.hubspot.com/chris4642/ai-gateway-founding-partner" class="article-cta__btn">
+          Book a Strategy Call
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+
+      <h2>Frequently Asked Questions</h2>
+
+      <h3>Does ServiceTitan have an open API?</h3>
+      <p>Yes. ServiceTitan provides a robust REST API available on Pro and above plans. The API gives you access to customer records, job data, appointment scheduling, pricebook items, and more. It supports both reading data and creating/updating records, which makes it suitable for two-way integrations with automation platforms.</p>
+
+      <h3>Can I connect ServiceTitan to Make.com?</h3>
+      <p>Yes. You can connect ServiceTitan to Make.com in two ways: using Make's built-in ServiceTitan modules (which provide pre-configured actions for common tasks) or via webhooks and direct API calls for more complex workflows. Most contractors use a combination of both depending on what they are automating.</p>
+
+      <h3>How long does a custom ServiceTitan automation take to build?</h3>
+      <p>Simple automations like SMS reminders or estimate follow-ups typically take 1-2 days to build and test. Multi-step workflows that involve conditional logic, data transformation, or multiple system integrations usually take 1-2 weeks. The timeline depends on complexity, how many systems you are connecting, and how much testing you want before going live.</p>
+
+      <h2>Related Resources</h2>
+
+      <ul>
+        <li><a href="/lp/hvac-automation/">HVAC Automation Services</a> - Pre-built ServiceTitan workflows and voice AI integrations</li>
+        <li><a href="/automation/">Workflow Automation Guide</a> - How to choose the right automation platform for your business</li>
+        <li><a href="/integrations/">Integration Hub</a> - Connect ServiceTitan to 1,500+ business tools</li>
+        <li><a href="/blog/make-vs-n8n-2026/">Make.com vs n8n in 2026</a> - Which automation platform is right for field service companies</li>
+      </ul>
+
+      <div class="author-bio">
+        <div class="author-bio__avatar">CM</div>
+        <div class="author-bio__content">
+          <div class="author-bio__name">Chris Mott</div>
+          <div class="author-bio__title">Founder, ResultantAI</div>
+          <div class="author-bio__text">I build AI systems for service businesses - voice agents, dispatch automation, and revenue recovery tools. Deployed in plumbing, HVAC, dental, healthcare, and logistics. Previously built software teams at scale.</div>
+          <div class="author-bio__links">
+            <a href="https://linkedin.com/in/chrismott1" class="author-bio__link">LinkedIn</a>
+            <a href="/blog" class="author-bio__link">More Posts</a>
+            <a href="/voice-ai/" class="author-bio__link">Voice AI Hub</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <footer class="footer">
+    <div class="footer__inner">
+      <div class="footer__copy">&copy; 2026 ResultantAI. Revenue systems for service businesses.</div>
+      <div class="footer__links">
+        <a href="/" class="footer__link">Home</a>
+        <a href="/voice-ai/" class="footer__link">Voice AI</a>
+        <a href="/services/" class="footer__link">Services</a>
+        <a href="/faq/" class="footer__link">FAQ</a>
+        <a href="/blog" class="footer__link">Blog</a>
+        <a href="https://meetings.hubspot.com/chris4642/ai-gateway-founding-partner" class="footer__link">Book a Call</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 20);
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Terms of Service | ResultantAI</title>
+  <meta name="description" content="ResultantAI terms of service governing the use of our AI automation and voice AI services.">
+
+  <link rel="canonical" href="https://resultantai.com/terms/">
+
+  <meta property="og:title" content="Terms of Service | ResultantAI">
+  <meta property="og:description" content="ResultantAI terms of service governing the use of our AI automation and voice AI services.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://resultantai.com/terms/">
+  <meta property="og:site_name" content="ResultantAI">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Terms of Service | ResultantAI">
+  <meta name="twitter:description" content="ResultantAI terms of service governing the use of our AI automation and voice AI services.">
+
+  <meta name="robots" content="index, follow">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "Terms of Service",
+    "description": "ResultantAI terms of service outlining the legal agreement between ResultantAI and its clients.",
+    "url": "https://resultantai.com/terms/",
+    "publisher": {"@type": "Organization", "name": "ResultantAI", "url": "https://resultantai.com"}
+  }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="/favicon.png">
+
+  <style>
+    :root {
+      --bg-primary: #0a0f1a;
+      --bg-secondary: #0f172a;
+      --bg-card: #151d2e;
+      --bg-card-hover: #1a2540;
+      --border: #1e293b;
+      --border-light: #334155;
+      --text-primary: #ffffff;
+      --text-secondary: #94a3b8;
+      --text-muted: #64748b;
+      --accent: #10b981;
+      --accent-light: #34d399;
+      --accent-subtle: rgba(16, 185, 129, 0.08);
+      --accent-glow: rgba(16, 185, 129, 0.4);
+      --font-sans: 'Inter', -apple-system, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 16px;
+      --radius-xl: 24px;
+      --radius-full: 9999px;
+      --shadow-card: 0 4px 24px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.03);
+      --transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+    body { font-family: var(--font-sans); background: var(--bg-primary); color: var(--text-primary); line-height: 1.6; overflow-x: hidden; }
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+
+    .bg-grid {
+      position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+      background-image: linear-gradient(rgba(16, 185, 129, 0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(16, 185, 129, 0.03) 1px, transparent 1px);
+      background-size: 60px 60px; pointer-events: none; z-index: 0;
+    }
+
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+    .container--narrow { max-width: 860px; margin: 0 auto; padding: 0 24px; }
+    .section { padding: 120px 0; position: relative; z-index: 1; }
+    .section--tight { padding: 80px 0; }
+
+    .legal-header { padding-top: 140px; padding-bottom: 60px; text-align: center; }
+    .legal-header__label { font-family: var(--font-mono); font-size: 12px; font-weight: 600; color: var(--accent); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 16px; }
+    .legal-header__title { font-size: clamp(36px, 5vw, 56px); font-weight: 800; letter-spacing: -0.03em; line-height: 1.1; margin-bottom: 16px; }
+    .legal-header__date { font-size: 14px; color: var(--text-muted); font-family: var(--font-mono); }
+
+    .legal-content { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-xl); padding: 48px; margin-bottom: 80px; }
+    .legal-content h2 { font-size: 28px; font-weight: 700; margin-top: 48px; margin-bottom: 16px; color: var(--accent); }
+    .legal-content h2:first-child { margin-top: 0; }
+    .legal-content h3 { font-size: 20px; font-weight: 600; margin-top: 32px; margin-bottom: 12px; color: var(--text-primary); }
+    .legal-content p { font-size: 16px; color: var(--text-secondary); line-height: 1.8; margin-bottom: 16px; }
+    .legal-content ul { margin-left: 24px; margin-bottom: 16px; }
+    .legal-content li { font-size: 16px; color: var(--text-secondary); line-height: 1.8; margin-bottom: 8px; }
+    .legal-content a { color: var(--accent); text-decoration: underline; }
+    .legal-content a:hover { color: var(--accent-light); }
+    .legal-content strong { color: var(--text-primary); font-weight: 600; }
+    .legal-content .highlight-box { background: var(--accent-subtle); border-left: 3px solid var(--accent); padding: 20px 24px; border-radius: var(--radius-md); margin: 24px 0; }
+    .legal-content .highlight-box p { margin-bottom: 0; }
+
+    @media (max-width: 768px) {
+      .legal-content { padding: 32px 24px; }
+    }
+
+    /* FOOTER */
+    .footer { border-top: 1px solid var(--border); padding: 64px 0 40px; position: relative; z-index: 1; }
+    .footer__grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px; margin-bottom: 48px; }
+    @media (max-width: 768px) { .footer__grid { grid-template-columns: 1fr 1fr; } }
+    .footer__brand-logo { font-size: 22px; font-weight: 800; letter-spacing: -0.03em; margin-bottom: 16px; }
+    .footer__brand-logo span { background: linear-gradient(135deg, #10b981 0%, #34d399 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .footer__tagline { font-size: 14px; color: var(--text-muted); line-height: 1.6; margin-bottom: 8px; }
+    .footer__column h4 { font-size: 13px; font-weight: 700; color: var(--text-primary); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 16px; }
+    .footer__links { display: flex; flex-direction: column; gap: 10px; }
+    .footer__link { font-size: 14px; color: var(--text-muted); transition: color var(--transition); }
+    .footer__link:hover { color: var(--accent); }
+    .footer__bottom { border-top: 1px solid var(--border); padding-top: 32px; font-size: 13px; color: var(--text-muted); text-align: center; }
+  </style>
+</head>
+<body>
+
+<div class="bg-grid"></div>
+
+<!-- NAV -->
+<nav style="position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 16px 24px; background: rgba(10,15,26,0.9); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between;">
+  <a href="/" style="font-size: 1.125rem; font-weight: 700; color: var(--text-primary); text-decoration: none;">Resultant<span style="color: var(--accent);">AI</span></a>
+  <div style="display: flex; gap: 32px; align-items: center;">
+    <a href="/voice-ai/" style="color: var(--text-secondary); text-decoration: none; font-size: 0.9rem;">Voice AI</a>
+    <a href="/automation/" style="color: var(--text-secondary); text-decoration: none; font-size: 0.9rem;">Automation</a>
+    <a href="/field-service-automation/" style="color: var(--text-secondary); text-decoration: none; font-size: 0.9rem;">Field Service</a>
+    <a href="/blog" style="color: var(--text-secondary); text-decoration: none; font-size: 0.9rem;">Blog</a>
+  </div>
+  <a href="https://meetings.hubspot.com/chris4642/ai-gateway-founding-partner" style="background: var(--accent); color: #000; padding: 10px 20px; border-radius: 8px; font-weight: 600; text-decoration: none; font-size: 0.9rem;">Book a Call</a>
+</nav>
+
+<!-- HEADER -->
+<section class="legal-header">
+  <div class="container--narrow">
+    <div class="legal-header__label">Legal</div>
+    <h1 class="legal-header__title">Terms of Service</h1>
+    <div class="legal-header__date">Last updated: February 2026</div>
+  </div>
+</section>
+
+<!-- CONTENT -->
+<section class="section--tight">
+  <div class="container--narrow">
+    <div class="legal-content">
+
+      <p>These Terms of Service ("Terms") govern your access to and use of the services provided by ResultantAI ("ResultantAI," "we," "us," or "our"). By engaging with our services, you ("Client," "you," or "your") agree to be bound by these Terms.</p>
+
+      <div class="highlight-box">
+        <p><strong>In short:</strong> These terms cover AI automation, voice AI, and workflow automation services. Payment and deliverables are scoped per engagement. You own custom work upon full payment. We retain rights to our underlying tools and frameworks.</p>
+      </div>
+
+      <h2>1. Services Provided</h2>
+
+      <p>ResultantAI provides AI-powered automation services for service-based businesses, including but not limited to:</p>
+      <ul>
+        <li><strong>Voice AI:</strong> AI-powered phone answering, call routing, and customer communication</li>
+        <li><strong>Workflow Automation:</strong> Process automation for lead management, follow-up sequences, and operational tasks</li>
+        <li><strong>AI Integration:</strong> Integration of AI tools with existing business software (CRMs, field service management systems, etc.)</li>
+        <li><strong>Custom AI Solutions:</strong> Tailored automation and AI agent development</li>
+      </ul>
+
+      <p>Specific services, deliverables, timelines, and fees are outlined in individual Statements of Work (SOWs) or service agreements.</p>
+
+      <h2>2. Scope of Work and Engagements</h2>
+
+      <p>Each engagement is governed by a Statement of Work (SOW) that specifies:</p>
+      <ul>
+        <li>Project scope and deliverables</li>
+        <li>Timeline and milestones</li>
+        <li>Pricing and payment terms</li>
+        <li>Client responsibilities and dependencies</li>
+      </ul>
+
+      <p>Work outside the agreed-upon scope requires a separate SOW or written amendment.</p>
+
+      <h2>3. Payment Terms</h2>
+
+      <h3>Pricing</h3>
+      <p>Services are priced on a custom basis per engagement. Pricing models may include:</p>
+      <ul>
+        <li>Fixed-price project fees</li>
+        <li>Monthly retainer agreements</li>
+        <li>Hourly consulting rates</li>
+        <li>Usage-based pricing (e.g., per call, per automation run)</li>
+      </ul>
+
+      <h3>Payment Schedule</h3>
+      <p>Payment terms are outlined in each SOW. Standard terms include:</p>
+      <ul>
+        <li><strong>Upfront Payment:</strong> 50% deposit required before project kickoff for fixed-price projects</li>
+        <li><strong>Milestone Payments:</strong> Payments due upon completion of agreed-upon milestones</li>
+        <li><strong>Monthly Retainers:</strong> Due on the 1st of each month for ongoing services</li>
+        <li><strong>Invoice Terms:</strong> Net 15 days unless otherwise specified</li>
+      </ul>
+
+      <h3>Late Payments</h3>
+      <p>Late payments may incur a 1.5% monthly interest charge. ResultantAI reserves the right to suspend services for accounts more than 30 days past due.</p>
+
+      <h2>4. Deliverables and Ownership</h2>
+
+      <h3>Client Ownership</h3>
+      <p>Upon full payment, the Client owns all custom deliverables created specifically for their engagement, including:</p>
+      <ul>
+        <li>Custom AI workflows and automation scripts</li>
+        <li>Voice AI scripts and conversational flows tailored to the Client's business</li>
+        <li>Integration code specific to the Client's systems</li>
+      </ul>
+
+      <h3>ResultantAI Intellectual Property</h3>
+      <p>ResultantAI retains ownership of:</p>
+      <ul>
+        <li>Underlying tools, frameworks, and methodologies</li>
+        <li>Pre-existing code, libraries, and software components</li>
+        <li>General knowledge, techniques, and processes developed independently or prior to the engagement</li>
+      </ul>
+
+      <h3>License Grant</h3>
+      <p>Upon full payment, the Client receives a perpetual, non-exclusive, royalty-free license to use all custom deliverables for their business purposes. The Client may not resell, sublicense, or redistribute ResultantAI's work as a standalone product or service.</p>
+
+      <h2>5. Confidentiality</h2>
+
+      <p>Both parties agree to maintain the confidentiality of any proprietary or sensitive information shared during the engagement, including:</p>
+      <ul>
+        <li>Business strategies, processes, and operational details</li>
+        <li>Customer data and personally identifiable information (PII)</li>
+        <li>Technical specifications, code, and system architecture</li>
+        <li>Pricing, financial information, and contract terms</li>
+      </ul>
+
+      <p>Confidential information may not be disclosed to third parties without prior written consent, except as required by law.</p>
+
+      <h3>Exceptions</h3>
+      <p>Confidentiality obligations do not apply to information that:</p>
+      <ul>
+        <li>Is publicly available or becomes publicly available through no fault of the receiving party</li>
+        <li>Was independently developed without use of the disclosing party's confidential information</li>
+        <li>Is disclosed with written approval from the disclosing party</li>
+      </ul>
+
+      <h2>6. Client Responsibilities</h2>
+
+      <p>To ensure successful project delivery, the Client agrees to:</p>
+      <ul>
+        <li>Provide timely access to necessary systems, data, and personnel</li>
+        <li>Respond to information requests and approve deliverables within agreed-upon timelines</li>
+        <li>Ensure that any data provided to ResultantAI complies with applicable privacy and data protection laws</li>
+        <li>Notify ResultantAI immediately of any issues or concerns with the services</li>
+      </ul>
+
+      <p>Delays caused by Client unresponsiveness or failure to provide necessary resources may result in timeline adjustments or additional fees.</p>
+
+      <h2>7. Warranties and Disclaimers</h2>
+
+      <h3>ResultantAI Warranties</h3>
+      <p>ResultantAI warrants that:</p>
+      <ul>
+        <li>Services will be performed in a professional and workmanlike manner</li>
+        <li>Deliverables will substantially conform to the specifications outlined in the SOW</li>
+        <li>We will use commercially reasonable efforts to meet project timelines</li>
+      </ul>
+
+      <h3>Disclaimer of Other Warranties</h3>
+      <p>Except as expressly stated above, ResultantAI provides services on an "as is" basis. We disclaim all other warranties, express or implied, including but not limited to:</p>
+      <ul>
+        <li>Implied warranties of merchantability, fitness for a particular purpose, and non-infringement</li>
+        <li>Guarantees of specific business outcomes, revenue increases, or cost savings</li>
+        <li>Uninterrupted or error-free operation of AI systems or integrations</li>
+      </ul>
+
+      <p>AI-powered systems may produce unpredictable results. While we implement quality controls and testing, the Client is responsible for monitoring AI outputs and ensuring compliance with their business requirements.</p>
+
+      <h2>8. Limitation of Liability</h2>
+
+      <p>To the maximum extent permitted by law:</p>
+      <ul>
+        <li>ResultantAI's total liability for any claims arising out of or related to these Terms or the services shall not exceed the fees paid by the Client to ResultantAI in the three (3) months prior to the event giving rise to the claim.</li>
+        <li>ResultantAI shall not be liable for any indirect, incidental, consequential, punitive, or special damages, including but not limited to lost profits, lost revenue, lost data, or business interruption, even if advised of the possibility of such damages.</li>
+      </ul>
+
+      <h3>Exceptions</h3>
+      <p>The above limitations do not apply to:</p>
+      <ul>
+        <li>Gross negligence or willful misconduct by ResultantAI</li>
+        <li>Violations of confidentiality obligations</li>
+        <li>Indemnification obligations outlined in Section 9</li>
+        <li>Liabilities that cannot be limited under applicable law</li>
+      </ul>
+
+      <h2>9. Indemnification</h2>
+
+      <p>The Client agrees to indemnify, defend, and hold harmless ResultantAI from any claims, damages, or expenses arising from:</p>
+      <ul>
+        <li>The Client's use of deliverables in violation of these Terms</li>
+        <li>Data provided by the Client that violates third-party rights or applicable laws</li>
+        <li>The Client's failure to comply with applicable laws or regulations</li>
+      </ul>
+
+      <p>ResultantAI agrees to indemnify the Client from claims that deliverables created solely by ResultantAI infringe third-party intellectual property rights, provided the Client promptly notifies ResultantAI of such claims.</p>
+
+      <h2>10. Termination</h2>
+
+      <h3>Termination for Convenience</h3>
+      <p>Either party may terminate an ongoing engagement with thirty (30) days written notice.</p>
+
+      <h3>Termination for Cause</h3>
+      <p>Either party may terminate immediately if:</p>
+      <ul>
+        <li>The other party materially breaches these Terms and fails to cure within 15 days of written notice</li>
+        <li>The other party becomes insolvent or files for bankruptcy</li>
+      </ul>
+
+      <h3>Effect of Termination</h3>
+      <ul>
+        <li>The Client remains obligated to pay for all work completed up to the termination date</li>
+        <li>ResultantAI will deliver any completed work and transfer ownership per Section 4</li>
+        <li>Confidentiality obligations survive termination indefinitely</li>
+        <li>License grants for fully paid deliverables remain in effect</li>
+      </ul>
+
+      <h2>11. Data Protection and Compliance</h2>
+
+      <p>ResultantAI processes Client data in accordance with our <a href="/privacy/">Privacy Policy</a>. The Client represents and warrants that:</p>
+      <ul>
+        <li>They have obtained all necessary consents and permissions to share data with ResultantAI</li>
+        <li>Data provided complies with applicable privacy laws (e.g., GDPR, CCPA, HIPAA where applicable)</li>
+        <li>They have implemented appropriate security measures for data shared with ResultantAI</li>
+      </ul>
+
+      <h3>HIPAA (Healthcare Clients)</h3>
+      <p>If the Client is a covered entity under HIPAA, a separate Business Associate Agreement (BAA) must be executed before any Protected Health Information (PHI) is shared.</p>
+
+      <h2>12. Third-Party Services</h2>
+
+      <p>ResultantAI may integrate third-party services (e.g., HubSpot, Twilio, Google Cloud, OpenAI) into Client solutions. The Client's use of such services is subject to the third party's terms and conditions. ResultantAI is not responsible for third-party service outages, pricing changes, or policy updates.</p>
+
+      <h2>13. Modifications to Terms</h2>
+
+      <p>ResultantAI reserves the right to modify these Terms at any time. Changes will be posted on this page with an updated "Last updated" date. Continued use of services after changes constitutes acceptance of the modified Terms.</p>
+
+      <p>For ongoing engagements, material changes will be communicated to the Client with at least 30 days notice.</p>
+
+      <h2>14. Governing Law and Dispute Resolution</h2>
+
+      <h3>Governing Law</h3>
+      <p>These Terms shall be governed by and construed in accordance with the laws of the State of Delaware, without regard to its conflict of law principles.</p>
+
+      <h3>Dispute Resolution</h3>
+      <p>In the event of a dispute:</p>
+      <ul>
+        <li><strong>Negotiation:</strong> Parties agree to first attempt resolution through good-faith negotiation</li>
+        <li><strong>Mediation:</strong> If negotiation fails, parties agree to attempt mediation before pursuing litigation</li>
+        <li><strong>Jurisdiction:</strong> Any legal action shall be brought in the state or federal courts located in Delaware</li>
+      </ul>
+
+      <h2>15. General Provisions</h2>
+
+      <h3>Entire Agreement</h3>
+      <p>These Terms, together with any applicable SOWs, constitute the entire agreement between the parties and supersede all prior agreements or understandings, whether written or oral.</p>
+
+      <h3>Severability</h3>
+      <p>If any provision of these Terms is found to be unenforceable, the remaining provisions shall remain in full force and effect.</p>
+
+      <h3>Waiver</h3>
+      <p>Failure to enforce any provision of these Terms does not constitute a waiver of that provision or any other provision.</p>
+
+      <h3>Assignment</h3>
+      <p>The Client may not assign these Terms or any SOW without ResultantAI's prior written consent. ResultantAI may assign these Terms to an affiliate or in connection with a merger, acquisition, or sale of assets.</p>
+
+      <h3>Force Majeure</h3>
+      <p>Neither party shall be liable for failure to perform obligations due to events beyond their reasonable control, including but not limited to natural disasters, war, terrorism, labor disputes, or third-party service outages.</p>
+
+      <h2>16. Contact Information</h2>
+
+      <p>For questions about these Terms or to request a Statement of Work, contact us:</p>
+      <ul>
+        <li><strong>Email:</strong> <a href="mailto:contact@resultantai.com">contact@resultantai.com</a></li>
+        <li><strong>Website:</strong> <a href="https://resultantai.com">resultantai.com</a></li>
+      </ul>
+
+      <p><strong>By using our services, you acknowledge that you have read, understood, and agree to be bound by these Terms of Service.</strong></p>
+
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer__grid">
+      <div class="footer__column">
+        <div class="footer__brand-logo">Resultant<span>AI</span></div>
+        <p class="footer__tagline">AI voice agents and automation for service businesses. Built in weeks, not months.</p>
+        <p style="font-size: 13px; color: var(--text-muted); margin-top: 16px;">© 2026 ResultantAI. All rights reserved.</p>
+      </div>
+      <div class="footer__column">
+        <h4>Solutions</h4>
+        <div class="footer__links">
+          <a href="/voice-ai/" class="footer__link">Voice AI</a>
+          <a href="/automation/" class="footer__link">Automation</a>
+          <a href="/field-service-automation/" class="footer__link">Field Service</a>
+          <a href="/integrations/" class="footer__link">Integrations</a>
+        </div>
+      </div>
+      <div class="footer__column">
+        <h4>Company</h4>
+        <div class="footer__links">
+          <a href="/blog" class="footer__link">Blog</a>
+          <a href="/work/" class="footer__link">Case Studies</a>
+          <a href="/faq/" class="footer__link">FAQ</a>
+        </div>
+      </div>
+      <div class="footer__column">
+        <h4>Legal</h4>
+        <div class="footer__links">
+          <a href="/privacy/" class="footer__link">Privacy Policy</a>
+          <a href="/terms/" class="footer__link">Terms of Service</a>
+          <a href="mailto:contact@resultantai.com" class="footer__link">contact@resultantai.com</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer__bottom">Built by humans. Deployed by AI. ResultantAI.</div>
+  </div>
+</footer>
+
+<script src="/js/main.js"></script>
+
+</body>
+</html>
