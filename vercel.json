@@ -3,6 +3,17 @@
   "outputDirectory": ".",
   "cleanUrls": true,
   "trailingSlash": false,
+  "redirects": [
+    { "source": "/blog/airtable-trucking-operations", "destination": "/blog/airtable-architecture-trucking/", "permanent": true },
+    { "source": "/blog/make-vs-n8n", "destination": "/blog/make-vs-n8n-2026/", "permanent": true },
+    { "source": "/blog/per-client-ai-billing", "destination": "/blog/per-client-billing-agencies/", "permanent": true },
+    { "source": "/blog/plumbing-ai-case-study", "destination": "/blog/wayne-conn-plumbing-case-study/", "permanent": true },
+    { "source": "/contact", "destination": "/contact-us/", "permanent": true },
+    { "source": "/demos", "destination": "/demo/gallery/", "permanent": true },
+    { "source": "/electrical", "destination": "/lp/electrical/", "permanent": true },
+    { "source": "/hvac", "destination": "/lp/hvac/", "permanent": true },
+    { "source": "/plumbing", "destination": "/lp/plumbing/", "permanent": true }
+  ],
   "headers": [
     {
       "source": "/(.*)",
