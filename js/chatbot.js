@@ -16,9 +16,10 @@
   // Configuration
   const CONFIG = {
     apiEndpoint: window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
-      ? 'http://localhost:5000/chat'
-      : 'https://resultantai-github-io.onrender.com/chat',
+      ? 'http://localhost:3150/api/inbound/qualify'
+      : 'https://cc.resultantai.com/api/inbound/qualify',
     storageKey: 'resultant_chat_history',
+    sessionKey: 'resultant_session_id',
     maxHistoryLength: 20, // Keep last 20 messages
   };
 
@@ -26,6 +27,20 @@
   let conversationHistory = [];
   let isTyping = false;
   let isOpen = false;
+  let sessionId = loadOrCreateSessionId();
+
+  function loadOrCreateSessionId() {
+    try {
+      let id = localStorage.getItem(CONFIG.sessionKey);
+      if (!id) {
+        id = 'sess_' + Date.now() + '_' + Math.random().toString(36).slice(2, 10);
+        localStorage.setItem(CONFIG.sessionKey, id);
+      }
+      return id;
+    } catch {
+      return 'sess_' + Date.now() + '_' + Math.random().toString(36).slice(2, 10);
+    }
+  }
 
   /**
    * Get page context for the current page
@@ -265,36 +280,86 @@
     setTypingState(true);
 
     try {
-      // Prepare request data
+      // Prepare request data matching inbound.js contract
       const requestData = {
         message: message,
-        conversation_history: conversationHistory.map(msg => ({
+        sessionId: sessionId,
+        history: conversationHistory.map(msg => ({
           role: msg.role,
           content: msg.content
         })),
-        page_context: getPageContext()
       };
 
-      // Call API
+      // POST to SSE endpoint
       const response = await fetch(CONFIG.apiEndpoint, {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(requestData)
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(requestData),
       });
 
       if (!response.ok) {
         throw new Error(`API error: ${response.status}`);
       }
 
-      const data = await response.json();
+      // Read SSE stream
+      const reader = response.body.getReader();
+      const decoder = new TextDecoder();
+      let fullText = '';
+      let messageEl = null;
+      let buffer = '';
 
-      // Add assistant response to UI
-      if (data.response) {
-        addMessage('assistant', data.response, data.booking_url);
-      } else if (data.error) {
-        addMessage('assistant', `Sorry, I encountered an error: ${data.error}. Please try again or email support@resultantai.com`, null, true);
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+
+        buffer += decoder.decode(value, { stream: true });
+        const lines = buffer.split('\n');
+        buffer = lines.pop(); // Keep incomplete line in buffer
+
+        for (const line of lines) {
+          if (!line.startsWith('data: ')) continue;
+          const raw = line.slice(6);
+          if (!raw) continue;
+
+          let event;
+          try { event = JSON.parse(raw); } catch { continue; }
+
+          if (event.type === 'text' && event.text) {
+            fullText += event.text;
+            if (!messageEl) {
+              // Create streaming message bubble
+              messageEl = createStreamingMessage();
+            }
+            updateStreamingMessage(messageEl, fullText);
+          } else if (event.type === 'qualified') {
+            // Lead qualified -- show success state
+            if (fullText) {
+              addMessage('assistant', fullText);
+            }
+            fullText = '';
+            messageEl = null;
+          } else if (event.type === 'unqualified') {
+            // Polite close
+            if (fullText) {
+              addMessage('assistant', fullText);
+            }
+            fullText = '';
+            messageEl = null;
+          } else if (event.type === 'error') {
+            addMessage('assistant', 'Sorry, I encountered an error. Please try again or email support@resultantai.com', null, true);
+          } else if (event.type === 'done') {
+            // Stream complete
+          }
+        }
+      }
+
+      // Finalize any remaining streamed text
+      if (fullText && messageEl) {
+        // Remove streaming bubble, add as proper message
+        messageEl.remove();
+        addMessage('assistant', fullText);
+      } else if (fullText && !messageEl) {
+        addMessage('assistant', fullText);
       }
 
     } catch (error) {
@@ -303,6 +368,30 @@
     } finally {
       setTypingState(false);
     }
+  }
+
+  function createStreamingMessage() {
+    const messagesContainer = document.getElementById('chat-messages');
+    const el = document.createElement('div');
+    el.className = 'message assistant streaming';
+    el.innerHTML = '<div class="message-avatar">R</div><div class="message-content"><p></p></div>';
+    // Insert before typing indicator if present
+    const typingEl = document.getElementById('typing-indicator');
+    if (typingEl) {
+      messagesContainer.insertBefore(el, typingEl);
+    } else {
+      messagesContainer.appendChild(el);
+    }
+    scrollToBottom();
+    return el;
+  }
+
+  function updateStreamingMessage(el, text) {
+    const content = el.querySelector('.message-content');
+    if (content) {
+      content.innerHTML = formatMessageContent(text);
+    }
+    scrollToBottom();
   }
 
   /**
