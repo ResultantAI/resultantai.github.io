@@ -3,6 +3,28 @@
   "outputDirectory": ".",
   "cleanUrls": true,
   "trailingSlash": false,
+  "rewrites": [
+    {
+      "source": "/",
+      "has": [{ "type": "cookie", "key": "ab_variant", "value": "b" }],
+      "destination": "/index-b.html"
+    },
+    {
+      "source": "/lp/b2b-automation",
+      "has": [{ "type": "cookie", "key": "ab_variant", "value": "b" }],
+      "destination": "/lp/b2b-automation/index-b.html"
+    },
+    {
+      "source": "/lp/voice-ai",
+      "has": [{ "type": "cookie", "key": "ab_variant", "value": "b" }],
+      "destination": "/lp/voice-ai/index-b.html"
+    },
+    {
+      "source": "/lp/agency-automation",
+      "has": [{ "type": "cookie", "key": "ab_variant", "value": "b" }],
+      "destination": "/lp/agency-automation/index-b.html"
+    }
+  ],
   "redirects": [
     { "source": "/blog/airtable-trucking-operations", "destination": "/blog/airtable-architecture-trucking/", "permanent": true },
     { "source": "/blog/make-vs-n8n", "destination": "/blog/make-vs-n8n-2026/", "permanent": true },
