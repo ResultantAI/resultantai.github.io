@@ -303,10 +303,10 @@
     <h1>AI Gateway vs Direct API Access</h1>
 
     <div class="verdict-box">
-      <strong>When to use direct API:</strong> Building a prototype, using under 1M tokens/month,
-      or need absolute simplicity. <strong>When to use a gateway:</strong> Spending $50+/month on
-      tokens, need budget protection, billing multiple clients, or want multi-provider failover.
-      Most teams switch to a gateway after their first surprise $300+ bill.
+      <strong>When to use direct API:</strong> Building a prototype or need absolute simplicity.
+      <strong>When to use a gateway:</strong> At $49/month with 5M tokens included,
+      the Gateway pays for itself after one surprise bill or once you hit 2M+ monthly tokens.
+      You get budget caps, failover, smart routing, and per-client tracking -- all included.
     </div>
 
     <h2>Direct API Access: The Simple Path</h2>
@@ -350,8 +350,8 @@
     <h3>5 signs you need a gateway:</h3>
 
     <div class="sign-item">
-      <strong>1. Your monthly AI bill exceeds $50</strong>
-      <span class="detail">ROI calculation: Gateway saves 40-50% via intelligent routing = $20-25/month savings on $50 spend</span>
+      <strong>1. Your monthly AI bill exceeds $49</strong>
+      <span class="detail">At $49/mo with 5M tokens included, the Gateway costs less than paying providers directly once you hit ~2M tokens</span>
     </div>
 
     <div class="sign-item">
@@ -428,8 +428,8 @@
           </tr>
           <tr>
             <td>Monthly cost</td>
-            <td>$7.50+ (unlimited)</td>
-            <td>$99/month ($5,000 budget)</td>
+            <td>$2.50+ per 1M (unlimited)</td>
+            <td>$49/month (5M tokens included)</td>
           </tr>
           <tr>
             <td>Bill shock risk</td>
@@ -445,22 +445,23 @@
     <h3>Cost Comparison Scenario</h3>
     <p>
       <strong>Direct API:</strong><br>
-      Usage-based billing (unlimited potential cost). Risk: one bug could cost $200+ overnight.
-      No routing optimization -- always pay full price. Total: variable (high risk of bill shock).
+      Usage-based billing at ~$2.50/M tokens (blended). Risk: one bug could cost $200+ overnight.
+      No routing optimization -- always pay full price for every model. Total: variable (high risk of bill shock).
     </p>
 
     <p>
       <strong>ResultantAI Gateway:</strong><br>
-      $99/month includes $5,000 usage budget. Intelligent routing saves 40-50% through cheaper models.
-      Budget cap prevents runaway costs. Total: $99/month (zero risk, predictable).
+      $49/month includes 5M tokens. Overage is $3/M tokens. Smart routing sends most traffic to cheap models
+      (Gemini Flash $0.15/M, Haiku $0.80/M). Budget cap prevents runaway costs.
+      Total at 5M tokens: $49/month. Total at 10M tokens: $64/month. Zero risk, predictable.
     </p>
 
     <h3>Break-Even Analysis</h3>
     <p>
       The Gateway pays for itself if:<br>
-      It prevents ONE $100+ surprise bill (instantly ROI positive), OR<br>
-      Intelligent routing saves 40% on $250+/month spend (saves $100/month), OR<br>
-      Per-client tracking saves you 2+ hours/month at $50/hr billable rate (saves $100/month).
+      It prevents ONE $50+ surprise bill (instantly ROI positive), OR<br>
+      You use 2M+ tokens/month (direct API ~$5 vs Gateway's $49 but with failover, routing, budget caps included), OR<br>
+      Per-client tracking saves you 1+ hour/month at $50/hr billable rate (saves $50/month).
     </p>
 
     <h2>Decision Framework</h2>
@@ -468,7 +469,7 @@
     <h3>Use Direct API if:</h3>
     <p class="feature-list">
       <span class="check">&#10003;</span> You're building a prototype or MVP<br>
-      <span class="check">&#10003;</span> You're spending under $50/month on tokens<br>
+      <span class="check">&#10003;</span> You're using under 1M tokens/month<br>
       <span class="check">&#10003;</span> You're comfortable manually monitoring usage<br>
       <span class="check">&#10003;</span> Downtime is acceptable (personal projects)<br>
       <span class="check">&#10003;</span> You need absolute maximum performance (latency-critical)
@@ -476,7 +477,7 @@
 
     <h3>Use the Gateway if:</h3>
     <p class="feature-list">
-      <span class="check">&#10003;</span> You're spending $50+/month on LLM tokens<br>
+      <span class="check">&#10003;</span> You use 2M+ tokens/month ($49/mo with 5M included is hard to beat)<br>
       <span class="check">&#10003;</span> You need predictable, capped costs<br>
       <span class="check">&#10003;</span> You bill clients and need per-client tracking<br>
       <span class="check">&#10003;</span> You use multiple providers (OpenAI + Claude + Gemini)<br>

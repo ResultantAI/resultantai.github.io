@@ -211,8 +211,9 @@
     <div class="verdict">
       <strong>Self-hosted vs managed:</strong> LiteLLM is free open-source software but requires
       self-hosting, DevOps, and monitoring ($500-2,000/month in hidden costs). ResultantAI Gateway is fully
-      managed at $99/month with $5,000 usage budget and intelligent routing. Choose LiteLLM if you have a DevOps team and
-      want full control. Choose Gateway if you want zero ops overhead.
+      managed at $49/month with 5M tokens included and $3/M overage. Choose LiteLLM if you have a DevOps team
+      and want full control. Choose Gateway if you want zero ops overhead -- it's cheaper than self-hosting
+      for most teams.
     </div>
 
     <h2>Core Difference</h2>
@@ -228,8 +229,9 @@
     <h3>Gateway = Fully Managed SaaS</h3>
     <p>
       ResultantAI Gateway is a managed service. No servers to maintain, no deployments, no monitoring setup.
-      You get a URL and API key, and it just works. $99/month includes $5,000 usage budget, infrastructure,
-      monitoring, and support. Best for: teams who want to ship fast without DevOps overhead.
+      You get a URL and API key, and it just works. $49/month includes 5M tokens, infrastructure,
+      monitoring, and support. Overage is a simple $3/M tokens. Best for: teams who want to ship fast
+      without DevOps overhead.
     </p>
 
     <h2>Total Cost of Ownership</h2>
@@ -251,14 +253,14 @@
 
     <h3>Gateway All-In Cost</h3>
     <p>
-      <strong>Platform:</strong> $99/month<br>
-      <strong>Usage budget included:</strong> $5,000/month<br>
+      <strong>Platform:</strong> $49/month (includes 5M tokens)<br>
+      <strong>Overage:</strong> $3/M tokens (simple, no input/output split)<br>
       <strong>Setup time:</strong> 5 minutes<br>
       <strong>Maintenance:</strong> Zero<br>
       <strong>Monitoring:</strong> Built-in
     </p>
     <p>
-      <strong>Total first year:</strong> $1,188
+      <strong>Total first year:</strong> $588 (at 5M tokens/month or less)
     </p>
 
     <h2>Feature Comparison</h2>
@@ -290,7 +292,7 @@
           </tr>
           <tr>
             <td>Usage budget included</td>
-            <td><span class="check">&#10003; $5,000/month</span></td>
+            <td><span class="check">&#10003; 5M tokens/month</span></td>
             <td><span class="cross">&#10005; Pay providers directly</span></td>
           </tr>
           <tr>
@@ -348,8 +350,8 @@
     <p>
       &#10003; You don't have DevOps resources or time<br>
       &#10003; You want to ship fast without infrastructure work<br>
-      &#10003; You process 1-10M tokens/month (sweet spot)<br>
-      &#10003; You want predictable, all-in pricing<br>
+      &#10003; You process 1-20M tokens/month (sweet spot for $49/mo + $3/M overage)<br>
+      &#10003; You want predictable, all-inclusive pricing<br>
       &#10003; You prefer zero maintenance and guaranteed uptime<br>
       &#10003; You're a solo founder, small team, or agency
     </p>
@@ -359,13 +361,14 @@
       At what point does self-hosting LiteLLM become cheaper than Gateway?
     </p>
     <p>
-      <strong>Year 1:</strong> Gateway is cheaper ($1,188 vs $10,200+) due to setup costs<br>
+      <strong>Year 1:</strong> Gateway is cheaper ($588 vs $10,200+) due to setup costs<br>
       <strong>Year 2+:</strong> If ongoing DevOps costs drop to ~$200/month, LiteLLM = $2,400/year
-      vs Gateway = $1,188/year. Gateway still wins unless you're processing 20M+ tokens/month.
+      vs Gateway = $588/year. Gateway still wins unless you're at massive scale AND have spare DevOps capacity.
     </p>
     <p>
-      <strong>Conclusion:</strong> For most teams under 20M tokens/month, Gateway's managed service
-      is more cost-effective when you factor in DevOps time and opportunity cost.
+      <strong>Conclusion:</strong> At $49/month with 5M tokens included, Gateway's managed service
+      is more cost-effective than self-hosting LiteLLM for virtually every team. You'd need 50M+ tokens/month
+      and an existing DevOps team to justify the self-hosted approach.
     </p>
 
     <div class="compare-cta">
