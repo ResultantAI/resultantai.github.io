@@ -5,229 +5,156 @@
   <link rel="canonical" href="https://resultantai.com/compare/helicone">
 
   <!-- Open Graph -->
-  <meta property="og:title" content="AI Gateway vs Helicone: Cost Management vs Observability (2025)">
-  <meta property="og:description" content="AI Gateway vs Helicone comparison: Cost controls with tokens vs observability logging. Different tools, different priorities. Can you use both?">
+  <meta property="og:title" content="ResultantAI Gateway vs Helicone: Cost Management vs Observability (2026)">
+  <meta property="og:description" content="ResultantAI Gateway vs Helicone comparison: Cost controls with tokens vs observability logging. Different tools, different priorities. Can you use both?">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://resultantai.com/compare/helicone">
   <meta property="og:site_name" content="ResultantAI">
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="AI Gateway vs Helicone: Cost Management vs Observability (2025)">
-  <meta name="twitter:description" content="AI Gateway vs Helicone comparison: Cost controls with tokens vs observability logging. Different tools, different priorities. Can you use both?">
+  <meta name="twitter:title" content="ResultantAI Gateway vs Helicone: Cost Management vs Observability (2026)">
+  <meta name="twitter:description" content="ResultantAI Gateway vs Helicone comparison: Cost controls with tokens vs observability logging. Different tools, different priorities. Can you use both?">
 
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Gateway vs Helicone: Cost Management vs Observability (2025)</title>
-    <meta name="description" content="AI Gateway vs Helicone comparison: Cost controls with tokens vs observability logging. Different tools, different priorities. Can you use both?">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ResultantAI Gateway vs Helicone: Cost Management vs Observability (2026)</title>
+  <meta name="description" content="ResultantAI Gateway vs Helicone comparison: Cost controls with tokens vs observability logging. Different tools, different priorities. Can you use both?">
 
-    <!-- Google Search Console Verification -->
-    <meta name="google-site-verification" content="EUs3oELHtHvHjcAdzN2HjjzWzEP_6KWVZFzaIoLdp70">
+  <!-- Google Search Console Verification -->
+  <meta name="google-site-verification" content="EUs3oELHtHvHjcAdzN2HjjzWzEP_6KWVZFzaIoLdp70">
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+  <!-- Styles -->
+  <link rel="stylesheet" href="/css/styles.css">
+  <link rel="stylesheet" href="/css/chatbot.css">
 
-        :root {
-            --bg: #0a0d12;
-            --card: #111820;
-            --border: #1e2a3a;
-            --text: #94a3b8;
-            --text-bright: #e2e8f0;
-            --accent: #10b981;
-            --accent-glow: rgba(16, 185, 129, 0.15);
-        }
+  <!-- Page-specific styles for comparison elements -->
+  <style>
+    .compare-content {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 120px 24px 80px;
+      position: relative;
+      z-index: 1;
+    }
+    .compare-content h1 {
+      font-size: clamp(28px, 5vw, 42px);
+      font-weight: 800;
+      color: var(--text-primary);
+      line-height: 1.2;
+      margin-bottom: 16px;
+      letter-spacing: -0.02em;
+    }
+    .compare-content h2 {
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin: 48px 0 20px;
+    }
+    .compare-content h3 {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin: 32px 0 12px;
+    }
+    .compare-content p {
+      color: var(--text-secondary);
+      margin-bottom: 16px;
+      line-height: 1.8;
+    }
+    .compare-content strong {
+      color: var(--text-primary);
+    }
+    .verdict {
+      background: rgba(16, 185, 129, 0.08);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      border-radius: 12px;
+      padding: 20px 24px;
+      margin: 24px 0 40px;
+      font-size: 17px;
+      color: var(--text-primary);
+      line-height: 1.7;
+    }
+    .comparison-table {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      margin: 24px 0;
+    }
+    .comparison-table table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    .comparison-table th,
+    .comparison-table td {
+      padding: 16px 20px;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+    }
+    .comparison-table th {
+      background: rgba(16, 185, 129, 0.05);
+      color: var(--text-primary);
+      font-weight: 600;
+      font-size: 14px;
+    }
+    .comparison-table td {
+      color: var(--text-secondary);
+    }
+    .comparison-table tr:last-child td {
+      border-bottom: none;
+    }
+    .check {
+      color: var(--accent);
+      font-weight: 600;
+    }
+    .cross {
+      color: #ef4444;
+    }
+    .compare-cta {
+      margin: 40px 0;
+    }
+    @media (max-width: 640px) {
+      .comparison-table th,
+      .comparison-table td {
+        padding: 12px 14px;
+        font-size: 14px;
+      }
+    }
+  </style>
 
-        body {
-            font-family: 'DM Sans', -apple-system, sans-serif;
-            background: var(--bg);
-            color: var(--text);
-            min-height: 100vh;
-            line-height: 1.6;
-        }
+  <!-- Google Analytics 4 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-DY95GS9YX5"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-DY95GS9YX5');
+  </script>
 
-        body::before {
-            content: '';
-            position: fixed;
-            inset: 0;
-            background-image:
-                linear-gradient(rgba(16, 185, 129, 0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(16, 185, 129, 0.03) 1px, transparent 1px);
-            background-size: 60px 60px;
-            pointer-events: none;
-            z-index: 0;
-        }
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-WBGJ9J8X');</script>
 
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 60px 20px 80px;
-            position: relative;
-            z-index: 1;
-        }
-
-        h1 {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: clamp(28px, 5vw, 42px);
-            font-weight: 700;
-            color: var(--text-bright);
-            line-height: 1.2;
-            margin-bottom: 16px;
-            letter-spacing: -0.02em;
-        }
-
-        .verdict {
-            background: var(--accent-glow);
-            border: 1px solid rgba(16, 185, 129, 0.3);
-            border-radius: 12px;
-            padding: 20px 24px;
-            margin: 24px 0 40px;
-            font-size: 17px;
-            color: var(--text-bright);
-            line-height: 1.7;
-        }
-
-        h2 {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 28px;
-            font-weight: 700;
-            color: var(--text-bright);
-            margin: 48px 0 20px;
-        }
-
-        h3 {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 20px;
-            font-weight: 700;
-            color: var(--text-bright);
-            margin: 32px 0 12px;
-        }
-
-        p {
-            margin-bottom: 16px;
-            line-height: 1.8;
-        }
-
-        .comparison-table {
-            background: var(--card);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            overflow: hidden;
-            margin: 24px 0;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        th, td {
-            padding: 16px 20px;
-            text-align: left;
-            border-bottom: 1px solid var(--border);
-        }
-
-        th {
-            background: rgba(16, 185, 129, 0.05);
-            color: var(--text-bright);
-            font-weight: 600;
-            font-size: 14px;
-        }
-
-        td {
-            color: var(--text);
-        }
-
-        tr:last-child td {
-            border-bottom: none;
-        }
-
-        .check {
-            color: var(--accent);
-            font-weight: 600;
-        }
-
-        .cross {
-            color: #ef4444;
-        }
-
-        .cta {
-            background: var(--accent);
-            color: #000;
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 16px;
-            font-weight: 700;
-            padding: 16px 32px;
-            border: none;
-            border-radius: 10px;
-            text-decoration: none;
-            display: inline-block;
-            margin: 32px 0;
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
-
-        .cta:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 24px rgba(16, 185, 129, 0.3);
-        }
-
-        .footer {
-            text-align: center;
-            margin-top: 60px;
-            padding-top: 24px;
-            border-top: 1px solid var(--border);
-        }
-
-        .footer-logo {
-            font-family: 'Space Grotesk', sans-serif;
-            font-weight: 700;
-            font-size: 14px;
-            color: var(--text);
-            margin-bottom: 12px;
-        }
-
-        .footer-links {
-            font-size: 13px;
-            color: var(--text);
-        }
-
-        .footer-links a {
-            color: var(--accent);
-            text-decoration: none;
-            margin: 0 10px;
-        }
-    </style>
-
-    <!-- Google Analytics 4 -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-DY95GS9YX5"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'G-DY95GS9YX5');
-    </script>
-
-    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-    })(window,document,'script','dataLayer','GTM-WBGJ9J8X');</script>
-
-    <script src="/js/tracking.js" defer></script>
+  <script src="/js/tracking.js" defer></script>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "WebPage",
-    "name": "AI Gateway vs Helicone: Cost Management vs Observability (2025)",
-    "description": "AI Gateway vs Helicone comparison: Cost controls with tokens vs observability logging. Different tools, different priorities. Can you use both?",
+    "name": "ResultantAI Gateway vs Helicone: Cost Management vs Observability (2026)",
+    "description": "ResultantAI Gateway vs Helicone comparison: Cost controls with tokens vs observability logging. Different tools, different priorities. Can you use both?",
     "url": "https://resultantai.com/compare/helicone",
     "about": {
       "@type": "Product",
       "name": "ResultantAI",
-      "description": "AI automation platform for field service businesses"
+      "description": "AI systems for B2B revenue operations"
     }
   }
   </script>
@@ -236,171 +163,261 @@
 
 </head>
 <body>
-    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WBGJ9J8X"
-    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WBGJ9J8X"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
-    <div class="container">
-        <h1>AI Gateway vs Helicone</h1>
+  <!-- Floating Orbs -->
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
 
-        <div class="verdict">
-            <strong>Different tools for different jobs:</strong> AI Gateway focuses on cost management
-            with budget caps, intelligent routing, and $5,000 monthly usage budget ($99/month). Helicone focuses
-            on observability with detailed logging, request tracing, and analytics (~$60/month).
-            Many teams use both: AI Gateway for routing + cost control, Helicone for logging.
+  <!-- Navigation -->
+  <nav id="nav">
+    <div class="nav__inner">
+      <a href="/" class="nav__logo">Resultant<span>AI</span></a>
+      <button class="mobile-menu-toggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+      <div class="nav__links">
+        <div class="nav__dropdown">
+          <div class="nav__dropdown-trigger nav__link">Solutions &#9662;</div>
+          <div class="nav__dropdown-content">
+            <div class="nav__dropdown-grid">
+              <div class="nav__dropdown-section">
+                <h4>Core Solutions</h4>
+                <a href="/lp/b2b-automation/" class="nav__dropdown-link">B2B Operations Automation</a>
+                <a href="/lp/voice-ai/" class="nav__dropdown-link">Voice AI Agents</a>
+                <a href="/lp/agency-automation/" class="nav__dropdown-link">Agency White-Label AI</a>
+              </div>
+              <div class="nav__dropdown-section">
+                <h4>More</h4>
+                <a href="/gateway" class="nav__dropdown-link">AI Gateway (Cost Control)</a>
+                <a href="/integrations/" class="nav__dropdown-link">Integrations</a>
+                <a href="/voice-roi-calculator" class="nav__dropdown-link">ROI Calculator</a>
+              </div>
+            </div>
+          </div>
         </div>
-
-        <h2>Core Difference</h2>
-
-        <h3>AI Gateway = Cost Management</h3>
-        <p>
-            AI Gateway is designed to <strong>prevent bill shock and reduce costs</strong>. It provides
-            budget caps ($5,000/month usage budget), spending alerts, and intelligent routing to cheaper models
-            that maximizes your budget. Primary use case: agencies and builders who need predictable pricing and
-            per-client tracking.
-        </p>
-
-        <h3>Helicone = Observability</h3>
-        <p>
-            Helicone is designed for <strong>monitoring and debugging</strong>. It logs every request/response,
-            tracks latency, provides detailed analytics, and helps you understand user behavior. Primary
-            use case: product teams debugging LLM features and optimizing prompt performance.
-        </p>
-
-        <h2>Feature Comparison</h2>
-
-        <div class="comparison-table">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Feature</th>
-                        <th>AI Gateway</th>
-                        <th>Helicone</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Budget caps & kill switches</td>
-                        <td><span class="check">✓ Built-in</span></td>
-                        <td><span class="cross">✕</span></td>
-                    </tr>
-                    <tr>
-                        <td>Intelligent routing</td>
-                        <td><span class="check">✓</span></td>
-                        <td><span class="cross">✕</span></td>
-                    </tr>
-                    <tr>
-                        <td>Usage budget included</td>
-                        <td><span class="check">✓ $5,000/month</span></td>
-                        <td><span class="cross">✕ Pay OpenAI separately</span></td>
-                    </tr>
-                    <tr>
-                        <td>Per-client tracking</td>
-                        <td><span class="check">✓</span></td>
-                        <td><span class="check">✓</span></td>
-                    </tr>
-                    <tr>
-                        <td>Request/response logging</td>
-                        <td>Basic (last 100)</td>
-                        <td><span class="check">✓ Unlimited</span></td>
-                    </tr>
-                    <tr>
-                        <td>Advanced analytics</td>
-                        <td>Basic dashboard</td>
-                        <td><span class="check">✓ Comprehensive</span></td>
-                    </tr>
-                    <tr>
-                        <td>Latency tracking</td>
-                        <td>Per request</td>
-                        <td><span class="check">✓ Detailed P50/P95/P99</span></td>
-                    </tr>
-                    <tr>
-                        <td>User session tracking</td>
-                        <td><span class="cross">✕</span></td>
-                        <td><span class="check">✓</span></td>
-                    </tr>
-                    <tr>
-                        <td>Prompt caching</td>
-                        <td><span class="cross">✕</span></td>
-                        <td><span class="check">✓</span></td>
-                    </tr>
-                    <tr>
-                        <td>Automatic failover</td>
-                        <td><span class="check">✓</span></td>
-                        <td><span class="cross">✕</span></td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-
-        <h2>Pricing Comparison</h2>
-
-        <h3>AI Gateway: $99/month</h3>
-        <p>
-            Includes $5,000 usage budget. Intelligent routing to cheaper models means your budget goes further.
-            Budget caps prevent bill shock-total monthly cost is predictable and known upfront.
-        </p>
-
-        <h3>Helicone: ~$60/month</h3>
-        <p>
-            Pro plan is $50-70/month depending on request volume. Does NOT include tokens-you pay
-            OpenAI/Anthropic separately. Helicone charges for the observability platform, not the tokens.
-        </p>
-
-        <h3>Cost Comparison</h3>
-        <p>
-            <strong>AI Gateway:</strong> $99/month with $5,000 usage budget and intelligent routing<br>
-            <strong>Helicone:</strong> $60/month + you pay OpenAI/Anthropic separately (unlimited billing)
-        </p>
-        <p>
-            AI Gateway provides budget protection and automatic cost savings through intelligent routing.
-            Helicone doesn't include budget caps-if your app goes viral overnight, you're on the hook for
-            the provider's full bill.
-        </p>
-
-        <h2>Which Should You Choose?</h2>
-
-        <h3>Choose AI Gateway if:</h3>
-        <p>
-            ✓ Your #1 priority is preventing bill shock<br>
-            ✓ You need hard spending caps and budget alerts<br>
-            ✓ You want predictable, all-in pricing<br>
-            ✓ You're an agency needing per-client billing<br>
-            ✓ You want intelligent routing to reduce costs
-        </p>
-
-        <h3>Choose Helicone if:</h3>
-        <p>
-            ✓ Your #1 priority is observability and debugging<br>
-            ✓ You need detailed request/response logs<br>
-            ✓ You want latency analytics (P50/P95/P99)<br>
-            ✓ You need user session tracking<br>
-            ✓ You have separate budget management already
-        </p>
-
-        <h2>Can You Use Both?</h2>
-        <p>
-            <strong>Yes!</strong> Many teams use AI Gateway for routing + cost control, then forward logs to
-            Helicone for observability. Route requests through AI Gateway (gets you failover, budget caps,
-            intelligent routing), and use Helicone's SDK to log request metadata. This gives you the best
-            of both worlds: cost protection + detailed analytics.
-        </p>
-
-        <p>
-            Total cost: $99 (AI Gateway) + $60 (Helicone) = $159/month for comprehensive cost + observability
-            coverage. Worth it for teams running production LLM features at scale.
-        </p>
-
-        <a href="/gateway" class="cta">Try AI Gateway Free →</a>
-
-        <footer class="footer">
-            <div class="footer-logo">ResultantAI</div>
-            <p class="footer-links">
-                <a href="/">Home</a>
-                <a href="/compare">All Comparisons</a>
-                <a href="/pricing">Pricing</a>
-                <a href="mailto:support@resultantai.com">Contact</a>
-            </p>
-        </footer>
+        <a href="/pricing/" class="nav__link">Pricing</a>
+        <a href="/case-studies" class="nav__link">Case Studies</a>
+        <a href="/blog" class="nav__link">Blog</a>
+        <a href="/faq/" class="nav__link">FAQ</a>
+      </div>
+      <a href="https://meetings.hubspot.com/resultantai/discovery" class="nav__cta">Book a Call</a>
     </div>
+  </nav>
+
+  <!-- Content -->
+  <div class="compare-content">
+    <h1>ResultantAI Gateway vs Helicone</h1>
+
+    <div class="verdict">
+      <strong>Different tools for different jobs:</strong> ResultantAI Gateway focuses on cost management
+      with budget caps, intelligent routing, and $5,000 monthly usage budget ($99/month). Helicone focuses
+      on observability with detailed logging, request tracing, and analytics (~$60/month).
+      Many teams use both: Gateway for routing + cost control, Helicone for logging.
+    </div>
+
+    <h2>Core Difference</h2>
+
+    <h3>Gateway = Cost Management</h3>
+    <p>
+      ResultantAI Gateway is designed to <strong>prevent bill shock and reduce costs</strong>. It provides
+      budget caps ($5,000/month usage budget), spending alerts, and intelligent routing to cheaper models
+      that maximizes your budget. Primary use case: agencies and builders who need predictable pricing and
+      per-client tracking.
+    </p>
+
+    <h3>Helicone = Observability</h3>
+    <p>
+      Helicone is designed for <strong>monitoring and debugging</strong>. It logs every request/response,
+      tracks latency, provides detailed analytics, and helps you understand user behavior. Primary
+      use case: product teams debugging LLM features and optimizing prompt performance.
+    </p>
+
+    <h2>Feature Comparison</h2>
+
+    <div class="comparison-table">
+      <table>
+        <thead>
+          <tr>
+            <th>Feature</th>
+            <th>Gateway</th>
+            <th>Helicone</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Budget caps & kill switches</td>
+            <td><span class="check">&#10003; Built-in</span></td>
+            <td><span class="cross">&#10005;</span></td>
+          </tr>
+          <tr>
+            <td>Intelligent routing</td>
+            <td><span class="check">&#10003;</span></td>
+            <td><span class="cross">&#10005;</span></td>
+          </tr>
+          <tr>
+            <td>Usage budget included</td>
+            <td><span class="check">&#10003; $5,000/month</span></td>
+            <td><span class="cross">&#10005; Pay OpenAI separately</span></td>
+          </tr>
+          <tr>
+            <td>Per-client tracking</td>
+            <td><span class="check">&#10003;</span></td>
+            <td><span class="check">&#10003;</span></td>
+          </tr>
+          <tr>
+            <td>Request/response logging</td>
+            <td>Basic (last 100)</td>
+            <td><span class="check">&#10003; Unlimited</span></td>
+          </tr>
+          <tr>
+            <td>Advanced analytics</td>
+            <td>Basic dashboard</td>
+            <td><span class="check">&#10003; Comprehensive</span></td>
+          </tr>
+          <tr>
+            <td>Latency tracking</td>
+            <td>Per request</td>
+            <td><span class="check">&#10003; Detailed P50/P95/P99</span></td>
+          </tr>
+          <tr>
+            <td>User session tracking</td>
+            <td><span class="cross">&#10005;</span></td>
+            <td><span class="check">&#10003;</span></td>
+          </tr>
+          <tr>
+            <td>Prompt caching</td>
+            <td><span class="cross">&#10005;</span></td>
+            <td><span class="check">&#10003;</span></td>
+          </tr>
+          <tr>
+            <td>Automatic failover</td>
+            <td><span class="check">&#10003;</span></td>
+            <td><span class="cross">&#10005;</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h2>Pricing Comparison</h2>
+
+    <h3>Gateway: $99/month</h3>
+    <p>
+      Includes $5,000 usage budget. Intelligent routing to cheaper models means your budget goes further.
+      Budget caps prevent bill shock — total monthly cost is predictable and known upfront.
+    </p>
+
+    <h3>Helicone: ~$60/month</h3>
+    <p>
+      Pro plan is $50-70/month depending on request volume. Does NOT include tokens — you pay
+      OpenAI/Anthropic separately. Helicone charges for the observability platform, not the tokens.
+    </p>
+
+    <h3>Cost Comparison</h3>
+    <p>
+      <strong>Gateway:</strong> $99/month with $5,000 usage budget and intelligent routing<br>
+      <strong>Helicone:</strong> $60/month + you pay OpenAI/Anthropic separately (unlimited billing)
+    </p>
+    <p>
+      Gateway provides budget protection and automatic cost savings through intelligent routing.
+      Helicone doesn't include budget caps — if your app goes viral overnight, you're on the hook for
+      the provider's full bill.
+    </p>
+
+    <h2>Which Should You Choose?</h2>
+
+    <h3>Choose Gateway if:</h3>
+    <p>
+      &#10003; Your #1 priority is preventing bill shock<br>
+      &#10003; You need hard spending caps and budget alerts<br>
+      &#10003; You want predictable, all-in pricing<br>
+      &#10003; You're an agency needing per-client billing<br>
+      &#10003; You want intelligent routing to reduce costs
+    </p>
+
+    <h3>Choose Helicone if:</h3>
+    <p>
+      &#10003; Your #1 priority is observability and debugging<br>
+      &#10003; You need detailed request/response logs<br>
+      &#10003; You want latency analytics (P50/P95/P99)<br>
+      &#10003; You need user session tracking<br>
+      &#10003; You have separate budget management already
+    </p>
+
+    <h2>Can You Use Both?</h2>
+    <p>
+      <strong>Yes!</strong> Many teams use Gateway for routing + cost control, then forward logs to
+      Helicone for observability. Route requests through Gateway (gets you failover, budget caps,
+      intelligent routing), and use Helicone's SDK to log request metadata. This gives you the best
+      of both worlds: cost protection + detailed analytics.
+    </p>
+
+    <p>
+      Total cost: $99 (Gateway) + $60 (Helicone) = $159/month for comprehensive cost + observability
+      coverage. Worth it for teams running production LLM features at scale.
+    </p>
+
+    <div class="compare-cta">
+      <a href="/gateway" class="btn btn-primary">Try Gateway Free &rarr;</a>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer__grid">
+        <div>
+          <div class="footer__brand">Resultant<span>AI</span></div>
+          <p class="footer__description">
+            AI systems for B2B revenue operations.<br>
+            Built with AI. Run by humans.
+          </p>
+          <div class="footer__social">
+            <a href="https://www.linkedin.com/in/chrismott1/" class="footer__social-link" target="_blank">
+              <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+            </a>
+            <a href="https://github.com/ResultantAI" class="footer__social-link" target="_blank">
+              <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+            </a>
+            <a href="https://x.com/resultswithai" class="footer__social-link" target="_blank">
+              <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+            </a>
+          </div>
+        </div>
+        <div>
+          <h4 class="footer__section-title">Solutions</h4>
+          <ul class="footer__links">
+            <li><a href="/lp/b2b-automation/" class="footer__link">B2B Automation</a></li>
+            <li><a href="/lp/voice-ai/" class="footer__link">Voice AI</a></li>
+            <li><a href="/lp/agency-automation/" class="footer__link">Agency AI</a></li>
+            <li><a href="/gateway" class="footer__link">AI Gateway</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="footer__section-title">Company</h4>
+          <ul class="footer__links">
+            <li><a href="/case-studies" class="footer__link">Case Studies</a></li>
+            <li><a href="/blog" class="footer__link">Blog</a></li>
+            <li><a href="/compare" class="footer__link">Comparisons</a></li>
+            <li><a href="https://meetings.hubspot.com/resultantai/discovery" class="footer__link">Book a Call</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="footer__section-title">Contact</h4>
+          <ul class="footer__links">
+            <li><a href="mailto:support@resultantai.com" class="footer__link">Email Us</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <div>&copy; 2026 ResultantAI. All rights reserved.</div>
+        <div>Built with AI. Run by humans.</div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="/js/main.js"></script>
+  <script src="/js/theme-toggle.js"></script>
+  <script src="/js/chatbot.js"></script>
 </body>
 </html>
