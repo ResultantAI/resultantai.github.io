@@ -5,290 +5,363 @@
   <link rel="canonical" href="https://resultantai.com/compare">
 
   <!-- Open Graph -->
-  <meta property="og:title" content="AI Gateway Comparisons | vs Portkey, Helicone, LiteLLM, Direct API">
-  <meta property="og:description" content="Compare AI Gateway with alternatives: Portkey, Helicone, LiteLLM, and direct API access. See pricing, features, and which solution fits your needs.">
+  <meta property="og:title" content="ResultantAI Gateway Comparisons | vs Portkey, Helicone, LiteLLM, Direct API">
+  <meta property="og:description" content="Compare ResultantAI Gateway with alternatives: Portkey, Helicone, LiteLLM, and direct API access. See pricing, features, and which solution fits your needs.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://resultantai.com/compare/">
   <meta property="og:site_name" content="ResultantAI">
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="AI Gateway Comparisons | vs Portkey, Helicone, LiteLLM, Direct API">
-  <meta name="twitter:description" content="Compare AI Gateway with alternatives: Portkey, Helicone, LiteLLM, and direct API access. See pricing, features, and which solution fits your needs.">
+  <meta name="twitter:title" content="ResultantAI Gateway Comparisons | vs Portkey, Helicone, LiteLLM, Direct API">
+  <meta name="twitter:description" content="Compare ResultantAI Gateway with alternatives: Portkey, Helicone, LiteLLM, and direct API access. See pricing, features, and which solution fits your needs.">
 
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Gateway Comparisons | vs Portkey, Helicone, LiteLLM, Direct API</title>
-    <meta name="description" content="Compare AI Gateway with alternatives: Portkey, Helicone, LiteLLM, and direct API access. See pricing, features, and which solution fits your needs.">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ResultantAI Gateway Comparisons | vs Portkey, Helicone, LiteLLM, Direct API</title>
+  <meta name="description" content="Compare ResultantAI Gateway with alternatives: Portkey, Helicone, LiteLLM, and direct API access. See pricing, features, and which solution fits your needs.">
 
-    <!-- Google Search Console Verification -->
-    <meta name="google-site-verification" content="EUs3oELHtHvHjcAdzN2HjjzWzEP_6KWVZFzaIoLdp70">
+  <!-- Google Search Console Verification -->
+  <meta name="google-site-verification" content="EUs3oELHtHvHjcAdzN2HjjzWzEP_6KWVZFzaIoLdp70">
 
-    <!-- Preload critical fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+  <!-- Styles -->
+  <link rel="stylesheet" href="/css/styles.css">
+  <link rel="stylesheet" href="/css/chatbot.css">
 
-        :root {
-            --bg: #0a0d12;
-            --card: #111820;
-            --border: #1e2a3a;
-            --text: #94a3b8;
-            --text-bright: #e2e8f0;
-            --accent: #10b981;
-            --accent-glow: rgba(16, 185, 129, 0.15);
-        }
+  <style>
+    .compare-hero {
+      text-align: center;
+      padding: var(--space-2xl) 0 var(--space-xl);
+    }
 
-        body {
-            font-family: 'DM Sans', -apple-system, sans-serif;
-            background: var(--bg);
-            color: var(--text);
-            min-height: 100vh;
-            line-height: 1.6;
-        }
+    .compare-hero h1 {
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 800;
+      color: var(--text-primary);
+      margin-bottom: var(--space-sm);
+    }
 
-        body::before {
-            content: '';
-            position: fixed;
-            inset: 0;
-            background-image:
-                linear-gradient(rgba(16, 185, 129, 0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(16, 185, 129, 0.03) 1px, transparent 1px);
-            background-size: 60px 60px;
-            pointer-events: none;
-            z-index: 0;
-        }
+    .compare-hero .subtitle {
+      font-size: 1.125rem;
+      color: var(--text-secondary);
+      max-width: 600px;
+      margin: 0 auto;
+    }
 
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 60px 20px 80px;
-            position: relative;
-            z-index: 1;
-        }
+    .compare-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: var(--space-md);
+      margin: var(--space-xl) 0;
+    }
 
-        header {
-            text-align: center;
-            margin-bottom: 60px;
-        }
+    .compare-card {
+      text-decoration: none;
+      display: flex;
+      flex-direction: column;
+    }
 
-        h1 {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: clamp(32px, 5vw, 48px);
-            font-weight: 700;
-            color: var(--text-bright);
-            line-height: 1.2;
-            margin-bottom: 16px;
-            letter-spacing: -0.02em;
-        }
+    .compare-card .card {
+      flex: 1;
+      transition: border-color 0.2s, transform 0.2s;
+    }
 
-        .subtitle {
-            font-size: 18px;
-            color: var(--text);
-            max-width: 600px;
-            margin: 0 auto;
-        }
+    .compare-card:hover .card {
+      border-color: var(--accent);
+      transform: translateY(-4px);
+    }
 
-        .comparison-grid {
-            display: grid;
-            gap: 20px;
-            margin-bottom: 60px;
-        }
+    .compare-card__icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      background: rgba(16, 185, 129, 0.1);
+      border: 1px solid rgba(16, 185, 129, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      margin-bottom: var(--space-sm);
+    }
 
-        .comparison-card {
-            background: var(--card);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 28px;
-            text-decoration: none;
-            transition: border-color 0.2s, transform 0.2s;
-        }
+    .compare-card .card__title {
+      color: var(--text-primary);
+      font-size: 1.25rem;
+      margin-bottom: var(--space-xs);
+    }
 
-        .comparison-card:hover {
-            border-color: var(--accent);
-            transform: translateY(-2px);
-        }
+    .compare-card .card__description {
+      color: var(--text-secondary);
+      line-height: 1.7;
+      margin-bottom: var(--space-sm);
+    }
 
-        .comparison-card h2 {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 24px;
-            font-weight: 700;
-            color: var(--text-bright);
-            margin-bottom: 12px;
-        }
+    .highlight-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: auto;
+    }
 
-        .comparison-card p {
-            color: var(--text);
-            line-height: 1.7;
-            margin-bottom: 16px;
-        }
+    .highlight-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background: rgba(16, 185, 129, 0.1);
+      border: 1px solid rgba(16, 185, 129, 0.25);
+      color: var(--accent);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      font-weight: 500;
+      padding: 4px 10px;
+      border-radius: 20px;
+    }
+  </style>
 
-        .comparison-highlights {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
+  <!-- Google Analytics 4 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-DY95GS9YX5"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-DY95GS9YX5');
+  </script>
 
-        .highlight-tag {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            background: var(--accent-glow);
-            border: 1px solid rgba(16, 185, 129, 0.3);
-            color: var(--accent);
-            font-size: 13px;
-            font-weight: 500;
-            padding: 6px 12px;
-            border-radius: 20px;
-        }
+  <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-WBGJ9J8X');</script>
 
-        .footer {
-            text-align: center;
-            margin-top: 60px;
-            padding-top: 24px;
-            border-top: 1px solid var(--border);
-        }
+  <!-- Tracking Script -->
+  <script src="/js/tracking.js" defer></script>
 
-        .footer-logo {
-            font-family: 'Space Grotesk', sans-serif;
-            font-weight: 700;
-            font-size: 14px;
-            color: var(--text);
-            margin-bottom: 12px;
-        }
-
-        .footer-links {
-            font-size: 13px;
-            color: var(--text);
-        }
-
-        .footer-links a {
-            color: var(--accent);
-            text-decoration: none;
-            margin: 0 10px;
-        }
-
-        .footer-links a:hover {
-            text-decoration: underline;
-        }
-    </style>
-
-    <!-- Google Analytics 4 -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-DY95GS9YX5"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'G-DY95GS9YX5');
-    </script>
-
-    <!-- Google Tag Manager -->
-    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-    })(window,document,'script','dataLayer','GTM-WBGJ9J8X');</script>
-
-    <!-- Tracking Script -->
-    <script src="/js/tracking.js" defer></script>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "WebPage",
-    "name": "AI Gateway Comparisons | vs Portkey, Helicone, LiteLLM, Direct API",
-    "description": "Compare AI Gateway with alternatives: Portkey, Helicone, LiteLLM, and direct API access. See pricing, features, and which solution fits your needs.",
+    "name": "ResultantAI Gateway Comparisons | vs Portkey, Helicone, LiteLLM, Direct API",
+    "description": "Compare ResultantAI Gateway with alternatives: Portkey, Helicone, LiteLLM, and direct API access. See pricing, features, and which solution fits your needs.",
     "url": "https://resultantai.com/compare/",
     "about": {
       "@type": "Product",
       "name": "ResultantAI",
-      "description": "AI automation platform for field service businesses"
+      "description": "AI systems for B2B revenue operations"
     }
   }
   </script>
+
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <link rel="icon" type="image/png" href="/favicon.png">
-
 </head>
 <body>
-    <!-- Google Tag Manager (noscript) -->
-    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WBGJ9J8X"
-    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WBGJ9J8X"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
+  <!-- Floating Orbs -->
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+
+  <!-- Navigation -->
+  <nav id="nav">
+    <div class="nav__inner">
+      <a href="/" class="nav__logo">Resultant<span>AI</span></a>
+      <button class="mobile-menu-toggle" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+      <div class="nav__links">
+        <div class="nav__dropdown">
+          <div class="nav__dropdown-trigger nav__link">Solutions &#9662;</div>
+          <div class="nav__dropdown-content">
+            <div class="nav__dropdown-grid">
+              <div class="nav__dropdown-section">
+                <h4>Core Solutions</h4>
+                <a href="/lp/b2b-automation/" class="nav__dropdown-link">B2B Operations Automation</a>
+                <a href="/lp/voice-ai/" class="nav__dropdown-link">Voice AI Agents</a>
+                <a href="/lp/agency-automation/" class="nav__dropdown-link">Agency White-Label AI</a>
+              </div>
+              <div class="nav__dropdown-section">
+                <h4>More</h4>
+                <a href="/gateway" class="nav__dropdown-link">AI Gateway (Cost Control)</a>
+                <a href="/integrations/" class="nav__dropdown-link">Integrations</a>
+                <a href="/voice-roi-calculator" class="nav__dropdown-link">ROI Calculator</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <a href="/pricing/" class="nav__link">Pricing</a>
+        <a href="/case-studies" class="nav__link">Case Studies</a>
+        <a href="/blog" class="nav__link">Blog</a>
+        <a href="/faq/" class="nav__link">FAQ</a>
+      </div>
+      <a href="https://meetings.hubspot.com/resultantai/discovery" class="nav__cta">Book a Call</a>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section>
     <div class="container">
-        <header>
-            <h1>AI Gateway Comparisons</h1>
-            <p class="subtitle">
-                See how AI Gateway compares to other LLM proxy solutions and direct API access.
-                All comparisons updated December 2025.
+      <div class="compare-hero">
+        <h1>ResultantAI Gateway Comparisons</h1>
+        <p class="subtitle">
+          See how the Gateway compares to other AI cost management tools and going direct.
+          All comparisons updated March 2026.
+        </p>
+      </div>
+
+      <div class="compare-grid">
+        <a href="/compare/portkey" class="compare-card">
+          <div class="card">
+            <div class="compare-card__icon">
+              <svg width="24" height="24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+            </div>
+            <h3 class="card__title">Gateway vs Portkey</h3>
+            <p class="card__description">
+              $49/mo with 5M tokens included vs $49 + you pay AI providers separately.
+              Gateway is cheaper at every volume level.
             </p>
-        </header>
+            <div class="highlight-tags">
+              <span class="highlight-tag">Pricing Model</span>
+              <span class="highlight-tag">Feature Parity</span>
+              <span class="highlight-tag">Best For</span>
+            </div>
+          </div>
+        </a>
 
-        <div class="comparison-grid">
-            <a href="/compare/portkey" class="comparison-card">
-                <h2>AI Gateway vs Portkey</h2>
-                <p>
-                    Compare token-inclusive pricing ($99 with 3M tokens) vs platform-fee model
-                    ($49 + provider costs). Which saves more for your use case?
-                </p>
-                <div class="comparison-highlights">
-                    <span class="highlight-tag">💰 Pricing Model</span>
-                    <span class="highlight-tag">📊 Feature Parity</span>
-                    <span class="highlight-tag">🎯 Best For</span>
-                </div>
-            </a>
+        <a href="/compare/helicone" class="compare-card">
+          <div class="card">
+            <div class="compare-card__icon">
+              <svg width="24" height="24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M18 20V10M12 20V4M6 20v-6"/></svg>
+            </div>
+            <h3 class="card__title">Gateway vs Helicone</h3>
+            <p class="card__description">
+              Cost management with token inclusions vs observability-focused logging.
+              Different tools for different priorities.
+            </p>
+            <div class="highlight-tags">
+              <span class="highlight-tag">Observability</span>
+              <span class="highlight-tag">Cost Controls</span>
+              <span class="highlight-tag">Use Together?</span>
+            </div>
+          </div>
+        </a>
 
-            <a href="/compare/helicone" class="comparison-card">
-                <h2>AI Gateway vs Helicone</h2>
-                <p>
-                    Cost management with token inclusions vs observability-focused logging.
-                    Different tools for different priorities.
-                </p>
-                <div class="comparison-highlights">
-                    <span class="highlight-tag">📈 Observability</span>
-                    <span class="highlight-tag">💵 Cost Controls</span>
-                    <span class="highlight-tag">🔄 Use Together?</span>
-                </div>
-            </a>
+        <a href="/compare/litellm" class="compare-card">
+          <div class="card">
+            <div class="compare-card__icon">
+              <svg width="24" height="24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><path d="M8 21h8M12 17v4"/></svg>
+            </div>
+            <h3 class="card__title">Gateway vs LiteLLM</h3>
+            <p class="card__description">
+              Self-hosted open source vs fully managed service. Compare DevOps overhead,
+              included tokens, and total cost of ownership.
+            </p>
+            <div class="highlight-tags">
+              <span class="highlight-tag">Self-Hosted</span>
+              <span class="highlight-tag">Managed</span>
+              <span class="highlight-tag">DevOps Cost</span>
+            </div>
+          </div>
+        </a>
 
-            <a href="/compare/litellm" class="comparison-card">
-                <h2>AI Gateway vs LiteLLM</h2>
-                <p>
-                    Self-hosted open source vs fully managed service. Compare DevOps overhead,
-                    included tokens, and total cost of ownership.
-                </p>
-                <div class="comparison-highlights">
-                    <span class="highlight-tag">🏠 Self-Hosted</span>
-                    <span class="highlight-tag">☁️ Managed</span>
-                    <span class="highlight-tag">⚙️ DevOps Cost</span>
-                </div>
-            </a>
+        <a href="/compare/direct-api" class="compare-card">
+          <div class="card">
+            <div class="compare-card__icon">
+              <svg width="24" height="24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+            </div>
+            <h3 class="card__title">Gateway vs Direct API Access</h3>
+            <p class="card__description">
+              When does adding a gateway make sense? Compare simplicity of direct access
+              with budget controls, tracking, and failover.
+            </p>
+            <div class="highlight-tags">
+              <span class="highlight-tag">Complexity</span>
+              <span class="highlight-tag">Protection</span>
+              <span class="highlight-tag">Bill Shock</span>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
 
-            <a href="/compare/direct-api" class="comparison-card">
-                <h2>AI Gateway vs Direct API Access</h2>
-                <p>
-                    When does adding a gateway make sense? Compare simplicity of direct access
-                    with budget controls, tracking, and failover.
-                </p>
-                <div class="comparison-highlights">
-                    <span class="highlight-tag">🎚️ Complexity</span>
-                    <span class="highlight-tag">🛡️ Protection</span>
-                    <span class="highlight-tag">💸 Bill Shock</span>
-                </div>
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer__grid">
+        <div>
+          <div class="footer__brand">Resultant<span>AI</span></div>
+          <p class="footer__description">
+            AI systems for B2B revenue operations.<br>
+            Built with AI. Run by humans.
+          </p>
+          <div class="footer__social">
+            <a href="https://www.linkedin.com/in/chrismott1/" class="footer__social-link" target="_blank">
+              <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+              </svg>
             </a>
+            <a href="https://github.com/ResultantAI" class="footer__social-link" target="_blank">
+              <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+              </svg>
+            </a>
+            <a href="https://x.com/resultswithai" class="footer__social-link" target="_blank">
+              <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+              </svg>
+            </a>
+          </div>
         </div>
 
-        <footer class="footer">
-            <div class="footer-logo">ResultantAI</div>
-            <p class="footer-links">
-                <a href="/">Home</a>
-                <a href="/gateway">AI Gateway</a>
-                <a href="/pricing">Pricing</a>
-                <a href="mailto:support@resultantai.com">Contact</a>
-            </p>
-        </footer>
+        <div>
+          <h4 class="footer__section-title">Solutions</h4>
+          <ul class="footer__links">
+            <li><a href="/lp/b2b-automation/" class="footer__link">B2B Automation</a></li>
+            <li><a href="/lp/voice-ai/" class="footer__link">Voice AI</a></li>
+            <li><a href="/lp/agency-automation/" class="footer__link">Agency AI</a></li>
+            <li><a href="/gateway" class="footer__link">AI Gateway</a></li>
+            <li><a href="/case-studies" class="footer__link">Case Studies</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="footer__section-title">Resources</h4>
+          <ul class="footer__links">
+            <li><a href="/blog" class="footer__link">Blog</a></li>
+            <li><a href="/pricing/" class="footer__link">Pricing</a></li>
+            <li><a href="/voice-roi-calculator" class="footer__link">ROI Calculator</a></li>
+            <li><a href="/faq/" class="footer__link">FAQ</a></li>
+            <li><a href="/integrations/" class="footer__link">Integrations</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="footer__section-title">Company</h4>
+          <ul class="footer__links">
+            <li><a href="https://meetings.hubspot.com/resultantai/discovery" class="footer__link">Book a Call</a></li>
+            <li><a href="mailto:support@resultantai.com" class="footer__link">Email Us</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer__bottom">
+        <div>&copy; 2026 ResultantAI. All rights reserved.</div>
+        <div>Built with AI. Run by humans.</div>
+      </div>
     </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="/js/theme-toggle.js"></script>
+  <script src="/js/main.js"></script>
+  <script src="/js/chatbot.js"></script>
 </body>
 </html>
