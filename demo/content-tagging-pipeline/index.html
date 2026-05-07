@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1.0" />
+<link rel="canonical" href="https://resultantai.com/demo/content-tagging-pipeline/" />
+<title>AI Content Tagging Pipeline | ResultantAI</title>
+<style>
+  :root {
+    --bg:#0E1116;
+    --bg-2:#161B22;
+    --bg-3:#1F2731;
+    --line:#2A323D;
+    --text:#E6EAF0;
+    --text-2:#9AA4B2;
+    --text-3:#6B7280;
+    --accent:#34D399;
+    --accent-2:#22C5A3;
+    --warn:#F59E0B;
+    --bad:#F87171;
+    --info:#60A5FA;
+    --purple:#A78BFA;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin:0; background:var(--bg); color:var(--text);
+    font-family:-apple-system,BlinkMacSystemFont,"Inter","Segoe UI",Roboto,sans-serif;
+    font-size:14px; line-height:1.5;
+  }
+  .page { max-width:1200px; margin:0 auto; padding:32px 24px 48px; }
+
+  /* Header */
+  .topbar {
+    display:flex; align-items:center; justify-content:space-between;
+    padding:14px 20px; background:var(--bg-2);
+    border:1px solid var(--line); border-radius:10px; margin-bottom:24px;
+  }
+  .brand { display:flex; align-items:center; gap:12px; }
+  .brand-mark {
+    width:36px; height:36px; border-radius:8px;
+    background:linear-gradient(135deg,var(--accent),var(--accent-2));
+    display:grid; place-items:center; font-weight:700; color:#062017;
+  }
+  .brand-text h1 { margin:0; font-size:15px; font-weight:600; letter-spacing:-0.01em; }
+  .brand-text p { margin:0; color:var(--text-2); font-size:11px; }
+  .built {
+    color:var(--text-3); font-size:11px;
+  }
+  .built a { color:var(--accent); text-decoration:none; }
+  .built a:hover { text-decoration:underline; }
+
+  /* Hero */
+  .hero {
+    background:var(--bg-2); border:1px solid var(--line); border-radius:12px;
+    padding:24px 28px; margin-bottom:24px;
+  }
+  .hero-eyebrow { color:var(--accent); font-size:11px; font-weight:600; letter-spacing:0.08em; text-transform:uppercase; margin-bottom:8px; }
+  .hero h2 { margin:0 0 8px 0; font-size:22px; font-weight:600; letter-spacing:-0.02em; }
+  .hero p { margin:0 0 16px 0; color:var(--text-2); max-width:720px; }
+  .hero-meta { display:flex; gap:16px; flex-wrap:wrap; font-size:12px; color:var(--text-3); }
+  .hero-meta b { color:var(--text); font-weight:600; }
+
+  /* Layout */
+  .grid { display:grid; grid-template-columns: 1fr 1fr; gap:20px; }
+  @media (max-width:900px) { .grid { grid-template-columns:1fr; } }
+
+  /* Card */
+  .card {
+    background:var(--bg-2); border:1px solid var(--line); border-radius:10px;
+    overflow:hidden;
+  }
+  .card-head {
+    padding:14px 18px; border-bottom:1px solid var(--line);
+    display:flex; align-items:center; justify-content:space-between;
+  }
+  .card-head h3 { margin:0; font-size:13px; font-weight:600; }
+  .card-head .step { font-size:11px; color:var(--text-3); font-weight:500; }
+  .card-body { padding:16px 18px; }
+
+  /* Sample picker */
+  .sample-row {
+    display:flex; gap:8px; flex-wrap:wrap; margin-bottom:14px;
+  }
+  .sample-btn {
+    background:var(--bg-3); border:1px solid var(--line); color:var(--text);
+    padding:8px 12px; border-radius:6px; font-size:12px; cursor:pointer;
+    font-family:inherit; transition:all 0.15s;
+  }
+  .sample-btn:hover { border-color:var(--accent); color:var(--accent); }
+  .sample-btn.active { background:var(--accent); color:#062017; border-color:var(--accent); font-weight:600; }
+
+  /* Source preview */
+  .source-box {
+    background:var(--bg); border:1px solid var(--line); border-radius:8px;
+    padding:14px 16px; max-height:200px; overflow:auto;
+  }
+  .source-title { font-size:13px; font-weight:600; margin-bottom:6px; }
+  .source-meta { font-size:11px; color:var(--text-3); margin-bottom:10px; }
+  .source-text { font-size:12px; color:var(--text-2); white-space:pre-wrap; }
+
+  /* Run button */
+  .run-row { display:flex; gap:10px; margin-top:14px; align-items:center; }
+  .btn {
+    background:var(--accent); color:#062017; border:0; border-radius:6px;
+    padding:10px 16px; font-size:13px; font-weight:600; cursor:pointer;
+    font-family:inherit; transition:all 0.15s;
+  }
+  .btn:hover { background:var(--accent-2); }
+  .btn:disabled { opacity:0.4; cursor:not-allowed; }
+  .btn-ghost { background:transparent; border:1px solid var(--line); color:var(--text-2); }
+  .btn-ghost:hover { color:var(--text); border-color:var(--text-3); }
+
+  .status { font-size:12px; color:var(--text-3); }
+  .status .dot {
+    display:inline-block; width:8px; height:8px; border-radius:50%;
+    background:var(--text-3); margin-right:6px; vertical-align:middle;
+  }
+  .status.running .dot { background:var(--warn); animation:pulse 1.2s ease-in-out infinite; }
+  .status.done .dot { background:var(--accent); }
+  @keyframes pulse { 0%,100% {opacity:1;} 50% {opacity:0.4;} }
+
+  /* Pipeline log */
+  .log {
+    font-family:"SF Mono","Menlo","Monaco","Consolas",monospace;
+    font-size:12px; background:var(--bg); border:1px solid var(--line);
+    border-radius:8px; padding:14px 16px; min-height:240px;
+    max-height:340px; overflow:auto;
+  }
+  .log-line { margin-bottom:4px; opacity:0; transform:translateY(2px); transition:all 0.3s; }
+  .log-line.visible { opacity:1; transform:translateY(0); }
+  .log-time { color:var(--text-3); margin-right:8px; }
+  .log-pass-1 { color:var(--info); }
+  .log-pass-2 { color:var(--purple); }
+  .log-reading { color:var(--warn); }
+  .log-companion { color:var(--accent); }
+  .log-result { color:var(--text); font-weight:600; }
+  .log-flag { color:var(--bad); }
+  .log-msg { color:var(--text-2); }
+
+  /* Result fields */
+  .field-grid { display:grid; grid-template-columns:1fr 1fr; gap:8px 14px; }
+  @media (max-width:480px) { .field-grid { grid-template-columns:1fr; } }
+  .field {
+    background:var(--bg); border:1px solid var(--line); border-radius:6px;
+    padding:8px 10px;
+  }
+  .field-label {
+    font-size:10px; color:var(--text-3); text-transform:uppercase; letter-spacing:0.05em;
+    margin-bottom:3px; font-weight:600;
+  }
+  .field-value { font-size:12px; color:var(--text); margin-bottom:4px; }
+  .field-conf {
+    display:flex; align-items:center; gap:6px; font-size:10px;
+  }
+  .conf-bar { flex:1; height:3px; background:var(--bg-3); border-radius:2px; overflow:hidden; }
+  .conf-fill { height:100%; transition:width 0.6s; }
+  .conf-high { background:var(--accent); }
+  .conf-mid { background:var(--warn); }
+  .conf-low { background:var(--bad); }
+  .conf-num { color:var(--text-3); font-family:"SF Mono",monospace; min-width:32px; text-align:right; }
+
+  /* Reading level result */
+  .reading-result {
+    margin-top:12px; padding:10px 12px; border-radius:6px;
+    background:var(--bg); border:1px solid var(--line);
+    display:flex; align-items:center; justify-content:space-between;
+  }
+  .reading-result.fail { border-color:var(--bad); }
+  .reading-result.pass { border-color:var(--accent); }
+  .reading-result.na { border-color:var(--text-3); }
+  .reading-label { font-size:11px; color:var(--text-3); }
+  .reading-value { font-size:13px; font-weight:600; }
+  .reading-value.fail { color:var(--bad); }
+  .reading-value.pass { color:var(--accent); }
+  .reading-value.na { color:var(--text-3); }
+  .reading-note { font-size:11px; color:var(--text-2); margin-top:6px; }
+
+  /* HITL queue */
+  .queue-summary {
+    display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-bottom:14px;
+  }
+  .stat-tile {
+    background:var(--bg); border:1px solid var(--line); border-radius:8px;
+    padding:12px; text-align:center;
+  }
+  .stat-num { font-size:22px; font-weight:700; color:var(--accent); font-family:"SF Mono",monospace; }
+  .stat-num.warn { color:var(--warn); }
+  .stat-num.info { color:var(--info); }
+  .stat-label { font-size:10px; color:var(--text-3); text-transform:uppercase; letter-spacing:0.05em; margin-top:4px; }
+
+  .queue-list { display:flex; flex-direction:column; gap:6px; }
+  .queue-item {
+    background:var(--bg); border:1px solid var(--line); border-radius:6px;
+    padding:8px 12px; display:flex; align-items:center; justify-content:space-between;
+    font-size:12px;
+  }
+  .queue-item-tag {
+    background:var(--bg-3); padding:2px 8px; border-radius:4px;
+    font-size:10px; color:var(--text-2); margin-left:8px;
+  }
+  .queue-item-tag.review { background:rgba(245,158,11,0.15); color:var(--warn); }
+  .queue-item-tag.passed { background:rgba(52,211,153,0.15); color:var(--accent); }
+  .queue-item-tag.blocked { background:rgba(248,113,113,0.15); color:var(--bad); }
+
+  /* How it works */
+  .how-it-works {
+    background:var(--bg-2); border:1px solid var(--line); border-radius:10px;
+    padding:20px 24px; margin-top:24px;
+  }
+  .how-it-works h3 { margin:0 0 12px 0; font-size:14px; font-weight:600; }
+  .how-it-works p { color:var(--text-2); margin:0 0 8px 0; font-size:13px; }
+  .how-it-works ol { margin:8px 0 0 0; padding-left:20px; color:var(--text-2); font-size:13px; }
+  .how-it-works li { margin-bottom:6px; }
+  .how-it-works code {
+    background:var(--bg); padding:1px 5px; border-radius:3px;
+    font-family:"SF Mono",monospace; font-size:11px; color:var(--accent);
+  }
+
+  /* Footer */
+  .foot {
+    text-align:center; margin-top:32px; padding-top:20px;
+    border-top:1px solid var(--line); color:var(--text-3); font-size:11px;
+  }
+  .foot a { color:var(--accent); text-decoration:none; }
+
+  .empty {
+    color:var(--text-3); font-style:italic; font-size:12px;
+    padding:30px 0; text-align:center;
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- Topbar -->
+  <div class="topbar">
+    <div class="brand">
+      <div class="brand-mark">RA</div>
+      <div class="brand-text">
+        <h1>AI Taxonomy Tagging Pipeline — Demo</h1>
+        <p>Architecture proof for Acelero / Shine Early Learning Phase 3</p>
+      </div>
+    </div>
+    <div class="built">Built by <a href="https://resultantai.com">ResultantAI</a></div>
+  </div>
+
+  <!-- Hero -->
+  <div class="hero">
+    <div class="hero-eyebrow">Phase 3 — AI Integration Architecture</div>
+    <h2>What "substantially reduces manual tagging" actually looks like in production</h2>
+    <p>This demo shows the exact two-pass tagging architecture proposed in the response to your RFP. Pick a sample asset, run the pipeline, and watch how Claude classifies against the 20-field taxonomy, validates its own confidence, runs reading-level assessment on family-facing content, and routes ambiguous tags to a human review queue. No LLM call is made; this runs the same logic against pre-computed model outputs to demonstrate the architecture without API costs.</p>
+    <div class="hero-meta">
+      <span><b>Two-pass classification.</b> Constrained enums. Confidence scoring.</span>
+      <span><b>Reading-level gate.</b> Family-Accessible / Plain Language thresholds.</span>
+      <span><b>HITL queue.</b> Below-threshold tags route to review.</span>
+    </div>
+  </div>
+
+  <!-- Sample picker -->
+  <div class="card" style="margin-bottom:20px;">
+    <div class="card-head">
+      <h3>1. Pick a sample asset to tag</h3>
+      <div class="step">Step 1 of 3</div>
+    </div>
+    <div class="card-body">
+      <div class="sample-row" id="sampleRow"></div>
+      <div class="source-box" id="sourcePreview">
+        <div class="empty">Select a sample asset above to preview.</div>
+      </div>
+      <div class="run-row">
+        <button class="btn" id="runBtn" disabled>Run Tagging Pipeline</button>
+        <button class="btn-ghost btn" id="resetBtn">Reset</button>
+        <span class="status" id="statusEl"><span class="dot"></span><span id="statusText">Idle</span></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Pipeline + Result -->
+  <div class="grid">
+    <div class="card">
+      <div class="card-head">
+        <h3>2. Pipeline execution log</h3>
+        <div class="step">Step 2 of 3</div>
+      </div>
+      <div class="card-body">
+        <div class="log" id="logBox">
+          <div class="empty" id="logEmpty">Run the pipeline to see live output.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-head">
+        <h3>3. Result: Airtable taxonomy fields</h3>
+        <div class="step">Step 3 of 3</div>
+      </div>
+      <div class="card-body">
+        <div id="resultBox">
+          <div class="empty">Tagged fields with confidence scores will appear here.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- HITL Queue summary -->
+  <div class="card" style="margin-top:20px;">
+    <div class="card-head">
+      <h3>Human-in-the-loop review queue</h3>
+      <div class="step">After pipeline completes</div>
+    </div>
+    <div class="card-body">
+      <div class="queue-summary">
+        <div class="stat-tile">
+          <div class="stat-num" id="statAuto">—</div>
+          <div class="stat-label">Auto-tagged (high confidence)</div>
+        </div>
+        <div class="stat-tile">
+          <div class="stat-num warn" id="statReview">—</div>
+          <div class="stat-label">Routed to review (low confidence)</div>
+        </div>
+        <div class="stat-tile">
+          <div class="stat-num info" id="statBlocked">—</div>
+          <div class="stat-label">Status blocked (reading level fail)</div>
+        </div>
+      </div>
+      <div class="queue-list" id="queueList">
+        <div class="empty">Queue items will appear here after pipeline runs.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- How it works -->
+  <div class="how-it-works">
+    <h3>How this works in production</h3>
+    <p>This demo runs in your browser with no LLM calls. In your production deployment, the same logic runs through Make.com calling the Anthropic API. Asset submission triggers the pipeline:</p>
+    <ol>
+      <li><b>New asset submitted in AO Docs</b> → webhook fires to Make.com with asset metadata and content text.</li>
+      <li><b>Pass 1: Classification</b> — Claude tags against the 20-field schema with each field's enum constrained in the response schema. <code>response_format: json_schema</code> eliminates freeform value drift.</li>
+      <li><b>Pass 2: Self-validation</b> — Claude reviews its own classification, scoring confidence per field. Fields below the configured threshold (default 0.75) flag for human review.</li>
+      <li><b>Reading-level gate</b> — Family-facing content runs through a separate prompt scoring against Family-Accessible (6th grade) and Plain Language (4th grade). Failures block Active status.</li>
+      <li><b>Companion content suggestions</b> — semantic similarity surfaces likely companion assets. These are <i>suggestions for human approval</i>, never automatic links.</li>
+      <li><b>Write to Airtable</b> — high-confidence fields populate directly. Low-confidence fields write with a Flag for Review status. Reading-level failures block Status = Active.</li>
+    </ol>
+    <p>The accuracy validation against your sample of 50 already-tagged assets establishes the baseline reduction in manual tagging burden. That number — measured in hours per asset before vs. after — is delivered as part of the Phase 3 sign-off package.</p>
+  </div>
+
+  <div class="foot">
+    Built by <a href="https://resultantai.com">ResultantAI</a> · Architecture proof for Acelero / Shine Early Learning · April 2026
+  </div>
+</div>
+
+<script>
+// ============================================================
+// SAMPLE ASSETS — pre-computed pipeline outputs for demo purposes
+// ============================================================
+const SAMPLES = [
+  {
+    id: 'coaching-1',
+    label: 'Coaching Tool — Reflective Practice Guide',
+    title: 'Reflective Practice Guide for Pre-K Coaches',
+    audience: 'Practitioner-facing',
+    text: 'A structured guide for coaches working with preschool teachers. Walks through the three reflective practice cycles: observation, conversation, and follow-through. Includes prompts for coaching conversations, sample documentation forms, and a four-week implementation arc. Aligned to internal coaching scope and sequence Theme 2: Strengthening the Coaching Stance. Designed for coaches at the Application learning level (post-Awareness, pre-Mastery).',
+    fields: [
+      { name: 'Content Type', value: 'Coaching Resource', conf: 0.96 },
+      { name: 'Functional Domain', value: 'Leadership & Supervision', conf: 0.92 },
+      { name: 'Audience', value: 'Coach', conf: 0.99 },
+      { name: 'Age Group', value: 'Preschool (3–5 years)', conf: 0.94 },
+      { name: 'Developmental Domain', value: 'Mixed/Integrated', conf: 0.71 },
+      { name: 'Setting', value: 'Center-based', conf: 0.78 },
+      { name: 'Instructional Context', value: 'Coaching Session', conf: 0.97 },
+      { name: 'Theme', value: 'T2: Strengthening the Coaching Stance', conf: 0.89 },
+      { name: 'Learning Level', value: 'Practitioner: Application', conf: 0.91 },
+      { name: 'Standards Alignment', value: 'Internal coaching frameworks', conf: 0.83 },
+      { name: 'Language Version', value: 'English', conf: 1.00 },
+      { name: 'Licensing Tier', value: 'Core', conf: 0.85 },
+    ],
+    family: false,
+    readingLevel: null,
+    companions: [
+      { id: 'family-1', name: 'Family Tool: Conversation Starters at Home', conf: 0.62 }
+    ]
+  },
+  {
+    id: 'family-1',
+    label: 'Family Tool — Mealtime Conversation Cards',
+    title: 'Mealtime Conversation Cards for Caregivers',
+    audience: 'Family-facing',
+    text: 'A printable set of conversation prompts caregivers can use at family meals. 20 cards covering social-emotional topics like feelings, friendships, kindness, and trying new things. Designed for children ages 3 to 5 and their grown-ups. Print, cut, and keep on the table. Pick one a day, ask the question, listen, share your own answer. Available in English and Spanish. Reading level reviewed.',
+    fields: [
+      { name: 'Content Type', value: 'Family Engagement Tool', conf: 0.98 },
+      { name: 'Functional Domain', value: 'Family Engagement', conf: 0.96 },
+      { name: 'Audience', value: 'Family/Caregiver', conf: 1.00 },
+      { name: 'Age Group', value: 'Preschool (3–5 years)', conf: 0.93 },
+      { name: 'Developmental Domain', value: 'Social-Emotional', conf: 0.94 },
+      { name: 'Setting', value: 'Home-based', conf: 0.86 },
+      { name: 'Instructional Context', value: 'Family Share', conf: 0.91 },
+      { name: 'Theme', value: 'T4: Belonging at Home', conf: 0.74 },
+      { name: 'Learning Level', value: 'Family: Practice', conf: 0.82 },
+      { name: 'Standards Alignment', value: 'ELOF Social-Emotional', conf: 0.85 },
+      { name: 'Language Version', value: 'Bilingual (EN/ES)', conf: 0.99 },
+      { name: 'Licensing Tier', value: 'Family Engagement Add-On', conf: 0.88 },
+    ],
+    family: true,
+    readingLevel: { level: 'Family-Accessible (6th grade)', grade: 5.4, target: 6, pass: true },
+    companions: [
+      { id: 'practitioner-mealtime', name: 'Practitioner: Supporting Family Mealtime Conversations', conf: 0.81 }
+    ]
+  },
+  {
+    id: 'family-2',
+    label: 'Family Tool — Compliance-style language (FAILS reading-level)',
+    title: 'Family Engagement Communication Standards',
+    audience: 'Family-facing',
+    text: 'In accordance with established programmatic guidelines and the requirements set forth under applicable Head Start performance standards, family engagement communications must demonstrate adherence to evidence-based practices that facilitate sustained caregiver participation throughout the duration of enrollment. This document elucidates expectations regarding bidirectional information exchange, prerequisite documentation, and the implementation of culturally responsive engagement methodologies.',
+    fields: [
+      { name: 'Content Type', value: 'Family Engagement Tool', conf: 0.62 },
+      { name: 'Functional Domain', value: 'Family Engagement', conf: 0.79 },
+      { name: 'Audience', value: 'Family/Caregiver', conf: 0.61 },
+      { name: 'Age Group', value: 'Mixed/All Ages', conf: 0.55 },
+      { name: 'Developmental Domain', value: 'Mixed/Integrated', conf: 0.68 },
+      { name: 'Setting', value: 'Mixed/All Settings', conf: 0.58 },
+      { name: 'Instructional Context', value: 'Family Share', conf: 0.51 },
+      { name: 'Theme', value: 'Unmapped', conf: 0.43 },
+      { name: 'Learning Level', value: 'Family: Introduction', conf: 0.66 },
+      { name: 'Standards Alignment', value: 'Head Start Performance Standards', conf: 0.86 },
+      { name: 'Language Version', value: 'English', conf: 0.99 },
+      { name: 'Licensing Tier', value: 'Family Engagement Add-On', conf: 0.71 },
+    ],
+    family: true,
+    readingLevel: { level: 'Professional (above 12th grade)', grade: 14.2, target: 6, pass: false },
+    companions: []
+  },
+  {
+    id: 'compliance-1',
+    label: 'Compliance Doc — ELOF Alignment Reference',
+    title: 'ELOF Domain Alignment Quick-Reference',
+    audience: 'Practitioner-facing',
+    text: 'Quick-reference document mapping internal curriculum themes to the Head Start Early Learning Outcomes Framework (ELOF) domains. Used by program directors and education coordinators during program self-assessment. Covers all five ELOF central domains: Approaches to Learning, Social and Emotional Development, Language and Literacy, Cognition, and Perceptual, Motor, and Physical Development. Updated April 2026.',
+    fields: [
+      { name: 'Content Type', value: 'Compliance Doc', conf: 0.95 },
+      { name: 'Functional Domain', value: 'Compliance', conf: 0.97 },
+      { name: 'Audience', value: 'Program Director', conf: 0.84 },
+      { name: 'Age Group', value: 'Mixed/All Ages', conf: 0.91 },
+      { name: 'Developmental Domain', value: 'Mixed/Integrated', conf: 0.93 },
+      { name: 'Setting', value: 'Mixed/All Settings', conf: 0.88 },
+      { name: 'Instructional Context', value: 'Routine', conf: 0.49 },
+      { name: 'Theme', value: 'T7: Compliance & Self-Assessment', conf: 0.86 },
+      { name: 'Learning Level', value: 'Practitioner: Application', conf: 0.79 },
+      { name: 'Standards Alignment', value: 'ELOF, Head Start Performance Standards', conf: 0.98 },
+      { name: 'Language Version', value: 'English', conf: 1.00 },
+      { name: 'Licensing Tier', value: 'Core', conf: 0.92 },
+    ],
+    family: false,
+    readingLevel: null,
+    companions: []
+  },
+];
+
+const CONFIDENCE_THRESHOLD = 0.75;
+
+let selectedSample = null;
+let isRunning = false;
+
+// ============================================================
+// UI BINDINGS
+// ============================================================
+const sampleRow = document.getElementById('sampleRow');
+const sourcePreview = document.getElementById('sourcePreview');
+const runBtn = document.getElementById('runBtn');
+const resetBtn = document.getElementById('resetBtn');
+const statusEl = document.getElementById('statusEl');
+const statusText = document.getElementById('statusText');
+const logBox = document.getElementById('logBox');
+const logEmpty = document.getElementById('logEmpty');
+const resultBox = document.getElementById('resultBox');
+const queueList = document.getElementById('queueList');
+const statAuto = document.getElementById('statAuto');
+const statReview = document.getElementById('statReview');
+const statBlocked = document.getElementById('statBlocked');
+
+// Build sample buttons
+SAMPLES.forEach(s => {
+  const b = document.createElement('button');
+  b.className = 'sample-btn';
+  b.textContent = s.label;
+  b.onclick = () => selectSample(s, b);
+  sampleRow.appendChild(b);
+});
+
+function selectSample(s, btn) {
+  if (isRunning) return;
+  selectedSample = s;
+  document.querySelectorAll('.sample-btn').forEach(x => x.classList.remove('active'));
+  btn.classList.add('active');
+  sourcePreview.innerHTML = `
+    <div class="source-title">${escapeHtml(s.title)}</div>
+    <div class="source-meta">${s.audience} · Sample asset</div>
+    <div class="source-text">${escapeHtml(s.text)}</div>
+  `;
+  runBtn.disabled = false;
+  // clear previous results
+  clearResults();
+}
+
+function clearResults() {
+  logBox.innerHTML = '<div class="empty">Run the pipeline to see live output.</div>';
+  resultBox.innerHTML = '<div class="empty">Tagged fields with confidence scores will appear here.</div>';
+  queueList.innerHTML = '<div class="empty">Queue items will appear here after pipeline runs.</div>';
+  statAuto.textContent = '—';
+  statReview.textContent = '—';
+  statBlocked.textContent = '—';
+  statusEl.className = 'status';
+  statusText.textContent = 'Idle';
+}
+
+resetBtn.onclick = () => {
+  if (isRunning) return;
+  selectedSample = null;
+  document.querySelectorAll('.sample-btn').forEach(x => x.classList.remove('active'));
+  sourcePreview.innerHTML = '<div class="empty">Select a sample asset above to preview.</div>';
+  runBtn.disabled = true;
+  clearResults();
+};
+
+runBtn.onclick = () => {
+  if (!selectedSample || isRunning) return;
+  runPipeline(selectedSample);
+};
+
+function escapeHtml(s) {
+  return s.replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+
+// ============================================================
+// PIPELINE RUNNER
+// ============================================================
+async function runPipeline(s) {
+  isRunning = true;
+  runBtn.disabled = true;
+  statusEl.className = 'status running';
+  statusText.textContent = 'Running...';
+  logBox.innerHTML = '';
+  resultBox.innerHTML = '<div class="empty">Tagging in progress...</div>';
+  queueList.innerHTML = '<div class="empty">Queue forming...</div>';
+  statAuto.textContent = '—';
+  statReview.textContent = '—';
+  statBlocked.textContent = '—';
+
+  const t0 = Date.now();
+  const log = (msg, cls='log-msg') => {
+    const elapsed = ((Date.now() - t0)/1000).toFixed(2);
+    const line = document.createElement('div');
+    line.className = `log-line ${cls}`;
+    line.innerHTML = `<span class="log-time">[${elapsed}s]</span>${msg}`;
+    logBox.appendChild(line);
+    requestAnimationFrame(() => line.classList.add('visible'));
+    logBox.scrollTop = logBox.scrollHeight;
+  };
+
+  // Pass 1: Classification
+  log('→ Webhook received: new asset submission', 'log-msg');
+  await wait(300);
+  log('→ Pass 1: Classification against 20-field taxonomy', 'log-pass-1');
+  await wait(500);
+  log(`  · Calling Claude with constrained JSON schema (${s.fields.length} fields)`, 'log-msg');
+  await wait(700);
+  log('  · Response received, schema validation passed', 'log-msg');
+  await wait(300);
+
+  // Pass 2: Self-validation
+  log('→ Pass 2: Self-validation (confidence scoring)', 'log-pass-2');
+  await wait(500);
+  log('  · Claude reviewing each field assignment', 'log-msg');
+  await wait(600);
+
+  const lowConfidence = s.fields.filter(f => f.conf < CONFIDENCE_THRESHOLD);
+  if (lowConfidence.length > 0) {
+    log(`  · ${lowConfidence.length} field(s) below ${CONFIDENCE_THRESHOLD} threshold → flagging for review`, 'log-flag');
+    lowConfidence.forEach(f => {
+      log(`    ⚠ ${f.name}: ${f.value} (conf ${f.conf.toFixed(2)})`, 'log-flag');
+    });
+  } else {
+    log(`  · All fields above ${CONFIDENCE_THRESHOLD} threshold ✓`, 'log-result');
+  }
+  await wait(400);
+
+  // Reading level (family only)
+  let readingBlocked = false;
+  if (s.family && s.readingLevel) {
+    log('→ Reading-level assessment (family-facing content)', 'log-reading');
+    await wait(500);
+    log(`  · Scoring against Family-Accessible (6th grade) and Plain Language (4th grade) standards`, 'log-msg');
+    await wait(600);
+    log(`  · Detected reading level: grade ${s.readingLevel.grade.toFixed(1)} (${s.readingLevel.level})`, 'log-msg');
+    if (!s.readingLevel.pass) {
+      log(`  ✖ FAIL: Reading level above 6th grade threshold. Asset Status BLOCKED from Active.`, 'log-flag');
+      readingBlocked = true;
+    } else {
+      log(`  ✓ PASS: Reading level within Family-Accessible threshold`, 'log-result');
+    }
+    await wait(300);
+  } else if (s.family) {
+    log('→ Reading-level assessment skipped (no text content)', 'log-reading');
+    await wait(200);
+  } else {
+    log('→ Reading-level assessment skipped (practitioner-facing)', 'log-msg');
+    await wait(200);
+  }
+
+  // Companion content
+  if (s.companions && s.companions.length > 0) {
+    log('→ Companion content suggestions (semantic similarity)', 'log-companion');
+    await wait(500);
+    s.companions.forEach(c => {
+      log(`  · Suggested: "${c.name}" (similarity ${c.conf.toFixed(2)}) — awaiting human approval`, 'log-msg');
+    });
+    await wait(300);
+  }
+
+  // Write
+  log('→ Writing tagged fields to Airtable', 'log-msg');
+  await wait(400);
+  log(`  · ${s.fields.length - lowConfidence.length} field(s) auto-tagged`, 'log-result');
+  if (lowConfidence.length > 0) {
+    log(`  · ${lowConfidence.length} field(s) written with Flag for Review status`, 'log-flag');
+  }
+  if (readingBlocked) {
+    log(`  · Asset Status set to BLOCKED — cannot move to Active until reading-level resolved`, 'log-flag');
+  }
+  await wait(400);
+
+  log('✓ Pipeline complete', 'log-result');
+  log(`  Total elapsed: ${((Date.now() - t0)/1000).toFixed(2)}s`, 'log-msg');
+
+  // Render results
+  renderResults(s, lowConfidence, readingBlocked);
+
+  isRunning = false;
+  runBtn.disabled = false;
+  statusEl.className = 'status done';
+  statusText.textContent = 'Complete';
+}
+
+function wait(ms) { return new Promise(r => setTimeout(r, ms)); }
+
+function renderResults(s, lowConfidence, readingBlocked) {
+  // Field grid
+  const fieldHtml = s.fields.map(f => {
+    const confClass = f.conf >= 0.85 ? 'conf-high' : f.conf >= 0.75 ? 'conf-mid' : 'conf-low';
+    return `
+      <div class="field">
+        <div class="field-label">${escapeHtml(f.name)}</div>
+        <div class="field-value">${escapeHtml(f.value)}</div>
+        <div class="field-conf">
+          <div class="conf-bar"><div class="conf-fill ${confClass}" style="width:${f.conf*100}%"></div></div>
+          <div class="conf-num">${f.conf.toFixed(2)}</div>
+        </div>
+      </div>
+    `;
+  }).join('');
+
+  let readingHtml = '';
+  if (s.family && s.readingLevel) {
+    const cls = s.readingLevel.pass ? 'pass' : 'fail';
+    const label = s.readingLevel.pass ? 'PASS' : 'FAIL';
+    readingHtml = `
+      <div class="reading-result ${cls}">
+        <div>
+          <div class="reading-label">Reading-level assessment</div>
+          <div class="reading-value ${cls}">${label} · ${escapeHtml(s.readingLevel.level)}</div>
+        </div>
+        <div style="text-align:right;">
+          <div class="reading-label">Detected grade</div>
+          <div class="reading-value">${s.readingLevel.grade.toFixed(1)}</div>
+        </div>
+      </div>
+      ${!s.readingLevel.pass ? '<div class="reading-note">Status set to <b>Pending Human Review</b>. Asset cannot move to Active until rewritten or manually overridden.</div>' : ''}
+    `;
+  } else if (s.family) {
+    readingHtml = `<div class="reading-result na"><div><div class="reading-label">Reading-level</div><div class="reading-value na">Not applicable</div></div></div>`;
+  }
+
+  resultBox.innerHTML = `<div class="field-grid">${fieldHtml}</div>${readingHtml}`;
+
+  // Queue
+  const autoCount = s.fields.length - lowConfidence.length;
+  const reviewCount = lowConfidence.length;
+  const blockedCount = readingBlocked ? 1 : 0;
+  statAuto.textContent = autoCount;
+  statReview.textContent = reviewCount;
+  statBlocked.textContent = blockedCount;
+
+  const queueItems = [];
+  s.fields.forEach(f => {
+    if (f.conf < CONFIDENCE_THRESHOLD) {
+      queueItems.push({ label: `${f.name}: "${f.value}"`, status: 'review', note: `conf ${f.conf.toFixed(2)}` });
+    }
+  });
+  if (readingBlocked) {
+    queueItems.push({ label: 'Asset blocked: reading level above Family-Accessible threshold', status: 'blocked', note: 'Status: Pending Review' });
+  }
+  s.companions.forEach(c => {
+    queueItems.push({ label: `Companion suggestion: ${c.name}`, status: 'review', note: 'awaiting approval' });
+  });
+
+  if (queueItems.length === 0) {
+    queueList.innerHTML = '<div class="empty">No items requiring human review. Asset auto-tagged and ready for Active status.</div>';
+  } else {
+    queueList.innerHTML = queueItems.map(q => `
+      <div class="queue-item">
+        <div>${escapeHtml(q.label)} <span class="queue-item-tag ${q.status}">${q.note}</span></div>
+      </div>
+    `).join('');
+  }
+}
+</script>
+</body>
+</html>
