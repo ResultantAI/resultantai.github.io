@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Agent Twin™ — SMS Command Center Demo</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@400;500;600;700&family=SF+Pro+Text:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --ios-blue: #007AFF;
+            --ios-green: #34C759;
+            --ios-gray: #8E8E93;
+            --ios-light-gray: #F2F2F7;
+            --ios-dark: #1C1C1E;
+            --ios-bubble-received: #E9E9EB;
+            --ios-bubble-sent: #007AFF;
+            --message-shadow: 0 1px 2px rgba(0,0,0,0.08);
+            --phone-shadow: 0 50px 100px -20px rgba(0,0,0,0.4), 0 30px 60px -30px rgba(0,0,0,0.5);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'SF Pro Display', 'Helvetica Neue', sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+            overflow-x: hidden;
+        }
+
+        .demo-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 30px;
+            max-width: 100%;
+        }
+
+        .header {
+            text-align: center;
+            color: white;
+            animation: fadeInDown 0.8s ease-out;
+        }
+
+        .header h1 {
+            font-size: clamp(24px, 5vw, 42px);
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            margin-bottom: 12px;
+            background: linear-gradient(135deg, #ffffff 0%, #a8dadc 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .header p {
+            font-size: clamp(14px, 3vw, 18px);
+            color: rgba(255,255,255,0.7);
+            font-weight: 400;
+        }
+
+        .iphone-frame {
+            width: 375px;
+            height: 812px;
+            background: #000;
+            border-radius: 55px;
+            padding: 12px;
+            box-shadow: var(--phone-shadow);
+            position: relative;
+            animation: floatIn 1s ease-out 0.3s both;
+        }
+
+        .iphone-screen {
+            width: 100%;
+            height: 100%;
+            background: #fff;
+            border-radius: 45px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .notch {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 160px;
+            height: 34px;
+            background: #000;
+            border-radius: 0 0 20px 20px;
+            z-index: 100;
+        }
+
+        .status-bar {
+            height: 54px;
+            background: #f8f8f8;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            padding: 0 28px 8px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .status-time {
+            font-weight: 600;
+        }
+
+        .status-icons {
+            display: flex;
+            gap: 5px;
+            align-items: center;
+        }
+
+        .nav-bar {
+            height: 44px;
+            background: #f8f8f8;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-bottom: 0.5px solid rgba(0,0,0,0.1);
+            position: relative;
+        }
+
+        .nav-back {
+            position: absolute;
+            left: 16px;
+            color: var(--ios-blue);
+            font-size: 17px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .nav-title {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .nav-title .name {
+            font-size: 17px;
+            font-weight: 600;
+        }
+
+        .nav-title .subtitle {
+            font-size: 12px;
+            color: var(--ios-gray);
+        }
+
+        .messages-container {
+            height: calc(100% - 54px - 44px - 80px);
+            overflow-y: auto;
+            padding: 16px;
+            background: #fff;
+            scroll-behavior: smooth;
+        }
+
+        .messages-container::-webkit-scrollbar {
+            display: none;
+        }
+
+        .message-group {
+            margin-bottom: 16px;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .message-group.visible {
+            opacity: 1;
+            transform: translateY(0);
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .timestamp {
+            text-align: center;
+            font-size: 12px;
+            color: var(--ios-gray);
+            margin: 20px 0 12px;
+            font-weight: 500;
+        }
+
+        .message {
+            max-width: 75%;
+            padding: 10px 14px;
+            border-radius: 18px;
+            margin-bottom: 3px;
+            font-size: 16px;
+            line-height: 1.4;
+            position: relative;
+            word-wrap: break-word;
+        }
+
+        .message.received {
+            background: var(--ios-bubble-received);
+            color: #000;
+            margin-right: auto;
+            border-bottom-left-radius: 4px;
+        }
+
+        .message.sent {
+            background: var(--ios-bubble-sent);
+            color: #fff;
+            margin-left: auto;
+            border-bottom-right-radius: 4px;
+        }
+
+        .message.sent.green {
+            background: var(--ios-green);
+        }
+
+        .message-label {
+            font-size: 11px;
+            color: var(--ios-gray);
+            margin-bottom: 4px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .message-label.right {
+            text-align: right;
+        }
+
+        .typing-indicator {
+            display: flex;
+            gap: 4px;
+            padding: 12px 14px;
+            background: var(--ios-bubble-received);
+            border-radius: 18px;
+            width: fit-content;
+            margin-bottom: 8px;
+        }
+
+        .typing-indicator span {
+            width: 8px;
+            height: 8px;
+            background: #999;
+            border-radius: 50%;
+            animation: typing 1.4s infinite;
+        }
+
+        .typing-indicator span:nth-child(2) { animation-delay: 0.2s; }
+        .typing-indicator span:nth-child(3) { animation-delay: 0.4s; }
+
+        @keyframes typing {
+            0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
+            30% { transform: translateY(-4px); opacity: 1; }
+        }
+
+        .input-bar {
+            position: absolute;
+            bottom: 34px;
+            left: 0;
+            right: 0;
+            height: 46px;
+            background: #f8f8f8;
+            border-top: 0.5px solid rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            padding: 0 12px;
+            gap: 8px;
+        }
+
+        .input-field {
+            flex: 1;
+            height: 34px;
+            background: #fff;
+            border: 0.5px solid rgba(0,0,0,0.15);
+            border-radius: 17px;
+            padding: 0 12px;
+            font-size: 16px;
+            outline: none;
+        }
+
+        .send-btn {
+            width: 30px;
+            height: 30px;
+            background: var(--ios-blue);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: transform 0.15s;
+        }
+
+        .send-btn:hover {
+            transform: scale(1.1);
+        }
+
+        .send-btn svg {
+            width: 16px;
+            height: 16px;
+            fill: white;
+            margin-left: 2px;
+        }
+
+        .home-indicator {
+            position: absolute;
+            bottom: 8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 134px;
+            height: 5px;
+            background: #000;
+            border-radius: 3px;
+        }
+
+        .controls {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 16px;
+            animation: fadeInUp 0.8s ease-out 0.6s both;
+        }
+
+        .play-btn {
+            padding: 16px 40px;
+            background: linear-gradient(135deg, var(--ios-blue) 0%, #0056b3 100%);
+            color: white;
+            border: none;
+            border-radius: 30px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 20px rgba(0,122,255,0.4);
+        }
+
+        .play-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 30px rgba(0,122,255,0.5);
+        }
+
+        .play-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .reset-btn {
+            padding: 10px 24px;
+            background: transparent;
+            color: rgba(255,255,255,0.7);
+            border: 1px solid rgba(255,255,255,0.3);
+            border-radius: 20px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .reset-btn:hover {
+            background: rgba(255,255,255,0.1);
+            color: white;
+        }
+
+        .progress-dots {
+            display: flex;
+            gap: 8px;
+            margin-top: 8px;
+        }
+
+        .progress-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.3);
+            transition: all 0.3s;
+        }
+
+        .progress-dot.active {
+            background: var(--ios-blue);
+            transform: scale(1.2);
+        }
+
+        .progress-dot.complete {
+            background: var(--ios-green);
+        }
+
+        .footer {
+            text-align: center;
+            color: rgba(255,255,255,0.5);
+            font-size: 13px;
+            margin-top: 20px;
+            animation: fadeIn 1s ease-out 1s both;
+        }
+
+        .footer a {
+            color: var(--ios-blue);
+            text-decoration: none;
+        }
+
+        .highlight {
+            background: rgba(52, 199, 89, 0.15);
+            padding: 2px 6px;
+            border-radius: 4px;
+            color: var(--ios-green);
+            font-weight: 600;
+        }
+
+        .metric {
+            display: inline-block;
+            font-weight: 700;
+            color: var(--ios-blue);
+        }
+
+        /* Confirmation overlay */
+        .confirmation {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            background: rgba(0,0,0,0.85);
+            color: white;
+            padding: 20px 30px;
+            border-radius: 16px;
+            font-size: 18px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            z-index: 200;
+            opacity: 0;
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .confirmation.show {
+            transform: translate(-50%, -50%) scale(1);
+            opacity: 1;
+        }
+
+        .confirmation svg {
+            width: 24px;
+            height: 24px;
+        }
+
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes floatIn {
+            from { 
+                opacity: 0; 
+                transform: translateY(40px) scale(0.95);
+            }
+            to { 
+                opacity: 1; 
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        @media (max-width: 420px) {
+            .iphone-frame {
+                width: 100%;
+                max-width: 375px;
+                height: auto;
+                aspect-ratio: 375/812;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="demo-container">
+        <header class="header">
+            <h1>AI Agent Twin™ Demo</h1>
+            <p>See how a real estate agent runs her entire business through texts</p>
+        </header>
+
+        <div class="iphone-frame">
+            <div class="iphone-screen">
+                <div class="notch"></div>
+                
+                <div class="status-bar">
+                    <span class="status-time">9:41</span>
+                    <div class="status-icons">
+                        <svg width="18" height="12" viewBox="0 0 18 12"><path d="M1 4.5C1 3.67 1.67 3 2.5 3h2C5.33 3 6 3.67 6 4.5v5c0 .83-.67 1.5-1.5 1.5h-2C1.67 11 1 10.33 1 9.5v-5zm6-2C7 1.67 7.67 1 8.5 1h2c.83 0 1.5.67 1.5 1.5v7c0 .83-.67 1.5-1.5 1.5h-2C7.67 11 7 10.33 7 9.5v-7zm6 3c0-.83.67-1.5 1.5-1.5h2c.83 0 1.5.67 1.5 1.5v4c0 .83-.67 1.5-1.5 1.5h-2c-.83 0-1.5-.67-1.5-1.5v-4z" fill="#000"/></svg>
+                        <svg width="17" height="12" viewBox="0 0 17 12"><path d="M8.5 2.5c2.7 0 5.2 1 7.1 2.7.3.3.3.7 0 1l-.7.7c-.3.3-.7.3-1 0-1.5-1.3-3.4-2-5.4-2s-3.9.7-5.4 2c-.3.3-.7.3-1 0l-.7-.7c-.3-.3-.3-.7 0-1 1.9-1.7 4.4-2.7 7.1-2.7zm0 4c1.5 0 2.9.5 4 1.5.3.3.3.7 0 1l-.7.7c-.3.3-.7.3-1 0-.6-.5-1.4-.8-2.3-.8s-1.7.3-2.3.8c-.3.3-.7.3-1 0l-.7-.7c-.3-.3-.3-.7 0-1 1.1-1 2.5-1.5 4-1.5zm1.4 4.1c0 .8-.6 1.4-1.4 1.4s-1.4-.6-1.4-1.4.6-1.4 1.4-1.4 1.4.6 1.4 1.4z" fill="#000"/></svg>
+                        <svg width="25" height="12" viewBox="0 0 25 12"><rect x="0.5" y="0.5" width="21" height="11" rx="2.5" stroke="#000" fill="none"/><rect x="22" y="3.5" width="2.5" height="5" rx="1" fill="#000"/><rect x="2" y="2" width="18" height="8" rx="1" fill="#000"/></svg>
+                    </div>
+                </div>
+
+                <div class="nav-bar">
+                    <div class="nav-back">
+                        <svg width="12" height="20" viewBox="0 0 12 20"><path d="M10.5 1L1.5 10l9 9" stroke="#007AFF" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        <span>Messages</span>
+                    </div>
+                    <div class="nav-title">
+                        <span class="name">AI Assistant</span>
+                        <span class="subtitle">Your Business Twin</span>
+                    </div>
+                </div>
+
+                <div class="messages-container" id="messagesContainer">
+                    <!-- Messages will be injected here -->
+                </div>
+
+                <div class="input-bar">
+                    <div class="input-field" contenteditable="false"></div>
+                    <div class="send-btn">
+                        <svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+                    </div>
+                </div>
+
+                <div class="home-indicator"></div>
+
+                <div class="confirmation" id="confirmation">
+                    <svg viewBox="0 0 24 24" fill="#34C759"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                    <span id="confirmationText">Posted ✓</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="controls">
+            <button class="play-btn" id="playBtn">▶ Start Demo</button>
+            <button class="reset-btn" id="resetBtn">↻ Reset</button>
+            <div class="progress-dots">
+                <div class="progress-dot" data-step="0"></div>
+                <div class="progress-dot" data-step="1"></div>
+                <div class="progress-dot" data-step="2"></div>
+                <div class="progress-dot" data-step="3"></div>
+                <div class="progress-dot" data-step="4"></div>
+            </div>
+        </div>
+
+        <footer class="footer">
+            Built by <a href="https://meetings.hubspot.com/chris4642" target="_blank">Chris Mott</a> — ResultantAI<br>
+            <span style="opacity: 0.7">Zero dashboards. Just texts.</span>
+        </footer>
+    </div>
+
+    <script>
+        const messageSequence = [
+            // Step 0: Morning Summary
+            {
+                step: 0,
+                timestamp: "Tuesday 8:02 AM",
+                messages: [
+                    {
+                        type: "received",
+                        label: "AI ASSISTANT",
+                        content: "☀️ Good morning! Here's your pipeline:<br><br>🔥 <span class='metric'>3 hot leads</span> ready to tour<br>📅 <span class='metric'>2 showings</span> booked today<br>📝 <span class='metric'>1 offer</span> pending response<br><br>Sarah M. viewed Oak St listing 4x yesterday. Want me to reach out?"
+                    }
+                ],
+                awaitClick: true,
+                userResponse: "yes"
+            },
+            // Step 1: Lead Nurture
+            {
+                step: 1,
+                timestamp: "8:15 AM",
+                messages: [
+                    {
+                        type: "received",
+                        label: "AI ASSISTANT",
+                        content: "📱 New inquiry from <strong>David Chen</strong>:<br><br><em>\"Looking for 4BR in Spring area, budget $450-500K, need good schools\"</em><br><br>I drafted a response matching your style. Send it?"
+                    },
+                    {
+                        type: "received",
+                        content: "<em>\"Hi David! Great timing—I have 3 properties in Spring ISD that check all your boxes. The Rayford Rd listing just hit market yesterday. When works for a tour?\"</em>"
+                    }
+                ],
+                awaitClick: true,
+                userResponse: "send",
+                confirmation: "Sent ✓"
+            },
+            // Step 2: Content Approval
+            {
+                step: 2,
+                timestamp: "9:30 AM",
+                messages: [
+                    {
+                        type: "received",
+                        label: "AI ASSISTANT", 
+                        content: "📸 Content ready for Instagram:<br><br><strong>Just Listed: Oak Street Gem 🏡</strong><br><br><em>\"4BR/3BA in Tomball ISD • $485K • Updated kitchen, pool-ready backyard • Open house Saturday 1-4pm\"</em><br><br>Approve to post?"
+                    }
+                ],
+                awaitClick: true,
+                userResponse: "yes",
+                confirmation: "Posted to IG ✓"
+            },
+            // Step 3: Hot Lead Alert
+            {
+                step: 3,
+                timestamp: "11:45 AM",
+                messages: [
+                    {
+                        type: "received",
+                        label: "🔥 HOT LEAD ALERT",
+                        content: "<strong>Sarah Martinez</strong> just texted:<br><br><em>\"I need to see the Oak St house TODAY. Can we do 2pm?\"</em><br><br>She's viewed it 6 times online, pre-approved at $510K. This one's ready."
+                    },
+                    {
+                        type: "received",
+                        content: "Reply <strong>CALL</strong> to connect now, or I'll confirm 2pm showing."
+                    }
+                ],
+                awaitClick: true,
+                userResponse: "call",
+                confirmation: "Calling Sarah... 📞"
+            },
+            // Step 4: End of Day Summary
+            {
+                step: 4,
+                timestamp: "12:01 PM",
+                messages: [
+                    {
+                        type: "received",
+                        label: "AI ASSISTANT",
+                        content: "✅ <strong>Your morning, automated:</strong><br><br>• Sarah showing confirmed 2pm<br>• David Chen responded—touring Thursday<br>• IG post: 47 views, 3 saves<br>• 2 new leads captured & nurturing<br><br><span class='highlight'>Total time spent: 4 text replies</span>"
+                    },
+                    {
+                        type: "received",
+                        content: "Go show some houses. I've got the rest. 🏠"
+                    }
+                ],
+                awaitClick: false,
+                final: true
+            }
+        ];
+
+        let currentStep = -1;
+        let isPlaying = false;
+        const container = document.getElementById('messagesContainer');
+        const playBtn = document.getElementById('playBtn');
+        const resetBtn = document.getElementById('resetBtn');
+        const confirmation = document.getElementById('confirmation');
+        const confirmationText = document.getElementById('confirmationText');
+        const progressDots = document.querySelectorAll('.progress-dot');
+
+        function showConfirmation(text) {
+            confirmationText.textContent = text;
+            confirmation.classList.add('show');
+            setTimeout(() => {
+                confirmation.classList.remove('show');
+            }, 1500);
+        }
+
+        function updateProgressDots(step, complete = false) {
+            progressDots.forEach((dot, i) => {
+                if (i < step) {
+                    dot.classList.remove('active');
+                    dot.classList.add('complete');
+                } else if (i === step) {
+                    dot.classList.add('active');
+                    dot.classList.remove('complete');
+                } else {
+                    dot.classList.remove('active', 'complete');
+                }
+            });
+        }
+
+        function createMessageGroup(stepData) {
+            const group = document.createElement('div');
+            group.className = 'message-group';
+            
+            if (stepData.timestamp) {
+                const ts = document.createElement('div');
+                ts.className = 'timestamp';
+                ts.textContent = stepData.timestamp;
+                group.appendChild(ts);
+            }
+
+            stepData.messages.forEach(msg => {
+                if (msg.label) {
+                    const label = document.createElement('div');
+                    label.className = 'message-label' + (msg.type === 'sent' ? ' right' : '');
+                    label.textContent = msg.label;
+                    group.appendChild(label);
+                }
+
+                const msgEl = document.createElement('div');
+                msgEl.className = `message ${msg.type}`;
+                msgEl.innerHTML = msg.content;
+                group.appendChild(msgEl);
+            });
+
+            return group;
+        }
+
+        function createUserResponse(text) {
+            const group = document.createElement('div');
+            group.className = 'message-group';
+            
+            const label = document.createElement('div');
+            label.className = 'message-label right';
+            label.textContent = 'YOU';
+            group.appendChild(label);
+
+            const msg = document.createElement('div');
+            msg.className = 'message sent green';
+            msg.textContent = text;
+            group.appendChild(msg);
+
+            return group;
+        }
+
+        function showTypingIndicator() {
+            const typing = document.createElement('div');
+            typing.className = 'typing-indicator';
+            typing.id = 'typingIndicator';
+            typing.innerHTML = '<span></span><span></span><span></span>';
+            container.appendChild(typing);
+            container.scrollTop = container.scrollHeight;
+        }
+
+        function hideTypingIndicator() {
+            const typing = document.getElementById('typingIndicator');
+            if (typing) typing.remove();
+        }
+
+        async function playStep(stepIndex) {
+            const stepData = messageSequence[stepIndex];
+            
+            updateProgressDots(stepIndex);
+
+            // Show typing indicator
+            showTypingIndicator();
+            await delay(800);
+            hideTypingIndicator();
+
+            // Show AI messages
+            const group = createMessageGroup(stepData);
+            container.appendChild(group);
+            await delay(50);
+            group.classList.add('visible');
+            container.scrollTop = container.scrollHeight;
+
+            if (stepData.awaitClick) {
+                playBtn.textContent = `Reply "${stepData.userResponse}"`;
+                playBtn.disabled = false;
+                isPlaying = false;
+            } else if (stepData.final) {
+                playBtn.textContent = "✓ Demo Complete";
+                playBtn.disabled = true;
+                updateProgressDots(stepIndex + 1);
+            }
+        }
+
+        async function handleUserResponse() {
+            const stepData = messageSequence[currentStep];
+            
+            // Show user's response
+            const userGroup = createUserResponse(stepData.userResponse);
+            container.appendChild(userGroup);
+            await delay(50);
+            userGroup.classList.add('visible');
+            container.scrollTop = container.scrollHeight;
+
+            // Show confirmation if needed
+            if (stepData.confirmation) {
+                await delay(400);
+                showConfirmation(stepData.confirmation);
+            }
+
+            // Mark step complete
+            progressDots[currentStep].classList.remove('active');
+            progressDots[currentStep].classList.add('complete');
+
+            // Move to next step
+            await delay(1200);
+            currentStep++;
+            
+            if (currentStep < messageSequence.length) {
+                playStep(currentStep);
+            }
+        }
+
+        function delay(ms) {
+            return new Promise(resolve => setTimeout(resolve, ms));
+        }
+
+        playBtn.addEventListener('click', () => {
+            if (currentStep === -1) {
+                // Start demo
+                currentStep = 0;
+                playBtn.disabled = true;
+                playBtn.textContent = "Loading...";
+                playStep(currentStep);
+            } else if (!isPlaying && messageSequence[currentStep]?.awaitClick) {
+                // User responding
+                isPlaying = true;
+                playBtn.disabled = true;
+                handleUserResponse();
+            }
+        });
+
+        resetBtn.addEventListener('click', () => {
+            container.innerHTML = '';
+            currentStep = -1;
+            isPlaying = false;
+            playBtn.textContent = '▶ Start Demo';
+            playBtn.disabled = false;
+            progressDots.forEach(dot => {
+                dot.classList.remove('active', 'complete');
+            });
+        });
+    </script>
+</body>
+</html>

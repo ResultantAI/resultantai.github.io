@@ -1,0 +1,1537 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HubSpot ROI Calculator & Audit | ResultantAI</title>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #0a0f1a;
+            --bg-card: #121a2e;
+            --bg-input: #1a2440;
+            --accent-orange: #ff6b35;
+            --accent-orange-glow: rgba(255, 107, 53, 0.3);
+            --accent-green: #00d4aa;
+            --accent-green-glow: rgba(0, 212, 170, 0.25);
+            --accent-yellow: #ffc107;
+            --accent-red: #ff4757;
+            --text-primary: #ffffff;
+            --text-secondary: #8892a8;
+            --text-muted: #5a6478;
+            --border-color: #2a3654;
+            --gradient-orange: linear-gradient(135deg, #ff6b35, #ff8f5a);
+            --gradient-green: linear-gradient(135deg, #00d4aa, #00f5c4);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-primary);
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 40px 24px;
+        }
+
+        /* Tutorial Banner */
+        .tutorial-banner {
+            background: linear-gradient(135deg, var(--bg-card) 0%, #1e2a4a 100%);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 24px 32px;
+            margin-bottom: 32px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tutorial-banner::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--gradient-orange);
+        }
+
+        .tutorial-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 16px;
+        }
+
+        .tutorial-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--accent-orange);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .tutorial-title svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        .dismiss-btn {
+            background: transparent;
+            border: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            padding: 8px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 13px;
+            transition: all 0.2s;
+        }
+
+        .dismiss-btn:hover {
+            background: var(--bg-input);
+            color: var(--text-primary);
+        }
+
+        .tutorial-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 16px;
+        }
+
+        .tutorial-step {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .step-number {
+            width: 24px;
+            height: 24px;
+            background: var(--bg-input);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--accent-orange);
+            flex-shrink: 0;
+        }
+
+        .step-text {
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+
+        .brand {
+            font-family: 'Space Mono', monospace;
+            font-size: 13px;
+            color: var(--accent-orange);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 16px;
+        }
+
+        .header h1 {
+            font-size: clamp(28px, 5vw, 42px);
+            font-weight: 700;
+            margin-bottom: 12px;
+            background: linear-gradient(135deg, #fff 30%, var(--text-secondary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .header-subtitle {
+            font-size: 16px;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Tab Navigation */
+        .tab-nav {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 32px;
+            background: var(--bg-card);
+            padding: 6px;
+            border-radius: 12px;
+            width: fit-content;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .tab-btn {
+            background: transparent;
+            border: none;
+            padding: 12px 24px;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            cursor: pointer;
+            border-radius: 8px;
+            font-family: inherit;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .tab-btn:hover {
+            color: var(--text-primary);
+        }
+
+        .tab-btn.active {
+            background: var(--gradient-orange);
+            color: white;
+        }
+
+        .tab-btn svg {
+            width: 18px;
+            height: 18px;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Main Grid */
+        .main-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 32px;
+        }
+
+        @media (max-width: 768px) {
+            .main-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Card Styles */
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 32px;
+            position: relative;
+        }
+
+        .card-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card-title::before {
+            content: '';
+            width: 8px;
+            height: 8px;
+            background: var(--accent-orange);
+            border-radius: 2px;
+        }
+
+        .input-group {
+            margin-bottom: 24px;
+        }
+
+        .input-label {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .input-label span {
+            font-size: 14px;
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+
+        .input-hint {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .input-wrapper {
+            position: relative;
+        }
+
+        .input-prefix {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+            font-size: 15px;
+        }
+
+        input[type="number"], select {
+            width: 100%;
+            background: var(--bg-input);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 14px 16px;
+            font-size: 16px;
+            color: var(--text-primary);
+            font-family: inherit;
+            transition: all 0.2s;
+        }
+
+        input[type="number"]:focus, select:focus {
+            outline: none;
+            border-color: var(--accent-orange);
+            box-shadow: 0 0 0 3px var(--accent-orange-glow);
+        }
+
+        input.has-prefix {
+            padding-left: 32px;
+        }
+
+        select {
+            cursor: pointer;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%238892a8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 16px center;
+            padding-right: 48px;
+        }
+
+        /* Buttons */
+        .calculate-btn {
+            width: 100%;
+            background: var(--gradient-orange);
+            border: none;
+            border-radius: 12px;
+            padding: 16px 24px;
+            font-size: 16px;
+            font-weight: 600;
+            color: white;
+            cursor: pointer;
+            font-family: inherit;
+            transition: all 0.3s;
+            margin-top: 8px;
+        }
+
+        .calculate-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px var(--accent-orange-glow);
+        }
+
+        .calculate-btn:active {
+            transform: translateY(0);
+        }
+
+        /* Results Card */
+        .results-card {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .results-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, var(--accent-green-glow) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+
+        .results-card.calculated::before {
+            opacity: 1;
+        }
+
+        .results-placeholder {
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--text-muted);
+        }
+
+        .results-placeholder svg {
+            width: 48px;
+            height: 48px;
+            margin-bottom: 16px;
+            opacity: 0.5;
+        }
+
+        .results-content {
+            display: none;
+            position: relative;
+            z-index: 1;
+        }
+
+        .results-content.visible {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        /* Big Number */
+        .big-result {
+            text-align: center;
+            padding: 24px 0 32px;
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 24px;
+        }
+
+        .big-result-label {
+            font-size: 13px;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 8px;
+        }
+
+        .big-result-value {
+            font-family: 'Space Mono', monospace;
+            font-size: clamp(36px, 8vw, 52px);
+            font-weight: 700;
+            color: var(--accent-green);
+            text-shadow: 0 0 40px var(--accent-green-glow);
+        }
+
+        .big-result-period {
+            font-size: 14px;
+            color: var(--text-muted);
+            margin-top: 4px;
+        }
+
+        /* Metric Rows */
+        .metrics-grid {
+            display: grid;
+            gap: 16px;
+        }
+
+        .metric-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px;
+            background: var(--bg-input);
+            border-radius: 12px;
+            opacity: 0;
+            transform: translateX(-10px);
+            transition: all 0.3s;
+        }
+
+        .metric-row.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .metric-row:nth-child(1) { transition-delay: 0.1s; }
+        .metric-row:nth-child(2) { transition-delay: 0.2s; }
+        .metric-row:nth-child(3) { transition-delay: 0.3s; }
+        .metric-row:nth-child(4) { transition-delay: 0.4s; }
+
+        .metric-label {
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        .metric-value {
+            font-family: 'Space Mono', monospace;
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .metric-value.highlight {
+            color: var(--accent-green);
+        }
+
+        /* Benchmark Section */
+        .benchmark-section {
+            margin-top: 32px;
+            padding-top: 24px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .benchmark-title {
+            font-size: 12px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 16px;
+        }
+
+        .benchmark-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            margin-bottom: 12px;
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+
+        .benchmark-item svg {
+            width: 16px;
+            height: 16px;
+            color: var(--accent-green);
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        /* Processing Animation */
+        .processing {
+            display: none;
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        .processing.visible {
+            display: block;
+        }
+
+        .processing-spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid var(--border-color);
+            border-top-color: var(--accent-orange);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            margin: 0 auto 16px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .processing-text {
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        /* ============================================
+           AUDIT SCORECARD STYLES
+           ============================================ */
+
+        .audit-grid {
+            display: grid;
+            gap: 20px;
+        }
+
+        .audit-category {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 24px;
+        }
+
+        .audit-category-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .audit-category-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .audit-category-title svg {
+            width: 20px;
+            height: 20px;
+            color: var(--accent-orange);
+        }
+
+        .audit-questions {
+            display: grid;
+            gap: 16px;
+        }
+
+        .audit-question {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 14px 16px;
+            background: var(--bg-input);
+            border-radius: 10px;
+            gap: 16px;
+        }
+
+        .audit-question-text {
+            font-size: 14px;
+            color: var(--text-secondary);
+            flex: 1;
+        }
+
+        .audit-toggle {
+            display: flex;
+            gap: 6px;
+        }
+
+        .toggle-btn {
+            padding: 6px 14px;
+            border: 1px solid var(--border-color);
+            background: transparent;
+            color: var(--text-muted);
+            font-size: 12px;
+            font-weight: 600;
+            font-family: inherit;
+            cursor: pointer;
+            border-radius: 6px;
+            transition: all 0.2s;
+        }
+
+        .toggle-btn:hover {
+            border-color: var(--text-secondary);
+            color: var(--text-secondary);
+        }
+
+        .toggle-btn.yes.active {
+            background: var(--accent-green);
+            border-color: var(--accent-green);
+            color: white;
+        }
+
+        .toggle-btn.partial.active {
+            background: var(--accent-yellow);
+            border-color: var(--accent-yellow);
+            color: #1a1a1a;
+        }
+
+        .toggle-btn.no.active {
+            background: var(--accent-red);
+            border-color: var(--accent-red);
+            color: white;
+        }
+
+        /* Audit Results */
+        .audit-results-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 32px;
+            margin-top: 32px;
+        }
+
+        .score-display {
+            text-align: center;
+            padding: 32px 0;
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 24px;
+        }
+
+        .score-circle {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 16px;
+            position: relative;
+            background: var(--bg-input);
+        }
+
+        .score-circle::before {
+            content: '';
+            position: absolute;
+            inset: -4px;
+            border-radius: 50%;
+            padding: 4px;
+            background: conic-gradient(var(--score-color, var(--accent-green)) calc(var(--score-percent, 0) * 1%), var(--border-color) 0);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+        }
+
+        .score-number {
+            font-family: 'Space Mono', monospace;
+            font-size: 42px;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .score-label {
+            font-size: 13px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .score-grade {
+            font-size: 20px;
+            font-weight: 700;
+            margin-top: 8px;
+        }
+
+        .grade-excellent { color: var(--accent-green); }
+        .grade-good { color: #4ecdc4; }
+        .grade-fair { color: var(--accent-yellow); }
+        .grade-poor { color: var(--accent-orange); }
+        .grade-critical { color: var(--accent-red); }
+
+        /* Category Scores */
+        .category-scores {
+            display: grid;
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .category-score-row {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .category-score-label {
+            font-size: 14px;
+            color: var(--text-secondary);
+            width: 140px;
+            flex-shrink: 0;
+        }
+
+        .category-score-bar {
+            flex: 1;
+            height: 8px;
+            background: var(--bg-input);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .category-score-fill {
+            height: 100%;
+            border-radius: 4px;
+            transition: width 0.8s ease;
+        }
+
+        .category-score-value {
+            font-family: 'Space Mono', monospace;
+            font-size: 14px;
+            font-weight: 600;
+            width: 50px;
+            text-align: right;
+        }
+
+        /* Priority Issues */
+        .priority-issues {
+            background: var(--bg-input);
+            border-radius: 12px;
+            padding: 20px;
+        }
+
+        .priority-title {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--accent-orange);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .priority-title svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        .priority-list {
+            display: grid;
+            gap: 12px;
+        }
+
+        .priority-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        .priority-number {
+            width: 22px;
+            height: 22px;
+            background: var(--accent-orange);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            font-weight: 700;
+            color: white;
+            flex-shrink: 0;
+        }
+
+        .audit-cta {
+            text-align: center;
+            margin-top: 24px;
+            padding-top: 24px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .audit-cta p {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-bottom: 16px;
+        }
+
+        .audit-cta-btn {
+            display: inline-block;
+            background: var(--gradient-orange);
+            color: white;
+            text-decoration: none;
+            padding: 14px 28px;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 15px;
+            transition: all 0.3s;
+        }
+
+        .audit-cta-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px var(--accent-orange-glow);
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            margin-top: 48px;
+            padding-top: 32px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .footer-brand {
+            font-family: 'Space Mono', monospace;
+            font-size: 14px;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+        }
+
+        .footer-cta {
+            font-size: 15px;
+            color: var(--text-secondary);
+        }
+
+        .footer-cta a {
+            color: var(--accent-orange);
+            text-decoration: none;
+        }
+
+        .footer-cta a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 600px) {
+            .audit-question {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 12px;
+            }
+            .audit-toggle {
+                width: 100%;
+                justify-content: space-between;
+            }
+            .toggle-btn {
+                flex: 1;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Tutorial Banner -->
+        <div class="tutorial-banner" id="tutorialBanner">
+            <div class="tutorial-header">
+                <div class="tutorial-title">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <path d="M12 16v-4"></path>
+                        <path d="M12 8h.01"></path>
+                    </svg>
+                    Quick Start Guide
+                </div>
+                <button class="dismiss-btn" onclick="dismissTutorial()">Got it, let's explore →</button>
+            </div>
+            <div class="tutorial-steps">
+                <div class="tutorial-step">
+                    <div class="step-number">1</div>
+                    <div class="step-text"><strong>ROI Calculator:</strong> Enter team metrics to see projected savings</div>
+                </div>
+                <div class="tutorial-step">
+                    <div class="step-number">2</div>
+                    <div class="step-text"><strong>Audit Scorecard:</strong> Rate your current HubSpot setup</div>
+                </div>
+                <div class="tutorial-step">
+                    <div class="step-number">3</div>
+                    <div class="step-text">Get instant health score + priority fixes</div>
+                </div>
+                <div class="tutorial-step">
+                    <div class="step-number">4</div>
+                    <div class="step-text">See exactly where to focus for maximum impact</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Header -->
+        <div class="header">
+            <div class="brand">ResultantAI</div>
+            <h1>HubSpot Health Check</h1>
+            <p class="header-subtitle">Calculate your ROI potential and audit your current setup—based on benchmarks from 228,000+ implementations.</p>
+        </div>
+
+        <!-- Tab Navigation -->
+        <div class="tab-nav">
+            <button class="tab-btn active" onclick="switchTab('roi')">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+                </svg>
+                ROI Calculator
+            </button>
+            <button class="tab-btn" onclick="switchTab('audit')">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M9 11l3 3L22 4"/>
+                    <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>
+                </svg>
+                Audit Scorecard
+            </button>
+        </div>
+
+        <!-- ============================================
+             ROI CALCULATOR TAB
+             ============================================ -->
+        <div class="tab-content active" id="roiTab">
+            <div class="main-grid">
+                <!-- Input Card -->
+                <div class="card">
+                    <div class="card-title">Your Current State</div>
+                    
+                    <div class="input-group">
+                        <div class="input-label">
+                            <span>Team size (sales/ops)</span>
+                            <span class="input-hint">People using CRM</span>
+                        </div>
+                        <input type="number" id="teamSize" value="5" min="1" max="500">
+                    </div>
+
+                    <div class="input-group">
+                        <div class="input-label">
+                            <span>Hours spent on admin tasks daily</span>
+                            <span class="input-hint">Per person average</span>
+                        </div>
+                        <select id="adminHours">
+                            <option value="2">2 hours (light admin burden)</option>
+                            <option value="3">3 hours (moderate admin)</option>
+                            <option value="4" selected>4 hours (typical B2B team)</option>
+                            <option value="5">5 hours (heavy manual work)</option>
+                            <option value="6">6+ hours (CRM chaos)</option>
+                        </select>
+                    </div>
+
+                    <div class="input-group">
+                        <div class="input-label">
+                            <span>Average hourly cost per employee</span>
+                            <span class="input-hint">Fully loaded (salary + benefits)</span>
+                        </div>
+                        <div class="input-wrapper">
+                            <span class="input-prefix">$</span>
+                            <input type="number" id="hourlyCost" value="75" min="25" max="300" class="has-prefix">
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <div class="input-label">
+                            <span>Monthly leads generated</span>
+                            <span class="input-hint">Current volume</span>
+                        </div>
+                        <input type="number" id="monthlyLeads" value="200" min="10" max="10000">
+                    </div>
+
+                    <div class="input-group">
+                        <div class="input-label">
+                            <span>Current lead-to-deal conversion rate</span>
+                            <span class="input-hint">Percentage</span>
+                        </div>
+                        <select id="conversionRate">
+                            <option value="0.5">0.5% (struggling)</option>
+                            <option value="1">1% (below average)</option>
+                            <option value="2" selected>2% (typical)</option>
+                            <option value="3">3% (good)</option>
+                            <option value="5">5% (excellent)</option>
+                        </select>
+                    </div>
+
+                    <button class="calculate-btn" onclick="calculateROI()">
+                        Calculate My ROI →
+                    </button>
+                </div>
+
+                <!-- Results Card -->
+                <div class="card results-card" id="resultsCard">
+                    <div class="card-title">Projected Annual Impact</div>
+                    
+                    <!-- Placeholder State -->
+                    <div class="results-placeholder" id="resultsPlaceholder">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M12 2v4m0 12v4M4.93 4.93l2.83 2.83m8.48 8.48l2.83 2.83M2 12h4m12 0h4M4.93 19.07l2.83-2.83m8.48-8.48l2.83-2.83"/>
+                        </svg>
+                        <p>Enter your numbers and click Calculate to see your projected ROI</p>
+                    </div>
+
+                    <!-- Processing State -->
+                    <div class="processing" id="processingState">
+                        <div class="processing-spinner"></div>
+                        <p class="processing-text">Calculating based on HubSpot benchmarks...</p>
+                    </div>
+
+                    <!-- Results State -->
+                    <div class="results-content" id="resultsContent">
+                        <div class="big-result">
+                            <div class="big-result-label">Total Annual Value</div>
+                            <div class="big-result-value" id="totalValue">$0</div>
+                            <div class="big-result-period">Time savings + Revenue uplift</div>
+                        </div>
+
+                        <div class="metrics-grid">
+                            <div class="metric-row">
+                                <span class="metric-label">Hours recovered annually</span>
+                                <span class="metric-value" id="hoursRecovered">0</span>
+                            </div>
+                            <div class="metric-row">
+                                <span class="metric-label">Admin time reduction</span>
+                                <span class="metric-value highlight" id="timeReduction">0%</span>
+                            </div>
+                            <div class="metric-row">
+                                <span class="metric-label">Projected additional deals/year</span>
+                                <span class="metric-value" id="additionalDeals">0</span>
+                            </div>
+                            <div class="metric-row">
+                                <span class="metric-label">Expected ROI timeline</span>
+                                <span class="metric-value highlight" id="roiTimeline">—</span>
+                            </div>
+                        </div>
+
+                        <div class="benchmark-section">
+                            <div class="benchmark-title">Based on Real HubSpot Data</div>
+                            <div class="benchmark-item">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polyline points="20 6 9 17 4 12"></polyline>
+                                </svg>
+                                <span>76% of users see productivity gains within 3 weeks</span>
+                            </div>
+                            <div class="benchmark-item">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polyline points="20 6 9 17 4 12"></polyline>
+                                </svg>
+                                <span>35% more deals closed after 6 months (Sales Hub)</span>
+                            </div>
+                            <div class="benchmark-item">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polyline points="20 6 9 17 4 12"></polyline>
+                                </svg>
+                                <span>64% realize ROI within 4 weeks of implementation</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================
+             AUDIT SCORECARD TAB
+             ============================================ -->
+        <div class="tab-content" id="auditTab">
+            <div class="audit-grid">
+                <!-- Data Hygiene -->
+                <div class="audit-category">
+                    <div class="audit-category-header">
+                        <div class="audit-category-title">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+                            </svg>
+                            Data Hygiene
+                        </div>
+                    </div>
+                    <div class="audit-questions">
+                        <div class="audit-question">
+                            <span class="audit-question-text">Duplicate contacts under control (&lt;5% duplicate rate)?</span>
+                            <div class="audit-toggle" data-category="data" data-question="duplicates">
+                                <button class="toggle-btn yes" onclick="setAnswer(this, 'yes')">Yes</button>
+                                <button class="toggle-btn partial" onclick="setAnswer(this, 'partial')">Partial</button>
+                                <button class="toggle-btn no" onclick="setAnswer(this, 'no')">No</button>
+                            </div>
+                        </div>
+                        <div class="audit-question">
+                            <span class="audit-question-text">Consistent naming conventions for properties?</span>
+                            <div class="audit-toggle" data-category="data" data-question="naming">
+                                <button class="toggle-btn yes" onclick="setAnswer(this, 'yes')">Yes</button>
+                                <button class="toggle-btn partial" onclick="setAnswer(this, 'partial')">Partial</button>
+                                <button class="toggle-btn no" onclick="setAnswer(this, 'no')">No</button>
+                            </div>
+                        </div>
+                        <div class="audit-question">
+                            <span class="audit-question-text">Regular data cleanup (monthly or quarterly)?</span>
+                            <div class="audit-toggle" data-category="data" data-question="cleanup">
+                                <button class="toggle-btn yes" onclick="setAnswer(this, 'yes')">Yes</button>
+                                <button class="toggle-btn partial" onclick="setAnswer(this, 'partial')">Partial</button>
+                                <button class="toggle-btn no" onclick="setAnswer(this, 'no')">No</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Lifecycle & Pipeline -->
+                <div class="audit-category">
+                    <div class="audit-category-header">
+                        <div class="audit-category-title">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+                            </svg>
+                            Lifecycle & Pipeline
+                        </div>
+                    </div>
+                    <div class="audit-questions">
+                        <div class="audit-question">
+                            <span class="audit-question-text">Clear criteria for each lifecycle stage?</span>
+                            <div class="audit-toggle" data-category="lifecycle" data-question="criteria">
+                                <button class="toggle-btn yes" onclick="setAnswer(this, 'yes')">Yes</button>
+                                <button class="toggle-btn partial" onclick="setAnswer(this, 'partial')">Partial</button>
+                                <button class="toggle-btn no" onclick="setAnswer(this, 'no')">No</button>
+                            </div>
+                        </div>
+                        <div class="audit-question">
+                            <span class="audit-question-text">Automated lifecycle stage progression?</span>
+                            <div class="audit-toggle" data-category="lifecycle" data-question="automation">
+                                <button class="toggle-btn yes" onclick="setAnswer(this, 'yes')">Yes</button>
+                                <button class="toggle-btn partial" onclick="setAnswer(this, 'partial')">Partial</button>
+                                <button class="toggle-btn no" onclick="setAnswer(this, 'no')">No</button>
+                            </div>
+                        </div>
+                        <div class="audit-question">
+                            <span class="audit-question-text">Pipeline stages match actual sales process?</span>
+                            <div class="audit-toggle" data-category="lifecycle" data-question="pipeline">
+                                <button class="toggle-btn yes" onclick="setAnswer(this, 'yes')">Yes</button>
+                                <button class="toggle-btn partial" onclick="setAnswer(this, 'partial')">Partial</button>
+                                <button class="toggle-btn no" onclick="setAnswer(this, 'no')">No</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Automation & Workflows -->
+                <div class="audit-category">
+                    <div class="audit-category-header">
+                        <div class="audit-category-title">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+                                <path d="M2 17l10 5 10-5"/>
+                                <path d="M2 12l10 5 10-5"/>
+                            </svg>
+                            Automation & Workflows
+                        </div>
+                    </div>
+                    <div class="audit-questions">
+                        <div class="audit-question">
+                            <span class="audit-question-text">Lead nurturing sequences active?</span>
+                            <div class="audit-toggle" data-category="automation" data-question="nurturing">
+                                <button class="toggle-btn yes" onclick="setAnswer(this, 'yes')">Yes</button>
+                                <button class="toggle-btn partial" onclick="setAnswer(this, 'partial')">Partial</button>
+                                <button class="toggle-btn no" onclick="setAnswer(this, 'no')">No</button>
+                            </div>
+                        </div>
+                        <div class="audit-question">
+                            <span class="audit-question-text">Each workflow has a clear goal/exit criteria?</span>
+                            <div class="audit-toggle" data-category="automation" data-question="goals">
+                                <button class="toggle-btn yes" onclick="setAnswer(this, 'yes')">Yes</button>
+                                <button class="toggle-btn partial" onclick="setAnswer(this, 'partial')">Partial</button>
+                                <button class="toggle-btn no" onclick="setAnswer(this, 'no')">No</button>
+                            </div>
+                        </div>
+                        <div class="audit-question">
+                            <span class="audit-question-text">MQL→SQL handoff automated with alerts?</span>
+                            <div class="audit-toggle" data-category="automation" data-question="handoff">
+                                <button class="toggle-btn yes" onclick="setAnswer(this, 'yes')">Yes</button>
+                                <button class="toggle-btn partial" onclick="setAnswer(this, 'partial')">Partial</button>
+                                <button class="toggle-btn no" onclick="setAnswer(this, 'no')">No</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Reporting & Adoption -->
+                <div class="audit-category">
+                    <div class="audit-category-header">
+                        <div class="audit-category-title">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M18 20V10"/>
+                                <path d="M12 20V4"/>
+                                <path d="M6 20v-6"/>
+                            </svg>
+                            Reporting & Adoption
+                        </div>
+                    </div>
+                    <div class="audit-questions">
+                        <div class="audit-question">
+                            <span class="audit-question-text">Dashboards show actionable metrics (not vanity)?</span>
+                            <div class="audit-toggle" data-category="reporting" data-question="dashboards">
+                                <button class="toggle-btn yes" onclick="setAnswer(this, 'yes')">Yes</button>
+                                <button class="toggle-btn partial" onclick="setAnswer(this, 'partial')">Partial</button>
+                                <button class="toggle-btn no" onclick="setAnswer(this, 'no')">No</button>
+                            </div>
+                        </div>
+                        <div class="audit-question">
+                            <span class="audit-question-text">Team uses HubSpot daily (80%+ adoption)?</span>
+                            <div class="audit-toggle" data-category="reporting" data-question="adoption">
+                                <button class="toggle-btn yes" onclick="setAnswer(this, 'yes')">Yes</button>
+                                <button class="toggle-btn partial" onclick="setAnswer(this, 'partial')">Partial</button>
+                                <button class="toggle-btn no" onclick="setAnswer(this, 'no')">No</button>
+                            </div>
+                        </div>
+                        <div class="audit-question">
+                            <span class="audit-question-text">Lead scoring implemented and calibrated?</span>
+                            <div class="audit-toggle" data-category="reporting" data-question="scoring">
+                                <button class="toggle-btn yes" onclick="setAnswer(this, 'yes')">Yes</button>
+                                <button class="toggle-btn partial" onclick="setAnswer(this, 'partial')">Partial</button>
+                                <button class="toggle-btn no" onclick="setAnswer(this, 'no')">No</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Calculate Audit Button -->
+            <div style="text-align: center; margin-top: 32px;">
+                <button class="calculate-btn" onclick="calculateAudit()" style="max-width: 400px;">
+                    Generate My Audit Score →
+                </button>
+            </div>
+
+            <!-- Audit Results -->
+            <div class="audit-results-card hidden" id="auditResults">
+                <div class="score-display">
+                    <div class="score-circle" id="scoreCircle">
+                        <span class="score-number" id="auditScore">0</span>
+                        <span class="score-label">/ 100</span>
+                    </div>
+                    <div class="score-grade" id="scoreGrade">—</div>
+                </div>
+
+                <div class="category-scores" id="categoryScores">
+                    <!-- Populated by JS -->
+                </div>
+
+                <div class="priority-issues" id="priorityIssues">
+                    <div class="priority-title">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+                            <line x1="12" y1="9" x2="12" y2="13"/>
+                            <line x1="12" y1="17" x2="12.01" y2="17"/>
+                        </svg>
+                        Priority Fixes
+                    </div>
+                    <div class="priority-list" id="priorityList">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+
+                <div class="audit-cta">
+                    <p>Want a detailed remediation plan for these issues?</p>
+                    <a href="https://meetings.hubspot.com/chris4642" class="audit-cta-btn">Book a 20-Minute Strategy Call →</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <div class="footer-brand">Powered by ResultantAI</div>
+            <p class="footer-cta">
+                Ready to capture this value? <a href="https://meetings.hubspot.com/chris4642">Book a 20-minute strategy call →</a>
+            </p>
+        </div>
+    </div>
+
+    <script>
+        // ============================================
+        // TAB SWITCHING
+        // ============================================
+        function switchTab(tab) {
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+            
+            if (tab === 'roi') {
+                document.querySelector('.tab-btn:nth-child(1)').classList.add('active');
+                document.getElementById('roiTab').classList.add('active');
+            } else {
+                document.querySelector('.tab-btn:nth-child(2)').classList.add('active');
+                document.getElementById('auditTab').classList.add('active');
+            }
+        }
+
+        function dismissTutorial() {
+            document.getElementById('tutorialBanner').style.display = 'none';
+        }
+
+        // ============================================
+        // ROI CALCULATOR
+        // ============================================
+        function formatCurrency(num) {
+            return '$' + num.toLocaleString('en-US', { maximumFractionDigits: 0 });
+        }
+
+        function formatNumber(num) {
+            return num.toLocaleString('en-US', { maximumFractionDigits: 0 });
+        }
+
+        function calculateROI() {
+            const teamSize = parseInt(document.getElementById('teamSize').value) || 5;
+            const adminHours = parseFloat(document.getElementById('adminHours').value) || 4;
+            const hourlyCost = parseFloat(document.getElementById('hourlyCost').value) || 75;
+            const monthlyLeads = parseInt(document.getElementById('monthlyLeads').value) || 200;
+            const conversionRate = parseFloat(document.getElementById('conversionRate').value) || 2;
+
+            document.getElementById('resultsPlaceholder').classList.add('hidden');
+            document.getElementById('resultsContent').classList.remove('visible');
+            document.getElementById('processingState').classList.add('visible');
+
+            setTimeout(() => {
+                const reductionRate = 0.55;
+                const dailyHoursSaved = adminHours * reductionRate;
+                const annualHoursSavedPerPerson = dailyHoursSaved * 250;
+                const totalAnnualHoursSaved = annualHoursSavedPerPerson * teamSize;
+                const timeSavingsValue = totalAnnualHoursSaved * hourlyCost;
+                
+                const currentAnnualDeals = (monthlyLeads * 12) * (conversionRate / 100);
+                const additionalDeals = Math.round(currentAnnualDeals * 0.35);
+                const avgDealValue = teamSize <= 5 ? 5000 : teamSize <= 15 ? 15000 : 35000;
+                const revenueUplift = additionalDeals * avgDealValue * 0.3;
+                const totalValue = timeSavingsValue + revenueUplift;
+                
+                let roiTimeline = '4-6 weeks';
+                if (teamSize > 10) roiTimeline = '6-8 weeks';
+                if (teamSize > 25) roiTimeline = '8-12 weeks';
+
+                document.getElementById('processingState').classList.remove('visible');
+                document.getElementById('resultsContent').classList.add('visible');
+                document.getElementById('resultsCard').classList.add('calculated');
+
+                animateValue('totalValue', 0, totalValue, 800, formatCurrency);
+                animateValue('hoursRecovered', 0, totalAnnualHoursSaved, 600, formatNumber);
+                document.getElementById('timeReduction').textContent = Math.round(reductionRate * 100) + '%';
+                animateValue('additionalDeals', 0, additionalDeals, 700, (n) => '+' + formatNumber(n));
+                document.getElementById('roiTimeline').textContent = roiTimeline;
+
+                setTimeout(() => {
+                    document.querySelectorAll('.metric-row').forEach(row => {
+                        row.classList.add('visible');
+                    });
+                }, 200);
+            }, 1500);
+        }
+
+        function animateValue(elementId, start, end, duration, formatter) {
+            const element = document.getElementById(elementId);
+            const startTime = performance.now();
+            
+            function update(currentTime) {
+                const elapsed = currentTime - startTime;
+                const progress = Math.min(elapsed / duration, 1);
+                const easeOut = 1 - Math.pow(1 - progress, 3);
+                const current = start + (end - start) * easeOut;
+                element.textContent = formatter(Math.round(current));
+                if (progress < 1) requestAnimationFrame(update);
+            }
+            requestAnimationFrame(update);
+        }
+
+        // ============================================
+        // AUDIT SCORECARD
+        // ============================================
+        const auditAnswers = {};
+        
+        const issueDescriptions = {
+            'data-duplicates': 'Duplicate contacts polluting your data (aim for <5% duplicate rate)',
+            'data-naming': 'Inconsistent property naming causing confusion and broken automations',
+            'data-cleanup': 'No regular data maintenance—stale records accumulating',
+            'lifecycle-criteria': 'Vague lifecycle stage definitions breaking marketing/sales alignment',
+            'lifecycle-automation': 'Manual lifecycle updates creating delays and inconsistencies',
+            'lifecycle-pipeline': 'Pipeline stages don\'t match how deals actually close',
+            'automation-nurturing': 'No lead nurturing—missing 50% more sales-ready leads',
+            'automation-goals': 'Workflows without exit criteria creating infinite loops',
+            'automation-handoff': 'Slow MQL→SQL handoff killing conversion (5-min response = 21x better)',
+            'reporting-dashboards': 'Vanity metrics instead of actionable insights',
+            'reporting-adoption': 'Low team adoption—CRM becoming expensive shelfware',
+            'reporting-scoring': 'No lead scoring—sales chasing unqualified leads'
+        };
+
+        const categoryNames = {
+            'data': 'Data Hygiene',
+            'lifecycle': 'Lifecycle & Pipeline',
+            'automation': 'Automation & Workflows',
+            'reporting': 'Reporting & Adoption'
+        };
+
+        function setAnswer(btn, value) {
+            const toggle = btn.parentElement;
+            const category = toggle.dataset.category;
+            const question = toggle.dataset.question;
+            
+            toggle.querySelectorAll('.toggle-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            
+            auditAnswers[`${category}-${question}`] = value;
+        }
+
+        function calculateAudit() {
+            const totalQuestions = 12;
+            const answeredQuestions = Object.keys(auditAnswers).length;
+            
+            if (answeredQuestions < totalQuestions) {
+                alert(`Please answer all ${totalQuestions} questions. You've answered ${answeredQuestions}.`);
+                return;
+            }
+
+            // Calculate scores
+            let totalScore = 0;
+            const categoryScores = { data: 0, lifecycle: 0, automation: 0, reporting: 0 };
+            const categoryMax = { data: 3, lifecycle: 3, automation: 3, reporting: 3 };
+            const issues = [];
+
+            Object.entries(auditAnswers).forEach(([key, value]) => {
+                const [category] = key.split('-');
+                let points = 0;
+                if (value === 'yes') points = 1;
+                else if (value === 'partial') points = 0.5;
+                else {
+                    issues.push(key);
+                }
+                
+                categoryScores[category] += points;
+                totalScore += points;
+            });
+
+            // Add partial answers to issues (lower priority)
+            Object.entries(auditAnswers).forEach(([key, value]) => {
+                if (value === 'partial' && !issues.includes(key)) {
+                    issues.push(key);
+                }
+            });
+
+            const percentScore = Math.round((totalScore / totalQuestions) * 100);
+            
+            // Determine grade
+            let grade, gradeClass;
+            if (percentScore >= 90) { grade = 'Excellent'; gradeClass = 'grade-excellent'; }
+            else if (percentScore >= 75) { grade = 'Good'; gradeClass = 'grade-good'; }
+            else if (percentScore >= 60) { grade = 'Fair'; gradeClass = 'grade-fair'; }
+            else if (percentScore >= 40) { grade = 'Needs Work'; gradeClass = 'grade-poor'; }
+            else { grade = 'Critical'; gradeClass = 'grade-critical'; }
+
+            // Show results
+            const resultsEl = document.getElementById('auditResults');
+            resultsEl.classList.remove('hidden');
+            
+            // Animate score circle
+            const scoreCircle = document.getElementById('scoreCircle');
+            scoreCircle.style.setProperty('--score-percent', percentScore);
+            scoreCircle.style.setProperty('--score-color', 
+                percentScore >= 75 ? 'var(--accent-green)' : 
+                percentScore >= 50 ? 'var(--accent-yellow)' : 'var(--accent-red)');
+            
+            // Animate score number
+            animateValue('auditScore', 0, percentScore, 1000, (n) => n.toString());
+            
+            // Set grade
+            const gradeEl = document.getElementById('scoreGrade');
+            gradeEl.textContent = grade;
+            gradeEl.className = 'score-grade ' + gradeClass;
+
+            // Category scores
+            const categoryScoresEl = document.getElementById('categoryScores');
+            categoryScoresEl.innerHTML = '';
+            
+            Object.entries(categoryScores).forEach(([cat, score]) => {
+                const percent = Math.round((score / categoryMax[cat]) * 100);
+                const color = percent >= 75 ? 'var(--accent-green)' : 
+                              percent >= 50 ? 'var(--accent-yellow)' : 'var(--accent-red)';
+                
+                categoryScoresEl.innerHTML += `
+                    <div class="category-score-row">
+                        <span class="category-score-label">${categoryNames[cat]}</span>
+                        <div class="category-score-bar">
+                            <div class="category-score-fill" style="width: ${percent}%; background: ${color};"></div>
+                        </div>
+                        <span class="category-score-value" style="color: ${color}">${percent}%</span>
+                    </div>
+                `;
+            });
+
+            // Priority issues
+            const priorityListEl = document.getElementById('priorityList');
+            priorityListEl.innerHTML = '';
+            
+            issues.slice(0, 5).forEach((issue, idx) => {
+                priorityListEl.innerHTML += `
+                    <div class="priority-item">
+                        <span class="priority-number">${idx + 1}</span>
+                        <span>${issueDescriptions[issue]}</span>
+                    </div>
+                `;
+            });
+
+            // Scroll to results
+            setTimeout(() => {
+                resultsEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }, 300);
+        }
+
+        // Enter key support
+        document.querySelectorAll('input, select').forEach(input => {
+            input.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') calculateROI();
+            });
+        });
+    </script>
+</body>
+</html>

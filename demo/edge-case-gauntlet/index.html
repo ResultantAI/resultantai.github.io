@@ -1,0 +1,981 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edge Case Gauntlet | AI Receptionist Stress Test</title>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #0a0a0f;
+            --bg-card: #12121a;
+            --bg-card-hover: #1a1a25;
+            --accent-green: #00ff88;
+            --accent-green-dim: #00cc6a;
+            --accent-red: #ff4757;
+            --accent-orange: #ff9f43;
+            --accent-blue: #54a0ff;
+            --text-primary: #ffffff;
+            --text-secondary: #8b8b9e;
+            --text-dim: #5a5a6e;
+            --border: #2a2a3a;
+            --glow-green: 0 0 40px rgba(0, 255, 136, 0.15);
+            --glow-red: 0 0 40px rgba(255, 71, 87, 0.15);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', -apple-system, sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-primary);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Noise texture overlay */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+            opacity: 0.03;
+            pointer-events: none;
+            z-index: 100;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 60px 24px;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(0, 255, 136, 0.1);
+            border: 1px solid rgba(0, 255, 136, 0.3);
+            padding: 8px 16px;
+            border-radius: 100px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 12px;
+            color: var(--accent-green);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 24px;
+        }
+
+        .badge::before {
+            content: '';
+            width: 8px;
+            height: 8px;
+            background: var(--accent-green);
+            border-radius: 50%;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(0.8); }
+        }
+
+        h1 {
+            font-size: clamp(2.5rem, 5vw, 3.5rem);
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 16px;
+            background: linear-gradient(135deg, #ffffff 0%, #8b8b9e 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .subtitle {
+            font-size: 1.125rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        /* Stats bar */
+        .stats-bar {
+            display: flex;
+            justify-content: center;
+            gap: 48px;
+            margin-top: 40px;
+            padding: 24px 0;
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--accent-green);
+        }
+
+        .stat-label {
+            font-size: 0.75rem;
+            color: var(--text-dim);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 4px;
+        }
+
+        /* Scenario cards */
+        .scenarios {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .scenario-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .scenario-card:hover {
+            background: var(--bg-card-hover);
+            border-color: var(--accent-green);
+            box-shadow: var(--glow-green);
+        }
+
+        .scenario-card.failed:hover {
+            border-color: var(--accent-red);
+            box-shadow: var(--glow-red);
+        }
+
+        .scenario-header {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            padding: 24px;
+            cursor: pointer;
+        }
+
+        .scenario-number {
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0, 255, 136, 0.1);
+            border: 1px solid rgba(0, 255, 136, 0.3);
+            border-radius: 12px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--accent-green);
+            flex-shrink: 0;
+        }
+
+        .failed .scenario-number {
+            background: rgba(255, 71, 87, 0.1);
+            border-color: rgba(255, 71, 87, 0.3);
+            color: var(--accent-red);
+        }
+
+        .scenario-info {
+            flex: 1;
+        }
+
+        .scenario-title {
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .scenario-desc {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+        }
+
+        .scenario-status {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .status-pass {
+            color: var(--accent-green);
+        }
+
+        .status-fail {
+            color: var(--accent-red);
+        }
+
+        .status-icon {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+        }
+
+        .status-pass .status-icon {
+            background: rgba(0, 255, 136, 0.2);
+        }
+
+        .status-fail .status-icon {
+            background: rgba(255, 71, 87, 0.2);
+        }
+
+        .expand-icon {
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-dim);
+            transition: transform 0.3s ease;
+        }
+
+        .scenario-card.active .expand-icon {
+            transform: rotate(180deg);
+        }
+
+        /* Scenario content */
+        .scenario-content {
+            display: none;
+            border-top: 1px solid var(--border);
+        }
+
+        .scenario-card.active .scenario-content {
+            display: block;
+        }
+
+        .conversation {
+            padding: 24px;
+        }
+
+        .message {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 20px;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .message:last-child {
+            margin-bottom: 0;
+        }
+
+        .message-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            flex-shrink: 0;
+        }
+
+        .caller .message-avatar {
+            background: linear-gradient(135deg, #ff9f43, #ff6b35);
+        }
+
+        .ai .message-avatar {
+            background: linear-gradient(135deg, #00ff88, #00cc6a);
+        }
+
+        .message-body {
+            flex: 1;
+        }
+
+        .message-role {
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 6px;
+        }
+
+        .caller .message-role {
+            color: var(--accent-orange);
+        }
+
+        .ai .message-role {
+            color: var(--accent-green);
+        }
+
+        .message-text {
+            font-size: 0.9375rem;
+            line-height: 1.6;
+            color: var(--text-secondary);
+        }
+
+        .message-text em {
+            color: var(--text-dim);
+            font-style: italic;
+        }
+
+        /* Outcome section */
+        .outcome {
+            background: rgba(0, 255, 136, 0.05);
+            border-top: 1px solid rgba(0, 255, 136, 0.2);
+            padding: 20px 24px;
+        }
+
+        .failed .outcome {
+            background: rgba(255, 71, 87, 0.05);
+            border-top-color: rgba(255, 71, 87, 0.2);
+        }
+
+        .outcome-label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.6875rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--accent-green);
+            margin-bottom: 8px;
+        }
+
+        .failed .outcome-label {
+            color: var(--accent-red);
+        }
+
+        .outcome-text {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        .outcome-actions {
+            display: flex;
+            gap: 12px;
+            margin-top: 12px;
+            flex-wrap: wrap;
+        }
+
+        .action-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(0, 255, 136, 0.1);
+            border: 1px solid rgba(0, 255, 136, 0.2);
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.6875rem;
+            color: var(--accent-green);
+        }
+
+        .failed .action-tag {
+            background: rgba(255, 71, 87, 0.1);
+            border-color: rgba(255, 71, 87, 0.2);
+            color: var(--accent-red);
+        }
+
+        /* Comparison section */
+        .comparison {
+            margin-top: 60px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            overflow: hidden;
+        }
+
+        .comparison-header {
+            padding: 24px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .comparison-header h2 {
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+        }
+
+        .comparison-col {
+            padding: 24px;
+        }
+
+        .comparison-col:first-child {
+            border-right: 1px solid var(--border);
+        }
+
+        .comparison-label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.6875rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 16px;
+        }
+
+        .label-bad {
+            color: var(--accent-red);
+        }
+
+        .label-good {
+            color: var(--accent-green);
+        }
+
+        .comparison-list {
+            list-style: none;
+        }
+
+        .comparison-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            margin-bottom: 12px;
+            line-height: 1.5;
+        }
+
+        .comparison-list li:last-child {
+            margin-bottom: 0;
+        }
+
+        .check, .cross {
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .check {
+            background: rgba(0, 255, 136, 0.2);
+            color: var(--accent-green);
+        }
+
+        .cross {
+            background: rgba(255, 71, 87, 0.2);
+            color: var(--accent-red);
+        }
+
+        /* CTA */
+        .cta {
+            margin-top: 60px;
+            text-align: center;
+            padding: 48px;
+            background: linear-gradient(135deg, rgba(0, 255, 136, 0.05) 0%, transparent 100%);
+            border: 1px solid rgba(0, 255, 136, 0.2);
+            border-radius: 16px;
+        }
+
+        .cta h2 {
+            font-size: 1.5rem;
+            margin-bottom: 12px;
+        }
+
+        .cta p {
+            color: var(--text-secondary);
+            margin-bottom: 24px;
+        }
+
+        .cta-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--accent-green);
+            color: var(--bg-dark);
+            font-weight: 600;
+            padding: 14px 28px;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+
+        .cta-button:hover {
+            background: var(--accent-green-dim);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 40px rgba(0, 255, 136, 0.3);
+        }
+
+        .footer {
+            margin-top: 60px;
+            text-align: center;
+            padding-top: 40px;
+            border-top: 1px solid var(--border);
+        }
+
+        .footer-brand {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.875rem;
+            color: var(--text-dim);
+        }
+
+        .footer-brand span {
+            color: var(--accent-green);
+        }
+
+        @media (max-width: 768px) {
+            .stats-bar {
+                flex-wrap: wrap;
+                gap: 24px;
+            }
+
+            .scenario-header {
+                flex-wrap: wrap;
+            }
+
+            .scenario-status {
+                width: 100%;
+                margin-top: 12px;
+                padding-top: 12px;
+                border-top: 1px solid var(--border);
+            }
+
+            .comparison-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .comparison-col:first-child {
+                border-right: none;
+                border-bottom: 1px solid var(--border);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="badge">Live Demo</div>
+            <h1>Edge Case Gauntlet</h1>
+            <p class="subtitle">Most AI receptionists demo the happy path. Here's what happens when callers go off-script—and why my builds don't break.</p>
+            
+            <div class="stats-bar">
+                <div class="stat">
+                    <div class="stat-value">5</div>
+                    <div class="stat-label">Edge Cases</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value">5/5</div>
+                    <div class="stat-label">Handled</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value">0</div>
+                    <div class="stat-label">Dropped Calls</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value">100%</div>
+                    <div class="stat-label">CRM Logged</div>
+                </div>
+            </div>
+        </header>
+
+        <section class="scenarios">
+            <!-- Scenario 1: Angry Caller -->
+            <div class="scenario-card" onclick="toggleScenario(this)">
+                <div class="scenario-header">
+                    <div class="scenario-number">01</div>
+                    <div class="scenario-info">
+                        <div class="scenario-title">The Angry Caller</div>
+                        <div class="scenario-desc">Frustrated customer who's already upset before the conversation starts</div>
+                    </div>
+                    <div class="scenario-status status-pass">
+                        <span class="status-icon">✓</span>
+                        <span>Handled</span>
+                    </div>
+                    <div class="expand-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                    </div>
+                </div>
+                <div class="scenario-content">
+                    <div class="conversation">
+                        <div class="message caller">
+                            <div class="message-avatar">😤</div>
+                            <div class="message-body">
+                                <div class="message-role">Caller</div>
+                                <div class="message-text">"I've been calling for THREE DAYS and nobody calls me back! This is ridiculous! I need someone to fix my problem RIGHT NOW!"</div>
+                            </div>
+                        </div>
+                        <div class="message ai">
+                            <div class="message-avatar">🤖</div>
+                            <div class="message-body">
+                                <div class="message-role">AI Receptionist</div>
+                                <div class="message-text">"I completely understand your frustration, and I'm sorry you've had trouble getting through. You have my full attention right now. Let me take down your details so I can get someone to help you immediately. Can I start with your name?"</div>
+                            </div>
+                        </div>
+                        <div class="message caller">
+                            <div class="message-avatar">😤</div>
+                            <div class="message-body">
+                                <div class="message-role">Caller</div>
+                                <div class="message-text">"It's Mike Johnson. And I don't want to wait on hold again—I've wasted enough time already."</div>
+                            </div>
+                        </div>
+                        <div class="message ai">
+                            <div class="message-avatar">🤖</div>
+                            <div class="message-body">
+                                <div class="message-role">AI Receptionist</div>
+                                <div class="message-text">"Mike, no hold time—I promise. I'm flagging this as urgent right now. What's the issue you're dealing with? I'll make sure the right person sees this within the hour."</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="outcome">
+                        <div class="outcome-label">✓ Outcome</div>
+                        <div class="outcome-text">De-escalated tension, captured caller info, flagged as urgent priority in CRM, assigned to callback queue with "frustrated customer" tag.</div>
+                        <div class="outcome-actions">
+                            <span class="action-tag">📝 CRM: Contact Created</span>
+                            <span class="action-tag">🚨 Priority: Urgent</span>
+                            <span class="action-tag">💬 Slack Alert Sent</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Scenario 2: Off-Script Question -->
+            <div class="scenario-card" onclick="toggleScenario(this)">
+                <div class="scenario-header">
+                    <div class="scenario-number">02</div>
+                    <div class="scenario-info">
+                        <div class="scenario-title">The Off-Script Question</div>
+                        <div class="scenario-desc">Caller asks something the AI wasn't explicitly trained to handle</div>
+                    </div>
+                    <div class="scenario-status status-pass">
+                        <span class="status-icon">✓</span>
+                        <span>Handled</span>
+                    </div>
+                    <div class="expand-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                    </div>
+                </div>
+                <div class="scenario-content">
+                    <div class="conversation">
+                        <div class="message caller">
+                            <div class="message-avatar">🤔</div>
+                            <div class="message-body">
+                                <div class="message-role">Caller</div>
+                                <div class="message-text">"Hey, quick question—do you guys do commercial work too? Like for office buildings? And if so, do you handle the permits or do we need to get those ourselves?"</div>
+                            </div>
+                        </div>
+                        <div class="message ai">
+                            <div class="message-avatar">🤖</div>
+                            <div class="message-body">
+                                <div class="message-role">AI Receptionist</div>
+                                <div class="message-text">"Great question! Yes, we do handle commercial projects. For the specifics on permits—that can vary by project scope and your local requirements. I want to make sure you get accurate information, so let me have our commercial specialist give you a call back. They can walk you through exactly what we handle versus what you'd need. Can I grab your number and best time to reach you?"</div>
+                            </div>
+                        </div>
+                        <div class="message caller">
+                            <div class="message-avatar">🤔</div>
+                            <div class="message-body">
+                                <div class="message-role">Caller</div>
+                                <div class="message-text">"Sure, it's 555-0147. Afternoons work best, after 2pm."</div>
+                            </div>
+                        </div>
+                        <div class="message ai">
+                            <div class="message-avatar">🤖</div>
+                            <div class="message-body">
+                                <div class="message-role">AI Receptionist</div>
+                                <div class="message-text">"Perfect, 555-0147, afternoons after 2pm. I've noted this as a commercial inquiry about permits. You'll hear from our team today or tomorrow afternoon. Anything else I can help with?"</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="outcome">
+                        <div class="outcome-label">✓ Outcome</div>
+                        <div class="outcome-text">Acknowledged the question honestly, didn't make up an answer, captured lead info, routed to appropriate specialist with context.</div>
+                        <div class="outcome-actions">
+                            <span class="action-tag">📝 Lead: Commercial Inquiry</span>
+                            <span class="action-tag">🏷️ Tag: Permit Question</span>
+                            <span class="action-tag">📅 Callback: After 2pm</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Scenario 3: Appointment Conflict -->
+            <div class="scenario-card" onclick="toggleScenario(this)">
+                <div class="scenario-header">
+                    <div class="scenario-number">03</div>
+                    <div class="scenario-info">
+                        <div class="scenario-title">The Double-Booking Attempt</div>
+                        <div class="scenario-desc">Caller wants a time slot that's already taken</div>
+                    </div>
+                    <div class="scenario-status status-pass">
+                        <span class="status-icon">✓</span>
+                        <span>Handled</span>
+                    </div>
+                    <div class="expand-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                    </div>
+                </div>
+                <div class="scenario-content">
+                    <div class="conversation">
+                        <div class="message caller">
+                            <div class="message-avatar">📅</div>
+                            <div class="message-body">
+                                <div class="message-role">Caller</div>
+                                <div class="message-text">"I need someone to come out Tuesday at 10am. That's the only time I can take off work this week."</div>
+                            </div>
+                        </div>
+                        <div class="message ai">
+                            <div class="message-avatar">🤖</div>
+                            <div class="message-body">
+                                <div class="message-role">AI Receptionist</div>
+                                <div class="message-text">"I understand you're working around your schedule—let me check Tuesday at 10am for you... Unfortunately that slot is already booked. I have 9am available right before, or 11:30am. Would either of those work with your time off?"</div>
+                            </div>
+                        </div>
+                        <div class="message caller">
+                            <div class="message-avatar">📅</div>
+                            <div class="message-body">
+                                <div class="message-role">Caller</div>
+                                <div class="message-text">"Ugh. Fine, 9am I guess. But I really need them there on time—I can only be home until 11."</div>
+                            </div>
+                        </div>
+                        <div class="message ai">
+                            <div class="message-avatar">🤖</div>
+                            <div class="message-body">
+                                <div class="message-role">AI Receptionist</div>
+                                <div class="message-text">"Got it—Tuesday at 9am, and I'm adding a note that you need to leave by 11. Our team will prioritize arriving right at 9. Can I confirm your address and phone number so we can text you when we're on the way?"</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="outcome">
+                        <div class="outcome-label">✓ Outcome</div>
+                        <div class="outcome-text">Checked real calendar availability, offered alternatives, captured time constraint, set arrival expectation, requested contact for day-of communication.</div>
+                        <div class="outcome-actions">
+                            <span class="action-tag">📅 Appointment: Tue 9am</span>
+                            <span class="action-tag">⏰ Note: Must leave by 11</span>
+                            <span class="action-tag">📲 SMS Reminder: Queued</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Scenario 4: Wrong Number -->
+            <div class="scenario-card" onclick="toggleScenario(this)">
+                <div class="scenario-header">
+                    <div class="scenario-number">04</div>
+                    <div class="scenario-info">
+                        <div class="scenario-title">The Wrong Number</div>
+                        <div class="scenario-desc">Caller reached the wrong business entirely</div>
+                    </div>
+                    <div class="scenario-status status-pass">
+                        <span class="status-icon">✓</span>
+                        <span>Handled</span>
+                    </div>
+                    <div class="expand-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                    </div>
+                </div>
+                <div class="scenario-content">
+                    <div class="conversation">
+                        <div class="message caller">
+                            <div class="message-avatar">❓</div>
+                            <div class="message-body">
+                                <div class="message-role">Caller</div>
+                                <div class="message-text">"Hi, is this Tony's Pizza? I'd like to order a large pepperoni for pickup."</div>
+                            </div>
+                        </div>
+                        <div class="message ai">
+                            <div class="message-avatar">🤖</div>
+                            <div class="message-body">
+                                <div class="message-role">AI Receptionist</div>
+                                <div class="message-text">"Oh, I think you may have the wrong number—this is [Company Name], we're a plumbing service! But no worries, happens all the time. Is there anything plumbing-related I can help you with while I have you?"</div>
+                            </div>
+                        </div>
+                        <div class="message caller">
+                            <div class="message-avatar">❓</div>
+                            <div class="message-body">
+                                <div class="message-role">Caller</div>
+                                <div class="message-text"><em>laughs</em> "Ha! Sorry about that. No, I just need pizza. Thanks though!"</div>
+                            </div>
+                        </div>
+                        <div class="message ai">
+                            <div class="message-avatar">🤖</div>
+                            <div class="message-body">
+                                <div class="message-role">AI Receptionist</div>
+                                <div class="message-text">"No problem at all—good luck with the pizza! Have a great day."</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="outcome">
+                        <div class="outcome-label">✓ Outcome</div>
+                        <div class="outcome-text">Politely clarified the error, maintained friendly tone, attempted soft conversion (didn't push hard), ended gracefully. Call logged but not added as lead.</div>
+                        <div class="outcome-actions">
+                            <span class="action-tag">📊 Logged: Wrong Number</span>
+                            <span class="action-tag">❌ Not Added to CRM</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Scenario 5: Human Escalation Request -->
+            <div class="scenario-card" onclick="toggleScenario(this)">
+                <div class="scenario-header">
+                    <div class="scenario-number">05</div>
+                    <div class="scenario-info">
+                        <div class="scenario-title">The "Give Me a Human" Demand</div>
+                        <div class="scenario-desc">Caller explicitly refuses to talk to AI and demands a person</div>
+                    </div>
+                    <div class="scenario-status status-pass">
+                        <span class="status-icon">✓</span>
+                        <span>Handled</span>
+                    </div>
+                    <div class="expand-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                    </div>
+                </div>
+                <div class="scenario-content">
+                    <div class="conversation">
+                        <div class="message caller">
+                            <div class="message-avatar">🙅</div>
+                            <div class="message-body">
+                                <div class="message-role">Caller</div>
+                                <div class="message-text">"Wait, am I talking to a robot? I don't want to talk to a computer. Can I speak to a real person please?"</div>
+                            </div>
+                        </div>
+                        <div class="message ai">
+                            <div class="message-avatar">🤖</div>
+                            <div class="message-body">
+                                <div class="message-role">AI Receptionist</div>
+                                <div class="message-text">"You're right, I'm an AI assistant that helps answer calls. I completely understand if you'd prefer to speak with someone directly. Let me take your name and number, and I'll have a team member call you back within the hour. Would that work?"</div>
+                            </div>
+                        </div>
+                        <div class="message caller">
+                            <div class="message-avatar">🙅</div>
+                            <div class="message-body">
+                                <div class="message-role">Caller</div>
+                                <div class="message-text">"Yeah, that's fine. It's Sarah, 555-0234. I just want to talk to someone about getting an estimate."</div>
+                            </div>
+                        </div>
+                        <div class="message ai">
+                            <div class="message-avatar">🤖</div>
+                            <div class="message-body">
+                                <div class="message-role">AI Receptionist</div>
+                                <div class="message-text">"Got it, Sarah at 555-0234, looking for an estimate. I'll pass that along right now and someone will reach out soon. Thanks for your patience!"</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="outcome">
+                        <div class="outcome-label">✓ Outcome</div>
+                        <div class="outcome-text">Honest about being AI (no deception), respected caller preference, still captured lead info before disconnecting, flagged for human callback.</div>
+                        <div class="outcome-actions">
+                            <span class="action-tag">📝 Lead: Estimate Request</span>
+                            <span class="action-tag">🏷️ Tag: Prefers Human</span>
+                            <span class="action-tag">🔔 Callback: Priority</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Comparison -->
+        <section class="comparison">
+            <div class="comparison-header">
+                <h2>What Most AI Setups Miss</h2>
+            </div>
+            <div class="comparison-grid">
+                <div class="comparison-col">
+                    <div class="comparison-label label-bad">❌ Typical Implementation</div>
+                    <ul class="comparison-list">
+                        <li><span class="cross">✕</span>Hangs up when confused by off-script questions</li>
+                        <li><span class="cross">✕</span>Loops endlessly: "I didn't catch that, can you repeat?"</li>
+                        <li><span class="cross">✕</span>Makes up answers to questions it doesn't know</li>
+                        <li><span class="cross">✕</span>No escalation path for angry or demanding callers</li>
+                        <li><span class="cross">✕</span>Caller info lost if call doesn't complete script</li>
+                    </ul>
+                </div>
+                <div class="comparison-col">
+                    <div class="comparison-label label-good">✓ My Implementation</div>
+                    <ul class="comparison-list">
+                        <li><span class="check">✓</span>Graceful fallbacks with human handoff routing</li>
+                        <li><span class="check">✓</span>Multi-branch conversation logic for edge cases</li>
+                        <li><span class="check">✓</span>Honest "I don't know" + specialist callback routing</li>
+                        <li><span class="check">✓</span>De-escalation scripts + urgent priority flagging</li>
+                        <li><span class="check">✓</span>CRM logging on EVERY call—even incomplete ones</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA -->
+        <section class="cta">
+            <h2>Ready to See This for Your Business?</h2>
+            <p>15-minute discovery call to map your call flow and identify edge cases specific to your industry.</p>
+            <a href="https://meetings.hubspot.com/chris4642" class="cta-button">
+                <span>Book Discovery Call</span>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                    <polyline points="12 5 19 12 12 19"></polyline>
+                </svg>
+            </a>
+        </section>
+
+        <footer class="footer">
+            <div class="footer-brand">Built by <span>ResultantAI</span> • chris@resultantai.com</div>
+        </footer>
+    </div>
+
+    <script>
+        function toggleScenario(card) {
+            const wasActive = card.classList.contains('active');
+            
+            // Close all cards
+            document.querySelectorAll('.scenario-card').forEach(c => {
+                c.classList.remove('active');
+            });
+            
+            // Toggle clicked card
+            if (!wasActive) {
+                card.classList.add('active');
+            }
+        }
+
+        // Auto-open first scenario on load
+        document.addEventListener('DOMContentLoaded', () => {
+            const firstCard = document.querySelector('.scenario-card');
+            if (firstCard) {
+                setTimeout(() => {
+                    firstCard.classList.add('active');
+                }, 500);
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,18 @@
+{
+  "scenario_name": "High-Value Restaurant Owner",
+  "description": "Well-established restaurant with excellent revenue and credit, premium qualified lead",
+  "expected_outcome": "qualified",
+  "responses": {
+    "contact_name": "Anthony Rizzo",
+    "business_name": "Rizzo's Italian Kitchen",
+    "business_type": "Restaurant",
+    "time_in_business_months": 84,
+    "monthly_revenue": 185000,
+    "funding_amount_requested": 150000,
+    "funding_purpose": "expansion",
+    "credit_score": 740,
+    "urgency": "immediately",
+    "phone": "5551112222",
+    "email": "anthony@rizzoskitchen.com"
+  }
+}

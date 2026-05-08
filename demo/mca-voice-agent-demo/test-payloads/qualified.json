@@ -1,0 +1,18 @@
+{
+  "scenario_name": "Qualified Auto Repair Shop",
+  "description": "Established auto repair business with strong revenue, meets all qualification criteria",
+  "expected_outcome": "qualified",
+  "responses": {
+    "contact_name": "Mike Johnson",
+    "business_name": "City Auto Repair",
+    "business_type": "Auto Repair Shop",
+    "time_in_business_months": 36,
+    "monthly_revenue": 85000,
+    "funding_amount_requested": 50000,
+    "funding_purpose": "equipment",
+    "credit_score": 680,
+    "urgency": "within_1_week",
+    "phone": "5551234567",
+    "email": "mike@cityauto.com"
+  }
+}

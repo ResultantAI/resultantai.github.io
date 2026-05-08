@@ -1,0 +1,18 @@
+{
+  "scenario_name": "Qualified But Low Urgency",
+  "description": "Meets all hard requirements but just exploring options, may need nurture campaign",
+  "expected_outcome": "qualified",
+  "responses": {
+    "contact_name": "Robert Davis",
+    "business_name": "Davis HVAC Services",
+    "business_type": "HVAC",
+    "time_in_business_months": 48,
+    "monthly_revenue": 95000,
+    "funding_amount_requested": 60000,
+    "funding_purpose": "working_capital",
+    "credit_score": 650,
+    "urgency": "just_exploring",
+    "phone": "5557778888",
+    "email": "robert@davishvac.com"
+  }
+}

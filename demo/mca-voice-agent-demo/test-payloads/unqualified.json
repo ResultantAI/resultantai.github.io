@@ -1,0 +1,18 @@
+{
+  "scenario_name": "Unqualified New Coffee Shop",
+  "description": "New business (4 months) with revenue below threshold, should not qualify",
+  "expected_outcome": "unqualified",
+  "responses": {
+    "contact_name": "Sarah Martinez",
+    "business_name": "Fresh Brew Coffee",
+    "business_type": "Coffee Shop",
+    "time_in_business_months": 4,
+    "monthly_revenue": 12000,
+    "funding_amount_requested": 25000,
+    "funding_purpose": "inventory",
+    "credit_score": 620,
+    "urgency": "within_1_month",
+    "phone": "5559876543",
+    "email": "sarah@freshbrew.com"
+  }
+}

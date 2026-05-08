@@ -1,0 +1,18 @@
+{
+  "scenario_name": "Excessive Funding Request",
+  "description": "Strong business but requesting $600K exceeds maximum, should auto-disqualify",
+  "expected_outcome": "unqualified",
+  "responses": {
+    "contact_name": "Michael Torres",
+    "business_name": "Torres Manufacturing",
+    "business_type": "Manufacturing",
+    "time_in_business_months": 120,
+    "monthly_revenue": 450000,
+    "funding_amount_requested": 600000,
+    "funding_purpose": "expansion",
+    "credit_score": 720,
+    "urgency": "immediately",
+    "phone": "5559990000",
+    "email": "michael@torresmanufacturing.com"
+  }
+}

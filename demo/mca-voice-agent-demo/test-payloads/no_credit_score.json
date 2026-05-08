@@ -1,0 +1,17 @@
+{
+  "scenario_name": "Qualified Without Credit Score",
+  "description": "Strong business metrics but no credit score provided, should still qualify based on revenue",
+  "expected_outcome": "qualified",
+  "responses": {
+    "contact_name": "Patricia Nguyen",
+    "business_name": "Nguyen Nail Salon",
+    "business_type": "Beauty Services",
+    "time_in_business_months": 18,
+    "monthly_revenue": 42000,
+    "funding_amount_requested": 30000,
+    "funding_purpose": "expansion",
+    "urgency": "within_1_month",
+    "phone": "5554445555",
+    "email": "patricia@nguyennails.com"
+  }
+}

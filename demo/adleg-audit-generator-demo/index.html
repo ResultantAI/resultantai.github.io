@@ -1,0 +1,951 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AdLeg Marketing Audit Generator - Live Prototype | ResultantAI</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #1a1f2e 0%, #2c3441 100%);
+            color: #ffffff;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header */
+        header {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 30px;
+            border-radius: 16px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(51, 204, 102, 0.3);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .logo-section h1 {
+            color: #33cc66;
+            font-size: 32px;
+            margin-bottom: 5px;
+        }
+
+        .logo-section p {
+            color: #8892a6;
+            font-size: 16px;
+        }
+
+        .contact-info {
+            text-align: right;
+        }
+
+        .contact-info p {
+            color: #ffffff;
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+
+        .contact-info strong {
+            color: #33cc66;
+        }
+
+        /* Tutorial Banner */
+        .tutorial-banner {
+            background: linear-gradient(135deg, rgba(51, 204, 102, 0.2) 0%, rgba(51, 204, 102, 0.1) 100%);
+            padding: 20px 25px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            border-left: 4px solid #33cc66;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .tutorial-banner h3 {
+            color: #33cc66;
+            margin-bottom: 10px;
+            font-size: 20px;
+        }
+
+        .tutorial-banner p {
+            color: #ffffff;
+            font-size: 15px;
+            line-height: 1.6;
+        }
+
+        .tutorial-step {
+            display: inline-block;
+            background: #33cc66;
+            color: #1a1f2e;
+            padding: 3px 10px;
+            border-radius: 4px;
+            font-weight: bold;
+            margin-right: 8px;
+            font-size: 13px;
+        }
+
+        /* Stats Section */
+        .stats-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 25px;
+            border-radius: 12px;
+            text-align: center;
+            border: 2px solid rgba(51, 204, 102, 0.3);
+            transition: all 0.3s;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            border-color: #33cc66;
+            box-shadow: 0 10px 30px rgba(51, 204, 102, 0.3);
+        }
+
+        .stat-number {
+            font-size: 42px;
+            font-weight: bold;
+            color: #33cc66;
+            margin-bottom: 8px;
+        }
+
+        .stat-label {
+            color: #8892a6;
+            font-size: 14px;
+        }
+
+        /* Main Card */
+        .main-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            padding: 35px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(51, 204, 102, 0.3);
+        }
+
+        .card-title {
+            color: #33cc66;
+            font-size: 24px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        /* Input Form */
+        .input-section {
+            max-width: 600px;
+            margin: 0 auto 30px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            color: #ffffff;
+            font-weight: 600;
+            margin-bottom: 8px;
+            font-size: 15px;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 14px;
+            border: 2px solid rgba(51, 204, 102, 0.3);
+            border-radius: 8px;
+            font-size: 16px;
+            background: rgba(255, 255, 255, 0.05);
+            color: #ffffff;
+            transition: all 0.3s;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #33cc66;
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .generate-btn {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, #33cc66 0%, #28a745 100%);
+            color: #1a1f2e;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 10px;
+        }
+
+        .generate-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(51, 204, 102, 0.4);
+        }
+
+        .generate-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* Workflow Visualization */
+        .workflow-section {
+            display: none;
+            animation: slideIn 0.5s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .workflow-section.active {
+            display: block;
+        }
+
+        .workflow-steps {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+
+        .workflow-step {
+            flex: 1;
+            min-width: 150px;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            border: 2px solid rgba(51, 204, 102, 0.3);
+            transition: all 0.5s;
+            opacity: 0.3;
+        }
+
+        .workflow-step.active {
+            opacity: 1;
+            border-color: #33cc66;
+            box-shadow: 0 0 20px rgba(51, 204, 102, 0.5);
+            transform: scale(1.05);
+        }
+
+        .workflow-step.completed {
+            opacity: 1;
+            border-color: #33cc66;
+            background: rgba(51, 204, 102, 0.1);
+        }
+
+        .workflow-icon {
+            font-size: 36px;
+            margin-bottom: 10px;
+        }
+
+        .workflow-title {
+            font-weight: 600;
+            color: #ffffff;
+            margin-bottom: 5px;
+            font-size: 14px;
+        }
+
+        .workflow-time {
+            color: #8892a6;
+            font-size: 12px;
+        }
+
+        .workflow-arrow {
+            color: #33cc66;
+            font-size: 24px;
+            flex-shrink: 0;
+        }
+
+        /* Output Section */
+        .output-section {
+            display: none;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        .output-section.active {
+            display: block;
+        }
+
+        .pdf-preview {
+            background: #ffffff;
+            border-radius: 12px;
+            padding: 40px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            max-width: 800px;
+            margin: 0 auto 30px;
+            color: #1a1f2e;
+        }
+
+        .pdf-cover {
+            text-align: center;
+            padding: 60px 40px;
+            border-bottom: 4px solid #33cc66;
+            margin-bottom: 40px;
+        }
+
+        .pdf-logo {
+            font-size: 48px;
+            color: #33cc66;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .pdf-company-name {
+            font-size: 32px;
+            color: #1a1f2e;
+            margin: 20px 0;
+            font-weight: 600;
+        }
+
+        .pdf-subtitle {
+            font-size: 18px;
+            color: #6c757d;
+            margin-bottom: 30px;
+        }
+
+        .pdf-contact {
+            color: #33cc66;
+            font-size: 14px;
+            line-height: 1.8;
+        }
+
+        .pdf-section {
+            margin-bottom: 30px;
+        }
+
+        .pdf-section h3 {
+            color: #33cc66;
+            margin-bottom: 15px;
+            font-size: 22px;
+            border-bottom: 2px solid #33cc66;
+            padding-bottom: 8px;
+        }
+
+        .pdf-section p {
+            color: #495057;
+            line-height: 1.8;
+            margin-bottom: 12px;
+        }
+
+        .pdf-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        .pdf-table th {
+            background: #33cc66;
+            color: white;
+            padding: 12px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        .pdf-table td {
+            padding: 12px;
+            border-bottom: 1px solid #dee2e6;
+            color: #495057;
+        }
+
+        .pdf-table tr:hover {
+            background: rgba(51, 204, 102, 0.1);
+        }
+
+        .download-btn {
+            display: inline-block;
+            padding: 14px 30px;
+            background: #33cc66;
+            color: #1a1f2e;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            margin: 10px;
+            transition: all 0.3s;
+        }
+
+        .download-btn:hover {
+            background: #28a745;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(51, 204, 102, 0.4);
+        }
+
+        /* Before/After Comparison */
+        .comparison-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .comparison-card {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 25px;
+            border-radius: 12px;
+            border: 2px solid rgba(51, 204, 102, 0.3);
+        }
+
+        .comparison-card.before {
+            border-color: rgba(255, 71, 87, 0.5);
+        }
+
+        .comparison-card.after {
+            border-color: #33cc66;
+            box-shadow: 0 0 30px rgba(51, 204, 102, 0.3);
+        }
+
+        .comparison-title {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .comparison-card.before .comparison-title {
+            color: #ff4757;
+        }
+
+        .comparison-card.after .comparison-title {
+            color: #33cc66;
+        }
+
+        .comparison-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .comparison-list li {
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .comparison-list li:last-child {
+            border-bottom: none;
+        }
+
+        .comparison-icon {
+            font-size: 18px;
+        }
+
+        /* Footer CTA */
+        footer {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 40px;
+            border-radius: 16px;
+            text-align: center;
+            margin-top: 50px;
+            border: 1px solid rgba(51, 204, 102, 0.3);
+        }
+
+        footer h3 {
+            color: #33cc66;
+            margin-bottom: 15px;
+            font-size: 26px;
+        }
+
+        footer p {
+            color: #8892a6;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(135deg, #33cc66 0%, #28a745 100%);
+            color: #1a1f2e;
+            padding: 16px 40px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 700;
+            margin-top: 10px;
+            transition: all 0.3s;
+            font-size: 18px;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(51, 204, 102, 0.4);
+        }
+
+        .progress-indicator {
+            text-align: center;
+            color: #8892a6;
+            margin: 20px 0;
+            font-size: 14px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .contact-info {
+                text-align: center;
+            }
+
+            .workflow-steps {
+                flex-direction: column;
+            }
+
+            .workflow-arrow {
+                transform: rotate(90deg);
+            }
+
+            .pdf-preview {
+                padding: 20px;
+            }
+        }
+
+        .slack-notification {
+            background: rgba(51, 204, 102, 0.1);
+            border-left: 4px solid #33cc66;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            font-family: 'Courier New', monospace;
+        }
+
+        .slack-notification strong {
+            color: #33cc66;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header>
+            <div class="header-content">
+                <div class="logo-section">
+                    <h1>🚀 AdLeg Marketing Audit Generator</h1>
+                    <p>Live Prototype - Automated Research & Report Generation</p>
+                </div>
+                <div class="contact-info">
+                    <p><strong>Built by:</strong> ResultantAI</p>
+                    <p><strong>Chris Mott</strong> | (240) 389-4152</p>
+                    <p>chris@resultantai.com</p>
+                </div>
+            </div>
+        </header>
+
+        <!-- Tutorial Banner -->
+        <div class="tutorial-banner">
+            <h3>👋 How This System Works</h3>
+            <p>
+                <span class="tutorial-step">STEP 1</span> Enter a company name and website below<br>
+                <span class="tutorial-step">STEP 2</span> Watch the automation run through Perplexity → Claude → PDF generation<br>
+                <span class="tutorial-step">STEP 3</span> Review the fully branded, professional audit report<br>
+                <span class="tutorial-step">STEP 4</span> See how 90 minutes of manual work became 2 minutes of automation
+            </p>
+        </div>
+
+        <!-- Stats -->
+        <div class="stats-section">
+            <div class="stat-card">
+                <div class="stat-number">2 min</div>
+                <div class="stat-label">Audit Generation Time</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">90 min</div>
+                <div class="stat-label">Time Saved Per Audit</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">$1.20</div>
+                <div class="stat-label">Cost Per Audit (API)</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">100%</div>
+                <div class="stat-label">Brand Consistency</div>
+            </div>
+        </div>
+
+        <!-- Input Section -->
+        <div class="main-card">
+            <h2 class="card-title">Generate Marketing Audit</h2>
+            <div class="input-section">
+                <div class="form-group">
+                    <label for="companyName">Company Name</label>
+                    <input 
+                        type="text" 
+                        id="companyName" 
+                        class="form-input" 
+                        placeholder="e.g., Downtown Dental Services"
+                        value="Cleveland Eye Clinic"
+                    >
+                </div>
+                <div class="form-group">
+                    <label for="companyUrl">Website URL</label>
+                    <input 
+                        type="text" 
+                        id="companyUrl" 
+                        class="form-input" 
+                        placeholder="e.g., https://example.com"
+                        value="https://clevelandeyeclinic.com"
+                    >
+                </div>
+                <button class="generate-btn" id="generateBtn" onclick="startGeneration()">
+                    🎯 Generate Professional Audit
+                </button>
+            </div>
+        </div>
+
+        <!-- Before/After Comparison -->
+        <div class="main-card">
+            <h2 class="card-title">Before vs After Automation</h2>
+            <div class="comparison-section">
+                <div class="comparison-card before">
+                    <div class="comparison-title">❌ Manual Process (Before)</div>
+                    <ul class="comparison-list">
+                        <li><span class="comparison-icon">⏱️</span> 90 minutes per audit</li>
+                        <li><span class="comparison-icon">🎨</span> Manual Canva formatting</li>
+                        <li><span class="comparison-icon">🔍</span> Manual competitor research</li>
+                        <li><span class="comparison-icon">📊</span> Inconsistent brand styling</li>
+                        <li><span class="comparison-icon">😓</span> High designer burnout</li>
+                        <li><span class="comparison-icon">💸</span> ~$150 labor cost per audit</li>
+                    </ul>
+                </div>
+                <div class="comparison-card after">
+                    <div class="comparison-title">✅ Automated System (After)</div>
+                    <ul class="comparison-list">
+                        <li><span class="comparison-icon">⚡</span> 2 minutes per audit</li>
+                        <li><span class="comparison-icon">🤖</span> Auto-formatted HTML → PDF</li>
+                        <li><span class="comparison-icon">🌐</span> Perplexity AI web research</li>
+                        <li><span class="comparison-icon">🎨</span> 100% brand consistency</li>
+                        <li><span class="comparison-icon">🚀</span> Zero designer time required</li>
+                        <li><span class="comparison-icon">💰</span> $1.20 API cost per audit</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Workflow Visualization -->
+        <div class="main-card workflow-section" id="workflowSection">
+            <h2 class="card-title">Live Processing Workflow</h2>
+            <p class="progress-indicator" id="progressText">Starting automation...</p>
+            
+            <div class="workflow-steps">
+                <div class="workflow-step" id="step1">
+                    <div class="workflow-icon">📝</div>
+                    <div class="workflow-title">Input Received</div>
+                    <div class="workflow-time">Instant</div>
+                </div>
+                <div class="workflow-arrow">→</div>
+                <div class="workflow-step" id="step2">
+                    <div class="workflow-icon">🌐</div>
+                    <div class="workflow-title">Perplexity Research</div>
+                    <div class="workflow-time">~30 seconds</div>
+                </div>
+                <div class="workflow-arrow">→</div>
+                <div class="workflow-step" id="step3">
+                    <div class="workflow-icon">🤖</div>
+                    <div class="workflow-title">Claude Analysis</div>
+                    <div class="workflow-time">~45 seconds</div>
+                </div>
+                <div class="workflow-arrow">→</div>
+                <div class="workflow-step" id="step4">
+                    <div class="workflow-icon">📄</div>
+                    <div class="workflow-title">HTML Template</div>
+                    <div class="workflow-time">~5 seconds</div>
+                </div>
+                <div class="workflow-arrow">→</div>
+                <div class="workflow-step" id="step5">
+                    <div class="workflow-icon">📊</div>
+                    <div class="workflow-title">PDF Generation</div>
+                    <div class="workflow-time">~15 seconds</div>
+                </div>
+                <div class="workflow-arrow">→</div>
+                <div class="workflow-step" id="step6">
+                    <div class="workflow-icon">💾</div>
+                    <div class="workflow-title">Save to Drive</div>
+                    <div class="workflow-time">~5 seconds</div>
+                </div>
+            </div>
+
+            <div class="slack-notification" id="slackNotification" style="display: none;">
+                <strong>📢 Slack Notification Sent!</strong><br><br>
+                <strong>Channel:</strong> #marketing-audits<br>
+                <strong>Message:</strong> New audit generated for <span id="notifCompany"></span><br>
+                <strong>Link:</strong> <a href="#" style="color: #33cc66;">View in Google Drive →</a><br>
+                <strong>Time:</strong> <span id="notifTime"></span>
+            </div>
+        </div>
+
+        <!-- Output Section -->
+        <div class="main-card output-section" id="outputSection">
+            <h2 class="card-title">Generated Audit Report</h2>
+            
+            <div style="text-align: center; margin-bottom: 20px;">
+                <a href="#" class="download-btn">📥 Download PDF</a>
+                <a href="#" class="download-btn">📁 View in Google Drive</a>
+            </div>
+
+            <div class="pdf-preview">
+                <div class="pdf-cover">
+                    <div class="pdf-logo">AdLeg</div>
+                    <div class="pdf-company-name" id="pdfCompanyName">Cleveland Eye Clinic</div>
+                    <div class="pdf-subtitle">Comprehensive Digital Marketing Audit</div>
+                    <div class="pdf-contact">
+                        adleg.com | 216-232-2255 | hello@adleg.com<br>
+                        Cleveland, Ohio
+                    </div>
+                </div>
+
+                <div class="pdf-section">
+                    <h3>Executive Summary</h3>
+                    <p>Cleveland Eye Clinic demonstrates strong foundational elements in their digital marketing strategy, particularly in reputation management and patient trust-building. However, significant opportunities exist to modernize their online presence and capture more high-intent search traffic.</p>
+                    <p><strong>Overall Score: 72/100</strong></p>
+                </div>
+
+                <div class="pdf-section">
+                    <h3>Key Findings</h3>
+                    <table class="pdf-table">
+                        <thead>
+                            <tr>
+                                <th>Category</th>
+                                <th>Current State</th>
+                                <th>Score</th>
+                                <th>Priority</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>SEO Performance</td>
+                                <td>Limited keyword targeting</td>
+                                <td>6/10</td>
+                                <td>HIGH</td>
+                            </tr>
+                            <tr>
+                                <td>Content Strategy</td>
+                                <td>Basic service pages only</td>
+                                <td>5/10</td>
+                                <td>HIGH</td>
+                            </tr>
+                            <tr>
+                                <td>Technical SEO</td>
+                                <td>Good site structure</td>
+                                <td>8/10</td>
+                                <td>MEDIUM</td>
+                            </tr>
+                            <tr>
+                                <td>Local Presence</td>
+                                <td>Strong GMB profile</td>
+                                <td>9/10</td>
+                                <td>LOW</td>
+                            </tr>
+                            <tr>
+                                <td>Conversion Rate</td>
+                                <td>No clear CTAs</td>
+                                <td>4/10</td>
+                                <td>HIGH</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="pdf-section">
+                    <h3>Top 3 Recommendations</h3>
+                    <p><strong>1. Implement Service-Specific Landing Pages</strong><br>
+                    Create dedicated landing pages for high-value procedures (LASIK, cataract surgery, glaucoma treatment) optimized for local + procedure keywords. Expected impact: 40-60% increase in organic traffic within 6 months.</p>
+
+                    <p><strong>2. Launch Educational Content Hub</strong><br>
+                    Develop monthly blog content answering common patient questions. Focus on "what to expect" content and post-procedure care guides. Expected impact: Establish topical authority and increase patient trust.</p>
+
+                    <p><strong>3. Optimize Conversion Funnel</strong><br>
+                    Add prominent appointment booking CTAs, implement live chat for after-hours inquiries, and create a new patient intake form. Expected impact: 25-35% increase in appointment bookings from existing traffic.</p>
+                </div>
+
+                <div class="pdf-section">
+                    <h3>Competitive Analysis</h3>
+                    <p>Key competitors (Cole Eye Institute, Cleveland Clinic Eye Institute) are investing heavily in content marketing and paid search. To compete effectively, Cleveland Eye Clinic should focus on local SEO dominance and service-specific expertise positioning.</p>
+                </div>
+
+                <div class="pdf-section">
+                    <h3>About AdLeg</h3>
+                    <p>AdLeg specializes in digital marketing for healthcare and professional services. We combine strategic planning with hands-on execution to drive measurable results for our clients.</p>
+                    <p><strong>Next Steps:</strong> Schedule a 30-minute strategy call to discuss implementation priorities and timeline.</p>
+                </div>
+            </div>
+
+            <div style="text-align: center; margin-top: 20px;">
+                <a href="#" class="download-btn">📥 Download PDF</a>
+                <a href="#" class="download-btn">📁 View in Google Drive</a>
+                <button class="download-btn" onclick="resetDemo()" style="background: #6c757d; border: none;">
+                    🔄 Generate Another Audit
+                </button>
+            </div>
+        </div>
+
+        <!-- Footer CTA -->
+        <footer>
+            <h3>Ready to Automate Your Agency's Audits?</h3>
+            <p>This system was built in 10 days for AdLeg's digital marketing agency.<br>
+            It saves 90 minutes per audit, costs $1.20 per run, and delivers 100% brand-consistent reports.</p>
+            <p><strong>Your automation includes:</strong><br>
+            Make.com scenario, Perplexity + Claude integration, branded HTML/CSS templates,<br>
+            Google Drive auto-save, Slack notifications, and complete documentation.</p>
+            <a href="https://meetings.hubspot.com/chris4642" class="cta-button" target="_blank">
+                📅 Schedule 15-Minute Discovery Call
+            </a>
+            <p style="margin-top: 25px; font-size: 14px; color: #8892a6;">
+                Built by <strong style="color: #33cc66;">ResultantAI</strong> | Chris Mott | chris@resultantai.com | (240) 389-4152
+            </p>
+        </footer>
+    </div>
+
+    <script>
+        function startGeneration() {
+            const companyName = document.getElementById('companyName').value;
+            const companyUrl = document.getElementById('companyUrl').value;
+
+            if (!companyName || !companyUrl) {
+                alert('Please enter both company name and website URL');
+                return;
+            }
+
+            // Update PDF preview with company name
+            document.getElementById('pdfCompanyName').textContent = companyName;
+            document.getElementById('notifCompany').textContent = companyName;
+            document.getElementById('notifTime').textContent = new Date().toLocaleString();
+
+            // Disable button
+            const btn = document.getElementById('generateBtn');
+            btn.disabled = true;
+            btn.textContent = '⏳ Generating Audit...';
+
+            // Show workflow section
+            document.getElementById('workflowSection').classList.add('active');
+            document.getElementById('workflowSection').scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+            // Animate workflow steps
+            const steps = [
+                { id: 'step1', delay: 500, text: 'Capturing company information...' },
+                { id: 'step2', delay: 1500, text: 'Perplexity AI researching website and competitors...' },
+                { id: 'step3', delay: 3000, text: 'Claude analyzing and structuring findings...' },
+                { id: 'step4', delay: 5000, text: 'Building branded HTML report...' },
+                { id: 'step5', delay: 6000, text: 'Generating professional PDF...' },
+                { id: 'step6', delay: 7000, text: 'Saving to Google Drive...' }
+            ];
+
+            let currentStep = 0;
+            
+            function animateStep() {
+                if (currentStep < steps.length) {
+                    const step = steps[currentStep];
+                    
+                    setTimeout(() => {
+                        // Mark current step as active
+                        document.getElementById(step.id).classList.add('active');
+                        document.getElementById('progressText').textContent = step.text;
+
+                        // Mark previous step as completed
+                        if (currentStep > 0) {
+                            document.getElementById(steps[currentStep - 1].id).classList.remove('active');
+                            document.getElementById(steps[currentStep - 1].id).classList.add('completed');
+                        }
+
+                        currentStep++;
+                        animateStep();
+                    }, currentStep === 0 ? step.delay : 1500);
+                } else {
+                    // Complete animation
+                    setTimeout(() => {
+                        document.getElementById('step6').classList.remove('active');
+                        document.getElementById('step6').classList.add('completed');
+                        document.getElementById('progressText').textContent = '✅ Audit complete! Sending notifications...';
+                        
+                        // Show Slack notification
+                        setTimeout(() => {
+                            document.getElementById('slackNotification').style.display = 'block';
+                            
+                            // Show output section
+                            setTimeout(() => {
+                                document.getElementById('outputSection').classList.add('active');
+                                document.getElementById('outputSection').scrollIntoView({ behavior: 'smooth', block: 'start' });
+                                
+                                // Re-enable button
+                                btn.disabled = false;
+                                btn.textContent = '🎯 Generate Professional Audit';
+                            }, 1000);
+                        }, 1000);
+                    }, 1000);
+                }
+            }
+
+            animateStep();
+        }
+
+        function resetDemo() {
+            // Hide workflow and output sections
+            document.getElementById('workflowSection').classList.remove('active');
+            document.getElementById('outputSection').classList.remove('active');
+            document.getElementById('slackNotification').style.display = 'none';
+
+            // Reset all workflow steps
+            const steps = ['step1', 'step2', 'step3', 'step4', 'step5', 'step6'];
+            steps.forEach(step => {
+                document.getElementById(step).classList.remove('active', 'completed');
+            });
+
+            // Scroll back to input form
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Auto-demo on page load
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                const demoPrompt = confirm('👋 Welcome to the AdLeg Audit Generator demo!\n\nClick OK to see a live demonstration, or Cancel to try it yourself.');
+                if (demoPrompt) {
+                    startGeneration();
+                }
+            }, 1500);
+        });
+    </script>
+</body>
+</html>

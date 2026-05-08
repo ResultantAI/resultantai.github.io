@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medspa AI ROI Simulator | ResultantAI</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    
+    <style>
+        :root {
+            --bg-body: #F9F9F7; /* Soft aesthetic cream */
+            --bg-card: #FFFFFF;
+            --text-primary: #1A1A1A;
+            --text-secondary: #595959;
+            --accent: #D4AF37; /* Muted Gold */
+            --accent-soft: #F3EFE0;
+            --chart-color: #2C3E50;
+            --success: #3A7D44;
+            --font-serif: 'Cormorant Garamond', serif;
+            --font-sans: 'Inter', sans-serif;
+            --shadow-soft: 0 20px 40px -10px rgba(0,0,0,0.05);
+            --border-light: #E5E5E5;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            background-color: var(--bg-body);
+            color: var(--text-primary);
+            font-family: var(--font-sans);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        h1, h2, h3, h4 { font-family: var(--font-serif); font-weight: 600; }
+
+        /* Layout */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 40px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            position: relative;
+        }
+
+        .brand-tag {
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        header h1 {
+            font-size: 3rem;
+            margin-bottom: 10px;
+            color: #1a1a1a;
+        }
+        
+        .tour-trigger {
+            position: absolute;
+            right: 0; top: 0;
+            background: transparent; border: 1px solid var(--border-light);
+            width: 40px; height: 40px; border-radius: 50%;
+            cursor: pointer; color: var(--text-secondary);
+            display: flex; align-items: center; justify-content: center;
+            transition: all 0.2s;
+        }
+        .tour-trigger:hover { border-color: var(--accent); color: var(--accent); }
+
+        /* Input Section */
+        .calculator-grid {
+            display: grid;
+            grid-template-columns: 350px 1fr;
+            gap: 40px;
+            align-items: start;
+        }
+
+        .inputs-card {
+            background: var(--bg-card);
+            padding: 40px;
+            border-radius: 4px;
+            box-shadow: var(--shadow-soft);
+            border: 1px solid var(--border-light);
+            position: sticky;
+            top: 20px;
+        }
+
+        .input-group { margin-bottom: 30px; }
+        .input-group label {
+            display: block;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-secondary);
+            margin-bottom: 10px;
+        }
+
+        input[type=range] {
+            width: 100%;
+            cursor: pointer;
+            accent-color: var(--text-primary);
+        }
+        
+        .number-display {
+            font-family: var(--font-serif);
+            font-size: 1.8rem; /* Larger */
+            font-weight: 700; /* Bolder */
+            color: var(--text-primary);
+            margin-top: 5px;
+            border-bottom: 2px solid var(--accent); /* Thicker line */
+            display: inline-block;
+            padding-bottom: 2px;
+        }
+
+        /* Results Dashboard */
+        .results-panel {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .kpi-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .kpi-card {
+            background: var(--bg-card);
+            padding: 25px;
+            border: 1px solid var(--border-light);
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+        .kpi-card:hover { transform: translateY(-5px); border-color: var(--accent); }
+
+        .kpi-label { font-size: 0.8rem; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 10px;}
+        .kpi-value { 
+            font-family: var(--font-serif); 
+            font-size: 2.8rem; 
+            font-weight: 700; /* Bolder */
+            color: var(--text-primary); 
+            line-height: 1;
+        }
+        .kpi-value.danger { color: #B94A48; }
+        .kpi-value.success { color: var(--success); }
+
+        /* Solutions Section */
+        .solutions-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .solution-card {
+            background: var(--bg-card);
+            padding: 30px;
+            border-top: 3px solid var(--border-light);
+            transition: all 0.3s;
+        }
+        
+        .solution-card.active { border-color: var(--accent); background: var(--accent-soft); }
+
+        .solution-header { display: flex; align-items: center; gap: 10px; margin-bottom: 15px; }
+        .solution-icon { color: var(--text-primary); font-size: 1.2rem; }
+        .solution-title { font-size: 1.1rem; font-weight: 600; }
+        .solution-roi { 
+            font-family: var(--font-serif); 
+            font-size: 1.6rem; 
+            font-weight: 700; /* Bolder */
+            color: var(--success); 
+            margin-top: 10px; 
+        }
+
+        /* Proposal Generator Button */
+        .cta-container {
+            margin-top: 40px;
+            text-align: center;
+        }
+
+        .btn-primary {
+            background: var(--text-primary);
+            color: white;
+            border: none;
+            padding: 18px 40px;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .btn-primary:hover { background: var(--accent); color: black; }
+
+        /* Modal (Proposal Preview) */
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.8);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            backdrop-filter: blur(5px);
+        }
+
+        .proposal-paper {
+            background: white;
+            width: 800px;
+            height: 90vh;
+            overflow-y: auto;
+            padding: 60px;
+            position: relative;
+            box-shadow: 0 0 50px rgba(0,0,0,0.5);
+        }
+
+        .paper-header { 
+            display: flex; justify-content: space-between; border-bottom: 2px solid var(--text-primary); 
+            padding-bottom: 20px; margin-bottom: 40px;
+        }
+
+        .close-btn { position: absolute; top: 20px; right: 20px; cursor: pointer; font-size: 1.5rem; background:none; border:none;}
+
+        /* --- TOUR STYLES --- */
+        .tour-backdrop {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.5); z-index: 5000;
+            display: none; opacity: 0; transition: opacity 0.3s;
+        }
+        .tour-backdrop.active { display: block; opacity: 1; }
+        
+        .tour-highlight {
+            position: relative; z-index: 5001 !important;
+            box-shadow: 0 0 0 4px var(--accent), 0 0 0 5000px rgba(0,0,0,0.5);
+            background: white;
+        }
+
+        .tour-tooltip {
+            position: fixed; background: white; color: #1a1a1a;
+            padding: 25px; width: 320px; z-index: 6000;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            display: none; border-left: 4px solid var(--accent);
+        }
+
+        .tour-step-badge {
+            font-family: var(--font-serif); color: var(--accent);
+            text-transform: uppercase; letter-spacing: 0.1em; font-weight: bold; font-size: 0.8rem;
+            margin-bottom: 10px; display: block;
+        }
+        
+        .tour-title { font-family: var(--font-serif); font-size: 1.4rem; margin-bottom: 10px; font-weight: 700; }
+        .tour-desc { font-size: 0.95rem; color: #555; line-height: 1.6; margin-bottom: 20px; }
+        
+        .tour-controls { display: flex; justify-content: space-between; }
+        .tour-btn {
+            background: #1a1a1a; color: white; border: none; padding: 8px 16px;
+            cursor: pointer; font-size: 0.85rem; letter-spacing: 0.05em; text-transform: uppercase;
+        }
+        .tour-btn.secondary { background: transparent; color: #999; border: 1px solid #ddd; }
+
+        @media (max-width: 900px) {
+            .calculator-grid, .kpi-row, .solutions-grid { grid-template-columns: 1fr; }
+            .inputs-card { position: static; }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="tour-backdrop" class="tour-backdrop"></div>
+    <div id="tour-tooltip" class="tour-tooltip">
+        <span class="tour-step-badge">Strategic Walkthrough</span>
+        <div class="tour-title" id="tour-title">Welcome</div>
+        <div class="tour-desc" id="tour-desc">...</div>
+        <div class="tour-controls">
+            <button class="tour-btn secondary" onclick="endTour()">Skip</button>
+            <button class="tour-btn" onclick="nextStep()" id="tour-next-btn">Next</button>
+        </div>
+    </div>
+
+    <header>
+        <span class="brand-tag">ResultantAI &bull; Strategic Automation</span>
+        <h1>Growth Projection Simulator</h1>
+        <p style="color: var(--text-secondary);">Quantifying the impact of AI infrastructure for Modern Medical Aesthetics.</p>
+        <button class="tour-trigger" onclick="startTour()" title="Replay Tour"><i class="fas fa-play"></i></button>
+    </header>
+
+    <div class="container">
+        
+        <div class="calculator-grid">
+            <div class="inputs-card" id="tour-inputs">
+                <h3><i class="fas fa-sliders-h" style="font-size: 0.8em; margin-right: 10px;"></i> Practice Metrics</h3>
+                <br>
+                
+                <div class="input-group">
+                    <label>Monthly Appointment Volume</label>
+                    <div class="number-display" id="disp-volume">450</div>
+                    <input type="range" id="in-volume" min="50" max="2000" step="10" value="450">
+                </div>
+
+                <div class="input-group">
+                    <label>Avg. Client Value (Ticket Price)</label>
+                    <div class="number-display" id="disp-price">$650</div>
+                    <input type="range" id="in-price" min="100" max="5000" step="50" value="650">
+                </div>
+
+                <div class="input-group">
+                    <label>Missed Call Rate (%)</label>
+                    <div class="number-display" id="disp-missed">25%</div>
+                    <input type="range" id="in-missed" min="0" max="60" step="1" value="25">
+                    <small style="color:var(--text-secondary); display:block; margin-top:5px;">Industry avg: 22-28%</small>
+                </div>
+            </div>
+
+            <div class="results-panel">
+                
+                <div class="kpi-row" id="tour-kpis">
+                    <div class="kpi-card">
+                        <div class="kpi-label">Revenue Lost / Mo</div>
+                        <div class="kpi-value danger" id="val-lost">$0</div>
+                        <div style="font-size:0.8rem; margin-top:5px; color:var(--text-secondary);">To Voicemail Abyss</div>
+                    </div>
+                    <div class="kpi-card">
+                        <div class="kpi-label">Recoverable Revenue</div>
+                        <div class="kpi-value success" id="val-recoverable">$0</div>
+                        <div style="font-size:0.8rem; margin-top:5px; color:var(--text-secondary);">With AI Receptionist</div>
+                    </div>
+                    <div class="kpi-card">
+                        <div class="kpi-label">Annual Upside</div>
+                        <div class="kpi-value" id="val-annual">$0</div>
+                        <div style="font-size:0.8rem; margin-top:5px; color:var(--text-secondary);">Projected Impact</div>
+                    </div>
+                </div>
+
+                <h3 style="margin-top: 20px; border-bottom: 1px solid var(--border-light); padding-bottom: 10px;">Recommended Automation Stack</h3>
+                <div class="solutions-grid" id="tour-solutions">
+                    <div class="solution-card active">
+                        <div class="solution-header">
+                            <i class="fas fa-phone-alt solution-icon"></i>
+                            <div class="solution-title">AI Receptionist</div>
+                        </div>
+                        <p style="font-size: 0.9rem; color: var(--text-secondary);">24/7 Voice Agent. Zero hold times. Captures 100% of missed revenue opportunities.</p>
+                        <div class="solution-roi" id="roi-receptionist">+ $73k/yr</div>
+                    </div>
+                    
+                    <div class="solution-card">
+                        <div class="solution-header">
+                            <i class="fas fa-magic solution-icon"></i>
+                            <div class="solution-title">Lead Nurture</div>
+                        </div>
+                        <p style="font-size: 0.9rem; color: var(--text-secondary);">Instant reactivation of cold leads. Automated text follow-up for inquiries.</p>
+                        <div class="solution-roi" id="roi-nurture">+ $120k/yr</div>
+                    </div>
+
+                    <div class="solution-card">
+                        <div class="solution-header">
+                            <i class="fas fa-clipboard-check solution-icon"></i>
+                            <div class="solution-title">Client Onboarding</div>
+                        </div>
+                        <p style="font-size: 0.9rem; color: var(--text-secondary);">Digital forms & deposit collection. Reduces "No-Show" rate by 40%.</p>
+                        <div class="solution-roi" id="roi-onboarding">15 Hrs/wk Saved</div>
+                    </div>
+                </div>
+
+                <div style="height: 300px; background: white; padding: 20px; border: 1px solid var(--border-light);">
+                    <canvas id="roiChart"></canvas>
+                </div>
+
+                <div class="cta-container" id="tour-cta">
+                    <button class="btn-primary" onclick="generateProposal()">
+                        <i class="fas fa-file-pdf"></i> Generate Strategic Proposal
+                    </button>
+                    <p style="margin-top: 15px; font-size: 0.8rem; color: var(--text-secondary);">Creates a client-ready PDF with these projections.</p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="proposalModal">
+        <button class="close-btn" onclick="closeProposal()">&times;</button>
+        <div class="proposal-paper">
+            <div class="paper-header">
+                <div>
+                    <h2 style="font-size: 2rem;">Automation Strategy</h2>
+                    <span style="color: var(--text-secondary);">Prepared for: [Client Name]</span>
+                </div>
+                <div style="text-align: right;">
+                    <h4 style="color: var(--accent);">ResultantAI</h4>
+                    <span style="font-size: 0.8rem;">Confidential Analysis</span>
+                </div>
+            </div>
+
+            <div style="margin-bottom: 40px;">
+                <h3 style="margin-bottom: 15px;">Executive Summary</h3>
+                <p>Based on your current volume of <strong id="prop-volume">0</strong> appointments and an average ticket of <strong id="prop-price">$0</strong>, your practice is currently bleeding revenue due to a <strong id="prop-missed">0%</strong> missed call rate.</p>
+                <br>
+                <p>ResultantAI proposes an infrastructure upgrade that will recapture <strong id="prop-recoverable" style="background: yellow;">$0</strong> in monthly revenue immediately upon deployment.</p>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-bottom: 40px;">
+                <div style="background: #f9f9f9; padding: 20px; border-left: 4px solid #1a1a1a;">
+                    <h4>Current State</h4>
+                    <ul style="margin-top: 10px; margin-left: 20px; font-size: 0.9rem;">
+                        <li>Missed Opportunities: <span id="prop-lost-leads">0</span> / mo</li>
+                        <li>Revenue Leakage: <span id="prop-lost-rev">$0</span> / mo</li>
+                        <li>Annual Loss: <span id="prop-lost-annual">$0</span></li>
+                    </ul>
+                </div>
+                <div style="background: #f3efe0; padding: 20px; border-left: 4px solid var(--accent);">
+                    <h4>Future State (AI Enabled)</h4>
+                    <ul style="margin-top: 10px; margin-left: 20px; font-size: 0.9rem;">
+                        <li>24/7 Lead Capture (100% Rate)</li>
+                        <li>Est. Annual Uplift: <span id="prop-uplift">$0</span></li>
+                        <li>ROI: <span id="prop-roi">0%</span> (First 30 days)</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3 style="margin-bottom: 15px;">Proof of Concept</h3>
+            <div style="font-style: italic; color: var(--text-secondary); border-left: 2px solid var(--accent); padding-left: 15px;">
+                "Implementing this exact Voice AI stack allowed Wayne Conn Plumbing to recover $5k/mo in after-hours revenue within week one. The operational impact for high-ticket service businesses like Medspas is typically 3x that figure."
+            </div>
+
+            <div style="margin-top: 60px; text-align: center; border-top: 1px solid #eee; padding-top: 20px;">
+                <button class="btn-primary" onclick="window.print()">Print / Save as PDF</button>
+            </div>
+        </div>
+    </div>
+
+<script>
+    // --- VARIABLES ---
+    const inputs = {
+        volume: document.getElementById('in-volume'),
+        price: document.getElementById('in-price'),
+        missed: document.getElementById('in-missed')
+    };
+
+    const displays = {
+        volume: document.getElementById('disp-volume'),
+        price: document.getElementById('disp-price'),
+        missed: document.getElementById('disp-missed')
+    };
+
+    const kpis = {
+        lost: document.getElementById('val-lost'),
+        recoverable: document.getElementById('val-recoverable'),
+        annual: document.getElementById('val-annual'),
+        roiReceptionist: document.getElementById('roi-receptionist'),
+        roiNurture: document.getElementById('roi-nurture')
+    };
+
+    let chartInstance = null;
+    let tourStepIndex = 0;
+
+    // --- TOUR DATA ---
+    const tourSteps = [
+        {
+            target: null,
+            title: "ResultantAI Simulator",
+            desc: "This tool helps Medspa owners quantify the cost of 'missed opportunities' and the ROI of implementing your AI voice infrastructure."
+        },
+        {
+            target: 'tour-inputs',
+            title: "Interactive Modeling",
+            desc: "Clients input their specific metrics here (Volume, Ticket Price, Missed Call Rate). As these slide, the entire dashboard updates in real-time."
+        },
+        {
+            target: 'tour-kpis',
+            title: "Visualizing Loss",
+            desc: "We calculate the exact 'Revenue Lost to Voicemail' instantly. This number usually shocks the business owner and creates urgency."
+        },
+        {
+            target: 'tour-solutions',
+            title: "Stacked Solutions",
+            desc: "We don't just sell 'AI'. We sell outcomes. Here we break down the specific annual uplift from Reception, Nurture, and Onboarding bots."
+        },
+        {
+            target: 'tour-cta',
+            title: "The Closer",
+            desc: "Clicking this generates a branded, professional PDF proposal populated with their data, ready for immediate signature."
+        }
+    ];
+
+    // --- INITIALIZATION ---
+    function init() {
+        Object.keys(inputs).forEach(key => {
+            inputs[key].addEventListener('input', updateCalculator);
+        });
+        updateCalculator();
+        initChart();
+        
+        // Auto-start tour after 1s
+        setTimeout(startTour, 1000);
+    }
+
+    // --- TOUR LOGIC ---
+    function startTour() {
+        tourStepIndex = 0;
+        document.getElementById('tour-backdrop').classList.add('active');
+        showStep(0);
+    }
+
+    function endTour() {
+        document.getElementById('tour-backdrop').classList.remove('active');
+        document.getElementById('tour-tooltip').style.display = 'none';
+        document.querySelectorAll('.tour-highlight').forEach(el => el.classList.remove('tour-highlight'));
+    }
+
+    function nextStep() {
+        tourStepIndex++;
+        if (tourStepIndex >= tourSteps.length) {
+            endTour();
+        } else {
+            showStep(tourStepIndex);
+        }
+    }
+
+    function showStep(index) {
+        document.querySelectorAll('.tour-highlight').forEach(el => el.classList.remove('tour-highlight'));
+        
+        const step = tourSteps[index];
+        const tooltip = document.getElementById('tour-tooltip');
+        
+        document.getElementById('tour-title').innerText = step.title;
+        document.getElementById('tour-desc').innerText = step.desc;
+        document.getElementById('tour-next-btn').innerText = (index === tourSteps.length - 1) ? "Finish" : "Next";
+
+        if (step.target) {
+            const targetEl = document.getElementById(step.target);
+            targetEl.classList.add('tour-highlight');
+            
+            const rect = targetEl.getBoundingClientRect();
+            // Position Logic
+            let top = rect.bottom + 15;
+            let left = rect.left + (rect.width / 2);
+
+            // Bounds check
+            if (left + 160 > window.innerWidth) left = window.innerWidth - 170;
+            if (left - 160 < 0) left = 170;
+            if (top + 200 > window.innerHeight) top = rect.top - 220;
+
+            tooltip.style.top = top + 'px';
+            tooltip.style.left = left + 'px';
+            tooltip.style.transform = 'translateX(-50%)';
+        } else {
+            // Center
+            tooltip.style.top = '50%';
+            tooltip.style.left = '50%';
+            tooltip.style.transform = 'translate(-50%, -50%)';
+        }
+        tooltip.style.display = 'block';
+    }
+
+    // --- CALCULATOR LOGIC ---
+    function updateCalculator() {
+        const volume = parseInt(inputs.volume.value);
+        const price = parseInt(inputs.price.value);
+        const missedRate = parseInt(inputs.missed.value) / 100;
+
+        displays.volume.innerText = volume;
+        displays.price.innerText = `$${price}`;
+        displays.missed.innerText = `${(missedRate * 100).toFixed(0)}%`;
+
+        // Logic
+        const bookingRate = 0.4; // 40% of callers would book
+        const missedCalls = Math.round(volume * missedRate);
+        const lostRevenueMo = Math.round(missedCalls * bookingRate * price);
+        
+        const captureRate = 0.9; // AI captures 90%
+        const recoverableMo = Math.round(lostRevenueMo * captureRate);
+        const annualRecoverable = recoverableMo * 12;
+
+        const nurtureUplift = Math.round((volume * 10) * 0.02 * price); 
+        
+        // Render
+        kpis.lost.innerText = formatMoney(lostRevenueMo);
+        kpis.recoverable.innerText = formatMoney(recoverableMo);
+        kpis.annual.innerText = formatMoney(annualRecoverable);
+
+        kpis.roiReceptionist.innerText = `+ ${formatMoney(annualRecoverable)}/yr`;
+        kpis.roiNurture.innerText = `+ ${formatMoney(nurtureUplift)}/yr`;
+
+        updateChartData(lostRevenueMo, recoverableMo);
+    }
+
+    function formatMoney(amount) {
+        return '$' + amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
+
+    // --- CHARTING ---
+    function initChart() {
+        const ctx = document.getElementById('roiChart').getContext('2d');
+        chartInstance = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Current Status', 'With ResultantAI'],
+                datasets: [{
+                    label: 'Monthly Revenue',
+                    data: [0, 0],
+                    backgroundColor: ['#e0e0e0', '#3A7D44'],
+                    borderRadius: 4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { display: false } },
+                scales: {
+                    y: { beginAtZero: true, grid: { color: '#f0f0f0' } },
+                    x: { grid: { display: false } }
+                }
+            }
+        });
+    }
+
+    function updateChartData(lost, recovered) {
+        if(!chartInstance) return;
+        const baseline = parseInt(inputs.volume.value) * parseInt(inputs.price.value);
+        chartInstance.data.datasets[0].data = [baseline, baseline + recovered];
+        chartInstance.update();
+    }
+
+    // --- PROPOSAL GEN ---
+    function generateProposal() {
+        document.getElementById('prop-volume').innerText = inputs.volume.value;
+        document.getElementById('prop-price').innerText = `$${inputs.price.value}`;
+        document.getElementById('prop-missed').innerText = `${inputs.missed.value}%`;
+        document.getElementById('prop-recoverable').innerText = kpis.recoverable.innerText;
+        
+        document.getElementById('prop-lost-leads').innerText = Math.round(inputs.volume.value * (inputs.missed.value/100));
+        document.getElementById('prop-lost-rev').innerText = kpis.lost.innerText;
+        document.getElementById('prop-lost-annual').innerText = formatMoney(parseInt(kpis.lost.innerText.replace(/\D/g,'')) * 12);
+        
+        document.getElementById('prop-uplift').innerText = kpis.annual.innerText;
+        
+        const upliftVal = parseInt(kpis.recoverable.innerText.replace(/\D/g,''));
+        const cost = 500;
+        const roi = Math.round(((upliftVal - cost) / cost) * 100);
+        document.getElementById('prop-roi').innerText = `${roi}%`;
+
+        document.getElementById('proposalModal').style.display = 'flex';
+    }
+
+    function closeProposal() {
+        document.getElementById('proposalModal').style.display = 'none';
+    }
+
+    init();
+
+</script>
+</body>
+</html>

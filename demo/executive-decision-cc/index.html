@@ -1,0 +1,1428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Executive Decision Command Center | ResultantAI Demo</title>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0a0a0b;
+            --bg-secondary: #111113;
+            --bg-tertiary: #18181b;
+            --bg-elevated: #1f1f23;
+            --border-subtle: #27272a;
+            --border-active: #3f3f46;
+            --text-primary: #fafafa;
+            --text-secondary: #a1a1aa;
+            --text-tertiary: #71717a;
+            --accent-amber: #f59e0b;
+            --accent-amber-dim: rgba(245, 158, 11, 0.15);
+            --accent-emerald: #10b981;
+            --accent-emerald-dim: rgba(16, 185, 129, 0.15);
+            --accent-blue: #3b82f6;
+            --accent-blue-dim: rgba(59, 130, 246, 0.15);
+            --accent-purple: #8b5cf6;
+            --slack-purple: #611f69;
+            --drive-blue: #4285f4;
+            --confluence-blue: #0052cc;
+            --gradient-synthesis: linear-gradient(135deg, var(--slack-purple), var(--drive-blue), var(--confluence-blue));
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            line-height: 1.5;
+            overflow-x: hidden;
+        }
+
+        /* Tutorial Banner */
+        .tutorial-banner {
+            background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-tertiary) 100%);
+            border-bottom: 1px solid var(--border-subtle);
+            padding: 20px 32px;
+            display: flex;
+            align-items: flex-start;
+            gap: 24px;
+            animation: slideDown 0.5s ease-out;
+        }
+
+        @keyframes slideDown {
+            from { transform: translateY(-100%); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .tutorial-banner.hidden {
+            display: none;
+        }
+
+        .tutorial-content {
+            flex: 1;
+        }
+
+        .tutorial-title {
+            font-family: 'Instrument Serif', Georgia, serif;
+            font-size: 18px;
+            color: var(--text-primary);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .tutorial-title::before {
+            content: '✦';
+            color: var(--accent-amber);
+        }
+
+        .tutorial-steps {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+        }
+
+        .tutorial-step {
+            display: flex;
+            gap: 10px;
+            align-items: flex-start;
+        }
+
+        .step-number {
+            width: 24px;
+            height: 24px;
+            background: var(--accent-amber-dim);
+            border: 1px solid var(--accent-amber);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--accent-amber);
+            flex-shrink: 0;
+        }
+
+        .step-text {
+            font-size: 13px;
+            color: var(--text-secondary);
+            line-height: 1.4;
+        }
+
+        .step-text strong {
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+
+        .dismiss-btn {
+            background: var(--bg-elevated);
+            border: 1px solid var(--border-subtle);
+            color: var(--text-secondary);
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 13px;
+            font-family: inherit;
+            transition: all 0.2s;
+            white-space: nowrap;
+        }
+
+        .dismiss-btn:hover {
+            background: var(--bg-tertiary);
+            color: var(--text-primary);
+            border-color: var(--border-active);
+        }
+
+        /* Header */
+        .header {
+            padding: 24px 32px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border-subtle);
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .logo {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--accent-amber) 0%, #ea580c 100%);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 18px;
+        }
+
+        .brand-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .brand-name {
+            font-weight: 600;
+            font-size: 16px;
+            letter-spacing: -0.02em;
+        }
+
+        .brand-subtitle {
+            font-size: 12px;
+            color: var(--text-tertiary);
+        }
+
+        .time-saved-counter {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            background: var(--accent-emerald-dim);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            padding: 12px 20px;
+            border-radius: 8px;
+        }
+
+        .counter-label {
+            font-size: 12px;
+            color: var(--accent-emerald);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .counter-value {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--accent-emerald);
+            font-variant-numeric: tabular-nums;
+        }
+
+        .counter-unit {
+            font-size: 12px;
+            color: var(--text-secondary);
+            margin-left: 4px;
+        }
+
+        /* Main Layout */
+        .main-container {
+            display: grid;
+            grid-template-columns: 380px 1fr;
+            min-height: calc(100vh - 140px);
+        }
+
+        /* Decision Queue Panel */
+        .decision-queue {
+            background: var(--bg-secondary);
+            border-right: 1px solid var(--border-subtle);
+            padding: 24px;
+            overflow-y: auto;
+        }
+
+        .panel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .panel-title {
+            font-family: 'Instrument Serif', Georgia, serif;
+            font-size: 20px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .decision-count {
+            background: var(--accent-amber);
+            color: var(--bg-primary);
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 700;
+            font-family: 'DM Sans', sans-serif;
+        }
+
+        .queue-filters {
+            display: flex;
+            gap: 8px;
+        }
+
+        .filter-btn {
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-subtle);
+            color: var(--text-secondary);
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .filter-btn.active {
+            background: var(--accent-amber-dim);
+            border-color: var(--accent-amber);
+            color: var(--accent-amber);
+        }
+
+        /* Decision Cards */
+        .decision-card {
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-subtle);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .decision-card::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: var(--accent-amber);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .decision-card:hover {
+            border-color: var(--border-active);
+            transform: translateX(4px);
+        }
+
+        .decision-card:hover::before {
+            opacity: 1;
+        }
+
+        .decision-card.active {
+            border-color: var(--accent-amber);
+            background: var(--bg-elevated);
+        }
+
+        .decision-card.active::before {
+            opacity: 1;
+        }
+
+        .decision-priority {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 10px;
+        }
+
+        .priority-high {
+            color: #ef4444;
+        }
+
+        .priority-medium {
+            color: var(--accent-amber);
+        }
+
+        .priority-low {
+            color: var(--accent-blue);
+        }
+
+        .priority-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        .priority-high .priority-dot {
+            background: #ef4444;
+        }
+
+        .priority-medium .priority-dot {
+            background: var(--accent-amber);
+        }
+
+        .priority-low .priority-dot {
+            background: var(--accent-blue);
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.4; }
+        }
+
+        .decision-title {
+            font-weight: 600;
+            font-size: 15px;
+            margin-bottom: 8px;
+            line-height: 1.4;
+        }
+
+        .decision-meta {
+            display: flex;
+            gap: 12px;
+            font-size: 12px;
+            color: var(--text-tertiary);
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .source-icons {
+            display: flex;
+            gap: 6px;
+            margin-top: 12px;
+        }
+
+        .source-icon {
+            width: 24px;
+            height: 24px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .source-slack {
+            background: rgba(97, 31, 105, 0.3);
+            color: #e9a8ef;
+        }
+
+        .source-drive {
+            background: rgba(66, 133, 244, 0.3);
+            color: #93c5fd;
+        }
+
+        .source-confluence {
+            background: rgba(0, 82, 204, 0.3);
+            color: #60a5fa;
+        }
+
+        /* Main Content Panel */
+        .content-panel {
+            padding: 32px;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        /* Empty State */
+        .empty-state {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            text-align: center;
+            color: var(--text-tertiary);
+        }
+
+        .empty-icon {
+            width: 80px;
+            height: 80px;
+            background: var(--bg-tertiary);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            margin-bottom: 16px;
+        }
+
+        .empty-title {
+            font-size: 18px;
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+        }
+
+        .empty-text {
+            font-size: 14px;
+            max-width: 300px;
+        }
+
+        /* Context Synthesis View */
+        .synthesis-view {
+            display: none;
+            flex-direction: column;
+            gap: 24px;
+            animation: fadeIn 0.4s ease-out;
+        }
+
+        .synthesis-view.active {
+            display: flex;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Context Sources */
+        .context-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .context-title {
+            font-family: 'Instrument Serif', Georgia, serif;
+            font-size: 24px;
+        }
+
+        .synthesis-status {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            color: var(--accent-emerald);
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--accent-emerald);
+            border-radius: 50%;
+            animation: pulse 1.5s infinite;
+        }
+
+        /* Data Flow Visualization */
+        .data-flow-container {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-subtle);
+            border-radius: 16px;
+            padding: 32px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .data-flow {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            position: relative;
+        }
+
+        .source-node {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            z-index: 2;
+        }
+
+        .node-icon {
+            width: 64px;
+            height: 64px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: 700;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .node-icon.slack {
+            background: linear-gradient(135deg, #611f69 0%, #8b2d94 100%);
+            box-shadow: 0 8px 24px rgba(97, 31, 105, 0.4);
+        }
+
+        .node-icon.drive {
+            background: linear-gradient(135deg, #4285f4 0%, #34a853 100%);
+            box-shadow: 0 8px 24px rgba(66, 133, 244, 0.4);
+        }
+
+        .node-icon.confluence {
+            background: linear-gradient(135deg, #0052cc 0%, #172b4d 100%);
+            box-shadow: 0 8px 24px rgba(0, 82, 204, 0.4);
+        }
+
+        .node-label {
+            font-size: 12px;
+            font-weight: 500;
+            color: var(--text-secondary);
+        }
+
+        .node-data {
+            font-size: 11px;
+            color: var(--text-tertiary);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .source-node.active .node-data {
+            opacity: 1;
+        }
+
+        .source-node.active .node-icon {
+            transform: scale(1.1);
+        }
+
+        /* Flow Lines */
+        .flow-lines {
+            position: absolute;
+            left: 80px;
+            right: 80px;
+            top: 50%;
+            transform: translateY(-50%);
+            height: 4px;
+            background: var(--bg-tertiary);
+            border-radius: 2px;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .flow-progress {
+            height: 100%;
+            width: 0%;
+            background: var(--gradient-synthesis);
+            border-radius: 2px;
+            transition: width 0.8s ease-out;
+        }
+
+        /* Synthesis Node */
+        .synthesis-node {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            z-index: 2;
+        }
+
+        .synthesis-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--accent-amber) 0%, #ea580c 100%);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            box-shadow: 0 12px 32px rgba(245, 158, 11, 0.3);
+            transition: all 0.5s;
+        }
+
+        .synthesis-icon.active {
+            box-shadow: 0 0 0 8px rgba(245, 158, 11, 0.2), 0 12px 32px rgba(245, 158, 11, 0.4);
+            animation: synthesizing 1s infinite;
+        }
+
+        @keyframes synthesizing {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .synthesis-label {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--accent-amber);
+        }
+
+        /* Time Comparison */
+        .time-comparison {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            gap: 24px;
+            align-items: center;
+            margin-top: 24px;
+            padding-top: 24px;
+            border-top: 1px solid var(--border-subtle);
+        }
+
+        .time-box {
+            text-align: center;
+            padding: 16px;
+            border-radius: 12px;
+        }
+
+        .time-box.before {
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.2);
+        }
+
+        .time-box.after {
+            background: var(--accent-emerald-dim);
+            border: 1px solid rgba(16, 185, 129, 0.2);
+        }
+
+        .time-label {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-tertiary);
+            margin-bottom: 6px;
+        }
+
+        .time-value {
+            font-size: 28px;
+            font-weight: 700;
+        }
+
+        .time-box.before .time-value {
+            color: #ef4444;
+        }
+
+        .time-box.after .time-value {
+            color: var(--accent-emerald);
+        }
+
+        .time-arrow {
+            font-size: 24px;
+            color: var(--text-tertiary);
+        }
+
+        /* Decision Brief */
+        .decision-brief {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-subtle);
+            border-radius: 16px;
+            padding: 28px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.5s ease-out;
+        }
+
+        .decision-brief.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .brief-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 20px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--border-subtle);
+        }
+
+        .brief-title {
+            font-family: 'Instrument Serif', Georgia, serif;
+            font-size: 22px;
+            line-height: 1.3;
+            max-width: 70%;
+        }
+
+        .confidence-badge {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 4px;
+        }
+
+        .confidence-label {
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-tertiary);
+        }
+
+        .confidence-value {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--accent-emerald);
+        }
+
+        .brief-section {
+            margin-bottom: 20px;
+        }
+
+        .section-label {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--accent-amber);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .section-content {
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        .stakeholder-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+
+        .stakeholder-item {
+            background: var(--bg-tertiary);
+            padding: 12px 16px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .stakeholder-avatar {
+            width: 32px;
+            height: 32px;
+            background: var(--accent-blue-dim);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--accent-blue);
+        }
+
+        .stakeholder-info {
+            flex: 1;
+        }
+
+        .stakeholder-name {
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        .stakeholder-position {
+            font-size: 11px;
+            color: var(--text-tertiary);
+        }
+
+        .stakeholder-stance {
+            font-size: 11px;
+            padding: 4px 8px;
+            border-radius: 4px;
+        }
+
+        .stance-approve {
+            background: var(--accent-emerald-dim);
+            color: var(--accent-emerald);
+        }
+
+        .stance-concern {
+            background: rgba(245, 158, 11, 0.15);
+            color: var(--accent-amber);
+        }
+
+        /* Recommendation Box */
+        .recommendation-box {
+            background: linear-gradient(135deg, var(--accent-amber-dim) 0%, rgba(234, 88, 12, 0.1) 100%);
+            border: 1px solid rgba(245, 158, 11, 0.3);
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 8px;
+        }
+
+        .recommendation-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+
+        .recommendation-icon {
+            width: 24px;
+            height: 24px;
+            background: var(--accent-amber);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+        }
+
+        .recommendation-title {
+            font-weight: 600;
+            color: var(--accent-amber);
+        }
+
+        .recommendation-text {
+            font-size: 15px;
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+
+        /* Action Buttons */
+        .action-buttons {
+            display: flex;
+            gap: 12px;
+            margin-top: 24px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-subtle);
+        }
+
+        .action-btn {
+            flex: 1;
+            padding: 14px 24px;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 600;
+            font-family: inherit;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .action-btn.primary {
+            background: linear-gradient(135deg, var(--accent-amber) 0%, #ea580c 100%);
+            border: none;
+            color: var(--bg-primary);
+        }
+
+        .action-btn.primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(245, 158, 11, 0.3);
+        }
+
+        .action-btn.secondary {
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-subtle);
+            color: var(--text-primary);
+        }
+
+        .action-btn.secondary:hover {
+            border-color: var(--border-active);
+            background: var(--bg-elevated);
+        }
+
+        /* Footer */
+        .footer {
+            padding: 16px 32px;
+            border-top: 1px solid var(--border-subtle);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 12px;
+            color: var(--text-tertiary);
+        }
+
+        .powered-by {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .stack-icons {
+            display: flex;
+            gap: 4px;
+        }
+
+        .stack-icon {
+            padding: 4px 8px;
+            background: var(--bg-tertiary);
+            border-radius: 4px;
+            font-size: 11px;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .main-container {
+                grid-template-columns: 1fr;
+            }
+
+            .decision-queue {
+                border-right: none;
+                border-bottom: 1px solid var(--border-subtle);
+                max-height: 300px;
+            }
+
+            .tutorial-steps {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+
+            .data-flow {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .flow-lines {
+                display: none;
+            }
+
+            .stakeholder-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Particle Effect Background */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.3;
+        }
+
+        .particle {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: var(--accent-amber);
+            border-radius: 50%;
+            animation: float 20s infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-100vh) rotate(720deg); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Particle Background -->
+    <div class="particles" id="particles"></div>
+
+    <!-- Tutorial Banner -->
+    <div class="tutorial-banner" id="tutorialBanner">
+        <div class="tutorial-content">
+            <div class="tutorial-title">Quick Start Guide</div>
+            <div class="tutorial-steps">
+                <div class="tutorial-step">
+                    <div class="step-number">1</div>
+                    <div class="step-text"><strong>Select a Decision</strong> from the queue to see Claude synthesize context in real-time</div>
+                </div>
+                <div class="tutorial-step">
+                    <div class="step-number">2</div>
+                    <div class="step-text"><strong>Watch the data flow</strong> as Slack, Drive, and Confluence sources merge into unified intelligence</div>
+                </div>
+                <div class="tutorial-step">
+                    <div class="step-number">3</div>
+                    <div class="step-text"><strong>Review the brief</strong> with stakeholder positions and AI-recommended action</div>
+                </div>
+            </div>
+        </div>
+        <button class="dismiss-btn" onclick="dismissTutorial()">Got it, let's explore →</button>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="logo-section">
+            <div class="logo">⚡</div>
+            <div class="brand-text">
+                <div class="brand-name">Decision Command Center</div>
+                <div class="brand-subtitle">ResultantAI Demo • Claude + Make.com</div>
+            </div>
+        </div>
+        <div class="time-saved-counter">
+            <div class="counter-label">Time Saved This Week</div>
+            <div>
+                <span class="counter-value" id="timeSaved">4.2</span>
+                <span class="counter-unit">hours</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="main-container">
+        <!-- Decision Queue -->
+        <aside class="decision-queue">
+            <div class="panel-header">
+                <div class="panel-title">
+                    Decision Queue
+                    <span class="decision-count">3</span>
+                </div>
+                <div class="queue-filters">
+                    <button class="filter-btn active">All</button>
+                    <button class="filter-btn">Urgent</button>
+                </div>
+            </div>
+
+            <!-- Decision Cards -->
+            <div class="decision-card" data-decision="1" onclick="selectDecision(1)">
+                <div class="decision-priority priority-high">
+                    <span class="priority-dot"></span>
+                    High Priority
+                </div>
+                <div class="decision-title">Q1 Pricing Strategy: Approve 15% Enterprise Tier Increase</div>
+                <div class="decision-meta">
+                    <span class="meta-item">⏱ Deadline: Tomorrow</span>
+                    <span class="meta-item">👥 4 stakeholders</span>
+                </div>
+                <div class="source-icons">
+                    <span class="source-icon source-slack">S</span>
+                    <span class="source-icon source-drive">D</span>
+                    <span class="source-icon source-confluence">C</span>
+                </div>
+            </div>
+
+            <div class="decision-card" data-decision="2" onclick="selectDecision(2)">
+                <div class="decision-priority priority-medium">
+                    <span class="priority-dot"></span>
+                    Medium Priority
+                </div>
+                <div class="decision-title">Headcount Allocation: Engineering vs. Sales for H1 2026</div>
+                <div class="decision-meta">
+                    <span class="meta-item">⏱ This week</span>
+                    <span class="meta-item">👥 3 stakeholders</span>
+                </div>
+                <div class="source-icons">
+                    <span class="source-icon source-slack">S</span>
+                    <span class="source-icon source-drive">D</span>
+                </div>
+            </div>
+
+            <div class="decision-card" data-decision="3" onclick="selectDecision(3)">
+                <div class="decision-priority priority-low">
+                    <span class="priority-dot"></span>
+                    Standard
+                </div>
+                <div class="decision-title">Vendor Selection: AI Infrastructure Partner (AWS vs. GCP)</div>
+                <div class="decision-meta">
+                    <span class="meta-item">⏱ End of month</span>
+                    <span class="meta-item">👥 2 stakeholders</span>
+                </div>
+                <div class="source-icons">
+                    <span class="source-icon source-confluence">C</span>
+                    <span class="source-icon source-drive">D</span>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Content Panel -->
+        <section class="content-panel">
+            <!-- Empty State -->
+            <div class="empty-state" id="emptyState">
+                <div class="empty-icon">🎯</div>
+                <div class="empty-title">Select a Decision</div>
+                <div class="empty-text">Click on any decision in the queue to see Claude synthesize context from all connected sources in real-time.</div>
+            </div>
+
+            <!-- Synthesis View -->
+            <div class="synthesis-view" id="synthesisView">
+                <div class="context-header">
+                    <div class="context-title" id="contextTitle">Synthesizing Context...</div>
+                    <div class="synthesis-status">
+                        <span class="status-dot"></span>
+                        <span id="statusText">Pulling from 3 sources</span>
+                    </div>
+                </div>
+
+                <!-- Data Flow Visualization -->
+                <div class="data-flow-container">
+                    <div class="data-flow">
+                        <div class="source-node" id="slackNode">
+                            <div class="node-icon slack">S</div>
+                            <div class="node-label">Slack</div>
+                            <div class="node-data" id="slackData">12 messages found</div>
+                        </div>
+                        <div class="source-node" id="driveNode">
+                            <div class="node-icon drive">D</div>
+                            <div class="node-label">Google Drive</div>
+                            <div class="node-data" id="driveData">3 docs analyzed</div>
+                        </div>
+                        <div class="source-node" id="confluenceNode">
+                            <div class="node-icon confluence">C</div>
+                            <div class="node-label">Confluence</div>
+                            <div class="node-data" id="confluenceData">2 pages indexed</div>
+                        </div>
+                        <div class="flow-lines">
+                            <div class="flow-progress" id="flowProgress"></div>
+                        </div>
+                        <div class="synthesis-node">
+                            <div class="synthesis-icon" id="synthesisIcon">✦</div>
+                            <div class="synthesis-label">Claude AI</div>
+                        </div>
+                    </div>
+
+                    <div class="time-comparison">
+                        <div class="time-box before">
+                            <div class="time-label">Manual Context Gathering</div>
+                            <div class="time-value">47 min</div>
+                        </div>
+                        <div class="time-arrow">→</div>
+                        <div class="time-box after">
+                            <div class="time-label">Automated Synthesis</div>
+                            <div class="time-value">12 sec</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Decision Brief -->
+                <div class="decision-brief" id="decisionBrief">
+                    <div class="brief-header">
+                        <div class="brief-title" id="briefTitle">Q1 Pricing Strategy: Approve 15% Enterprise Tier Increase</div>
+                        <div class="confidence-badge">
+                            <div class="confidence-label">Context Confidence</div>
+                            <div class="confidence-value">94%</div>
+                        </div>
+                    </div>
+
+                    <div class="brief-section">
+                        <div class="section-label">
+                            <span>📊</span> Executive Summary
+                        </div>
+                        <div class="section-content" id="summaryContent">
+                            Based on 12 Slack discussions, 3 financial models, and the Q4 competitive analysis, the proposed 15% enterprise pricing increase aligns with market positioning. Competitor analysis shows similar moves from Competitor A (+12%) and Competitor B (+18%). Finance projects $2.4M additional ARR with estimated 3% churn risk among price-sensitive accounts.
+                        </div>
+                    </div>
+
+                    <div class="brief-section">
+                        <div class="section-label">
+                            <span>👥</span> Stakeholder Positions
+                        </div>
+                        <div class="stakeholder-grid" id="stakeholderGrid">
+                            <div class="stakeholder-item">
+                                <div class="stakeholder-avatar">MR</div>
+                                <div class="stakeholder-info">
+                                    <div class="stakeholder-name">Marcus Rodriguez</div>
+                                    <div class="stakeholder-position">VP Sales</div>
+                                </div>
+                                <div class="stakeholder-stance stance-approve">Approve</div>
+                            </div>
+                            <div class="stakeholder-item">
+                                <div class="stakeholder-avatar">SK</div>
+                                <div class="stakeholder-info">
+                                    <div class="stakeholder-name">Sarah Kim</div>
+                                    <div class="stakeholder-position">CFO</div>
+                                </div>
+                                <div class="stakeholder-stance stance-approve">Approve</div>
+                            </div>
+                            <div class="stakeholder-item">
+                                <div class="stakeholder-avatar">JP</div>
+                                <div class="stakeholder-info">
+                                    <div class="stakeholder-name">James Park</div>
+                                    <div class="stakeholder-position">VP Customer Success</div>
+                                </div>
+                                <div class="stakeholder-stance stance-concern">Concern</div>
+                            </div>
+                            <div class="stakeholder-item">
+                                <div class="stakeholder-avatar">LC</div>
+                                <div class="stakeholder-info">
+                                    <div class="stakeholder-name">Lisa Chen</div>
+                                    <div class="stakeholder-position">Head of Product</div>
+                                </div>
+                                <div class="stakeholder-stance stance-approve">Approve</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="brief-section">
+                        <div class="section-label">
+                            <span>💡</span> AI Recommendation
+                        </div>
+                        <div class="recommendation-box">
+                            <div class="recommendation-header">
+                                <div class="recommendation-icon">✓</div>
+                                <div class="recommendation-title">Approve with Modification</div>
+                            </div>
+                            <div class="recommendation-text" id="recommendationText">
+                                Approve the 15% increase with a 90-day grandfather clause for renewals in Q1. This addresses VP Customer Success concern about churn risk while capturing the revenue opportunity. Schedule 1:1 with James Park to align on retention playbook before announcement.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="action-buttons">
+                        <button class="action-btn secondary">
+                            <span>📋</span> Request More Context
+                        </button>
+                        <button class="action-btn secondary">
+                            <span>📅</span> Schedule Discussion
+                        </button>
+                        <button class="action-btn primary">
+                            <span>✓</span> Approve Decision
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="powered-by">
+            Powered by
+            <div class="stack-icons">
+                <span class="stack-icon">Make.com</span>
+                <span class="stack-icon">Claude API</span>
+                <span class="stack-icon">MCP</span>
+            </div>
+        </div>
+        <div>ResultantAI • chris@resultantai.com</div>
+    </footer>
+
+    <script>
+        // Particle background
+        function createParticles() {
+            const container = document.getElementById('particles');
+            for (let i = 0; i < 20; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 20 + 's';
+                particle.style.animationDuration = (15 + Math.random() * 10) + 's';
+                container.appendChild(particle);
+            }
+        }
+        createParticles();
+
+        // Tutorial dismiss
+        function dismissTutorial() {
+            document.getElementById('tutorialBanner').classList.add('hidden');
+        }
+
+        // Decision data
+        const decisions = {
+            1: {
+                title: "Q1 Pricing Strategy: Approve 15% Enterprise Tier Increase",
+                slackData: "12 messages found",
+                driveData: "3 docs analyzed",
+                confluenceData: "2 pages indexed",
+                summary: "Based on 12 Slack discussions, 3 financial models, and the Q4 competitive analysis, the proposed 15% enterprise pricing increase aligns with market positioning. Competitor analysis shows similar moves from Competitor A (+12%) and Competitor B (+18%). Finance projects $2.4M additional ARR with estimated 3% churn risk among price-sensitive accounts.",
+                recommendation: "Approve the 15% increase with a 90-day grandfather clause for renewals in Q1. This addresses VP Customer Success concern about churn risk while capturing the revenue opportunity. Schedule 1:1 with James Park to align on retention playbook before announcement.",
+                stakeholders: [
+                    { initials: "MR", name: "Marcus Rodriguez", position: "VP Sales", stance: "approve" },
+                    { initials: "SK", name: "Sarah Kim", position: "CFO", stance: "approve" },
+                    { initials: "JP", name: "James Park", position: "VP Customer Success", stance: "concern" },
+                    { initials: "LC", name: "Lisa Chen", position: "Head of Product", stance: "approve" }
+                ]
+            },
+            2: {
+                title: "Headcount Allocation: Engineering vs. Sales for H1 2026",
+                slackData: "8 threads analyzed",
+                driveData: "5 docs analyzed",
+                confluenceData: "—",
+                summary: "Engineering is requesting 4 additional hires to meet product roadmap. Sales is requesting 3 AEs to hit aggressive H1 targets. Current runway supports either allocation but not both. Product velocity has been the primary bottleneck per last quarter's retrospective, but pipeline coverage is at 2.8x (target: 3.5x).",
+                recommendation: "Split allocation: 3 engineers + 2 AEs. Prioritize senior engineer with AI/ML experience to unblock roadmap, and 2 mid-level AEs focused on expansion revenue. Revisit in 90 days based on Q1 pipeline performance.",
+                stakeholders: [
+                    { initials: "TM", name: "Tom Mitchell", position: "VP Engineering", stance: "concern" },
+                    { initials: "MR", name: "Marcus Rodriguez", position: "VP Sales", stance: "concern" },
+                    { initials: "SK", name: "Sarah Kim", position: "CFO", stance: "approve" }
+                ]
+            },
+            3: {
+                title: "Vendor Selection: AI Infrastructure Partner (AWS vs. GCP)",
+                slackData: "—",
+                driveData: "4 docs analyzed",
+                confluenceData: "6 pages indexed",
+                summary: "Technical evaluation complete. AWS Bedrock offers better Claude integration and existing team familiarity. GCP Vertex provides 18% cost savings and stronger MLOps tooling. Security review passed both. Current AWS spend is $47K/month with negotiated 22% discount through 2026.",
+                recommendation: "Maintain AWS as primary infrastructure given existing investment and team expertise. Pilot GCP Vertex for new ML workloads only. This de-risks migration while capturing cost optimization opportunity. Request formal proposal from both for committed spend discounts.",
+                stakeholders: [
+                    { initials: "RJ", name: "Raj Patel", position: "CTO", stance: "approve" },
+                    { initials: "SK", name: "Sarah Kim", position: "CFO", stance: "approve" }
+                ]
+            }
+        };
+
+        let activeDecision = null;
+
+        function selectDecision(id) {
+            // Update active card
+            document.querySelectorAll('.decision-card').forEach(card => {
+                card.classList.remove('active');
+            });
+            document.querySelector(`[data-decision="${id}"]`).classList.add('active');
+
+            // Show synthesis view
+            document.getElementById('emptyState').style.display = 'none';
+            const synthesisView = document.getElementById('synthesisView');
+            synthesisView.classList.add('active');
+
+            // Reset animation state
+            document.getElementById('flowProgress').style.width = '0%';
+            document.getElementById('decisionBrief').classList.remove('visible');
+            document.getElementById('synthesisIcon').classList.remove('active');
+            document.querySelectorAll('.source-node').forEach(node => node.classList.remove('active'));
+
+            // Get decision data
+            const decision = decisions[id];
+            
+            // Update titles
+            document.getElementById('contextTitle').textContent = 'Synthesizing Context...';
+            document.getElementById('briefTitle').textContent = decision.title;
+
+            // Animate synthesis flow
+            setTimeout(() => {
+                document.getElementById('slackNode').classList.add('active');
+                document.getElementById('slackData').textContent = decision.slackData;
+                document.getElementById('flowProgress').style.width = '25%';
+            }, 300);
+
+            setTimeout(() => {
+                document.getElementById('driveNode').classList.add('active');
+                document.getElementById('driveData').textContent = decision.driveData;
+                document.getElementById('flowProgress').style.width = '50%';
+            }, 700);
+
+            setTimeout(() => {
+                document.getElementById('confluenceNode').classList.add('active');
+                document.getElementById('confluenceData').textContent = decision.confluenceData;
+                document.getElementById('flowProgress').style.width = '75%';
+            }, 1100);
+
+            setTimeout(() => {
+                document.getElementById('flowProgress').style.width = '100%';
+                document.getElementById('synthesisIcon').classList.add('active');
+                document.getElementById('contextTitle').textContent = 'Context Synthesized';
+                document.getElementById('statusText').textContent = 'Brief generated';
+            }, 1500);
+
+            setTimeout(() => {
+                document.getElementById('decisionBrief').classList.add('visible');
+                document.getElementById('summaryContent').textContent = decision.summary;
+                document.getElementById('recommendationText').textContent = decision.recommendation;
+                
+                // Update stakeholders
+                const grid = document.getElementById('stakeholderGrid');
+                grid.innerHTML = decision.stakeholders.map(s => `
+                    <div class="stakeholder-item">
+                        <div class="stakeholder-avatar">${s.initials}</div>
+                        <div class="stakeholder-info">
+                            <div class="stakeholder-name">${s.name}</div>
+                            <div class="stakeholder-position">${s.position}</div>
+                        </div>
+                        <div class="stakeholder-stance stance-${s.stance}">${s.stance === 'approve' ? 'Approve' : 'Concern'}</div>
+                    </div>
+                `).join('');
+
+                // Update time saved counter
+                const current = parseFloat(document.getElementById('timeSaved').textContent);
+                document.getElementById('timeSaved').textContent = (current + 0.8).toFixed(1);
+            }, 2200);
+        }
+
+        // Animate time saved counter on load
+        let timeSaved = 0;
+        const targetTime = 4.2;
+        const counterInterval = setInterval(() => {
+            timeSaved += 0.1;
+            document.getElementById('timeSaved').textContent = timeSaved.toFixed(1);
+            if (timeSaved >= targetTime) {
+                clearInterval(counterInterval);
+                document.getElementById('timeSaved').textContent = targetTime.toFixed(1);
+            }
+        }, 50);
+    </script>
+</body>
+</html>
