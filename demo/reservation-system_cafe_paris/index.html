@@ -1,0 +1,1261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Café Paris AI Reservation System | Demo</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --sand: #F5E6D3;
+            --sand-light: #FBF7F2;
+            --ocean-deep: #1A4B6E;
+            --ocean-mid: #2D7A9C;
+            --ocean-light: #5BA4C4;
+            --sunset-orange: #E8834A;
+            --sunset-coral: #F4A574;
+            --white: #FFFFFF;
+            --text-dark: #1A1A1A;
+            --text-muted: #6B6B6B;
+            --success: #2E7D32;
+            --whatsapp: #25D366;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: linear-gradient(180deg, var(--sand-light) 0%, var(--sand) 100%);
+            min-height: 100vh;
+            color: var(--text-dark);
+        }
+
+        /* Tutorial Banner */
+        .tutorial-banner {
+            background: linear-gradient(135deg, var(--ocean-deep) 0%, var(--ocean-mid) 100%);
+            color: var(--white);
+            padding: 24px 32px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tutorial-banner::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+
+        .tutorial-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .tutorial-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 20px;
+        }
+
+        .tutorial-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .tutorial-subtitle {
+            font-size: 0.9rem;
+            opacity: 0.85;
+        }
+
+        .dismiss-btn {
+            background: rgba(255,255,255,0.15);
+            border: 1px solid rgba(255,255,255,0.3);
+            color: var(--white);
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            white-space: nowrap;
+        }
+
+        .dismiss-btn:hover {
+            background: rgba(255,255,255,0.25);
+        }
+
+        .tutorial-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+        }
+
+        .tutorial-step {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .step-number {
+            background: var(--sunset-orange);
+            color: var(--white);
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 0.85rem;
+            flex-shrink: 0;
+        }
+
+        .step-text {
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
+        .tutorial-banner.hidden {
+            display: none;
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 32px 24px;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .logo {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--ocean-deep);
+            margin-bottom: 8px;
+        }
+
+        .tagline {
+            color: var(--text-muted);
+            font-size: 1rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        /* Main Grid */
+        .main-grid {
+            display: grid;
+            grid-template-columns: 1fr 380px;
+            gap: 32px;
+        }
+
+        @media (max-width: 900px) {
+            .main-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Booking Panel */
+        .booking-panel {
+            background: var(--white);
+            border-radius: 16px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+            overflow: hidden;
+        }
+
+        .panel-header {
+            background: linear-gradient(135deg, var(--ocean-deep) 0%, var(--ocean-mid) 100%);
+            color: var(--white);
+            padding: 24px;
+        }
+
+        .panel-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .panel-subtitle {
+            font-size: 0.9rem;
+            opacity: 0.85;
+        }
+
+        .panel-body {
+            padding: 24px;
+        }
+
+        /* Reservation Type Selector */
+        .type-selector {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+
+        .type-card {
+            background: var(--sand-light);
+            border: 2px solid transparent;
+            border-radius: 12px;
+            padding: 16px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-align: center;
+        }
+
+        .type-card:hover {
+            border-color: var(--ocean-light);
+            transform: translateY(-2px);
+        }
+
+        .type-card.selected {
+            border-color: var(--ocean-deep);
+            background: linear-gradient(135deg, rgba(26,75,110,0.08) 0%, rgba(45,122,156,0.08) 100%);
+        }
+
+        .type-icon {
+            font-size: 2rem;
+            margin-bottom: 8px;
+        }
+
+        .type-name {
+            font-weight: 600;
+            font-size: 0.95rem;
+            margin-bottom: 4px;
+        }
+
+        .type-price {
+            color: var(--sunset-orange);
+            font-weight: 600;
+            font-size: 0.85rem;
+        }
+
+        .type-note {
+            color: var(--text-muted);
+            font-size: 0.75rem;
+            margin-top: 4px;
+        }
+
+        /* Form Sections */
+        .form-section {
+            margin-bottom: 20px;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.3s ease;
+            pointer-events: none;
+        }
+
+        .form-section.visible {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: auto;
+        }
+
+        .form-label {
+            display: block;
+            font-weight: 600;
+            font-size: 0.85rem;
+            color: var(--text-dark);
+            margin-bottom: 8px;
+        }
+
+        .form-input, .form-select {
+            width: 100%;
+            padding: 14px 16px;
+            border: 1px solid #E0E0E0;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-family: inherit;
+            transition: border-color 0.2s ease;
+        }
+
+        .form-input:focus, .form-select:focus {
+            outline: none;
+            border-color: var(--ocean-mid);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        /* Zone Selector */
+        .zone-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+        }
+
+        .zone-btn {
+            background: var(--sand-light);
+            border: 1px solid #E0E0E0;
+            border-radius: 8px;
+            padding: 12px 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-align: center;
+        }
+
+        .zone-btn:hover {
+            border-color: var(--ocean-light);
+        }
+
+        .zone-btn.selected {
+            background: var(--ocean-deep);
+            color: var(--white);
+            border-color: var(--ocean-deep);
+        }
+
+        .zone-name {
+            font-weight: 600;
+            font-size: 0.8rem;
+        }
+
+        .zone-avail {
+            font-size: 0.7rem;
+            opacity: 0.8;
+            margin-top: 2px;
+        }
+
+        /* Submit Button */
+        .submit-btn {
+            width: 100%;
+            padding: 16px 24px;
+            background: linear-gradient(135deg, var(--sunset-orange) 0%, var(--sunset-coral) 100%);
+            color: var(--white);
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            margin-top: 8px;
+        }
+
+        .submit-btn:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(232,131,74,0.35);
+        }
+
+        .submit-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        /* WhatsApp Simulation Panel */
+        .whatsapp-panel {
+            background: var(--white);
+            border-radius: 16px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            max-height: 600px;
+        }
+
+        .whatsapp-header {
+            background: var(--whatsapp);
+            color: var(--white);
+            padding: 16px 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .whatsapp-avatar {
+            width: 40px;
+            height: 40px;
+            background: var(--white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+
+        .whatsapp-info {
+            flex: 1;
+        }
+
+        .whatsapp-name {
+            font-weight: 600;
+            font-size: 1rem;
+        }
+
+        .whatsapp-status {
+            font-size: 0.8rem;
+            opacity: 0.9;
+        }
+
+        .whatsapp-body {
+            flex: 1;
+            background: #E5DDD5;
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23000000' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            padding: 16px;
+            overflow-y: auto;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 60px 24px;
+            color: var(--text-muted);
+        }
+
+        .empty-icon {
+            font-size: 3rem;
+            margin-bottom: 16px;
+            opacity: 0.5;
+        }
+
+        .empty-text {
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        /* WhatsApp Message */
+        .wa-message {
+            background: var(--white);
+            border-radius: 8px;
+            padding: 12px 14px;
+            max-width: 85%;
+            margin-bottom: 12px;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+            animation: messageSlide 0.4s ease;
+        }
+
+        @keyframes messageSlide {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .wa-message.incoming {
+            background: #DCF8C6;
+            margin-left: auto;
+        }
+
+        .wa-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid rgba(0,0,0,0.08);
+        }
+
+        .wa-badge {
+            background: var(--ocean-deep);
+            color: var(--white);
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .wa-time {
+            color: var(--text-muted);
+            font-size: 0.75rem;
+        }
+
+        .wa-content {
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        .wa-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 6px 0;
+            border-bottom: 1px dashed rgba(0,0,0,0.08);
+        }
+
+        .wa-row:last-child {
+            border-bottom: none;
+        }
+
+        .wa-label {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        .wa-value {
+            font-weight: 600;
+            font-size: 0.85rem;
+        }
+
+        .wa-total {
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 2px solid var(--ocean-deep);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .wa-total-label {
+            font-weight: 600;
+            color: var(--ocean-deep);
+        }
+
+        .wa-total-value {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--ocean-deep);
+        }
+
+        .wa-footer {
+            margin-top: 12px;
+            padding-top: 10px;
+            border-top: 1px solid rgba(0,0,0,0.08);
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .wa-check {
+            color: #53BDEB;
+            margin-left: 4px;
+        }
+
+        /* Voice Transcript Panel */
+        .transcript-panel {
+            background: var(--white);
+            border-radius: 16px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+            margin-top: 32px;
+            overflow: hidden;
+        }
+
+        .transcript-header {
+            background: var(--sand);
+            padding: 20px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .transcript-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--ocean-deep);
+        }
+
+        .voice-indicator {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        .voice-wave {
+            display: flex;
+            gap: 2px;
+            align-items: center;
+        }
+
+        .wave-bar {
+            width: 3px;
+            background: var(--ocean-mid);
+            border-radius: 2px;
+            animation: wave 0.8s ease infinite;
+        }
+
+        .wave-bar:nth-child(1) { height: 8px; animation-delay: 0s; }
+        .wave-bar:nth-child(2) { height: 14px; animation-delay: 0.1s; }
+        .wave-bar:nth-child(3) { height: 10px; animation-delay: 0.2s; }
+        .wave-bar:nth-child(4) { height: 16px; animation-delay: 0.3s; }
+        .wave-bar:nth-child(5) { height: 12px; animation-delay: 0.4s; }
+
+        @keyframes wave {
+            0%, 100% { transform: scaleY(1); }
+            50% { transform: scaleY(0.5); }
+        }
+
+        .transcript-body {
+            padding: 24px;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .transcript-line {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 16px;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .transcript-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            flex-shrink: 0;
+        }
+
+        .avatar-ai {
+            background: linear-gradient(135deg, var(--ocean-deep) 0%, var(--ocean-mid) 100%);
+            color: var(--white);
+        }
+
+        .avatar-caller {
+            background: var(--sand);
+            color: var(--ocean-deep);
+        }
+
+        .transcript-bubble {
+            background: var(--sand-light);
+            padding: 12px 16px;
+            border-radius: 12px;
+            border-top-left-radius: 4px;
+            flex: 1;
+        }
+
+        .transcript-line.caller .transcript-bubble {
+            background: rgba(45,122,156,0.1);
+            border-top-left-radius: 12px;
+            border-top-right-radius: 4px;
+        }
+
+        .transcript-speaker {
+            font-weight: 600;
+            font-size: 0.75rem;
+            color: var(--ocean-deep);
+            margin-bottom: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .transcript-text {
+            font-size: 0.9rem;
+            line-height: 1.5;
+            color: var(--text-dark);
+        }
+
+        /* Processing Overlay */
+        .processing-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .processing-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .processing-card {
+            background: var(--white);
+            padding: 40px;
+            border-radius: 16px;
+            text-align: center;
+            max-width: 320px;
+        }
+
+        .processing-spinner {
+            width: 48px;
+            height: 48px;
+            border: 3px solid var(--sand);
+            border-top-color: var(--ocean-deep);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            margin: 0 auto 20px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .processing-text {
+            font-weight: 600;
+            color: var(--ocean-deep);
+            margin-bottom: 8px;
+        }
+
+        .processing-subtext {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 32px 24px;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        .footer-brand {
+            font-weight: 600;
+            color: var(--ocean-deep);
+        }
+
+        .footer-stack {
+            margin-top: 8px;
+            font-size: 0.8rem;
+        }
+
+        /* Scenario Tabs */
+        .scenario-tabs {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+        }
+
+        .scenario-tab {
+            padding: 10px 16px;
+            background: var(--sand-light);
+            border: 1px solid #E0E0E0;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+
+        .scenario-tab:hover {
+            border-color: var(--ocean-light);
+        }
+
+        .scenario-tab.active {
+            background: var(--ocean-deep);
+            color: var(--white);
+            border-color: var(--ocean-deep);
+        }
+    </style>
+</head>
+<body>
+    <!-- Tutorial Banner -->
+    <div class="tutorial-banner" id="tutorialBanner">
+        <div class="tutorial-content">
+            <div class="tutorial-header">
+                <div>
+                    <div class="tutorial-title">🌊 How This Demo Works</div>
+                    <div class="tutorial-subtitle">Interactive preview of your AI reservation system</div>
+                </div>
+                <button class="dismiss-btn" onclick="dismissTutorial()">Got it, let's explore →</button>
+            </div>
+            <div class="tutorial-steps">
+                <div class="tutorial-step">
+                    <div class="step-number">1</div>
+                    <div class="step-text"><strong>Select reservation type</strong> — beds, tables, Privé (€60 min), or events</div>
+                </div>
+                <div class="tutorial-step">
+                    <div class="step-number">2</div>
+                    <div class="step-text"><strong>Fill in details</strong> — watch pricing update automatically</div>
+                </div>
+                <div class="tutorial-step">
+                    <div class="step-number">3</div>
+                    <div class="step-text"><strong>Click "Confirm"</strong> — see WhatsApp notification appear in real-time</div>
+                </div>
+                <div class="tutorial-step">
+                    <div class="step-number">4</div>
+                    <div class="step-text"><strong>View voice transcript</strong> — see sample AI conversation below</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="logo">Café París</div>
+            <div class="tagline">Santa Pola • Playa de Levante</div>
+        </header>
+
+        <!-- Main Grid -->
+        <div class="main-grid">
+            <!-- Booking Panel -->
+            <div class="booking-panel">
+                <div class="panel-header">
+                    <div class="panel-title">AI Reservation System</div>
+                    <div class="panel-subtitle">24/7 automated booking via phone, with instant WhatsApp confirmation</div>
+                </div>
+                <div class="panel-body">
+                    <!-- Reservation Type Selector -->
+                    <div class="type-selector">
+                        <div class="type-card" data-type="bed" onclick="selectType('bed')">
+                            <div class="type-icon">🏖️</div>
+                            <div class="type-name">Sunbed</div>
+                            <div class="type-price">From €7.50</div>
+                            <div class="type-note">Per bed / day</div>
+                        </div>
+                        <div class="type-card" data-type="table" onclick="selectType('table')">
+                            <div class="type-icon">🍽️</div>
+                            <div class="type-name">Table</div>
+                            <div class="type-price">No minimum</div>
+                            <div class="type-note">Restaurant seating</div>
+                        </div>
+                        <div class="type-card" data-type="prive" onclick="selectType('prive')">
+                            <div class="type-icon">🥂</div>
+                            <div class="type-name">Privé</div>
+                            <div class="type-price">€60 minimum</div>
+                            <div class="type-note">VIP lounge area</div>
+                        </div>
+                        <div class="type-card" data-type="event" onclick="selectType('event')">
+                            <div class="type-icon">🎉</div>
+                            <div class="type-name">Event</div>
+                            <div class="type-price">Custom quote</div>
+                            <div class="type-note">Groups & parties</div>
+                        </div>
+                    </div>
+
+                    <!-- Zone Selection (for beds) -->
+                    <div class="form-section" id="zoneSection">
+                        <label class="form-label">Select Beach Zone</label>
+                        <div class="zone-grid">
+                            <div class="zone-btn" data-zone="front" onclick="selectZone('front')">
+                                <div class="zone-name">🌊 Front Row</div>
+                                <div class="zone-avail">3 available</div>
+                            </div>
+                            <div class="zone-btn" data-zone="middle" onclick="selectZone('middle')">
+                                <div class="zone-name">☀️ Middle</div>
+                                <div class="zone-avail">8 available</div>
+                            </div>
+                            <div class="zone-btn" data-zone="shade" onclick="selectZone('shade')">
+                                <div class="zone-name">🌴 Shaded</div>
+                                <div class="zone-avail">5 available</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Quantity (for beds) -->
+                    <div class="form-section" id="quantitySection">
+                        <label class="form-label">Number of Sunbeds</label>
+                        <select class="form-select" id="quantity" onchange="updatePrice()">
+                            <option value="1">1 Sunbed — €7.50</option>
+                            <option value="2" selected>2 Sunbeds + Parasol — €15.00</option>
+                            <option value="4">4 Sunbeds + 2 Parasols — €28.00</option>
+                        </select>
+                    </div>
+
+                    <!-- Guest Count (for tables/prive/events) -->
+                    <div class="form-section" id="guestSection">
+                        <label class="form-label">Number of Guests</label>
+                        <select class="form-select" id="guests">
+                            <option value="2">2 guests</option>
+                            <option value="4">4 guests</option>
+                            <option value="6">6 guests</option>
+                            <option value="8">8 guests</option>
+                            <option value="10+">10+ guests (group)</option>
+                        </select>
+                    </div>
+
+                    <!-- Date & Time -->
+                    <div class="form-section" id="dateSection">
+                        <div class="form-row">
+                            <div>
+                                <label class="form-label">Date</label>
+                                <input type="date" class="form-input" id="date" onchange="updatePrice()">
+                            </div>
+                            <div>
+                                <label class="form-label">Time</label>
+                                <select class="form-select" id="time">
+                                    <option value="10:00">10:00 AM</option>
+                                    <option value="11:00">11:00 AM</option>
+                                    <option value="12:00" selected>12:00 PM</option>
+                                    <option value="13:00">1:00 PM</option>
+                                    <option value="14:00">2:00 PM</option>
+                                    <option value="20:00">8:00 PM (Dinner)</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Contact Info -->
+                    <div class="form-section" id="contactSection">
+                        <label class="form-label">Guest Information</label>
+                        <input type="text" class="form-input" id="guestName" placeholder="Name" value="María García" style="margin-bottom: 12px;">
+                        <input type="tel" class="form-input" id="guestPhone" placeholder="Phone (+34...)" value="+34 612 345 678">
+                    </div>
+
+                    <!-- Special Requests (for events) -->
+                    <div class="form-section" id="specialSection">
+                        <label class="form-label">Special Requests</label>
+                        <textarea class="form-input" id="special" rows="3" placeholder="Birthday celebration, dietary requirements, etc."></textarea>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <button class="submit-btn" id="submitBtn" onclick="submitBooking()" disabled>
+                        Select a reservation type above
+                    </button>
+                </div>
+            </div>
+
+            <!-- WhatsApp Panel -->
+            <div class="whatsapp-panel">
+                <div class="whatsapp-header">
+                    <div class="whatsapp-avatar">📱</div>
+                    <div class="whatsapp-info">
+                        <div class="whatsapp-name">Café París Reservations</div>
+                        <div class="whatsapp-status">Business Account</div>
+                    </div>
+                </div>
+                <div class="whatsapp-body" id="whatsappBody">
+                    <div class="empty-state">
+                        <div class="empty-icon">📲</div>
+                        <div class="empty-text">
+                            <strong>WhatsApp notifications appear here</strong><br>
+                            Complete a booking to see the instant confirmation that would be sent to your phone
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Voice Transcript Panel -->
+        <div class="transcript-panel">
+            <div class="transcript-header">
+                <div class="transcript-title">🎙️ Sample Voice Conversation</div>
+                <div class="voice-indicator">
+                    <div class="voice-wave">
+                        <div class="wave-bar"></div>
+                        <div class="wave-bar"></div>
+                        <div class="wave-bar"></div>
+                        <div class="wave-bar"></div>
+                        <div class="wave-bar"></div>
+                    </div>
+                    <span>AI Voice Agent</span>
+                </div>
+            </div>
+            <div style="padding: 16px 24px 0; border-bottom: 1px solid #E0E0E0;">
+                <div class="scenario-tabs">
+                    <button class="scenario-tab active" onclick="showScenario('bed')">🏖️ Sunbed Booking</button>
+                    <button class="scenario-tab" onclick="showScenario('prive')">🥂 Privé Inquiry</button>
+                    <button class="scenario-tab" onclick="showScenario('info')">❓ General Question</button>
+                    <button class="scenario-tab" onclick="showScenario('full')">📅 Fully Booked</button>
+                </div>
+            </div>
+            <div class="transcript-body" id="transcriptBody">
+                <!-- Populated by JS -->
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-brand">Powered by ResultantAI</div>
+            <div class="footer-stack">Retell AI • Make.com • Twilio • WhatsApp Business API</div>
+        </footer>
+    </div>
+
+    <!-- Processing Overlay -->
+    <div class="processing-overlay" id="processingOverlay">
+        <div class="processing-card">
+            <div class="processing-spinner"></div>
+            <div class="processing-text">Processing Reservation...</div>
+            <div class="processing-subtext">Sending confirmation to WhatsApp</div>
+        </div>
+    </div>
+
+    <script>
+        // State
+        let selectedType = null;
+        let selectedZone = null;
+
+        // Scenarios
+        const scenarios = {
+            bed: [
+                { speaker: 'ai', text: '¡Hola! Café París, ¿en qué puedo ayudarle? Hello! Café París, how can I help you?' },
+                { speaker: 'caller', text: 'Hi, I\'d like to reserve two sunbeds for Saturday please.' },
+                { speaker: 'ai', text: 'Of course! I can help with that. For Saturday, we have availability in our front row near the water, middle section, or shaded area. Which would you prefer?' },
+                { speaker: 'caller', text: 'Front row sounds great.' },
+                { speaker: 'ai', text: 'Excellent choice. Two sunbeds with parasol in the front row is fifteen euros for the day. What time would you like to arrive?' },
+                { speaker: 'caller', text: 'Around noon.' },
+                { speaker: 'ai', text: 'Perfect. May I have your name and phone number for the reservation?' },
+                { speaker: 'caller', text: 'María García, six one two, three four five, six seven eight.' },
+                { speaker: 'ai', text: 'Thank you María. I\'ve reserved two front-row sunbeds for Saturday at noon. You\'ll receive a WhatsApp confirmation in just a moment. Is there anything else I can help you with?' }
+            ],
+            prive: [
+                { speaker: 'ai', text: '¡Hola! Café París, ¿en qué puedo ayudarle?' },
+                { speaker: 'caller', text: 'Yes, I\'m interested in the Privé area. How does that work?' },
+                { speaker: 'ai', text: 'Our Privé lounge is a VIP area with premium seating, dedicated service, and a more exclusive atmosphere. There\'s a sixty euro minimum spend requirement—this goes toward your food and drinks, not a separate fee. How many guests would you be bringing?' },
+                { speaker: 'caller', text: 'It would be four of us, for a birthday.' },
+                { speaker: 'ai', text: 'Wonderful! For a birthday group of four, the Privé is perfect. Would you like me to note the birthday celebration so we can prepare something special? And which date were you thinking?' },
+                { speaker: 'caller', text: 'Next Friday evening, around 8pm. And yes, please note it\'s for Ana\'s birthday.' },
+                { speaker: 'ai', text: 'Noted—birthday celebration for Ana, Friday at 8pm, four guests in the Privé lounge with sixty euro minimum. I\'ll send the confirmation to your WhatsApp. We\'ll make sure Ana has a memorable evening!' }
+            ],
+            info: [
+                { speaker: 'ai', text: '¡Hola! Café París, ¿en qué puedo ayudarle?' },
+                { speaker: 'caller', text: 'What are your opening hours?' },
+                { speaker: 'ai', text: 'We\'re open daily from 10am. On weekdays we close at midnight, and on Fridays and Saturdays we stay open until 1:30am for our evening events with DJ music. Is there a particular day you\'re planning to visit?' },
+                { speaker: 'caller', text: 'Do you have parking nearby?' },
+                { speaker: 'ai', text: 'Yes, there\'s public parking along Avenida Vicente Blasco Ibáñez, and a larger car park about a two-minute walk toward the port. During peak summer weekends, I\'d recommend arriving before noon to secure a spot. Would you like me to make a reservation for you?' }
+            ],
+            full: [
+                { speaker: 'ai', text: '¡Hola! Café París, ¿en qué puedo ayudarle?' },
+                { speaker: 'caller', text: 'I\'d like to book sunbeds for this Saturday.' },
+                { speaker: 'ai', text: 'I\'d be happy to help. Let me check our availability for Saturday... I\'m sorry, our front row and middle sections are fully booked for Saturday. However, I do have two options: we have shaded sunbeds available for Saturday, or I can book you into the front row for Sunday instead. Which would you prefer?' },
+                { speaker: 'caller', text: 'What about Sunday in the front row?' },
+                { speaker: 'ai', text: 'Sunday front row is available! I can reserve that for you now. Two sunbeds with parasol, fifteen euros. What time would you like to arrive?' }
+            ]
+        };
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            // Set default date to next Saturday
+            const today = new Date();
+            const nextSaturday = new Date(today);
+            nextSaturday.setDate(today.getDate() + (6 - today.getDay() + 7) % 7 || 7);
+            document.getElementById('date').value = nextSaturday.toISOString().split('T')[0];
+            
+            showScenario('bed');
+        });
+
+        function dismissTutorial() {
+            document.getElementById('tutorialBanner').classList.add('hidden');
+        }
+
+        function selectType(type) {
+            selectedType = type;
+            selectedZone = null;
+            
+            // Update card selection
+            document.querySelectorAll('.type-card').forEach(card => {
+                card.classList.toggle('selected', card.dataset.type === type);
+            });
+
+            // Show/hide relevant sections
+            const zoneSection = document.getElementById('zoneSection');
+            const quantitySection = document.getElementById('quantitySection');
+            const guestSection = document.getElementById('guestSection');
+            const specialSection = document.getElementById('specialSection');
+            const dateSection = document.getElementById('dateSection');
+            const contactSection = document.getElementById('contactSection');
+
+            // Reset visibility
+            [zoneSection, quantitySection, guestSection, specialSection].forEach(s => s.classList.remove('visible'));
+
+            setTimeout(() => {
+                dateSection.classList.add('visible');
+                contactSection.classList.add('visible');
+                
+                if (type === 'bed') {
+                    zoneSection.classList.add('visible');
+                    quantitySection.classList.add('visible');
+                } else if (type === 'table' || type === 'prive') {
+                    guestSection.classList.add('visible');
+                } else if (type === 'event') {
+                    guestSection.classList.add('visible');
+                    specialSection.classList.add('visible');
+                }
+            }, 50);
+
+            updateSubmitButton();
+        }
+
+        function selectZone(zone) {
+            selectedZone = zone;
+            document.querySelectorAll('.zone-btn').forEach(btn => {
+                btn.classList.toggle('selected', btn.dataset.zone === zone);
+            });
+            updateSubmitButton();
+        }
+
+        function updatePrice() {
+            // Price updates handled in display
+        }
+
+        function updateSubmitButton() {
+            const btn = document.getElementById('submitBtn');
+            if (!selectedType) {
+                btn.disabled = true;
+                btn.textContent = 'Select a reservation type above';
+            } else if (selectedType === 'bed' && !selectedZone) {
+                btn.disabled = true;
+                btn.textContent = 'Select a beach zone';
+            } else {
+                btn.disabled = false;
+                const labels = {
+                    bed: 'Confirm Sunbed Reservation',
+                    table: 'Confirm Table Reservation',
+                    prive: 'Confirm Privé Booking',
+                    event: 'Submit Event Inquiry'
+                };
+                btn.textContent = labels[selectedType];
+            }
+        }
+
+        function submitBooking() {
+            // Show processing
+            document.getElementById('processingOverlay').classList.add('active');
+
+            setTimeout(() => {
+                document.getElementById('processingOverlay').classList.remove('active');
+                showWhatsAppMessage();
+            }, 1800);
+        }
+
+        function showWhatsAppMessage() {
+            const name = document.getElementById('guestName').value || 'Guest';
+            const phone = document.getElementById('guestPhone').value || '+34 XXX XXX XXX';
+            const date = document.getElementById('date').value;
+            const time = document.getElementById('time').value;
+            
+            const formattedDate = new Date(date).toLocaleDateString('en-GB', { 
+                weekday: 'long', 
+                day: 'numeric', 
+                month: 'long' 
+            });
+
+            const now = new Date();
+            const timeStr = now.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' });
+
+            let details = '';
+            let total = '';
+            let badge = '';
+
+            if (selectedType === 'bed') {
+                const qty = document.getElementById('quantity').value;
+                const zoneNames = { front: 'Front Row 🌊', middle: 'Middle Section ☀️', shade: 'Shaded Area 🌴' };
+                const prices = { '1': '€7.50', '2': '€15.00', '4': '€28.00' };
+                badge = 'SUNBED';
+                details = `
+                    <div class="wa-row"><span class="wa-label">Type</span><span class="wa-value">${qty} Sunbed${qty > 1 ? 's' : ''} + Parasol</span></div>
+                    <div class="wa-row"><span class="wa-label">Zone</span><span class="wa-value">${zoneNames[selectedZone]}</span></div>
+                    <div class="wa-row"><span class="wa-label">Date</span><span class="wa-value">${formattedDate}</span></div>
+                    <div class="wa-row"><span class="wa-label">Arrival</span><span class="wa-value">${time}</span></div>
+                    <div class="wa-row"><span class="wa-label">Guest</span><span class="wa-value">${name}</span></div>
+                `;
+                total = prices[qty];
+            } else if (selectedType === 'table') {
+                const guests = document.getElementById('guests').value;
+                badge = 'TABLE';
+                details = `
+                    <div class="wa-row"><span class="wa-label">Type</span><span class="wa-value">Restaurant Table</span></div>
+                    <div class="wa-row"><span class="wa-label">Guests</span><span class="wa-value">${guests}</span></div>
+                    <div class="wa-row"><span class="wa-label">Date</span><span class="wa-value">${formattedDate}</span></div>
+                    <div class="wa-row"><span class="wa-label">Time</span><span class="wa-value">${time}</span></div>
+                    <div class="wa-row"><span class="wa-label">Name</span><span class="wa-value">${name}</span></div>
+                `;
+                total = 'No minimum';
+            } else if (selectedType === 'prive') {
+                const guests = document.getElementById('guests').value;
+                badge = 'PRIVÉ VIP';
+                details = `
+                    <div class="wa-row"><span class="wa-label">Type</span><span class="wa-value">Privé Lounge</span></div>
+                    <div class="wa-row"><span class="wa-label">Guests</span><span class="wa-value">${guests}</span></div>
+                    <div class="wa-row"><span class="wa-label">Date</span><span class="wa-value">${formattedDate}</span></div>
+                    <div class="wa-row"><span class="wa-label">Time</span><span class="wa-value">${time}</span></div>
+                    <div class="wa-row"><span class="wa-label">Name</span><span class="wa-value">${name}</span></div>
+                `;
+                total = '€60 minimum spend';
+            } else if (selectedType === 'event') {
+                const guests = document.getElementById('guests').value;
+                const special = document.getElementById('special').value || 'None specified';
+                badge = 'EVENT INQUIRY';
+                details = `
+                    <div class="wa-row"><span class="wa-label">Type</span><span class="wa-value">Group Event</span></div>
+                    <div class="wa-row"><span class="wa-label">Guests</span><span class="wa-value">${guests}</span></div>
+                    <div class="wa-row"><span class="wa-label">Date</span><span class="wa-value">${formattedDate}</span></div>
+                    <div class="wa-row"><span class="wa-label">Time</span><span class="wa-value">${time}</span></div>
+                    <div class="wa-row"><span class="wa-label">Contact</span><span class="wa-value">${name}</span></div>
+                    <div class="wa-row"><span class="wa-label">Notes</span><span class="wa-value">${special}</span></div>
+                `;
+                total = 'Quote pending';
+            }
+
+            const messageHTML = `
+                <div class="wa-message incoming">
+                    <div class="wa-header">
+                        <span class="wa-badge">${badge}</span>
+                        <span class="wa-time">${timeStr} ✓✓</span>
+                    </div>
+                    <div class="wa-content">
+                        <strong>✅ Reservation Confirmed</strong>
+                        <div style="margin-top: 12px;">
+                            ${details}
+                        </div>
+                        <div class="wa-total">
+                            <span class="wa-total-label">${selectedType === 'event' ? 'Status' : 'Total'}</span>
+                            <span class="wa-total-value">${total}</span>
+                        </div>
+                        <div class="wa-footer">
+                            Café París • Playa de Levante<br>
+                            Av. Vicente Blasco Ibáñez 51, Santa Pola<br>
+                            📞 +34 689 937 173
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            document.getElementById('whatsappBody').innerHTML = messageHTML;
+        }
+
+        function showScenario(scenario) {
+            // Update tabs
+            document.querySelectorAll('.scenario-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            event.target.classList.add('active');
+
+            // Build transcript
+            const transcript = scenarios[scenario];
+            const body = document.getElementById('transcriptBody');
+            body.innerHTML = '';
+
+            transcript.forEach((line, i) => {
+                setTimeout(() => {
+                    const div = document.createElement('div');
+                    div.className = `transcript-line ${line.speaker}`;
+                    div.innerHTML = `
+                        <div class="transcript-avatar ${line.speaker === 'ai' ? 'avatar-ai' : 'avatar-caller'}">
+                            ${line.speaker === 'ai' ? '🤖' : '👤'}
+                        </div>
+                        <div class="transcript-bubble">
+                            <div class="transcript-speaker">${line.speaker === 'ai' ? 'AI Agent' : 'Caller'}</div>
+                            <div class="transcript-text">${line.text}</div>
+                        </div>
+                    `;
+                    body.appendChild(div);
+                    body.scrollTop = body.scrollHeight;
+                }, i * 400);
+            });
+        }
+    </script>
+</body>
+</html>

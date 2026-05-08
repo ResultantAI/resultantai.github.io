@@ -1,0 +1,317 @@
+{
+  "agent_name": "mca_inbound_qualifier",
+  "version": "1.0.0",
+  "description": "AI voice agent for qualifying inbound MCA (Merchant Cash Advance) leads. Handles business verification, revenue assessment, and funding need qualification.",
+  "agent_config": {
+    "voice": {
+      "provider": "elevenlabs",
+      "voice_id": "sarah_professional",
+      "speed": 1.1,
+      "pitch": 0
+    },
+    "language": "en-US",
+    "personality": {
+      "tone": "professional",
+      "formality": "business_casual",
+      "verbosity": "moderate"
+    },
+    "interruption_sensitivity": "medium",
+    "silence_timeout": 3
+  },
+  "conversation_flow": {
+    "greeting": {
+      "script": "Good afternoon! This is Sarah from VelocityMCA. Thanks for your interest in merchant cash advance funding. I'd love to learn more about your business and see how we can help. Do you have a few minutes to chat?",
+      "variants": [
+        "Hi! This is Sarah calling from VelocityMCA. I appreciate you reaching out about business funding. I have just a few quick questions to see if we're a good fit. Does now work for you?",
+        "Hello! Sarah here from VelocityMCA. Thanks for contacting us about merchant cash advance options. I'd like to ask a few questions about your business to see how we can best assist you. Is this a good time?"
+      ],
+      "time_based": true
+    },
+    "questions": [
+      {
+        "id": "contact_name",
+        "question": "Great! First, may I have your full name?",
+        "field": "contact_name",
+        "type": "text",
+        "required": true,
+        "validation": {
+          "pattern": "^[A-Za-z\\s'-]+$"
+        }
+      },
+      {
+        "id": "business_name",
+        "question": "Perfect, {{contact_name}}. And what's the name of your business?",
+        "field": "business_name",
+        "type": "text",
+        "required": true
+      },
+      {
+        "id": "business_type",
+        "question": "Thanks! What type of business do you operate?",
+        "field": "business_type",
+        "type": "text",
+        "required": true
+      },
+      {
+        "id": "time_in_business",
+        "question": "How long has {{business_name}} been in operation?",
+        "field": "time_in_business_months",
+        "type": "number",
+        "required": true,
+        "validation": {
+          "min": 0,
+          "max": 600
+        },
+        "follow_up": {
+          "condition": "value < 6",
+          "question_id": "new_business_followup"
+        }
+      },
+      {
+        "id": "new_business_followup",
+        "question": "I see you're relatively new. That's exciting! Do you have any prior business ownership experience?",
+        "field": "prior_business_experience",
+        "type": "boolean",
+        "required": false
+      },
+      {
+        "id": "monthly_revenue",
+        "question": "What is your average monthly revenue? Just a rough estimate is fine.",
+        "field": "monthly_revenue",
+        "type": "currency",
+        "required": true,
+        "validation": {
+          "min": 0,
+          "max": 10000000
+        }
+      },
+      {
+        "id": "funding_amount",
+        "question": "How much funding are you looking for?",
+        "field": "funding_amount_requested",
+        "type": "currency",
+        "required": true,
+        "validation": {
+          "min": 5000,
+          "max": 500000
+        }
+      },
+      {
+        "id": "funding_purpose",
+        "question": "And what would you use the funding for? Inventory, equipment, expansion, or something else?",
+        "field": "funding_purpose",
+        "type": "choice",
+        "required": true,
+        "validation": {
+          "choices": [
+            "inventory",
+            "equipment",
+            "expansion",
+            "marketing",
+            "working_capital",
+            "debt_consolidation",
+            "other"
+          ]
+        }
+      },
+      {
+        "id": "credit_score",
+        "question": "Do you know your approximate personal credit score?",
+        "field": "credit_score",
+        "type": "number",
+        "required": false,
+        "validation": {
+          "min": 300,
+          "max": 850
+        }
+      },
+      {
+        "id": "urgency",
+        "question": "How soon do you need the funding?",
+        "field": "urgency",
+        "type": "choice",
+        "required": true,
+        "validation": {
+          "choices": [
+            "immediately",
+            "within_1_week",
+            "within_1_month",
+            "just_exploring"
+          ]
+        }
+      },
+      {
+        "id": "contact_phone",
+        "question": "Perfect. What's the best phone number to reach you at?",
+        "field": "phone",
+        "type": "text",
+        "required": true,
+        "validation": {
+          "pattern": "^\\+?1?\\d{10,14}$"
+        }
+      },
+      {
+        "id": "contact_email",
+        "question": "And your email address?",
+        "field": "email",
+        "type": "text",
+        "required": true,
+        "validation": {
+          "pattern": "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$"
+        }
+      }
+    ],
+    "objection_handling": [
+      {
+        "trigger": "too expensive|high cost|rates too high",
+        "response": "I completely understand your concern about costs. One thing I should mention is that MCAs are based on a percentage of your daily sales, so you only pay when you're making money. Many of our clients find this more manageable than fixed loan payments. Would you like me to explain how the pricing works?"
+      },
+      {
+        "trigger": "not interested|no thanks|don't need",
+        "response": "I appreciate your honesty. Many business owners aren't ready right now, and that's perfectly fine. Would it be okay if I just capture your information so we can follow up in a few months when timing might be better?"
+      },
+      {
+        "trigger": "already have funding|working with someone",
+        "response": "That's great that you have funding lined up. Just so you know, we work with many businesses who use multiple funding sources. Would it be helpful to keep your information on file as a backup option?"
+      },
+      {
+        "trigger": "need to think|talk to partner|need time",
+        "response": "Absolutely, this is an important decision. What I can do is get your basic information today, and then send you some details to review with your partner. There's no obligation - just information to help you make an informed decision. Would that work?"
+      },
+      {
+        "trigger": "credit problems|bad credit|low score",
+        "response": "I appreciate you sharing that. The good news is that MCAs are primarily based on your business revenue, not your personal credit score. We've helped many business owners who had credit challenges. The most important factors for us are your monthly sales and time in business."
+      }
+    ],
+    "closing": {
+      "qualified": "Excellent, {{contact_name}}! Based on what you've shared, it looks like you could be a great fit for our MCA program. Here's what happens next: I'm going to pass your information to one of our funding specialists who will reach out within the next 2 hours to discuss specific terms and answer any questions. They'll have your information, so you won't need to repeat anything. You should expect a call from {{assigned_rep_name}} at {{phone}}. Is there anything else I can help clarify right now?",
+      "unqualified": "Thank you so much for your time today, {{contact_name}}. I really appreciate you sharing information about {{business_name}}. Based on our current program requirements, we typically work with businesses that have been operating for at least 6 months with monthly revenue above $15,000. I'd love to follow up with you in {{follow_up_months}} months when you've had more time to build your business. In the meantime, I'm going to add you to our email list where we share helpful tips for growing your business. Does that sound good?",
+      "undecided": "Thanks for your time, {{contact_name}}. I know you mentioned needing to {{objection_reason}}. What I'll do is send you an email with some information about our programs and typical terms. You can review it on your own time, and if you'd like to move forward, just reply to that email or give us a call back. There's absolutely no pressure. Sound good?"
+    }
+  },
+  "qualification_rules": {
+    "criteria": [
+      {
+        "field": "time_in_business_months",
+        "operator": "greater_than_or_equal",
+        "value": 6,
+        "required": true,
+        "weight": 25
+      },
+      {
+        "field": "monthly_revenue",
+        "operator": "greater_than_or_equal",
+        "value": 15000,
+        "required": true,
+        "weight": 30
+      },
+      {
+        "field": "funding_amount_requested",
+        "operator": "greater_than_or_equal",
+        "value": 5000,
+        "required": true,
+        "weight": 10
+      },
+      {
+        "field": "funding_amount_requested",
+        "operator": "less_than_or_equal",
+        "value": 500000,
+        "required": true,
+        "weight": 10
+      },
+      {
+        "field": "urgency",
+        "operator": "in_list",
+        "value": ["immediately", "within_1_week", "within_1_month"],
+        "required": false,
+        "weight": 15
+      },
+      {
+        "field": "credit_score",
+        "operator": "greater_than_or_equal",
+        "value": 550,
+        "required": false,
+        "weight": 10
+      }
+    ],
+    "qualification_threshold": 70,
+    "auto_disqualify": [
+      {
+        "field": "time_in_business_months",
+        "operator": "less_than",
+        "value": 3
+      },
+      {
+        "field": "monthly_revenue",
+        "operator": "less_than",
+        "value": 10000
+      },
+      {
+        "field": "funding_amount_requested",
+        "operator": "greater_than",
+        "value": 500000
+      }
+    ]
+  },
+  "integration": {
+    "crm": {
+      "provider": "hubspot",
+      "actions": {
+        "qualified": {
+          "create_lead": true,
+          "assign_to": "sales_team_mca",
+          "tags": [
+            "mca_qualified",
+            "ai_qualified",
+            "hot_lead"
+          ],
+          "send_notification": true
+        },
+        "unqualified": {
+          "create_lead": true,
+          "add_to_nurture": true,
+          "nurture_campaign_id": "nurture_new_business_6month"
+        }
+      },
+      "field_mapping": {
+        "contact_name": "firstname,lastname",
+        "business_name": "company",
+        "business_type": "industry",
+        "time_in_business_months": "time_in_business",
+        "monthly_revenue": "monthly_revenue",
+        "funding_amount_requested": "deal_amount",
+        "funding_purpose": "funding_use_case",
+        "credit_score": "credit_score",
+        "urgency": "deal_stage",
+        "phone": "phone",
+        "email": "email"
+      }
+    },
+    "notifications": {
+      "email": [
+        "chris@resultantai.com",
+        "sales@velocitymca.com"
+      ],
+      "sms": [
+        "+15551234567"
+      ],
+      "webhook": "https://api.velocitymca.com/webhooks/new_lead"
+    }
+  },
+  "analytics": {
+    "track_metrics": [
+      "call_duration",
+      "qualification_rate",
+      "drop_off_point",
+      "objection_frequency",
+      "conversion_time"
+    ],
+    "reporting_interval": "daily"
+  },
+  "compliance": {
+    "record_calls": true,
+    "recording_disclosure": "This call may be recorded for quality assurance and training purposes.",
+    "gdpr_compliant": true,
+    "data_retention_days": 730
+  }
+}

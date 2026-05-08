@@ -1,0 +1,1165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Lead Qualification Router | enso.bot Demo</title>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #0a0a0f;
+            --bg-card: #12121a;
+            --bg-elevated: #1a1a24;
+            --border: #2a2a3a;
+            --text-primary: #f0f0f5;
+            --text-secondary: #8888a0;
+            --text-muted: #5a5a70;
+            --accent-blue: #3b82f6;
+            --accent-green: #22c55e;
+            --accent-amber: #f59e0b;
+            --accent-red: #ef4444;
+            --accent-purple: #a855f7;
+            --glow-blue: rgba(59, 130, 246, 0.15);
+            --glow-green: rgba(34, 197, 94, 0.15);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-primary);
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 24px;
+        }
+
+        /* Tutorial Banner */
+        .tutorial-banner {
+            background: linear-gradient(135deg, var(--bg-elevated) 0%, var(--bg-card) 100%);
+            border: 1px solid var(--border);
+            border-left: 4px solid var(--accent-blue);
+            border-radius: 12px;
+            padding: 20px 24px;
+            margin-bottom: 32px;
+            position: relative;
+            animation: slideDown 0.4s ease-out;
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .tutorial-banner.hidden {
+            display: none;
+        }
+
+        .tutorial-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 16px;
+        }
+
+        .tutorial-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--accent-blue);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .tutorial-dismiss {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text-secondary);
+            padding: 6px 14px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 13px;
+            font-family: inherit;
+            transition: all 0.2s;
+        }
+
+        .tutorial-dismiss:hover {
+            background: var(--bg-elevated);
+            color: var(--text-primary);
+            border-color: var(--text-muted);
+        }
+
+        .tutorial-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 12px;
+        }
+
+        .tutorial-step {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        .step-number {
+            background: var(--accent-blue);
+            color: white;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 600;
+            flex-shrink: 0;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .header h1 {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            background: linear-gradient(135deg, var(--text-primary) 0%, var(--text-secondary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .header p {
+            color: var(--text-secondary);
+            font-size: 15px;
+        }
+
+        /* Main Grid */
+        .main-grid {
+            display: grid;
+            grid-template-columns: 340px 1fr;
+            gap: 24px;
+        }
+
+        @media (max-width: 900px) {
+            .main-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Card Base */
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .card-header {
+            padding: 16px 20px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card-header h2 {
+            font-size: 14px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-secondary);
+        }
+
+        .card-body {
+            padding: 20px;
+        }
+
+        /* Status Indicator */
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--accent-green);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        /* Form Styles */
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text-secondary);
+            margin-bottom: 6px;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 10px 14px;
+            background: var(--bg-elevated);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--text-primary);
+            font-family: inherit;
+            font-size: 14px;
+            transition: all 0.2s;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--accent-blue);
+            box-shadow: 0 0 0 3px var(--glow-blue);
+        }
+
+        .form-group textarea {
+            min-height: 80px;
+            resize: vertical;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        /* Submit Button */
+        .btn-submit {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, var(--accent-blue) 0%, #2563eb 100%);
+            border: none;
+            border-radius: 8px;
+            color: white;
+            font-family: inherit;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 8px;
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 20px var(--glow-blue);
+        }
+
+        .btn-submit:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* Results Panel */
+        .results-panel {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        /* Processing State */
+        .processing-card {
+            display: none;
+        }
+
+        .processing-card.active {
+            display: block;
+        }
+
+        .processing-steps {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .process-step {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 14px 16px;
+            background: var(--bg-elevated);
+            border-radius: 8px;
+            opacity: 0.4;
+            transform: translateX(-10px);
+            transition: all 0.4s ease-out;
+        }
+
+        .process-step.active {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .process-step.complete {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .process-step.complete .step-icon {
+            background: var(--accent-green);
+        }
+
+        .step-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            background: var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            transition: background 0.3s;
+        }
+
+        .step-content h4 {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 2px;
+        }
+
+        .step-content p {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .spinner {
+            width: 16px;
+            height: 16px;
+            border: 2px solid var(--border);
+            border-top-color: var(--accent-blue);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* AI Decision Card */
+        .decision-card {
+            display: none;
+        }
+
+        .decision-card.active {
+            display: block;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .decision-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+
+        .score-badge {
+            width: 72px;
+            height: 72px;
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+        }
+
+        .score-badge.qualified {
+            background: linear-gradient(135deg, var(--accent-green) 0%, #16a34a 100%);
+        }
+
+        .score-badge.unqualified {
+            background: linear-gradient(135deg, var(--accent-amber) 0%, #d97706 100%);
+        }
+
+        .score-badge .score-value {
+            font-size: 28px;
+            line-height: 1;
+        }
+
+        .score-badge .score-label {
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            opacity: 0.9;
+        }
+
+        .decision-summary h3 {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .decision-summary .decision-status {
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .decision-summary .decision-status.qualified {
+            color: var(--accent-green);
+        }
+
+        .decision-summary .decision-status.unqualified {
+            color: var(--accent-amber);
+        }
+
+        /* AI Reasoning */
+        .reasoning-section {
+            background: var(--bg-elevated);
+            border-radius: 10px;
+            padding: 16px;
+            margin-bottom: 20px;
+        }
+
+        .reasoning-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 12px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--accent-purple);
+        }
+
+        .reasoning-text {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 13px;
+            line-height: 1.7;
+            color: var(--text-secondary);
+        }
+
+        .reasoning-text .highlight {
+            color: var(--accent-green);
+            font-weight: 500;
+        }
+
+        .reasoning-text .concern {
+            color: var(--accent-amber);
+            font-weight: 500;
+        }
+
+        /* Criteria Grid */
+        .criteria-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .criteria-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 12px;
+            background: var(--bg-elevated);
+            border-radius: 8px;
+            font-size: 13px;
+        }
+
+        .criteria-icon {
+            font-size: 14px;
+        }
+
+        .criteria-icon.pass { color: var(--accent-green); }
+        .criteria-icon.fail { color: var(--accent-red); }
+        .criteria-icon.partial { color: var(--accent-amber); }
+
+        /* Routing Output */
+        .routing-section h4 {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            margin-bottom: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .routing-outputs {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .routing-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 14px;
+            background: var(--bg-elevated);
+            border-radius: 8px;
+            border-left: 3px solid transparent;
+        }
+
+        .routing-item.crm { border-left-color: var(--accent-blue); }
+        .routing-item.slack { border-left-color: var(--accent-purple); }
+        .routing-item.sheet { border-left-color: var(--accent-green); }
+
+        .routing-item .routing-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 6px;
+            background: var(--bg-card);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+        }
+
+        .routing-item .routing-info {
+            flex: 1;
+        }
+
+        .routing-item .routing-info h5 {
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 2px;
+        }
+
+        .routing-item .routing-info p {
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+
+        .routing-item .routing-status {
+            font-size: 12px;
+            color: var(--accent-green);
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--text-muted);
+        }
+
+        .empty-state .empty-icon {
+            font-size: 48px;
+            margin-bottom: 16px;
+            opacity: 0.5;
+        }
+
+        .empty-state h3 {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+        }
+
+        .empty-state p {
+            font-size: 14px;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 32px;
+            color: var(--text-muted);
+            font-size: 13px;
+        }
+
+        .footer a {
+            color: var(--accent-blue);
+            text-decoration: none;
+        }
+
+        .tech-stack {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 8px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11px;
+        }
+
+        .tech-tag {
+            padding: 4px 8px;
+            background: var(--bg-elevated);
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Tutorial Banner -->
+        <div class="tutorial-banner" id="tutorialBanner">
+            <div class="tutorial-header">
+                <div class="tutorial-title">
+                    <span>⚡</span> Quick Start Guide
+                </div>
+                <button class="tutorial-dismiss" onclick="dismissTutorial()">Got it, let's explore →</button>
+            </div>
+            <div class="tutorial-steps">
+                <div class="tutorial-step">
+                    <span class="step-number">1</span>
+                    <span>Fill out the lead form with sample data (pre-filled for demo)</span>
+                </div>
+                <div class="tutorial-step">
+                    <span class="step-number">2</span>
+                    <span>Click "Qualify Lead" to trigger AI analysis</span>
+                </div>
+                <div class="tutorial-step">
+                    <span class="step-number">3</span>
+                    <span>Watch real-time processing as AI scores and routes</span>
+                </div>
+                <div class="tutorial-step">
+                    <span class="step-number">4</span>
+                    <span>See AI reasoning + automatic CRM/Slack/Sheet routing</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Header -->
+        <div class="header">
+            <h1>AI Lead Qualification Router</h1>
+            <p>LLM-powered lead scoring with intelligent routing to CRM, Slack, and Sheets</p>
+        </div>
+
+        <!-- Main Grid -->
+        <div class="main-grid">
+            <!-- Lead Input Form -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="status-dot"></div>
+                    <h2>Incoming Lead</h2>
+                </div>
+                <div class="card-body">
+                    <form id="leadForm">
+                        <div class="form-group">
+                            <label>Contact Name</label>
+                            <input type="text" id="contactName" value="Sarah Mitchell" placeholder="Full name">
+                        </div>
+                        <div class="form-group">
+                            <label>Company</label>
+                            <input type="text" id="company" value="Velocity Logistics Inc." placeholder="Company name">
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Email</label>
+                                <input type="email" id="email" value="sarah@velocitylogistics.com">
+                            </div>
+                            <div class="form-group">
+                                <label>Phone</label>
+                                <input type="tel" id="phone" value="(512) 847-3920">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Role / Title</label>
+                                <input type="text" id="role" value="VP of Operations" placeholder="Job title">
+                            </div>
+                            <div class="form-group">
+                                <label>Company Size</label>
+                                <select id="companySize">
+                                    <option value="1-10">1-10 employees</option>
+                                    <option value="11-50">11-50 employees</option>
+                                    <option value="51-200" selected>51-200 employees</option>
+                                    <option value="201-500">201-500 employees</option>
+                                    <option value="500+">500+ employees</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Budget Range</label>
+                                <select id="budget">
+                                    <option value="unknown">Not specified</option>
+                                    <option value="<5k">Under $5,000</option>
+                                    <option value="5k-15k" selected>$5,000 - $15,000</option>
+                                    <option value="15k-50k">$15,000 - $50,000</option>
+                                    <option value="50k+">$50,000+</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Timeline</label>
+                                <select id="timeline">
+                                    <option value="asap" selected>ASAP / Urgent</option>
+                                    <option value="1-2weeks">1-2 weeks</option>
+                                    <option value="1month">Within 1 month</option>
+                                    <option value="exploring">Just exploring</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Message / Inquiry</label>
+                            <textarea id="message" placeholder="What they're looking for...">We're drowning in manual data entry between our TMS and accounting systems. Need to automate invoice matching and carrier payment workflows. Currently processing 400+ invoices weekly by hand. Looking to start a pilot project within 2 weeks.</textarea>
+                        </div>
+                        <button type="submit" class="btn-submit" id="submitBtn">
+                            <span>⚡</span> Qualify Lead
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Results Panel -->
+            <div class="results-panel">
+                <!-- Empty State -->
+                <div class="card" id="emptyState">
+                    <div class="card-body">
+                        <div class="empty-state">
+                            <div class="empty-icon">🎯</div>
+                            <h3>Ready to Qualify</h3>
+                            <p>Submit a lead to see AI-powered qualification in action</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Processing Card -->
+                <div class="card processing-card" id="processingCard">
+                    <div class="card-header">
+                        <h2>Processing Pipeline</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="processing-steps">
+                            <div class="process-step" id="step1">
+                                <div class="step-icon">📥</div>
+                                <div class="step-content">
+                                    <h4>Extracting Lead Data</h4>
+                                    <p>Parsing form fields and normalizing inputs</p>
+                                </div>
+                                <div class="spinner" style="display:none;"></div>
+                            </div>
+                            <div class="process-step" id="step2">
+                                <div class="step-icon">🤖</div>
+                                <div class="step-content">
+                                    <h4>AI Qualification Analysis</h4>
+                                    <p>Claude analyzing fit, intent, and urgency signals</p>
+                                </div>
+                                <div class="spinner" style="display:none;"></div>
+                            </div>
+                            <div class="process-step" id="step3">
+                                <div class="step-icon">🔀</div>
+                                <div class="step-content">
+                                    <h4>Routing Decision</h4>
+                                    <p>Determining CRM assignment and notification targets</p>
+                                </div>
+                                <div class="spinner" style="display:none;"></div>
+                            </div>
+                            <div class="process-step" id="step4">
+                                <div class="step-icon">✅</div>
+                                <div class="step-content">
+                                    <h4>Syncing Outputs</h4>
+                                    <p>Pushing to CRM, Slack, and logging to Sheets</p>
+                                </div>
+                                <div class="spinner" style="display:none;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Decision Card -->
+                <div class="card decision-card" id="decisionCard">
+                    <div class="card-header">
+                        <h2>AI Decision</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="decision-header">
+                            <div class="score-badge qualified" id="scoreBadge">
+                                <span class="score-value" id="scoreValue">87</span>
+                                <span class="score-label">Score</span>
+                            </div>
+                            <div class="decision-summary">
+                                <h3 id="leadName">Sarah Mitchell</h3>
+                                <div class="decision-status qualified" id="decisionStatus">
+                                    <span>✓</span> Qualified — Route to Sales
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- AI Reasoning -->
+                        <div class="reasoning-section">
+                            <div class="reasoning-header">
+                                <span>🧠</span> AI Reasoning
+                            </div>
+                            <div class="reasoning-text" id="reasoningText">
+                                <span class="highlight">QUALIFIED</span> — Strong signals across multiple criteria. 
+                                <span class="highlight">Decision-maker confirmed</span> (VP-level title indicates authority). 
+                                <span class="highlight">Budget aligned</span> ($5K-$15K matches typical automation project scope). 
+                                <span class="highlight">Urgency present</span> (ASAP timeline + specific pain point articulated). 
+                                Clear use case: invoice automation with quantified volume (400+/week) suggests immediate ROI potential. 
+                                Company size (51-200) indicates operational maturity for automation adoption.
+                            </div>
+                        </div>
+
+                        <!-- Criteria Grid -->
+                        <div class="criteria-grid" id="criteriaGrid">
+                            <div class="criteria-item">
+                                <span class="criteria-icon pass">✓</span>
+                                <span>Decision Maker</span>
+                            </div>
+                            <div class="criteria-item">
+                                <span class="criteria-icon pass">✓</span>
+                                <span>Budget Specified</span>
+                            </div>
+                            <div class="criteria-item">
+                                <span class="criteria-icon pass">✓</span>
+                                <span>Timeline Urgent</span>
+                            </div>
+                            <div class="criteria-item">
+                                <span class="criteria-icon pass">✓</span>
+                                <span>Clear Use Case</span>
+                            </div>
+                        </div>
+
+                        <!-- Routing Output -->
+                        <div class="routing-section">
+                            <h4>Automated Routing</h4>
+                            <div class="routing-outputs" id="routingOutputs">
+                                <div class="routing-item crm">
+                                    <div class="routing-icon">💼</div>
+                                    <div class="routing-info">
+                                        <h5>HubSpot CRM</h5>
+                                        <p>Created contact + deal, assigned to Sarah T.</p>
+                                    </div>
+                                    <div class="routing-status">
+                                        <span>✓</span> Synced
+                                    </div>
+                                </div>
+                                <div class="routing-item slack">
+                                    <div class="routing-icon">💬</div>
+                                    <div class="routing-info">
+                                        <h5>Slack #sales-qualified</h5>
+                                        <p>Notification sent with lead summary</p>
+                                    </div>
+                                    <div class="routing-status">
+                                        <span>✓</span> Sent
+                                    </div>
+                                </div>
+                                <div class="routing-item sheet">
+                                    <div class="routing-icon">📊</div>
+                                    <div class="routing-info">
+                                        <h5>Google Sheets Log</h5>
+                                        <p>Row added to Lead Tracker with AI score</p>
+                                    </div>
+                                    <div class="routing-status">
+                                        <span>✓</span> Logged
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <p>Built for <strong>enso.bot</strong> Demo | ResultantAI</p>
+            <div class="tech-stack">
+                <span class="tech-tag">enso.bot</span>
+                <span class="tech-tag">Claude API</span>
+                <span class="tech-tag">HubSpot</span>
+                <span class="tech-tag">Slack</span>
+                <span class="tech-tag">Sheets</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Tutorial dismiss
+        function dismissTutorial() {
+            document.getElementById('tutorialBanner').classList.add('hidden');
+        }
+
+        // Form submission
+        document.getElementById('leadForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const submitBtn = document.getElementById('submitBtn');
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<div class="spinner"></div> Processing...';
+
+            // Hide empty state, show processing
+            document.getElementById('emptyState').style.display = 'none';
+            document.getElementById('decisionCard').classList.remove('active');
+            document.getElementById('processingCard').classList.add('active');
+
+            // Reset steps
+            const steps = ['step1', 'step2', 'step3', 'step4'];
+            steps.forEach(id => {
+                const step = document.getElementById(id);
+                step.classList.remove('active', 'complete');
+                step.querySelector('.spinner').style.display = 'none';
+            });
+
+            // Animate through steps
+            await animateStep('step1', 600);
+            await animateStep('step2', 1800);
+            await animateStep('step3', 800);
+            await animateStep('step4', 600);
+
+            // Calculate qualification based on inputs
+            const qualification = calculateQualification();
+            
+            // Show decision
+            setTimeout(() => {
+                document.getElementById('processingCard').classList.remove('active');
+                showDecision(qualification);
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<span>⚡</span> Qualify Lead';
+            }, 400);
+        });
+
+        async function animateStep(stepId, duration) {
+            return new Promise(resolve => {
+                const step = document.getElementById(stepId);
+                step.classList.add('active');
+                step.querySelector('.spinner').style.display = 'block';
+                
+                setTimeout(() => {
+                    step.classList.add('complete');
+                    step.querySelector('.spinner').style.display = 'none';
+                    resolve();
+                }, duration);
+            });
+        }
+
+        function calculateQualification() {
+            const role = document.getElementById('role').value.toLowerCase();
+            const budget = document.getElementById('budget').value;
+            const timeline = document.getElementById('timeline').value;
+            const message = document.getElementById('message').value.toLowerCase();
+            const companySize = document.getElementById('companySize').value;
+
+            let score = 50;
+            let qualified = false;
+            let reasons = [];
+            let criteria = {
+                decisionMaker: false,
+                budget: false,
+                timeline: false,
+                useCase: false
+            };
+
+            // Decision maker check
+            if (role.includes('vp') || role.includes('director') || role.includes('ceo') || 
+                role.includes('founder') || role.includes('head') || role.includes('owner') ||
+                role.includes('president') || role.includes('chief')) {
+                score += 15;
+                criteria.decisionMaker = true;
+                reasons.push('<span class="highlight">Decision-maker confirmed</span> (' + document.getElementById('role').value + ' indicates authority)');
+            }
+
+            // Budget check
+            if (budget !== 'unknown' && budget !== '<5k') {
+                score += 12;
+                criteria.budget = true;
+                reasons.push('<span class="highlight">Budget aligned</span> (' + getBudgetLabel(budget) + ' matches typical project scope)');
+            } else if (budget === '<5k') {
+                score -= 5;
+                reasons.push('<span class="concern">Budget may be limited</span> (under $5K indicated)');
+            }
+
+            // Timeline check
+            if (timeline === 'asap' || timeline === '1-2weeks') {
+                score += 10;
+                criteria.timeline = true;
+                reasons.push('<span class="highlight">Urgency present</span> (' + getTimelineLabel(timeline) + ')');
+            } else if (timeline === 'exploring') {
+                score -= 8;
+                reasons.push('<span class="concern">Early stage</span> (just exploring, no immediate timeline)');
+            }
+
+            // Use case clarity
+            if (message.length > 50 && (message.includes('need') || message.includes('want') || 
+                message.includes('looking') || message.includes('automate') || message.includes('process'))) {
+                score += 10;
+                criteria.useCase = true;
+                reasons.push('Clear use case articulated with specific pain point');
+            }
+
+            // Company size bonus
+            if (companySize === '51-200' || companySize === '201-500' || companySize === '500+') {
+                score += 5;
+            }
+
+            // Quantified metrics bonus
+            if (/\d+/.test(message) && (message.includes('hour') || message.includes('week') || 
+                message.includes('day') || message.includes('invoice') || message.includes('lead'))) {
+                score += 5;
+                reasons.push('Quantified volume indicates measurable ROI potential');
+            }
+
+            score = Math.min(Math.max(score, 25), 95);
+            qualified = score >= 70;
+
+            return {
+                score,
+                qualified,
+                reasons,
+                criteria,
+                name: document.getElementById('contactName').value,
+                company: document.getElementById('company').value
+            };
+        }
+
+        function getBudgetLabel(budget) {
+            const labels = {
+                '<5k': 'Under $5,000',
+                '5k-15k': '$5,000 - $15,000',
+                '15k-50k': '$15,000 - $50,000',
+                '50k+': '$50,000+'
+            };
+            return labels[budget] || budget;
+        }
+
+        function getTimelineLabel(timeline) {
+            const labels = {
+                'asap': 'ASAP timeline',
+                '1-2weeks': '1-2 week timeline',
+                '1month': 'within 1 month',
+                'exploring': 'just exploring'
+            };
+            return labels[timeline] || timeline;
+        }
+
+        function showDecision(qual) {
+            const card = document.getElementById('decisionCard');
+            const scoreBadge = document.getElementById('scoreBadge');
+            const scoreValue = document.getElementById('scoreValue');
+            const leadName = document.getElementById('leadName');
+            const status = document.getElementById('decisionStatus');
+            const reasoning = document.getElementById('reasoningText');
+            const criteriaGrid = document.getElementById('criteriaGrid');
+
+            // Update score
+            scoreValue.textContent = qual.score;
+            leadName.textContent = qual.name;
+
+            // Update badge and status
+            if (qual.qualified) {
+                scoreBadge.className = 'score-badge qualified';
+                status.className = 'decision-status qualified';
+                status.innerHTML = '<span>✓</span> Qualified — Route to Sales';
+            } else {
+                scoreBadge.className = 'score-badge unqualified';
+                status.className = 'decision-status unqualified';
+                status.innerHTML = '<span>○</span> Nurture — Needs Development';
+            }
+
+            // Update reasoning
+            const statusWord = qual.qualified ? '<span class="highlight">QUALIFIED</span>' : '<span class="concern">NURTURE</span>';
+            reasoning.innerHTML = statusWord + ' — ' + qual.reasons.join('. ') + '.';
+
+            // Update criteria grid
+            criteriaGrid.innerHTML = `
+                <div class="criteria-item">
+                    <span class="criteria-icon ${qual.criteria.decisionMaker ? 'pass' : 'fail'}">${qual.criteria.decisionMaker ? '✓' : '✗'}</span>
+                    <span>Decision Maker</span>
+                </div>
+                <div class="criteria-item">
+                    <span class="criteria-icon ${qual.criteria.budget ? 'pass' : 'fail'}">${qual.criteria.budget ? '✓' : '✗'}</span>
+                    <span>Budget Specified</span>
+                </div>
+                <div class="criteria-item">
+                    <span class="criteria-icon ${qual.criteria.timeline ? 'pass' : 'fail'}">${qual.criteria.timeline ? '✓' : '✗'}</span>
+                    <span>Timeline Urgent</span>
+                </div>
+                <div class="criteria-item">
+                    <span class="criteria-icon ${qual.criteria.useCase ? 'pass' : 'fail'}">${qual.criteria.useCase ? '✓' : '✗'}</span>
+                    <span>Clear Use Case</span>
+                </div>
+            `;
+
+            // Update routing based on qualification
+            const routing = document.getElementById('routingOutputs');
+            if (qual.qualified) {
+                routing.innerHTML = `
+                    <div class="routing-item crm">
+                        <div class="routing-icon">💼</div>
+                        <div class="routing-info">
+                            <h5>HubSpot CRM</h5>
+                            <p>Created contact + deal, assigned to sales rep</p>
+                        </div>
+                        <div class="routing-status">
+                            <span>✓</span> Synced
+                        </div>
+                    </div>
+                    <div class="routing-item slack">
+                        <div class="routing-icon">💬</div>
+                        <div class="routing-info">
+                            <h5>Slack #sales-qualified</h5>
+                            <p>Notification sent with lead summary</p>
+                        </div>
+                        <div class="routing-status">
+                            <span>✓</span> Sent
+                        </div>
+                    </div>
+                    <div class="routing-item sheet">
+                        <div class="routing-icon">📊</div>
+                        <div class="routing-info">
+                            <h5>Google Sheets Log</h5>
+                            <p>Row added to Lead Tracker with AI score</p>
+                        </div>
+                        <div class="routing-status">
+                            <span>✓</span> Logged
+                        </div>
+                    </div>
+                `;
+            } else {
+                routing.innerHTML = `
+                    <div class="routing-item sheet">
+                        <div class="routing-icon">📊</div>
+                        <div class="routing-info">
+                            <h5>Google Sheets Log</h5>
+                            <p>Row added to Nurture Queue with AI score</p>
+                        </div>
+                        <div class="routing-status">
+                            <span>✓</span> Logged
+                        </div>
+                    </div>
+                    <div class="routing-item slack">
+                        <div class="routing-icon">💬</div>
+                        <div class="routing-info">
+                            <h5>Slack #marketing-nurture</h5>
+                            <p>Added to drip sequence queue</p>
+                        </div>
+                        <div class="routing-status">
+                            <span>✓</span> Queued
+                        </div>
+                    </div>
+                `;
+            }
+
+            card.classList.add('active');
+        }
+    </script>
+</body>
+</html>

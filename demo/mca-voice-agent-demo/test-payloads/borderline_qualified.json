@@ -1,0 +1,18 @@
+{
+  "scenario_name": "Borderline Landscaping Business",
+  "description": "Just meets minimum requirements - 6 months old, $15K revenue, tests threshold",
+  "expected_outcome": "qualified",
+  "responses": {
+    "contact_name": "James Wilson",
+    "business_name": "Wilson Landscaping",
+    "business_type": "Landscaping",
+    "time_in_business_months": 6,
+    "monthly_revenue": 15000,
+    "funding_amount_requested": 20000,
+    "funding_purpose": "equipment",
+    "credit_score": 580,
+    "urgency": "within_1_month",
+    "phone": "5553334444",
+    "email": "james@wilsonlandscaping.com"
+  }
+}

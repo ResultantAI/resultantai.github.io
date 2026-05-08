@@ -1,0 +1,18 @@
+{
+  "scenario_name": "Auto-Disqualified Startup",
+  "description": "Very new business (2 months) triggers auto-disqualification despite other factors",
+  "expected_outcome": "unqualified",
+  "responses": {
+    "contact_name": "Emily Chen",
+    "business_name": "Chen's Tech Consulting",
+    "business_type": "Consulting",
+    "time_in_business_months": 2,
+    "monthly_revenue": 8000,
+    "funding_amount_requested": 15000,
+    "funding_purpose": "marketing",
+    "credit_score": 700,
+    "urgency": "within_1_week",
+    "phone": "5555556666",
+    "email": "emily@chenstech.com"
+  }
+}

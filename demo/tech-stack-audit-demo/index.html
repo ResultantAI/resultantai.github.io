@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tech Stack Audit Simulator - ResultantAI</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #2c3441 0%, #1a1f2e 100%);
+            color: #ffffff;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-top: 20px;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: #47b9f8;
+            margin-bottom: 10px;
+        }
+
+        h1 {
+            font-size: 36px;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, #47b9f8, #00ff88);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .subtitle {
+            font-size: 18px;
+            color: #a0a0a0;
+            margin-bottom: 30px;
+        }
+
+        .tutorial {
+            background: rgba(71, 185, 248, 0.1);
+            border: 2px solid #47b9f8;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 30px;
+            display: none;
+        }
+
+        .tutorial.active {
+            display: block;
+            animation: slideIn 0.5s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .tutorial h3 {
+            color: #47b9f8;
+            margin-bottom: 15px;
+            font-size: 20px;
+        }
+
+        .tutorial-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .tutorial-step {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 3px solid #00ff88;
+        }
+
+        .tutorial-step-number {
+            color: #00ff88;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            padding: 30px;
+            margin-bottom: 30px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .tool-selector {
+            margin-bottom: 20px;
+        }
+
+        .tool-selector label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 600;
+            color: #47b9f8;
+        }
+
+        .tool-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .tool-checkbox {
+            display: none;
+        }
+
+        .tool-label {
+            display: block;
+            padding: 12px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid rgba(71, 185, 248, 0.3);
+            border-radius: 8px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .tool-checkbox:checked + .tool-label {
+            background: rgba(71, 185, 248, 0.2);
+            border-color: #47b9f8;
+            color: #47b9f8;
+            transform: scale(1.05);
+        }
+
+        .tool-label:hover {
+            border-color: #47b9f8;
+            transform: translateY(-2px);
+        }
+
+        .analyze-btn {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, #47b9f8, #00ff88);
+            color: #2c3441;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 20px;
+        }
+
+        .analyze-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(71, 185, 248, 0.3);
+        }
+
+        .analyze-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .results {
+            display: none;
+        }
+
+        .results.active {
+            display: block;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .visualization {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 12px;
+            padding: 30px;
+            margin: 20px 0;
+            min-height: 300px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .spaghetti-canvas {
+            position: relative;
+            width: 100%;
+            height: 300px;
+        }
+
+        .tool-node {
+            position: absolute;
+            background: #47b9f8;
+            color: #2c3441;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 600;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .connection-line {
+            position: absolute;
+            height: 2px;
+            background: rgba(71, 185, 248, 0.3);
+            transform-origin: left center;
+            animation: draw 1s ease-out forwards;
+        }
+
+        @keyframes draw {
+            from {
+                width: 0;
+                opacity: 0;
+            }
+            to {
+                width: 100%;
+                opacity: 1;
+            }
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .metric-card {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 20px;
+            border-radius: 12px;
+            border-left: 4px solid #00ff88;
+        }
+
+        .metric-value {
+            font-size: 32px;
+            font-weight: 700;
+            color: #00ff88;
+            margin-bottom: 5px;
+        }
+
+        .metric-label {
+            color: #a0a0a0;
+            font-size: 14px;
+        }
+
+        .optimized-stack {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .optimized-tool {
+            background: linear-gradient(135deg, rgba(71, 185, 248, 0.1), rgba(0, 255, 136, 0.1));
+            padding: 20px;
+            border-radius: 12px;
+            border: 2px solid #47b9f8;
+            text-align: center;
+        }
+
+        .optimized-tool-name {
+            font-weight: 700;
+            color: #47b9f8;
+            margin-bottom: 5px;
+        }
+
+        .optimized-tool-purpose {
+            font-size: 12px;
+            color: #a0a0a0;
+        }
+
+        .contact-card {
+            background: linear-gradient(135deg, rgba(71, 185, 248, 0.1), rgba(0, 255, 136, 0.1));
+            border: 2px solid #47b9f8;
+            border-radius: 12px;
+            padding: 30px;
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        .contact-card h3 {
+            color: #47b9f8;
+            margin-bottom: 15px;
+        }
+
+        .contact-info {
+            margin: 20px 0;
+        }
+
+        .contact-info a {
+            color: #00ff88;
+            text-decoration: none;
+            margin: 0 10px;
+            transition: color 0.3s ease;
+        }
+
+        .contact-info a:hover {
+            color: #47b9f8;
+        }
+
+        .cta-btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background: linear-gradient(135deg, #47b9f8, #00ff88);
+            color: #2c3441;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 700;
+            margin-top: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .cta-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(71, 185, 248, 0.3);
+        }
+
+        .toggle-tutorial {
+            background: rgba(71, 185, 248, 0.1);
+            border: 2px solid #47b9f8;
+            color: #47b9f8;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .toggle-tutorial:hover {
+            background: rgba(71, 185, 248, 0.2);
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 28px;
+            }
+
+            .tool-grid {
+                grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            }
+
+            .metrics-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">ResultantAI</div>
+            <h1>Tech Stack Audit Simulator</h1>
+            <p class="subtitle">See how we'd consolidate your consultant operations stack</p>
+            <button class="toggle-tutorial" onclick="toggleTutorial()">📚 Show Tutorial</button>
+        </div>
+
+        <div class="tutorial" id="tutorial">
+            <h3>How This Demo Works</h3>
+            <p style="margin-bottom: 15px;">This simulator shows you exactly how I'd approach auditing your tech stack.</p>
+            <div class="tutorial-steps">
+                <div class="tutorial-step">
+                    <div class="tutorial-step-number">Step 1</div>
+                    <div>Select the tools you're currently using from the list below</div>
+                </div>
+                <div class="tutorial-step">
+                    <div class="tutorial-step-number">Step 2</div>
+                    <div>Click "Analyze My Stack" to see the integration chaos visualized</div>
+                </div>
+                <div class="tutorial-step">
+                    <div class="tutorial-step-number">Step 3</div>
+                    <div>Review your redundancy score and cost analysis</div>
+                </div>
+                <div class="tutorial-step">
+                    <div class="tutorial-step-number">Step 4</div>
+                    <div>See the optimized 4-5 tool architecture I'd recommend</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="tool-selector">
+                <label>Select Your Current Tools (check all that apply):</label>
+                <div class="tool-grid" id="toolGrid">
+                    <!-- CRM -->
+                    <input type="checkbox" id="hubspot" class="tool-checkbox" value="HubSpot|CRM">
+                    <label for="hubspot" class="tool-label">HubSpot</label>
+
+                    <input type="checkbox" id="salesforce" class="tool-checkbox" value="Salesforce|CRM">
+                    <label for="salesforce" class="tool-label">Salesforce</label>
+
+                    <input type="checkbox" id="pipedrive" class="tool-checkbox" value="Pipedrive|CRM">
+                    <label for="pipedrive" class="tool-label">Pipedrive</label>
+
+                    <!-- Project Management -->
+                    <input type="checkbox" id="asana" class="tool-checkbox" value="Asana|PM">
+                    <label for="asana" class="tool-label">Asana</label>
+
+                    <input type="checkbox" id="monday" class="tool-checkbox" value="Monday.com|PM">
+                    <label for="monday" class="tool-label">Monday.com</label>
+
+                    <input type="checkbox" id="clickup" class="tool-checkbox" value="ClickUp|PM">
+                    <label for="clickup" class="tool-label">ClickUp</label>
+
+                    <input type="checkbox" id="trello" class="tool-checkbox" value="Trello|PM">
+                    <label for="trello" class="tool-label">Trello</label>
+
+                    <!-- Communication -->
+                    <input type="checkbox" id="slack" class="tool-checkbox" value="Slack|Comm">
+                    <label for="slack" class="tool-label">Slack</label>
+
+                    <input type="checkbox" id="teams" class="tool-checkbox" value="Teams|Comm">
+                    <label for="teams" class="tool-label">Microsoft Teams</label>
+
+                    <input type="checkbox" id="zoom" class="tool-checkbox" value="Zoom|Comm">
+                    <label for="zoom" class="tool-label">Zoom</label>
+
+                    <!-- Time Tracking -->
+                    <input type="checkbox" id="toggl" class="tool-checkbox" value="Toggl|Time">
+                    <label for="toggl" class="tool-label">Toggl</label>
+
+                    <input type="checkbox" id="harvest" class="tool-checkbox" value="Harvest|Time">
+                    <label for="harvest" class="tool-label">Harvest</label>
+
+                    <input type="checkbox" id="clockify" class="tool-checkbox" value="Clockify|Time">
+                    <label for="clockify" class="tool-label">Clockify</label>
+
+                    <!-- Billing/Accounting -->
+                    <input type="checkbox" id="quickbooks" class="tool-checkbox" value="QuickBooks|Billing">
+                    <label for="quickbooks" class="tool-label">QuickBooks</label>
+
+                    <input type="checkbox" id="xero" class="tool-checkbox" value="Xero|Billing">
+                    <label for="xero" class="tool-label">Xero</label>
+
+                    <input type="checkbox" id="freshbooks" class="tool-checkbox" value="FreshBooks|Billing">
+                    <label for="freshbooks" class="tool-label">FreshBooks</label>
+
+                    <!-- Knowledge Management -->
+                    <input type="checkbox" id="notion" class="tool-checkbox" value="Notion|Knowledge">
+                    <label for="notion" class="tool-label">Notion</label>
+
+                    <input type="checkbox" id="confluence" class="tool-checkbox" value="Confluence|Knowledge">
+                    <label for="confluence" class="tool-label">Confluence</label>
+
+                    <input type="checkbox" id="gdrive" class="tool-checkbox" value="Google Drive|Knowledge">
+                    <label for="gdrive" class="tool-label">Google Drive</label>
+
+                    <!-- Automation -->
+                    <input type="checkbox" id="zapier" class="tool-checkbox" value="Zapier|Auto">
+                    <label for="zapier" class="tool-label">Zapier</label>
+
+                    <input type="checkbox" id="make" class="tool-checkbox" value="Make.com|Auto">
+                    <label for="make" class="tool-label">Make.com</label>
+                </div>
+            </div>
+
+            <button class="analyze-btn" onclick="analyzeStack()" id="analyzeBtn">
+                🔍 Analyze My Stack
+            </button>
+        </div>
+
+        <div class="results" id="results">
+            <div class="card">
+                <h2 style="margin-bottom: 20px; color: #47b9f8;">📊 Current State Analysis</h2>
+
+                <div class="visualization">
+                    <h3 style="margin-bottom: 15px; color: #ffffff;">Integration Spaghetti Map</h3>
+                    <div class="spaghetti-canvas" id="spaghettiCanvas"></div>
+                </div>
+
+                <div class="metrics-grid">
+                    <div class="metric-card">
+                        <div class="metric-value" id="toolCount">0</div>
+                        <div class="metric-label">Tools in Stack</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-value" id="redundancyScore">0%</div>
+                        <div class="metric-label">Redundancy Score</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-value" id="monthlyCost">$0</div>
+                        <div class="metric-label">Est. Monthly Cost</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-value" id="timeWaste">0</div>
+                        <div class="metric-label">Hours/Week Lost</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2 style="margin-bottom: 20px; color: #00ff88;">✨ Recommended Consolidated Stack</h2>
+                <p style="margin-bottom: 20px; color: #a0a0a0;">Based on your current tools, here's the 4-5 system architecture I'd recommend:</p>
+
+                <div class="optimized-stack" id="optimizedStack"></div>
+
+                <div class="metrics-grid" style="margin-top: 30px;">
+                    <div class="metric-card" style="border-left-color: #00ff88;">
+                        <div class="metric-value" style="color: #00ff88;" id="newToolCount">0</div>
+                        <div class="metric-label">Consolidated Tools</div>
+                    </div>
+                    <div class="metric-card" style="border-left-color: #00ff88;">
+                        <div class="metric-value" style="color: #00ff88;" id="costSavings">$0</div>
+                        <div class="metric-label">Monthly Savings</div>
+                    </div>
+                    <div class="metric-card" style="border-left-color: #00ff88;">
+                        <div class="metric-value" style="color: #00ff88;" id="timeSavings">0</div>
+                        <div class="metric-label">Hours/Week Saved</div>
+                    </div>
+                    <div class="metric-card" style="border-left-color: #00ff88;">
+                        <div class="metric-value" style="color: #00ff88;" id="roiWeeks">0</div>
+                        <div class="metric-label">Weeks to ROI</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="contact-card">
+            <h3>Ready to Get Your Actual Audit?</h3>
+            <p>This demo shows the approach—your real audit will include:</p>
+            <p style="margin: 15px 0; color: #a0a0a0;">
+                ✅ Detailed workflow mapping<br>
+                ✅ Custom integration architecture<br>
+                ✅ Phased implementation roadmap<br>
+                ✅ Cost-benefit analysis<br>
+                ✅ 60-min strategic walkthrough
+            </p>
+            <div class="contact-info">
+                <a href="mailto:chris@resultantai.com">chris@resultantai.com</a>
+                <span style="color: #a0a0a0;">|</span>
+                <a href="tel:2403894152">(240) 389-4152</a>
+            </div>
+            <a href="https://meetings.hubspot.com/chris4642" class="cta-btn" target="_blank">
+                📅 Schedule 15-Min Call
+            </a>
+        </div>
+    </div>
+
+    <script>
+        // Tool cost estimates (monthly)
+        const toolCosts = {
+            'HubSpot': 50, 'Salesforce': 75, 'Pipedrive': 15,
+            'Asana': 13, 'Monday.com': 10, 'ClickUp': 9, 'Trello': 10,
+            'Slack': 8, 'Teams': 12, 'Zoom': 15,
+            'Toggl': 10, 'Harvest': 12, 'Clockify': 10,
+            'QuickBooks': 30, 'Xero': 33, 'FreshBooks': 17,
+            'Notion': 10, 'Confluence': 5, 'Google Drive': 12,
+            'Zapier': 20, 'Make.com': 16
+        };
+
+        // Consolidated recommendations
+        const consolidatedTools = {
+            'CRM': { name: 'HubSpot', purpose: 'CRM + Sales + Marketing Automation' },
+            'PM': { name: 'ClickUp', purpose: 'Project Management + Time Tracking' },
+            'Orchestration': { name: 'Make.com', purpose: 'Workflow Automation + Integration Layer' },
+            'Billing': { name: 'QuickBooks', purpose: 'Accounting + Billing + Financial Reporting' },
+            'Knowledge': { name: 'Notion', purpose: 'Knowledge Base + Documentation + Wiki' }
+        };
+
+        function toggleTutorial() {
+            const tutorial = document.getElementById('tutorial');
+            tutorial.classList.toggle('active');
+        }
+
+        function analyzeStack() {
+            const checkboxes = document.querySelectorAll('.tool-checkbox:checked');
+
+            if (checkboxes.length < 3) {
+                alert('Please select at least 3 tools to see meaningful analysis.');
+                return;
+            }
+
+            const selectedTools = Array.from(checkboxes).map(cb => {
+                const [name, category] = cb.value.split('|');
+                return { name, category };
+            });
+
+            // Calculate metrics
+            const toolCount = selectedTools.length;
+            const categories = [...new Set(selectedTools.map(t => t.category))];
+            const redundancyScore = Math.min(100, Math.round((toolCount - categories.length) / toolCount * 100));
+            const monthlyCost = selectedTools.reduce((sum, tool) => sum + (toolCosts[tool.name] || 15), 0);
+            const timeWaste = Math.round(toolCount * 1.5); // Rough estimate: 1.5 hrs/week per tool
+
+            // Populate current state
+            document.getElementById('toolCount').textContent = toolCount;
+            document.getElementById('redundancyScore').textContent = redundancyScore + '%';
+            document.getElementById('monthlyCost').textContent = '$' + monthlyCost;
+            document.getElementById('timeWaste').textContent = timeWaste;
+
+            // Create spaghetti visualization
+            createSpaghettiMap(selectedTools);
+
+            // Calculate consolidated state
+            const newToolCount = 5; // Always recommend 5-tool stack
+            const newMonthlyCost = 127; // Fixed consolidated cost
+            const costSavings = monthlyCost - newMonthlyCost;
+            const timeSavings = Math.round(timeWaste * 0.6); // 60% time savings
+            const roiWeeks = Math.round((4500 / (costSavings * 0.25 + timeSavings * 125))); // ROI calculation
+
+            document.getElementById('newToolCount').textContent = newToolCount;
+            document.getElementById('costSavings').textContent = '$' + costSavings;
+            document.getElementById('timeSavings').textContent = timeSavings;
+            document.getElementById('roiWeeks').textContent = roiWeeks;
+
+            // Show optimized stack
+            showOptimizedStack();
+
+            // Show results
+            document.getElementById('results').classList.add('active');
+            document.getElementById('results').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        function createSpaghettiMap(tools) {
+            const canvas = document.getElementById('spaghettiCanvas');
+            canvas.innerHTML = '';
+
+            const width = canvas.offsetWidth;
+            const height = 300;
+            const centerX = width / 2;
+            const centerY = height / 2;
+            const radius = Math.min(width, height) * 0.35;
+
+            // Position tools in circle
+            tools.forEach((tool, index) => {
+                const angle = (index / tools.length) * 2 * Math.PI;
+                const x = centerX + radius * Math.cos(angle) - 40;
+                const y = centerY + radius * Math.sin(angle) - 15;
+
+                const node = document.createElement('div');
+                node.className = 'tool-node';
+                node.textContent = tool.name;
+                node.style.left = x + 'px';
+                node.style.top = y + 'px';
+                canvas.appendChild(node);
+
+                // Create connections (visual spaghetti)
+                if (index > 0 && Math.random() > 0.5) {
+                    const prevAngle = ((index - 1) / tools.length) * 2 * Math.PI;
+                    const prevX = centerX + radius * Math.cos(prevAngle) - 40;
+                    const prevY = centerY + radius * Math.sin(prevAngle) - 15;
+
+                    const line = document.createElement('div');
+                    line.className = 'connection-line';
+                    const deltaX = x - prevX;
+                    const deltaY = y - prevY;
+                    const length = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+                    const angle = Math.atan2(deltaY, deltaX) * 180 / Math.PI;
+
+                    line.style.left = prevX + 40 + 'px';
+                    line.style.top = prevY + 15 + 'px';
+                    line.style.width = length + 'px';
+                    line.style.transform = `rotate(${angle}deg)`;
+                    canvas.appendChild(line);
+                }
+            });
+        }
+
+        function showOptimizedStack() {
+            const container = document.getElementById('optimizedStack');
+            container.innerHTML = '';
+
+            Object.values(consolidatedTools).forEach(tool => {
+                const toolCard = document.createElement('div');
+                toolCard.className = 'optimized-tool';
+                toolCard.innerHTML = `
+                    <div class="optimized-tool-name">${tool.name}</div>
+                    <div class="optimized-tool-purpose">${tool.purpose}</div>
+                `;
+                container.appendChild(toolCard);
+            });
+        }
+
+        // Enable tutorial by default on page load
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.getElementById('tutorial').classList.add('active');
+            }, 500);
+        });
+    </script>
+</body>
+</html>

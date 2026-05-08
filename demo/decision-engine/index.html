@@ -1,0 +1,1184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lead Decision Engine | ResultantAI</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+      color: #e2e8f0;
+      min-height: 100vh;
+      padding: 24px;
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    /* === HEADER === */
+    .header {
+      text-align: center;
+      margin-bottom: 32px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(59, 130, 246, 0.1);
+      border: 1px solid rgba(59, 130, 246, 0.3);
+      border-radius: 100px;
+      padding: 8px 20px;
+      margin-bottom: 20px;
+      font-size: 14px;
+      color: #60a5fa;
+      font-weight: 500;
+    }
+
+    .header h1 {
+      font-size: clamp(28px, 5vw, 36px);
+      font-weight: 700;
+      margin-bottom: 12px;
+      background: linear-gradient(135deg, #fff 0%, #94a3b8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      letter-spacing: -0.02em;
+    }
+
+    .header p {
+      font-size: 16px;
+      color: #94a3b8;
+      max-width: 650px;
+      margin: 0 auto;
+    }
+
+    /* === TUTORIAL BANNER === */
+    .tutorial-banner {
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.15) 0%, rgba(59, 130, 246, 0.15) 100%);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      border-radius: 16px;
+      padding: 20px 24px;
+      margin-bottom: 24px;
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+    }
+
+    .tutorial-banner.hidden {
+      display: none;
+    }
+
+    .tutorial-icon {
+      font-size: 28px;
+      flex-shrink: 0;
+    }
+
+    .tutorial-content {
+      flex: 1;
+    }
+
+    .tutorial-content h3 {
+      font-size: 16px;
+      font-weight: 600;
+      color: #10b981;
+      margin-bottom: 8px;
+    }
+
+    .tutorial-content > p {
+      font-size: 14px;
+      color: #94a3b8;
+      margin-bottom: 12px;
+    }
+
+    .tutorial-steps {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    @media (min-width: 768px) {
+      .tutorial-steps {
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 20px;
+      }
+    }
+
+    .tutorial-step {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      color: #e2e8f0;
+    }
+
+    .step-number {
+      width: 24px;
+      height: 24px;
+      background: rgba(16, 185, 129, 0.3);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 600;
+      color: #10b981;
+      flex-shrink: 0;
+    }
+
+    .dismiss-btn {
+      background: rgba(16, 185, 129, 0.2);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      border-radius: 8px;
+      padding: 10px 20px;
+      color: #10b981;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      margin-top: 16px;
+      transition: all 0.2s;
+    }
+
+    .dismiss-btn:hover {
+      background: rgba(16, 185, 129, 0.3);
+      transform: translateY(-1px);
+    }
+
+    /* === MAIN GRID === */
+    .main-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 24px;
+    }
+
+    @media (min-width: 900px) {
+      .main-grid {
+        grid-template-columns: 380px 1fr;
+      }
+    }
+
+    /* === CARDS === */
+    .card {
+      background: rgba(30, 41, 59, 0.6);
+      border: 1px solid rgba(148, 163, 184, 0.1);
+      border-radius: 20px;
+      padding: 24px;
+      backdrop-filter: blur(10px);
+    }
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .card-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+    }
+
+    .card-icon.blue {
+      background: linear-gradient(135deg, rgba(59, 130, 246, 0.2) 0%, rgba(37, 99, 235, 0.2) 100%);
+    }
+
+    .card-icon.green {
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.2) 0%, rgba(5, 150, 105, 0.2) 100%);
+    }
+
+    .card-icon.purple {
+      background: linear-gradient(135deg, rgba(139, 92, 246, 0.2) 0%, rgba(124, 58, 237, 0.2) 100%);
+    }
+
+    .card-icon.amber {
+      background: linear-gradient(135deg, rgba(245, 158, 11, 0.2) 0%, rgba(217, 119, 6, 0.2) 100%);
+    }
+
+    .card-title {
+      font-size: 18px;
+      font-weight: 600;
+      color: #f1f5f9;
+    }
+
+    /* === FORM ELEMENTS === */
+    .form-group {
+      margin-bottom: 16px;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 12px;
+      font-weight: 600;
+      color: #64748b;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 8px;
+    }
+
+    .form-input, .form-select {
+      width: 100%;
+      padding: 12px 14px;
+      background: rgba(15, 23, 42, 0.6);
+      border: 1px solid rgba(148, 163, 184, 0.2);
+      border-radius: 10px;
+      color: #e2e8f0;
+      font-size: 14px;
+      font-family: inherit;
+      transition: all 0.2s;
+    }
+
+    .form-input:focus, .form-select:focus {
+      outline: none;
+      border-color: #3b82f6;
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+    }
+
+    .form-select {
+      cursor: pointer;
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%2394a3b8' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 14px center;
+      padding-right: 36px;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    /* === SLIDER === */
+    .slider-group {
+      margin-bottom: 20px;
+    }
+
+    .slider-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .slider-label {
+      font-size: 12px;
+      font-weight: 600;
+      color: #64748b;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .slider-value {
+      font-size: 14px;
+      font-weight: 600;
+      color: #60a5fa;
+      background: rgba(59, 130, 246, 0.15);
+      padding: 4px 10px;
+      border-radius: 6px;
+    }
+
+    .slider {
+      width: 100%;
+      height: 6px;
+      border-radius: 3px;
+      background: rgba(148, 163, 184, 0.2);
+      appearance: none;
+      cursor: pointer;
+    }
+
+    .slider::-webkit-slider-thumb {
+      appearance: none;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(59, 130, 246, 0.4);
+    }
+
+    /* === BUTTON === */
+    .btn {
+      width: 100%;
+      padding: 14px 20px;
+      border: none;
+      border-radius: 12px;
+      font-size: 15px;
+      font-weight: 600;
+      font-family: inherit;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      transition: all 0.2s;
+    }
+
+    .btn.blue {
+      background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+      color: white;
+      box-shadow: 0 4px 14px rgba(59, 130, 246, 0.4);
+    }
+
+    .btn.blue:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(59, 130, 246, 0.5);
+    }
+
+    .btn:disabled {
+      opacity: 0.7;
+      cursor: not-allowed;
+    }
+
+    .spinner {
+      width: 18px;
+      height: 18px;
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      border-top-color: white;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    /* === DECISION RESULT === */
+    .result-panel {
+      min-height: 400px;
+    }
+
+    .empty-state {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 60px 20px;
+      text-align: center;
+      background: rgba(15, 23, 42, 0.4);
+      border-radius: 16px;
+      border: 2px dashed rgba(148, 163, 184, 0.2);
+    }
+
+    .empty-state-icon {
+      font-size: 48px;
+      margin-bottom: 16px;
+      opacity: 0.5;
+    }
+
+    .empty-state p {
+      color: #64748b;
+      font-size: 15px;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    /* === PROCESSING STEPS === */
+    .processing-container {
+      background: rgba(15, 23, 42, 0.4);
+      border-radius: 16px;
+      padding: 24px;
+    }
+
+    .processing-step {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 14px 0;
+      border-bottom: 1px solid rgba(148, 163, 184, 0.1);
+      opacity: 0.4;
+      transition: opacity 0.3s;
+    }
+
+    .processing-step:last-child {
+      border-bottom: none;
+    }
+
+    .processing-step.active {
+      opacity: 1;
+    }
+
+    .processing-step.complete {
+      opacity: 1;
+    }
+
+    .step-indicator {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      font-weight: 600;
+      background: rgba(148, 163, 184, 0.2);
+      color: #64748b;
+      flex-shrink: 0;
+      transition: all 0.3s;
+    }
+
+    .processing-step.active .step-indicator {
+      background: rgba(59, 130, 246, 0.3);
+      color: #60a5fa;
+    }
+
+    .processing-step.complete .step-indicator {
+      background: rgba(16, 185, 129, 0.3);
+      color: #10b981;
+    }
+
+    .step-info h4 {
+      font-size: 14px;
+      font-weight: 600;
+      color: #e2e8f0;
+      margin-bottom: 2px;
+    }
+
+    .step-info p {
+      font-size: 12px;
+      color: #64748b;
+    }
+
+    /* === RESULTS === */
+    .results-container {
+      animation: fadeIn 0.5s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .score-hero {
+      text-align: center;
+      padding: 32px 20px;
+      background: rgba(15, 23, 42, 0.4);
+      border-radius: 16px;
+      margin-bottom: 20px;
+    }
+
+    .score-label {
+      font-size: 13px;
+      font-weight: 600;
+      color: #64748b;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 8px;
+    }
+
+    .score-value {
+      font-size: 72px;
+      font-weight: 700;
+      line-height: 1;
+      margin-bottom: 12px;
+    }
+
+    .score-value.high {
+      background: linear-gradient(135deg, #10b981 0%, #34d399 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .score-value.medium {
+      background: linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .score-value.low {
+      background: linear-gradient(135deg, #ef4444 0%, #f87171 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .decision-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 20px;
+      border-radius: 100px;
+      font-size: 15px;
+      font-weight: 600;
+    }
+
+    .decision-badge.qualify {
+      background: rgba(16, 185, 129, 0.2);
+      color: #10b981;
+      border: 1px solid rgba(16, 185, 129, 0.3);
+    }
+
+    .decision-badge.verify {
+      background: rgba(245, 158, 11, 0.2);
+      color: #f59e0b;
+      border: 1px solid rgba(245, 158, 11, 0.3);
+    }
+
+    .decision-badge.skip {
+      background: rgba(239, 68, 68, 0.2);
+      color: #ef4444;
+      border: 1px solid rgba(239, 68, 68, 0.3);
+    }
+
+    /* === BREAKDOWN === */
+    .breakdown-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    @media (min-width: 600px) {
+      .breakdown-grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+
+    .breakdown-item {
+      background: rgba(15, 23, 42, 0.4);
+      border-radius: 12px;
+      padding: 16px;
+      text-align: center;
+    }
+
+    .breakdown-score {
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .breakdown-score.good { color: #10b981; }
+    .breakdown-score.ok { color: #f59e0b; }
+    .breakdown-score.bad { color: #ef4444; }
+
+    .breakdown-label {
+      font-size: 11px;
+      color: #64748b;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .breakdown-weight {
+      font-size: 10px;
+      color: #475569;
+      margin-top: 4px;
+    }
+
+    /* === ACTION CARD === */
+    .action-card {
+      background: rgba(15, 23, 42, 0.4);
+      border-radius: 16px;
+      padding: 20px;
+      border-left: 4px solid;
+    }
+
+    .action-card.qualify {
+      border-left-color: #10b981;
+    }
+
+    .action-card.verify {
+      border-left-color: #f59e0b;
+    }
+
+    .action-card.skip {
+      border-left-color: #ef4444;
+    }
+
+    .action-title {
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .action-title.qualify { color: #10b981; }
+    .action-title.verify { color: #f59e0b; }
+    .action-title.skip { color: #ef4444; }
+
+    .action-list {
+      list-style: none;
+    }
+
+    .action-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 8px 0;
+      font-size: 13px;
+      color: #cbd5e1;
+    }
+
+    .action-list li::before {
+      content: "→";
+      color: #64748b;
+      flex-shrink: 0;
+    }
+
+    /* === THRESHOLDS PANEL === */
+    .thresholds-panel {
+      background: rgba(15, 23, 42, 0.4);
+      border-radius: 12px;
+      padding: 16px;
+      margin-top: 20px;
+    }
+
+    .thresholds-title {
+      font-size: 12px;
+      font-weight: 600;
+      color: #64748b;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 12px;
+    }
+
+    .threshold-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 8px 0;
+      border-bottom: 1px solid rgba(148, 163, 184, 0.1);
+    }
+
+    .threshold-row:last-child {
+      border-bottom: none;
+    }
+
+    .threshold-label {
+      font-size: 13px;
+      color: #94a3b8;
+    }
+
+    .threshold-value {
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .threshold-value.green { color: #10b981; }
+    .threshold-value.amber { color: #f59e0b; }
+    .threshold-value.red { color: #ef4444; }
+
+    /* === FOOTER === */
+    .footer {
+      margin-top: 40px;
+      padding-top: 24px;
+      border-top: 1px solid rgba(148, 163, 184, 0.1);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .footer-name {
+      font-size: 14px;
+      color: #64748b;
+    }
+
+    .footer-name strong {
+      color: #94a3b8;
+    }
+
+    .footer-tech {
+      font-size: 12px;
+      color: #475569;
+      background: rgba(30, 41, 59, 0.5);
+      padding: 6px 14px;
+      border-radius: 100px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    
+    <!-- Header -->
+    <header class="header">
+      <div class="badge">⚡ Interactive Demo</div>
+      <h1>Lead Decision Engine</h1>
+      <p>See how multi-step qualification logic evaluates companies and determines the optimal next action—email, verify by call, or skip.</p>
+    </header>
+
+    <!-- Tutorial Banner -->
+    <div class="tutorial-banner" id="tutorial">
+      <div class="tutorial-icon">🎯</div>
+      <div class="tutorial-content">
+        <h3>Quick Start Guide</h3>
+        <p>This simulates the decision engine that runs in the background, scoring each company and routing to the right action.</p>
+        <div class="tutorial-steps">
+          <div class="tutorial-step">
+            <span class="step-number">1</span>
+            Enter company data (or use defaults)
+          </div>
+          <div class="tutorial-step">
+            <span class="step-number">2</span>
+            Adjust qualification threshold
+          </div>
+          <div class="tutorial-step">
+            <span class="step-number">3</span>
+            Click "Run Decision Engine"
+          </div>
+          <div class="tutorial-step">
+            <span class="step-number">4</span>
+            Watch scoring + recommended action
+          </div>
+        </div>
+        <button class="dismiss-btn" onclick="dismissTutorial()">Got it, let's explore →</button>
+      </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-grid">
+      
+      <!-- Left Panel: Input -->
+      <div class="card">
+        <div class="card-header">
+          <div class="card-icon blue">🏢</div>
+          <h3 class="card-title">Company Data</h3>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Company Name</label>
+          <input type="text" class="form-input" id="company-name" value="Nexus Financial Solutions" placeholder="Enter company name">
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Sector</label>
+            <select class="form-select" id="sector">
+              <option value="financial-services" selected>Financial Services</option>
+              <option value="technology">Technology</option>
+              <option value="healthcare">Healthcare</option>
+              <option value="retail">Retail</option>
+              <option value="manufacturing">Manufacturing</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Geography</label>
+            <select class="form-select" id="geography">
+              <option value="uk" selected>United Kingdom</option>
+              <option value="us">United States</option>
+              <option value="eu">EU</option>
+              <option value="apac">APAC</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Employee Count</label>
+            <select class="form-select" id="employees">
+              <option value="1-10">1-10</option>
+              <option value="11-50" selected>11-50</option>
+              <option value="51-200">51-200</option>
+              <option value="201-500">201-500</option>
+              <option value="500+">500+</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Website Status</label>
+            <select class="form-select" id="website">
+              <option value="active" selected>Active & Current</option>
+              <option value="outdated">Outdated (6mo+)</option>
+              <option value="minimal">Minimal Info</option>
+              <option value="none">No Website</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Contact Found</label>
+            <select class="form-select" id="contact">
+              <option value="verified">Verified Email</option>
+              <option value="generic" selected>Generic (info@)</option>
+              <option value="name-only">Name Only</option>
+              <option value="none">No Contact</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Enrichment Match</label>
+            <select class="form-select" id="enrichment">
+              <option value="full">Full Match</option>
+              <option value="partial" selected>Partial (70%)</option>
+              <option value="minimal">Minimal (30%)</option>
+              <option value="none">No Match</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="slider-group">
+          <div class="slider-header">
+            <span class="slider-label">Qualification Threshold</span>
+            <span class="slider-value" id="threshold-display">70</span>
+          </div>
+          <input type="range" class="slider" id="threshold" min="40" max="90" value="70" oninput="updateThreshold()">
+          <div style="display: flex; justify-content: space-between; font-size: 11px; color: #475569; margin-top: 6px;">
+            <span>Aggressive (40)</span>
+            <span>Conservative (90)</span>
+          </div>
+        </div>
+
+        <button class="btn blue" id="run-btn" onclick="runEngine()">
+          ⚡ Run Decision Engine
+        </button>
+
+        <div class="thresholds-panel">
+          <div class="thresholds-title">Decision Routing</div>
+          <div class="threshold-row">
+            <span class="threshold-label">Score ≥ <span id="t1">70</span></span>
+            <span class="threshold-value green">→ Auto-Email via Instantly</span>
+          </div>
+          <div class="threshold-row">
+            <span class="threshold-label">Score <span id="t2">50</span>-<span id="t3">69</span></span>
+            <span class="threshold-value amber">→ Trigger Verification Call</span>
+          </div>
+          <div class="threshold-row">
+            <span class="threshold-label">Score &lt; <span id="t4">50</span></span>
+            <span class="threshold-value red">→ Skip / Flag for Review</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Panel: Results -->
+      <div class="card result-panel">
+        <div class="card-header">
+          <div class="card-icon green">📊</div>
+          <h3 class="card-title">Decision Output</h3>
+        </div>
+
+        <!-- Empty State -->
+        <div class="empty-state" id="empty-state">
+          <div class="empty-state-icon">🎯</div>
+          <p>Enter company data and click "Run Decision Engine"<br>to see qualification score and recommended action</p>
+        </div>
+
+        <!-- Processing State -->
+        <div class="processing-container hidden" id="processing">
+          <div class="processing-step" id="step-1">
+            <div class="step-indicator">1</div>
+            <div class="step-info">
+              <h4>Validating Company Data</h4>
+              <p>Checking website, sector match, geography...</p>
+            </div>
+          </div>
+          <div class="processing-step" id="step-2">
+            <div class="step-indicator">2</div>
+            <div class="step-info">
+              <h4>Running Enrichment APIs</h4>
+              <p>Cross-referencing external data sources...</p>
+            </div>
+          </div>
+          <div class="processing-step" id="step-3">
+            <div class="step-indicator">3</div>
+            <div class="step-info">
+              <h4>Scoring Contact Quality</h4>
+              <p>Evaluating contact confidence level...</p>
+            </div>
+          </div>
+          <div class="processing-step" id="step-4">
+            <div class="step-indicator">4</div>
+            <div class="step-info">
+              <h4>Applying Decision Rules</h4>
+              <p>Calculating weighted score, determining action...</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Results State -->
+        <div class="results-container hidden" id="results">
+          <div class="score-hero">
+            <div class="score-label">Qualification Score</div>
+            <div class="score-value" id="final-score">72</div>
+            <div class="decision-badge" id="decision-badge">
+              <span id="decision-icon">✅</span>
+              <span id="decision-text">Auto-Qualify for Email</span>
+            </div>
+          </div>
+
+          <div class="breakdown-grid">
+            <div class="breakdown-item">
+              <div class="breakdown-score" id="score-sector">8</div>
+              <div class="breakdown-label">Sector Fit</div>
+              <div class="breakdown-weight">Weight: 25%</div>
+            </div>
+            <div class="breakdown-item">
+              <div class="breakdown-score" id="score-company">7</div>
+              <div class="breakdown-label">Company Signal</div>
+              <div class="breakdown-weight">Weight: 20%</div>
+            </div>
+            <div class="breakdown-item">
+              <div class="breakdown-score" id="score-contact">6</div>
+              <div class="breakdown-label">Contact Quality</div>
+              <div class="breakdown-weight">Weight: 30%</div>
+            </div>
+            <div class="breakdown-item">
+              <div class="breakdown-score" id="score-enrichment">7</div>
+              <div class="breakdown-label">Data Confidence</div>
+              <div class="breakdown-weight">Weight: 25%</div>
+            </div>
+          </div>
+
+          <div class="action-card" id="action-card">
+            <div class="action-title" id="action-title">
+              <span id="action-icon">📧</span>
+              <span id="action-label">Automated Actions Triggered</span>
+            </div>
+            <ul class="action-list" id="action-list">
+              <li>Generate personalized email via RAG (pulling from your docs)</li>
+              <li>Push to Instantly queue for send from your domains</li>
+              <li>Log decision + scoring breakdown for learning loop</li>
+              <li>Schedule follow-up sequence if no response in 3 days</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="footer-name">Built by <strong>Chris Mott</strong> • ResultantAI</div>
+      <div class="footer-tech">Make.com + Apify + Retell + Instantly + Claude API</div>
+    </footer>
+
+  </div>
+
+  <script>
+    function dismissTutorial() {
+      document.getElementById('tutorial').classList.add('hidden');
+    }
+
+    function updateThreshold() {
+      var val = document.getElementById('threshold').value;
+      document.getElementById('threshold-display').textContent = val;
+      document.getElementById('t1').textContent = val;
+      document.getElementById('t2').textContent = Math.max(40, val - 20);
+      document.getElementById('t3').textContent = val - 1;
+      document.getElementById('t4').textContent = Math.max(40, val - 20);
+    }
+
+    function calculateScores() {
+      var sector = document.getElementById('sector').value;
+      var geography = document.getElementById('geography').value;
+      var employees = document.getElementById('employees').value;
+      var website = document.getElementById('website').value;
+      var contact = document.getElementById('contact').value;
+      var enrichment = document.getElementById('enrichment').value;
+
+      // Sector scoring (max 10)
+      var sectorScores = {
+        'financial-services': 9,
+        'technology': 8,
+        'healthcare': 7,
+        'retail': 5,
+        'manufacturing': 6,
+        'other': 4
+      };
+      var sectorScore = sectorScores[sector] || 5;
+
+      // Company signal scoring (max 10) - based on size + website
+      var employeeScores = {
+        '1-10': 4,
+        '11-50': 7,
+        '51-200': 9,
+        '201-500': 8,
+        '500+': 6
+      };
+      var websiteScores = {
+        'active': 10,
+        'outdated': 6,
+        'minimal': 4,
+        'none': 2
+      };
+      var companyScore = Math.round((employeeScores[employees] + websiteScores[website]) / 2);
+
+      // Contact quality scoring (max 10)
+      var contactScores = {
+        'verified': 10,
+        'generic': 6,
+        'name-only': 4,
+        'none': 1
+      };
+      var contactScore = contactScores[contact] || 5;
+
+      // Enrichment/data confidence scoring (max 10)
+      var enrichmentScores = {
+        'full': 10,
+        'partial': 7,
+        'minimal': 4,
+        'none': 2
+      };
+      var enrichmentScore = enrichmentScores[enrichment] || 5;
+
+      // Weighted total (out of 100)
+      var weighted = (
+        (sectorScore * 0.25) +
+        (companyScore * 0.20) +
+        (contactScore * 0.30) +
+        (enrichmentScore * 0.25)
+      ) * 10;
+
+      return {
+        sector: sectorScore,
+        company: companyScore,
+        contact: contactScore,
+        enrichment: enrichmentScore,
+        total: Math.round(weighted)
+      };
+    }
+
+    function getScoreClass(score) {
+      if (score >= 7) return 'good';
+      if (score >= 5) return 'ok';
+      return 'bad';
+    }
+
+    function runEngine() {
+      var btn = document.getElementById('run-btn');
+      btn.disabled = true;
+      btn.innerHTML = '<div class="spinner"></div> Processing...';
+
+      // Hide other states, show processing
+      document.getElementById('empty-state').classList.add('hidden');
+      document.getElementById('results').classList.add('hidden');
+      document.getElementById('processing').classList.remove('hidden');
+
+      // Reset steps
+      for (var i = 1; i <= 4; i++) {
+        var step = document.getElementById('step-' + i);
+        step.classList.remove('active', 'complete');
+        step.querySelector('.step-indicator').textContent = i;
+      }
+
+      // Animate steps
+      var steps = [1, 2, 3, 4];
+      steps.forEach(function(stepNum, index) {
+        setTimeout(function() {
+          var step = document.getElementById('step-' + stepNum);
+          step.classList.add('active');
+          
+          setTimeout(function() {
+            step.classList.remove('active');
+            step.classList.add('complete');
+            step.querySelector('.step-indicator').textContent = '✓';
+          }, 600);
+        }, index * 800);
+      });
+
+      // Show results after processing
+      setTimeout(function() {
+        var scores = calculateScores();
+        var threshold = parseInt(document.getElementById('threshold').value);
+        var verifyThreshold = Math.max(40, threshold - 20);
+
+        // Update score displays
+        document.getElementById('score-sector').textContent = scores.sector;
+        document.getElementById('score-sector').className = 'breakdown-score ' + getScoreClass(scores.sector);
+        
+        document.getElementById('score-company').textContent = scores.company;
+        document.getElementById('score-company').className = 'breakdown-score ' + getScoreClass(scores.company);
+        
+        document.getElementById('score-contact').textContent = scores.contact;
+        document.getElementById('score-contact').className = 'breakdown-score ' + getScoreClass(scores.contact);
+        
+        document.getElementById('score-enrichment').textContent = scores.enrichment;
+        document.getElementById('score-enrichment').className = 'breakdown-score ' + getScoreClass(scores.enrichment);
+
+        // Update final score
+        var finalScoreEl = document.getElementById('final-score');
+        finalScoreEl.textContent = scores.total;
+
+        // Determine decision and update UI
+        var decisionBadge = document.getElementById('decision-badge');
+        var actionCard = document.getElementById('action-card');
+        var actionTitle = document.getElementById('action-title');
+        var actionList = document.getElementById('action-list');
+
+        if (scores.total >= threshold) {
+          // Qualify
+          finalScoreEl.className = 'score-value high';
+          decisionBadge.className = 'decision-badge qualify';
+          document.getElementById('decision-icon').textContent = '✅';
+          document.getElementById('decision-text').textContent = 'Auto-Qualify for Email';
+          
+          actionCard.className = 'action-card qualify';
+          actionTitle.className = 'action-title qualify';
+          document.getElementById('action-icon').textContent = '📧';
+          document.getElementById('action-label').textContent = 'Automated Actions Triggered';
+          actionList.innerHTML = 
+            '<li>Generate personalized email via RAG (pulling from your docs)</li>' +
+            '<li>Push to Instantly queue for send from your domains</li>' +
+            '<li>Log decision + scoring breakdown for learning loop</li>' +
+            '<li>Schedule follow-up sequence if no response in 3 days</li>';
+
+        } else if (scores.total >= verifyThreshold) {
+          // Verify
+          finalScoreEl.className = 'score-value medium';
+          decisionBadge.className = 'decision-badge verify';
+          document.getElementById('decision-icon').textContent = '📞';
+          document.getElementById('decision-text').textContent = 'Trigger Verification Call';
+          
+          actionCard.className = 'action-card verify';
+          actionTitle.className = 'action-title verify';
+          document.getElementById('action-icon').textContent = '📞';
+          document.getElementById('action-label').textContent = 'Verification Call Queued';
+          actionList.innerHTML = 
+            '<li>Trigger Retell voice agent to confirm company exists</li>' +
+            '<li>Capture correct contact name and email if available</li>' +
+            '<li>Update lead record with call outcome</li>' +
+            '<li>Re-run scoring with new data, route accordingly</li>';
+
+        } else {
+          // Skip
+          finalScoreEl.className = 'score-value low';
+          decisionBadge.className = 'decision-badge skip';
+          document.getElementById('decision-icon').textContent = '⏭️';
+          document.getElementById('decision-text').textContent = 'Skip / Flag for Review';
+          
+          actionCard.className = 'action-card skip';
+          actionTitle.className = 'action-title skip';
+          document.getElementById('action-icon').textContent = '🚫';
+          document.getElementById('action-label').textContent = 'Lead Deprioritized';
+          actionList.innerHTML = 
+            '<li>Log reason for skip (low data confidence)</li>' +
+            '<li>Add to weekly review queue for manual check</li>' +
+            '<li>Do not spend enrichment credits or call minutes</li>' +
+            '<li>Flag if similar companies score higher (learning signal)</li>';
+        }
+
+        // Show results
+        document.getElementById('processing').classList.add('hidden');
+        document.getElementById('results').classList.remove('hidden');
+        
+        btn.disabled = false;
+        btn.innerHTML = '⚡ Run Decision Engine';
+      }, 3700);
+    }
+
+    // Initialize threshold display
+    updateThreshold();
+  </script>
+</body>
+</html>

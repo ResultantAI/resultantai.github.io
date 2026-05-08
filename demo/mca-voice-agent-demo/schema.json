@@ -1,0 +1,466 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Voice Agent Schema",
+  "description": "Base schema for AI voice agent configuration and validation",
+  "type": "object",
+  "required": [
+    "agent_name",
+    "version",
+    "agent_config",
+    "conversation_flow",
+    "qualification_rules",
+    "integration"
+  ],
+  "properties": {
+    "agent_name": {
+      "type": "string",
+      "description": "Unique identifier for the voice agent",
+      "pattern": "^[a-z0-9_]+$",
+      "minLength": 3,
+      "maxLength": 50
+    },
+    "version": {
+      "type": "string",
+      "description": "Schema version (semantic versioning)",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$"
+    },
+    "description": {
+      "type": "string",
+      "description": "Human-readable description of agent purpose",
+      "maxLength": 500
+    },
+    "agent_config": {
+      "type": "object",
+      "description": "Voice agent personality and behavior settings",
+      "required": ["voice", "language", "personality"],
+      "properties": {
+        "voice": {
+          "type": "object",
+          "required": ["provider", "voice_id"],
+          "properties": {
+            "provider": {
+              "type": "string",
+              "enum": ["elevenlabs", "azure", "google", "aws_polly"]
+            },
+            "voice_id": {
+              "type": "string",
+              "description": "Voice identifier from provider"
+            },
+            "speed": {
+              "type": "number",
+              "minimum": 0.5,
+              "maximum": 2.0,
+              "default": 1.0
+            },
+            "pitch": {
+              "type": "number",
+              "minimum": -20,
+              "maximum": 20,
+              "default": 0
+            }
+          }
+        },
+        "language": {
+          "type": "string",
+          "description": "Primary language code (ISO 639-1)",
+          "pattern": "^[a-z]{2}(-[A-Z]{2})?$",
+          "default": "en-US"
+        },
+        "personality": {
+          "type": "object",
+          "description": "Agent personality traits",
+          "properties": {
+            "tone": {
+              "type": "string",
+              "enum": ["professional", "friendly", "empathetic", "assertive", "consultative"],
+              "default": "professional"
+            },
+            "formality": {
+              "type": "string",
+              "enum": ["casual", "business_casual", "formal"],
+              "default": "business_casual"
+            },
+            "verbosity": {
+              "type": "string",
+              "enum": ["concise", "moderate", "detailed"],
+              "default": "moderate"
+            }
+          }
+        },
+        "interruption_sensitivity": {
+          "type": "string",
+          "enum": ["low", "medium", "high"],
+          "default": "medium",
+          "description": "How quickly agent responds to customer interruptions"
+        },
+        "silence_timeout": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 10,
+          "default": 3,
+          "description": "Seconds of silence before agent prompts (1-10)"
+        }
+      }
+    },
+    "conversation_flow": {
+      "type": "object",
+      "description": "Conversation structure and dialogue management",
+      "required": ["greeting", "questions", "closing"],
+      "properties": {
+        "greeting": {
+          "type": "object",
+          "required": ["script"],
+          "properties": {
+            "script": {
+              "type": "string",
+              "description": "Opening greeting script",
+              "minLength": 10,
+              "maxLength": 500
+            },
+            "variants": {
+              "type": "array",
+              "description": "Alternative greeting scripts for variety",
+              "items": {
+                "type": "string"
+              }
+            },
+            "time_based": {
+              "type": "boolean",
+              "default": false,
+              "description": "Use time-appropriate greetings (morning/afternoon/evening)"
+            }
+          }
+        },
+        "questions": {
+          "type": "array",
+          "description": "Sequential questions to ask during qualification",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": ["id", "question", "field", "type"],
+            "properties": {
+              "id": {
+                "type": "string",
+                "pattern": "^[a-z0-9_]+$",
+                "description": "Unique question identifier"
+              },
+              "question": {
+                "type": "string",
+                "description": "Question text to ask customer",
+                "minLength": 5,
+                "maxLength": 500
+              },
+              "field": {
+                "type": "string",
+                "description": "CRM field name to populate",
+                "pattern": "^[a-z0-9_]+$"
+              },
+              "type": {
+                "type": "string",
+                "enum": ["text", "number", "currency", "date", "boolean", "choice"],
+                "description": "Expected response data type"
+              },
+              "required": {
+                "type": "boolean",
+                "default": true,
+                "description": "Whether this question must be answered"
+              },
+              "validation": {
+                "type": "object",
+                "description": "Validation rules for response",
+                "properties": {
+                  "min": {
+                    "type": "number",
+                    "description": "Minimum value (for numbers/currency)"
+                  },
+                  "max": {
+                    "type": "number",
+                    "description": "Maximum value (for numbers/currency)"
+                  },
+                  "pattern": {
+                    "type": "string",
+                    "description": "Regex pattern for text validation"
+                  },
+                  "choices": {
+                    "type": "array",
+                    "description": "Valid choices for choice type",
+                    "items": {
+                      "type": "string"
+                    }
+                  }
+                }
+              },
+              "follow_up": {
+                "type": "object",
+                "description": "Conditional follow-up questions",
+                "properties": {
+                  "condition": {
+                    "type": "string",
+                    "description": "Condition expression (e.g., 'value > 10000')"
+                  },
+                  "question_id": {
+                    "type": "string",
+                    "description": "ID of question to ask if condition is true"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "objection_handling": {
+          "type": "array",
+          "description": "Common objections and responses",
+          "items": {
+            "type": "object",
+            "required": ["trigger", "response"],
+            "properties": {
+              "trigger": {
+                "type": "string",
+                "description": "Keyword or phrase that triggers this response"
+              },
+              "response": {
+                "type": "string",
+                "description": "Agent response to objection"
+              }
+            }
+          }
+        },
+        "closing": {
+          "type": "object",
+          "description": "Conversation closing scripts",
+          "required": ["qualified", "unqualified"],
+          "properties": {
+            "qualified": {
+              "type": "string",
+              "description": "Closing for qualified leads",
+              "minLength": 10,
+              "maxLength": 500
+            },
+            "unqualified": {
+              "type": "string",
+              "description": "Closing for unqualified leads",
+              "minLength": 10,
+              "maxLength": 500
+            },
+            "undecided": {
+              "type": "string",
+              "description": "Closing for leads needing more info"
+            }
+          }
+        }
+      }
+    },
+    "qualification_rules": {
+      "type": "object",
+      "description": "Business rules for lead qualification",
+      "required": ["criteria"],
+      "properties": {
+        "criteria": {
+          "type": "array",
+          "description": "Qualification criteria that must be met",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": ["field", "operator", "value"],
+            "properties": {
+              "field": {
+                "type": "string",
+                "description": "Field name to evaluate"
+              },
+              "operator": {
+                "type": "string",
+                "enum": ["equals", "not_equals", "greater_than", "less_than", "greater_than_or_equal", "less_than_or_equal", "contains", "in_list"],
+                "description": "Comparison operator"
+              },
+              "value": {
+                "description": "Value to compare against (type varies)"
+              },
+              "required": {
+                "type": "boolean",
+                "default": true,
+                "description": "Whether this criterion must be met"
+              },
+              "weight": {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 100,
+                "description": "Importance weight for scoring (0-100)"
+              }
+            }
+          }
+        },
+        "qualification_threshold": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100,
+          "default": 70,
+          "description": "Minimum score percentage to qualify (0-100)"
+        },
+        "auto_disqualify": {
+          "type": "array",
+          "description": "Conditions that immediately disqualify",
+          "items": {
+            "type": "object",
+            "required": ["field", "operator", "value"],
+            "properties": {
+              "field": {
+                "type": "string"
+              },
+              "operator": {
+                "type": "string",
+                "enum": ["equals", "less_than", "greater_than", "contains"]
+              },
+              "value": {}
+            }
+          }
+        }
+      }
+    },
+    "integration": {
+      "type": "object",
+      "description": "CRM and system integration settings",
+      "required": ["crm"],
+      "properties": {
+        "crm": {
+          "type": "object",
+          "required": ["provider", "actions"],
+          "properties": {
+            "provider": {
+              "type": "string",
+              "enum": ["salesforce", "hubspot", "pipedrive", "zoho", "custom"],
+              "description": "CRM platform"
+            },
+            "actions": {
+              "type": "object",
+              "description": "Actions to perform based on qualification",
+              "properties": {
+                "qualified": {
+                  "type": "object",
+                  "properties": {
+                    "create_lead": {
+                      "type": "boolean",
+                      "default": true
+                    },
+                    "assign_to": {
+                      "type": "string",
+                      "description": "User/team to assign qualified leads"
+                    },
+                    "tags": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      },
+                      "description": "Tags to apply"
+                    },
+                    "send_notification": {
+                      "type": "boolean",
+                      "default": true,
+                      "description": "Send notification to sales team"
+                    }
+                  }
+                },
+                "unqualified": {
+                  "type": "object",
+                  "properties": {
+                    "create_lead": {
+                      "type": "boolean",
+                      "default": false
+                    },
+                    "add_to_nurture": {
+                      "type": "boolean",
+                      "default": true,
+                      "description": "Add to nurture campaign"
+                    },
+                    "nurture_campaign_id": {
+                      "type": "string",
+                      "description": "ID of nurture campaign"
+                    }
+                  }
+                }
+              }
+            },
+            "field_mapping": {
+              "type": "object",
+              "description": "Map agent fields to CRM fields",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "notifications": {
+          "type": "object",
+          "description": "Notification settings",
+          "properties": {
+            "email": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "format": "email"
+              },
+              "description": "Email addresses for notifications"
+            },
+            "sms": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "pattern": "^\\+?[1-9]\\d{1,14}$"
+              },
+              "description": "Phone numbers for SMS notifications"
+            },
+            "webhook": {
+              "type": "string",
+              "format": "uri",
+              "description": "Webhook URL for real-time notifications"
+            }
+          }
+        }
+      }
+    },
+    "analytics": {
+      "type": "object",
+      "description": "Analytics and reporting configuration",
+      "properties": {
+        "track_metrics": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": ["call_duration", "qualification_rate", "drop_off_point", "objection_frequency", "conversion_time"]
+          },
+          "description": "Metrics to track"
+        },
+        "reporting_interval": {
+          "type": "string",
+          "enum": ["daily", "weekly", "monthly"],
+          "default": "weekly"
+        }
+      }
+    },
+    "compliance": {
+      "type": "object",
+      "description": "Compliance and legal settings",
+      "properties": {
+        "record_calls": {
+          "type": "boolean",
+          "default": true,
+          "description": "Record all calls for compliance"
+        },
+        "recording_disclosure": {
+          "type": "string",
+          "description": "Disclosure script for call recording"
+        },
+        "gdpr_compliant": {
+          "type": "boolean",
+          "default": true
+        },
+        "data_retention_days": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 3650,
+          "default": 365,
+          "description": "Days to retain call data (1-3650)"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voice Bot Performance Dashboard</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #0f172a;
+            --bg-card: #1e293b;
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --accent: #3b82f6;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --border: #334155;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-primary);
+            margin: 0;
+            padding: 20px;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            box-sizing: border-box;
+            overflow: hidden; /* Prevent scrolling during tour */
+        }
+
+        /* --- Header & Controls --- */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--border);
+            position: relative; 
+        }
+
+        .brand {
+            font-size: 1.5rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .brand i { color: var(--accent); }
+
+        .header-right { display: flex; gap: 15px; align-items: center; }
+
+        .controls {
+            display: flex;
+            gap: 10px;
+            background: var(--bg-card);
+            padding: 5px;
+            border-radius: 8px;
+        }
+
+        .toggle-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-secondary);
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+
+        .toggle-btn.active {
+            background: var(--accent);
+            color: white;
+            box-shadow: 0 4px 6px -1px rgba(59, 130, 246, 0.5);
+        }
+
+        .help-btn {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text-secondary);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+        .help-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+        /* --- Main Grid --- */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 3fr 1fr;
+            grid-template-rows: auto 1fr;
+            gap: 20px;
+            flex: 1;
+            overflow-y: auto; /* Allow grid to scroll if needed */
+            padding-bottom: 20px;
+        }
+
+        /* --- Cards --- */
+        .card {
+            background: var(--bg-card);
+            border-radius: 12px;
+            padding: 20px;
+            border: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            position: relative; 
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        /* --- KPI Row --- */
+        .kpi-row {
+            grid-column: 1 / -1;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        .kpi-value { font-size: 1.8rem; font-weight: 700; margin: 5px 0; }
+        .kpi-trend { font-size: 0.85rem; display: flex; align-items: center; gap: 5px; }
+        .trend-up { color: var(--success); }
+        .trend-down { color: var(--danger); }
+
+        /* --- Flow Visualizer --- */
+        .flow-container {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: relative;
+            padding: 40px 20px;
+        }
+
+        .flow-step {
+            background: var(--bg-dark);
+            border: 2px solid var(--border);
+            padding: 15px;
+            border-radius: 8px;
+            width: 140px;
+            text-align: center;
+            cursor: pointer;
+            position: relative;
+            transition: all 0.3s;
+            z-index: 2;
+        }
+
+        .flow-step:hover, .flow-step.active {
+            border-color: var(--accent);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+        }
+
+        .flow-step.warning {
+            border-color: var(--warning);
+            animation: pulse 2s infinite;
+        }
+
+        .flow-step i {
+            font-size: 1.5rem;
+            margin-bottom: 8px;
+            display: block;
+            color: var(--text-secondary);
+        }
+
+        .flow-line {
+            position: absolute;
+            top: 50%;
+            left: 50px;
+            right: 50px;
+            height: 2px;
+            background: var(--border);
+            z-index: 1;
+        }
+
+        /* --- Interaction Panel (Transcript) --- */
+        .interaction-panel {
+            background: #162032;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 15px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            border-left: 4px solid var(--accent);
+            display: none;
+        }
+        
+        .interaction-panel.visible { display: block; animation: fadeIn 0.3s; }
+        .role-bot { color: var(--accent); font-weight: bold; }
+        .role-user { color: var(--success); font-weight: bold; }
+        .meta-data { color: var(--text-secondary); margin-top: 10px; font-size: 0.8rem; border-top: 1px solid var(--border); padding-top: 5px;}
+
+        /* --- Alerts --- */
+        .alert-item {
+            display: flex;
+            gap: 12px;
+            padding: 12px;
+            border-radius: 6px;
+            background: rgba(239, 68, 68, 0.1);
+            border-left: 3px solid var(--danger);
+            margin-bottom: 10px;
+            cursor: help;
+        }
+        
+        .alert-item.warning {
+             background: rgba(245, 158, 11, 0.1);
+             border-left-color: var(--warning);
+        }
+
+        .alert-content h4 { margin: 0 0 4px 0; font-size: 0.9rem; }
+        .alert-content p { margin: 0; font-size: 0.8rem; color: var(--text-secondary); }
+
+        /* --- Tour System (Fixed Z-Indexes) --- */
+        .tour-backdrop {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.7);
+            z-index: 5000; /* High but below highlight */
+            display: none;
+            opacity: 0;
+            transition: opacity 0.3s;
+            pointer-events: auto;
+        }
+
+        .tour-backdrop.active { display: block; opacity: 1; }
+
+        .tour-highlight {
+            position: relative;
+            z-index: 5001 !important; /* Above backdrop */
+            box-shadow: 0 0 0 4px var(--accent) !important;
+            background: var(--bg-card); 
+            transition: box-shadow 0.3s;
+        }
+
+        /* Tooltip sits on top of everything */
+        .tour-tooltip {
+            position: fixed;
+            background: white;
+            color: #0f172a;
+            padding: 20px;
+            border-radius: 8px;
+            width: 300px;
+            z-index: 6000; /* Highest Priority */
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+            display: none;
+            animation: slideUp 0.3s forwards;
+        }
+
+        .tour-step-badge {
+            background: var(--accent);
+            color: white;
+            font-size: 0.7rem;
+            padding: 2px 8px;
+            border-radius: 10px;
+            text-transform: uppercase;
+            font-weight: bold;
+            margin-bottom: 8px;
+            display: inline-block;
+        }
+
+        .tour-title { font-weight: 800; font-size: 1.1rem; margin-bottom: 8px; }
+        .tour-desc { font-size: 0.9rem; line-height: 1.5; color: #475569; margin-bottom: 15px; }
+
+        .tour-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .tour-btn {
+            background: var(--bg-dark);
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.85rem;
+        }
+        .tour-btn.secondary { background: #e2e8f0; color: #475569; }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.4); }
+            70% { box-shadow: 0 0 0 10px rgba(245, 158, 11, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(245, 158, 11, 0); }
+        }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes slideUp { from { opacity: 0; transform: translate(-50%, 20px); } to { opacity: 1; transform: translate(-50%, 0); } }
+
+    </style>
+</head>
+<body>
+
+    <div id="tour-backdrop" class="tour-backdrop"></div>
+    
+    <div id="tour-tooltip" class="tour-tooltip">
+        <span class="tour-step-badge">Tour</span>
+        <div class="tour-title" id="tour-title">Welcome</div>
+        <div class="tour-desc" id="tour-desc">...</div>
+        <div class="tour-controls">
+            <button class="tour-btn secondary" onclick="endTour()">Skip</button>
+            <button class="tour-btn" onclick="nextStep()" id="tour-next-btn">Next</button>
+        </div>
+    </div>
+
+    <header id="header-area">
+        <div class="brand"><i class="fas fa-wave-square"></i> ResultantAI <span style="font-weight:400; color:var(--text-secondary); font-size: 1rem;">| Production Monitor</span></div>
+        <div class="header-right">
+            <div class="controls" id="bot-toggle-area">
+                <button class="toggle-btn active" onclick="switchBot('medicare')">Medicare Qualify</button>
+                <button class="toggle-btn" onclick="switchBot('debt')">Debt Retention</button>
+            </div>
+            <button class="help-btn" onclick="startTour()" title="Replay Tour"><i class="fas fa-question"></i></button>
+        </div>
+    </header>
+
+    <div class="dashboard-grid">
+        <div class="kpi-row">
+            <div class="card">
+                <div class="card-header">Active Calls</div>
+                <div class="kpi-value" id="kpi-active">42</div>
+                <div class="kpi-trend"><span class="trend-up"><i class="fas fa-arrow-up"></i> 12%</span> vs last hr</div>
+            </div>
+            <div class="card">
+                <div class="card-header">Avg Latency</div>
+                <div class="kpi-value" id="kpi-latency">680ms</div>
+                <div class="kpi-trend"><span class="trend-down"><i class="fas fa-check"></i> Stable</span> Target <800ms</div>
+            </div>
+            <div class="card">
+                <div class="card-header" id="label-conversion">Qualification Rate</div>
+                <div class="kpi-value" id="kpi-conversion">24.5%</div>
+                <div class="kpi-trend"><span class="trend-up"><i class="fas fa-arrow-up"></i> 2.1%</span> vs avg</div>
+            </div>
+            <div class="card">
+                <div class="card-header">Compliance Score</div>
+                <div class="kpi-value" id="kpi-compliance" style="color: var(--success)">99.8%</div>
+                <div class="kpi-trend">0.2% Flagged</div>
+            </div>
+        </div>
+
+        <div class="card" style="grid-row: span 2;" id="flow-card-area">
+            <div class="card-header">
+                <span>Conversation Flow & Logic</span>
+                <span style="font-size: 0.8rem; background: var(--warning); color: black; padding: 2px 8px; border-radius: 4px; display:none;" id="latency-alert"><i class="fas fa-exclamation-triangle"></i> Latency Spike Detected</span>
+            </div>
+            
+            <div class="flow-container" id="flow-diagram">
+                <div class="flow-line"></div>
+                </div>
+
+            <div id="transcript-viewer" class="interaction-panel">
+                <div style="margin-bottom: 8px; font-weight: bold; color: white;">LIVE TRANSCRIPT SNIPPET</div>
+                <div id="transcript-content">
+                    </div>
+                <div class="meta-data">
+                    <span id="node-latency">Latency: 420ms</span> | <span id="node-model">Model: GPT-4o</span> | <span id="node-status">Status: Verified</span>
+                </div>
+            </div>
+
+            <div style="flex:1; margin-top: 20px; min-height: 200px;">
+                <canvas id="mainChart"></canvas>
+            </div>
+        </div>
+
+        <div class="card" style="grid-row: span 2;" id="alerts-area">
+            <div class="card-header">Real-time Alerts</div>
+            <div id="alerts-container">
+                </div>
+        </div>
+    </div>
+
+<script>
+    // --- Data Configuration ---
+    const botData = {
+        medicare: {
+            kpis: { active: 42, latency: '680ms', conversion: '24.5%', convLabel: 'Qualification Rate' },
+            flow: [
+                { id: 1, label: 'Inbound Call', icon: 'fa-phone', type: 'normal' },
+                { id: 2, label: 'Eligibility Check', icon: 'fa-id-card', type: 'normal' },
+                { id: 3, label: 'Intent Qualify', icon: 'fa-filter', type: 'warning' }, 
+                { id: 4, label: 'Agent Handoff', icon: 'fa-headset', type: 'normal' }
+            ],
+            transcripts: {
+                2: "<span class='role-bot'>AI:</span> Are you currently enrolled in Medicare Part A and B?<br><span class='role-user'>User:</span> Yes, I have my red, white, and blue card.",
+                3: "<span class='role-bot'>AI:</span> Great. Are you looking to review your dental or vision benefits specifically?<br><span class='role-user'>User:</span> [Silence... 2.1s] um... yeah dental.<br><em style='color:orange'>(System: High latency on intent detection)</em>"
+            },
+            alerts: [
+                { title: 'Latency Spike', desc: 'Node "Intent Qualify" avg response > 1.2s', type: 'warning' },
+                { title: 'TCPA Check', desc: 'Consent verified for ID #88291', type: 'normal' }
+            ],
+            chartData: [12, 19, 15, 25, 32, 42],
+            chartLabel: 'Qualified Leads (hourly)'
+        },
+        debt: {
+            kpis: { active: 18, latency: '450ms', conversion: '88.2%', convLabel: 'Retention Rate' },
+            flow: [
+                { id: 1, label: 'Payment Reminder', icon: 'fa-bell', type: 'normal' },
+                { id: 2, label: 'Negotation', icon: 'fa-hand-holding-usd', type: 'normal' },
+                { id: 3, label: 'Promise to Pay', icon: 'fa-check-circle', type: 'normal' },
+                { id: 4, label: 'CRM Update', icon: 'fa-database', type: 'normal' }
+            ],
+            transcripts: {
+                2: "<span class='role-bot'>AI:</span> We can split the balance into two payments of $150. Does that work?<br><span class='role-user'>User:</span> Can I do it next Friday?",
+                3: "<span class='role-bot'>AI:</span> Yes, I've set the first payment for next Friday. I'll send a confirmation SMS."
+            },
+            alerts: [
+                { title: 'Sentiment Analysis', desc: 'Negative sentiment spike in "Negotiation" node', type: 'warning' },
+                { title: 'Mini-Miranda', desc: 'Disclosure successfully delivered', type: 'normal' }
+            ],
+            chartData: [65, 59, 80, 81, 56, 55],
+            chartLabel: 'Retained Accounts (hourly)'
+        }
+    };
+
+    let currentBot = 'medicare';
+    let myChart = null;
+
+    // --- Tour Logic ---
+    const tourSteps = [
+        {
+            target: null, // Center
+            title: "Welcome to ResultantAI",
+            desc: "This dashboard monitors live performance for your AI Voice agents. <br><br>Let's take a 3-step tour of the capabilities."
+        },
+        {
+            target: 'bot-toggle-area',
+            title: "Multi-Vertical Support",
+            desc: "Toggle between your <b>Medicare Qualification</b> and <b>Debt Retention</b> bots here. Each view loads specific KPIs, decision trees, and compliance rules."
+        },
+        {
+            target: 'flow-card-area',
+            title: "Interactive Logic Visualizer",
+            desc: "<b>Click any node</b> in the conversation flow to inspect the live transcript and decision logic. Note the 'Intent Qualify' node is currently flashing red due to a simulated latency spike."
+        },
+        {
+            target: 'alerts-area',
+            title: "Compliance Engine",
+            desc: "Real-time guardrails monitor for TCPA consent, Mini-Miranda disclosures, and sentiment risks. Alerts appear here instantly."
+        }
+    ];
+
+    let currentStepIndex = 0;
+
+    document.addEventListener('DOMContentLoaded', () => {
+        initChart();
+        renderDashboard('medicare');
+        setTimeout(startTour, 800);
+    });
+
+    function startTour() {
+        currentStepIndex = 0;
+        document.getElementById('tour-backdrop').classList.add('active');
+        showStep(0);
+    }
+
+    function endTour() {
+        document.getElementById('tour-backdrop').classList.remove('active');
+        document.getElementById('tour-tooltip').style.display = 'none';
+        document.querySelectorAll('.tour-highlight').forEach(el => el.classList.remove('tour-highlight'));
+    }
+
+    function nextStep() {
+        currentStepIndex++;
+        if (currentStepIndex >= tourSteps.length) {
+            endTour();
+        } else {
+            showStep(currentStepIndex);
+        }
+    }
+
+    function showStep(index) {
+        // Clear previous highlights
+        document.querySelectorAll('.tour-highlight').forEach(el => el.classList.remove('tour-highlight'));
+
+        const step = tourSteps[index];
+        const tooltip = document.getElementById('tour-tooltip');
+        
+        // Update Content
+        document.getElementById('tour-title').innerHTML = step.title;
+        document.getElementById('tour-desc').innerHTML = step.desc;
+        document.getElementById('tour-next-btn').innerText = (index === tourSteps.length - 1) ? "Finish" : "Next";
+
+        // Positioning
+        if (step.target && document.getElementById(step.target)) {
+            const targetEl = document.getElementById(step.target);
+            targetEl.classList.add('tour-highlight');
+            
+            const rect = targetEl.getBoundingClientRect();
+            
+            // Calculate position (defaulting to bottom center of element)
+            let top = rect.bottom + 15;
+            let left = rect.left + (rect.width / 2);
+
+            // Edge case adjustments
+            if (left + 150 > window.innerWidth) left = window.innerWidth - 160; 
+            if (left - 150 < 0) left = 160;
+            
+            // Vertical adjustment if too low
+            if (top + 150 > window.innerHeight) {
+                top = rect.top - 200; // Flip to top if bottom is crowded
+            }
+
+            tooltip.style.top = top + 'px';
+            tooltip.style.left = left + 'px';
+            tooltip.style.transform = 'translateX(-50%)';
+        } else {
+            // Center Screen Fallback
+            tooltip.style.top = '50%';
+            tooltip.style.left = '50%';
+            tooltip.style.transform = 'translate(-50%, -50%)';
+        }
+        
+        tooltip.style.display = 'block';
+    }
+
+
+    // --- Core Functions ---
+    function switchBot(type) {
+        currentBot = type;
+        document.querySelectorAll('.toggle-btn').forEach(btn => btn.classList.remove('active'));
+        event.target.classList.add('active');
+        renderDashboard(type);
+    }
+
+    function renderDashboard(type) {
+        const data = botData[type];
+        document.getElementById('kpi-active').innerText = data.kpis.active;
+        document.getElementById('kpi-latency').innerText = data.kpis.latency;
+        document.getElementById('kpi-conversion').innerText = data.kpis.conversion;
+        document.getElementById('label-conversion').innerText = data.kpis.convLabel;
+
+        const flowContainer = document.getElementById('flow-diagram');
+        flowContainer.innerHTML = '<div class="flow-line"></div>';
+        
+        data.flow.forEach(step => {
+            const el = document.createElement('div');
+            el.className = `flow-step ${step.type}`;
+            el.innerHTML = `<i class="fas ${step.icon}"></i>${step.label}`;
+            el.onclick = () => showTranscript(step.id, type);
+            if (step.type === 'warning') {
+                document.getElementById('latency-alert').style.display = 'inline-block';
+            } else {
+                document.getElementById('latency-alert').style.display = 'none';
+            }
+            flowContainer.appendChild(el);
+        });
+
+        document.getElementById('transcript-viewer').classList.remove('visible');
+
+        const alertContainer = document.getElementById('alerts-container');
+        alertContainer.innerHTML = '';
+        data.alerts.forEach(alert => {
+            const el = document.createElement('div');
+            el.className = `alert-item ${alert.type}`;
+            el.innerHTML = `
+                <div style="font-size: 1.2rem;"><i class="fas ${alert.type === 'warning' ? 'fa-exclamation-circle' : 'fa-check-shield'}"></i></div>
+                <div class="alert-content">
+                    <h4>${alert.title}</h4>
+                    <p>${alert.desc}</p>
+                </div>
+            `;
+            alertContainer.appendChild(el);
+        });
+
+        updateChart(data.chartLabel, data.chartData);
+    }
+
+    function showTranscript(stepId, botType) {
+        const content = botData[botType].transcripts[stepId];
+        const viewer = document.getElementById('transcript-viewer');
+        const textContainer = document.getElementById('transcript-content');
+        
+        document.querySelectorAll('.flow-step').forEach(el => el.classList.remove('active'));
+        event.currentTarget.classList.add('active');
+
+        if (content) {
+            textContainer.innerHTML = content;
+            viewer.classList.add('visible');
+            document.getElementById('node-latency').innerText = `Latency: ${Math.floor(Math.random() * 400 + 200)}ms`;
+        } else {
+            textContainer.innerHTML = "<em style='color:gray'>Log analysis running... Select a decision node to view logic.</em>";
+            viewer.classList.add('visible');
+        }
+    }
+
+    function initChart() {
+        const ctx = document.getElementById('mainChart').getContext('2d');
+        myChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['10:00', '11:00', '12:00', '13:00', '14:00', '15:00'],
+                datasets: [{
+                    label: 'Metric',
+                    data: [0],
+                    borderColor: '#3b82f6',
+                    backgroundColor: 'rgba(59, 130, 246, 0.1)',
+                    tension: 0.4,
+                    fill: true
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { display: false } },
+                scales: {
+                    y: { grid: { color: '#334155' }, ticks: { color: '#94a3b8' } },
+                    x: { grid: { display: false }, ticks: { color: '#94a3b8' } }
+                }
+            }
+        });
+    }
+
+    function updateChart(label, data) {
+        myChart.data.datasets[0].label = label;
+        myChart.data.datasets[0].data = data;
+        myChart.update();
+    }
+</script>
+
+</body>
+</html>

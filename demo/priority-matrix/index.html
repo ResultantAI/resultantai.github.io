@@ -1,0 +1,926 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>B2B Acquisition Channel Prioritization | AI Consulting</title>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0a0f1c;
+            --bg-secondary: #111827;
+            --bg-card: #1a2234;
+            --bg-card-hover: #212d45;
+            --accent-cyan: #06b6d4;
+            --accent-cyan-dim: rgba(6, 182, 212, 0.15);
+            --accent-emerald: #10b981;
+            --accent-amber: #f59e0b;
+            --accent-rose: #f43f5e;
+            --text-primary: #f1f5f9;
+            --text-secondary: #94a3b8;
+            --text-muted: #64748b;
+            --border-subtle: rgba(148, 163, 184, 0.1);
+            --border-active: rgba(6, 182, 212, 0.4);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        /* Subtle grid background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                linear-gradient(rgba(6, 182, 212, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(6, 182, 212, 0.03) 1px, transparent 1px);
+            background-size: 60px 60px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 24px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Tutorial Banner */
+        .tutorial-banner {
+            background: linear-gradient(135deg, var(--accent-cyan-dim) 0%, rgba(16, 185, 129, 0.1) 100%);
+            border: 1px solid var(--border-active);
+            border-radius: 12px;
+            padding: 24px 28px;
+            margin-bottom: 32px;
+            animation: slideDown 0.5s ease-out;
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .tutorial-banner.hidden {
+            display: none;
+        }
+
+        .tutorial-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 16px;
+        }
+
+        .tutorial-title {
+            font-family: 'Space Mono', monospace;
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--accent-cyan);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+        }
+
+        .tutorial-dismiss {
+            background: transparent;
+            border: 1px solid var(--border-active);
+            color: var(--accent-cyan);
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .tutorial-dismiss:hover {
+            background: var(--accent-cyan);
+            color: var(--bg-primary);
+        }
+
+        .tutorial-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+        }
+
+        .tutorial-step {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .step-number {
+            font-family: 'Space Mono', monospace;
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--bg-primary);
+            background: var(--accent-cyan);
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .step-text {
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: 48px;
+        }
+
+        .header-badge {
+            display: inline-block;
+            font-family: 'Space Mono', monospace;
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--accent-cyan);
+            background: var(--accent-cyan-dim);
+            padding: 6px 14px;
+            border-radius: 20px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 16px;
+        }
+
+        .header h1 {
+            font-size: clamp(28px, 5vw, 42px);
+            font-weight: 700;
+            margin-bottom: 12px;
+            background: linear-gradient(135deg, var(--text-primary) 0%, var(--accent-cyan) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .header p {
+            font-size: 16px;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Main Grid */
+        .main-grid {
+            display: grid;
+            grid-template-columns: 340px 1fr;
+            gap: 32px;
+        }
+
+        @media (max-width: 900px) {
+            .main-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Input Panel */
+        .input-panel {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 16px;
+            padding: 28px;
+            height: fit-content;
+            position: sticky;
+            top: 24px;
+        }
+
+        .panel-title {
+            font-family: 'Space Mono', monospace;
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--accent-cyan);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 24px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--border-subtle);
+        }
+
+        .input-group {
+            margin-bottom: 24px;
+        }
+
+        .input-label {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .select-wrapper {
+            position: relative;
+        }
+
+        .select-wrapper::after {
+            content: '▼';
+            position: absolute;
+            right: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 10px;
+            color: var(--text-muted);
+            pointer-events: none;
+        }
+
+        select {
+            width: 100%;
+            padding: 12px 16px;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-subtle);
+            border-radius: 8px;
+            color: var(--text-primary);
+            font-family: 'DM Sans', sans-serif;
+            font-size: 14px;
+            cursor: pointer;
+            appearance: none;
+            transition: border-color 0.2s ease;
+        }
+
+        select:hover, select:focus {
+            border-color: var(--border-active);
+            outline: none;
+        }
+
+        /* ICP Summary */
+        .icp-summary {
+            background: var(--bg-secondary);
+            border-radius: 10px;
+            padding: 16px;
+            margin-top: 8px;
+        }
+
+        .icp-summary-title {
+            font-family: 'Space Mono', monospace;
+            font-size: 10px;
+            font-weight: 700;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+
+        .icp-summary-text {
+            font-size: 13px;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        /* Results Panel */
+        .results-panel {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        /* Channel Cards */
+        .channel-grid {
+            display: grid;
+            gap: 16px;
+        }
+
+        .channel-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 12px;
+            padding: 20px 24px;
+            display: grid;
+            grid-template-columns: 1fr auto 140px;
+            align-items: center;
+            gap: 20px;
+            transition: all 0.3s ease;
+            animation: fadeInUp 0.4s ease-out backwards;
+        }
+
+        .channel-card:nth-child(1) { animation-delay: 0.05s; }
+        .channel-card:nth-child(2) { animation-delay: 0.1s; }
+        .channel-card:nth-child(3) { animation-delay: 0.15s; }
+        .channel-card:nth-child(4) { animation-delay: 0.2s; }
+        .channel-card:nth-child(5) { animation-delay: 0.25s; }
+        .channel-card:nth-child(6) { animation-delay: 0.3s; }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(16px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .channel-card:hover {
+            border-color: var(--border-active);
+            background: var(--bg-card-hover);
+            transform: translateX(4px);
+        }
+
+        .channel-card.tier-1 {
+            border-left: 3px solid var(--accent-emerald);
+        }
+
+        .channel-card.tier-2 {
+            border-left: 3px solid var(--accent-amber);
+        }
+
+        .channel-card.tier-3 {
+            border-left: 3px solid var(--accent-rose);
+        }
+
+        @media (max-width: 700px) {
+            .channel-card {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+        }
+
+        .channel-info {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .channel-rank {
+            font-family: 'Space Mono', monospace;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .tier-1 .channel-rank { color: var(--accent-emerald); }
+        .tier-2 .channel-rank { color: var(--accent-amber); }
+        .tier-3 .channel-rank { color: var(--accent-rose); }
+
+        .channel-name {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .channel-rationale {
+            font-size: 13px;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        .channel-metrics {
+            display: flex;
+            gap: 24px;
+        }
+
+        .metric {
+            text-align: center;
+        }
+
+        .metric-value {
+            font-family: 'Space Mono', monospace;
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .metric-label {
+            font-size: 11px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .channel-score {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .score-bar-container {
+            width: 120px;
+            height: 8px;
+            background: var(--bg-secondary);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .score-bar {
+            height: 100%;
+            border-radius: 4px;
+            transition: width 0.6s ease;
+        }
+
+        .tier-1 .score-bar { background: linear-gradient(90deg, var(--accent-emerald), #34d399); }
+        .tier-2 .score-bar { background: linear-gradient(90deg, var(--accent-amber), #fbbf24); }
+        .tier-3 .score-bar { background: linear-gradient(90deg, var(--accent-rose), #fb7185); }
+
+        .score-label {
+            font-family: 'Space Mono', monospace;
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        /* Summary Section */
+        .summary-section {
+            background: linear-gradient(135deg, var(--bg-card) 0%, var(--bg-secondary) 100%);
+            border: 1px solid var(--border-subtle);
+            border-radius: 16px;
+            padding: 28px;
+        }
+
+        .summary-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .summary-title {
+            font-family: 'Space Mono', monospace;
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--accent-cyan);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+        }
+
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 20px;
+        }
+
+        .summary-card {
+            background: var(--bg-secondary);
+            border-radius: 10px;
+            padding: 16px;
+            text-align: center;
+        }
+
+        .summary-card-value {
+            font-family: 'Space Mono', monospace;
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--accent-cyan);
+            margin-bottom: 4px;
+        }
+
+        .summary-card-label {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        /* Footer */
+        .footer {
+            margin-top: 48px;
+            padding-top: 24px;
+            border-top: 1px solid var(--border-subtle);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .footer-brand {
+            font-family: 'Space Mono', monospace;
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .footer-brand span {
+            color: var(--accent-cyan);
+        }
+
+        .footer-cta {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .footer-cta-text {
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+
+        .cta-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--accent-cyan);
+            color: var(--bg-primary);
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 20px rgba(6, 182, 212, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Tutorial Banner -->
+        <div class="tutorial-banner" id="tutorialBanner">
+            <div class="tutorial-header">
+                <span class="tutorial-title">Quick Start Guide</span>
+                <button class="tutorial-dismiss" onclick="dismissTutorial()">Got it, let's explore →</button>
+            </div>
+            <div class="tutorial-steps">
+                <div class="tutorial-step">
+                    <span class="step-number">1</span>
+                    <span class="step-text">Select your target company size and sales cycle length on the left</span>
+                </div>
+                <div class="tutorial-step">
+                    <span class="step-number">2</span>
+                    <span class="step-text">Watch the channel rankings update in real-time based on your ICP</span>
+                </div>
+                <div class="tutorial-step">
+                    <span class="step-number">3</span>
+                    <span class="step-text">Review estimated CAC and time-to-results for each channel</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Header -->
+        <header class="header">
+            <span class="header-badge">AI Consulting • B2B Acquisition</span>
+            <h1>Channel Prioritization Matrix</h1>
+            <p>Data-driven channel recommendations for AI consulting companies targeting logistics & manufacturing</p>
+        </header>
+
+        <!-- Main Grid -->
+        <div class="main-grid">
+            <!-- Input Panel -->
+            <aside class="input-panel">
+                <h2 class="panel-title">Define Your ICP</h2>
+                
+                <div class="input-group">
+                    <label class="input-label">Target Company Size</label>
+                    <div class="select-wrapper">
+                        <select id="companySize" onchange="updateMatrix()">
+                            <option value="mid">Mid-Market ($10M-$100M revenue)</option>
+                            <option value="enterprise">Enterprise ($100M+ revenue)</option>
+                            <option value="smb">SMB ($1M-$10M revenue)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label class="input-label">Decision-Maker Level</label>
+                    <div class="select-wrapper">
+                        <select id="decisionMaker" onchange="updateMatrix()">
+                            <option value="cxo">C-Suite (CEO, COO, CTO)</option>
+                            <option value="vp">VP / Director Level</option>
+                            <option value="manager">Manager / Team Lead</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label class="input-label">Typical Sales Cycle</label>
+                    <div class="select-wrapper">
+                        <select id="salesCycle" onchange="updateMatrix()">
+                            <option value="long">6+ months (Enterprise deals)</option>
+                            <option value="medium">3-6 months (Standard B2B)</option>
+                            <option value="short">1-3 months (Faster decisions)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label class="input-label">Industry Vertical</label>
+                    <div class="select-wrapper">
+                        <select id="industry" onchange="updateMatrix()">
+                            <option value="manufacturing">Manufacturing</option>
+                            <option value="logistics">Logistics & Supply Chain</option>
+                            <option value="both">Both / Combined</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="icp-summary">
+                    <div class="icp-summary-title">Your ICP Profile</div>
+                    <div class="icp-summary-text" id="icpSummary">
+                        Mid-market manufacturing & logistics companies with C-level decision-makers and 6+ month sales cycles.
+                    </div>
+                </div>
+            </aside>
+
+            <!-- Results Panel -->
+            <main class="results-panel">
+                <div class="channel-grid" id="channelGrid">
+                    <!-- Channels will be inserted here by JS -->
+                </div>
+
+                <!-- Summary Section -->
+                <section class="summary-section">
+                    <div class="summary-header">
+                        <span class="summary-title">Projected Investment Summary</span>
+                    </div>
+                    <div class="summary-grid">
+                        <div class="summary-card">
+                            <div class="summary-card-value" id="blendedCac">$1,850</div>
+                            <div class="summary-card-label">Blended CAC (Tier 1 Channels)</div>
+                        </div>
+                        <div class="summary-card">
+                            <div class="summary-card-value" id="timeToFirstDeal">4-6 mo</div>
+                            <div class="summary-card-label">Est. Time to First Deal</div>
+                        </div>
+                        <div class="summary-card">
+                            <div class="summary-card-value" id="monthlyBudget">$8-12K</div>
+                            <div class="summary-card-label">Recommended Monthly Spend</div>
+                        </div>
+                        <div class="summary-card">
+                            <div class="summary-card-value" id="focusChannels">3</div>
+                            <div class="summary-card-label">Priority Channels to Start</div>
+                        </div>
+                    </div>
+                </section>
+            </main>
+        </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-brand">
+                Powered by <span>ResultantAI</span> • chris@resultantai.com
+            </div>
+            <div class="footer-cta">
+                <span class="footer-cta-text">Ready to build your acquisition engine?</span>
+                <a href="https://meetings.hubspot.com/chris4642" class="cta-button" target="_blank">
+                    Book Strategy Call →
+                </a>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // Channel data with scoring logic
+        const channelData = {
+            outboundEmail: {
+                name: "Cold Email Outreach",
+                baseScore: 85,
+                modifiers: {
+                    companySize: { enterprise: 5, mid: 10, smb: -5 },
+                    decisionMaker: { cxo: -5, vp: 5, manager: 10 },
+                    salesCycle: { long: 0, medium: 5, short: 10 },
+                    industry: { manufacturing: 5, logistics: 5, both: 5 }
+                },
+                cac: { base: 1200, enterprise: 400, mid: 0, smb: -200 },
+                timeToResults: "2-4 months",
+                rationale: {
+                    default: "Highly scalable for reaching operations leaders. Pair with personalized AI use-case messaging.",
+                    enterprise: "Enterprise ops leaders respond to ROI-focused sequences with specific use cases.",
+                    smb: "SMBs require higher volume with faster follow-up cadences."
+                }
+            },
+            linkedIn: {
+                name: "LinkedIn Outbound",
+                baseScore: 88,
+                modifiers: {
+                    companySize: { enterprise: 10, mid: 5, smb: -5 },
+                    decisionMaker: { cxo: 10, vp: 5, manager: -5 },
+                    salesCycle: { long: 5, medium: 5, short: 0 },
+                    industry: { manufacturing: 5, logistics: 10, both: 8 }
+                },
+                cac: { base: 1500, enterprise: 500, mid: 0, smb: -300 },
+                timeToResults: "2-3 months",
+                rationale: {
+                    default: "C-suite and VP-level manufacturing/logistics leaders are highly active on LinkedIn.",
+                    enterprise: "Enterprise executives prefer warm intros via content engagement before outreach.",
+                    smb: "Less effective for SMB—decision-makers often not active on LinkedIn."
+                }
+            },
+            contentSeo: {
+                name: "Thought Leadership Content",
+                baseScore: 72,
+                modifiers: {
+                    companySize: { enterprise: 10, mid: 5, smb: -10 },
+                    decisionMaker: { cxo: 10, vp: 5, manager: -5 },
+                    salesCycle: { long: 10, medium: 5, short: -10 },
+                    industry: { manufacturing: 10, logistics: 5, both: 8 }
+                },
+                cac: { base: 2200, enterprise: 600, mid: 0, smb: -400 },
+                timeToResults: "6-12 months",
+                rationale: {
+                    default: "Establishes authority in AI for operations. Long-term pipeline builder.",
+                    enterprise: "Enterprise buyers research extensively—content builds trust before sales contact.",
+                    smb: "SMBs rarely discover consultants via content. Better as nurture, not acquisition."
+                }
+            },
+            partnerships: {
+                name: "Strategic Partnerships",
+                baseScore: 70,
+                modifiers: {
+                    companySize: { enterprise: 15, mid: 5, smb: -15 },
+                    decisionMaker: { cxo: 10, vp: 5, manager: -10 },
+                    salesCycle: { long: 10, medium: 0, short: -15 },
+                    industry: { manufacturing: 10, logistics: 5, both: 8 }
+                },
+                cac: { base: 800, enterprise: 200, mid: 0, smb: -100 },
+                timeToResults: "4-8 months",
+                rationale: {
+                    default: "Partner with ERP vendors, industry associations, or complementary consultants.",
+                    enterprise: "Referrals from trusted vendors have highest close rates for enterprise deals.",
+                    smb: "Partnership overhead rarely justified for smaller deal sizes."
+                }
+            },
+            events: {
+                name: "Industry Events & Webinars",
+                baseScore: 65,
+                modifiers: {
+                    companySize: { enterprise: 10, mid: 5, smb: -10 },
+                    decisionMaker: { cxo: 5, vp: 10, manager: 0 },
+                    salesCycle: { long: 5, medium: 5, short: -5 },
+                    industry: { manufacturing: 15, logistics: 10, both: 12 }
+                },
+                cac: { base: 2800, enterprise: 800, mid: 0, smb: -500 },
+                timeToResults: "3-6 months",
+                rationale: {
+                    default: "Manufacturing/logistics conferences provide high-intent leads.",
+                    enterprise: "Speaking slots at MODEX, ProMat establish instant credibility.",
+                    smb: "Cost per lead often too high for SMB deal sizes."
+                }
+            },
+            paidAds: {
+                name: "LinkedIn/Google Paid Ads",
+                baseScore: 55,
+                modifiers: {
+                    companySize: { enterprise: -10, mid: 5, smb: 10 },
+                    decisionMaker: { cxo: -10, vp: 0, manager: 10 },
+                    salesCycle: { long: -10, medium: 0, short: 10 },
+                    industry: { manufacturing: 0, logistics: 5, both: 3 }
+                },
+                cac: { base: 3500, enterprise: 1500, mid: 0, smb: -800 },
+                timeToResults: "1-2 months",
+                rationale: {
+                    default: "Expensive for B2B consulting. Use for retargeting engaged prospects only.",
+                    enterprise: "Enterprise buyers don't click ads for $100K+ consulting decisions.",
+                    smb: "Can work for smaller engagements with clear ROI messaging."
+                }
+            }
+        };
+
+        function calculateScore(channel, inputs) {
+            let score = channel.baseScore;
+            score += channel.modifiers.companySize[inputs.companySize] || 0;
+            score += channel.modifiers.decisionMaker[inputs.decisionMaker] || 0;
+            score += channel.modifiers.salesCycle[inputs.salesCycle] || 0;
+            score += channel.modifiers.industry[inputs.industry] || 0;
+            return Math.min(100, Math.max(0, score));
+        }
+
+        function calculateCAC(channel, inputs) {
+            let cac = channel.cac.base;
+            cac += channel.cac[inputs.companySize] || 0;
+            return cac;
+        }
+
+        function getRationale(channel, inputs) {
+            if (inputs.companySize === 'enterprise' && channel.rationale.enterprise) {
+                return channel.rationale.enterprise;
+            }
+            if (inputs.companySize === 'smb' && channel.rationale.smb) {
+                return channel.rationale.smb;
+            }
+            return channel.rationale.default;
+        }
+
+        function getTier(score) {
+            if (score >= 80) return 1;
+            if (score >= 65) return 2;
+            return 3;
+        }
+
+        function getTierLabel(tier) {
+            if (tier === 1) return "Priority • Tier 1";
+            if (tier === 2) return "Consider • Tier 2";
+            return "Deprioritize • Tier 3";
+        }
+
+        function formatCAC(cac) {
+            return "$" + cac.toLocaleString();
+        }
+
+        function updateIcpSummary(inputs) {
+            const sizes = { enterprise: "Enterprise", mid: "Mid-market", smb: "SMB" };
+            const makers = { cxo: "C-level", vp: "VP/Director", manager: "Manager" };
+            const cycles = { long: "6+ month", medium: "3-6 month", short: "1-3 month" };
+            const industries = { manufacturing: "manufacturing", logistics: "logistics", both: "manufacturing & logistics" };
+            
+            document.getElementById('icpSummary').textContent = 
+                `${sizes[inputs.companySize]} ${industries[inputs.industry]} companies with ${makers[inputs.decisionMaker]} decision-makers and ${cycles[inputs.salesCycle]} sales cycles.`;
+        }
+
+        function updateSummaryCards(channels, inputs) {
+            const tier1Channels = channels.filter(c => c.tier === 1);
+            const avgCac = tier1Channels.length > 0 
+                ? Math.round(tier1Channels.reduce((sum, c) => sum + c.cac, 0) / tier1Channels.length)
+                : 0;
+            
+            document.getElementById('blendedCac').textContent = formatCAC(avgCac);
+            
+            // Adjust time and budget based on inputs
+            const timeMap = {
+                long: { time: "5-8 mo", budget: "$10-15K" },
+                medium: { time: "3-5 mo", budget: "$8-12K" },
+                short: { time: "2-4 mo", budget: "$6-10K" }
+            };
+            
+            document.getElementById('timeToFirstDeal').textContent = timeMap[inputs.salesCycle].time;
+            document.getElementById('monthlyBudget').textContent = timeMap[inputs.salesCycle].budget;
+            document.getElementById('focusChannels').textContent = Math.min(3, tier1Channels.length);
+        }
+
+        function updateMatrix() {
+            const inputs = {
+                companySize: document.getElementById('companySize').value,
+                decisionMaker: document.getElementById('decisionMaker').value,
+                salesCycle: document.getElementById('salesCycle').value,
+                industry: document.getElementById('industry').value
+            };
+
+            updateIcpSummary(inputs);
+
+            // Calculate scores for all channels
+            const channels = Object.entries(channelData).map(([key, channel]) => {
+                const score = calculateScore(channel, inputs);
+                const cac = calculateCAC(channel, inputs);
+                const tier = getTier(score);
+                const rationale = getRationale(channel, inputs);
+                return {
+                    key,
+                    name: channel.name,
+                    score,
+                    cac,
+                    tier,
+                    tierLabel: getTierLabel(tier),
+                    timeToResults: channel.timeToResults,
+                    rationale
+                };
+            });
+
+            // Sort by score descending
+            channels.sort((a, b) => b.score - a.score);
+
+            // Render channel cards
+            const grid = document.getElementById('channelGrid');
+            grid.innerHTML = channels.map(channel => `
+                <div class="channel-card tier-${channel.tier}">
+                    <div class="channel-info">
+                        <span class="channel-rank">${channel.tierLabel}</span>
+                        <h3 class="channel-name">${channel.name}</h3>
+                        <p class="channel-rationale">${channel.rationale}</p>
+                    </div>
+                    <div class="channel-metrics">
+                        <div class="metric">
+                            <div class="metric-value">${formatCAC(channel.cac)}</div>
+                            <div class="metric-label">Est. CAC</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-value">${channel.timeToResults}</div>
+                            <div class="metric-label">Time to Results</div>
+                        </div>
+                    </div>
+                    <div class="channel-score">
+                        <div class="score-bar-container">
+                            <div class="score-bar" style="width: ${channel.score}%"></div>
+                        </div>
+                        <span class="score-label">Fit Score: ${channel.score}/100</span>
+                    </div>
+                </div>
+            `).join('');
+
+            updateSummaryCards(channels, inputs);
+        }
+
+        function dismissTutorial() {
+            document.getElementById('tutorialBanner').classList.add('hidden');
+        }
+
+        // Initialize on load
+        updateMatrix();
+    </script>
+</body>
+</html>

@@ -1,0 +1,2363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Premier MCA Lender - AI Voice Agent System</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💰</text></svg>">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --navy: #2C5282;
+            --navy-dark: #1A365D;
+            --navy-light: #4A7BA7;
+            --gold: #FFD700;
+            --gold-dark: #DAA520;
+            --white: #FFFFFF;
+            --gray-light: #F7FAFC;
+            --gray-medium: #E2E8F0;
+            --gray-dark: #4A5568;
+            --success: #48BB78;
+            --danger: #F56565;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--gray-dark);
+            background: var(--gray-light);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background: var(--navy);
+            color: var(--white);
+            padding: 1rem 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .brand h1 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--white);
+        }
+
+        .brand .tagline {
+            font-size: 0.875rem;
+            color: var(--gold);
+            margin-top: 0.25rem;
+        }
+
+        .contact-info {
+            text-align: right;
+        }
+
+        .contact-info .company {
+            font-weight: 600;
+            color: var(--gold);
+            font-size: 1.1rem;
+        }
+
+        .contact-info .details {
+            font-size: 0.875rem;
+            margin-top: 0.25rem;
+        }
+
+        .contact-info a {
+            color: var(--white);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .contact-info a:hover {
+            color: var(--gold);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--navy) 0%, var(--navy-dark) 100%);
+            color: var(--white);
+            padding: 4rem 0;
+            text-align: center;
+        }
+
+        .hero h2 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .hero .highlight {
+            color: var(--gold);
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            max-width: 700px;
+            margin: 0 auto;
+            opacity: 0.95;
+        }
+
+        /* Tutorial Banner */
+        .tutorial-banner {
+            background: var(--gold);
+            color: var(--navy-dark);
+            padding: 1rem;
+            text-align: center;
+            font-weight: 600;
+            font-size: 1.1rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .tutorial-banner .icon {
+            display: inline-block;
+            margin-right: 0.5rem;
+            font-size: 1.3rem;
+        }
+
+        /* Stats Grid */
+        .stats-section {
+            padding: 3rem 0;
+        }
+
+        .stats-section h3 {
+            text-align: center;
+            font-size: 2rem;
+            color: var(--navy);
+            margin-bottom: 2rem;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .stat-card {
+            background: var(--white);
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.07);
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--navy);
+        }
+
+        .stat-card.before::before {
+            background: var(--danger);
+        }
+
+        .stat-card.after::before {
+            background: var(--success);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0,0,0,0.15);
+        }
+
+        .stat-card h4 {
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--gray-dark);
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+        }
+
+        .stat-item {
+            margin-bottom: 1.5rem;
+        }
+
+        .stat-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .stat-label {
+            font-size: 0.875rem;
+            color: var(--gray-dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--navy);
+        }
+
+        .stat-card.before .stat-value {
+            color: var(--danger);
+        }
+
+        .stat-card.after .stat-value {
+            color: var(--success);
+        }
+
+        .comparison-badge {
+            display: inline-block;
+            background: var(--gray-light);
+            color: var(--navy);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .comparison-badge.before-badge {
+            background: #FED7D7;
+            color: #C53030;
+        }
+
+        .comparison-badge.after-badge {
+            background: #C6F6D5;
+            color: #22543D;
+        }
+
+        /* Scenarios Section */
+        .scenarios-section {
+            padding: 3rem 0;
+            background: var(--white);
+        }
+
+        .scenarios-section h3 {
+            text-align: center;
+            font-size: 2rem;
+            color: var(--navy);
+            margin-bottom: 3rem;
+        }
+
+        .scenarios-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .scenario-card {
+            background: var(--white);
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+            border: 2px solid var(--gray-medium);
+        }
+
+        .scenario-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 24px rgba(0,0,0,0.15);
+        }
+
+        .scenario-card.qualified {
+            border-top: 4px solid var(--success);
+        }
+
+        .scenario-card.unqualified {
+            border-top: 4px solid var(--danger);
+        }
+
+        .scenario-card.pending {
+            border-top: 4px solid #ED8936;
+        }
+
+        .scenario-badge {
+            display: inline-block;
+            padding: 0.4rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 1rem;
+        }
+
+        .scenario-badge.high-intent {
+            background: #C6F6D5;
+            color: #22543D;
+        }
+
+        .scenario-badge.new-business {
+            background: #FED7D7;
+            color: #C53030;
+        }
+
+        .scenario-badge.review-needed {
+            background: #FEEBC8;
+            color: #C05621;
+        }
+
+        .scenario-card h4 {
+            font-size: 1.5rem;
+            color: var(--navy);
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+        }
+
+        .scenario-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .scenario-stat {
+            padding: 0.75rem;
+            background: var(--gray-light);
+            border-radius: 8px;
+        }
+
+        .scenario-stat-label {
+            font-size: 0.75rem;
+            color: var(--gray-dark);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.25rem;
+        }
+
+        .scenario-stat-value {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--navy);
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-size: 0.875rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 1.5rem;
+        }
+
+        .status-badge.qualified {
+            background: var(--success);
+            color: var(--white);
+        }
+
+        .status-badge.unqualified {
+            background: var(--danger);
+            color: var(--white);
+        }
+
+        .status-badge.pending {
+            background: #ED8936;
+            color: var(--white);
+        }
+
+        .scenario-button {
+            width: 100%;
+            padding: 1rem;
+            background: var(--navy);
+            color: var(--white);
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .scenario-button:hover {
+            background: var(--navy-dark);
+            transform: scale(1.02);
+        }
+
+        .scenario-button:active {
+            transform: scale(0.98);
+        }
+
+        /* Modal Styles - Real-Time Call Simulation */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        .modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .modal-content {
+            background: var(--white);
+            border-radius: 12px;
+            max-width: 1200px;
+            width: 100%;
+            height: 85vh;
+            position: relative;
+            animation: slideUp 0.3s ease-out;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: var(--danger);
+            border: none;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            color: var(--white);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            z-index: 10;
+            font-weight: bold;
+        }
+
+        .modal-close:hover {
+            background: #C53030;
+            transform: scale(1.1);
+        }
+
+        .modal-split {
+            display: flex;
+            height: 100%;
+            gap: 0;
+        }
+
+        /* LEFT SIDE - Call Transcript */
+        .modal-left {
+            flex: 0 0 60%;
+            display: flex;
+            flex-direction: column;
+            border-right: 2px solid var(--gray-medium);
+            background: #F8F9FA;
+        }
+
+        .call-header {
+            padding: 1.5rem;
+            background: var(--white);
+            border-bottom: 2px solid var(--gray-medium);
+        }
+
+        .call-status {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .status-indicator {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: #FED7D7;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 0.875rem;
+            color: #C53030;
+        }
+
+        .status-dot {
+            width: 10px;
+            height: 10px;
+            background: #F56565;
+            border-radius: 50%;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .call-timer {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--navy);
+            font-family: 'Courier New', monospace;
+        }
+
+        .call-transcript-area {
+            flex: 1;
+            overflow-y: auto;
+            padding: 1.5rem;
+        }
+
+        .chat-bubble {
+            margin-bottom: 1rem;
+            display: flex;
+            flex-direction: column;
+            animation: bubbleIn 0.3s ease-out;
+        }
+
+        @keyframes bubbleIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .chat-bubble.ai {
+            align-items: flex-start;
+        }
+
+        .chat-bubble.customer {
+            align-items: flex-end;
+        }
+
+        .bubble-speaker {
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+            padding: 0 0.5rem;
+            color: var(--gray-dark);
+        }
+
+        .bubble-content {
+            max-width: 75%;
+            padding: 1rem 1.25rem;
+            border-radius: 18px;
+            line-height: 1.5;
+        }
+
+        .chat-bubble.ai .bubble-content {
+            background: #3182CE;
+            color: var(--white);
+            border-bottom-left-radius: 4px;
+        }
+
+        .chat-bubble.customer .bubble-content {
+            background: #E2E8F0;
+            color: var(--gray-dark);
+            border-bottom-right-radius: 4px;
+        }
+
+        .typing-indicator {
+            display: none;
+            padding: 1rem 1.25rem;
+            background: #3182CE;
+            color: var(--white);
+            border-radius: 18px;
+            border-bottom-left-radius: 4px;
+            max-width: 75px;
+        }
+
+        .typing-indicator.active {
+            display: flex;
+            gap: 4px;
+        }
+
+        .typing-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--white);
+            border-radius: 50%;
+            animation: typing 1.4s ease-in-out infinite;
+        }
+
+        .typing-dot:nth-child(2) { animation-delay: 0.2s; }
+        .typing-dot:nth-child(3) { animation-delay: 0.4s; }
+
+        @keyframes typing {
+            0%, 60%, 100% { opacity: 0.3; }
+            30% { opacity: 1; }
+        }
+
+        /* RIGHT SIDE - CRM Panel */
+        .modal-right {
+            flex: 0 0 40%;
+            display: flex;
+            flex-direction: column;
+            background: var(--white);
+        }
+
+        .crm-header {
+            padding: 1.5rem;
+            background: #F7FAFC;
+            border-bottom: 2px solid var(--gray-medium);
+        }
+
+        .crm-header h3 {
+            font-size: 1.25rem;
+            color: var(--navy);
+            margin-bottom: 0.5rem;
+        }
+
+        .crm-subtitle {
+            font-size: 0.875rem;
+            color: var(--gray-dark);
+        }
+
+        .crm-form {
+            flex: 1;
+            overflow-y: auto;
+            padding: 1.5rem;
+        }
+
+        .crm-field {
+            margin-bottom: 1.5rem;
+            opacity: 0.3;
+            transition: opacity 0.5s ease;
+        }
+
+        .crm-field.filled {
+            opacity: 1;
+        }
+
+        .crm-field-label {
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--gray-dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .crm-field-value {
+            padding: 0.75rem 1rem;
+            background: var(--gray-light);
+            border-radius: 6px;
+            border: 1px solid var(--gray-medium);
+            font-size: 1rem;
+            color: var(--navy);
+            font-weight: 500;
+            min-height: 44px;
+        }
+
+        .crm-badge {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            font-weight: 700;
+            font-size: 0.875rem;
+        }
+
+        .crm-badge.qualified {
+            background: var(--success);
+            color: var(--white);
+        }
+
+        .crm-badge.unqualified {
+            background: var(--danger);
+            color: var(--white);
+        }
+
+        .crm-badge.pending {
+            background: #ED8936;
+            color: var(--white);
+        }
+
+        .next-step-box {
+            margin-top: auto;
+            padding: 1.5rem;
+            background: #EBF8FF;
+            border-top: 2px solid var(--gray-medium);
+        }
+
+        .next-step-box h4 {
+            font-size: 0.875rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: var(--navy);
+            margin-bottom: 0.75rem;
+        }
+
+        .next-step-box p {
+            font-size: 0.875rem;
+            color: var(--gray-dark);
+            margin-bottom: 1rem;
+        }
+
+        .action-button {
+            width: 100%;
+            padding: 0.75rem 1.5rem;
+            background: var(--navy);
+            color: var(--white);
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .action-button:hover {
+            background: var(--navy-dark);
+        }
+
+        .reset-button {
+            margin-top: 0.5rem;
+            background: var(--gray-medium);
+            color: var(--gray-dark);
+        }
+
+        .reset-button:hover {
+            background: var(--gray-dark);
+            color: var(--white);
+        }
+
+        /* ROI Calculator Section */
+        .roi-calculator-section {
+            padding: 4rem 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: var(--white);
+        }
+
+        .roi-calculator-section h3 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--white);
+        }
+
+        .roi-subtitle {
+            text-align: center;
+            font-size: 1.1rem;
+            margin-bottom: 3rem;
+            opacity: 0.9;
+        }
+
+        .calculator-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.5fr;
+            gap: 3rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .calculator-inputs {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 2rem;
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .input-group {
+            margin-bottom: 2rem;
+        }
+
+        .input-group:last-child {
+            margin-bottom: 0;
+        }
+
+        .input-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .slider-container {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .slider-container input[type="range"] {
+            flex: 1;
+            height: 8px;
+            border-radius: 5px;
+            background: rgba(255, 255, 255, 0.3);
+            outline: none;
+            -webkit-appearance: none;
+        }
+
+        .slider-container input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: var(--gold);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .slider-container input[type="range"]::-webkit-slider-thumb:hover {
+            transform: scale(1.2);
+        }
+
+        .slider-container input[type="range"]::-moz-range-thumb {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: var(--gold);
+            cursor: pointer;
+            border: none;
+            transition: all 0.3s ease;
+        }
+
+        .slider-value {
+            font-weight: 700;
+            font-size: 1.5rem;
+            min-width: 80px;
+            text-align: right;
+        }
+
+        .calculator-results {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+
+        .result-card {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 1.5rem;
+            border-radius: 12px;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .result-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .result-card.savings {
+            grid-column: 1 / -1;
+            background: linear-gradient(135deg, var(--success) 0%, #38A169 100%);
+        }
+
+        .result-card.savings .result-label,
+        .result-card.savings .result-value {
+            color: var(--white);
+        }
+
+        .result-label {
+            font-size: 0.875rem;
+            color: var(--gray-dark);
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .result-value {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--navy);
+        }
+
+        .result-value.manual {
+            color: var(--danger);
+        }
+
+        .result-value.ai {
+            color: var(--success);
+        }
+
+        .result-value.highlight {
+            font-size: 2.5rem;
+        }
+
+        .payback-badge {
+            grid-column: 1 / -1;
+            background: var(--gold);
+            color: var(--navy-dark);
+            padding: 1rem;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 1.1rem;
+        }
+
+        /* Comparison Section */
+        .comparison-section {
+            padding: 4rem 0;
+            background: var(--gray-light);
+        }
+
+        .comparison-section h3 {
+            text-align: center;
+            font-size: 2.5rem;
+            color: var(--navy);
+            margin-bottom: 3rem;
+        }
+
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        .process-card {
+            background: var(--white);
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .process-card h4 {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--gray-medium);
+        }
+
+        .manual-process h4 {
+            color: var(--danger);
+        }
+
+        .ai-process h4 {
+            color: var(--success);
+        }
+
+        .process-timeline {
+            margin-bottom: 2rem;
+        }
+
+        .timeline-step {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            padding-left: 1rem;
+            border-left: 3px solid var(--gray-medium);
+            transition: all 0.3s ease;
+        }
+
+        .timeline-step:hover {
+            border-left-color: var(--navy);
+            padding-left: 1.5rem;
+        }
+
+        .timeline-step.final {
+            border-left-color: var(--success);
+        }
+
+        .manual-process .timeline-step.final {
+            border-left-color: var(--danger);
+        }
+
+        .step-time {
+            font-family: 'Courier New', monospace;
+            font-weight: 700;
+            color: var(--navy);
+            min-width: 60px;
+        }
+
+        .step-content {
+            flex: 1;
+            color: var(--gray-dark);
+        }
+
+        .process-stats {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+        }
+
+        .stat-pill {
+            background: var(--gray-light);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--gray-dark);
+        }
+
+        .ai-process .stat-pill {
+            background: #C6F6D5;
+            color: #22543D;
+        }
+
+        .manual-process .stat-pill {
+            background: #FED7D7;
+            color: #C53030;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            padding: 5rem 0;
+            background: linear-gradient(135deg, var(--navy) 0%, var(--navy-dark) 100%);
+            color: var(--white);
+            text-align: center;
+        }
+
+        .cta-content h2 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: var(--white);
+        }
+
+        .cta-subtitle {
+            font-size: 1.25rem;
+            margin-bottom: 2.5rem;
+            opacity: 0.9;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1.25rem 3rem;
+            background: var(--gold);
+            color: var(--navy-dark);
+            font-size: 1.25rem;
+            font-weight: 700;
+            text-decoration: none;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(255, 215, 0, 0.4);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(255, 215, 0, 0.6);
+            background: var(--gold-dark);
+        }
+
+        .cta-contact {
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .cta-contact p {
+            margin-bottom: 0.5rem;
+        }
+
+        .cta-contact a {
+            color: var(--gold);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .cta-contact a:hover {
+            color: var(--white);
+            text-decoration: underline;
+        }
+
+        /* Exit Intent Popup */
+        .exit-popup {
+            display: none;
+            position: fixed;
+            z-index: 10000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        .exit-popup.active {
+            display: flex;
+        }
+
+        .exit-popup-content {
+            background: var(--white);
+            border-radius: 20px;
+            padding: 3rem;
+            max-width: 600px;
+            width: 90%;
+            position: relative;
+            text-align: center;
+            animation: slideUp 0.4s ease-out;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        .exit-popup-close {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            background: var(--gray-medium);
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            font-size: 2rem;
+            color: var(--gray-dark);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            line-height: 1;
+        }
+
+        .exit-popup-close:hover {
+            background: var(--danger);
+            color: var(--white);
+            transform: rotate(90deg);
+        }
+
+        .exit-popup-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        .exit-popup-content h2 {
+            font-size: 2.5rem;
+            color: var(--navy);
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .exit-popup-subtitle {
+            font-size: 1.25rem;
+            color: var(--gray-dark);
+            margin-bottom: 2rem;
+        }
+
+        .exit-popup-benefits {
+            text-align: left;
+            margin-bottom: 2rem;
+            background: var(--gray-light);
+            padding: 1.5rem;
+            border-radius: 12px;
+        }
+
+        .exit-benefit {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+            color: var(--gray-dark);
+        }
+
+        .exit-benefit:last-child {
+            margin-bottom: 0;
+        }
+
+        .benefit-icon {
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+
+        .exit-popup-cta {
+            display: inline-block;
+            padding: 1.25rem 2.5rem;
+            background: linear-gradient(135deg, var(--success) 0%, #38A169 100%);
+            color: var(--white);
+            font-size: 1.25rem;
+            font-weight: 700;
+            text-decoration: none;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(72, 187, 120, 0.4);
+            margin-bottom: 1rem;
+        }
+
+        .exit-popup-cta:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(72, 187, 120, 0.6);
+        }
+
+        .exit-popup-footer {
+            font-size: 0.875rem;
+            color: var(--gray-dark);
+            font-style: italic;
+        }
+
+        /* Global Transitions */
+        * {
+            transition: color 0.3s ease, background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--navy-dark);
+            color: var(--white);
+            padding: 2rem 0;
+            text-align: center;
+            margin-top: 4rem;
+        }
+
+        footer p {
+            margin-bottom: 0.5rem;
+        }
+
+        footer a {
+            color: var(--gold);
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero h2 {
+                font-size: 1.75rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .header-content {
+                text-align: center;
+            }
+
+            .contact-info {
+                text-align: center;
+            }
+
+            .brand h1 {
+                font-size: 1.25rem;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .scenarios-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .tutorial-banner {
+                font-size: 1rem;
+            }
+
+            .modal-content {
+                width: 95%;
+                padding: 1.5rem;
+            }
+
+            .scenario-card h4 {
+                font-size: 1.25rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h2 {
+                font-size: 1.5rem;
+            }
+
+            .stat-card {
+                padding: 1.5rem;
+            }
+
+            .scenario-card {
+                padding: 1.5rem;
+            }
+
+            .tutorial-banner {
+                font-size: 0.9rem;
+            }
+
+            .scenario-stats {
+                grid-template-columns: 1fr;
+            }
+
+            .modal-content {
+                height: 95vh;
+            }
+
+            .modal-split {
+                flex-direction: column;
+            }
+
+            .modal-left, .modal-right {
+                flex: 1 1 auto;
+            }
+
+            .modal-left {
+                border-right: none;
+                border-bottom: 2px solid var(--gray-medium);
+            }
+
+            .bubble-content {
+                max-width: 85%;
+            }
+
+            .call-header, .crm-header, .crm-form, .next-step-box {
+                padding: 1rem;
+            }
+
+            .calculator-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .comparison-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .cta-content h2 {
+                font-size: 2rem;
+            }
+
+            .calculator-results {
+                grid-template-columns: 1fr;
+            }
+
+            .exit-popup-content {
+                padding: 2rem 1.5rem;
+            }
+
+            .exit-popup-content h2 {
+                font-size: 1.75rem;
+            }
+
+            .exit-popup-subtitle {
+                font-size: 1rem;
+            }
+
+            .exit-popup-cta {
+                font-size: 1.1rem;
+                padding: 1rem 2rem;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .stat-card {
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        .stat-card:nth-child(1) { animation-delay: 0.1s; }
+        .stat-card:nth-child(2) { animation-delay: 0.2s; }
+        .stat-card:nth-child(3) { animation-delay: 0.3s; }
+        .stat-card:nth-child(4) { animation-delay: 0.4s; }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="brand">
+                    <h1>Premier MCA Lender - AI Voice Agent System</h1>
+                    <div class="tagline">Intelligent Lead Qualification at Scale</div>
+                </div>
+                <div class="contact-info">
+                    <div class="company">ResultantAI</div>
+                    <div class="details">
+                        <a href="mailto:chris@resultantai.com">chris@resultantai.com</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h2>Qualify <span class="highlight">200+ Leads Daily</span><br>with Zero Missed Calls</h2>
+            <p>Transform your MCA business with AI-powered voice agents that work 24/7, qualify leads in minutes, and scale infinitely.</p>
+        </div>
+    </section>
+
+    <!-- Tutorial Banner -->
+    <div class="tutorial-banner">
+        <span class="icon">=G</span>
+        Click any scenario below to see the AI in action
+    </div>
+
+    <!-- Stats Section -->
+    <section class="stats-section">
+        <div class="container">
+            <h3>The Transformation</h3>
+
+            <div class="stats-grid">
+                <!-- Before Card 1 -->
+                <div class="stat-card before">
+                    <span class="comparison-badge before-badge">BEFORE (Manual)</span>
+                    <h4>Qualification Efficiency</h4>
+                    <div class="stat-item">
+                        <div class="stat-label">Qualification Time</div>
+                        <div class="stat-value">15-20 min</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Daily Capacity</div>
+                        <div class="stat-value">20-25 leads</div>
+                    </div>
+                </div>
+
+                <!-- After Card 1 -->
+                <div class="stat-card after">
+                    <span class="comparison-badge after-badge">AFTER (AI-Powered)</span>
+                    <h4>Qualification Efficiency</h4>
+                    <div class="stat-item">
+                        <div class="stat-label">Qualification Time</div>
+                        <div class="stat-value">2-3 min</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Daily Capacity</div>
+                        <div class="stat-value">200+ leads</div>
+                    </div>
+                </div>
+
+                <!-- Before Card 2 -->
+                <div class="stat-card before">
+                    <span class="comparison-badge before-badge">BEFORE (Manual)</span>
+                    <h4>Cost & Coverage</h4>
+                    <div class="stat-item">
+                        <div class="stat-label">Cost Per Lead</div>
+                        <div class="stat-value">$35-50</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">After Hours Coverage</div>
+                        <div class="stat-value">0%</div>
+                    </div>
+                </div>
+
+                <!-- After Card 2 -->
+                <div class="stat-card after">
+                    <span class="comparison-badge after-badge">AFTER (AI-Powered)</span>
+                    <h4>Cost & Coverage</h4>
+                    <div class="stat-item">
+                        <div class="stat-label">Cost Per Lead</div>
+                        <div class="stat-value">$0.21</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">After Hours Coverage</div>
+                        <div class="stat-value">100%</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Scenarios Section -->
+    <section class="scenarios-section">
+        <div class="container">
+            <h3>Interactive Demo Scenarios</h3>
+
+            <div class="scenarios-grid">
+                <!-- Scenario 1: Qualified Lead -->
+                <div class="scenario-card qualified" onclick="openModal('modal1')">
+                    <span class="scenario-badge high-intent">HIGH INTENT</span>
+                    <h4>City Auto Repair</h4>
+
+                    <div class="status-badge qualified">✅ QUALIFIED</div>
+
+                    <div class="scenario-stats">
+                        <div class="scenario-stat">
+                            <div class="scenario-stat-label">Time in Business</div>
+                            <div class="scenario-stat-value">3 years</div>
+                        </div>
+                        <div class="scenario-stat">
+                            <div class="scenario-stat-label">Monthly Revenue</div>
+                            <div class="scenario-stat-value">$45,000</div>
+                        </div>
+                        <div class="scenario-stat">
+                            <div class="scenario-stat-label">Credit Score</div>
+                            <div class="scenario-stat-value">620</div>
+                        </div>
+                        <div class="scenario-stat">
+                            <div class="scenario-stat-label">Funding Need</div>
+                            <div class="scenario-stat-value">$50,000</div>
+                        </div>
+                    </div>
+
+                    <button class="scenario-button">
+                        <span>▶</span> See AI Handle This Call
+                    </button>
+                </div>
+
+                <!-- Scenario 2: Not Qualified -->
+                <div class="scenario-card unqualified" onclick="openModal('modal2')">
+                    <span class="scenario-badge new-business">NEW BUSINESS</span>
+                    <h4>Fresh Start Bakery</h4>
+
+                    <div class="status-badge unqualified">❌ TOO EARLY</div>
+
+                    <div class="scenario-stats">
+                        <div class="scenario-stat">
+                            <div class="scenario-stat-label">Time in Business</div>
+                            <div class="scenario-stat-value">4 months</div>
+                        </div>
+                        <div class="scenario-stat">
+                            <div class="scenario-stat-label">Monthly Revenue</div>
+                            <div class="scenario-stat-value">$8,000</div>
+                        </div>
+                        <div class="scenario-stat">
+                            <div class="scenario-stat-label">Credit Score</div>
+                            <div class="scenario-stat-value">580</div>
+                        </div>
+                        <div class="scenario-stat">
+                            <div class="scenario-stat-label">Funding Need</div>
+                            <div class="scenario-stat-value">$25,000</div>
+                        </div>
+                    </div>
+
+                    <button class="scenario-button">
+                        <span>▶</span> See AI Handle This Call
+                    </button>
+                </div>
+
+                <!-- Scenario 3: Needs More Info -->
+                <div class="scenario-card pending" onclick="openModal('modal3')">
+                    <span class="scenario-badge review-needed">REVIEW NEEDED</span>
+                    <h4>Martinez Landscaping</h4>
+
+                    <div class="status-badge pending">⚠️ PENDING INFO</div>
+
+                    <div class="scenario-stats">
+                        <div class="scenario-stat">
+                            <div class="scenario-stat-label">Time in Business</div>
+                            <div class="scenario-stat-value">2 years</div>
+                        </div>
+                        <div class="scenario-stat">
+                            <div class="scenario-stat-label">Monthly Revenue</div>
+                            <div class="scenario-stat-value">$12K-15K</div>
+                        </div>
+                        <div class="scenario-stat">
+                            <div class="scenario-stat-label">Credit Score</div>
+                            <div class="scenario-stat-value">595</div>
+                        </div>
+                        <div class="scenario-stat">
+                            <div class="scenario-stat-label">Funding Need</div>
+                            <div class="scenario-stat-value">$35,000</div>
+                        </div>
+                    </div>
+
+                    <button class="scenario-button">
+                        <span>▶</span> See AI Handle This Call
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ROI Calculator Section -->
+    <section class="roi-calculator-section">
+        <div class="container">
+            <h3>Calculate Your Savings</h3>
+            <p class="roi-subtitle">See how much you could save by automating lead qualification</p>
+
+            <div class="calculator-grid">
+                <div class="calculator-inputs">
+                    <div class="input-group">
+                        <label for="leadVolume">Daily Lead Volume</label>
+                        <div class="slider-container">
+                            <input type="range" id="leadVolume" min="50" max="500" value="200" step="10">
+                            <span class="slider-value" id="leadVolumeValue">200</span>
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="currentCost">Current Cost Per Qualification</label>
+                        <div class="slider-container">
+                            <input type="range" id="currentCost" min="20" max="100" value="40" step="5">
+                            <span class="slider-value">$<span id="currentCostValue">40</span></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="calculator-results">
+                    <div class="result-card">
+                        <div class="result-label">Manual Monthly Cost</div>
+                        <div class="result-value manual" id="manualCost">$240,000</div>
+                    </div>
+
+                    <div class="result-card">
+                        <div class="result-label">AI Monthly Cost</div>
+                        <div class="result-value ai" id="aiCost">$1,260</div>
+                    </div>
+
+                    <div class="result-card savings">
+                        <div class="result-label">Monthly Savings</div>
+                        <div class="result-value highlight" id="monthlySavings">$238,740</div>
+                    </div>
+
+                    <div class="result-card">
+                        <div class="result-label">Annual Savings</div>
+                        <div class="result-value annual" id="annualSavings">$2,864,880</div>
+                    </div>
+
+                    <div class="payback-badge">
+                        <strong>Payback Period:</strong> Week 1
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Before/After Comparison -->
+    <section class="comparison-section">
+        <div class="container">
+            <h3>The Transformation</h3>
+
+            <div class="comparison-grid">
+                <!-- Manual Process -->
+                <div class="process-card manual-process">
+                    <h4>❌ Manual Process</h4>
+                    <div class="process-timeline">
+                        <div class="timeline-step">
+                            <div class="step-time">00:00</div>
+                            <div class="step-content">Lead calls in</div>
+                        </div>
+                        <div class="timeline-step">
+                            <div class="step-time">00:30</div>
+                            <div class="step-content">Agent answers (if available)</div>
+                        </div>
+                        <div class="timeline-step">
+                            <div class="step-time">05:00</div>
+                            <div class="step-content">Collects business info</div>
+                        </div>
+                        <div class="timeline-step">
+                            <div class="step-time">10:00</div>
+                            <div class="step-content">Manually enters CRM</div>
+                        </div>
+                        <div class="timeline-step">
+                            <div class="step-time">15:00</div>
+                            <div class="step-content">Reviews qualification</div>
+                        </div>
+                        <div class="timeline-step final">
+                            <div class="step-time">20:00</div>
+                            <div class="step-content">Forwards to underwriter</div>
+                        </div>
+                    </div>
+                    <div class="process-stats">
+                        <div class="stat-pill">⏱️ 15-20 minutes</div>
+                        <div class="stat-pill">💰 $35-50 per lead</div>
+                        <div class="stat-pill">👥 Limited capacity</div>
+                    </div>
+                </div>
+
+                <!-- AI Process -->
+                <div class="process-card ai-process">
+                    <h4>✅ AI-Powered Process</h4>
+                    <div class="process-timeline">
+                        <div class="timeline-step">
+                            <div class="step-time">00:00</div>
+                            <div class="step-content">Lead calls in</div>
+                        </div>
+                        <div class="timeline-step">
+                            <div class="step-time">00:01</div>
+                            <div class="step-content">AI answers instantly</div>
+                        </div>
+                        <div class="timeline-step">
+                            <div class="step-time">01:30</div>
+                            <div class="step-content">AI qualifies lead</div>
+                        </div>
+                        <div class="timeline-step">
+                            <div class="step-time">02:00</div>
+                            <div class="step-content">Auto-updates CRM</div>
+                        </div>
+                        <div class="timeline-step final">
+                            <div class="step-time">02:30</div>
+                            <div class="step-content">Alerts underwriter</div>
+                        </div>
+                    </div>
+                    <div class="process-stats">
+                        <div class="stat-pill">⚡ 2-3 minutes</div>
+                        <div class="stat-pill">💵 $0.21 per lead</div>
+                        <div class="stat-pill">🚀 Unlimited capacity</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <div class="cta-content">
+                <h2>Ready to Eliminate Missed Leads?</h2>
+                <p class="cta-subtitle">This system is deployed and running for financial services clients</p>
+                <a href="https://meetings.hubspot.com/chris4642" target="_blank" class="cta-button">
+                    📅 Schedule 15-Minute Demo
+                </a>
+                <div class="cta-contact">
+                    <p><strong>ResultantAI</strong></p>
+                    <p>
+                        <a href="mailto:chris@resultantai.com">chris@resultantai.com</a> |
+                        <a href="tel:+12403894152">(240) 389-4152</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modals -->
+    <!-- Modal 1: City Auto Repair - Qualified -->
+    <div id="modal1" class="modal" onclick="closeModalOnBackdrop(event, 'modal1')">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <button class="modal-close" onclick="closeModal('modal1')">&times;</button>
+            
+            <div class="modal-split">
+                <!-- LEFT SIDE - Call Transcript -->
+                <div class="modal-left">
+                    <div class="call-header">
+                        <div class="call-status">
+                            <div class="status-indicator">
+                                <div class="status-dot"></div>
+                                🔴 LIVE CALL
+                            </div>
+                        </div>
+                        <div class="call-timer" id="timer1">00:00</div>
+                    </div>
+                    
+                    <div class="call-transcript-area" id="transcript1">
+                        <div class="typing-indicator" id="typing1">
+                            <div class="typing-dot"></div>
+                            <div class="typing-dot"></div>
+                            <div class="typing-dot"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- RIGHT SIDE - CRM Panel -->
+                <div class="modal-right">
+                    <div class="crm-header">
+                        <h3>CRM Update In Progress</h3>
+                        <div class="crm-subtitle">Auto-populating from call data...</div>
+                    </div>
+                    
+                    <div class="crm-form" id="crm1">
+                        <div class="crm-field" id="field1-contact">
+                            <div class="crm-field-label">Contact Name</div>
+                            <div class="crm-field-value" id="val1-contact">—</div>
+                        </div>
+                        
+                        <div class="crm-field" id="field1-business">
+                            <div class="crm-field-label">Business Name</div>
+                            <div class="crm-field-value" id="val1-business">—</div>
+                        </div>
+                        
+                        <div class="crm-field" id="field1-time">
+                            <div class="crm-field-label">Time in Business</div>
+                            <div class="crm-field-value" id="val1-time">—</div>
+                        </div>
+                        
+                        <div class="crm-field" id="field1-revenue">
+                            <div class="crm-field-label">Monthly Revenue</div>
+                            <div class="crm-field-value" id="val1-revenue">—</div>
+                        </div>
+                        
+                        <div class="crm-field" id="field1-credit">
+                            <div class="crm-field-label">Credit Score</div>
+                            <div class="crm-field-value" id="val1-credit">—</div>
+                        </div>
+                        
+                        <div class="crm-field" id="field1-funding">
+                            <div class="crm-field-label">Funding Requested</div>
+                            <div class="crm-field-value" id="val1-funding">—</div>
+                        </div>
+                        
+                        <div class="crm-field" id="field1-status">
+                            <div class="crm-field-label">Qualification Status</div>
+                            <div class="crm-field-value" id="val1-status">—</div>
+                        </div>
+                    </div>
+                    
+                    <div class="next-step-box">
+                        <h4>Next Step</h4>
+                        <p id="nextstep1">Processing call data...</p>
+                        <button class="action-button reset-button" onclick="resetAndClose('modal1')">Try Another Scenario</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal 2: Fresh Start Bakery - Unqualified -->
+    <div id="modal2" class="modal" onclick="closeModalOnBackdrop(event, 'modal2')">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <button class="modal-close" onclick="closeModal('modal2')">&times;</button>
+            
+            <div class="modal-split">
+                <div class="modal-left">
+                    <div class="call-header">
+                        <div class="call-status">
+                            <div class="status-indicator">
+                                <div class="status-dot"></div>
+                                🔴 LIVE CALL
+                            </div>
+                        </div>
+                        <div class="call-timer" id="timer2">00:00</div>
+                    </div>
+                    
+                    <div class="call-transcript-area" id="transcript2">
+                        <div class="typing-indicator" id="typing2">
+                            <div class="typing-dot"></div>
+                            <div class="typing-dot"></div>
+                            <div class="typing-dot"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="modal-right">
+                    <div class="crm-header">
+                        <h3>CRM Update In Progress</h3>
+                        <div class="crm-subtitle">Auto-populating from call data...</div>
+                    </div>
+                    
+                    <div class="crm-form" id="crm2">
+                        <div class="crm-field" id="field2-contact">
+                            <div class="crm-field-label">Contact Name</div>
+                            <div class="crm-field-value" id="val2-contact">—</div>
+                        </div>
+                        
+                        <div class="crm-field" id="field2-business">
+                            <div class="crm-field-label">Business Name</div>
+                            <div class="crm-field-value" id="val2-business">—</div>
+                        </div>
+                        
+                        <div class="crm-field" id="field2-time">
+                            <div class="crm-field-label">Time in Business</div>
+                            <div class="crm-field-value" id="val2-time">—</div>
+                        </div>
+                        
+                        <div class="crm-field" id="field2-revenue">
+                            <div class="crm-field-label">Monthly Revenue</div>
+                            <div class="crm-field-value" id="val2-revenue">—</div>
+                        </div>
+                        
+                        <div class="crm-field" id="field2-credit">
+                            <div class="crm-field-label">Credit Score</div>
+                            <div class="crm-field-value" id="val2-credit">—</div>
+                        </div>
+                        
+                        <div class="crm-field" id="field2-funding">
+                            <div class="crm-field-label">Funding Requested</div>
+                            <div class="crm-field-value" id="val2-funding">—</div>
+                        </div>
+                        
+                        <div class="crm-field" id="field2-status">
+                            <div class="crm-field-label">Qualification Status</div>
+                            <div class="crm-field-value" id="val2-status">—</div>
+                        </div>
+                    </div>
+                    
+                    <div class="next-step-box">
+                        <h4>Next Step</h4>
+                        <p id="nextstep2">Processing call data...</p>
+                        <button class="action-button reset-button" onclick="resetAndClose('modal2')">Try Another Scenario</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal 3: Martinez Landscaping - Pending -->
+    <div id="modal3" class="modal" onclick="closeModalOnBackdrop(event, 'modal3')">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <button class="modal-close" onclick="closeModal('modal3')">&times;</button>
+            
+            <div class="modal-split">
+                <div class="modal-left">
+                    <div class="call-header">
+                        <div class="call-status">
+                            <div class="status-indicator">
+                                <div class="status-dot"></div>
+                                🔴 LIVE CALL
+                            </div>
+                        </div>
+                        <div class="call-timer" id="timer3">00:00</div>
+                    </div>
+                    
+                    <div class="call-transcript-area" id="transcript3">
+                        <div class="typing-indicator" id="typing3">
+                            <div class="typing-dot"></div>
+                            <div class="typing-dot"></div>
+                            <div class="typing-dot"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="modal-right">
+                    <div class="crm-header">
+                        <h3>CRM Update In Progress</h3>
+                        <div class="crm-subtitle">Auto-populating from call data...</div>
+                    </div>
+                    
+                    <div class="crm-form" id="crm3">
+                        <div class="crm-field" id="field3-contact">
+                            <div class="crm-field-label">Contact Name</div>
+                            <div class="crm-field-value" id="val3-contact">—</div>
+                        </div>
+                        
+                        <div class="crm-field" id="field3-business">
+                            <div class="crm-field-label">Business Name</div>
+                            <div class="crm-field-value" id="val3-business">—</div>
+                        </div>
+                        
+                        <div class="crm-field" id="field3-time">
+                            <div class="crm-field-label">Time in Business</div>
+                            <div class="crm-field-value" id="val3-time">—</div>
+                        </div>
+                        
+                        <div class="crm-field" id="field3-revenue">
+                            <div class="crm-field-label">Monthly Revenue</div>
+                            <div class="crm-field-value" id="val3-revenue">—</div>
+                        </div>
+                        
+                        <div class="crm-field" id="field3-credit">
+                            <div class="crm-field-label">Credit Score</div>
+                            <div class="crm-field-value" id="val3-credit">—</div>
+                        </div>
+                        
+                        <div class="crm-field" id="field3-funding">
+                            <div class="crm-field-label">Funding Requested</div>
+                            <div class="crm-field-value" id="val3-funding">—</div>
+                        </div>
+                        
+                        <div class="crm-field" id="field3-status">
+                            <div class="crm-field-label">Qualification Status</div>
+                            <div class="crm-field-value" id="val3-status">—</div>
+                        </div>
+                    </div>
+                    
+                    <div class="next-step-box">
+                        <h4>Next Step</h4>
+                        <p id="nextstep3">Processing call data...</p>
+                        <button class="action-button reset-button" onclick="resetAndClose('modal3')">Try Another Scenario</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 ResultantAI. All rights reserved.</p>
+            <p>Powered by Advanced AI Voice Technology</p>
+            <p><a href="https://resultantai.com">Learn More at ResultantAI.com</a></p>
+        </div>
+    </footer>
+
+    <!-- Exit Intent Popup -->
+    <div id="exitPopup" class="exit-popup">
+        <div class="exit-popup-content">
+            <button class="exit-popup-close" onclick="closeExitPopup()">&times;</button>
+            <div class="exit-popup-icon">⚡</div>
+            <h2>Wait! Don't Miss This Opportunity</h2>
+            <p class="exit-popup-subtitle">See how you can save $100K+ annually with AI voice agents</p>
+            <div class="exit-popup-benefits">
+                <div class="exit-benefit">
+                    <span class="benefit-icon">✅</span>
+                    <span>2-3 minute qualification vs 15-20 minutes</span>
+                </div>
+                <div class="exit-benefit">
+                    <span class="benefit-icon">✅</span>
+                    <span>$0.21 per lead vs $35-50</span>
+                </div>
+                <div class="exit-benefit">
+                    <span class="benefit-icon">✅</span>
+                    <span>200+ leads daily vs 20-25</span>
+                </div>
+            </div>
+            <a href="https://meetings.hubspot.com/chris4642" target="_blank" class="exit-popup-cta" onclick="trackExitPopupClick()">
+                📅 Schedule Your Free 15-Min Demo
+            </a>
+            <p class="exit-popup-footer">No commitment • See it live in 15 minutes</p>
+        </div>
+    </div>
+
+    <script>
+        // Call simulation data
+        const callData = {
+            modal1: {
+                conversation: [
+                    {speaker: 'ai', text: "Good afternoon! This is Sarah from VelocityMCA. Thank you for your interest in MCA funding. May I have your name?"},
+                    {speaker: 'customer', text: "Yes, this is Mike Johnson."},
+                    {speaker: 'ai', text: "Great to meet you, Mike! And what's the name of your business?"},
+                    {speaker: 'customer', text: "City Auto Repair."},
+                    {speaker: 'ai', text: "Perfect. How long has City Auto Repair been in operation?"},
+                    {speaker: 'customer', text: "About 3 years now."},
+                    {speaker: 'ai', text: "Excellent. And what's your average monthly revenue?"},
+                    {speaker: 'customer', text: "We average around $45,000 per month."},
+                    {speaker: 'ai', text: "That's great! May I ask about your personal credit score?"},
+                    {speaker: 'customer', text: "It's around 620."},
+                    {speaker: 'ai', text: "Thank you. How much funding are you looking for?"},
+                    {speaker: 'customer', text: "About $50,000. We want to expand our service bay."},
+                    {speaker: 'ai', text: "Perfect! Based on your business profile, you look like a strong candidate. I'm connecting you with a funding specialist right away."}
+                ],
+                crm: [
+                    {step: 2, field: 'contact', value: 'Mike Johnson'},
+                    {step: 4, field: 'business', value: 'City Auto Repair'},
+                    {step: 6, field: 'time', value: '3 years'},
+                    {step: 8, field: 'revenue', value: '$45,000/month'},
+                    {step: 10, field: 'credit', value: '620'},
+                    {step: 12, field: 'funding', value: '$50,000'},
+                    {step: 13, field: 'status', value: '<span class="crm-badge qualified">✅ QUALIFIED</span>'}
+                ],
+                nextStep: 'Route to sales team for immediate follow-up. High-value qualified lead.'
+            },
+            modal2: {
+                conversation: [
+                    {speaker: 'ai', text: "Hello! This is Sarah from VelocityMCA. Thanks for reaching out. What's your name?"},
+                    {speaker: 'customer', text: "Hi, I'm Jennifer Martinez."},
+                    {speaker: 'ai', text: "Nice to meet you, Jennifer! What's your business name?"},
+                    {speaker: 'customer', text: "Fresh Start Bakery."},
+                    {speaker: 'ai', text: "Congratulations on your bakery! How long have you been open?"},
+                    {speaker: 'customer', text: "About 4 months now."},
+                    {speaker: 'ai', text: "That's exciting! What's your monthly revenue currently?"},
+                    {speaker: 'customer', text: "Around $8,000 per month, and it's growing."},
+                    {speaker: 'ai', text: "May I ask about your credit score?"},
+                    {speaker: 'customer', text: "It's 580."},
+                    {speaker: 'ai', text: "And how much funding are you looking for?"},
+                    {speaker: 'customer', text: "About $25,000 for equipment."},
+                    {speaker: 'ai', text: "I appreciate you sharing that. For our MCA program, we typically work with businesses operating for at least 6 months. I'm adding you to our 90-day follow-up list."}
+                ],
+                crm: [
+                    {step: 2, field: 'contact', value: 'Jennifer Martinez'},
+                    {step: 4, field: 'business', value: 'Fresh Start Bakery'},
+                    {step: 6, field: 'time', value: '4 months'},
+                    {step: 8, field: 'revenue', value: '$8,000/month'},
+                    {step: 10, field: 'credit', value: '580'},
+                    {step: 12, field: 'funding', value: '$25,000'},
+                    {step: 13, field: 'status', value: '<span class="crm-badge unqualified">❌ TOO EARLY</span>'}
+                ],
+                nextStep: 'Add to 90-day nurture campaign. Re-qualify when business hits 6-month mark.'
+            },
+            modal3: {
+                conversation: [
+                    {speaker: 'ai', text: "Good morning! This is Sarah from VelocityMCA. May I have your name?"},
+                    {speaker: 'customer', text: "Carlos Martinez."},
+                    {speaker: 'ai', text: "Great to meet you, Carlos. What's the name of your company?"},
+                    {speaker: 'customer', text: "Martinez Landscaping."},
+                    {speaker: 'ai', text: "Perfect. How long have you been in business?"},
+                    {speaker: 'customer', text: "2 years this spring."},
+                    {speaker: 'ai', text: "Great! What's your typical monthly revenue?"},
+                    {speaker: 'customer', text: "It varies with the season. Winter is $12,000, summer is $15,000 or more."},
+                    {speaker: 'ai', text: "I understand seasonal businesses have fluctuations. May I ask your credit score?"},
+                    {speaker: 'customer', text: "It's 595."},
+                    {speaker: 'ai', text: "And how much funding are you looking for?"},
+                    {speaker: 'customer', text: "$35,000 for a new truck and equipment."},
+                    {speaker: 'ai', text: "That makes sense. Due to seasonal revenue variation, I'd like our specialists to review your application personally. Can you provide 3 months of bank statements?"}
+                ],
+                crm: [
+                    {step: 2, field: 'contact', value: 'Carlos Martinez'},
+                    {step: 4, field: 'business', value: 'Martinez Landscaping'},
+                    {step: 6, field: 'time', value: '2 years'},
+                    {step: 8, field: 'revenue', value: '$12K-15K/month (seasonal)'},
+                    {step: 10, field: 'credit', value: '595'},
+                    {step: 12, field: 'funding', value: '$35,000'},
+                    {step: 13, field: 'status', value: '<span class="crm-badge pending">⚠️ PENDING REVIEW</span>'}
+                ],
+                nextStep: 'Route to underwriting for manual review. Request bank statements for seasonal analysis.'
+            }
+        };
+
+        // Active simulations tracking
+        let activeSimulations = {};
+
+        // Modal functions
+        function openModal(modalId) {
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                modal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+                startCallSimulation(modalId);
+            }
+        }
+
+        function closeModal(modalId) {
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                modal.classList.remove('active');
+                document.body.style.overflow = 'auto';
+                stopCallSimulation(modalId);
+            }
+        }
+
+        function resetAndClose(modalId) {
+            closeModal(modalId);
+        }
+
+        function closeModalOnBackdrop(event, modalId) {
+            if (event.target.id === modalId) {
+                closeModal(modalId);
+            }
+        }
+
+        // Call simulation functions
+        function startCallSimulation(modalId) {
+            // Stop any existing simulation
+            stopCallSimulation(modalId);
+            
+            const num = modalId.replace('modal', '');
+            const data = callData[modalId];
+            
+            // Reset transcript and CRM
+            const transcript = document.getElementById(`transcript${num}`);
+            transcript.innerHTML = '<div class="typing-indicator" id="typing' + num + '"><div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div></div>';
+            
+            // Reset all CRM fields
+            ['contact', 'business', 'time', 'revenue', 'credit', 'funding', 'status'].forEach(field => {
+                const fieldEl = document.getElementById(`field${num}-${field}`);
+                const valEl = document.getElementById(`val${num}-${field}`);
+                if (fieldEl) fieldEl.classList.remove('filled');
+                if (valEl) valEl.innerHTML = '—';
+            });
+            
+            document.getElementById(`nextstep${num}`).textContent = 'Processing call data...';
+            
+            // Start timer
+            let seconds = 0;
+            const timerInterval = setInterval(() => {
+                seconds++;
+                const mins = Math.floor(seconds / 60);
+                const secs = seconds % 60;
+                document.getElementById(`timer${num}`).textContent = 
+                    `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+            }, 1000);
+            
+            // Animate conversation
+            let currentLine = 0;
+            const conversationInterval = setInterval(() => {
+                if (currentLine < data.conversation.length) {
+                    const line = data.conversation[currentLine];
+                    
+                    // Show typing indicator for AI messages
+                    const typing = document.getElementById(`typing${num}`);
+                    if (line.speaker === 'ai') {
+                        typing.classList.add('active');
+                        
+                        setTimeout(() => {
+                            typing.classList.remove('active');
+                            addChatBubble(num, line.speaker, line.text);
+                            
+                            // Update CRM fields
+                            const crmUpdate = data.crm.find(c => c.step === currentLine);
+                            if (crmUpdate) {
+                                updateCRMField(num, crmUpdate.field, crmUpdate.value);
+                            }
+                        }, 1500);
+                    } else {
+                        addChatBubble(num, line.speaker, line.text);
+                        
+                        // Update CRM fields
+                        const crmUpdate = data.crm.find(c => c.step === currentLine);
+                        if (crmUpdate) {
+                            updateCRMField(num, crmUpdate.field, crmUpdate.value);
+                        }
+                    }
+                    
+                    currentLine++;
+                } else {
+                    // Call finished
+                    clearInterval(conversationInterval);
+                    document.getElementById(`nextstep${num}`).textContent = data.nextStep;
+                }
+            }, 2500);
+            
+            // Store intervals for cleanup
+            activeSimulations[modalId] = {
+                timerInterval,
+                conversationInterval
+            };
+        }
+
+        function stopCallSimulation(modalId) {
+            if (activeSimulations[modalId]) {
+                clearInterval(activeSimulations[modalId].timerInterval);
+                clearInterval(activeSimulations[modalId].conversationInterval);
+                delete activeSimulations[modalId];
+            }
+        }
+
+        function addChatBubble(num, speaker, text) {
+            const transcript = document.getElementById(`transcript${num}`);
+            const bubble = document.createElement('div');
+            bubble.className = `chat-bubble ${speaker}`;
+            
+            const speakerLabel = speaker === 'ai' ? 'Sarah (AI Agent)' : 'Customer';
+            
+            bubble.innerHTML = `
+                <div class="bubble-speaker">${speakerLabel}</div>
+                <div class="bubble-content">${text}</div>
+            `;
+            
+            transcript.appendChild(bubble);
+            
+            // Auto-scroll
+            transcript.scrollTop = transcript.scrollHeight;
+        }
+
+        function updateCRMField(num, field, value) {
+            const fieldEl = document.getElementById(`field${num}-${field}`);
+            const valEl = document.getElementById(`val${num}-${field}`);
+            
+            if (fieldEl && valEl) {
+                setTimeout(() => {
+                    fieldEl.classList.add('filled');
+                    valEl.innerHTML = value;
+                }, 300);
+            }
+        }
+
+        // Close modal on Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                document.querySelectorAll('.modal.active').forEach(modal => {
+                    closeModal(modal.id);
+                });
+            }
+        });
+
+        // Add smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // ROI Calculator
+        function updateROI() {
+            const leadVolume = parseInt(document.getElementById('leadVolume').value);
+            const currentCost = parseInt(document.getElementById('currentCost').value);
+            const aiCostPerLead = 0.21;
+
+            // Update slider values
+            document.getElementById('leadVolumeValue').textContent = leadVolume;
+            document.getElementById('currentCostValue').textContent = currentCost;
+
+            // Calculate monthly costs (30 days)
+            const manualMonthlyCost = leadVolume * currentCost * 30;
+            const aiMonthlyCost = leadVolume * aiCostPerLead * 30;
+            const monthlySavings = manualMonthlyCost - aiMonthlyCost;
+            const annualSavings = monthlySavings * 12;
+
+            // Format and update display
+            document.getElementById('manualCost').textContent = '$' + manualMonthlyCost.toLocaleString();
+            document.getElementById('aiCost').textContent = '$' + Math.round(aiMonthlyCost).toLocaleString();
+            document.getElementById('monthlySavings').textContent = '$' + Math.round(monthlySavings).toLocaleString();
+            document.getElementById('annualSavings').textContent = '$' + Math.round(annualSavings).toLocaleString();
+        }
+
+        // Initialize calculator
+        document.addEventListener('DOMContentLoaded', function() {
+            const leadVolumeSlider = document.getElementById('leadVolume');
+            const currentCostSlider = document.getElementById('currentCost');
+
+            if (leadVolumeSlider && currentCostSlider) {
+                leadVolumeSlider.addEventListener('input', updateROI);
+                currentCostSlider.addEventListener('input', updateROI);
+                updateROI(); // Initial calculation
+            }
+        });
+
+        // Exit Intent Popup
+        let exitPopupShown = false;
+
+        function showExitPopup() {
+            if (!exitPopupShown && !sessionStorage.getItem('exitPopupShown')) {
+                document.getElementById('exitPopup').classList.add('active');
+                document.body.style.overflow = 'hidden';
+                exitPopupShown = true;
+                sessionStorage.setItem('exitPopupShown', 'true');
+            }
+        }
+
+        function closeExitPopup() {
+            document.getElementById('exitPopup').classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        function trackExitPopupClick() {
+            console.log('Exit popup CTA clicked');
+            sessionStorage.setItem('exitPopupConverted', 'true');
+        }
+
+        // Detect exit intent
+        document.addEventListener('mouseleave', function(e) {
+            if (e.clientY <= 0) {
+                showExitPopup();
+            }
+        });
+
+        // Also show on mobile after 30 seconds if not shown
+        if (window.innerWidth <= 768) {
+            setTimeout(function() {
+                if (!exitPopupShown && !sessionStorage.getItem('exitPopupShown')) {
+                    showExitPopup();
+                }
+            }, 30000);
+        }
+
+        // Close popup when clicking outside
+        document.getElementById('exitPopup')?.addEventListener('click', function(e) {
+            if (e.target.id === 'exitPopup') {
+                closeExitPopup();
+            }
+        });
+
+        // Close popup on ESC key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeExitPopup();
+            }
+        });
+
+        // Log page load
+        console.log('MCA Voice Agent Demo loaded successfully');
+    </script>
+</body>
+</html>

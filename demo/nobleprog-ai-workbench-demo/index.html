@@ -1,0 +1,1264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Implementation Workbench | ResultantAI</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #1a1f2e 0%, #2c3441 100%);
+            color: #ffffff;
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Header */
+        header {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 30px;
+            border-radius: 16px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(71, 185, 248, 0.3);
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 36px;
+            background: linear-gradient(135deg, #47b9f8 0%, #00ff88 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            color: #8892a6;
+            font-size: 18px;
+        }
+
+        /* Tutorial Overlay */
+        .tutorial-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+            animation: fadeIn 0.3s;
+        }
+
+        .tutorial-overlay.hidden {
+            display: none;
+        }
+
+        .tutorial-content {
+            background: linear-gradient(135deg, #2c3441 0%, #1a1f2e 100%);
+            border: 3px solid #47b9f8;
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 600px;
+            text-align: center;
+        }
+
+        .tutorial-content h2 {
+            color: #47b9f8;
+            font-size: 28px;
+            margin-bottom: 20px;
+        }
+
+        .tutorial-content p {
+            color: #ffffff;
+            font-size: 16px;
+            line-height: 1.8;
+            margin-bottom: 30px;
+        }
+
+        .tutorial-btn {
+            background: linear-gradient(135deg, #47b9f8 0%, #00ff88 100%);
+            color: #1a1f2e;
+            padding: 15px 40px;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .tutorial-btn:hover {
+            transform: scale(1.05);
+        }
+
+        /* Progress Tracker */
+        .progress-tracker {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 30px;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid rgba(71, 185, 248, 0.3);
+        }
+
+        .progress-step {
+            flex: 1;
+            text-align: center;
+            padding: 15px;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.03);
+            margin: 0 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .progress-step.active {
+            background: rgba(71, 185, 248, 0.2);
+            border: 2px solid #47b9f8;
+            transform: scale(1.05);
+        }
+
+        .progress-step.completed {
+            background: rgba(0, 255, 136, 0.1);
+            border: 2px solid #00ff88;
+        }
+
+        .progress-step.locked {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+
+        .progress-step-number {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(71, 185, 248, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 10px;
+            font-weight: 700;
+            font-size: 18px;
+        }
+
+        .progress-step.completed .progress-step-number {
+            background: #00ff88;
+            color: #1a1f2e;
+        }
+
+        .progress-step.active .progress-step-number {
+            background: #47b9f8;
+            color: #1a1f2e;
+        }
+
+        .progress-step-title {
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: #ffffff;
+        }
+
+        .progress-step-desc {
+            font-size: 12px;
+            color: #8892a6;
+        }
+
+        /* Main Card */
+        .main-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            padding: 40px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(71, 185, 248, 0.3);
+        }
+
+        .step-content {
+            display: none;
+        }
+
+        .step-content.active {
+            display: block;
+            animation: slideIn 0.5s;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .step-title {
+            color: #47b9f8;
+            font-size: 28px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        /* Form Styling */
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            color: #ffffff;
+            font-weight: 600;
+            margin-bottom: 8px;
+            font-size: 15px;
+        }
+
+        .form-input, .form-select {
+            width: 100%;
+            padding: 14px;
+            border: 2px solid rgba(71, 185, 248, 0.3);
+            border-radius: 8px;
+            font-size: 16px;
+            background: rgba(255, 255, 255, 0.05);
+            color: #ffffff;
+            transition: all 0.3s;
+        }
+
+        .form-input:focus, .form-select:focus {
+            outline: none;
+            border-color: #47b9f8;
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .form-select option {
+            background: #2c3441;
+            color: #ffffff;
+        }
+
+        .slider-container {
+            margin-top: 10px;
+        }
+
+        .slider {
+            width: 100%;
+            height: 8px;
+            border-radius: 4px;
+            background: rgba(71, 185, 248, 0.3);
+            outline: none;
+            -webkit-appearance: none;
+        }
+
+        .slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: #47b9f8;
+            cursor: pointer;
+        }
+
+        .slider::-moz-range-thumb {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: #47b9f8;
+            cursor: pointer;
+            border: none;
+        }
+
+        .slider-labels {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+            font-size: 12px;
+            color: #8892a6;
+        }
+
+        .slider-value {
+            text-align: center;
+            color: #47b9f8;
+            font-size: 18px;
+            font-weight: 700;
+            margin-top: 5px;
+        }
+
+        /* Buttons */
+        .btn {
+            padding: 16px 40px;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: inline-block;
+            text-decoration: none;
+            text-align: center;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #47b9f8 0%, #00ff88 100%);
+            color: #1a1f2e;
+        }
+
+        .btn-primary:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(71, 185, 248, 0.4);
+        }
+
+        .btn-primary:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .btn-secondary {
+            background: rgba(71, 185, 248, 0.1);
+            color: #47b9f8;
+            border: 2px solid #47b9f8;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(71, 185, 248, 0.2);
+        }
+
+        .button-group {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        /* Results Display */
+        .results-box {
+            background: rgba(0, 255, 136, 0.1);
+            border: 2px solid #00ff88;
+            border-radius: 12px;
+            padding: 30px;
+            margin: 30px 0;
+            display: none;
+        }
+
+        .results-box.show {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+
+        .results-box h3 {
+            color: #00ff88;
+            font-size: 24px;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .score-display {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .score-number {
+            font-size: 72px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #47b9f8 0%, #00ff88 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .score-label {
+            color: #8892a6;
+            font-size: 16px;
+        }
+
+        .recommendation {
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .recommendation.high {
+            background: rgba(0, 255, 136, 0.1);
+            border-left: 4px solid #00ff88;
+        }
+
+        .recommendation.medium {
+            background: rgba(255, 193, 7, 0.1);
+            border-left: 4px solid #ffc107;
+        }
+
+        .recommendation.low {
+            background: rgba(255, 71, 87, 0.1);
+            border-left: 4px solid #ff4757;
+        }
+
+        .recommendation h4 {
+            margin-bottom: 10px;
+            font-size: 20px;
+        }
+
+        /* Checklist */
+        .checklist {
+            margin: 20px 0;
+        }
+
+        .checklist-item {
+            background: rgba(255, 255, 255, 0.03);
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .checklist-item input[type="checkbox"] {
+            width: 24px;
+            height: 24px;
+            cursor: pointer;
+        }
+
+        .checklist-item label {
+            cursor: pointer;
+            flex: 1;
+        }
+
+        /* Mitigation Table */
+        .mitigation-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        .mitigation-table th {
+            background: rgba(71, 185, 248, 0.2);
+            color: #47b9f8;
+            padding: 12px;
+            text-align: left;
+            font-weight: 600;
+            border-bottom: 2px solid #47b9f8;
+        }
+
+        .mitigation-table td {
+            padding: 12px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .mitigation-table input, .mitigation-table select {
+            width: 100%;
+            padding: 8px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(71, 185, 248, 0.3);
+            border-radius: 4px;
+            color: #ffffff;
+        }
+
+        /* Timeline */
+        .timeline {
+            margin: 30px 0;
+        }
+
+        .timeline-item {
+            background: rgba(255, 255, 255, 0.03);
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            border-left: 4px solid #47b9f8;
+        }
+
+        .timeline-item h4 {
+            color: #47b9f8;
+            margin-bottom: 10px;
+        }
+
+        .timeline-item ul {
+            margin-left: 20px;
+            color: #ffffff;
+        }
+
+        .timeline-item li {
+            margin-bottom: 5px;
+        }
+
+        /* Before/After Comparison */
+        .comparison-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .comparison-card {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 25px;
+            border-radius: 12px;
+            border: 2px solid rgba(71, 185, 248, 0.3);
+        }
+
+        .comparison-card.before {
+            border-color: rgba(255, 71, 87, 0.5);
+        }
+
+        .comparison-card.after {
+            border-color: #00ff88;
+        }
+
+        .comparison-title {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .comparison-card.before .comparison-title {
+            color: #ff4757;
+        }
+
+        .comparison-card.after .comparison-title {
+            color: #00ff88;
+        }
+
+        .comparison-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .comparison-list li {
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .comparison-list li:last-child {
+            border-bottom: none;
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 30px;
+            border-radius: 16px;
+            text-align: center;
+            border: 1px solid rgba(71, 185, 248, 0.3);
+        }
+
+        footer p {
+            color: #8892a6;
+            margin-bottom: 10px;
+        }
+
+        footer strong {
+            color: #47b9f8;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 28px;
+            }
+
+            .progress-tracker {
+                flex-direction: column;
+            }
+
+            .progress-step {
+                margin: 5px 0;
+            }
+
+            .button-group {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+            }
+        }
+
+        .category-header {
+            color: #47b9f8;
+            font-size: 20px;
+            margin: 30px 0 15px 0;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #47b9f8;
+        }
+
+        .info-box {
+            background: rgba(71, 185, 248, 0.1);
+            border-left: 4px solid #47b9f8;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            color: #ffffff;
+        }
+    </style>
+</head>
+<body>
+    <!-- Tutorial Overlay -->
+    <div class="tutorial-overlay" id="tutorialOverlay">
+        <div class="tutorial-content">
+            <h2>🎯 Welcome to Your AI Implementation Workbench</h2>
+            <p>
+                This 3-step system takes managers from <strong>"Should we use AI?"</strong> to 
+                <strong>"Here's our 90-day pilot plan"</strong> in 10 minutes.
+            </p>
+            <p style="text-align: left; margin: 20px 0;">
+                <strong>You'll complete:</strong><br>
+                📊 <strong>Step 1:</strong> ROI Scorecard (2 min)<br>
+                🛡️ <strong>Step 2:</strong> Risk Analysis (3 min)<br>
+                📋 <strong>Step 3:</strong> Pilot Plan (5 min)
+            </p>
+            <p>
+                <strong>Try it with sample data:</strong> "Processing expense reports"
+            </p>
+            <button class="tutorial-btn" onclick="closeTutorial()">Start Workshop →</button>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Header -->
+        <header>
+            <h1>🚀 AI Implementation Workbench</h1>
+            <p>From Opportunity Identification to 90-Day Pilot Plan</p>
+            <p style="margin-top: 15px; color: #8892a6;">
+                <strong style="color: #47b9f8;">Built by ResultantAI</strong> for NobleProg Manager Training
+            </p>
+        </header>
+
+        <!-- Progress Tracker -->
+        <div class="progress-tracker">
+            <div class="progress-step active" id="progressStep1" onclick="goToStep(1)">
+                <div class="progress-step-number">1</div>
+                <div class="progress-step-title">ROI Scorecard</div>
+                <div class="progress-step-desc">Evaluate opportunity</div>
+            </div>
+            <div class="progress-step locked" id="progressStep2" onclick="goToStep(2)">
+                <div class="progress-step-number">2</div>
+                <div class="progress-step-title">Risk Analysis</div>
+                <div class="progress-step-desc">Red-team risks</div>
+            </div>
+            <div class="progress-step locked" id="progressStep3" onclick="goToStep(3)">
+                <div class="progress-step-number">3</div>
+                <div class="progress-step-title">Pilot Plan</div>
+                <div class="progress-step-desc">90-day roadmap</div>
+            </div>
+        </div>
+
+        <!-- Step 1: ROI Scorecard -->
+        <div class="main-card">
+            <div class="step-content active" id="step1">
+                <h2 class="step-title">Step 1: AI Opportunity Scorecard</h2>
+                
+                <div class="info-box">
+                    <strong>📌 Purpose:</strong> Quantify the ROI potential of an AI opportunity before investing time in implementation.
+                </div>
+
+                <form id="scorecardForm">
+                    <div class="form-group">
+                        <label for="taskName">Task or Process Name</label>
+                        <input type="text" id="taskName" class="form-input" 
+                               placeholder="e.g., Processing expense reports" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="frequency">How often is this task performed?</label>
+                        <select id="frequency" class="form-select" required>
+                            <option value="">Select frequency...</option>
+                            <option value="260">Daily (260 times/year)</option>
+                            <option value="52">Weekly (52 times/year)</option>
+                            <option value="12">Monthly (12 times/year)</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="timePerTask">Time per task (minutes)</label>
+                        <input type="number" id="timePerTask" class="form-input" 
+                               placeholder="e.g., 120" min="1" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="laborCost">Hourly labor cost ($)</label>
+                        <input type="number" id="laborCost" class="form-input" 
+                               placeholder="e.g., 50" min="1" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="consistency">Task Consistency</label>
+                        <div class="slider-container">
+                            <input type="range" id="consistency" class="slider" 
+                                   min="1" max="10" value="5" oninput="updateSliderValue(this.value)">
+                            <div class="slider-labels">
+                                <span>1 - Highly variable</span>
+                                <span>10 - Identical every time</span>
+                            </div>
+                            <div class="slider-value" id="consistencyValue">5 / 10</div>
+                        </div>
+                    </div>
+
+                    <div class="button-group">
+                        <button type="submit" class="btn btn-primary">Calculate ROI Score</button>
+                    </div>
+                </form>
+
+                <div class="results-box" id="step1Results">
+                    <h3>📊 ROI Analysis Results</h3>
+                    <div class="score-display">
+                        <div class="score-number" id="roiScore">0</div>
+                        <div class="score-label">out of 100</div>
+                    </div>
+                    <div class="recommendation" id="recommendation">
+                        <h4 id="recommendationTitle"></h4>
+                        <p id="recommendationText"></p>
+                        <p><strong>Annual Labor Cost:</strong> <span id="annualCost"></span></p>
+                        <p><strong>Estimated AI Automation Potential:</strong> <span id="automationPotential"></span>%</p>
+                    </div>
+                    <div class="button-group">
+                        <button class="btn btn-primary" onclick="unlockStep2()">Continue to Risk Analysis →</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 2: Risk Analysis -->
+            <div class="step-content" id="step2">
+                <h2 class="step-title">Step 2: Ethical AI Red-Team Analysis</h2>
+                
+                <div class="info-box">
+                    <strong>📌 Purpose:</strong> Identify and mitigate risks before implementation. This is how you get executive buy-in.
+                </div>
+
+                <div style="background: rgba(71, 185, 248, 0.1); padding: 20px; border-radius: 8px; margin: 20px 0;">
+                    <strong style="color: #47b9f8;">Evaluating Opportunity:</strong>
+                    <span id="taskNameDisplay" style="color: #ffffff;"></span>
+                </div>
+
+                <form id="redTeamForm">
+                    <h3 class="category-header">🔒 Data & Privacy Risks</h3>
+                    <div class="checklist">
+                        <div class="checklist-item">
+                            <input type="checkbox" id="risk_pii" name="risk" value="PII">
+                            <label for="risk_pii">This task involves Personally Identifiable Information (PII)</label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="risk_hipaa" name="risk" value="HIPAA">
+                            <label for="risk_hipaa">This task involves Protected Health Information (HIPAA)</label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="risk_gdpr" name="risk" value="GDPR">
+                            <label for="risk_gdpr">Data subject to GDPR or other privacy laws</label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="risk_consent" name="risk" value="Consent">
+                            <label for="risk_consent">No explicit customer consent for AI processing</label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="risk_vendor" name="risk" value="Vendor">
+                            <label for="risk_vendor">Data sent to third-party AI vendors</label>
+                        </div>
+                    </div>
+
+                    <h3 class="category-header">⚖️ Bias & Fairness Risks</h3>
+                    <div class="checklist">
+                        <div class="checklist-item">
+                            <input type="checkbox" id="risk_decisions" name="risk" value="Decisions">
+                            <label for="risk_decisions">AI makes decisions about people (hiring, credit, etc.)</label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="risk_historical" name="risk" value="Historical">
+                            <label for="risk_historical">Training data may reflect historical bias</label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="risk_exclusion" name="risk" value="Exclusion">
+                            <label for="risk_exclusion">Certain groups may be disadvantaged</label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="risk_audit" name="risk" value="Audit">
+                            <label for="risk_audit">No plan to audit AI outputs for fairness</label>
+                        </div>
+                    </div>
+
+                    <h3 class="category-header">🎯 Accuracy & Reliability Risks</h3>
+                    <div class="checklist">
+                        <div class="checklist-item">
+                            <input type="checkbox" id="risk_financial" name="risk" value="Financial">
+                            <label for="risk_financial">AI errors could cause financial loss</label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="risk_customer" name="risk" value="Customer">
+                            <label for="risk_customer">AI errors could harm customer relationships</label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="risk_compliance" name="risk" value="Compliance">
+                            <label for="risk_compliance">AI errors could create legal/compliance issues</label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="risk_human" name="risk" value="Human">
+                            <label for="risk_human">No human-in-the-loop review process</label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="risk_measurement" name="risk" value="Measurement">
+                            <label for="risk_measurement">No plan to measure AI accuracy over time</label>
+                        </div>
+                    </div>
+
+                    <h3 class="category-header">👁️ Transparency & Explainability</h3>
+                    <div class="checklist">
+                        <div class="checklist-item">
+                            <input type="checkbox" id="risk_disclosure" name="risk" value="Disclosure">
+                            <label for="risk_disclosure">Customers/employees don't know AI is being used</label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="risk_explain" name="risk" value="Explain">
+                            <label for="risk_explain">Can't explain how AI makes decisions</label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="risk_appeal" name="risk" value="Appeal">
+                            <label for="risk_appeal">No process for humans to appeal AI decisions</label>
+                        </div>
+                    </div>
+
+                    <h3 class="category-header">📋 Mitigation Planning</h3>
+                    <div class="info-box">
+                        <strong>Instructions:</strong> For each risk category you checked, add a mitigation action below.
+                    </div>
+
+                    <table class="mitigation-table" id="mitigationTable">
+                        <thead>
+                            <tr>
+                                <th>Risk Category</th>
+                                <th>Likelihood</th>
+                                <th>Impact</th>
+                                <th>Mitigation Action</th>
+                                <th>Owner</th>
+                            </tr>
+                        </thead>
+                        <tbody id="mitigationTableBody">
+                            <tr>
+                                <td colspan="5" style="text-align: center; color: #8892a6;">
+                                    Select risk checkboxes above to populate mitigation table
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="button-group">
+                        <button type="button" class="btn btn-secondary" onclick="goToStep(1)">← Back to Scorecard</button>
+                        <button type="submit" class="btn btn-primary">Generate Pilot Plan →</button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Step 3: Pilot Plan -->
+            <div class="step-content" id="step3">
+                <h2 class="step-title">Step 3: 90-Day Pilot Plan</h2>
+                
+                <div class="info-box">
+                    <strong>📌 Purpose:</strong> Board-ready implementation plan generated from your Scorecard + Risk Analysis.
+                </div>
+
+                <div style="background: rgba(0, 255, 136, 0.1); padding: 20px; border-radius: 8px; margin: 20px 0; border-left: 4px solid #00ff88;">
+                    <h3 style="color: #00ff88; margin-bottom: 10px;">Executive Summary</h3>
+                    <p><strong>Opportunity:</strong> <span id="pilotTaskName"></span></p>
+                    <p><strong>ROI Score:</strong> <span id="pilotROI"></span> / 100</p>
+                    <p><strong>Annual Cost (Manual):</strong> <span id="pilotCost"></span></p>
+                    <p><strong>Risks Identified:</strong> <span id="pilotRisks"></span></p>
+                    <p><strong>Recommendation:</strong> <span id="pilotRecommendation"></span></p>
+                </div>
+
+                <h3 class="category-header">📅 90-Day Timeline</h3>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <h4>Weeks 1-2: Discovery & Setup</h4>
+                        <ul>
+                            <li>Stakeholder kickoff meeting (IT, Legal, End Users)</li>
+                            <li>Document current process baseline (time, cost, error rate)</li>
+                            <li>Select AI vendor/tool (compare 3 options)</li>
+                            <li>Set up sandbox environment (no production data yet)</li>
+                        </ul>
+                        <p><strong>Deliverable:</strong> Vendor selection memo, baseline metrics doc</p>
+                    </div>
+
+                    <div class="timeline-item">
+                        <h4>Weeks 3-4: Build & Test (Sandbox)</h4>
+                        <ul>
+                            <li>Configure AI tool with test data (10 sample tasks)</li>
+                            <li>Train 2-3 power users</li>
+                            <li>Run accuracy test: Compare AI vs. manual output</li>
+                            <li>Red-team for risks (documented above)</li>
+                        </ul>
+                        <p><strong>Deliverable:</strong> Accuracy report, risk mitigation checklist</p>
+                    </div>
+
+                    <div class="timeline-item">
+                        <h4>Weeks 5-8: Pilot Launch (Small Group)</h4>
+                        <ul>
+                            <li>Select 5-10 pilot users (early adopters)</li>
+                            <li>Process real tasks with 100% human review</li>
+                            <li>Weekly check-ins: What's working? What's breaking?</li>
+                            <li>Track metrics: Time savings, error rate, user satisfaction</li>
+                        </ul>
+                        <p><strong>Deliverable:</strong> Weekly pilot dashboards</p>
+                    </div>
+
+                    <div class="timeline-item">
+                        <h4>Weeks 9-10: Analysis & Refinement</h4>
+                        <ul>
+                            <li>Analyze pilot data: Did we hit success metrics?</li>
+                            <li>Survey pilot users: What needs improvement?</li>
+                            <li>Adjust AI config or process based on feedback</li>
+                            <li>Calculate ROI: (Time saved × labor cost) - (AI cost + setup)</li>
+                        </ul>
+                        <p><strong>Deliverable:</strong> Pilot results report</p>
+                    </div>
+
+                    <div class="timeline-item">
+                        <h4>Weeks 11-12: Scale Decision & Rollout Plan</h4>
+                        <ul>
+                            <li>Present results to leadership: Go/No-Go/Iterate</li>
+                            <li>If GO: Draft rollout plan for full team (Weeks 13-16)</li>
+                            <li>If NO-GO: Document lessons learned, archive pilot</li>
+                            <li>If ITERATE: Define Phase 2 improvements</li>
+                        </ul>
+                        <p><strong>Deliverable:</strong> Executive summary + recommendation</p>
+                    </div>
+                </div>
+
+                <h3 class="category-header">💰 Budget Breakdown</h3>
+                <table class="mitigation-table">
+                    <thead>
+                        <tr>
+                            <th>Category</th>
+                            <th>Estimated Cost</th>
+                            <th>Notes</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>AI Tool (3-month subscription)</td>
+                            <td>$1,500 - $3,000</td>
+                            <td>Varies by vendor</td>
+                        </tr>
+                        <tr>
+                            <td>Setup/Configuration</td>
+                            <td>$2,000 - $5,000</td>
+                            <td>Internal IT or consultant hours</td>
+                        </tr>
+                        <tr>
+                            <td>Training</td>
+                            <td>$500 - $1,000</td>
+                            <td>2 hours per pilot user</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Total Pilot Cost</strong></td>
+                            <td><strong>$4,000 - $9,000</strong></td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p style="margin-top: 15px;">
+                    <strong>Expected ROI:</strong> If pilot succeeds, annual savings = 
+                    <span id="pilotSavings" style="color: #00ff88;"></span> (manual cost - AI annual cost)
+                </p>
+
+                <h3 class="category-header">📊 Success Metrics</h3>
+                <div class="info-box">
+                    <p><strong>Primary Metric:</strong> Reduce task processing time by 30%+</p>
+                    <p><strong>Secondary Metrics:</strong></p>
+                    <ul>
+                        <li>Error rate &lt; 5%</li>
+                        <li>User satisfaction score &gt; 7/10</li>
+                        <li>ROI positive within 12 months</li>
+                    </ul>
+                </div>
+
+                <h3 class="category-header">🚦 Go/No-Go Decision Criteria (Week 11)</h3>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px; margin: 20px 0;">
+                    <div style="background: rgba(0, 255, 136, 0.1); padding: 20px; border-radius: 8px; border-left: 4px solid #00ff88;">
+                        <h4 style="color: #00ff88;">✅ GO (Scale)</h4>
+                        <ul>
+                            <li>Primary metric achieved</li>
+                            <li>Error rate &lt; 5%</li>
+                            <li>User satisfaction &gt; 7/10</li>
+                            <li>Positive 12-month ROI</li>
+                        </ul>
+                    </div>
+                    <div style="background: rgba(255, 193, 7, 0.1); padding: 20px; border-radius: 8px; border-left: 4px solid #ffc107;">
+                        <h4 style="color: #ffc107;">⚠️ ITERATE (Phase 2)</h4>
+                        <ul>
+                            <li>Partial success (15-25% improvement)</li>
+                            <li>Specific issues identified</li>
+                            <li>Users like it but need more training</li>
+                        </ul>
+                    </div>
+                    <div style="background: rgba(255, 71, 87, 0.1); padding: 20px; border-radius: 8px; border-left: 4px solid #ff4757;">
+                        <h4 style="color: #ff4757;">❌ NO-GO (Pause)</h4>
+                        <ul>
+                            <li>Primary metric not achieved</li>
+                            <li>Error rate &gt; 10%</li>
+                            <li>User satisfaction &lt; 5/10</li>
+                            <li>Negative ROI</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="button-group">
+                    <button class="btn btn-secondary" onclick="goToStep(2)">← Back to Risk Analysis</button>
+                    <button class="btn btn-primary" onclick="downloadPlan()">📥 Download Complete Plan</button>
+                    <button class="btn btn-secondary" onclick="resetWorkbench()">🔄 Start New Evaluation</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Before/After Comparison -->
+        <div class="main-card">
+            <h2 class="step-title">Before vs. After This Workbench</h2>
+            <div class="comparison-section">
+                <div class="comparison-card before">
+                    <div class="comparison-title">❌ Manual Process</div>
+                    <ul class="comparison-list">
+                        <li>⏱️ 90 minutes per opportunity evaluation</li>
+                        <li>📋 Inconsistent risk analysis (if done at all)</li>
+                        <li>💸 ~$150 labor cost per evaluation</li>
+                        <li>📊 No standardized metrics</li>
+                        <li>🤷 Gut feel decision-making</li>
+                        <li>📑 No documentation trail</li>
+                    </ul>
+                </div>
+                <div class="comparison-card after">
+                    <div class="comparison-title">✅ With Workbench</div>
+                    <ul class="comparison-list">
+                        <li>⚡ 10 minutes per opportunity evaluation</li>
+                        <li>🛡️ Standardized 17-point risk checklist</li>
+                        <li>💰 $1.20 per evaluation (manager time only)</li>
+                        <li>📈 Quantified ROI scores (0-100 scale)</li>
+                        <li>🎯 Data-driven decision framework</li>
+                        <li>📄 Board-ready documentation</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer>
+            <p><strong>Built by ResultantAI</strong> for NobleProg Manager Training</p>
+            <p>Chris Mott | chris@resultantai.com | (240) 389-4152</p>
+            <p style="margin-top: 15px; font-size: 14px;">
+                This workbench is provided as a training tool. Participants leave the 8-hour workshop with 
+                working implementations customized for their organizations.
+            </p>
+        </footer>
+    </div>
+
+    <script>
+        // Global state
+        let currentStep = 1;
+        let workbenchData = {
+            taskName: '',
+            roiScore: 0,
+            annualCost: 0,
+            risks: [],
+            recommendation: ''
+        };
+
+        // Tutorial
+        function closeTutorial() {
+            document.getElementById('tutorialOverlay').classList.add('hidden');
+        }
+
+        // Slider
+        function updateSliderValue(value) {
+            document.getElementById('consistencyValue').textContent = value + ' / 10';
+        }
+
+        // Step navigation
+        function goToStep(stepNumber) {
+            const step = document.getElementById(`progressStep${stepNumber}`);
+            if (step.classList.contains('locked')) {
+                return;
+            }
+
+            // Hide all steps
+            for (let i = 1; i <= 3; i++) {
+                document.getElementById(`step${i}`).classList.remove('active');
+                document.getElementById(`progressStep${i}`).classList.remove('active');
+            }
+
+            // Show selected step
+            document.getElementById(`step${stepNumber}`).classList.add('active');
+            document.getElementById(`progressStep${stepNumber}`).classList.add('active');
+            currentStep = stepNumber;
+
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Step 1: Scorecard calculation
+        document.getElementById('scorecardForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const taskName = document.getElementById('taskName').value;
+            const frequency = parseInt(document.getElementById('frequency').value);
+            const timePerTask = parseInt(document.getElementById('timePerTask').value);
+            const laborCost = parseInt(document.getElementById('laborCost').value);
+            const consistency = parseInt(document.getElementById('consistency').value);
+
+            // Calculate metrics
+            const annualHours = (timePerTask / 60) * frequency;
+            const annualCost = annualHours * laborCost;
+            const roiScore = Math.round((annualCost / 100) * (consistency / 10));
+            const automationPotential = Math.round(consistency * 10);
+
+            // Store data
+            workbenchData.taskName = taskName;
+            workbenchData.roiScore = roiScore;
+            workbenchData.annualCost = annualCost;
+
+            // Display results
+            document.getElementById('roiScore').textContent = roiScore;
+            document.getElementById('annualCost').textContent = '$' + annualCost.toLocaleString();
+            document.getElementById('automationPotential').textContent = automationPotential;
+
+            const resultsBox = document.getElementById('step1Results');
+            const recommendation = document.getElementById('recommendation');
+            const recommendationTitle = document.getElementById('recommendationTitle');
+            const recommendationText = document.getElementById('recommendationText');
+
+            if (roiScore >= 70) {
+                recommendation.className = 'recommendation high';
+                recommendationTitle.textContent = '🟢 HIGH PRIORITY – Strong AI Candidate';
+                recommendationText.textContent = `This opportunity has excellent ROI potential. Annual cost of $${annualCost.toLocaleString()} and high consistency (${consistency}/10) make this ideal for AI automation. Expected payback < 6 months.`;
+                workbenchData.recommendation = 'HIGH PRIORITY';
+            } else if (roiScore >= 40) {
+                recommendation.className = 'recommendation medium';
+                recommendationTitle.textContent = '🟡 WORTH EXPLORING – Moderate Fit';
+                recommendationText.textContent = `This opportunity shows moderate ROI potential. Annual cost of $${annualCost.toLocaleString()} with consistency score of ${consistency}/10. Pilot recommended to validate feasibility.`;
+                workbenchData.recommendation = 'WORTH EXPLORING';
+            } else {
+                recommendation.className = 'recommendation low';
+                recommendationTitle.textContent = '🔴 DEPRIORITIZE – Low ROI';
+                recommendationText.textContent = `This opportunity has limited ROI potential. Annual cost of $${annualCost.toLocaleString()} with low consistency (${consistency}/10) suggests AI may not be cost-effective. Focus on higher-priority opportunities first.`;
+                workbenchData.recommendation = 'DEPRIORITIZE';
+            }
+
+            resultsBox.classList.add('show');
+            resultsBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        });
+
+        function unlockStep2() {
+            document.getElementById('progressStep2').classList.remove('locked');
+            document.getElementById('progressStep2').classList.add('completed');
+            document.getElementById('progressStep1').classList.add('completed');
+            
+            // Populate Step 2 with task name
+            document.getElementById('taskNameDisplay').textContent = workbenchData.taskName;
+            
+            goToStep(2);
+        }
+
+        // Step 2: Risk analysis - Auto-populate mitigation table
+        document.querySelectorAll('input[name="risk"]').forEach(checkbox => {
+            checkbox.addEventListener('change', updateMitigationTable);
+        });
+
+        function updateMitigationTable() {
+            const checkedRisks = Array.from(document.querySelectorAll('input[name="risk"]:checked'));
+            const tbody = document.getElementById('mitigationTableBody');
+            
+            if (checkedRisks.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="5" style="text-align: center; color: #8892a6;">Select risk checkboxes above to populate mitigation table</td></tr>';
+                return;
+            }
+
+            tbody.innerHTML = '';
+            checkedRisks.forEach(risk => {
+                const row = tbody.insertRow();
+                row.innerHTML = `
+                    <td>${risk.value}</td>
+                    <td>
+                        <select class="mitigation-likelihood" style="width: 100%; padding: 8px; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(71, 185, 248, 0.3); border-radius: 4px; color: #ffffff;">
+                            <option>Low</option>
+                            <option selected>Medium</option>
+                            <option>High</option>
+                        </select>
+                    </td>
+                    <td>
+                        <select class="mitigation-impact" style="width: 100%; padding: 8px; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(71, 185, 248, 0.3); border-radius: 4px; color: #ffffff;">
+                            <option>Low</option>
+                            <option selected>Medium</option>
+                            <option>High</option>
+                        </select>
+                    </td>
+                    <td>
+                        <input type="text" class="mitigation-action" placeholder="Mitigation action..." 
+                               style="width: 100%; padding: 8px; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(71, 185, 248, 0.3); border-radius: 4px; color: #ffffff;">
+                    </td>
+                    <td>
+                        <input type="text" class="mitigation-owner" placeholder="Owner..." 
+                               style="width: 100%; padding: 8px; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(71, 185, 248, 0.3); border-radius: 4px; color: #ffffff;">
+                    </td>
+                `;
+            });
+        }
+
+        document.getElementById('redTeamForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            // Store risks
+            const checkedRisks = Array.from(document.querySelectorAll('input[name="risk"]:checked'));
+            workbenchData.risks = checkedRisks.map(r => r.value);
+
+            // Unlock Step 3
+            document.getElementById('progressStep3').classList.remove('locked');
+            document.getElementById('progressStep2').classList.add('completed');
+
+            // Populate Step 3
+            document.getElementById('pilotTaskName').textContent = workbenchData.taskName;
+            document.getElementById('pilotROI').textContent = workbenchData.roiScore;
+            document.getElementById('pilotCost').textContent = '$' + workbenchData.annualCost.toLocaleString();
+            document.getElementById('pilotRisks').textContent = workbenchData.risks.length + ' risk categories';
+            document.getElementById('pilotRecommendation').textContent = workbenchData.recommendation;
+            
+            const estimatedAICost = 2500; // Average annual AI tool cost
+            const savings = workbenchData.annualCost - estimatedAICost;
+            document.getElementById('pilotSavings').textContent = '$' + savings.toLocaleString();
+
+            goToStep(3);
+        });
+
+        function downloadPlan() {
+            alert('📥 Download functionality:\n\nIn production, this would generate a PDF with all 3 sections:\n\n1. ROI Scorecard Results\n2. Risk Analysis & Mitigation Plan\n3. 90-Day Pilot Timeline\n\nFor demo purposes, use browser Print → Save as PDF.');
+        }
+
+        function resetWorkbench() {
+            if (confirm('Start a new evaluation? This will clear all current data.')) {
+                location.reload();
+            }
+        }
+
+        // Auto-close tutorial after 5 seconds if user doesn't interact
+        setTimeout(() => {
+            const overlay = document.getElementById('tutorialOverlay');
+            if (!overlay.classList.contains('hidden')) {
+                // Don't auto-close, let user read
+            }
+        }, 5000);
+    </script>
+</body>
+</html>

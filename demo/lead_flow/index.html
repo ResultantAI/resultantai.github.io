@@ -1,0 +1,1440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Frost & Sprinkle Lead Flow Simulator | ResultantAI</title>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --frost-pink: #FF6B9D;
+            --sprinkle-teal: #2DD4BF;
+            --hubspot-orange: #FF7A59;
+            --instantly-blue: #6366F1;
+            --clay-purple: #A855F7;
+            --n8n-green: #10B981;
+            --dark-bg: #0F172A;
+            --card-bg: #1E293B;
+            --card-border: #334155;
+            --text-primary: #F8FAFC;
+            --text-secondary: #94A3B8;
+            --text-muted: #64748B;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--dark-bg);
+            color: var(--text-primary);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Tutorial Banner */
+        .tutorial-banner {
+            background: linear-gradient(135deg, var(--frost-pink) 0%, var(--sprinkle-teal) 100%);
+            padding: 20px 24px;
+            position: relative;
+            animation: slideDown 0.5s ease-out;
+        }
+
+        @keyframes slideDown {
+            from { transform: translateY(-100%); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .tutorial-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 24px;
+        }
+
+        .tutorial-left h2 {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: var(--dark-bg);
+        }
+
+        .tutorial-steps {
+            display: flex;
+            gap: 24px;
+            flex-wrap: wrap;
+        }
+
+        .tutorial-step {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            color: var(--dark-bg);
+            font-weight: 500;
+        }
+
+        .step-number {
+            width: 24px;
+            height: 24px;
+            background: var(--dark-bg);
+            color: var(--text-primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .dismiss-btn {
+            background: var(--dark-bg);
+            color: var(--text-primary);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-family: inherit;
+            font-weight: 600;
+            font-size: 14px;
+            white-space: nowrap;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .dismiss-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        }
+
+        .tutorial-banner.hidden {
+            display: none;
+        }
+
+        /* Header */
+        .header {
+            padding: 24px 32px;
+            border-bottom: 1px solid var(--card-border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--frost-pink), var(--sprinkle-teal));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .demo-badge {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            color: var(--text-secondary);
+            font-family: 'Space Mono', monospace;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .status-indicator {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--n8n-green);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        /* Main Layout */
+        .main-container {
+            display: grid;
+            grid-template-columns: 280px 1fr 340px;
+            min-height: calc(100vh - 140px);
+        }
+
+        /* Left Panel - Sequence Selector */
+        .sequence-panel {
+            background: var(--card-bg);
+            border-right: 1px solid var(--card-border);
+            padding: 24px;
+        }
+
+        .panel-title {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-muted);
+            margin-bottom: 16px;
+            font-weight: 600;
+        }
+
+        .sequence-card {
+            background: var(--dark-bg);
+            border: 2px solid var(--card-border);
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .sequence-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: var(--card-border);
+            transition: background 0.3s ease;
+        }
+
+        .sequence-card.corporate::before { background: var(--instantly-blue); }
+        .sequence-card.private::before { background: var(--frost-pink); }
+        .sequence-card.birthday::before { background: var(--sprinkle-teal); }
+
+        .sequence-card:hover {
+            border-color: var(--text-muted);
+            transform: translateX(4px);
+        }
+
+        .sequence-card.active {
+            border-color: var(--sprinkle-teal);
+            box-shadow: 0 0 20px rgba(45, 212, 191, 0.2);
+        }
+
+        .sequence-icon {
+            font-size: 28px;
+            margin-bottom: 8px;
+        }
+
+        .sequence-name {
+            font-weight: 600;
+            font-size: 15px;
+            margin-bottom: 4px;
+        }
+
+        .sequence-desc {
+            font-size: 12px;
+            color: var(--text-secondary);
+            line-height: 1.4;
+        }
+
+        .sequence-stats {
+            display: flex;
+            gap: 12px;
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 1px solid var(--card-border);
+        }
+
+        .stat {
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+
+        .stat-value {
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        /* Center Panel - Flow Visualization */
+        .flow-panel {
+            padding: 32px;
+            position: relative;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(168, 85, 247, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(45, 212, 191, 0.05) 0%, transparent 50%);
+        }
+
+        .flow-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 32px;
+        }
+
+        .flow-title {
+            font-size: 20px;
+            font-weight: 600;
+        }
+
+        .simulate-btn {
+            background: linear-gradient(135deg, var(--frost-pink), var(--sprinkle-teal));
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-family: inherit;
+            font-weight: 600;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .simulate-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(255, 107, 157, 0.3);
+        }
+
+        .simulate-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* Flow Steps */
+        .flow-steps {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            position: relative;
+            padding: 20px 0;
+        }
+
+        .flow-connector {
+            position: absolute;
+            top: 50%;
+            left: 80px;
+            right: 80px;
+            height: 2px;
+            background: var(--card-border);
+            z-index: 0;
+        }
+
+        .flow-connector-progress {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, var(--clay-purple), var(--instantly-blue), var(--n8n-green), var(--hubspot-orange));
+            transition: width 0.5s ease;
+        }
+
+        .flow-step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            z-index: 1;
+            flex: 1;
+        }
+
+        .step-icon-wrapper {
+            width: 72px;
+            height: 72px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 12px;
+            position: relative;
+            transition: all 0.3s ease;
+            background: var(--card-bg);
+            border: 2px solid var(--card-border);
+        }
+
+        .step-icon-wrapper.clay { --step-color: var(--clay-purple); }
+        .step-icon-wrapper.instantly { --step-color: var(--instantly-blue); }
+        .step-icon-wrapper.n8n { --step-color: var(--n8n-green); }
+        .step-icon-wrapper.hubspot { --step-color: var(--hubspot-orange); }
+
+        .step-icon-wrapper.active {
+            border-color: var(--step-color);
+            box-shadow: 0 0 30px color-mix(in srgb, var(--step-color) 40%, transparent);
+            transform: scale(1.1);
+        }
+
+        .step-icon-wrapper.complete {
+            background: var(--step-color);
+            border-color: var(--step-color);
+        }
+
+        .step-icon {
+            font-size: 28px;
+        }
+
+        .step-check {
+            display: none;
+            font-size: 28px;
+        }
+
+        .step-icon-wrapper.complete .step-icon { display: none; }
+        .step-icon-wrapper.complete .step-check { display: block; }
+
+        .step-label {
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 4px;
+            text-align: center;
+        }
+
+        .step-sublabel {
+            font-size: 11px;
+            color: var(--text-muted);
+            text-align: center;
+            max-width: 120px;
+        }
+
+        /* Lead Preview Card */
+        .lead-preview {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            padding: 24px;
+            margin-top: 32px;
+        }
+
+        .lead-preview-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .lead-preview-title {
+            font-size: 14px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .lead-type-badge {
+            font-size: 11px;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-weight: 600;
+            background: rgba(99, 102, 241, 0.2);
+            color: var(--instantly-blue);
+        }
+
+        .lead-type-badge.corporate { background: rgba(99, 102, 241, 0.2); color: var(--instantly-blue); }
+        .lead-type-badge.private { background: rgba(255, 107, 157, 0.2); color: var(--frost-pink); }
+        .lead-type-badge.birthday { background: rgba(45, 212, 191, 0.2); color: var(--sprinkle-teal); }
+
+        .lead-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+        }
+
+        .lead-field {
+            background: var(--dark-bg);
+            border-radius: 8px;
+            padding: 12px;
+        }
+
+        .lead-field-label {
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-muted);
+            margin-bottom: 4px;
+        }
+
+        .lead-field-value {
+            font-size: 13px;
+            font-weight: 500;
+            font-family: 'Space Mono', monospace;
+        }
+
+        /* Reply Simulator */
+        .reply-section {
+            margin-top: 24px;
+            padding-top: 24px;
+            border-top: 1px solid var(--card-border);
+        }
+
+        .reply-title {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .reply-buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+        }
+
+        .reply-btn {
+            background: var(--dark-bg);
+            border: 2px solid var(--card-border);
+            border-radius: 10px;
+            padding: 14px 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-align: center;
+        }
+
+        .reply-btn:hover {
+            border-color: var(--text-muted);
+            transform: translateY(-2px);
+        }
+
+        .reply-btn.interested { --reply-color: var(--n8n-green); }
+        .reply-btn.needs-info { --reply-color: var(--instantly-blue); }
+        .reply-btn.not-now { --reply-color: #F59E0B; }
+        .reply-btn.wrong-contact { --reply-color: #EF4444; }
+
+        .reply-btn:hover {
+            border-color: var(--reply-color);
+        }
+
+        .reply-btn.active {
+            background: color-mix(in srgb, var(--reply-color) 20%, transparent);
+            border-color: var(--reply-color);
+        }
+
+        .reply-label {
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--text-primary);
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        .reply-code {
+            font-size: 10px;
+            color: var(--text-muted);
+            font-family: 'Space Mono', monospace;
+        }
+
+        /* Right Panel - HubSpot Deal Card */
+        .hubspot-panel {
+            background: var(--card-bg);
+            border-left: 1px solid var(--card-border);
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .hubspot-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .hubspot-logo {
+            width: 32px;
+            height: 32px;
+            background: var(--hubspot-orange);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 14px;
+        }
+
+        .hubspot-title {
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .deal-card {
+            background: var(--dark-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 12px;
+            overflow: hidden;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .deal-card-empty {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 32px;
+            text-align: center;
+        }
+
+        .deal-card-empty.hidden { display: none; }
+
+        .empty-icon {
+            font-size: 48px;
+            margin-bottom: 16px;
+            opacity: 0.5;
+        }
+
+        .empty-text {
+            font-size: 14px;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+
+        .deal-content {
+            display: none;
+            flex-direction: column;
+            flex: 1;
+        }
+
+        .deal-content.visible {
+            display: flex;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .deal-header {
+            padding: 16px;
+            border-bottom: 1px solid var(--card-border);
+        }
+
+        .deal-name {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .deal-company {
+            font-size: 13px;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .deal-stages {
+            padding: 16px;
+            border-bottom: 1px solid var(--card-border);
+        }
+
+        .stage-title {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-muted);
+            margin-bottom: 12px;
+        }
+
+        .stage-pipeline {
+            display: flex;
+            gap: 4px;
+        }
+
+        .stage-item {
+            flex: 1;
+            padding: 8px 4px;
+            background: var(--card-bg);
+            border-radius: 4px;
+            text-align: center;
+            font-size: 9px;
+            font-weight: 600;
+            color: var(--text-muted);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .stage-item.active {
+            background: var(--hubspot-orange);
+            color: white;
+        }
+
+        .stage-item.complete {
+            background: var(--n8n-green);
+            color: white;
+        }
+
+        .deal-properties {
+            padding: 16px;
+            flex: 1;
+        }
+
+        .property-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid var(--card-border);
+        }
+
+        .property-row:last-child {
+            border-bottom: none;
+        }
+
+        .property-label {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .property-value {
+            font-size: 12px;
+            font-weight: 500;
+            font-family: 'Space Mono', monospace;
+        }
+
+        .property-value.updating {
+            animation: highlight 1s ease;
+        }
+
+        @keyframes highlight {
+            0%, 100% { background: transparent; }
+            50% { background: rgba(255, 122, 89, 0.3); }
+        }
+
+        .deal-timeline {
+            padding: 16px;
+            border-top: 1px solid var(--card-border);
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+        .timeline-title {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-muted);
+            margin-bottom: 12px;
+        }
+
+        .timeline-item {
+            display: flex;
+            gap: 12px;
+            padding: 8px 0;
+            font-size: 11px;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(-10px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .timeline-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--hubspot-orange);
+            border-radius: 50%;
+            margin-top: 4px;
+            flex-shrink: 0;
+        }
+
+        .timeline-text {
+            color: var(--text-secondary);
+            line-height: 1.4;
+        }
+
+        .timeline-time {
+            color: var(--text-muted);
+            font-family: 'Space Mono', monospace;
+            font-size: 10px;
+        }
+
+        /* Footer */
+        .footer {
+            padding: 16px 32px;
+            border-top: 1px solid var(--card-border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--card-bg);
+        }
+
+        .footer-left {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+        }
+
+        .powered-by {
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+
+        .powered-by span {
+            color: var(--text-secondary);
+            font-weight: 600;
+        }
+
+        .tech-stack {
+            display: flex;
+            gap: 8px;
+        }
+
+        .tech-badge {
+            font-size: 10px;
+            padding: 4px 8px;
+            border-radius: 4px;
+            background: var(--dark-bg);
+            color: var(--text-muted);
+            font-family: 'Space Mono', monospace;
+        }
+
+        .footer-right {
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+
+        .footer-right a {
+            color: var(--sprinkle-teal);
+            text-decoration: none;
+        }
+
+        /* Processing Overlay */
+        .processing-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(15, 23, 42, 0.9);
+            z-index: 100;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .processing-overlay.visible {
+            display: flex;
+        }
+
+        .processing-content {
+            text-align: center;
+        }
+
+        .processing-spinner {
+            width: 64px;
+            height: 64px;
+            border: 4px solid var(--card-border);
+            border-top-color: var(--sprinkle-teal);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 24px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .processing-text {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .processing-step {
+            font-size: 13px;
+            color: var(--text-secondary);
+            font-family: 'Space Mono', monospace;
+        }
+
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .main-container {
+                grid-template-columns: 1fr;
+            }
+            .sequence-panel, .hubspot-panel {
+                border: none;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .tutorial-content {
+                flex-direction: column;
+            }
+            .lead-grid {
+                grid-template-columns: 1fr;
+            }
+            .reply-buttons {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .flow-steps {
+                flex-direction: column;
+                gap: 24px;
+            }
+            .flow-connector {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Tutorial Banner -->
+    <div class="tutorial-banner" id="tutorialBanner">
+        <div class="tutorial-content">
+            <div class="tutorial-left">
+                <h2>🎂 Quick Start Guide</h2>
+                <div class="tutorial-steps">
+                    <div class="tutorial-step">
+                        <span class="step-number">1</span>
+                        <span>Select an event sequence type</span>
+                    </div>
+                    <div class="tutorial-step">
+                        <span class="step-number">2</span>
+                        <span>Click "Run Lead Flow" to simulate</span>
+                    </div>
+                    <div class="tutorial-step">
+                        <span class="step-number">3</span>
+                        <span>Choose a reply type to see routing</span>
+                    </div>
+                    <div class="tutorial-step">
+                        <span class="step-number">4</span>
+                        <span>Watch HubSpot deal update live</span>
+                    </div>
+                </div>
+            </div>
+            <button class="dismiss-btn" onclick="dismissTutorial()">Got it, let's explore →</button>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="logo-section">
+            <span class="logo">Frost & Sprinkle</span>
+            <span class="demo-badge">LEAD FLOW SIMULATOR</span>
+        </div>
+        <div class="header-right">
+            <div class="status-indicator">
+                <span class="status-dot"></span>
+                <span>System Live</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="main-container">
+        <!-- Left Panel - Sequence Selector -->
+        <aside class="sequence-panel">
+            <h3 class="panel-title">Select Sequence Type</h3>
+            
+            <div class="sequence-card corporate active" onclick="selectSequence('corporate')">
+                <div class="sequence-icon">🏢</div>
+                <div class="sequence-name">Corporate Team Building</div>
+                <div class="sequence-desc">HR managers, Office admins, Event planners at 100+ employee companies</div>
+                <div class="sequence-stats">
+                    <span class="stat">Open: <span class="stat-value">42%</span></span>
+                    <span class="stat">Reply: <span class="stat-value">4.2%</span></span>
+                </div>
+            </div>
+
+            <div class="sequence-card private" onclick="selectSequence('private')">
+                <div class="sequence-icon">🎉</div>
+                <div class="sequence-name">Private Adult Events</div>
+                <div class="sequence-desc">Bachelorette parties, girls' nights, milestone celebrations</div>
+                <div class="sequence-stats">
+                    <span class="stat">Open: <span class="stat-value">38%</span></span>
+                    <span class="stat">Reply: <span class="stat-value">5.1%</span></span>
+                </div>
+            </div>
+
+            <div class="sequence-card birthday" onclick="selectSequence('birthday')">
+                <div class="sequence-icon">🧁</div>
+                <div class="sequence-name">Kids Birthday Parties</div>
+                <div class="sequence-desc">Parents, schools, camps, activity coordinators</div>
+                <div class="sequence-stats">
+                    <span class="stat">Open: <span class="stat-value">45%</span></span>
+                    <span class="stat">Reply: <span class="stat-value">6.3%</span></span>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Center Panel - Flow Visualization -->
+        <section class="flow-panel">
+            <div class="flow-header">
+                <h2 class="flow-title">Automation Pipeline</h2>
+                <button class="simulate-btn" id="simulateBtn" onclick="runSimulation()">
+                    <span>▶</span> Run Lead Flow
+                </button>
+            </div>
+
+            <div class="flow-steps">
+                <div class="flow-connector">
+                    <div class="flow-connector-progress" id="connectorProgress"></div>
+                </div>
+
+                <div class="flow-step">
+                    <div class="step-icon-wrapper clay" id="step-clay">
+                        <span class="step-icon">🔮</span>
+                        <span class="step-check">✓</span>
+                    </div>
+                    <div class="step-label">Clay + Apollo</div>
+                    <div class="step-sublabel">Lead enrichment & verification</div>
+                </div>
+
+                <div class="flow-step">
+                    <div class="step-icon-wrapper instantly" id="step-instantly">
+                        <span class="step-icon">⚡</span>
+                        <span class="step-check">✓</span>
+                    </div>
+                    <div class="step-label">Instantly.ai</div>
+                    <div class="step-sublabel">Personalized sequence delivery</div>
+                </div>
+
+                <div class="flow-step">
+                    <div class="step-icon-wrapper n8n" id="step-n8n">
+                        <span class="step-icon">🔄</span>
+                        <span class="step-check">✓</span>
+                    </div>
+                    <div class="step-label">n8n Workflow</div>
+                    <div class="step-sublabel">AI reply classification</div>
+                </div>
+
+                <div class="flow-step">
+                    <div class="step-icon-wrapper hubspot" id="step-hubspot">
+                        <span class="step-icon">🎯</span>
+                        <span class="step-check">✓</span>
+                    </div>
+                    <div class="step-label">HubSpot CRM</div>
+                    <div class="step-sublabel">Deal creation & routing</div>
+                </div>
+            </div>
+
+            <!-- Lead Preview -->
+            <div class="lead-preview">
+                <div class="lead-preview-header">
+                    <span class="lead-preview-title">
+                        📋 Current Lead
+                    </span>
+                    <span class="lead-type-badge corporate" id="leadTypeBadge">Corporate</span>
+                </div>
+                <div class="lead-grid">
+                    <div class="lead-field">
+                        <div class="lead-field-label">Name</div>
+                        <div class="lead-field-value" id="leadName">Sarah Mitchell</div>
+                    </div>
+                    <div class="lead-field">
+                        <div class="lead-field-label">Title</div>
+                        <div class="lead-field-value" id="leadTitle">HR Manager</div>
+                    </div>
+                    <div class="lead-field">
+                        <div class="lead-field-label">Company</div>
+                        <div class="lead-field-value" id="leadCompany">Brightwell Strategies</div>
+                    </div>
+                    <div class="lead-field">
+                        <div class="lead-field-label">Email</div>
+                        <div class="lead-field-value" id="leadEmail">sarah@brightwell.com</div>
+                    </div>
+                    <div class="lead-field">
+                        <div class="lead-field-label">Employees</div>
+                        <div class="lead-field-value" id="leadEmployees">127</div>
+                    </div>
+                    <div class="lead-field">
+                        <div class="lead-field-label">Source</div>
+                        <div class="lead-field-value" id="leadSource">Apollo → Clay</div>
+                    </div>
+                </div>
+
+                <!-- Reply Simulator -->
+                <div class="reply-section" id="replySection" style="display: none;">
+                    <div class="reply-title">
+                        💬 Simulate Reply Intent
+                    </div>
+                    <div class="reply-buttons">
+                        <button class="reply-btn interested" onclick="simulateReply('interested')">
+                            <span class="reply-label">✅ Interested</span>
+                            <span class="reply-code">Category A</span>
+                        </button>
+                        <button class="reply-btn needs-info" onclick="simulateReply('needs-info')">
+                            <span class="reply-label">ℹ️ Needs Info</span>
+                            <span class="reply-code">Category B</span>
+                        </button>
+                        <button class="reply-btn not-now" onclick="simulateReply('not-now')">
+                            <span class="reply-label">⏳ Not Now</span>
+                            <span class="reply-code">Category C</span>
+                        </button>
+                        <button class="reply-btn wrong-contact" onclick="simulateReply('wrong-contact')">
+                            <span class="reply-label">❌ Wrong Contact</span>
+                            <span class="reply-code">Category D</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Right Panel - HubSpot Deal Card -->
+        <aside class="hubspot-panel">
+            <div class="hubspot-header">
+                <div class="hubspot-logo">H</div>
+                <span class="hubspot-title">HubSpot Deal Card</span>
+            </div>
+
+            <div class="deal-card">
+                <div class="deal-card-empty" id="dealEmpty">
+                    <div class="empty-icon">📭</div>
+                    <div class="empty-text">Run a lead flow simulation to see the HubSpot deal card populate in real-time</div>
+                </div>
+
+                <div class="deal-content" id="dealContent">
+                    <div class="deal-header">
+                        <div class="deal-name" id="dealName">Team Building - Brightwell Strategies</div>
+                        <div class="deal-company">
+                            <span>🏢</span>
+                            <span id="dealCompany">Brightwell Strategies</span>
+                        </div>
+                    </div>
+
+                    <div class="deal-stages">
+                        <div class="stage-title">Pipeline Stage</div>
+                        <div class="stage-pipeline">
+                            <div class="stage-item" id="stage-lead">Lead</div>
+                            <div class="stage-item" id="stage-mql">MQL</div>
+                            <div class="stage-item" id="stage-sql">SQL</div>
+                            <div class="stage-item" id="stage-booked">Booked</div>
+                            <div class="stage-item" id="stage-proposal">Proposal</div>
+                        </div>
+                    </div>
+
+                    <div class="deal-properties">
+                        <div class="property-row">
+                            <span class="property-label">Contact</span>
+                            <span class="property-value" id="propContact">Sarah Mitchell</span>
+                        </div>
+                        <div class="property-row">
+                            <span class="property-label">Email</span>
+                            <span class="property-value" id="propEmail">sarah@brightwell.com</span>
+                        </div>
+                        <div class="property-row">
+                            <span class="property-label">Sequence</span>
+                            <span class="property-value" id="propSequence">Corporate_Q4_2025</span>
+                        </div>
+                        <div class="property-row">
+                            <span class="property-label">Reply Status</span>
+                            <span class="property-value" id="propReplyStatus">—</span>
+                        </div>
+                        <div class="property-row">
+                            <span class="property-label">Next Action</span>
+                            <span class="property-value" id="propNextAction">Awaiting reply</span>
+                        </div>
+                    </div>
+
+                    <div class="deal-timeline">
+                        <div class="timeline-title">Activity Timeline</div>
+                        <div id="timeline"></div>
+                    </div>
+                </div>
+            </div>
+        </aside>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-left">
+            <span class="powered-by">Powered by <span>ResultantAI</span></span>
+            <div class="tech-stack">
+                <span class="tech-badge">Make.com</span>
+                <span class="tech-badge">n8n</span>
+                <span class="tech-badge">HubSpot</span>
+                <span class="tech-badge">Instantly</span>
+            </div>
+        </div>
+        <div class="footer-right">
+            Built by <a href="mailto:chris@resultantai.com">Chris Mott</a> | ResultantAI
+        </div>
+    </footer>
+
+    <!-- Processing Overlay -->
+    <div class="processing-overlay" id="processingOverlay">
+        <div class="processing-content">
+            <div class="processing-spinner"></div>
+            <div class="processing-text" id="processingText">Processing...</div>
+            <div class="processing-step" id="processingStep">Initializing workflow</div>
+        </div>
+    </div>
+
+    <script>
+        // Lead data by sequence type
+        const leadData = {
+            corporate: {
+                name: 'Sarah Mitchell',
+                title: 'HR Manager',
+                company: 'Brightwell Strategies',
+                email: 'sarah@brightwell.com',
+                employees: '127',
+                sequence: 'Corporate_Q4_2025',
+                dealName: 'Team Building - Brightwell Strategies'
+            },
+            private: {
+                name: 'Amanda Rodriguez',
+                title: 'Event Host',
+                company: 'Private Client',
+                email: 'amanda.r@gmail.com',
+                employees: '—',
+                sequence: 'Private_Adult_Q4',
+                dealName: 'Bachelorette Party - Amanda R.'
+            },
+            birthday: {
+                name: 'Jennifer Walsh',
+                title: 'Parent',
+                company: 'Walsh Family',
+                email: 'jen.walsh@yahoo.com',
+                employees: '—',
+                sequence: 'Kids_Birthday_Q4',
+                dealName: 'Birthday Party - Walsh Family'
+            }
+        };
+
+        let currentSequence = 'corporate';
+        let simulationRunning = false;
+
+        function dismissTutorial() {
+            document.getElementById('tutorialBanner').classList.add('hidden');
+        }
+
+        function selectSequence(type) {
+            if (simulationRunning) return;
+            
+            currentSequence = type;
+            
+            // Update UI
+            document.querySelectorAll('.sequence-card').forEach(card => {
+                card.classList.remove('active');
+            });
+            document.querySelector(`.sequence-card.${type}`).classList.add('active');
+
+            // Update lead preview
+            const lead = leadData[type];
+            document.getElementById('leadName').textContent = lead.name;
+            document.getElementById('leadTitle').textContent = lead.title;
+            document.getElementById('leadCompany').textContent = lead.company;
+            document.getElementById('leadEmail').textContent = lead.email;
+            document.getElementById('leadEmployees').textContent = lead.employees;
+
+            // Update badge
+            const badge = document.getElementById('leadTypeBadge');
+            badge.className = `lead-type-badge ${type}`;
+            badge.textContent = type.charAt(0).toUpperCase() + type.slice(1);
+
+            // Reset flow
+            resetFlow();
+        }
+
+        function resetFlow() {
+            document.querySelectorAll('.step-icon-wrapper').forEach(step => {
+                step.classList.remove('active', 'complete');
+            });
+            document.getElementById('connectorProgress').style.width = '0%';
+            document.getElementById('replySection').style.display = 'none';
+            document.getElementById('dealEmpty').classList.remove('hidden');
+            document.getElementById('dealContent').classList.remove('visible');
+            document.querySelectorAll('.stage-item').forEach(stage => {
+                stage.classList.remove('active', 'complete');
+            });
+            document.querySelectorAll('.reply-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            document.getElementById('timeline').innerHTML = '';
+        }
+
+        async function runSimulation() {
+            if (simulationRunning) return;
+            simulationRunning = true;
+            
+            const btn = document.getElementById('simulateBtn');
+            btn.disabled = true;
+            btn.innerHTML = '<span>⏳</span> Running...';
+
+            resetFlow();
+
+            const lead = leadData[currentSequence];
+            const steps = ['clay', 'instantly', 'n8n', 'hubspot'];
+            const stepMessages = [
+                { text: 'Enriching lead data...', step: 'Querying Apollo + Clay' },
+                { text: 'Sending to Instantly...', step: 'Adding to ' + lead.sequence + ' sequence' },
+                { text: 'n8n webhook received...', step: 'Processing reply classification' },
+                { text: 'Creating HubSpot deal...', step: 'Syncing contact + deal record' }
+            ];
+
+            for (let i = 0; i < steps.length; i++) {
+                const stepEl = document.getElementById(`step-${steps[i]}`);
+                stepEl.classList.add('active');
+                
+                // Update connector progress
+                document.getElementById('connectorProgress').style.width = `${(i + 1) * 25}%`;
+
+                await sleep(800);
+                
+                stepEl.classList.remove('active');
+                stepEl.classList.add('complete');
+            }
+
+            // Show deal card
+            await sleep(300);
+            document.getElementById('dealEmpty').classList.add('hidden');
+            document.getElementById('dealContent').classList.add('visible');
+
+            // Populate deal card
+            document.getElementById('dealName').textContent = lead.dealName;
+            document.getElementById('dealCompany').textContent = lead.company;
+            document.getElementById('propContact').textContent = lead.name;
+            document.getElementById('propEmail').textContent = lead.email;
+            document.getElementById('propSequence').textContent = lead.sequence;
+            document.getElementById('propReplyStatus').textContent = '—';
+            document.getElementById('propNextAction').textContent = 'Awaiting reply';
+
+            // Set initial stage
+            document.getElementById('stage-lead').classList.add('active');
+
+            // Add timeline entry
+            addTimelineEntry('Contact created from ' + lead.sequence + ' sequence');
+            await sleep(500);
+            addTimelineEntry('Deal created: ' + lead.dealName);
+            await sleep(500);
+            addTimelineEntry('Email #1 sent via Instantly');
+
+            // Show reply section
+            document.getElementById('replySection').style.display = 'block';
+
+            btn.disabled = false;
+            btn.innerHTML = '<span>▶</span> Run Lead Flow';
+            simulationRunning = false;
+        }
+
+        async function simulateReply(type) {
+            if (simulationRunning) return;
+            simulationRunning = true;
+
+            // Highlight selected reply
+            document.querySelectorAll('.reply-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            document.querySelector(`.reply-btn.${type}`).classList.add('active');
+
+            const overlay = document.getElementById('processingOverlay');
+            const processingText = document.getElementById('processingText');
+            const processingStep = document.getElementById('processingStep');
+
+            overlay.classList.add('visible');
+            processingText.textContent = 'Classifying Reply...';
+            processingStep.textContent = 'Running n8n AI classification';
+
+            await sleep(1500);
+
+            processingText.textContent = 'Updating HubSpot...';
+            processingStep.textContent = 'Syncing deal properties';
+
+            await sleep(1000);
+
+            overlay.classList.remove('visible');
+
+            // Update based on reply type
+            const replyStatusEl = document.getElementById('propReplyStatus');
+            const nextActionEl = document.getElementById('propNextAction');
+            
+            replyStatusEl.classList.add('updating');
+            nextActionEl.classList.add('updating');
+
+            const replyActions = {
+                'interested': {
+                    status: '✅ Interested (A)',
+                    action: 'Send calendar link',
+                    stage: 'mql',
+                    timeline: ['Reply received: Interested', 'Stage updated: Lead → MQL', 'Task created: Send Calendly link', 'Slack notification sent to Sales']
+                },
+                'needs-info': {
+                    status: 'ℹ️ Needs Info (B)',
+                    action: 'Send pricing + info deck',
+                    stage: 'lead',
+                    timeline: ['Reply received: Needs Info', 'Auto-reply triggered: Pricing deck', 'Follow-up scheduled: 48 hours']
+                },
+                'not-now': {
+                    status: '⏳ Not Now (C)',
+                    action: 'Add to 90-day nurture',
+                    stage: 'lead',
+                    timeline: ['Reply received: Not Now', 'Added to nurture sequence', 'Bump-in scheduled: 90 days']
+                },
+                'wrong-contact': {
+                    status: '❌ Wrong Contact (D)',
+                    action: 'Flag for list cleansing',
+                    stage: 'lead',
+                    timeline: ['Reply received: Wrong Contact', 'Contact flagged for review', 'Removed from active sequence']
+                }
+            };
+
+            const action = replyActions[type];
+            replyStatusEl.textContent = action.status;
+            nextActionEl.textContent = action.action;
+
+            // Update pipeline stages
+            document.querySelectorAll('.stage-item').forEach(stage => {
+                stage.classList.remove('active', 'complete');
+            });
+
+            if (action.stage === 'mql') {
+                document.getElementById('stage-lead').classList.add('complete');
+                document.getElementById('stage-mql').classList.add('active');
+            } else {
+                document.getElementById('stage-lead').classList.add('active');
+            }
+
+            // Add timeline entries
+            for (const entry of action.timeline) {
+                await sleep(400);
+                addTimelineEntry(entry);
+            }
+
+            setTimeout(() => {
+                replyStatusEl.classList.remove('updating');
+                nextActionEl.classList.remove('updating');
+            }, 1000);
+
+            simulationRunning = false;
+        }
+
+        function addTimelineEntry(text) {
+            const timeline = document.getElementById('timeline');
+            const now = new Date();
+            const time = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
+            
+            const entry = document.createElement('div');
+            entry.className = 'timeline-item';
+            entry.innerHTML = `
+                <div class="timeline-dot"></div>
+                <div>
+                    <div class="timeline-text">${text}</div>
+                    <div class="timeline-time">${time}</div>
+                </div>
+            `;
+            
+            timeline.insertBefore(entry, timeline.firstChild);
+        }
+
+        function sleep(ms) {
+            return new Promise(resolve => setTimeout(resolve, ms));
+        }
+    </script>
+</body>
+</html>

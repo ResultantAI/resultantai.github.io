@@ -1,0 +1,971 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voice Agent Health Dashboard | ResultantAI</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: #2c3441;
+            color: #ffffff;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, #2c3441 0%, #1a1f2e 100%);
+            padding: 30px 0;
+            border-bottom: 3px solid #47b9f8;
+            margin-bottom: 30px;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .logo-section h1 {
+            font-size: 28px;
+            color: #47b9f8;
+            margin-bottom: 5px;
+        }
+
+        .logo-section p {
+            color: #00ff88;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .contact-info {
+            text-align: right;
+        }
+
+        .contact-info p {
+            font-size: 14px;
+            color: #ffffff;
+            margin: 3px 0;
+        }
+
+        .contact-info a {
+            color: #47b9f8;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .contact-info a:hover {
+            color: #00ff88;
+        }
+
+        /* Alert Banner */
+        .alert-banner {
+            background: linear-gradient(90deg, rgba(255, 107, 107, 0.2) 0%, rgba(255, 107, 107, 0.05) 100%);
+            border-left: 4px solid #ff6b6b;
+            padding: 15px 20px;
+            margin-bottom: 25px;
+            border-radius: 8px;
+            display: none;
+            animation: slideIn 0.5s ease-out;
+        }
+
+        .alert-banner.show {
+            display: block;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(-100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        .alert-banner h3 {
+            color: #ff6b6b;
+            font-size: 16px;
+            margin-bottom: 8px;
+        }
+
+        .alert-banner p {
+            font-size: 14px;
+            color: #ffffff;
+            margin-bottom: 10px;
+        }
+
+        .alert-banner .solution {
+            background: rgba(0, 255, 136, 0.1);
+            border-left: 3px solid #00ff88;
+            padding: 10px;
+            margin-top: 10px;
+            border-radius: 4px;
+        }
+
+        .alert-banner .solution strong {
+            color: #00ff88;
+        }
+
+        /* Dashboard Controls */
+        .controls {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            border: 1px solid rgba(71, 185, 248, 0.2);
+        }
+
+        .controls h2 {
+            font-size: 18px;
+            margin-bottom: 15px;
+            color: #47b9f8;
+        }
+
+        .control-group {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .control-item label {
+            display: block;
+            font-size: 13px;
+            color: #ffffff;
+            margin-bottom: 6px;
+            font-weight: 500;
+        }
+
+        .control-item select {
+            width: 100%;
+            padding: 10px;
+            background: #1a1f2e;
+            border: 1px solid #47b9f8;
+            color: #ffffff;
+            border-radius: 6px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .control-item select:hover {
+            border-color: #00ff88;
+        }
+
+        .control-item select:focus {
+            outline: none;
+            border-color: #00ff88;
+            box-shadow: 0 0 0 3px rgba(0, 255, 136, 0.1);
+        }
+
+        /* Metrics Grid */
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .metric-card {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 25px;
+            border-radius: 12px;
+            border: 1px solid rgba(71, 185, 248, 0.2);
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .metric-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #47b9f8, #00ff88);
+            transform: scaleX(0);
+            transition: transform 0.3s;
+        }
+
+        .metric-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(71, 185, 248, 0.2);
+            border-color: #47b9f8;
+        }
+
+        .metric-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .metric-card.active {
+            border-color: #00ff88;
+            background: rgba(0, 255, 136, 0.05);
+        }
+
+        .metric-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 15px;
+        }
+
+        .metric-title {
+            font-size: 14px;
+            color: #ffffff;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .metric-status {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        .status-green {
+            background: #00ff88;
+            box-shadow: 0 0 10px rgba(0, 255, 136, 0.5);
+        }
+
+        .status-yellow {
+            background: #ffd93d;
+            box-shadow: 0 0 10px rgba(255, 217, 61, 0.5);
+        }
+
+        .status-red {
+            background: #ff6b6b;
+            box-shadow: 0 0 10px rgba(255, 107, 107, 0.5);
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.5;
+            }
+        }
+
+        .metric-value {
+            font-size: 42px;
+            font-weight: 700;
+            color: #47b9f8;
+            margin-bottom: 8px;
+            line-height: 1;
+        }
+
+        .metric-label {
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 12px;
+        }
+
+        .metric-change {
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        .metric-change.positive {
+            color: #00ff88;
+        }
+
+        .metric-change.negative {
+            color: #ff6b6b;
+        }
+
+        /* Detail Panel */
+        .detail-panel {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 25px;
+            border-radius: 12px;
+            border: 1px solid rgba(71, 185, 248, 0.2);
+            margin-bottom: 30px;
+            display: none;
+        }
+
+        .detail-panel.show {
+            display: block;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .detail-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(71, 185, 248, 0.2);
+        }
+
+        .detail-header h3 {
+            font-size: 20px;
+            color: #47b9f8;
+        }
+
+        .close-btn {
+            background: rgba(255, 107, 107, 0.2);
+            color: #ff6b6b;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+
+        .close-btn:hover {
+            background: rgba(255, 107, 107, 0.3);
+        }
+
+        .transcript-examples {
+            display: grid;
+            gap: 15px;
+        }
+
+        .transcript-card {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 3px solid;
+        }
+
+        .transcript-card.good {
+            border-left-color: #00ff88;
+        }
+
+        .transcript-card.bad {
+            border-left-color: #ff6b6b;
+        }
+
+        .transcript-card h4 {
+            font-size: 14px;
+            margin-bottom: 10px;
+            color: #47b9f8;
+        }
+
+        .transcript-card p {
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 8px;
+            font-style: italic;
+        }
+
+        .transcript-card .fix {
+            background: rgba(0, 255, 136, 0.1);
+            padding: 10px;
+            border-radius: 4px;
+            margin-top: 10px;
+        }
+
+        .transcript-card .fix strong {
+            color: #00ff88;
+        }
+
+        /* Chart Area */
+        .chart-section {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 25px;
+            border-radius: 12px;
+            border: 1px solid rgba(71, 185, 248, 0.2);
+            margin-bottom: 30px;
+        }
+
+        .chart-section h2 {
+            font-size: 18px;
+            color: #47b9f8;
+            margin-bottom: 20px;
+        }
+
+        .chart-container {
+            position: relative;
+            height: 300px;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, #47b9f8 0%, #00ff88 100%);
+            padding: 40px;
+            border-radius: 12px;
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        .cta-section h2 {
+            font-size: 28px;
+            color: #2c3441;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .cta-section p {
+            font-size: 16px;
+            color: #2c3441;
+            margin-bottom: 25px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: #2c3441;
+            color: #ffffff;
+            padding: 15px 40px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 600;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .contact-info {
+                text-align: center;
+            }
+
+            .logo-section h1 {
+                font-size: 24px;
+            }
+
+            .metric-value {
+                font-size: 36px;
+            }
+
+            .metrics-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .cta-section {
+                padding: 30px 20px;
+            }
+
+            .cta-section h2 {
+                font-size: 24px;
+            }
+        }
+
+        /* Loading Animation */
+        .loading {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            border: 2px solid rgba(71, 185, 248, 0.3);
+            border-top-color: #47b9f8;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo-section">
+                    <h1>Voice Agent Health Dashboard</h1>
+                    <p>Real-time AI Performance Monitoring by ResultantAI</p>
+                </div>
+                <div class="contact-info">
+                    <p><strong>Chris Mott</strong> | ResultantAI</p>
+                    <p>📧 <a href="mailto:chris@resultantai.com">chris@resultantai.com</a></p>
+                    <p>📞 <a href="tel:+12403894152">(240) 389-4152</a></p>
+                    <p>📅 <a href="https://meetings.hubspot.com/chris4642" target="_blank">Schedule a Call</a></p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- Alert Banner -->
+        <div class="alert-banner" id="alertBanner">
+            <h3>⚠️ Prompt Drift Detected - Escalation Rate Spike</h3>
+            <p><strong>Issue:</strong> Agent began hallucinating appointment times on Nov 14, 2025 at 2:47 AM EST. 12 calls escalated to human operators in 3-hour window (normal: 2-3/day).</p>
+            <p><strong>Root Cause:</strong> Prompt didn't explicitly handle timezone conversion when customer location differed from business hours reference.</p>
+            <div class="solution">
+                <strong>Chris's Fix:</strong> Added explicit instruction layer: "Business hours are 9AM-5PM Eastern Time. Always convert customer's stated availability to ET before confirming. If customer timezone unclear, ask explicitly before booking." Result: Escalation rate returned to baseline within 4 hours.
+            </div>
+        </div>
+
+        <!-- Dashboard Controls -->
+        <div class="controls">
+            <h2>Dashboard Controls</h2>
+            <div class="control-group">
+                <div class="control-item">
+                    <label for="agentType">Agent Type</label>
+                    <select id="agentType">
+                        <option value="inbound">Inbound Reception</option>
+                        <option value="lead">Lead Intake</option>
+                        <option value="outbound">Outbound Follow-up</option>
+                    </select>
+                </div>
+                <div class="control-item">
+                    <label for="dateRange">Date Range</label>
+                    <select id="dateRange">
+                        <option value="24h">Last 24 Hours</option>
+                        <option value="7d">Last 7 Days</option>
+                        <option value="30d" selected>Last 30 Days</option>
+                        <option value="90d">Last 90 Days</option>
+                    </select>
+                </div>
+                <div class="control-item">
+                    <label for="complianceFilter">Compliance Flags</label>
+                    <select id="complianceFilter">
+                        <option value="all">All Calls</option>
+                        <option value="flagged">Flagged Only</option>
+                        <option value="clean">Clean Only</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <!-- Metrics Grid -->
+        <div class="metrics-grid">
+            <div class="metric-card" data-metric="completion">
+                <div class="metric-header">
+                    <span class="metric-title">Task Completion</span>
+                    <div class="metric-status status-green"></div>
+                </div>
+                <div class="metric-value">94.2%</div>
+                <div class="metric-label">Successfully completed interactions</div>
+                <div class="metric-change positive">↑ 3.1% vs. last period</div>
+            </div>
+
+            <div class="metric-card" data-metric="escalation">
+                <div class="metric-header">
+                    <span class="metric-title">Escalation Rate</span>
+                    <div class="metric-status status-yellow"></div>
+                </div>
+                <div class="metric-value">8.3%</div>
+                <div class="metric-label">Calls requiring human intervention</div>
+                <div class="metric-change negative">↑ 2.7% (drift detected)</div>
+            </div>
+
+            <div class="metric-card" data-metric="latency">
+                <div class="metric-header">
+                    <span class="metric-title">Avg Response Time</span>
+                    <div class="metric-status status-green"></div>
+                </div>
+                <div class="metric-value">1.2s</div>
+                <div class="metric-label">Time to first response</div>
+                <div class="metric-change positive">↓ 0.3s vs. last period</div>
+            </div>
+
+            <div class="metric-card" data-metric="accuracy">
+                <div class="metric-header">
+                    <span class="metric-title">Data Accuracy</span>
+                    <div class="metric-status status-green"></div>
+                </div>
+                <div class="metric-value">97.8%</div>
+                <div class="metric-label">CRM fields validated correctly</div>
+                <div class="metric-change positive">↑ 1.2% vs. last period</div>
+            </div>
+
+            <div class="metric-card" data-metric="satisfaction">
+                <div class="metric-header">
+                    <span class="metric-title">User Satisfaction</span>
+                    <div class="metric-status status-green"></div>
+                </div>
+                <div class="metric-value">4.6/5</div>
+                <div class="metric-label">Post-call survey average</div>
+                <div class="metric-change positive">↑ 0.2 vs. last period</div>
+            </div>
+
+            <div class="metric-card" data-metric="compliance">
+                <div class="metric-header">
+                    <span class="metric-title">Compliance Score</span>
+                    <div class="metric-status status-green"></div>
+                </div>
+                <div class="metric-value">99.1%</div>
+                <div class="metric-label">No policy violations detected</div>
+                <div class="metric-change positive">Stable</div>
+            </div>
+        </div>
+
+        <!-- Detail Panel (Hidden by default) -->
+        <div class="detail-panel" id="detailPanel">
+            <div class="detail-header">
+                <h3 id="detailTitle">Metric Details</h3>
+                <button class="close-btn" onclick="closeDetailPanel()">Close ✕</button>
+            </div>
+            <div id="detailContent">
+                <!-- Dynamic content will be inserted here -->
+            </div>
+        </div>
+
+        <!-- Chart Section -->
+        <div class="chart-section">
+            <h2>Performance Trends (Last 30 Days)</h2>
+            <div class="chart-container">
+                <canvas id="performanceChart"></canvas>
+            </div>
+        </div>
+
+        <!-- CTA Section -->
+        <div class="cta-section">
+            <h2>See This System in Your Business</h2>
+            <p>This dashboard monitors the exact AI voice agent architecture I built for MCA Financial Services. I can audit your current Retell/Regal setup and deliver a custom performance report in 48 hours.</p>
+            <a href="https://meetings.hubspot.com/chris4642" class="cta-button" target="_blank">Schedule Your Free Audit →</a>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <script>
+        // Show alert banner after 2 seconds
+        setTimeout(() => {
+            document.getElementById('alertBanner').classList.add('show');
+        }, 2000);
+
+        // Metric detail content
+        const metricDetails = {
+            completion: {
+                title: 'Task Completion Rate - Deep Dive',
+                content: `
+                    <div class="transcript-examples">
+                        <div class="transcript-card good">
+                            <h4>✅ Successful Completion Example</h4>
+                            <p>"I need to schedule a consultation for next Tuesday."</p>
+                            <p><strong>Agent:</strong> "I can help you with that. I have availability at 10 AM, 2 PM, or 4 PM Eastern Time on Tuesday, November 19th. Which works best for you?"</p>
+                            <p><strong>Customer:</strong> "2 PM works great."</p>
+                            <p><strong>Agent:</strong> "Perfect. I've scheduled you for Tuesday, November 19th at 2 PM ET. You'll receive a confirmation email at [email]. Is there anything else I can help you with?"</p>
+                            <div class="fix">
+                                <strong>Why This Works:</strong> Explicit timezone stated, confirmation repeated, email validation, clear next steps.
+                            </div>
+                        </div>
+                        <div class="transcript-card bad">
+                            <h4>❌ Incomplete Interaction Example (Before Fix)</h4>
+                            <p>"I need to talk to someone about my account."</p>
+                            <p><strong>Agent (Old Prompt):</strong> "I can transfer you to our support team."</p>
+                            <p><em>Issue: Agent escalated without gathering ANY context - wasted customer time and human agent time.</em></p>
+                            <div class="fix">
+                                <strong>Chris's Fix:</strong> Added pre-escalation checklist to prompt: "Before transferring, collect: (1) Account type, (2) Issue category, (3) Urgency level. Then say: 'I'm connecting you with [specific team] who specializes in [issue]. They'll have your account info ready.'" Result: 23% reduction in call transfers, faster resolution time.
+                            </div>
+                        </div>
+                    </div>
+                `
+            },
+            escalation: {
+                title: 'Escalation Rate - Root Cause Analysis',
+                content: `
+                    <div class="transcript-examples">
+                        <div class="transcript-card bad">
+                            <h4>🔴 Hallucination Causing Escalation</h4>
+                            <p>"What are your business hours?"</p>
+                            <p><strong>Agent (Before Fix):</strong> "We're open Monday through Friday, 9 AM to 5 PM."</p>
+                            <p><em>Problem: Customer is in Pacific time, agent stated Eastern time hours without clarification. Customer showed up 3 hours late, called angry, demanded human.</em></p>
+                            <div class="fix">
+                                <strong>Chris's Fix:</strong> Modified prompt: "Business hours are 9 AM - 5 PM Eastern Time (ET). If customer asks about hours, ALWAYS state timezone explicitly. If customer location detected as different timezone, proactively convert: 'That's 6 AM - 2 PM Pacific Time for you.'" Result: Timezone-related escalations dropped from 8/week to 0.
+                            </div>
+                        </div>
+                        <div class="transcript-card good">
+                            <h4>✅ Proper Escalation Handling</h4>
+                            <p>"I need to dispute a charge from three months ago."</p>
+                            <p><strong>Agent:</strong> "I understand you need to dispute a charge. To ensure this gets resolved quickly, I'm going to connect you with our billing specialist who can pull up your account history. Before I transfer, can you confirm the approximate date and amount so I can note it for them?"</p>
+                            <p><em>Customer provides details, agent logs them, warm transfer occurs.</em></p>
+                            <div class="fix">
+                                <strong>Why This Works:</strong> Agent recognized limitation (can't process disputes), gathered context BEFORE transfer, set customer expectation, provided value even in escalation.
+                            </div>
+                        </div>
+                    </div>
+                `
+            },
+            latency: {
+                title: 'Response Time - Optimization Details',
+                content: `
+                    <div class="transcript-examples">
+                        <div class="transcript-card good">
+                            <h4>⚡ Latency Optimization Results</h4>
+                            <p><strong>Before Optimization:</strong> Average 1.8s response time</p>
+                            <p><strong>After Optimization:</strong> Average 1.2s response time</p>
+                            <div class="fix">
+                                <strong>Chris's Optimizations:</strong>
+                                <ul style="margin-top: 10px; padding-left: 20px; color: rgba(255, 255, 255, 0.8);">
+                                    <li>Enabled streaming responses (words appear as generated vs. waiting for full completion)</li>
+                                    <li>Reduced prompt token count by 30% through compression (same meaning, fewer words)</li>
+                                    <li>Moved static data (business hours, pricing) to knowledge base vs. prompt injection</li>
+                                    <li>Implemented interrupt handling so agent can respond mid-sentence if customer speaks</li>
+                                    <li>Optimized webhook calls to run async vs. blocking agent response</li>
+                                </ul>
+                                <p style="margin-top: 10px;"><strong>Business Impact:</strong> 0.6s improvement × 1,200 calls/month = 12 hours of saved customer wait time monthly. Satisfaction score increased 0.3 points.</p>
+                            </div>
+                        </div>
+                    </div>
+                `
+            },
+            accuracy: {
+                title: 'Data Accuracy - Validation Framework',
+                content: `
+                    <div class="transcript-examples">
+                        <div class="transcript-card bad">
+                            <h4>❌ Data Validation Failure (Before Fix)</h4>
+                            <p><strong>Agent:</strong> "Can I get your phone number?"</p>
+                            <p><strong>Customer:</strong> "Sure, it's 555-PLUMBER"</p>
+                            <p><strong>Agent:</strong> "Thank you, I've noted 555-PLUMBER."</p>
+                            <p><em>Issue: Vanity number stored in CRM phone field, broke SMS automation, couldn't call back customer.</em></p>
+                            <div class="fix">
+                                <strong>Chris's Fix:</strong> Added validation webhook that runs BEFORE CRM write:
+                                <ul style="margin-top: 10px; padding-left: 20px; color: rgba(255, 255, 255, 0.8);">
+                                    <li>Phone: Must match E.164 format, convert vanity to digits, validate area code exists</li>
+                                    <li>Email: Regex check, domain MX record validation, disposable email blocker</li>
+                                    <li>Date: Parse natural language ("next Tuesday") to ISO format, validate not in past</li>
+                                    <li>Name: Flag if contains numbers/symbols, check for profanity (spam filter)</li>
+                                </ul>
+                                <p style="margin-top: 10px;"><strong>Result:</strong> Invalid data rejected at collection vs. corrupting CRM. Agent prompted to re-ask: "I need a numeric phone number - what's the digit version of that?"</p>
+                            </div>
+                        </div>
+                        <div class="transcript-card good">
+                            <h4>✅ Smart Data Capture</h4>
+                            <p><strong>Customer:</strong> "My email is john dot smith at gmail dot com"</p>
+                            <p><strong>Agent:</strong> "Got it - john.smith@gmail.com. I'll send you a confirmation there."</p>
+                            <p><em>Agent correctly parsed verbal spelling into proper email format.</em></p>
+                        </div>
+                    </div>
+                `
+            },
+            satisfaction: {
+                title: 'User Satisfaction - Continuous Improvement',
+                content: `
+                    <div class="transcript-examples">
+                        <div class="transcript-card good">
+                            <h4>📊 Satisfaction Improvement Initiatives</h4>
+                            <div class="fix">
+                                <strong>What Drives High Satisfaction (Based on Transcript Analysis):</strong>
+                                <ul style="margin-top: 10px; padding-left: 20px; color: rgba(255, 255, 255, 0.8);">
+                                    <li><strong>Acknowledgment:</strong> "I understand you need..." before jumping to solution</li>
+                                    <li><strong>Transparency:</strong> "I'm an AI assistant" disclosed upfront (customers rate honest agents higher)</li>
+                                    <li><strong>Clear Next Steps:</strong> "You'll receive an email in 5 minutes, then our team will call within 24 hours"</li>
+                                    <li><strong>Empathy Calibration:</strong> Matches customer tone (urgent = faster pace, confused = slower explanation)</li>
+                                    <li><strong>Handling Uncertainty:</strong> "I'm not certain about that - let me connect you with someone who can give you the definitive answer" beats hallucinating</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="transcript-card bad">
+                            <h4>⚠️ Low Satisfaction Pattern Identified</h4>
+                            <p><em>Analyzed 47 calls with satisfaction score < 3.0. Common theme: Agent repeated same information 3+ times without recognizing customer confusion.</em></p>
+                            <div class="fix">
+                                <strong>Chris's Fix:</strong> Added "rephrasing layer" to prompt: "If you've explained something twice and customer is still confused, REPHRASE using different words or an analogy. Don't repeat verbatim." Result: Reduced low-satisfaction calls by 34%.
+                            </div>
+                        </div>
+                    </div>
+                `
+            },
+            compliance: {
+                title: 'Compliance Monitoring - Guardrail System',
+                content: `
+                    <div class="transcript-examples">
+                        <div class="transcript-card good">
+                            <h4>🛡️ Compliance Guardrails in Action</h4>
+                            <div class="fix">
+                                <strong>Multi-Layer Protection:</strong>
+                                <ul style="margin-top: 10px; padding-left: 20px; color: rgba(255, 255, 255, 0.8);">
+                                    <li><strong>Layer 1 - Prompt Instructions:</strong> "NEVER discuss pricing, legal advice, or medical diagnoses. NEVER make promises about outcomes. ALWAYS disclose you're an AI."</li>
+                                    <li><strong>Layer 2 - Real-Time Monitoring:</strong> Webhook scans each response for forbidden phrases before speaking</li>
+                                    <li><strong>Layer 3 - Post-Call Audit:</strong> Transcript analyzed for policy violations, flagged for manual review</li>
+                                    <li><strong>Layer 4 - Human Escalation:</strong> If compliance risk detected, immediate transfer with alert to supervisor</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="transcript-card bad">
+                            <h4>🚨 Compliance Catch Example</h4>
+                            <p><strong>Customer:</strong> "Can you guarantee my case will be approved?"</p>
+                            <p><strong>Agent (Attempted):</strong> "Yes, based on what you've told me, you should definitely be approved—"</p>
+                            <p><em>Real-time webhook BLOCKED this response, triggered fallback:</em></p>
+                            <p><strong>Agent (Actual):</strong> "I can't make guarantees about case outcomes - that's determined by our underwriting team. What I can do is ensure your application has all the required information to be reviewed quickly. Would you like me to help you with that?"</p>
+                            <div class="fix">
+                                <strong>Why This Matters:</strong> Legal/financial services face major liability if AI makes unauthorized promises. This guardrail prevented potential regulatory violation and protected client.
+                            </div>
+                        </div>
+                    </div>
+                `
+            }
+        };
+
+        // Click handler for metric cards
+        document.querySelectorAll('.metric-card').forEach(card => {
+            card.addEventListener('click', function() {
+                const metric = this.getAttribute('data-metric');
+                const details = metricDetails[metric];
+                
+                // Remove active class from all cards
+                document.querySelectorAll('.metric-card').forEach(c => c.classList.remove('active'));
+                
+                // Add active class to clicked card
+                this.classList.add('active');
+                
+                // Update detail panel
+                document.getElementById('detailTitle').textContent = details.title;
+                document.getElementById('detailContent').innerHTML = details.content;
+                
+                // Show detail panel
+                document.getElementById('detailPanel').classList.add('show');
+                
+                // Scroll to detail panel
+                document.getElementById('detailPanel').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            });
+        });
+
+        function closeDetailPanel() {
+            document.getElementById('detailPanel').classList.remove('show');
+            document.querySelectorAll('.metric-card').forEach(c => c.classList.remove('active'));
+        }
+
+        // Chart.js configuration
+        const ctx = document.getElementById('performanceChart').getContext('2d');
+        const chart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['Oct 16', 'Oct 23', 'Oct 30', 'Nov 6', 'Nov 13'],
+                datasets: [
+                    {
+                        label: 'Task Completion %',
+                        data: [89, 91, 93, 92, 94.2],
+                        borderColor: '#00ff88',
+                        backgroundColor: 'rgba(0, 255, 136, 0.1)',
+                        tension: 0.4,
+                        fill: true
+                    },
+                    {
+                        label: 'Escalation Rate %',
+                        data: [5.2, 5.8, 5.1, 5.6, 8.3],
+                        borderColor: '#ffd93d',
+                        backgroundColor: 'rgba(255, 217, 61, 0.1)',
+                        tension: 0.4,
+                        fill: true
+                    },
+                    {
+                        label: 'User Satisfaction (0-5)',
+                        data: [4.2, 4.3, 4.4, 4.4, 4.6],
+                        borderColor: '#47b9f8',
+                        backgroundColor: 'rgba(71, 185, 248, 0.1)',
+                        tension: 0.4,
+                        fill: true,
+                        yAxisID: 'y1'
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                interaction: {
+                    mode: 'index',
+                    intersect: false,
+                },
+                plugins: {
+                    legend: {
+                        labels: {
+                            color: '#ffffff',
+                            font: {
+                                size: 12
+                            }
+                        }
+                    },
+                    tooltip: {
+                        backgroundColor: 'rgba(44, 52, 65, 0.95)',
+                        titleColor: '#47b9f8',
+                        bodyColor: '#ffffff',
+                        borderColor: '#47b9f8',
+                        borderWidth: 1
+                    }
+                },
+                scales: {
+                    y: {
+                        type: 'linear',
+                        display: true,
+                        position: 'left',
+                        ticks: {
+                            color: '#ffffff'
+                        },
+                        grid: {
+                            color: 'rgba(255, 255, 255, 0.1)'
+                        }
+                    },
+                    y1: {
+                        type: 'linear',
+                        display: true,
+                        position: 'right',
+                        min: 0,
+                        max: 5,
+                        ticks: {
+                            color: '#ffffff'
+                        },
+                        grid: {
+                            drawOnChartArea: false,
+                        }
+                    },
+                    x: {
+                        ticks: {
+                            color: '#ffffff'
+                        },
+                        grid: {
+                            color: 'rgba(255, 255, 255, 0.1)'
+                        }
+                    }
+                }
+            }
+        });
+
+        // Simulate data updates
+        document.getElementById('agentType').addEventListener('change', function() {
+            // In real implementation, this would fetch new data
+            console.log('Agent type changed to:', this.value);
+        });
+
+        document.getElementById('dateRange').addEventListener('change', function() {
+            console.log('Date range changed to:', this.value);
+        });
+
+        document.getElementById('complianceFilter').addEventListener('change', function() {
+            console.log('Compliance filter changed to:', this.value);
+        });
+    </script>
+</body>
+</html>
+```
+

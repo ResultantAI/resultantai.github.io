@@ -1,0 +1,1258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aloha CRM — Hawaiian Tour Operations Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --ocean-deep: #0c4a6e;
+            --ocean-mid: #0369a1;
+            --ocean-light: #7dd3fc;
+            --sand-warm: #fef3c7;
+            --sand-dark: #d97706;
+            --lava-red: #dc2626;
+            --palm-green: #15803d;
+            --coral-pink: #fb7185;
+            --white: #ffffff;
+            --gray-50: #f8fafc;
+            --gray-100: #f1f5f9;
+            --gray-200: #e2e8f0;
+            --gray-300: #cbd5e1;
+            --gray-400: #94a3b8;
+            --gray-500: #64748b;
+            --gray-600: #475569;
+            --gray-700: #334155;
+            --gray-800: #1e293b;
+            --gray-900: #0f172a;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: linear-gradient(135deg, var(--gray-50) 0%, var(--sand-warm) 100%);
+            min-height: 100vh;
+            color: var(--gray-800);
+        }
+
+        /* Tutorial Banner */
+        .tutorial-banner {
+            background: linear-gradient(135deg, var(--ocean-deep) 0%, var(--ocean-mid) 100%);
+            color: var(--white);
+            padding: 20px 24px;
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 24px;
+            animation: slideDown 0.5s ease-out;
+        }
+
+        .tutorial-banner.hidden {
+            display: none;
+        }
+
+        @keyframes slideDown {
+            from { transform: translateY(-100%); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .tutorial-content h3 {
+            font-family: 'Instrument Serif', serif;
+            font-size: 1.25rem;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .tutorial-steps {
+            display: flex;
+            gap: 32px;
+            flex-wrap: wrap;
+        }
+
+        .tutorial-step {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.875rem;
+            opacity: 0.9;
+        }
+
+        .step-number {
+            background: rgba(255,255,255,0.2);
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 0.75rem;
+        }
+
+        .dismiss-btn {
+            background: rgba(255,255,255,0.15);
+            border: 1px solid rgba(255,255,255,0.3);
+            color: var(--white);
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 0.875rem;
+            white-space: nowrap;
+            transition: all 0.2s;
+        }
+
+        .dismiss-btn:hover {
+            background: rgba(255,255,255,0.25);
+        }
+
+        /* Header */
+        .header {
+            background: var(--white);
+            padding: 16px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid var(--gray-200);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--ocean-mid) 0%, var(--ocean-deep) 100%);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .logo-text {
+            font-family: 'Instrument Serif', serif;
+            font-size: 1.5rem;
+            color: var(--gray-900);
+        }
+
+        .logo-text span {
+            color: var(--ocean-mid);
+        }
+
+        /* Role Toggle */
+        .role-toggle {
+            display: flex;
+            background: var(--gray-100);
+            border-radius: 8px;
+            padding: 4px;
+        }
+
+        .role-btn {
+            padding: 8px 20px;
+            border: none;
+            background: transparent;
+            border-radius: 6px;
+            cursor: pointer;
+            font-family: inherit;
+            font-weight: 500;
+            font-size: 0.875rem;
+            color: var(--gray-500);
+            transition: all 0.2s;
+        }
+
+        .role-btn.active {
+            background: var(--white);
+            color: var(--ocean-deep);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .role-btn:hover:not(.active) {
+            color: var(--gray-700);
+        }
+
+        /* Main Layout */
+        .main {
+            display: grid;
+            grid-template-columns: 280px 1fr 320px;
+            gap: 24px;
+            padding: 24px;
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .card {
+            background: var(--white);
+            border-radius: 12px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+            overflow: hidden;
+        }
+
+        .card-header {
+            padding: 16px;
+            border-bottom: 1px solid var(--gray-100);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .card-title {
+            font-weight: 600;
+            font-size: 0.875rem;
+            color: var(--gray-700);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .badge {
+            background: var(--coral-pink);
+            color: var(--white);
+            font-size: 0.7rem;
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-weight: 600;
+        }
+
+        .badge.green { background: var(--palm-green); }
+        .badge.blue { background: var(--ocean-mid); }
+        .badge.yellow { background: var(--sand-dark); }
+
+        /* Message List */
+        .message-list {
+            padding: 8px;
+        }
+
+        .message-item {
+            padding: 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: 2px solid transparent;
+        }
+
+        .message-item:hover {
+            background: var(--gray-50);
+        }
+
+        .message-item.selected {
+            background: var(--ocean-light);
+            background: rgba(125, 211, 252, 0.15);
+            border-color: var(--ocean-mid);
+        }
+
+        .message-item.processing {
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.6; }
+        }
+
+        .message-sender {
+            font-weight: 600;
+            font-size: 0.875rem;
+            color: var(--gray-800);
+            margin-bottom: 4px;
+        }
+
+        .message-preview {
+            font-size: 0.8rem;
+            color: var(--gray-500);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .message-meta {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 8px;
+        }
+
+        .message-time {
+            font-size: 0.7rem;
+            color: var(--gray-400);
+        }
+
+        .message-source {
+            font-size: 0.65rem;
+            padding: 2px 6px;
+            border-radius: 4px;
+            background: var(--gray-100);
+            color: var(--gray-600);
+        }
+
+        .message-source.gmail { background: #fce8e6; color: #c5221f; }
+        .message-source.outlook { background: #e8f0fe; color: #1a73e8; }
+
+        /* Center Content */
+        .content {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        /* Stats Row - CEO View */
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+        }
+
+        .stat-card {
+            background: var(--white);
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+        }
+
+        .stat-label {
+            font-size: 0.75rem;
+            color: var(--gray-500);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+        }
+
+        .stat-value {
+            font-family: 'Instrument Serif', serif;
+            font-size: 2rem;
+            color: var(--gray-900);
+            line-height: 1;
+        }
+
+        .stat-change {
+            font-size: 0.75rem;
+            margin-top: 8px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .stat-change.up { color: var(--palm-green); }
+        .stat-change.down { color: var(--lava-red); }
+
+        /* Message Detail Panel */
+        .message-detail {
+            background: var(--white);
+            border-radius: 12px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+            flex: 1;
+        }
+
+        .detail-header {
+            padding: 20px;
+            border-bottom: 1px solid var(--gray-100);
+        }
+
+        .detail-subject {
+            font-family: 'Instrument Serif', serif;
+            font-size: 1.25rem;
+            color: var(--gray-900);
+            margin-bottom: 8px;
+        }
+
+        .detail-meta {
+            display: flex;
+            gap: 16px;
+            font-size: 0.8rem;
+            color: var(--gray-500);
+        }
+
+        .detail-body {
+            padding: 20px;
+        }
+
+        .email-content {
+            background: var(--gray-50);
+            border-radius: 8px;
+            padding: 16px;
+            font-size: 0.875rem;
+            line-height: 1.6;
+            color: var(--gray-700);
+            border-left: 3px solid var(--ocean-mid);
+        }
+
+        .email-signature {
+            margin-top: 16px;
+            padding-top: 16px;
+            border-top: 1px dashed var(--gray-300);
+            font-size: 0.8rem;
+            color: var(--gray-500);
+        }
+
+        /* Automation Flow Visualization */
+        .automation-flow {
+            margin-top: 24px;
+            padding: 20px;
+            background: linear-gradient(135deg, rgba(12,74,110,0.03) 0%, rgba(3,105,161,0.06) 100%);
+            border-radius: 12px;
+            border: 1px dashed var(--ocean-light);
+        }
+
+        .flow-title {
+            font-weight: 600;
+            font-size: 0.875rem;
+            color: var(--ocean-deep);
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .flow-steps {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .flow-step {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 14px;
+            background: var(--white);
+            border-radius: 8px;
+            font-size: 0.8rem;
+            color: var(--gray-600);
+            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+            opacity: 0.4;
+            transition: all 0.4s;
+        }
+
+        .flow-step.active {
+            opacity: 1;
+            border: 1px solid var(--ocean-mid);
+            color: var(--ocean-deep);
+            font-weight: 500;
+        }
+
+        .flow-step.complete {
+            opacity: 1;
+            background: var(--palm-green);
+            color: var(--white);
+        }
+
+        .flow-arrow {
+            color: var(--gray-300);
+            font-size: 1.2rem;
+        }
+
+        .flow-arrow.active {
+            color: var(--ocean-mid);
+            animation: arrowPulse 0.5s ease-out;
+        }
+
+        @keyframes arrowPulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.3); }
+            100% { transform: scale(1); }
+        }
+
+        /* Action Button */
+        .process-btn {
+            margin-top: 20px;
+            background: linear-gradient(135deg, var(--ocean-mid) 0%, var(--ocean-deep) 100%);
+            color: var(--white);
+            border: none;
+            padding: 14px 28px;
+            border-radius: 8px;
+            font-family: inherit;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .process-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(3,105,161,0.3);
+        }
+
+        .process-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* Right Panel */
+        .right-panel {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        /* Parsed Contact Card */
+        .contact-card {
+            padding: 16px;
+        }
+
+        .contact-field {
+            margin-bottom: 12px;
+        }
+
+        .field-label {
+            font-size: 0.7rem;
+            color: var(--gray-400);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
+        }
+
+        .field-value {
+            font-size: 0.875rem;
+            color: var(--gray-800);
+            padding: 8px 12px;
+            background: var(--gray-50);
+            border-radius: 6px;
+            min-height: 36px;
+            display: flex;
+            align-items: center;
+            transition: all 0.3s;
+        }
+
+        .field-value.populated {
+            background: rgba(21, 128, 61, 0.1);
+            border: 1px solid var(--palm-green);
+            animation: fieldPopulate 0.5s ease-out;
+        }
+
+        @keyframes fieldPopulate {
+            0% { transform: scale(0.95); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .field-value.empty {
+            color: var(--gray-300);
+            font-style: italic;
+        }
+
+        /* Task Assignment */
+        .task-card {
+            padding: 16px;
+        }
+
+        .task-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 12px;
+            background: var(--gray-50);
+            border-radius: 8px;
+            margin-bottom: 8px;
+            opacity: 0;
+            transform: translateX(20px);
+            transition: all 0.4s;
+        }
+
+        .task-item.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .task-checkbox {
+            width: 18px;
+            height: 18px;
+            border: 2px solid var(--gray-300);
+            border-radius: 4px;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .task-content {
+            flex: 1;
+        }
+
+        .task-title {
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--gray-800);
+            margin-bottom: 4px;
+        }
+
+        .task-due {
+            font-size: 0.75rem;
+            color: var(--gray-500);
+        }
+
+        /* MailerLite Sync */
+        .sync-status {
+            padding: 16px;
+        }
+
+        .sync-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 12px;
+            border-radius: 8px;
+            margin-bottom: 8px;
+            font-size: 0.8rem;
+            opacity: 0.4;
+            transition: all 0.3s;
+        }
+
+        .sync-item.active {
+            opacity: 1;
+            background: rgba(217, 119, 6, 0.1);
+            border: 1px solid var(--sand-dark);
+        }
+
+        .sync-icon {
+            width: 32px;
+            height: 32px;
+            background: var(--sand-warm);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .sync-tag {
+            display: inline-block;
+            padding: 2px 8px;
+            background: var(--sand-dark);
+            color: var(--white);
+            border-radius: 4px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            margin-left: 8px;
+        }
+
+        /* Activity Timeline */
+        .timeline {
+            padding: 16px;
+        }
+
+        .timeline-item {
+            display: flex;
+            gap: 12px;
+            padding-bottom: 16px;
+            border-left: 2px solid var(--gray-200);
+            margin-left: 8px;
+            padding-left: 20px;
+            position: relative;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.4s;
+        }
+
+        .timeline-item.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -6px;
+            top: 0;
+            width: 10px;
+            height: 10px;
+            background: var(--gray-200);
+            border-radius: 50%;
+            transition: all 0.3s;
+        }
+
+        .timeline-item.visible::before {
+            background: var(--ocean-mid);
+        }
+
+        .timeline-content {
+            flex: 1;
+        }
+
+        .timeline-action {
+            font-size: 0.8rem;
+            color: var(--gray-700);
+            font-weight: 500;
+        }
+
+        .timeline-time {
+            font-size: 0.7rem;
+            color: var(--gray-400);
+            margin-top: 4px;
+        }
+
+        /* Assistant View Simplification */
+        .assistant-view .stats-row,
+        .assistant-view .automation-flow,
+        .assistant-view .contact-card,
+        .assistant-view .sync-status {
+            display: none;
+        }
+
+        .assistant-task-list {
+            display: none;
+        }
+
+        .assistant-view .assistant-task-list {
+            display: block;
+        }
+
+        .simple-task {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 16px;
+            background: var(--white);
+            border-radius: 12px;
+            margin-bottom: 12px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .simple-task:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .simple-task-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .simple-task-icon.respond { background: rgba(251, 113, 133, 0.15); }
+        .simple-task-icon.confirm { background: rgba(21, 128, 61, 0.15); }
+        .simple-task-icon.call { background: rgba(3, 105, 161, 0.15); }
+
+        .simple-task-content {
+            flex: 1;
+        }
+
+        .simple-task-title {
+            font-weight: 600;
+            color: var(--gray-800);
+            margin-bottom: 4px;
+        }
+
+        .simple-task-sub {
+            font-size: 0.8rem;
+            color: var(--gray-500);
+        }
+
+        .simple-task-action {
+            padding: 8px 16px;
+            background: var(--gray-100);
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: var(--gray-600);
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 24px;
+            color: var(--gray-400);
+            font-size: 0.75rem;
+        }
+
+        .footer a {
+            color: var(--ocean-mid);
+            text-decoration: none;
+        }
+
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .main {
+                grid-template-columns: 1fr;
+            }
+            .stats-row {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Tutorial Banner -->
+    <div class="tutorial-banner" id="tutorial">
+        <div class="tutorial-content">
+            <h3>🌺 Quick Start Guide</h3>
+            <div class="tutorial-steps">
+                <div class="tutorial-step">
+                    <span class="step-number">1</span>
+                    <span>Toggle between CEO & Assistant views</span>
+                </div>
+                <div class="tutorial-step">
+                    <span class="step-number">2</span>
+                    <span>Select a guest message from inbox</span>
+                </div>
+                <div class="tutorial-step">
+                    <span class="step-number">3</span>
+                    <span>Click "Process Message" to see automation</span>
+                </div>
+                <div class="tutorial-step">
+                    <span class="step-number">4</span>
+                    <span>Watch contact parse → task create → MailerLite sync</span>
+                </div>
+            </div>
+        </div>
+        <button class="dismiss-btn" onclick="dismissTutorial()">Got it, let's explore →</button>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="logo">
+            <div class="logo-icon">🌴</div>
+            <div class="logo-text">Aloha <span>CRM</span></div>
+        </div>
+        <div class="role-toggle">
+            <button class="role-btn active" id="ceoBtn" onclick="switchView('ceo')">👔 CEO View</button>
+            <button class="role-btn" id="assistantBtn" onclick="switchView('assistant')">📋 Assistant View</button>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main" id="mainContent">
+        <!-- Sidebar - Inbox -->
+        <aside class="sidebar">
+            <div class="card">
+                <div class="card-header">
+                    <span class="card-title">📥 Guest Messages</span>
+                    <span class="badge">3 new</span>
+                </div>
+                <div class="message-list">
+                    <div class="message-item selected" id="msg1" onclick="selectMessage(1)">
+                        <div class="message-sender">Jennifer Thompson</div>
+                        <div class="message-preview">Cruise shore excursion inquiry - group of 12</div>
+                        <div class="message-meta">
+                            <span class="message-source gmail">Gmail</span>
+                            <span class="message-time">10 min ago</span>
+                        </div>
+                    </div>
+                    <div class="message-item" id="msg2" onclick="selectMessage(2)">
+                        <div class="message-sender">Robert Nakamura</div>
+                        <div class="message-preview">B2B contract inquiry - hotel partnership</div>
+                        <div class="message-meta">
+                            <span class="message-source outlook">Outlook</span>
+                            <span class="message-time">45 min ago</span>
+                        </div>
+                    </div>
+                    <div class="message-item" id="msg3" onclick="selectMessage(3)">
+                        <div class="message-sender">Maria Santos</div>
+                        <div class="message-preview">Wheelchair accessibility question</div>
+                        <div class="message-meta">
+                            <span class="message-source gmail">Gmail</span>
+                            <span class="message-time">2 hrs ago</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <span class="card-title">🤝 Vendors</span>
+                    <span class="badge green">Active</span>
+                </div>
+                <div class="message-list">
+                    <div class="message-item">
+                        <div class="message-sender">Roberts Hawaii</div>
+                        <div class="message-preview">Charter bus partner</div>
+                    </div>
+                    <div class="message-item">
+                        <div class="message-sender">Fair Wind Cruises</div>
+                        <div class="message-preview">Snorkel tour partner</div>
+                    </div>
+                    <div class="message-item">
+                        <div class="message-sender">Kona Coffee Farm</div>
+                        <div class="message-preview">Coffee tour venue</div>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Center Content -->
+        <section class="content">
+            <!-- CEO Stats Row -->
+            <div class="stats-row">
+                <div class="stat-card">
+                    <div class="stat-label">This Week's Revenue</div>
+                    <div class="stat-value">$24,850</div>
+                    <div class="stat-change up">↑ 12% vs last week</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Bookings</div>
+                    <div class="stat-value">47</div>
+                    <div class="stat-change up">↑ 8 new today</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Guests Served</div>
+                    <div class="stat-value">312</div>
+                    <div class="stat-change up">↑ NCL Pride of America</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Open Messages</div>
+                    <div class="stat-value">12</div>
+                    <div class="stat-change down">3 need response</div>
+                </div>
+            </div>
+
+            <!-- Assistant Simple Task List -->
+            <div class="assistant-task-list">
+                <h3 style="font-family: 'Instrument Serif', serif; margin-bottom: 16px; color: var(--gray-800);">Today's Tasks</h3>
+                <div class="simple-task">
+                    <div class="simple-task-icon respond">📧</div>
+                    <div class="simple-task-content">
+                        <div class="simple-task-title">Respond to Jennifer Thompson</div>
+                        <div class="simple-task-sub">Group of 12 cruise passengers • Shore excursion</div>
+                    </div>
+                    <div class="simple-task-action">Reply →</div>
+                </div>
+                <div class="simple-task">
+                    <div class="simple-task-icon confirm">✅</div>
+                    <div class="simple-task-content">
+                        <div class="simple-task-title">Confirm tomorrow's pickups</div>
+                        <div class="simple-task-sub">8 guests • Coffee Farm Tour • 8:30 AM</div>
+                    </div>
+                    <div class="simple-task-action">Confirm →</div>
+                </div>
+                <div class="simple-task">
+                    <div class="simple-task-icon call">📞</div>
+                    <div class="simple-task-content">
+                        <div class="simple-task-title">Call back Maria Santos</div>
+                        <div class="simple-task-sub">Accessibility question • Left voicemail</div>
+                    </div>
+                    <div class="simple-task-action">Call →</div>
+                </div>
+            </div>
+
+            <!-- Message Detail -->
+            <div class="message-detail">
+                <div class="detail-header">
+                    <div class="detail-subject" id="detailSubject">RE: Cruise Shore Excursion — Kona Coffee & Culture Tour</div>
+                    <div class="detail-meta">
+                        <span>From: jennifer.thompson@gmail.com</span>
+                        <span>•</span>
+                        <span id="detailTime">Nov 29, 2025 at 2:45 PM HST</span>
+                    </div>
+                </div>
+                <div class="detail-body">
+                    <div class="email-content" id="emailContent">
+                        Aloha!<br><br>
+                        Our family is arriving on the NCL Pride of America on December 15th and we're looking for a shore excursion for our group of 12 (8 adults, 4 children ages 6-12).<br><br>
+                        We're interested in the Kona Coffee & Culture Tour — could you let me know availability and if you can accommodate children? We'd also love to add the Place of Refuge visit if time allows.<br><br>
+                        Looking forward to experiencing the Big Island!<br><br>
+                        <div class="email-signature">
+                            <strong>Jennifer Thompson</strong><br>
+                            Cell: (415) 555-0127<br>
+                            jennifer.thompson@gmail.com<br>
+                            San Francisco, CA
+                        </div>
+                    </div>
+
+                    <!-- Automation Flow -->
+                    <div class="automation-flow">
+                        <div class="flow-title">
+                            ⚡ Make.com Automation Flow
+                        </div>
+                        <div class="flow-steps">
+                            <div class="flow-step" id="step1">📧 Gmail Received</div>
+                            <span class="flow-arrow" id="arrow1">→</span>
+                            <div class="flow-step" id="step2">🔍 Parse Email</div>
+                            <span class="flow-arrow" id="arrow2">→</span>
+                            <div class="flow-step" id="step3">👤 Create Contact</div>
+                            <span class="flow-arrow" id="arrow3">→</span>
+                            <div class="flow-step" id="step4">📋 Assign Task</div>
+                            <span class="flow-arrow" id="arrow4">→</span>
+                            <div class="flow-step" id="step5">📬 MailerLite Sync</div>
+                            <span class="flow-arrow" id="arrow5">→</span>
+                            <div class="flow-step" id="step6">✅ Complete</div>
+                        </div>
+                    </div>
+
+                    <button class="process-btn" id="processBtn" onclick="processMessage()">
+                        ⚡ Process New Message
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Right Panel -->
+        <aside class="right-panel">
+            <!-- Parsed Contact -->
+            <div class="card contact-card">
+                <div class="card-header">
+                    <span class="card-title">👤 Parsed Contact</span>
+                    <span class="badge blue" id="contactBadge" style="opacity: 0;">New</span>
+                </div>
+                <div class="contact-field">
+                    <div class="field-label">Full Name</div>
+                    <div class="field-value empty" id="fieldName">Awaiting parse...</div>
+                </div>
+                <div class="contact-field">
+                    <div class="field-label">Email</div>
+                    <div class="field-value empty" id="fieldEmail">Awaiting parse...</div>
+                </div>
+                <div class="contact-field">
+                    <div class="field-label">Phone</div>
+                    <div class="field-value empty" id="fieldPhone">Awaiting parse...</div>
+                </div>
+                <div class="contact-field">
+                    <div class="field-label">Location</div>
+                    <div class="field-value empty" id="fieldLocation">Awaiting parse...</div>
+                </div>
+                <div class="contact-field">
+                    <div class="field-label">Group Size</div>
+                    <div class="field-value empty" id="fieldGroup">Awaiting parse...</div>
+                </div>
+            </div>
+
+            <!-- Task Assignment -->
+            <div class="card task-card">
+                <div class="card-header">
+                    <span class="card-title">📋 Auto-Created Task</span>
+                </div>
+                <div class="task-item" id="taskItem">
+                    <div class="task-checkbox"></div>
+                    <div class="task-content">
+                        <div class="task-title">Respond to Jennifer Thompson</div>
+                        <div class="task-due">Due: Today 5:00 PM • Assigned: Leilani</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- MailerLite Sync -->
+            <div class="card sync-status">
+                <div class="card-header">
+                    <span class="card-title">📬 MailerLite Sync</span>
+                </div>
+                <div class="sync-item" id="syncList">
+                    <div class="sync-icon">📋</div>
+                    <div>
+                        <div>Added to list: <strong>Cruise Guests</strong></div>
+                    </div>
+                </div>
+                <div class="sync-item" id="syncTag">
+                    <div class="sync-icon">🏷️</div>
+                    <div>
+                        <div>Tag applied: <span class="sync-tag">shore-excursion</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Activity Timeline -->
+            <div class="card timeline">
+                <div class="card-header">
+                    <span class="card-title">📜 Activity Log</span>
+                </div>
+                <div class="timeline-item" id="timeline1">
+                    <div class="timeline-content">
+                        <div class="timeline-action">Email received from Gmail</div>
+                        <div class="timeline-time" id="time1">—</div>
+                    </div>
+                </div>
+                <div class="timeline-item" id="timeline2">
+                    <div class="timeline-content">
+                        <div class="timeline-action">Contact parsed & created</div>
+                        <div class="timeline-time" id="time2">—</div>
+                    </div>
+                </div>
+                <div class="timeline-item" id="timeline3">
+                    <div class="timeline-content">
+                        <div class="timeline-action">Task assigned to Leilani</div>
+                        <div class="timeline-time" id="time3">—</div>
+                    </div>
+                </div>
+                <div class="timeline-item" id="timeline4">
+                    <div class="timeline-content">
+                        <div class="timeline-action">MailerLite sync complete</div>
+                        <div class="timeline-time" id="time4">—</div>
+                    </div>
+                </div>
+            </div>
+        </aside>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        Demo prototype by <a href="https://resultantai.com" target="_blank">ResultantAI</a> — Powered by Make.com + Airtable + MailerLite
+    </footer>
+
+    <script>
+        // Tutorial dismiss
+        function dismissTutorial() {
+            document.getElementById('tutorial').classList.add('hidden');
+        }
+
+        // View switching
+        function switchView(view) {
+            const main = document.getElementById('mainContent');
+            const ceoBtn = document.getElementById('ceoBtn');
+            const assistantBtn = document.getElementById('assistantBtn');
+
+            if (view === 'ceo') {
+                main.classList.remove('assistant-view');
+                ceoBtn.classList.add('active');
+                assistantBtn.classList.remove('active');
+            } else {
+                main.classList.add('assistant-view');
+                assistantBtn.classList.add('active');
+                ceoBtn.classList.remove('active');
+            }
+        }
+
+        // Message selection
+        function selectMessage(id) {
+            document.querySelectorAll('.message-item').forEach(item => {
+                item.classList.remove('selected');
+            });
+            document.getElementById('msg' + id).classList.add('selected');
+            resetAutomation();
+        }
+
+        // Reset automation state
+        function resetAutomation() {
+            // Reset flow steps
+            for (let i = 1; i <= 6; i++) {
+                document.getElementById('step' + i).classList.remove('active', 'complete');
+                if (i < 6) document.getElementById('arrow' + i).classList.remove('active');
+            }
+
+            // Reset contact fields
+            ['Name', 'Email', 'Phone', 'Location', 'Group'].forEach(field => {
+                const el = document.getElementById('field' + field);
+                el.classList.remove('populated');
+                el.classList.add('empty');
+                el.textContent = 'Awaiting parse...';
+            });
+            document.getElementById('contactBadge').style.opacity = '0';
+
+            // Reset task
+            document.getElementById('taskItem').classList.remove('visible');
+
+            // Reset sync
+            document.getElementById('syncList').classList.remove('active');
+            document.getElementById('syncTag').classList.remove('active');
+
+            // Reset timeline
+            for (let i = 1; i <= 4; i++) {
+                document.getElementById('timeline' + i).classList.remove('visible');
+                document.getElementById('time' + i).textContent = '—';
+            }
+
+            // Enable button
+            document.getElementById('processBtn').disabled = false;
+        }
+
+        // Process message animation
+        async function processMessage() {
+            const btn = document.getElementById('processBtn');
+            btn.disabled = true;
+
+            const now = new Date();
+            const formatTime = () => now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+
+            // Step 1: Email received
+            document.getElementById('step1').classList.add('active');
+            await sleep(600);
+            document.getElementById('step1').classList.remove('active');
+            document.getElementById('step1').classList.add('complete');
+            document.getElementById('arrow1').classList.add('active');
+            document.getElementById('timeline1').classList.add('visible');
+            document.getElementById('time1').textContent = formatTime();
+
+            // Step 2: Parse email
+            document.getElementById('step2').classList.add('active');
+            await sleep(800);
+
+            // Step 3: Create contact - populate fields
+            document.getElementById('step2').classList.remove('active');
+            document.getElementById('step2').classList.add('complete');
+            document.getElementById('arrow2').classList.add('active');
+            document.getElementById('step3').classList.add('active');
+
+            // Animate fields
+            await sleep(300);
+            populateField('fieldName', 'Jennifer Thompson');
+            await sleep(200);
+            populateField('fieldEmail', 'jennifer.thompson@gmail.com');
+            await sleep(200);
+            populateField('fieldPhone', '(415) 555-0127');
+            await sleep(200);
+            populateField('fieldLocation', 'San Francisco, CA');
+            await sleep(200);
+            populateField('fieldGroup', '12 guests (8 adults, 4 children)');
+            document.getElementById('contactBadge').style.opacity = '1';
+
+            await sleep(400);
+            document.getElementById('step3').classList.remove('active');
+            document.getElementById('step3').classList.add('complete');
+            document.getElementById('arrow3').classList.add('active');
+            document.getElementById('timeline2').classList.add('visible');
+            document.getElementById('time2').textContent = formatTime();
+
+            // Step 4: Assign task
+            document.getElementById('step4').classList.add('active');
+            await sleep(500);
+            document.getElementById('taskItem').classList.add('visible');
+            await sleep(400);
+            document.getElementById('step4').classList.remove('active');
+            document.getElementById('step4').classList.add('complete');
+            document.getElementById('arrow4').classList.add('active');
+            document.getElementById('timeline3').classList.add('visible');
+            document.getElementById('time3').textContent = formatTime();
+
+            // Step 5: MailerLite sync
+            document.getElementById('step5').classList.add('active');
+            await sleep(400);
+            document.getElementById('syncList').classList.add('active');
+            await sleep(300);
+            document.getElementById('syncTag').classList.add('active');
+            await sleep(400);
+            document.getElementById('step5').classList.remove('active');
+            document.getElementById('step5').classList.add('complete');
+            document.getElementById('arrow5').classList.add('active');
+            document.getElementById('timeline4').classList.add('visible');
+            document.getElementById('time4').textContent = formatTime();
+
+            // Step 6: Complete
+            await sleep(300);
+            document.getElementById('step6').classList.add('complete');
+        }
+
+        function populateField(id, value) {
+            const el = document.getElementById(id);
+            el.classList.remove('empty');
+            el.classList.add('populated');
+            el.textContent = value;
+        }
+
+        function sleep(ms) {
+            return new Promise(resolve => setTimeout(resolve, ms));
+        }
+    </script>
+</body>
+</html>

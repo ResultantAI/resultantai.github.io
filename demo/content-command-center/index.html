@@ -1,0 +1,1129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Content Calendar Command Center | Your Automated Social Hub</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-deep: #0a0f1a;
+            --bg-card: #111827;
+            --bg-elevated: #1a2234;
+            --accent-green: #10b981;
+            --accent-green-glow: rgba(16, 185, 129, 0.3);
+            --accent-blue: #3b82f6;
+            --accent-purple: #8b5cf6;
+            --accent-orange: #f97316;
+            --accent-pink: #ec4899;
+            --accent-red: #ef4444;
+            --text-primary: #f1f5f9;
+            --text-secondary: #94a3b8;
+            --text-muted: #64748b;
+            --border: #1e293b;
+            --border-active: #334155;
+            
+            /* Platform colors */
+            --facebook: #1877f2;
+            --instagram: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+            --youtube: #ff0000;
+            --tiktok: #00f2ea;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+            background: var(--bg-deep);
+            color: var(--text-primary);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        
+        /* Ambient background effect */
+        body::before {
+            content: '';
+            position: fixed;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: 
+                radial-gradient(ellipse at 20% 20%, rgba(16, 185, 129, 0.08) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 80%, rgba(59, 130, 246, 0.06) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 50%, rgba(139, 92, 246, 0.04) 0%, transparent 60%);
+            pointer-events: none;
+            z-index: 0;
+        }
+        
+        /* Tutorial Banner */
+        .tutorial-banner {
+            background: linear-gradient(135deg, var(--bg-elevated) 0%, var(--bg-card) 100%);
+            border-bottom: 1px solid var(--border);
+            padding: 20px 32px;
+            position: relative;
+            z-index: 100;
+            animation: slideDown 0.5s ease-out;
+        }
+        
+        @keyframes slideDown {
+            from { transform: translateY(-100%); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        
+        .tutorial-banner.hidden {
+            display: none;
+        }
+        
+        .tutorial-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 40px;
+        }
+        
+        .tutorial-left h2 {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--accent-green);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .tutorial-steps {
+            display: flex;
+            gap: 32px;
+        }
+        
+        .tutorial-step {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+        
+        .step-number {
+            background: var(--accent-green);
+            color: var(--bg-deep);
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 12px;
+            flex-shrink: 0;
+        }
+        
+        .dismiss-btn {
+            background: transparent;
+            border: 1px solid var(--border-active);
+            color: var(--text-secondary);
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.2s;
+            white-space: nowrap;
+        }
+        
+        .dismiss-btn:hover {
+            background: var(--bg-card);
+            border-color: var(--accent-green);
+            color: var(--accent-green);
+        }
+        
+        /* Main Container */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 32px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* Header */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 32px;
+        }
+        
+        .header-left h1 {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 4px;
+            background: linear-gradient(135deg, var(--text-primary) 0%, var(--accent-green) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .header-left p {
+            color: var(--text-muted);
+            font-size: 14px;
+        }
+        
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+        
+        .sync-status {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.2);
+            border-radius: 20px;
+            font-size: 13px;
+            color: var(--accent-green);
+        }
+        
+        .sync-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--accent-green);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; box-shadow: 0 0 0 0 var(--accent-green-glow); }
+            50% { opacity: 0.7; box-shadow: 0 0 0 8px transparent; }
+        }
+        
+        /* Stats Row */
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin-bottom: 32px;
+        }
+        
+        .stat-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 24px;
+            transition: all 0.3s;
+        }
+        
+        .stat-card:hover {
+            border-color: var(--border-active);
+            transform: translateY(-2px);
+        }
+        
+        .stat-label {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+        }
+        
+        .stat-value {
+            font-size: 36px;
+            font-weight: 700;
+            color: var(--text-primary);
+            font-family: 'JetBrains Mono', monospace;
+        }
+        
+        .stat-card:nth-child(1) .stat-value { color: var(--accent-green); }
+        .stat-card:nth-child(2) .stat-value { color: var(--accent-blue); }
+        .stat-card:nth-child(3) .stat-value { color: var(--accent-purple); }
+        .stat-card:nth-child(4) .stat-value { color: var(--accent-orange); }
+        
+        /* Main Grid */
+        .main-grid {
+            display: grid;
+            grid-template-columns: 1fr 380px;
+            gap: 24px;
+        }
+        
+        /* Content Table */
+        .content-table-wrapper {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            overflow: hidden;
+        }
+        
+        .table-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 24px;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .table-header h3 {
+            font-size: 16px;
+            font-weight: 600;
+        }
+        
+        .filter-tabs {
+            display: flex;
+            gap: 8px;
+        }
+        
+        .filter-tab {
+            padding: 6px 14px;
+            border-radius: 6px;
+            font-size: 13px;
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: all 0.2s;
+            border: none;
+            background: transparent;
+            font-family: inherit;
+        }
+        
+        .filter-tab:hover {
+            color: var(--text-secondary);
+            background: var(--bg-elevated);
+        }
+        
+        .filter-tab.active {
+            background: var(--accent-green);
+            color: var(--bg-deep);
+            font-weight: 500;
+        }
+        
+        .content-table {
+            width: 100%;
+        }
+        
+        .table-row {
+            display: grid;
+            grid-template-columns: 60px 1fr 140px 120px 100px;
+            align-items: center;
+            padding: 16px 24px;
+            border-bottom: 1px solid var(--border);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .table-row:hover {
+            background: var(--bg-elevated);
+        }
+        
+        .table-row.selected {
+            background: rgba(16, 185, 129, 0.05);
+            border-left: 3px solid var(--accent-green);
+        }
+        
+        .table-row:last-child {
+            border-bottom: none;
+        }
+        
+        .content-thumbnail {
+            width: 48px;
+            height: 48px;
+            border-radius: 8px;
+            object-fit: cover;
+            background: var(--bg-elevated);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+        
+        .content-info {
+            padding-right: 16px;
+        }
+        
+        .content-title {
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 4px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        
+        .content-type {
+            font-size: 12px;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .type-badge {
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 500;
+            text-transform: uppercase;
+        }
+        
+        .type-badge.video { background: rgba(239, 68, 68, 0.15); color: #f87171; }
+        .type-badge.image { background: rgba(59, 130, 246, 0.15); color: #60a5fa; }
+        .type-badge.carousel { background: rgba(139, 92, 246, 0.15); color: #a78bfa; }
+        
+        .platforms-cell {
+            display: flex;
+            gap: 6px;
+        }
+        
+        .platform-icon {
+            width: 28px;
+            height: 28px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            transition: transform 0.2s;
+        }
+        
+        .platform-icon:hover {
+            transform: scale(1.1);
+        }
+        
+        .platform-icon.fb { background: var(--facebook); }
+        .platform-icon.ig { background: var(--instagram); }
+        .platform-icon.yt { background: var(--youtube); }
+        .platform-icon.tt { background: #000; border: 1px solid var(--tiktok); color: var(--tiktok); }
+        .platform-icon.pending { background: var(--bg-elevated); color: var(--text-muted); opacity: 0.5; }
+        
+        .schedule-time {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+        
+        .status-badge {
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+            text-align: center;
+        }
+        
+        .status-badge.scheduled {
+            background: rgba(59, 130, 246, 0.15);
+            color: #60a5fa;
+        }
+        
+        .status-badge.posted {
+            background: rgba(16, 185, 129, 0.15);
+            color: var(--accent-green);
+        }
+        
+        .status-badge.queued {
+            background: rgba(249, 115, 22, 0.15);
+            color: #fb923c;
+        }
+        
+        /* Preview Panel */
+        .preview-panel {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            overflow: hidden;
+            position: sticky;
+            top: 32px;
+        }
+        
+        .preview-header {
+            padding: 20px 24px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .preview-header h3 {
+            font-size: 16px;
+            font-weight: 600;
+        }
+        
+        .preview-empty {
+            padding: 60px 24px;
+            text-align: center;
+            color: var(--text-muted);
+        }
+        
+        .preview-empty-icon {
+            font-size: 48px;
+            margin-bottom: 16px;
+            opacity: 0.3;
+        }
+        
+        .preview-content {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        .preview-content.active {
+            display: block;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .preview-media {
+            width: 100%;
+            height: 220px;
+            background: var(--bg-elevated);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 64px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .preview-media::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 60px;
+            background: linear-gradient(to top, var(--bg-card), transparent);
+        }
+        
+        .preview-body {
+            padding: 24px;
+        }
+        
+        .preview-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+        
+        .preview-caption {
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+        
+        .preview-meta {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        
+        .meta-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 13px;
+        }
+        
+        .meta-label {
+            color: var(--text-muted);
+        }
+        
+        .meta-value {
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+        
+        .preview-platforms {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border);
+        }
+        
+        .preview-platforms h4 {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-muted);
+            margin-bottom: 12px;
+        }
+        
+        .platform-status-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .platform-status-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 14px;
+            background: var(--bg-elevated);
+            border-radius: 8px;
+        }
+        
+        .platform-status-left {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .platform-status-name {
+            font-size: 13px;
+            font-weight: 500;
+        }
+        
+        .platform-status-badge {
+            font-size: 11px;
+            padding: 3px 8px;
+            border-radius: 4px;
+        }
+        
+        .platform-status-badge.ready {
+            background: rgba(16, 185, 129, 0.15);
+            color: var(--accent-green);
+        }
+        
+        .platform-status-badge.processing {
+            background: rgba(249, 115, 22, 0.15);
+            color: #fb923c;
+        }
+        
+        /* Footer */
+        .footer {
+            margin-top: 40px;
+            padding-top: 24px;
+            border-top: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .footer-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+        
+        .powered-by {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .tool-badge {
+            padding: 4px 10px;
+            background: var(--bg-elevated);
+            border-radius: 4px;
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+        
+        .footer-right {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+        
+        .footer-right a {
+            color: var(--accent-green);
+            text-decoration: none;
+        }
+        
+        .footer-right a:hover {
+            text-decoration: underline;
+        }
+        
+        /* Responsive */
+        @media (max-width: 1100px) {
+            .main-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .preview-panel {
+                position: static;
+            }
+            
+            .stats-row {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .tutorial-content {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .tutorial-steps {
+                flex-wrap: wrap;
+                gap: 16px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 16px;
+            }
+            
+            .table-row {
+                grid-template-columns: 48px 1fr 80px;
+            }
+            
+            .platforms-cell, .schedule-time {
+                display: none;
+            }
+            
+            .stats-row {
+                grid-template-columns: 1fr 1fr;
+                gap: 12px;
+            }
+            
+            .stat-card {
+                padding: 16px;
+            }
+            
+            .stat-value {
+                font-size: 28px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Tutorial Banner -->
+    <div class="tutorial-banner" id="tutorialBanner">
+        <div class="tutorial-content">
+            <div class="tutorial-left">
+                <h2>
+                    <span>📋</span> Quick Start Guide
+                </h2>
+                <div class="tutorial-steps">
+                    <div class="tutorial-step">
+                        <span class="step-number">1</span>
+                        <span>Click any content row to see full preview</span>
+                    </div>
+                    <div class="tutorial-step">
+                        <span class="step-number">2</span>
+                        <span>Filter by status: Scheduled, Posted, All</span>
+                    </div>
+                    <div class="tutorial-step">
+                        <span class="step-number">3</span>
+                        <span>Platform icons show where content is going</span>
+                    </div>
+                    <div class="tutorial-step">
+                        <span class="step-number">4</span>
+                        <span>Data syncs from Trello → Sheet automatically</span>
+                    </div>
+                </div>
+            </div>
+            <button class="dismiss-btn" onclick="dismissTutorial()">Got it, let's explore →</button>
+        </div>
+    </div>
+    
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-left">
+                <h1>Content Calendar Command Center</h1>
+                <p>Your automated social content hub • Synced from Trello</p>
+            </div>
+            <div class="header-right">
+                <div class="sync-status">
+                    <span class="sync-dot"></span>
+                    <span>Live sync active</span>
+                </div>
+            </div>
+        </header>
+        
+        <!-- Stats Row -->
+        <div class="stats-row">
+            <div class="stat-card">
+                <div class="stat-label">Scheduled This Week</div>
+                <div class="stat-value">12</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Posted This Month</div>
+                <div class="stat-value">47</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Platforms Active</div>
+                <div class="stat-value">4</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Avg Engagement</div>
+                <div class="stat-value">3.2%</div>
+            </div>
+        </div>
+        
+        <!-- Main Grid -->
+        <div class="main-grid">
+            <!-- Content Table -->
+            <div class="content-table-wrapper">
+                <div class="table-header">
+                    <h3>Content Queue</h3>
+                    <div class="filter-tabs">
+                        <button class="filter-tab active" onclick="filterContent('all')">All</button>
+                        <button class="filter-tab" onclick="filterContent('scheduled')">Scheduled</button>
+                        <button class="filter-tab" onclick="filterContent('posted')">Posted</button>
+                    </div>
+                </div>
+                <div class="content-table" id="contentTable">
+                    <!-- Row 1 -->
+                    <div class="table-row" onclick="selectContent(0)" data-status="scheduled">
+                        <div class="content-thumbnail">🍕</div>
+                        <div class="content-info">
+                            <div class="content-title">New Winter Menu Launch Teaser</div>
+                            <div class="content-type">
+                                <span class="type-badge video">Video</span>
+                                <span>• 45 sec</span>
+                            </div>
+                        </div>
+                        <div class="platforms-cell">
+                            <span class="platform-icon fb">f</span>
+                            <span class="platform-icon ig">📷</span>
+                            <span class="platform-icon yt">▶</span>
+                            <span class="platform-icon tt">♪</span>
+                        </div>
+                        <div class="schedule-time">Dec 2, 11:00 AM</div>
+                        <div class="status-badge scheduled">Scheduled</div>
+                    </div>
+                    
+                    <!-- Row 2 -->
+                    <div class="table-row" onclick="selectContent(1)" data-status="scheduled">
+                        <div class="content-thumbnail">🥗</div>
+                        <div class="content-info">
+                            <div class="content-title">Behind the Scenes: Kitchen Prep</div>
+                            <div class="content-type">
+                                <span class="type-badge carousel">Carousel</span>
+                                <span>• 6 images</span>
+                            </div>
+                        </div>
+                        <div class="platforms-cell">
+                            <span class="platform-icon fb">f</span>
+                            <span class="platform-icon ig">📷</span>
+                            <span class="platform-icon pending">—</span>
+                            <span class="platform-icon pending">—</span>
+                        </div>
+                        <div class="schedule-time">Dec 3, 2:00 PM</div>
+                        <div class="status-badge scheduled">Scheduled</div>
+                    </div>
+                    
+                    <!-- Row 3 -->
+                    <div class="table-row" onclick="selectContent(2)" data-status="posted">
+                        <div class="content-thumbnail">🍔</div>
+                        <div class="content-info">
+                            <div class="content-title">Customer Spotlight: Family Feast</div>
+                            <div class="content-type">
+                                <span class="type-badge image">Image</span>
+                                <span>• 1080x1080</span>
+                            </div>
+                        </div>
+                        <div class="platforms-cell">
+                            <span class="platform-icon fb">f</span>
+                            <span class="platform-icon ig">📷</span>
+                            <span class="platform-icon pending">—</span>
+                            <span class="platform-icon pending">—</span>
+                        </div>
+                        <div class="schedule-time">Nov 28, 6:00 PM</div>
+                        <div class="status-badge posted">Posted</div>
+                    </div>
+                    
+                    <!-- Row 4 -->
+                    <div class="table-row" onclick="selectContent(3)" data-status="queued">
+                        <div class="content-thumbnail">🎄</div>
+                        <div class="content-info">
+                            <div class="content-title">Holiday Catering Special Announcement</div>
+                            <div class="content-type">
+                                <span class="type-badge video">Video</span>
+                                <span>• 30 sec</span>
+                            </div>
+                        </div>
+                        <div class="platforms-cell">
+                            <span class="platform-icon fb">f</span>
+                            <span class="platform-icon ig">📷</span>
+                            <span class="platform-icon yt">▶</span>
+                            <span class="platform-icon tt">♪</span>
+                        </div>
+                        <div class="schedule-time">Dec 5, 10:00 AM</div>
+                        <div class="status-badge queued">Queued</div>
+                    </div>
+                    
+                    <!-- Row 5 -->
+                    <div class="table-row" onclick="selectContent(4)" data-status="posted">
+                        <div class="content-thumbnail">🍳</div>
+                        <div class="content-info">
+                            <div class="content-title">Brunch Menu Reveal</div>
+                            <div class="content-type">
+                                <span class="type-badge carousel">Carousel</span>
+                                <span>• 8 images</span>
+                            </div>
+                        </div>
+                        <div class="platforms-cell">
+                            <span class="platform-icon fb">f</span>
+                            <span class="platform-icon ig">📷</span>
+                            <span class="platform-icon pending">—</span>
+                            <span class="platform-icon pending">—</span>
+                        </div>
+                        <div class="schedule-time">Nov 25, 9:00 AM</div>
+                        <div class="status-badge posted">Posted</div>
+                    </div>
+                    
+                    <!-- Row 6 -->
+                    <div class="table-row" onclick="selectContent(5)" data-status="scheduled">
+                        <div class="content-thumbnail">🧑‍🍳</div>
+                        <div class="content-info">
+                            <div class="content-title">Meet Chef Martinez Interview</div>
+                            <div class="content-type">
+                                <span class="type-badge video">Video</span>
+                                <span>• 2 min</span>
+                            </div>
+                        </div>
+                        <div class="platforms-cell">
+                            <span class="platform-icon fb">f</span>
+                            <span class="platform-icon ig">📷</span>
+                            <span class="platform-icon yt">▶</span>
+                            <span class="platform-icon pending">—</span>
+                        </div>
+                        <div class="schedule-time">Dec 4, 4:00 PM</div>
+                        <div class="status-badge scheduled">Scheduled</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Preview Panel -->
+            <div class="preview-panel">
+                <div class="preview-header">
+                    <h3>Content Preview</h3>
+                </div>
+                
+                <div class="preview-empty" id="previewEmpty">
+                    <div class="preview-empty-icon">👆</div>
+                    <p>Click a content row to see full preview</p>
+                </div>
+                
+                <div class="preview-content" id="previewContent">
+                    <div class="preview-media" id="previewMedia">🍕</div>
+                    <div class="preview-body">
+                        <h3 class="preview-title" id="previewTitle">New Winter Menu Launch Teaser</h3>
+                        <p class="preview-caption" id="previewCaption">
+                            🔥 Something BIG is coming to warm up your winter! Our new seasonal menu drops next week and trust us... you're not ready for this. 
+
+Stay tuned for the full reveal! 👀 #WinterMenu #ComingSoon #FoodLovers
+                        </p>
+                        <div class="preview-meta">
+                            <div class="meta-row">
+                                <span class="meta-label">From Trello Card</span>
+                                <span class="meta-value" id="previewTrelloId">#CONTENT-247</span>
+                            </div>
+                            <div class="meta-row">
+                                <span class="meta-label">Scheduled For</span>
+                                <span class="meta-value" id="previewSchedule">Dec 2, 2024 at 11:00 AM EST</span>
+                            </div>
+                            <div class="meta-row">
+                                <span class="meta-label">Content Type</span>
+                                <span class="meta-value" id="previewType">Video (45 sec)</span>
+                            </div>
+                        </div>
+                        
+                        <div class="preview-platforms">
+                            <h4>Platform Status</h4>
+                            <div class="platform-status-list" id="previewPlatforms">
+                                <div class="platform-status-item">
+                                    <div class="platform-status-left">
+                                        <span class="platform-icon fb">f</span>
+                                        <span class="platform-status-name">Facebook</span>
+                                    </div>
+                                    <span class="platform-status-badge ready">Ready</span>
+                                </div>
+                                <div class="platform-status-item">
+                                    <div class="platform-status-left">
+                                        <span class="platform-icon ig">📷</span>
+                                        <span class="platform-status-name">Instagram</span>
+                                    </div>
+                                    <span class="platform-status-badge ready">Ready</span>
+                                </div>
+                                <div class="platform-status-item">
+                                    <div class="platform-status-left">
+                                        <span class="platform-icon yt">▶</span>
+                                        <span class="platform-status-name">YouTube</span>
+                                    </div>
+                                    <span class="platform-status-badge ready">Ready</span>
+                                </div>
+                                <div class="platform-status-item">
+                                    <div class="platform-status-left">
+                                        <span class="platform-icon tt">♪</span>
+                                        <span class="platform-status-name">TikTok</span>
+                                    </div>
+                                    <span class="platform-status-badge processing">Processing</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-left">
+                <span class="powered-by">
+                    Powered by
+                    <span class="tool-badge">Make.com</span>
+                    <span class="tool-badge">Trello</span>
+                    <span class="tool-badge">Google Sheets</span>
+                </span>
+            </div>
+            <div class="footer-right">
+                Built by <a href="https://meetings.hubspot.com/chris4642" target="_blank">ResultantAI</a> • chris@resultantai.com
+            </div>
+        </footer>
+    </div>
+    
+    <script>
+        // Content data
+        const contentData = [
+            {
+                emoji: '🍕',
+                title: 'New Winter Menu Launch Teaser',
+                caption: '🔥 Something BIG is coming to warm up your winter! Our new seasonal menu drops next week and trust us... you\'re not ready for this.\n\nStay tuned for the full reveal! 👀 #WinterMenu #ComingSoon #FoodLovers',
+                trelloId: '#CONTENT-247',
+                schedule: 'Dec 2, 2024 at 11:00 AM EST',
+                type: 'Video (45 sec)',
+                platforms: ['Facebook', 'Instagram', 'YouTube', 'TikTok'],
+                platformStatus: ['ready', 'ready', 'ready', 'processing']
+            },
+            {
+                emoji: '🥗',
+                title: 'Behind the Scenes: Kitchen Prep',
+                caption: '👨‍🍳 Ever wonder what goes into prepping for a busy Saturday night? Our kitchen team starts at 6 AM to make sure every dish is perfection.\n\nSwipe through for the full journey from delivery to plate! ➡️ #BehindTheScenes #KitchenLife #FreshIngredients',
+                trelloId: '#CONTENT-248',
+                schedule: 'Dec 3, 2024 at 2:00 PM EST',
+                type: 'Carousel (6 images)',
+                platforms: ['Facebook', 'Instagram'],
+                platformStatus: ['ready', 'ready']
+            },
+            {
+                emoji: '🍔',
+                title: 'Customer Spotlight: Family Feast',
+                caption: '❤️ Nothing makes us happier than seeing families create memories around our food!\n\nShoutout to the Johnson family for sharing this beautiful moment. Want to be featured? Tag us in your photos! #CustomerLove #FamilyDining #Grateful',
+                trelloId: '#CONTENT-245',
+                schedule: 'Nov 28, 2024 at 6:00 PM EST',
+                type: 'Image (1080x1080)',
+                platforms: ['Facebook', 'Instagram'],
+                platformStatus: ['ready', 'ready']
+            },
+            {
+                emoji: '🎄',
+                title: 'Holiday Catering Special Announcement',
+                caption: '🎄 HOLIDAY CATERING IS NOW OPEN! 🎄\n\nLet us handle the food while you enjoy the festivities. Our holiday packages include:\n✅ Full turkey dinners\n✅ Vegetarian options\n✅ Dessert platters\n✅ Setup & cleanup available\n\nBook by Dec 15th for 15% off! Link in bio. #HolidayCatering #ChristmasFood #BookNow',
+                trelloId: '#CONTENT-250',
+                schedule: 'Dec 5, 2024 at 10:00 AM EST',
+                type: 'Video (30 sec)',
+                platforms: ['Facebook', 'Instagram', 'YouTube', 'TikTok'],
+                platformStatus: ['ready', 'ready', 'ready', 'ready']
+            },
+            {
+                emoji: '🍳',
+                title: 'Brunch Menu Reveal',
+                caption: '🌅 Weekend brunch just got an upgrade!\n\nIntroducing 8 new dishes including our viral Stuffed French Toast and the Hangover Cure Benedict. Trust us on this one.\n\nAvailable Sat & Sun, 9 AM - 2 PM. Reservations recommended! #Brunch #WeekendVibes #FoodPorn',
+                trelloId: '#CONTENT-242',
+                schedule: 'Nov 25, 2024 at 9:00 AM EST',
+                type: 'Carousel (8 images)',
+                platforms: ['Facebook', 'Instagram'],
+                platformStatus: ['ready', 'ready']
+            },
+            {
+                emoji: '🧑‍🍳',
+                title: 'Meet Chef Martinez Interview',
+                caption: '🎬 Meet the man behind the magic!\n\nChef Martinez shares his journey from a tiny kitchen in Oaxaca to leading our culinary team. His passion for authentic flavors and innovation has shaped everything we serve.\n\nFull interview on YouTube - link in bio! #MeetTheChef #OurStory #Passion',
+                trelloId: '#CONTENT-249',
+                schedule: 'Dec 4, 2024 at 4:00 PM EST',
+                type: 'Video (2 min)',
+                platforms: ['Facebook', 'Instagram', 'YouTube'],
+                platformStatus: ['ready', 'ready', 'ready']
+            }
+        ];
+        
+        const platformIcons = {
+            'Facebook': '<span class="platform-icon fb">f</span>',
+            'Instagram': '<span class="platform-icon ig">📷</span>',
+            'YouTube': '<span class="platform-icon yt">▶</span>',
+            'TikTok': '<span class="platform-icon tt">♪</span>'
+        };
+        
+        function dismissTutorial() {
+            document.getElementById('tutorialBanner').classList.add('hidden');
+        }
+        
+        function selectContent(index) {
+            // Remove selected class from all rows
+            document.querySelectorAll('.table-row').forEach(row => {
+                row.classList.remove('selected');
+            });
+            
+            // Add selected class to clicked row
+            document.querySelectorAll('.table-row')[index].classList.add('selected');
+            
+            // Hide empty state, show content
+            document.getElementById('previewEmpty').style.display = 'none';
+            document.getElementById('previewContent').classList.add('active');
+            
+            // Update preview content
+            const content = contentData[index];
+            document.getElementById('previewMedia').textContent = content.emoji;
+            document.getElementById('previewTitle').textContent = content.title;
+            document.getElementById('previewCaption').textContent = content.caption;
+            document.getElementById('previewTrelloId').textContent = content.trelloId;
+            document.getElementById('previewSchedule').textContent = content.schedule;
+            document.getElementById('previewType').textContent = content.type;
+            
+            // Update platforms
+            let platformsHTML = '';
+            content.platforms.forEach((platform, i) => {
+                platformsHTML += `
+                    <div class="platform-status-item">
+                        <div class="platform-status-left">
+                            ${platformIcons[platform]}
+                            <span class="platform-status-name">${platform}</span>
+                        </div>
+                        <span class="platform-status-badge ${content.platformStatus[i]}">${content.platformStatus[i] === 'ready' ? 'Ready' : 'Processing'}</span>
+                    </div>
+                `;
+            });
+            document.getElementById('previewPlatforms').innerHTML = platformsHTML;
+        }
+        
+        function filterContent(filter) {
+            // Update active tab
+            document.querySelectorAll('.filter-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            // Filter rows
+            document.querySelectorAll('.table-row').forEach(row => {
+                const status = row.dataset.status;
+                if (filter === 'all') {
+                    row.style.display = 'grid';
+                } else if (filter === 'scheduled') {
+                    row.style.display = (status === 'scheduled' || status === 'queued') ? 'grid' : 'none';
+                } else if (filter === 'posted') {
+                    row.style.display = status === 'posted' ? 'grid' : 'none';
+                }
+            });
+        }
+        
+        // Auto-select first content after a brief delay for effect
+        setTimeout(() => {
+            selectContent(0);
+        }, 800);
+    </script>
+</body>
+</html>

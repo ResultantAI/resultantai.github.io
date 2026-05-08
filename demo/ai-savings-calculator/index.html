@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Cost Savings Calculator — ResultantAI</title>
+    <meta name="description" content="See how much you could save on AI costs with intelligent routing and predictable billing.">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                    colors: {
+                        slate: {
+                            850: '#1a2332',
+                            950: '#0a0f1a',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        .gradient-bg {
+            background: linear-gradient(135deg, #0a0f1a 0%, #1a2332 50%, #0f172a 100%);
+        }
+        .glow-emerald {
+            box-shadow: 0 0 60px rgba(16, 185, 129, 0.2);
+        }
+        .premium-card {
+            background: linear-gradient(135deg, rgba(30, 41, 59, 0.5) 0%, rgba(15, 23, 42, 0.8) 100%);
+            border: 1px solid rgba(71, 85, 105, 0.3);
+        }
+        .savings-highlight {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.15) 0%, rgba(5, 150, 105, 0.1) 100%);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+        }
+        
+        /* Slider styling */
+        input[type="range"] {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 100%;
+            height: 8px;
+            border-radius: 4px;
+            background: #334155;
+            outline: none;
+        }
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: #10b981;
+            cursor: pointer;
+            box-shadow: 0 0 10px rgba(16, 185, 129, 0.5);
+            transition: transform 0.15s ease;
+        }
+        input[type="range"]::-webkit-slider-thumb:hover {
+            transform: scale(1.1);
+        }
+        input[type="range"]::-moz-range-thumb {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: #10b981;
+            cursor: pointer;
+            border: none;
+            box-shadow: 0 0 10px rgba(16, 185, 129, 0.5);
+        }
+        
+        /* Number input styling */
+        input[type="number"]::-webkit-inner-spin-button,
+        input[type="number"]::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+        input[type="number"] {
+            -moz-appearance: textfield;
+        }
+        
+        /* Animated counter */
+        .counter-animate {
+            transition: all 0.3s ease-out;
+        }
+        
+        /* Progress bar animation */
+        .savings-bar {
+            transition: width 0.5s ease-out;
+        }
+    </style>
+</head>
+<body class="gradient-bg min-h-screen text-slate-300 font-sans">
+
+    <!-- Header -->
+    <header class="py-6 px-6 border-b border-slate-800">
+        <div class="max-w-4xl mx-auto flex items-center justify-between">
+            <div>
+                <span class="text-xl font-semibold text-white">ResultantAI</span>
+                <span class="text-slate-500 mx-2">•</span>
+                <span class="text-slate-400">AI Gateway</span>
+            </div>
+            <a href="https://meetings.hubspot.com/chris4642/ai-gateway-founding-partner" target="_blank" class="text-emerald-400 hover:text-emerald-300 text-sm font-medium transition-colors">
+                Book a Call →
+            </a>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="py-12 md:py-20 px-6">
+        <div class="max-w-4xl mx-auto">
+            
+            <!-- Title -->
+            <div class="text-center mb-12">
+                <h1 class="text-3xl md:text-4xl font-bold text-white mb-4">
+                    AI Cost Savings Calculator
+                </h1>
+                <p class="text-lg text-slate-400 max-w-2xl mx-auto">
+                    See how much you could save with intelligent routing and predictable billing.
+                </p>
+            </div>
+
+            <!-- Calculator Card -->
+            <div class="premium-card rounded-2xl p-8 md:p-10 glow-emerald mb-8">
+                
+                <!-- Input Section -->
+                <div class="mb-10">
+                    <label class="block text-white font-medium mb-4">
+                        What's your current monthly AI spend?
+                    </label>
+                    
+                    <div class="flex items-center gap-4 mb-4">
+                        <span class="text-2xl text-slate-400">$</span>
+                        <input 
+                            type="number" 
+                            id="spend-input"
+                            value="1000"
+                            min="100"
+                            max="50000"
+                            step="100"
+                            class="text-4xl md:text-5xl font-bold text-white bg-transparent border-none outline-none w-40 md:w-48"
+                        >
+                        <span class="text-xl text-slate-500">/month</span>
+                    </div>
+                    
+                    <input 
+                        type="range" 
+                        id="spend-slider"
+                        min="100" 
+                        max="10000" 
+                        value="1000" 
+                        step="100"
+                        class="w-full"
+                    >
+                    
+                    <div class="flex justify-between text-sm text-slate-500 mt-2">
+                        <span>$100</span>
+                        <span>$10,000+</span>
+                    </div>
+                </div>
+
+                <!-- Savings Rate Selector -->
+                <div class="mb-10">
+                    <label class="block text-white font-medium mb-4">
+                        Estimated savings rate
+                    </label>
+                    <div class="flex gap-3">
+                        <button onclick="setSavingsRate(60)" id="rate-60" class="rate-btn px-4 py-2 rounded-lg border border-slate-600 text-slate-400 hover:border-emerald-500 hover:text-emerald-400 transition-all">
+                            60% <span class="text-xs opacity-70">Conservative</span>
+                        </button>
+                        <button onclick="setSavingsRate(70)" id="rate-70" class="rate-btn px-4 py-2 rounded-lg border border-emerald-500 text-emerald-400 bg-emerald-500/10 transition-all">
+                            70% <span class="text-xs opacity-70">Typical</span>
+                        </button>
+                        <button onclick="setSavingsRate(80)" id="rate-80" class="rate-btn px-4 py-2 rounded-lg border border-slate-600 text-slate-400 hover:border-emerald-500 hover:text-emerald-400 transition-all">
+                            80% <span class="text-xs opacity-70">Optimized</span>
+                        </button>
+                    </div>
+                    <p class="text-sm text-slate-500 mt-2">
+                        Based on smart routing to cheapest adequate model per request.
+                    </p>
+                </div>
+
+                <!-- Divider -->
+                <div class="border-t border-slate-700 my-8"></div>
+
+                <!-- Results Section -->
+                <div class="space-y-6">
+                    
+                    <!-- Current vs Gateway -->
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <!-- Current Cost -->
+                        <div class="bg-slate-800/50 rounded-xl p-6">
+                            <div class="text-slate-400 text-sm mb-2">Your Current Annual Cost</div>
+                            <div class="text-3xl font-bold text-red-400">
+                                $<span id="current-annual" class="counter-animate">12,000</span>
+                            </div>
+                            <div class="text-slate-500 text-sm mt-1">Direct API pricing</div>
+                        </div>
+                        
+                        <!-- Gateway Cost -->
+                        <div class="savings-highlight rounded-xl p-6">
+                            <div class="text-slate-400 text-sm mb-2">With AI Gateway</div>
+                            <div class="text-3xl font-bold text-emerald-400">
+                                $<span id="gateway-annual" class="counter-animate">3,600</span>
+                            </div>
+                            <div class="text-slate-500 text-sm mt-1">After smart routing savings</div>
+                        </div>
+                    </div>
+
+                    <!-- Savings Visualization -->
+                    <div class="bg-slate-800/30 rounded-xl p-6">
+                        <div class="flex justify-between items-center mb-3">
+                            <span class="text-slate-400">Annual Savings</span>
+                            <span class="text-2xl font-bold text-emerald-400">
+                                $<span id="annual-savings" class="counter-animate">8,400</span>
+                            </span>
+                        </div>
+                        
+                        <!-- Progress bar -->
+                        <div class="h-4 bg-slate-700 rounded-full overflow-hidden">
+                            <div id="savings-bar" class="savings-bar h-full bg-gradient-to-r from-emerald-500 to-emerald-400 rounded-full" style="width: 70%"></div>
+                        </div>
+                        
+                        <div class="flex justify-between text-sm mt-2">
+                            <span class="text-slate-500">You keep</span>
+                            <span class="text-emerald-400 font-medium"><span id="savings-percent">70</span>% more</span>
+                        </div>
+                    </div>
+
+                    <!-- ROI Metrics -->
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                        <div class="text-center p-4 bg-slate-800/30 rounded-xl">
+                            <div class="text-2xl font-bold text-white"><span id="roi-multiple">16.8</span>x</div>
+                            <div class="text-xs text-slate-500 mt-1">ROI on $499</div>
+                        </div>
+                        <div class="text-center p-4 bg-slate-800/30 rounded-xl">
+                            <div class="text-2xl font-bold text-white"><span id="payback-days">22</span></div>
+                            <div class="text-xs text-slate-500 mt-1">Days to Payback</div>
+                        </div>
+                        <div class="text-center p-4 bg-slate-800/30 rounded-xl">
+                            <div class="text-2xl font-bold text-white">$<span id="monthly-savings">700</span></div>
+                            <div class="text-xs text-slate-500 mt-1">Saved per Month</div>
+                        </div>
+                        <div class="text-center p-4 bg-slate-800/30 rounded-xl">
+                            <div class="text-2xl font-bold text-emerald-400">$<span id="net-savings">7,901</span></div>
+                            <div class="text-xs text-slate-500 mt-1">Net Year 1 Savings</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CTA Section -->
+            <div class="text-center">
+                <div class="premium-card rounded-2xl p-8 mb-6">
+                    <h2 class="text-xl font-semibold text-white mb-3">
+                        Want your exact numbers?
+                    </h2>
+                    <p class="text-slate-400 mb-6">
+                        Book a 15-minute call. I'll analyze your actual usage patterns and show you precisely what you'd save.
+                    </p>
+                    <a href="https://meetings.hubspot.com/chris4642/ai-gateway-founding-partner" target="_blank" class="inline-block bg-emerald-500 hover:bg-emerald-400 text-white font-semibold py-4 px-10 rounded-xl transition-all duration-200 text-lg">
+                        Book Your Call — It's Free
+                    </a>
+                    <p class="text-slate-500 text-sm mt-4">
+                        🔒 23 of 25 Founding Partner spots at $499/year
+                    </p>
+                </div>
+
+                <!-- How We Calculate -->
+                <div class="text-left premium-card rounded-xl p-6">
+                    <h3 class="text-white font-medium mb-3">How we achieve these savings:</h3>
+                    <ul class="space-y-2 text-slate-400 text-sm">
+                        <li class="flex items-start gap-2">
+                            <span class="text-emerald-400 mt-0.5">✓</span>
+                            <span><strong class="text-slate-300">Smart routing</strong> — Automatically picks the cheapest model that meets quality requirements per request</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="text-emerald-400 mt-0.5">✓</span>
+                            <span><strong class="text-slate-300">Multi-provider</strong> — Routes between OpenAI, Anthropic, Google based on cost and capability</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="text-emerald-400 mt-0.5">✓</span>
+                            <span><strong class="text-slate-300">Prompt optimization</strong> — Reduces token usage without affecting output quality</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="text-emerald-400 mt-0.5">✓</span>
+                            <span><strong class="text-slate-300">Caching</strong> — Identical requests served from cache at near-zero cost</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-slate-800 py-8 px-6 mt-12">
+        <div class="max-w-4xl mx-auto text-center text-slate-500 text-sm">
+            <p>© 2025 ResultantAI. AI Gateway.</p>
+            <p class="mt-2">
+                <a href="https://meetings.hubspot.com/chris4642/ai-gateway-founding-partner" target="_blank" class="text-emerald-400 hover:text-emerald-300">
+                    Founding Partner Program →
+                </a>
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // State
+        let monthlySpend = 1000;
+        let savingsRate = 70;
+        const founderPrice = 499;
+
+        // DOM elements
+        const spendInput = document.getElementById('spend-input');
+        const spendSlider = document.getElementById('spend-slider');
+
+        // Sync input and slider
+        spendInput.addEventListener('input', (e) => {
+            monthlySpend = Math.max(100, parseInt(e.target.value) || 100);
+            spendSlider.value = Math.min(monthlySpend, 10000);
+            calculate();
+        });
+
+        spendSlider.addEventListener('input', (e) => {
+            monthlySpend = parseInt(e.target.value);
+            spendInput.value = monthlySpend;
+            calculate();
+        });
+
+        // Savings rate buttons
+        function setSavingsRate(rate) {
+            savingsRate = rate;
+            
+            // Update button styles
+            document.querySelectorAll('.rate-btn').forEach(btn => {
+                btn.classList.remove('border-emerald-500', 'text-emerald-400', 'bg-emerald-500/10');
+                btn.classList.add('border-slate-600', 'text-slate-400');
+            });
+            
+            const activeBtn = document.getElementById(`rate-${rate}`);
+            activeBtn.classList.remove('border-slate-600', 'text-slate-400');
+            activeBtn.classList.add('border-emerald-500', 'text-emerald-400', 'bg-emerald-500/10');
+            
+            calculate();
+        }
+
+        // Main calculation
+        function calculate() {
+            const currentAnnual = monthlySpend * 12;
+            const savingsAmount = currentAnnual * (savingsRate / 100);
+            const gatewayAnnual = currentAnnual - savingsAmount;
+            const monthlySavings = savingsAmount / 12;
+            const netSavings = savingsAmount - founderPrice;
+            const roiMultiple = savingsAmount / founderPrice;
+            const paybackDays = Math.ceil((founderPrice / monthlySavings) * 30);
+
+            // Update DOM
+            document.getElementById('current-annual').textContent = formatNumber(currentAnnual);
+            document.getElementById('gateway-annual').textContent = formatNumber(Math.round(gatewayAnnual));
+            document.getElementById('annual-savings').textContent = formatNumber(Math.round(savingsAmount));
+            document.getElementById('savings-percent').textContent = savingsRate;
+            document.getElementById('savings-bar').style.width = `${savingsRate}%`;
+            document.getElementById('roi-multiple').textContent = roiMultiple.toFixed(1);
+            document.getElementById('payback-days').textContent = paybackDays;
+            document.getElementById('monthly-savings').textContent = formatNumber(Math.round(monthlySavings));
+            document.getElementById('net-savings').textContent = formatNumber(Math.round(netSavings));
+        }
+
+        function formatNumber(num) {
+            return num.toLocaleString('en-US');
+        }
+
+        // Initial calculation
+        calculate();
+    </script>
+
+</body>
+</html>
