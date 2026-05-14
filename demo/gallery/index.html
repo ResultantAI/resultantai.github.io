@@ -78,32 +78,150 @@
             padding: 2rem;
         }
 
-        header {
+        /* NAV */
+        .site-nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1.25rem 0;
+            border-bottom: 1px solid var(--slate-700);
+            margin-bottom: 0;
+        }
+        .logo {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--white);
+            text-decoration: none;
+            letter-spacing: -0.02em;
+        }
+        .logo span { color: var(--emerald); }
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+        .nav-links a {
+            color: var(--slate-400);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.15s;
+        }
+        .nav-links a:hover { color: var(--white); }
+        .btn-contact {
+            background: var(--emerald);
+            color: var(--white);
+            border: none;
+            padding: 0.5rem 1.25rem;
+            border-radius: 6px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.15s;
+            text-decoration: none;
+        }
+        .btn-contact:hover { background: var(--emerald-dark); }
+
+        /* HERO */
+        header.hero {
             text-align: center;
-            padding: 3rem 0;
+            padding: 3.5rem 0 2.5rem;
             border-bottom: 1px solid var(--slate-700);
             margin-bottom: 3rem;
         }
-
-        .logo {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--emerald);
-            text-decoration: none;
-            display: inline-block;
-            margin-bottom: 1rem;
-        }
-
         h1 {
             font-size: 2.5rem;
             font-weight: 700;
             margin-bottom: 0.5rem;
         }
-
         .subtitle {
             color: var(--slate-400);
             font-size: 1.1rem;
         }
+
+        /* CONTACT MODAL */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.7);
+            z-index: 100;
+            align-items: center;
+            justify-content: center;
+        }
+        .modal-overlay.open { display: flex; }
+        .modal {
+            background: var(--slate-800);
+            border: 1px solid var(--slate-700);
+            border-radius: 12px;
+            padding: 2rem;
+            width: 100%;
+            max-width: 440px;
+            position: relative;
+        }
+        .modal h2 { font-size: 1.25rem; margin-bottom: 0.25rem; }
+        .modal p { color: var(--slate-400); font-size: 0.875rem; margin-bottom: 1.5rem; }
+        .modal-close {
+            position: absolute;
+            top: 1rem; right: 1rem;
+            background: none; border: none;
+            color: var(--slate-400); font-size: 1.25rem;
+            cursor: pointer; line-height: 1;
+        }
+        .modal-close:hover { color: var(--white); }
+        .form-group { margin-bottom: 1rem; }
+        .form-group label { display: block; font-size: 0.8rem; color: var(--slate-400); margin-bottom: 0.35rem; }
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            background: var(--slate-900);
+            border: 1px solid var(--slate-700);
+            border-radius: 6px;
+            padding: 0.6rem 0.75rem;
+            color: var(--white);
+            font-size: 0.9rem;
+            font-family: inherit;
+            outline: none;
+            transition: border-color 0.15s;
+        }
+        .form-group input:focus,
+        .form-group textarea:focus { border-color: var(--emerald); }
+        .form-group textarea { resize: vertical; min-height: 90px; }
+        .btn-submit {
+            width: 100%;
+            background: var(--emerald);
+            color: var(--white);
+            border: none;
+            padding: 0.65rem;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.15s;
+            margin-top: 0.5rem;
+        }
+        .btn-submit:hover { background: var(--emerald-dark); }
+        .form-success { display:none; text-align:center; padding: 1.5rem 0; }
+        .form-success .check { font-size: 2.5rem; margin-bottom: 0.75rem; }
+        .form-success p { color: var(--slate-300); font-size: 0.95rem; }
+
+        /* FOOTER */
+        footer {
+            border-top: 1px solid var(--slate-700);
+            margin-top: 4rem;
+            padding: 2.5rem 0;
+        }
+        .footer-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        .footer-brand .logo { font-size: 1rem; }
+        .footer-tagline { color: var(--slate-400); font-size: 0.8rem; margin-top: 0.25rem; }
+        .footer-links { display: flex; gap: 1.5rem; }
+        .footer-links a { color: var(--slate-400); text-decoration: none; font-size: 0.875rem; transition: color 0.15s; }
+        .footer-links a:hover { color: var(--white); }
 
         .category {
             margin-bottom: 3rem;
@@ -321,9 +439,47 @@
   <!-- End Google Tag Manager (noscript) -->
 
 
+    <!-- Contact Modal -->
+    <div class="modal-overlay" id="contactModal">
+        <div class="modal">
+            <button class="modal-close" onclick="closeModal()">&#x2715;</button>
+            <div id="contactForm">
+                <h2>Let's talk</h2>
+                <p>Tell us what you're building and we'll get back to you within one business day.</p>
+                <form onsubmit="submitForm(event)">
+                    <div class="form-group">
+                        <label>Name</label>
+                        <input type="text" name="name" required placeholder="Your name" />
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" name="email" required placeholder="you@company.com" />
+                    </div>
+                    <div class="form-group">
+                        <label>What are you trying to build?</label>
+                        <textarea name="message" placeholder="Describe your project or question..."></textarea>
+                    </div>
+                    <button type="submit" class="btn-submit">Send Message</button>
+                </form>
+            </div>
+            <div class="form-success" id="formSuccess">
+                <div class="check">✓</div>
+                <p>Message sent! We'll be in touch shortly.</p>
+            </div>
+        </div>
+    </div>
+
     <div class="container">
-        <header>
-            <a href="https://resultantai.com" class="logo">ResultantAI</a>
+        <nav class="site-nav">
+            <a href="https://resultantai.com" class="logo">Resultant<span>AI</span></a>
+            <div class="nav-links">
+                <a href="https://resultantai.com">Home</a>
+                <a href="https://resultantai.com/case-studies.html">Case Studies</a>
+                <button class="btn-contact" onclick="openModal()">Contact Us</button>
+            </div>
+        </nav>
+
+        <header class="hero">
             <h1>Demo Gallery</h1>
             <p class="subtitle">Interactive demos of AI systems that drive revenue. Click to explore.</p>
         </header>
@@ -743,8 +899,18 @@
         </section>
 
         <footer>
-            <p>Built by <a href="https://resultantai.com">ResultantAI</a> · <a href="https://github.com/resultantai">GitHub</a></p>
-            <p style="margin-top: 0.5rem; font-size: 0.875rem;">Systems that don't just work. They pay for themselves.</p>
+            <div class="footer-inner">
+                <div class="footer-brand">
+                    <a href="https://resultantai.com" class="logo">Resultant<span>AI</span></a>
+                    <div class="footer-tagline">Systems that don't just work. They pay for themselves.</div>
+                </div>
+                <div class="footer-links">
+                    <a href="https://resultantai.com">Home</a>
+                    <a href="https://resultantai.com/case-studies.html">Case Studies</a>
+                    <a href="https://resultantai.com/about">About</a>
+                    <a href="#" onclick="openModal(); return false;">Contact</a>
+                </div>
+            </div>
         </footer>
     </div>
 
@@ -771,6 +937,31 @@
                 });
             });
         });
+    </script>
+    <script>
+        function openModal() {
+            document.getElementById('contactModal').classList.add('open');
+            document.body.style.overflow = 'hidden';
+        }
+        function closeModal() {
+            document.getElementById('contactModal').classList.remove('open');
+            document.body.style.overflow = '';
+        }
+        document.getElementById('contactModal').addEventListener('click', function(e) {
+            if (e.target === this) closeModal();
+        });
+        function submitForm(e) {
+            e.preventDefault();
+            const form = e.target;
+            const name = form.name.value;
+            const email = form.email.value;
+            const message = form.message.value;
+            const subject = encodeURIComponent('Demo Gallery Inquiry from ' + name);
+            const body = encodeURIComponent('Name: ' + name + '\nEmail: ' + email + '\n\n' + message);
+            window.location.href = 'mailto:cjmott11@gmail.com?subject=' + subject + '&body=' + body;
+            document.getElementById('contactForm').style.display = 'none';
+            document.getElementById('formSuccess').style.display = 'block';
+        }
     </script>
 </body>
 </html>
