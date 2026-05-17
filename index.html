@@ -28,7 +28,6 @@
 
   <!-- Styles -->
   <link rel="stylesheet" href="css/styles.css">
-  <link rel="stylesheet" href="css/chatbot.css">
 
   <!-- Apollo.io Website Tracker -->
   <script>function initApollo(){var n=Math.random().toString(36).substring(7),o=document.createElement("script");o.src="https://assets.apollo.io/micro/website-tracker/tracker.iife.js?nocache="+n,o.async=!0,o.defer=!0,o.onload=function(){window.trackingFunctions.onLoad({appId:"679c52d7b1fed801981d9adb"})},document.head.appendChild(o)}initApollo();</script>
@@ -498,12 +497,30 @@
   </footer>
 
   <!-- Scripts -->
-  <script src="js/theme-toggle.js"></script>
-  <script src="js/main.js"></script>
-  <script src="js/roi-calculator.js"></script>
-  <script src="js/tabs.js"></script>
-  <script src="js/chatbot.js"></script>
-  <script src="js/ab-track.js"></script>
+  <script defer src="js/theme-toggle.js"></script>
+  <script defer src="js/main.js"></script>
+  <script defer src="js/roi-calculator.js"></script>
+  <script defer src="js/tabs.js"></script>
+  <script defer src="js/ab-track.js"></script>
+  <script>
+  (function() {
+    var loaded = false;
+    function loadChatbot() {
+      if (loaded) return;
+      loaded = true;
+      var link = document.createElement('link');
+      link.rel = 'stylesheet';
+      link.href = 'css/chatbot.css';
+      document.head.appendChild(link);
+      var script = document.createElement('script');
+      script.src = 'js/chatbot.js';
+      document.body.appendChild(script);
+    }
+    window.addEventListener('scroll', loadChatbot, { once: true, passive: true });
+    window.addEventListener('mousemove', loadChatbot, { once: true, passive: true });
+    window.addEventListener('touchstart', loadChatbot, { once: true, passive: true });
+  })();
+  </script>
   <!-- Resultant Visitor Tracking -->
   <script>
   (function() {
