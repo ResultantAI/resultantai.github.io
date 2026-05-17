@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Custom AI Agent Development | Built, Deployed & Running | ResultantAI</title>
+  <meta name="description" content="Production AI agents built on Claude or GPT-4. Scheduled, monitored, and fully documented. Not a demo — a running system. Live in 7–18 days. Starts at $2,000.">
+
+  <link rel="canonical" href="https://resultantai.com/custom-ai-agent/">
+
+  <meta property="og:title" content="Custom AI Agent Development | ResultantAI">
+  <meta property="og:description" content="Production AI agents that run on a schedule, log every execution, and alert you when something breaks. Built and deployed. Not a notebook.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://resultantai.com/custom-ai-agent/">
+  <meta property="og:site_name" content="ResultantAI">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Custom AI Agent Development | ResultantAI">
+  <meta name="twitter:description" content="Most AI projects end with a demo. I build the production version — scheduled, monitored, and handed back running.">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Custom AI Agent Development",
+    "serviceType": "AI Agent Development",
+    "provider": { "@type": "Organization", "name": "ResultantAI", "url": "https://resultantai.com" },
+    "description": "Production AI agents built on Claude or GPT-4. Scheduled execution, run logging, error alerting, and full SKILL.md documentation. You own the code and deployment.",
+    "offers": [
+      { "@type": "Offer", "name": "Single Agent Build", "price": "2000", "priceCurrency": "USD", "description": "1 production AI agent, defined trigger and output, monitoring, Slack delivery. 7 days." },
+      { "@type": "Offer", "name": "Multi-Agent System", "price": "4500", "priceCurrency": "USD", "description": "Up to 3 agents, cron scheduling, multi-channel output, monitoring dashboard. 12 days." },
+      { "@type": "Offer", "name": "Agent Fleet", "price": "8500", "priceCurrency": "USD", "description": "Up to 5 agents, custom APIs, SKILL.md docs, error handling, 60-day support. 18 days." }
+    ]
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      { "@type": "Question", "name": "What language do you build in?", "acceptedAnswer": { "@type": "Answer", "text": "Python for most agents, Node.js when the surrounding stack is JavaScript. Delivered as clean source code you own completely." } },
+      { "@type": "Question", "name": "Where does the agent run?", "acceptedAnswer": { "@type": "Answer", "text": "Wherever your infrastructure is — Mac Mini cron, Railway, Render, AWS Lambda, or Netlify Functions. If you don't have infrastructure, I'll recommend the simplest option at kickoff." } },
+      { "@type": "Question", "name": "How does the agent handle failures?", "acceptedAnswer": { "@type": "Answer", "text": "Every agent has three non-negotiables: a run log, a Slack error alert, and a kill switch. API timeouts, bad outputs, or downstream failures result in a logged failure and alert — not silent bad output or blind retries." } },
+      { "@type": "Question", "name": "Can the agent use tools like search or database writes?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. I build agents with tool use baked in: web search, API calls, database reads and writes, CRM updates, file generation. Claude's tool use API handles complex multi-step reasoning." } },
+      { "@type": "Question", "name": "What if I want to modify the agent after delivery?", "acceptedAnswer": { "@type": "Answer", "text": "The SKILL.md documentation package covers this — purpose, inputs, outputs, prompt strategy, dependencies, and how to extend it. A competent engineer can modify it without me." } }
+    ]
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://resultantai.com/"},
+      {"@type": "ListItem", "position": 2, "name": "Custom AI Agent Development", "item": "https://resultantai.com/custom-ai-agent/"}
+    ]
+  }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="/favicon.png">
+
+  <script>function initApollo(){var n=Math.random().toString(36).substring(7),o=document.createElement("script");o.src="https://assets.apollo.io/micro/website-tracker/tracker.iife.js?nocache="+n,o.async=!0,o.defer=!0,o.onload=function(){window.trackingFunctions.onLoad({appId:"679c52d7b1fed801981d9adb"})},document.head.appendChild(o)}initApollo();</script>
+
+  <style>
+    :root {
+      --bg-primary: #0a0f1a; --bg-secondary: #0f172a; --bg-card: #151d2e; --bg-card-hover: #1a2540;
+      --border: #1e293b; --border-light: #334155; --text-primary: #ffffff; --text-secondary: #94a3b8;
+      --text-muted: #64748b; --accent: #10b981; --accent-light: #34d399; --accent-subtle: rgba(16,185,129,0.08);
+      --accent-glow: rgba(16,185,129,0.4); --blue: #3b82f6; --purple: #8b5cf6; --orange: #f59e0b;
+      --gradient-accent: linear-gradient(135deg,#10b981 0%,#34d399 100%);
+      --gradient-hero: radial-gradient(ellipse 80% 50% at 50% -20%,rgba(16,185,129,0.15),transparent);
+      --font-sans: 'Inter',-apple-system,sans-serif; --font-mono: 'JetBrains Mono',monospace;
+      --radius-sm:6px; --radius-md:10px; --radius-lg:16px; --radius-xl:24px; --radius-full:9999px;
+      --shadow-card:0 4px 24px rgba(0,0,0,0.3),inset 0 1px 0 rgba(255,255,255,0.03);
+      --transition:0.25s cubic-bezier(0.4,0,0.2,1);
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased;}
+    body{font-family:var(--font-sans);background:var(--bg-primary);color:var(--text-primary);line-height:1.6;overflow-x:hidden;}
+    a{color:inherit;text-decoration:none;} img{max-width:100%;display:block;}
+    .bg-grid{position:fixed;top:0;left:0;right:0;bottom:0;background-image:linear-gradient(rgba(16,185,129,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(16,185,129,0.03) 1px,transparent 1px);background-size:60px 60px;pointer-events:none;z-index:0;}
+    .bg-gradient{position:fixed;top:0;left:0;right:0;height:100vh;background:var(--gradient-hero);pointer-events:none;z-index:0;}
+    .container{max-width:1200px;margin:0 auto;padding:0 24px;}
+    .container--narrow{max-width:860px;margin:0 auto;padding:0 24px;}
+    .section{padding:120px 0;position:relative;z-index:1;}
+    .section--tight{padding:80px 0;position:relative;z-index:1;}
+    .section--alt{background:var(--bg-secondary);}
+    .nav{position:fixed;top:0;left:0;right:0;z-index:1000;padding:20px 0;transition:all var(--transition);}
+    .nav.scrolled{padding:12px 0;background:rgba(10,15,26,0.9);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);}
+    .nav__inner{display:flex;align-items:center;justify-content:space-between;max-width:1200px;margin:0 auto;padding:0 24px;}
+    .nav__logo{font-size:22px;font-weight:800;letter-spacing:-0.03em;}
+    .nav__logo span{color:var(--accent);}
+    .nav__links{display:flex;align-items:center;gap:8px;}
+    .nav__link{padding:8px 14px;font-size:14px;font-weight:500;color:var(--text-secondary);border-radius:var(--radius-md);transition:all var(--transition);}
+    .nav__link:hover{color:var(--text-primary);background:rgba(255,255,255,0.05);}
+    .nav__cta{padding:10px 20px;font-size:14px;font-weight:600;background:var(--accent);color:#000;border-radius:var(--radius-md);transition:all var(--transition);}
+    .nav__cta:hover{background:var(--accent-light);transform:translateY(-1px);}
+    @media(max-width:768px){.nav__links .nav__link{display:none;}}
+    .hero{min-height:100vh;display:flex;align-items:center;padding:140px 0 100px;position:relative;z-index:1;}
+    .hero__badge{display:inline-flex;align-items:center;gap:8px;background:var(--accent-subtle);border:1px solid rgba(16,185,129,0.2);color:var(--accent);font-size:13px;font-weight:600;padding:8px 16px;border-radius:var(--radius-full);margin-bottom:32px;font-family:var(--font-mono);}
+    .hero__badge-dot{width:6px;height:6px;background:var(--accent);border-radius:50%;animation:pulse 2s infinite;}
+    @keyframes pulse{0%,100%{opacity:1}50%{opacity:0.4}}
+    .hero__title{font-size:clamp(38px,6vw,72px);font-weight:800;letter-spacing:-0.04em;line-height:1.05;margin-bottom:28px;}
+    .hero__title .accent{background:var(--gradient-accent);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+    .hero__subtitle{font-size:20px;color:var(--text-secondary);line-height:1.7;max-width:680px;margin-bottom:48px;}
+    .hero__buttons{display:flex;gap:16px;flex-wrap:wrap;}
+    .hero__stat-row{display:flex;gap:40px;margin-top:64px;flex-wrap:wrap;}
+    .hero__stat{display:flex;flex-direction:column;gap:4px;}
+    .hero__stat-num{font-family:var(--font-mono);font-size:28px;font-weight:800;color:var(--accent);}
+    .hero__stat-label{font-size:13px;color:var(--text-muted);}
+    .btn{display:inline-flex;align-items:center;gap:8px;padding:14px 28px;font-size:15px;font-weight:600;border-radius:var(--radius-md);transition:all var(--transition);cursor:pointer;border:none;text-decoration:none;}
+    .btn--primary{background:var(--accent);color:#000;}
+    .btn--primary:hover{background:var(--accent-light);transform:translateY(-2px);box-shadow:0 8px 24px rgba(16,185,129,0.3);}
+    .btn--ghost{background:transparent;color:var(--text-primary);border:1px solid var(--border-light);}
+    .btn--ghost:hover{border-color:var(--accent);color:var(--accent);}
+    .btn__icon{width:16px;height:16px;}
+    .section-label{font-family:var(--font-mono);font-size:12px;font-weight:600;color:var(--accent);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:16px;}
+    .section-title{font-size:clamp(30px,4vw,48px);font-weight:800;letter-spacing:-0.03em;line-height:1.1;margin-bottom:20px;}
+    .section-subtitle{font-size:18px;color:var(--text-secondary);line-height:1.7;max-width:640px;}
+    .problem-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;margin-top:64px;}
+    .problem-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-xl);padding:32px;position:relative;overflow:hidden;}
+    .problem-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#ef4444,#f59e0b);}
+    .problem-card__label{font-family:var(--font-mono);font-size:11px;font-weight:600;color:#ef4444;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:14px;}
+    .problem-card__title{font-size:19px;font-weight:700;margin-bottom:12px;line-height:1.3;}
+    .problem-card__desc{font-size:14px;color:var(--text-secondary);line-height:1.7;}
+    .deliverables{display:grid;gap:2px;margin-top:64px;background:var(--border);border-radius:var(--radius-xl);overflow:hidden;}
+    .deliverable{background:var(--bg-card);padding:40px;display:grid;grid-template-columns:80px 1fr;gap:24px;align-items:start;transition:background var(--transition);}
+    .deliverable:hover{background:var(--bg-card-hover);}
+    .deliverable__number{font-family:var(--font-mono);font-size:40px;font-weight:800;background:var(--gradient-accent);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1;}
+    .deliverable__title{font-size:19px;font-weight:700;margin-bottom:10px;}
+    .deliverable__desc{font-size:15px;color:var(--text-secondary);line-height:1.7;}
+    @media(max-width:600px){.deliverable{grid-template-columns:1fr;gap:12px;padding:28px 24px;}}
+    .steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:2px;margin-top:64px;background:var(--border);border-radius:var(--radius-xl);overflow:hidden;}
+    .step{background:var(--bg-card);padding:32px 24px;}
+    .step__phase{font-family:var(--font-mono);font-size:11px;font-weight:600;color:var(--accent);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:12px;}
+    .step__number{font-family:var(--font-mono);font-size:44px;font-weight:800;color:var(--border-light);line-height:1;margin-bottom:16px;}
+    .step__title{font-size:17px;font-weight:700;margin-bottom:10px;}
+    .step__desc{font-size:14px;color:var(--text-secondary);line-height:1.6;}
+    .pricing-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:2px;margin-top:64px;background:var(--border);border-radius:var(--radius-xl);overflow:hidden;}
+    @media(max-width:900px){.pricing-grid{grid-template-columns:1fr;}}
+    .pricing-tier{background:var(--bg-card);padding:40px 32px;display:flex;flex-direction:column;}
+    .pricing-tier--featured{background:linear-gradient(160deg,#0f2a1f 0%,#151d2e 60%);border:1px solid rgba(16,185,129,0.3);position:relative;z-index:1;margin:-1px;}
+    .pricing-tier__badge{display:inline-block;background:var(--accent);color:#000;font-size:11px;font-weight:700;padding:4px 12px;border-radius:var(--radius-full);letter-spacing:0.05em;text-transform:uppercase;margin-bottom:20px;font-family:var(--font-mono);}
+    .pricing-tier__name{font-size:13px;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.08em;font-family:var(--font-mono);margin-bottom:8px;}
+    .pricing-tier__title{font-size:22px;font-weight:800;margin-bottom:8px;}
+    .pricing-tier__desc{font-size:14px;color:var(--text-secondary);line-height:1.6;margin-bottom:24px;}
+    .pricing-tier__price{font-family:var(--font-mono);font-size:48px;font-weight:900;line-height:1;margin-bottom:4px;}
+    .pricing-tier--featured .pricing-tier__price{background:var(--gradient-accent);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+    .pricing-tier__timeline{font-size:13px;color:var(--text-muted);font-family:var(--font-mono);margin-bottom:28px;}
+    .pricing-tier__divider{height:1px;background:var(--border);margin-bottom:24px;}
+    .pricing-tier__features{display:grid;gap:12px;flex:1;margin-bottom:32px;}
+    .pricing-tier__feature{display:flex;align-items:flex-start;gap:10px;font-size:14px;color:var(--text-secondary);line-height:1.5;}
+    .pricing-tier__check{color:var(--accent);flex-shrink:0;margin-top:1px;}
+    .pricing-tier__cta{display:block;text-align:center;padding:13px 24px;font-size:14px;font-weight:600;border-radius:var(--radius-md);transition:all var(--transition);border:1px solid var(--border-light);color:var(--text-secondary);}
+    .pricing-tier__cta:hover{border-color:var(--accent);color:var(--accent);}
+    .pricing-tier--featured .pricing-tier__cta{background:var(--accent);color:#000;border-color:transparent;}
+    .pricing-tier--featured .pricing-tier__cta:hover{background:var(--accent-light);transform:translateY(-1px);}
+    .addon-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:16px;margin-top:32px;}
+    .addon-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:24px;display:flex;justify-content:space-between;align-items:flex-start;gap:24px;}
+    .addon-card__label{font-family:var(--font-mono);font-size:10px;font-weight:600;color:var(--purple);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:6px;}
+    .addon-card__title{font-size:15px;font-weight:700;margin-bottom:6px;}
+    .addon-card__desc{font-size:13px;color:var(--text-secondary);line-height:1.6;}
+    .addon-card__price{font-family:var(--font-mono);font-size:20px;font-weight:800;white-space:nowrap;}
+    .faq-list{margin-top:64px;display:grid;gap:12px;}
+    .faq-item{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-lg);overflow:hidden;}
+    .faq-q{padding:20px 24px;font-size:16px;font-weight:600;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:16px;transition:color var(--transition);}
+    .faq-q:hover{color:var(--accent);}
+    .faq-q__icon{font-size:20px;flex-shrink:0;transition:transform var(--transition);color:var(--text-muted);}
+    .faq-a{padding:0 24px;max-height:0;overflow:hidden;transition:max-height 0.35s ease,padding 0.35s ease;}
+    .faq-a p{font-size:15px;color:var(--text-secondary);line-height:1.75;padding-bottom:20px;}
+    .faq-item.open .faq-a{max-height:400px;}
+    .faq-item.open .faq-q__icon{transform:rotate(45deg);}
+    .cta-inner{background:linear-gradient(135deg,rgba(16,185,129,0.1),rgba(16,185,129,0.03));border:1px solid rgba(16,185,129,0.2);border-radius:var(--radius-xl);padding:80px 48px;text-align:center;}
+    .cta-inner__title{font-size:clamp(32px,5vw,52px);font-weight:800;letter-spacing:-0.03em;margin-bottom:16px;}
+    .cta-inner__sub{font-size:18px;color:var(--text-secondary);margin-bottom:40px;max-width:560px;margin-left:auto;margin-right:auto;}
+    .cta-inner__btns{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;}
+    .footer{border-top:1px solid var(--border);padding:64px 0 40px;position:relative;z-index:1;}
+    .footer__grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:48px;margin-bottom:48px;}
+    @media(max-width:768px){.footer__grid{grid-template-columns:1fr 1fr;}}
+    .footer__brand-logo{font-size:22px;font-weight:800;letter-spacing:-0.03em;margin-bottom:16px;}
+    .footer__brand-logo span{background:var(--gradient-accent);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+    .footer__tagline{font-size:14px;color:var(--text-muted);line-height:1.6;}
+    .footer__column h4{font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:16px;}
+    .footer__links{display:flex;flex-direction:column;gap:10px;}
+    .footer__link{font-size:14px;color:var(--text-muted);transition:color var(--transition);}
+    .footer__link:hover{color:var(--accent);}
+    .footer__bottom{border-top:1px solid var(--border);padding-top:32px;font-size:13px;color:var(--text-muted);text-align:center;}
+    .reveal{opacity:0;transform:translateY(24px);transition:opacity 0.6s ease,transform 0.6s ease;}
+    .reveal.visible{opacity:1;transform:translateY(0);}
+  </style>
+</head>
+<body>
+<div class="bg-grid"></div>
+<div class="bg-gradient"></div>
+
+<nav class="nav" id="nav">
+  <div class="nav__inner">
+    <a href="/" class="nav__logo">Resultant<span>AI</span></a>
+    <div class="nav__links">
+      <a href="/services/" class="nav__link">Services</a>
+      <a href="/voice-ai/" class="nav__link">Voice AI</a>
+      <a href="/work/" class="nav__link">Case Studies</a>
+      <a href="/faq/" class="nav__link">FAQ</a>
+      <a href="https://meetings.hubspot.com/chris4642" class="nav__cta" target="_blank" rel="noopener">Book a Call</a>
+    </div>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="container">
+    <div class="hero__badge">
+      <span class="hero__badge-dot"></span>
+      Custom AI Agent Development
+    </div>
+    <h1 class="hero__title">
+      Most AI projects end<br>
+      <span class="accent">with a demo.</span>
+    </h1>
+    <p class="hero__subtitle">You get a notebook, a script, or a prompt template — then you figure out how to run it, schedule it, and keep it working. I build the production version: scheduled, monitored, error-handled, and handed back running.</p>
+    <div class="hero__buttons">
+      <a href="https://www.upwork.com/services/product/development-it-a-custom-ai-agent-built-deployed-and-running-on-a-schedule" class="btn btn--primary" target="_blank" rel="noopener">
+        View on Upwork
+        <svg class="btn__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+      <a href="https://meetings.hubspot.com/chris4642" class="btn btn--ghost" target="_blank" rel="noopener">Book a 20-Min Call</a>
+    </div>
+    <div class="hero__stat-row">
+      <div class="hero__stat">
+        <span class="hero__stat-num">7 days</span>
+        <span class="hero__stat-label">fastest turnaround</span>
+      </div>
+      <div class="hero__stat">
+        <span class="hero__stat-num">3</span>
+        <span class="hero__stat-label">non-negotiable primitives</span>
+      </div>
+      <div class="hero__stat">
+        <span class="hero__stat-num">$2,000</span>
+        <span class="hero__stat-label">starting price</span>
+      </div>
+      <div class="hero__stat">
+        <span class="hero__stat-num">100%</span>
+        <span class="hero__stat-label">client-owned code</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section--tight section--alt">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-label">The Problem</div>
+      <h2 class="section-title">There is a big gap between "AI can do this" and a production agent that does it reliably.</h2>
+    </div>
+    <div class="problem-grid">
+      <div class="problem-card reveal">
+        <div class="problem-card__label">Demo ≠ Production</div>
+        <h3 class="problem-card__title">The ChatGPT demo worked. The deployed version silently fails at 2am and no one knows until Friday.</h3>
+        <p class="problem-card__desc">A notebook is not a production system. Production means: a trigger that fires reliably, a run log that records every execution, an error alert that fires the moment something breaks, and a kill switch for when the output is wrong. Most AI builds have none of these.</p>
+      </div>
+      <div class="problem-card reveal">
+        <div class="problem-card__label">No Observability</div>
+        <h3 class="problem-card__title">You don't know what the agent ran, when it ran, what it produced, or whether it finished.</h3>
+        <p class="problem-card__desc">An agent without a run log is a black box. When something goes wrong — and it will — you have no evidence, no traceback, no way to reproduce the failure. Observability is not a nice-to-have. It is what separates a toy from a production system.</p>
+      </div>
+      <div class="problem-card reveal">
+        <div class="problem-card__label">You Own Nothing</div>
+        <h3 class="problem-card__title">The "AI consultant" built it on their infrastructure. Now you pay them forever to keep the lights on.</h3>
+        <p class="problem-card__desc">Agents built on someone else's stack, using their API keys, running on their servers, with no documentation — are not your agents. They are subscriptions. Every build I ship comes with source code you own, credentials in your accounts, and documentation your team can read.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="deliverables" class="section">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-label">What You Get</div>
+      <h2 class="section-title">An agent with three non-negotiable primitives: run log, error alert, kill switch.</h2>
+      <p class="section-subtitle">Every build ships with observability baked in. You always know what ran, what it produced, and what to do if it breaks — without calling me.</p>
+    </div>
+    <div class="deliverables reveal">
+      <div class="deliverable">
+        <div class="deliverable__number">01</div>
+        <div>
+          <div class="deliverable__title">Agent Design + SKILL.md Draft</div>
+          <p class="deliverable__desc">Every agent is documented in plain language before any code is written: purpose, inputs, outputs, tool calls, failure modes. You review and approve the design. No surprises at delivery — and a future engineer can understand the agent from the SKILL.md without reading the code.</p>
+        </div>
+      </div>
+      <div class="deliverable">
+        <div class="deliverable__number">02</div>
+        <div>
+          <div class="deliverable__title">Production Build on Claude or GPT-4</div>
+          <p class="deliverable__desc">Built in Python or Node.js using the Claude or OpenAI API. Prompts engineered and tested across edge cases: missing data, API timeouts, malformed inputs, rate limits. The agent handles what it can and fails clearly when it cannot — no silent bad output.</p>
+        </div>
+      </div>
+      <div class="deliverable">
+        <div class="deliverable__number">03</div>
+        <div>
+          <div class="deliverable__title">Run Logging + Error Alerting</div>
+          <p class="deliverable__desc">Every execution written to a database: timestamp, input summary, output summary, duration, status. Slack error alert fires immediately if a run fails — with the full traceback and the input that caused it. Kill switch documented so any team member can stop the agent without touching code.</p>
+        </div>
+      </div>
+      <div class="deliverable">
+        <div class="deliverable__number">04</div>
+        <div>
+          <div class="deliverable__title">Cron or Webhook Trigger</div>
+          <p class="deliverable__desc">Scheduled agents run on cron — hourly, daily, or weekly. Event-driven agents fire from a webhook, a database change, a form submission, or a CRM trigger. The trigger is configured, tested, and confirmed live before delivery. You see the first real run happen.</p>
+        </div>
+      </div>
+      <div class="deliverable">
+        <div class="deliverable__number">05</div>
+        <div>
+          <div class="deliverable__title">Deployed to Your Infrastructure</div>
+          <p class="deliverable__desc">Deployed wherever your stack lives: Mac Mini cron, Railway, Render, AWS Lambda, or Netlify Functions. Your API keys. Your accounts. Nothing runs on my infrastructure. Full deployment guide so you can redeploy or migrate without me.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section--tight section--alt">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-label">How It Works</div>
+      <h2 class="section-title">Designed, built, observable, and deployed.</h2>
+    </div>
+    <div class="steps reveal">
+      <div class="step">
+        <div class="step__phase">Step 01</div>
+        <div class="step__number">01</div>
+        <div class="step__title">Agent Design</div>
+        <p class="step__desc">Purpose, inputs, outputs, tool calls, and failure modes documented in plain language. You approve before any code is written.</p>
+      </div>
+      <div class="step">
+        <div class="step__phase">Step 02</div>
+        <div class="step__number">02</div>
+        <div class="step__title">API + Credential Setup</div>
+        <p class="step__desc">Every API and data source connected using your credentials. Authentication tested. Rate limits noted. Sandbox run confirmed.</p>
+      </div>
+      <div class="step">
+        <div class="step__phase">Step 03</div>
+        <div class="step__number">03</div>
+        <div class="step__title">Build + Prompt Engineering</div>
+        <p class="step__desc">Agent built and prompts tested across edge cases: missing data, timeouts, unexpected formats, adversarial inputs.</p>
+      </div>
+      <div class="step">
+        <div class="step__phase">Step 04</div>
+        <div class="step__number">04</div>
+        <div class="step__title">Observability Setup</div>
+        <p class="step__desc">Run log configured. Slack error alerts wired. Kill switch documented. Every run produces a structured log entry.</p>
+      </div>
+      <div class="step">
+        <div class="step__phase">Step 05</div>
+        <div class="step__number">05</div>
+        <div class="step__title">Deploy + Handoff</div>
+        <p class="step__desc">Deployed to your infrastructure. Trigger confirmed live. SKILL.md documentation and runbook delivered.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="pricing" class="section">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-label">Pricing</div>
+      <h2 class="section-title">Three fixed-price tiers. No hourly billing.</h2>
+      <p class="section-subtitle">50% at kickoff. 50% at delivery. You own the code, the API keys, and the deployment when it's done.</p>
+    </div>
+    <div class="pricing-grid reveal">
+      <div class="pricing-tier">
+        <div class="pricing-tier__name">Starter</div>
+        <div class="pricing-tier__title">Single Agent Build</div>
+        <div class="pricing-tier__desc">One production agent with a defined trigger, output, run log, and Slack delivery. Best for one high-value automated task.</div>
+        <div class="pricing-tier__price">$2,000</div>
+        <div class="pricing-tier__timeline">7 business days</div>
+        <div class="pricing-tier__divider"></div>
+        <div class="pricing-tier__features">
+          <div class="pricing-tier__feature"><span class="pricing-tier__check">&#10003;</span> 1 production AI agent</div>
+          <div class="pricing-tier__feature"><span class="pricing-tier__check">&#10003;</span> Up to 3 API integrations</div>
+          <div class="pricing-tier__feature"><span class="pricing-tier__check">&#10003;</span> Cron or webhook trigger</div>
+          <div class="pricing-tier__feature"><span class="pricing-tier__check">&#10003;</span> Run logging + error alerting</div>
+          <div class="pricing-tier__feature"><span class="pricing-tier__check">&#10003;</span> Slack output delivery</div>
+          <div class="pricing-tier__feature"><span class="pricing-tier__check">&#10003;</span> SKILL.md documentation</div>
+          <div class="pricing-tier__feature"><span class="pricing-tier__check">&#10003;</span> 7-day support window</div>
+        </div>
+        <a href="https://www.upwork.com/services/product/development-it-a-custom-ai-agent-built-deployed-and-running-on-a-schedule" class="pricing-tier__cta" target="_blank" rel="noopener">Get Started on Upwork</a>
+      </div>
+
+      <div class="pricing-tier pricing-tier--featured">
+        <div class="pricing-tier__badge">Most Popular</div>
+        <div class="pricing-tier__name">Standard</div>
+        <div class="pricing-tier__title">Multi-Agent System</div>
+        <div class="pricing-tier__desc">Up to 3 agents running on cron, multi-channel output, monitoring dashboard. Best for teams automating multiple recurring tasks.</div>
+        <div class="pricing-tier__price">$4,500</div>
+        <div class="pricing-tier__timeline">12 business days</div>
+        <div class="pricing-tier__divider"></div>
+        <div class="pricing-tier__features">
+          <div class="pricing-tier__feature"><span class="pricing-tier__check">&#10003;</span> Up to 3 production AI agents</div>
+          <div class="pricing-tier__feature"><span class="pricing-tier__check">&#10003;</span> Up to 8 API integrations</div>
+          <div class="pricing-tier__feature"><span class="pricing-tier__check">&#10003;</span> Cron scheduling for each agent</div>
+          <div class="pricing-tier__feature"><span class="pricing-tier__check">&#10003;</span> Run log + monitoring dashboard</div>
+          <div class="pricing-tier__feature"><span class="pricing-tier__check">&#10003;</span> Multi-channel output (Slack, email, CRM)</div>
+          <div class="pricing-tier__feature"><span class="pricing-tier__check">&#10003;</span> SKILL.md per agent</div>
+          <div class="pricing-tier__feature"><span class="pricing-tier__check">&#10003;</span> 14-day support window</div>
+        </div>
+        <a href="https://www.upwork.com/services/product/development-it-a-custom-ai-agent-built-deployed-and-running-on-a-schedule" class="pricing-tier__cta" target="_blank" rel="noopener">Get Started on Upwork</a>
+      </div>
+
+      <div class="pricing-tier">
+        <div class="pricing-tier__name">Advanced</div>
+        <div class="pricing-tier__title">Agent Fleet</div>
+        <div class="pricing-tier__desc">Up to 5 agents, custom APIs, complex orchestration, and 60-day support. Best for replacing a team's worth of recurring analytical work.</div>
+        <div class="pricing-tier__price">$8,500</div>
+        <div class="pricing-tier__timeline">18 business days</div>
+        <div class="pricing-tier__divider"></div>
+        <div class="pricing-tier__features">
+          <div class="pricing-tier__feature"><span class="pricing-tier__check">&#10003;</span> Up to 5 production AI agents</div>
+          <div class="pricing-tier__feature"><span class="pricing-tier__check">&#10003;</span> Unlimited API integrations</div>
+          <div class="pricing-tier__feature"><span class="pricing-tier__check">&#10003;</span> Custom API development if needed</div>
+          <div class="pricing-tier__feature"><span class="pricing-tier__check">&#10003;</span> Full observability stack</div>
+          <div class="pricing-tier__feature"><span class="pricing-tier__check">&#10003;</span> Human-in-the-loop review option</div>
+          <div class="pricing-tier__feature"><span class="pricing-tier__check">&#10003;</span> Full SKILL.md documentation fleet</div>
+          <div class="pricing-tier__feature"><span class="pricing-tier__check">&#10003;</span> 60-day support window</div>
+        </div>
+        <a href="https://www.upwork.com/services/product/development-it-a-custom-ai-agent-built-deployed-and-running-on-a-schedule" class="pricing-tier__cta" target="_blank" rel="noopener">Get Started on Upwork</a>
+      </div>
+    </div>
+
+    <div class="reveal" style="margin-top:48px;">
+      <div class="section-label">Add-Ons</div>
+      <h3 style="font-size:22px;font-weight:700;margin-bottom:8px;">Available with any tier</h3>
+    </div>
+    <div class="addon-grid reveal">
+      <div class="addon-card">
+        <div>
+          <div class="addon-card__label">Add-On</div>
+          <div class="addon-card__title">SQLite / Postgres Run Log</div>
+          <div class="addon-card__desc">Every run written to a database: timestamp, input, output, duration, status. Query-ready for reporting or debugging.</div>
+        </div>
+        <div class="addon-card__price">+$400</div>
+      </div>
+      <div class="addon-card">
+        <div>
+          <div class="addon-card__label">Add-On</div>
+          <div class="addon-card__title">Human-in-the-Loop Review</div>
+          <div class="addon-card__desc">Agent drafts output and pauses for approval via Slack reaction or email reply before taking action. Ideal for agents that send or post.</div>
+        </div>
+        <div class="addon-card__price">+$500</div>
+      </div>
+      <div class="addon-card">
+        <div>
+          <div class="addon-card__label">Add-On</div>
+          <div class="addon-card__title">Weekly Run Report</div>
+          <div class="addon-card__desc">Automated weekly summary: runs completed, success rate, tokens used, cost estimate, and anomalies flagged. Delivered every Monday.</div>
+        </div>
+        <div class="addon-card__price">+$300</div>
+      </div>
+      <div class="addon-card">
+        <div>
+          <div class="addon-card__label">Add-On</div>
+          <div class="addon-card__title">SKILL.md Documentation Pack</div>
+          <div class="addon-card__desc">Full technical docs per agent: purpose, inputs, outputs, prompt strategy, dependencies, and extension guide. Your team can maintain it without me.</div>
+        </div>
+        <div class="addon-card__price">+$400</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section--tight section--alt">
+  <div class="container--narrow">
+    <div class="reveal">
+      <div class="section-label">FAQ</div>
+      <h2 class="section-title">Common questions</h2>
+    </div>
+    <div class="faq-list reveal">
+      <div class="faq-item">
+        <div class="faq-q">What language do you build in? <span class="faq-q__icon">+</span></div>
+        <div class="faq-a"><p>Python for most agents, Node.js when the surrounding stack is JavaScript. The agent is delivered as clean, documented source code you own completely — no proprietary wrappers, no locked-in frameworks.</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Where does the agent run? <span class="faq-q__icon">+</span></div>
+        <div class="faq-a"><p>Wherever your infrastructure is. I have deployed to Mac Minis running cron, Railway, Render, AWS Lambda, and Netlify Functions. If you don't have infrastructure, I'll recommend the simplest option for your use case at kickoff and walk you through setup.</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">How does the agent handle failures? <span class="faq-q__icon">+</span></div>
+        <div class="faq-a"><p>Every agent has three non-negotiables: a run log, a Slack error alert, and a kill switch. If an API times out, a prompt returns garbage, or a downstream service is down, the agent logs the failure, fires an alert, and stops — it does not retry blindly or produce bad output silently.</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Can the agent use tools — search, browse, write to databases? <span class="faq-q__icon">+</span></div>
+        <div class="faq-a"><p>Yes. I build agents with tool use baked in: web search, API calls, database reads and writes, CRM updates, file generation. Claude's tool use API handles complex multi-step reasoning. The agent can be as capable as the tools you give it access to.</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">What if I want to modify the agent after delivery? <span class="faq-q__icon">+</span></div>
+        <div class="faq-a"><p>The SKILL.md documentation covers this — purpose, inputs, outputs, prompt strategy, dependencies, and how to extend it. A competent engineer can modify the agent without me. Most clients request modifications as a follow-on engagement when the scope grows.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container--narrow">
+    <div class="cta-inner reveal">
+      <h2 class="cta-inner__title">Stop running it manually. Build the agent.</h2>
+      <p class="cta-inner__sub">Book a 20-minute call to map the agent design, or go straight to Upwork to get started.</p>
+      <div class="cta-inner__btns">
+        <a href="https://www.upwork.com/services/product/development-it-a-custom-ai-agent-built-deployed-and-running-on-a-schedule" class="btn btn--primary" target="_blank" rel="noopener">
+          View on Upwork
+          <svg class="btn__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+        <a href="https://meetings.hubspot.com/chris4642" class="btn btn--ghost" target="_blank" rel="noopener">Book a Free 20-Min Call</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer__grid">
+      <div>
+        <div class="footer__brand-logo">Resultant<span>AI</span></div>
+        <p class="footer__tagline">AI systems that run without you.<br>Built for small teams that move fast.</p>
+      </div>
+      <div class="footer__column">
+        <h4>Services</h4>
+        <div class="footer__links">
+          <a href="/voice-ai/" class="footer__link">Voice AI</a>
+          <a href="/custom-ai-agent/" class="footer__link">AI Agents</a>
+          <a href="/make-n8n-workflow/" class="footer__link">Workflow Automation</a>
+          <a href="/aeo-geo-audit/" class="footer__link">AEO/GEO Audit</a>
+          <a href="/services/" class="footer__link">All Services</a>
+        </div>
+      </div>
+      <div class="footer__column">
+        <h4>Company</h4>
+        <div class="footer__links">
+          <a href="/work/" class="footer__link">Case Studies</a>
+          <a href="/about/" class="footer__link">About</a>
+          <a href="/faq/" class="footer__link">FAQ</a>
+          <a href="/contact-us/" class="footer__link">Contact</a>
+        </div>
+      </div>
+      <div class="footer__column">
+        <h4>Hire Us</h4>
+        <div class="footer__links">
+          <a href="https://meetings.hubspot.com/chris4642" class="footer__link" target="_blank" rel="noopener">Book a Call</a>
+          <a href="https://www.upwork.com/ag/resultantai/" class="footer__link" target="_blank" rel="noopener">Upwork Profile</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer__bottom">&copy; 2026 ResultantAI. All rights reserved.</div>
+  </div>
+</footer>
+
+<script>
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 40));
+  const observer = new IntersectionObserver(entries => entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); }), {threshold:0.1});
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  document.querySelectorAll('.faq-q').forEach(q => {
+    q.addEventListener('click', () => {
+      const item = q.closest('.faq-item');
+      const isOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+      if(!isOpen) item.classList.add('open');
+    });
+  });
+</script>
+</body>
+</html>
