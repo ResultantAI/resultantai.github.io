@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Command Center for Business Operations | ResultantAI</title>
+  <meta name="description" content="Real-time operations dashboard with live KPI widgets, AI insights, and automated alerts. Built on your data sources. Deployed in 10–22 days." />
+  <link rel="canonical" href="https://resultantai.com/ai-dashboard/" />
+
+  <!-- Schema.org -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Service",
+        "name": "AI-Powered Internal Dashboard / Command Center",
+        "description": "Real-time operations dashboard with live KPI widgets, AI insights panel, and automated alerts. Connected to HubSpot, Stripe, Apollo, or any REST API.",
+        "provider": { "@type": "Organization", "name": "ResultantAI", "url": "https://resultantai.com" },
+        "offers": [
+          { "@type": "Offer", "name": "Dashboard Foundation", "price": "2500", "priceCurrency": "USD" },
+          { "@type": "Offer", "name": "Full Command Center", "price": "5500", "priceCurrency": "USD" },
+          { "@type": "Offer", "name": "Enterprise Ops Hub", "price": "9500", "priceCurrency": "USD" }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          { "@type": "Question", "name": "What data sources can you connect?", "acceptedAnswer": { "@type": "Answer", "text": "HubSpot, Stripe, Apollo, Airtable, Google Sheets, and any REST API with authentication." } },
+          { "@type": "Question", "name": "Does my team need to know how to code to use it?", "acceptedAnswer": { "@type": "Answer", "text": "No. The dashboard is a read-only web application. Your team logs in, sees the data, and receives alerts." } }
+        ]
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://resultantai.com" },
+          { "@type": "ListItem", "position": 2, "name": "AI Dashboard", "item": "https://resultantai.com/ai-dashboard/" }
+        ]
+      }
+    ]
+  }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0a0f1a;
+      --bg-secondary: #0f172a;
+      --bg-card: #151d2e;
+      --emerald: #10b981;
+      --emerald-dark: #059669;
+      --emerald-dim: rgba(16,185,129,0.1);
+      --emerald-border: rgba(16,185,129,0.25);
+      --text: #f1f5f9;
+      --text-muted: #94a3b8;
+      --text-dim: #64748b;
+      --border: rgba(255,255,255,0.07);
+      --red: #ef4444;
+      --red-dim: rgba(239,68,68,0.1);
+    }
+
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; line-height: 1.6; overflow-x: hidden; }
+
+    /* Grid background */
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background-image: linear-gradient(rgba(16,185,129,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(16,185,129,0.03) 1px, transparent 1px);
+      background-size: 60px 60px;
+      pointer-events: none; z-index: 0;
+    }
+
+    * { position: relative; z-index: 1; }
+
+    /* Nav */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1rem 2rem;
+      background: rgba(10,15,26,0.8);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      transition: background 0.3s;
+    }
+    .nav-logo { font-weight: 700; font-size: 1.1rem; color: var(--text); text-decoration: none; letter-spacing: -0.02em; }
+    .nav-logo span { color: var(--emerald); }
+    .nav-cta {
+      background: var(--emerald); color: #0a0f1a; font-weight: 600; font-size: 0.85rem;
+      padding: 0.5rem 1.25rem; border-radius: 6px; text-decoration: none;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .nav-cta:hover { background: var(--emerald-dark); transform: translateY(-1px); }
+
+    /* Hero */
+    .hero {
+      min-height: 100vh; display: flex; align-items: center; justify-content: center;
+      padding: 8rem 2rem 5rem;
+      text-align: center;
+    }
+    .hero-inner { max-width: 820px; }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: var(--emerald-dim); border: 1px solid var(--emerald-border);
+      color: var(--emerald); font-size: 0.8rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase;
+      padding: 0.4rem 1rem; border-radius: 20px; margin-bottom: 2rem;
+    }
+    .hero-badge::before { content: '●'; font-size: 0.5rem; animation: pulse 2s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+    .hero h1 {
+      font-size: clamp(2.2rem, 5vw, 3.6rem); font-weight: 700; line-height: 1.15;
+      letter-spacing: -0.03em; margin-bottom: 1.5rem;
+    }
+    .hero h1 em { font-style: normal; color: var(--emerald); }
+    .hero-sub { font-size: 1.15rem; color: var(--text-muted); max-width: 600px; margin: 0 auto 2.5rem; line-height: 1.7; }
+    .hero-stats {
+      display: flex; justify-content: center; gap: 2.5rem; flex-wrap: wrap;
+      margin-bottom: 2.5rem; padding: 1.5rem;
+      background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px;
+    }
+    .stat { text-align: center; }
+    .stat-val { font-family: 'JetBrains Mono', monospace; font-size: 1.5rem; font-weight: 700; color: var(--emerald); }
+    .stat-label { font-size: 0.8rem; color: var(--text-muted); margin-top: 0.2rem; }
+    .hero-cta { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+    .btn-primary {
+      background: var(--emerald); color: #0a0f1a; font-weight: 700; font-size: 1rem;
+      padding: 0.85rem 2rem; border-radius: 8px; text-decoration: none;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .btn-primary:hover { background: var(--emerald-dark); transform: translateY(-2px); }
+    .btn-secondary {
+      background: transparent; color: var(--text); font-weight: 600; font-size: 1rem;
+      padding: 0.85rem 2rem; border-radius: 8px; text-decoration: none;
+      border: 1px solid var(--border); transition: border-color 0.2s, transform 0.2s;
+    }
+    .btn-secondary:hover { border-color: var(--emerald); transform: translateY(-2px); }
+
+    /* Sections */
+    section { padding: 6rem 2rem; }
+    .container { max-width: 1100px; margin: 0 auto; }
+    .section-tag {
+      font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; font-weight: 500;
+      color: var(--emerald); letter-spacing: 0.1em; text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+    h2 { font-size: clamp(1.8rem, 3.5vw, 2.6rem); font-weight: 700; letter-spacing: -0.03em; margin-bottom: 1rem; line-height: 1.2; }
+    .section-sub { font-size: 1.05rem; color: var(--text-muted); max-width: 580px; line-height: 1.7; margin-bottom: 3rem; }
+
+    /* Problem section */
+    .section--alt { background: var(--bg-secondary); }
+    .problem-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
+    .problem-card {
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-top: 3px solid var(--red); border-radius: 12px; padding: 2rem;
+    }
+    .problem-card h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: 0.75rem; }
+    .problem-card p { font-size: 0.95rem; color: var(--text-muted); line-height: 1.65; }
+
+    /* Deliverables */
+    .deliverables-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.25rem; }
+    .deliverable {
+      background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px;
+      padding: 1.75rem; display: flex; gap: 1rem; align-items: flex-start;
+    }
+    .deliverable-num {
+      font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; font-weight: 700;
+      color: var(--emerald); background: var(--emerald-dim); border: 1px solid var(--emerald-border);
+      width: 2rem; height: 2rem; border-radius: 6px; display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .deliverable h3 { font-size: 0.95rem; font-weight: 700; margin-bottom: 0.4rem; }
+    .deliverable p { font-size: 0.88rem; color: var(--text-muted); line-height: 1.55; }
+
+    /* Process */
+    .process-steps { display: flex; flex-direction: column; gap: 0; max-width: 780px; }
+    .process-step {
+      display: flex; gap: 1.5rem; padding: 2rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .process-step:last-child { border-bottom: none; }
+    .step-num {
+      font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; font-weight: 700;
+      color: var(--emerald); background: var(--emerald-dim); border: 1px solid var(--emerald-border);
+      width: 2.5rem; height: 2.5rem; border-radius: 8px; display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; margin-top: 0.2rem;
+    }
+    .step-content h3 { font-size: 1rem; font-weight: 700; margin-bottom: 0.5rem; }
+    .step-content p { font-size: 0.92rem; color: var(--text-muted); line-height: 1.65; }
+
+    /* Pricing */
+    .pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; align-items: start; }
+    .pricing-card {
+      background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px;
+      padding: 2rem; position: relative;
+    }
+    .pricing-card--featured {
+      background: linear-gradient(135deg, rgba(16,185,129,0.08) 0%, var(--bg-card) 60%);
+      border-color: var(--emerald-border);
+      transform: scale(1.03);
+    }
+    .popular-badge {
+      position: absolute; top: -14px; left: 50%; transform: translateX(-50%);
+      background: var(--emerald); color: #0a0f1a; font-size: 0.75rem; font-weight: 700;
+      padding: 0.3rem 1rem; border-radius: 20px; white-space: nowrap; letter-spacing: 0.04em;
+    }
+    .pricing-tier { font-size: 0.8rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.5rem; }
+    .pricing-name { font-size: 1.3rem; font-weight: 700; margin-bottom: 0.5rem; }
+    .pricing-desc { font-size: 0.88rem; color: var(--text-muted); margin-bottom: 1.5rem; line-height: 1.5; }
+    .pricing-price { font-family: 'JetBrains Mono', monospace; font-size: 2.2rem; font-weight: 700; color: var(--emerald); margin-bottom: 0.25rem; }
+    .pricing-delivery { font-size: 0.82rem; color: var(--text-dim); margin-bottom: 1.5rem; }
+    .pricing-features { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; margin-bottom: 1.75rem; }
+    .pricing-features li { font-size: 0.9rem; color: var(--text-muted); display: flex; gap: 0.6rem; align-items: flex-start; }
+    .pricing-features li::before { content: '✓'; color: var(--emerald); font-weight: 700; flex-shrink: 0; margin-top: 0.05rem; }
+    .pricing-btn {
+      display: block; text-align: center; font-weight: 700; font-size: 0.95rem;
+      padding: 0.85rem; border-radius: 8px; text-decoration: none; transition: all 0.2s;
+    }
+    .pricing-btn--primary { background: var(--emerald); color: #0a0f1a; }
+    .pricing-btn--primary:hover { background: var(--emerald-dark); transform: translateY(-1px); }
+    .pricing-btn--outline { border: 1px solid var(--border); color: var(--text); }
+    .pricing-btn--outline:hover { border-color: var(--emerald); transform: translateY(-1px); }
+
+    /* Add-ons */
+    .addons-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.25rem; }
+    .addon-card {
+      background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px;
+      padding: 1.5rem; display: flex; flex-direction: column; gap: 0.5rem;
+    }
+    .addon-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; }
+    .addon-name { font-size: 0.95rem; font-weight: 700; }
+    .addon-price { font-family: 'JetBrains Mono', monospace; font-size: 0.9rem; color: var(--emerald); white-space: nowrap; }
+    .addon-desc { font-size: 0.87rem; color: var(--text-muted); line-height: 1.55; }
+
+    /* FAQ */
+    .faq-list { display: flex; flex-direction: column; gap: 0; max-width: 780px; }
+    .faq-item { border-bottom: 1px solid var(--border); }
+    .faq-item:first-child { border-top: 1px solid var(--border); }
+    .faq-q {
+      width: 100%; text-align: left; background: none; border: none; color: var(--text);
+      font-family: 'Inter', sans-serif; font-size: 1rem; font-weight: 600; cursor: pointer;
+      padding: 1.5rem 0; display: flex; justify-content: space-between; align-items: center; gap: 1rem;
+    }
+    .faq-q::after { content: '+'; color: var(--emerald); font-size: 1.3rem; font-weight: 400; flex-shrink: 0; transition: transform 0.2s; }
+    .faq-q.open::after { transform: rotate(45deg); }
+    .faq-a { display: none; padding-bottom: 1.5rem; font-size: 0.95rem; color: var(--text-muted); line-height: 1.7; }
+    .faq-a.open { display: block; }
+
+    /* CTA */
+    .cta-section {
+      text-align: center; padding: 7rem 2rem;
+      background: linear-gradient(135deg, rgba(16,185,129,0.06) 0%, transparent 60%);
+      border-top: 1px solid var(--border);
+    }
+    .cta-section h2 { margin-bottom: 1rem; }
+    .cta-section p { color: var(--text-muted); font-size: 1.05rem; max-width: 540px; margin: 0 auto 2.5rem; }
+
+    /* Footer */
+    footer {
+      background: var(--bg-secondary); border-top: 1px solid var(--border);
+      padding: 2.5rem 2rem; text-align: center;
+    }
+    .footer-logo { font-weight: 700; font-size: 1rem; margin-bottom: 0.5rem; }
+    .footer-logo span { color: var(--emerald); }
+    footer p { font-size: 0.85rem; color: var(--text-dim); }
+    footer a { color: var(--text-muted); text-decoration: none; }
+    footer a:hover { color: var(--emerald); }
+
+    /* Reveal animation */
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.55s ease, transform 0.55s ease; }
+    .reveal.visible { opacity: 1; transform: none; }
+
+    @media (max-width: 768px) {
+      nav { padding: 1rem; }
+      .hero-stats { gap: 1.5rem; }
+      .pricing-card--featured { transform: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Nav -->
+<nav>
+  <a href="https://resultantai.com" class="nav-logo">Resultant<span>AI</span></a>
+  <a href="https://www.upwork.com/services/product/development-it-a-real-time-ai-command-center-for-your-business-operations" class="nav-cta" target="_blank" rel="noopener">View on Upwork</a>
+</nav>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-badge">AI Dashboard Build</div>
+    <h1>You're running the business<br>from <em>12 different tabs.</em></h1>
+    <p class="hero-sub">One dashboard. Every KPI. An AI insights panel that tells you what changed and what to do about it — before your Monday meeting.</p>
+    <div class="hero-stats">
+      <div class="stat"><div class="stat-val">3</div><div class="stat-label">data sources connected</div></div>
+      <div class="stat"><div class="stat-val">real-time</div><div class="stat-label">KPI updates</div></div>
+      <div class="stat"><div class="stat-val">AI</div><div class="stat-label">anomaly detection</div></div>
+      <div class="stat"><div class="stat-val">10–22 days</div><div class="stat-label">to deployment</div></div>
+    </div>
+    <div class="hero-cta">
+      <a href="https://www.upwork.com/services/product/development-it-a-real-time-ai-command-center-for-your-business-operations" class="btn-primary" target="_blank" rel="noopener">See Pricing on Upwork</a>
+      <a href="#pricing" class="btn-secondary">View Tiers</a>
+    </div>
+  </div>
+</section>
+
+<!-- Problem -->
+<section class="section--alt">
+  <div class="container">
+    <p class="section-tag reveal">The problem</p>
+    <h2 class="reveal">Data everywhere. Clarity nowhere.</h2>
+    <p class="section-sub reveal">Every tool your business runs on lives in a separate tab. Nobody sees the full picture until something already went wrong.</p>
+    <div class="problem-grid">
+      <div class="problem-card reveal">
+        <h3>No Single Source of Truth</h3>
+        <p>HubSpot for pipeline. Stripe for revenue. Apollo for outreach. Sheets for everything else. Monday morning is a manual reporting session that takes an hour and produces a deck that's already out of date.</p>
+      </div>
+      <div class="problem-card reveal">
+        <h3>Data Without Direction</h3>
+        <p>You have metrics but no signal. Numbers change week over week and nobody knows why. Nothing gets flagged until it's already a problem. The alert you needed arrived three days late in an email thread.</p>
+      </div>
+      <div class="problem-card reveal">
+        <h3>Dashboards Nobody Checks</h3>
+        <p>The last dashboard someone built took three weeks and went stale in two. The data sources changed. The metrics were wrong. Your team stopped looking at it. Now it's a Notion page with a broken embed.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Deliverables -->
+<section id="deliverables">
+  <div class="container">
+    <p class="section-tag reveal">What you get</p>
+    <h2 class="reveal">A live dashboard built on your data</h2>
+    <p class="section-sub reveal">Every component is built around your actual sources, your actual KPIs, and the decisions your team needs to make faster.</p>
+    <div class="deliverables-grid">
+      <div class="deliverable reveal">
+        <div class="deliverable-num">01</div>
+        <div>
+          <h3>Next.js Dashboard</h3>
+          <p>Fast, deployable web app with real-time KPI widgets, sparkline trends, and period-over-period comparisons. Your data, your layout.</p>
+        </div>
+      </div>
+      <div class="deliverable reveal">
+        <div class="deliverable-num">02</div>
+        <div>
+          <h3>Data Source Connections</h3>
+          <p>HubSpot, Stripe, Apollo, Airtable, Google Sheets, or any REST API. Each connection includes field mapping and refresh logic.</p>
+        </div>
+      </div>
+      <div class="deliverable reveal">
+        <div class="deliverable-num">03</div>
+        <div>
+          <h3>AI Insights Panel</h3>
+          <p>Claude reads your live KPI data and surfaces what changed, why it matters, and what to do about it — in plain English, not charts.</p>
+        </div>
+      </div>
+      <div class="deliverable reveal">
+        <div class="deliverable-num">04</div>
+        <div>
+          <h3>Slack & Email Alerts</h3>
+          <p>Threshold-based alerts fire when a metric drops below a set value. Pipeline fell under $50K? You get a Slack message before the Monday meeting.</p>
+        </div>
+      </div>
+      <div class="deliverable reveal">
+        <div class="deliverable-num">05</div>
+        <div>
+          <h3>Role-Based Access</h3>
+          <p>Sales sees pipeline. CS sees activation and churn. Execs see everything. Simple auth — no enterprise SSO required unless you need it.</p>
+        </div>
+      </div>
+      <div class="deliverable reveal">
+        <div class="deliverable-num">06</div>
+        <div>
+          <h3>Netlify Deployment + Docs</h3>
+          <p>Deployed and live on day 1. Full documentation: data source map, KPI logic, alert thresholds, and how to add a new widget without touching the codebase.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Process -->
+<section class="section--alt">
+  <div class="container">
+    <p class="section-tag reveal">How it works</p>
+    <h2 class="reveal">Five steps from scattered tabs<br>to one dashboard</h2>
+    <div class="process-steps">
+      <div class="process-step reveal">
+        <div class="step-num">01</div>
+        <div class="step-content">
+          <h3>Data Audit & Dashboard Architecture</h3>
+          <p>I map your data sources, confirm API access, define KPI logic, and design the widget layout. Dashboard architecture documented and approved before any build starts — no surprises mid-build.</p>
+        </div>
+      </div>
+      <div class="process-step reveal">
+        <div class="step-num">02</div>
+        <div class="step-content">
+          <h3>Next.js Build & Data Connections</h3>
+          <p>Dashboard scaffolded. API integrations built for each source. Data flows into KPI widgets with correct field mapping, aggregation, and refresh interval. You see live data by day 5.</p>
+        </div>
+      </div>
+      <div class="process-step reveal">
+        <div class="step-num">03</div>
+        <div class="step-content">
+          <h3>AI Insights Panel</h3>
+          <p>Claude integration reads your live data and surfaces anomalies, trends, and recommended actions on a schedule. Insights appear inside the dashboard and optionally in a daily Slack digest.</p>
+        </div>
+      </div>
+      <div class="process-step reveal">
+        <div class="step-num">04</div>
+        <div class="step-content">
+          <h3>Alerts & Automation</h3>
+          <p>Threshold-based Slack and email alerts configured and tested end-to-end. Each alert includes the metric, the threshold crossed, the current value, and a direct link to the source system.</p>
+        </div>
+      </div>
+      <div class="process-step reveal">
+        <div class="step-num">05</div>
+        <div class="step-content">
+          <h3>Deployment & Handoff</h3>
+          <p>Deployed to Netlify with environment variables secured. Role-based access configured. Full documentation delivered: data source map, KPI logic, alert thresholds, and how to add a widget.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Pricing -->
+<section id="pricing">
+  <div class="container">
+    <p class="section-tag reveal">Pricing</p>
+    <h2 class="reveal">Three tiers. One dashboard.</h2>
+    <p class="section-sub reveal">Start with what you need. Add data sources, AI insights, and client views as you scale.</p>
+    <div class="pricing-grid">
+
+      <!-- Starter -->
+      <div class="pricing-card reveal">
+        <div class="pricing-tier">Starter</div>
+        <div class="pricing-name">Dashboard Foundation</div>
+        <div class="pricing-desc">Next.js dashboard, 1 data source, 5 KPI widgets, Netlify deployment</div>
+        <div class="pricing-price">$2,500</div>
+        <div class="pricing-delivery">Delivered in 10 days · 1 revision</div>
+        <ul class="pricing-features">
+          <li>Next.js dashboard, production-ready</li>
+          <li>1 data source connected (HubSpot, Stripe, Airtable, or Sheets)</li>
+          <li>5 KPI widgets with sparkline trends</li>
+          <li>Netlify deployment with environment variable setup</li>
+          <li>Action plan + documentation</li>
+        </ul>
+        <a href="https://www.upwork.com/services/product/development-it-a-real-time-ai-command-center-for-your-business-operations" class="pricing-btn pricing-btn--outline" target="_blank" rel="noopener">Get Started</a>
+      </div>
+
+      <!-- Standard (featured) -->
+      <div class="pricing-card pricing-card--featured reveal">
+        <div class="popular-badge">Most Popular</div>
+        <div class="pricing-tier">Standard</div>
+        <div class="pricing-name">Full Command Center</div>
+        <div class="pricing-desc">3 data sources, AI insights panel, role-based access, automated alerts</div>
+        <div class="pricing-price">$5,500</div>
+        <div class="pricing-delivery">Delivered in 16 days · 2 revisions</div>
+        <ul class="pricing-features">
+          <li>Everything in Starter</li>
+          <li>3 data sources connected</li>
+          <li>AI insights panel (anomalies, trends, actions)</li>
+          <li>Role-based access for up to 3 user types</li>
+          <li>Slack + email threshold alerts</li>
+          <li>Unlimited KPI widgets</li>
+          <li>Full documentation + handoff notes</li>
+        </ul>
+        <a href="https://www.upwork.com/services/product/development-it-a-real-time-ai-command-center-for-your-business-operations" class="pricing-btn pricing-btn--primary" target="_blank" rel="noopener">Get Started</a>
+      </div>
+
+      <!-- Advanced -->
+      <div class="pricing-card reveal">
+        <div class="pricing-tier">Advanced</div>
+        <div class="pricing-name">Enterprise Ops Hub</div>
+        <div class="pricing-desc">Multi-tenant, embedded AI agents, custom integrations, 60-day support</div>
+        <div class="pricing-price">$9,500</div>
+        <div class="pricing-delivery">Delivered in 22 days · 3 revisions</div>
+        <ul class="pricing-features">
+          <li>Everything in Standard</li>
+          <li>Unlimited data sources</li>
+          <li>Multi-tenant (separate views per client/team)</li>
+          <li>Embedded AI agents with one-click actions</li>
+          <li>Custom integrations for proprietary APIs</li>
+          <li>60-day post-launch support</li>
+        </ul>
+        <a href="https://www.upwork.com/services/product/development-it-a-real-time-ai-command-center-for-your-business-operations" class="pricing-btn pricing-btn--outline" target="_blank" rel="noopener">Get Started</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- Add-ons -->
+<section class="section--alt">
+  <div class="container">
+    <p class="section-tag reveal">Add-ons</p>
+    <h2 class="reveal">Extend your dashboard</h2>
+    <p class="section-sub reveal">Layer in exactly what you need. Each add-on is scoped, priced, and delivered as part of the same build.</p>
+    <div class="addons-grid">
+      <div class="addon-card reveal">
+        <div class="addon-header">
+          <div class="addon-name">AI Insights Panel</div>
+          <div class="addon-price">+$600</div>
+        </div>
+        <p class="addon-desc">Claude analyzes your KPI data and flags anomalies, trends, and recommended actions in plain English. Runs on a schedule and optionally delivers a daily Slack digest.</p>
+      </div>
+      <div class="addon-card reveal">
+        <div class="addon-header">
+          <div class="addon-name">Slack & Email Alert Automation</div>
+          <div class="addon-price">+$400</div>
+        </div>
+        <p class="addon-desc">Threshold-based alerts fire when a KPI crosses a set value. Each alert includes the metric, the current value, and a direct link to the source system.</p>
+      </div>
+      <div class="addon-card reveal">
+        <div class="addon-header">
+          <div class="addon-name">Client-Facing Dashboard</div>
+          <div class="addon-price">+$500</div>
+        </div>
+        <p class="addon-desc">White-labeled read-only view for clients or external stakeholders. They see their data only. Useful for agencies and consultants managing external accounts.</p>
+      </div>
+      <div class="addon-card reveal">
+        <div class="addon-header">
+          <div class="addon-name">Additional Data Source</div>
+          <div class="addon-price">+$500</div>
+        </div>
+        <p class="addon-desc">One additional connection beyond your tier limit: HubSpot, Stripe, Apollo, Airtable, Sheets, or any REST API. Includes connection, field mapping, and widget updates.</p>
+      </div>
+      <div class="addon-card reveal">
+        <div class="addon-header">
+          <div class="addon-name">Mobile-Responsive Optimization</div>
+          <div class="addon-price">+$300</div>
+        </div>
+        <p class="addon-desc">Dashboard tested and optimized for iOS and Android. Touch-friendly KPI cards, responsive grid layout, and mobile-formatted alerts. Check your metrics on the go.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section>
+  <div class="container">
+    <p class="section-tag reveal">FAQ</p>
+    <h2 class="reveal">Common questions</h2>
+    <div class="faq-list">
+      <div class="faq-item reveal">
+        <button class="faq-q">What data sources can you connect?</button>
+        <div class="faq-a">HubSpot, Stripe, Apollo, Airtable, Google Sheets, and any REST API with authentication. If you are using a platform that exposes an API, I can connect it. Proprietary or legacy systems with no API require a data export step — I document that at kickoff and we decide together whether to include it.</div>
+      </div>
+      <div class="faq-item reveal">
+        <button class="faq-q">Does my team need to know how to code to use it?</button>
+        <div class="faq-a">No. The dashboard is a read-only web application. Your team logs in, sees the data, and receives alerts. No code knowledge required. If you want to update KPI thresholds yourself without touching code, I build that as a settings panel in the Standard and Advanced tiers.</div>
+      </div>
+      <div class="faq-item reveal">
+        <button class="faq-q">Can this replace Looker, Metabase, or Datadog?</button>
+        <div class="faq-a">For most small and mid-size teams, yes. The difference is that I build exactly what you need — not a 200-feature platform you use 5 percent of. If your reporting requirements are complex enough to need a dedicated BI tool, I will tell you at scoping rather than build the wrong thing.</div>
+      </div>
+      <div class="faq-item reveal">
+        <button class="faq-q">What does "role-based access" mean in practice?</button>
+        <div class="faq-a">Different users see different parts of the dashboard. Your exec sees revenue and pipeline. Your CS team sees activation and churn rates. Clients see only their own metrics. Built with simple login auth — no enterprise SSO required unless you need it.</div>
+      </div>
+      <div class="faq-item reveal">
+        <button class="faq-q">Can you add AI agents that take actions, not just surface insights?</button>
+        <div class="faq-a">Yes. The Custom AI Agent service pairs well with this dashboard. The dashboard shows what is happening; the agent responds to it. Common pattern: an agent fires when a KPI triggers an alert and runs a pre-defined action — send a follow-up email, update a CRM record, or trigger a Make.com workflow.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="container">
+    <h2 class="reveal">Stop building Monday reports.<br>Start reading Monday insights.</h2>
+    <p class="reveal">Everything your business tracks, in one place, with AI that tells you what to act on. Deployed in 10–22 days.</p>
+    <a href="https://www.upwork.com/services/product/development-it-a-real-time-ai-command-center-for-your-business-operations" class="btn-primary reveal" target="_blank" rel="noopener">View on Upwork →</a>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="footer-logo">Resultant<span>AI</span></div>
+  <p>Built by <a href="https://resultantai.com">ResultantAI</a> · <a href="https://resultantai.com/aeo-geo-audit/">AEO/GEO Audit</a> · <a href="https://resultantai.com/voice-ai/">Voice AI</a></p>
+</footer>
+
+<!-- Apollo tracker -->
+<script>
+  !function(t){if(!window[t]){var e=window[t]=function(){e.process?e.process.apply(e,arguments):e.queue.push(arguments)};e.queue=[];var n=document.createElement("script");n.async=!0,n.src="https://assets.apollo.io/micro/website-tracker/tracker.iife.js?nocache="+new Date().getDate();var o=document.getElementsByTagName("script")[0];o.parentNode.insertBefore(n,o),e("init",{appId:"679c52d7b1fed801981d9adb"})}else window[t]}("trackingFunc");
+</script>
+
+<!-- Reveal on scroll -->
+<script>
+  const ro = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); ro.unobserve(e.target); } });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => ro.observe(el));
+
+  document.querySelectorAll('.faq-q').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const answer = btn.nextElementSibling;
+      const isOpen = btn.classList.contains('open');
+      document.querySelectorAll('.faq-q').forEach(b => { b.classList.remove('open'); b.nextElementSibling.classList.remove('open'); });
+      if (!isOpen) { btn.classList.add('open'); answer.classList.add('open'); }
+    });
+  });
+</script>
+
+</body>
+</html>
