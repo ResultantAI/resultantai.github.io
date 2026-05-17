@@ -1050,3 +1050,44 @@ footer {
     right: 20px;
   }
 }
+
+/* Utility classes extracted from repeated inline styles */
+.u-stat-number {
+  font-size: 2.5rem;
+  font-weight: 900;
+  color: var(--accent);
+  margin-bottom: var(--space-xs);
+}
+.u-stat-label {
+  font-weight: 600;
+  color: var(--accent);
+  font-size: 0.875rem;
+}
+.u-stat-meta {
+  color: var(--text-muted);
+  font-size: 0.875rem;
+  margin-bottom: var(--space-sm);
+}
+.u-body-lg {
+  font-size: 1.125rem;
+  line-height: 1.8;
+  color: var(--text-secondary);
+  margin-bottom: var(--space-sm);
+}
+.u-callout {
+  background: var(--accent-subtle);
+  border-left: 4px solid var(--accent);
+  padding: var(--space-sm);
+  border-radius: var(--radius-sm);
+  margin: var(--space-md) 0;
+}
+.u-card-glow {
+  border: 2px solid var(--border-glow);
+}
+.u-spacer {
+  margin: var(--space-md) 0;
+}
+.u-section-alt {
+  background: var(--bg-secondary);
+  padding: var(--space-xl) 0;
+}
