@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HubSpot CRM Cleanup & Automation | ResultantAI</title>
+  <meta name="description" content="Fixed-price HubSpot CRM cleanup, deduplication, pipeline rebuild, and automation setup. 5 to 14 days. Starts at $1,200.">
+
+  <link rel="canonical" href="https://resultantai.com/hubspot-crm/">
+
+  <meta property="og:title" content="HubSpot CRM Cleanup & Automation | ResultantAI">
+  <meta property="og:description" content="Your HubSpot is lying to your team. We fix it in 5 to 14 days. Deduplication, pipeline rebuild, workflow automation, and CRM migration.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://resultantai.com/hubspot-crm/">
+  <meta property="og:site_name" content="ResultantAI">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="HubSpot CRM Cleanup & Automation | ResultantAI">
+  <meta name="twitter:description" content="Fixed-price HubSpot cleanup and automation. 20,000 contacts deduplicated, 5 workflows built, pipelines rebuilt. $2,800. 10 days.">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "HubSpot CRM Cleanup, Deduplication & Automation",
+    "serviceType": "CRM Implementation",
+    "provider": {
+      "@type": "Organization",
+      "name": "ResultantAI",
+      "url": "https://resultantai.com"
+    },
+    "description": "Fixed-price HubSpot CRM cleanup, contact deduplication, pipeline rebuild, and workflow automation. 5 to 14 days depending on database size.",
+    "areaServed": "United States",
+    "offers": [
+      {
+        "@type": "Offer",
+        "name": "Contact Cleanup Sprint",
+        "price": "1200",
+        "priceCurrency": "USD",
+        "description": "Deduplication up to 5,000 contacts, property cleanup, 1 pipeline restructure, 1 automated workflow. 5 days."
+      },
+      {
+        "@type": "Offer",
+        "name": "Full CRM Rebuild",
+        "price": "2800",
+        "priceCurrency": "USD",
+        "description": "Up to 20,000 contacts, 3 pipelines rebuilt, 5 workflows, AI lead scoring, custom dashboard. 10 days."
+      },
+      {
+        "@type": "Offer",
+        "name": "CRM Migration + Full Build",
+        "price": "5500",
+        "priceCurrency": "USD",
+        "description": "Full migration from any CRM, up to 50,000 contacts, unlimited pipelines, 10 workflows, team training. 14 days."
+      }
+    ]
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Will you delete my contact data?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. Every deduplication decision is reviewed before merging. I document every change and work from a clear audit trail. Nothing is deleted without explicit written approval from you."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "My team has ignored HubSpot for 18 months. Is it too far gone?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Probably not. The worst I have inherited was four years of unmanaged data from a company that imported every LinkedIn connection they ever had. We fixed it in 12 days. The key is agreeing on what data actually matters before we start."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Do you work directly in our HubSpot account?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. You add me as an admin user for the project duration. I do not need your password and you can remove access immediately after delivery."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can you migrate us from Salesforce?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. The Advanced tier is built for this. I handle field mapping, custom object migration, historical activity translation, and full validation before anything goes live."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "When does the delivery clock start?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "When you complete the intake requirements, not when you purchase. Most clients finish intake within 24 hours and are live well inside the delivery window."
+        }
+      }
+    ]
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://resultantai.com/"},
+      {"@type": "ListItem", "position": 2, "name": "HubSpot CRM Cleanup", "item": "https://resultantai.com/hubspot-crm/"}
+    ]
+  }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="/favicon.png">
+
+  <script>function initApollo(){var n=Math.random().toString(36).substring(7),o=document.createElement("script");o.src="https://assets.apollo.io/micro/website-tracker/tracker.iife.js?nocache="+n,o.async=!0,o.defer=!0,o.onload=function(){window.trackingFunctions.onLoad({appId:"679c52d7b1fed801981d9adb"})},document.head.appendChild(o)}initApollo();</script>
+
+  <style>
+    :root {
+      --bg-primary: #0a0f1a;
+      --bg-secondary: #0f172a;
+      --bg-card: #151d2e;
+      --bg-card-hover: #1a2540;
+      --border: #1e293b;
+      --border-light: #334155;
+      --text-primary: #ffffff;
+      --text-secondary: #94a3b8;
+      --text-muted: #64748b;
+      --accent: #10b981;
+      --accent-light: #34d399;
+      --accent-subtle: rgba(16, 185, 129, 0.08);
+      --accent-glow: rgba(16, 185, 129, 0.4);
+      --blue: #3b82f6;
+      --blue-subtle: rgba(59, 130, 246, 0.1);
+      --purple: #8b5cf6;
+      --orange: #f59e0b;
+      --red: #ef4444;
+      --gradient-accent: linear-gradient(135deg, #10b981 0%, #34d399 100%);
+      --gradient-hero: radial-gradient(ellipse 80% 50% at 50% -20%, rgba(16, 185, 129, 0.15), transparent);
+      --font-sans: 'Inter', -apple-system, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 16px;
+      --radius-xl: 24px;
+      --radius-full: 9999px;
+      --shadow-card: 0 4px 24px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.03);
+      --transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+    body { font-family: var(--font-sans); background: var(--bg-primary); color: var(--text-primary); line-height: 1.6; overflow-x: hidden; }
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+
+    .bg-grid { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background-image: linear-gradient(rgba(16, 185, 129, 0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(16, 185, 129, 0.03) 1px, transparent 1px); background-size: 60px 60px; pointer-events: none; z-index: 0; }
+    .bg-gradient { position: fixed; top: 0; left: 0; right: 0; height: 100vh; background: var(--gradient-hero); pointer-events: none; z-index: 0; }
+
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+    .container--narrow { max-width: 860px; margin: 0 auto; padding: 0 24px; }
+    .section { padding: 120px 0; position: relative; z-index: 1; }
+    .section--tight { padding: 80px 0; position: relative; z-index: 1; }
+    .section--alt { background: var(--bg-secondary); }
+
+    /* NAV */
+    .nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; padding: 20px 0; transition: all var(--transition); }
+    .nav.scrolled { padding: 12px 0; background: rgba(10,15,26,0.9); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); }
+    .nav__inner { display: flex; align-items: center; justify-content: space-between; max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+    .nav__logo { font-size: 22px; font-weight: 800; letter-spacing: -0.03em; color: var(--text-primary); }
+    .nav__logo span { color: var(--accent); }
+    .nav__links { display: flex; align-items: center; gap: 8px; }
+    .nav__link { padding: 8px 14px; font-size: 14px; font-weight: 500; color: var(--text-secondary); border-radius: var(--radius-md); transition: all var(--transition); }
+    .nav__link:hover { color: var(--text-primary); background: rgba(255,255,255,0.05); }
+    .nav__cta { padding: 10px 20px; font-size: 14px; font-weight: 600; background: var(--accent); color: #000; border-radius: var(--radius-md); transition: all var(--transition); }
+    .nav__cta:hover { background: var(--accent-light); transform: translateY(-1px); }
+    @media (max-width: 768px) { .nav__links .nav__link { display: none; } }
+
+    /* HERO */
+    .hero { min-height: 100vh; display: flex; align-items: center; padding: 140px 0 100px; position: relative; z-index: 1; }
+    .hero__inner { max-width: 900px; }
+    .hero__badge { display: inline-flex; align-items: center; gap: 8px; background: var(--accent-subtle); border: 1px solid rgba(16,185,129,0.2); color: var(--accent); font-size: 13px; font-weight: 600; padding: 8px 16px; border-radius: var(--radius-full); margin-bottom: 32px; font-family: var(--font-mono); }
+    .hero__badge-dot { width: 6px; height: 6px; background: var(--accent); border-radius: 50%; animation: pulse 2s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1}50%{opacity:0.4} }
+    .hero__title { font-size: clamp(38px, 6vw, 72px); font-weight: 800; letter-spacing: -0.04em; line-height: 1.05; margin-bottom: 28px; }
+    .hero__title .accent { background: var(--gradient-accent); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .hero__subtitle { font-size: 20px; color: var(--text-secondary); line-height: 1.7; max-width: 680px; margin-bottom: 48px; }
+    .hero__buttons { display: flex; gap: 16px; flex-wrap: wrap; }
+    .hero__stat-row { display: flex; gap: 40px; margin-top: 64px; flex-wrap: wrap; }
+    .hero__stat { display: flex; flex-direction: column; gap: 4px; }
+    .hero__stat-num { font-family: var(--font-mono); font-size: 28px; font-weight: 800; color: var(--accent); }
+    .hero__stat-label { font-size: 13px; color: var(--text-muted); }
+
+    /* BUTTONS */
+    .btn { display: inline-flex; align-items: center; gap: 8px; padding: 14px 28px; font-size: 15px; font-weight: 600; border-radius: var(--radius-md); transition: all var(--transition); cursor: pointer; border: none; text-decoration: none; }
+    .btn--primary { background: var(--accent); color: #000; }
+    .btn--primary:hover { background: var(--accent-light); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(16,185,129,0.3); }
+    .btn--ghost { background: transparent; color: var(--text-primary); border: 1px solid var(--border-light); }
+    .btn--ghost:hover { border-color: var(--accent); color: var(--accent); }
+    .btn__icon { width: 16px; height: 16px; }
+
+    /* SECTION TYPOGRAPHY */
+    .section-label { font-family: var(--font-mono); font-size: 12px; font-weight: 600; color: var(--accent); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 16px; }
+    .section-title { font-size: clamp(30px, 4vw, 48px); font-weight: 800; letter-spacing: -0.03em; line-height: 1.1; margin-bottom: 20px; }
+    .section-subtitle { font-size: 18px; color: var(--text-secondary); line-height: 1.7; max-width: 640px; }
+
+    /* PROBLEM CARDS */
+    .problem-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; margin-top: 64px; }
+    .problem-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-xl); padding: 32px; position: relative; overflow: hidden; }
+    .problem-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, #ef4444, #f59e0b); }
+    .problem-card__label { font-family: var(--font-mono); font-size: 11px; font-weight: 600; color: #ef4444; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 14px; }
+    .problem-card__title { font-size: 19px; font-weight: 700; margin-bottom: 12px; line-height: 1.3; }
+    .problem-card__desc { font-size: 14px; color: var(--text-secondary); line-height: 1.7; }
+
+    /* WHAT YOU GET / DELIVERABLES */
+    .deliverables { display: grid; gap: 2px; margin-top: 64px; background: var(--border); border-radius: var(--radius-xl); overflow: hidden; }
+    .deliverable { background: var(--bg-card); padding: 40px; display: grid; grid-template-columns: 80px 1fr; gap: 24px; align-items: start; transition: background var(--transition); }
+    .deliverable:hover { background: var(--bg-card-hover); }
+    .deliverable__number { font-family: var(--font-mono); font-size: 40px; font-weight: 800; background: var(--gradient-accent); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; line-height: 1; }
+    .deliverable__title { font-size: 19px; font-weight: 700; margin-bottom: 10px; }
+    .deliverable__desc { font-size: 15px; color: var(--text-secondary); line-height: 1.7; }
+    @media (max-width: 600px) { .deliverable { grid-template-columns: 1fr; gap: 12px; padding: 28px 24px; } }
+
+    /* PROCESS STEPS */
+    .steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2px; margin-top: 64px; background: var(--border); border-radius: var(--radius-xl); overflow: hidden; }
+    .step { background: var(--bg-card); padding: 32px 24px; position: relative; }
+    .step__phase { font-family: var(--font-mono); font-size: 11px; font-weight: 600; color: var(--accent); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 12px; }
+    .step__number { font-family: var(--font-mono); font-size: 44px; font-weight: 800; color: var(--border-light); line-height: 1; margin-bottom: 16px; }
+    .step__title { font-size: 17px; font-weight: 700; margin-bottom: 10px; }
+    .step__desc { font-size: 14px; color: var(--text-secondary); line-height: 1.6; }
+
+    /* PRICING */
+    .pricing-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 2px; margin-top: 64px; background: var(--border); border-radius: var(--radius-xl); overflow: hidden; }
+    @media (max-width: 900px) { .pricing-grid { grid-template-columns: 1fr; } }
+    .pricing-tier { background: var(--bg-card); padding: 40px 32px; position: relative; display: flex; flex-direction: column; }
+    .pricing-tier--featured { background: linear-gradient(160deg, #0f2a1f 0%, #151d2e 60%); border: 1px solid rgba(16,185,129,0.3); position: relative; z-index: 1; margin: -1px; }
+    .pricing-tier__badge { display: inline-block; background: var(--accent); color: #000; font-size: 11px; font-weight: 700; padding: 4px 12px; border-radius: var(--radius-full); letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 20px; font-family: var(--font-mono); }
+    .pricing-tier__name { font-size: 13px; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em; font-family: var(--font-mono); margin-bottom: 8px; }
+    .pricing-tier__title { font-size: 22px; font-weight: 800; margin-bottom: 8px; }
+    .pricing-tier__desc { font-size: 14px; color: var(--text-secondary); line-height: 1.6; margin-bottom: 24px; }
+    .pricing-tier__price { font-family: var(--font-mono); font-size: 48px; font-weight: 900; line-height: 1; margin-bottom: 4px; }
+    .pricing-tier--featured .pricing-tier__price { background: var(--gradient-accent); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .pricing-tier__timeline { font-size: 13px; color: var(--text-muted); font-family: var(--font-mono); margin-bottom: 28px; }
+    .pricing-tier__divider { height: 1px; background: var(--border); margin-bottom: 24px; }
+    .pricing-tier__features { display: grid; gap: 12px; flex: 1; margin-bottom: 32px; }
+    .pricing-tier__feature { display: flex; align-items: flex-start; gap: 10px; font-size: 14px; color: var(--text-secondary); line-height: 1.5; }
+    .pricing-tier__check { color: var(--accent); flex-shrink: 0; margin-top: 1px; font-size: 14px; }
+    .pricing-tier__cta { display: block; text-align: center; padding: 13px 24px; font-size: 14px; font-weight: 600; border-radius: var(--radius-md); transition: all var(--transition); border: 1px solid var(--border-light); color: var(--text-secondary); }
+    .pricing-tier__cta:hover { border-color: var(--accent); color: var(--accent); }
+    .pricing-tier--featured .pricing-tier__cta { background: var(--accent); color: #000; border-color: transparent; }
+    .pricing-tier--featured .pricing-tier__cta:hover { background: var(--accent-light); transform: translateY(-1px); }
+
+    /* ADDON */
+    .addon-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 16px; margin-top: 32px; }
+    .addon-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 24px; display: flex; justify-content: space-between; align-items: flex-start; gap: 24px; }
+    .addon-card__label { font-family: var(--font-mono); font-size: 10px; font-weight: 600; color: var(--purple); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 6px; }
+    .addon-card__title { font-size: 15px; font-weight: 700; margin-bottom: 6px; }
+    .addon-card__desc { font-size: 13px; color: var(--text-secondary); line-height: 1.6; }
+    .addon-card__price { font-family: var(--font-mono); font-size: 20px; font-weight: 800; white-space: nowrap; color: var(--text-primary); }
+
+    /* FAQ */
+    .faq-list { margin-top: 64px; display: grid; gap: 12px; }
+    .faq-item { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; }
+    .faq-q { padding: 20px 24px; font-size: 16px; font-weight: 600; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 16px; transition: color var(--transition); }
+    .faq-q:hover { color: var(--accent); }
+    .faq-q__icon { font-size: 20px; flex-shrink: 0; transition: transform var(--transition); color: var(--text-muted); }
+    .faq-a { padding: 0 24px; max-height: 0; overflow: hidden; transition: max-height 0.35s ease, padding 0.35s ease; }
+    .faq-a p { font-size: 15px; color: var(--text-secondary); line-height: 1.75; padding-bottom: 20px; }
+    .faq-item.open .faq-a { max-height: 400px; }
+    .faq-item.open .faq-q__icon { transform: rotate(45deg); }
+
+    /* CTA */
+    .cta-inner { background: linear-gradient(135deg, rgba(16,185,129,0.1), rgba(16,185,129,0.03)); border: 1px solid rgba(16,185,129,0.2); border-radius: var(--radius-xl); padding: 80px 48px; text-align: center; }
+    .cta-inner__title { font-size: clamp(32px, 5vw, 52px); font-weight: 800; letter-spacing: -0.03em; margin-bottom: 16px; }
+    .cta-inner__sub { font-size: 18px; color: var(--text-secondary); margin-bottom: 40px; max-width: 560px; margin-left: auto; margin-right: auto; }
+    .cta-inner__btns { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+
+    /* FOOTER */
+    .footer { border-top: 1px solid var(--border); padding: 64px 0 40px; position: relative; z-index: 1; }
+    .footer__grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px; margin-bottom: 48px; }
+    @media (max-width: 768px) { .footer__grid { grid-template-columns: 1fr 1fr; } }
+    .footer__brand-logo { font-size: 22px; font-weight: 800; letter-spacing: -0.03em; margin-bottom: 16px; }
+    .footer__brand-logo span { background: var(--gradient-accent); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .footer__tagline { font-size: 14px; color: var(--text-muted); line-height: 1.6; }
+    .footer__column h4 { font-size: 13px; font-weight: 700; color: var(--text-primary); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 16px; }
+    .footer__links { display: flex; flex-direction: column; gap: 10px; }
+    .footer__link { font-size: 14px; color: var(--text-muted); transition: color var(--transition); }
+    .footer__link:hover { color: var(--accent); }
+    .footer__bottom { border-top: 1px solid var(--border); padding-top: 32px; font-size: 13px; color: var(--text-muted); text-align: center; }
+
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+  </style>
+</head>
+<body>
+
+<div class="bg-grid"></div>
+<div class="bg-gradient"></div>
+
+<!-- NAV -->
+<nav class="nav" id="nav">
+  <div class="nav__inner">
+    <a href="/" class="nav__logo">Resultant<span>AI</span></a>
+    <div class="nav__links">
+      <a href="/services/" class="nav__link">Services</a>
+      <a href="/voice-ai/" class="nav__link">Voice AI</a>
+      <a href="/work/" class="nav__link">Case Studies</a>
+      <a href="/faq/" class="nav__link">FAQ</a>
+      <a href="https://meetings.hubspot.com/chris4642" class="nav__cta" target="_blank" rel="noopener">Book a Call</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="container">
+    <div class="hero__inner">
+      <div class="hero__badge">
+        <span class="hero__badge-dot"></span>
+        HubSpot CRM Cleanup &amp; Automation
+      </div>
+      <h1 class="hero__title">
+        Your HubSpot is lying<br>
+        <span class="accent">to your entire team.</span>
+      </h1>
+      <p class="hero__subtitle">Duplicate contacts. Broken pipelines. Deals stuck in the wrong stage. A call log nobody trusts. Your reps avoid it because it gives them bad data, and every week that costs you deals you never knew you lost.</p>
+      <div class="hero__buttons">
+        <a href="https://www.upwork.com/services/product/sales-marketing-a-hubspot-crm-cleanup-deduplication-automation-build" class="btn btn--primary" target="_blank" rel="noopener">
+          View on Upwork
+          <svg class="btn__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+        <a href="https://meetings.hubspot.com/chris4642" class="btn btn--ghost" target="_blank" rel="noopener">
+          Book a 20-Min Call
+        </a>
+      </div>
+      <div class="hero__stat-row">
+        <div class="hero__stat">
+          <span class="hero__stat-num">5 days</span>
+          <span class="hero__stat-label">fastest turnaround</span>
+        </div>
+        <div class="hero__stat">
+          <span class="hero__stat-num">50K</span>
+          <span class="hero__stat-label">contacts handled (Advanced)</span>
+        </div>
+        <div class="hero__stat">
+          <span class="hero__stat-num">$1,200</span>
+          <span class="hero__stat-label">starting price</span>
+        </div>
+        <div class="hero__stat">
+          <span class="hero__stat-num">0</span>
+          <span class="hero__stat-label">records deleted without approval</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- THE PROBLEM -->
+<section class="section--tight section--alt">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-label">The Problem</div>
+      <h2 class="section-title">A CRM your team doesn't trust is worse than no CRM at all</h2>
+    </div>
+    <div class="problem-grid">
+      <div class="problem-card reveal">
+        <div class="problem-card__label">Data Rot</div>
+        <h3 class="problem-card__title">The same contact is in there four times with different email addresses.</h3>
+        <p class="problem-card__desc">Duplicate contacts create split activity histories, competing deal records, and sequences that fire twice. Your data is actively working against your team.</p>
+      </div>
+      <div class="problem-card reveal">
+        <div class="problem-card__label">Dead Pipelines</div>
+        <h3 class="problem-card__title">Deals haven't moved in 60 days but your pipeline shows $400K.</h3>
+        <p class="problem-card__desc">Stage definitions nobody agreed on, no required fields, no rotting alerts. Your pipeline is a guess dressed up as a number. Leadership reports off it anyway.</p>
+      </div>
+      <div class="problem-card reveal">
+        <div class="problem-card__label">Manual Overhead</div>
+        <h3 class="problem-card__title">Your team spends 45 minutes a day on CRM admin that should be automatic.</h3>
+        <p class="problem-card__desc">Logging calls manually. Moving deals by hand. Copy-pasting follow-up emails. Every minute on CRM admin is a minute not spent selling. All of it can be automated.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHAT YOU GET -->
+<section id="deliverables" class="section">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-label">What You Get</div>
+      <h2 class="section-title">A CRM your team will actually use</h2>
+      <p class="section-subtitle">Not a recommendations doc. Not a list of things to fix later. A clean, automated HubSpot handed back to you ready to run.</p>
+    </div>
+    <div class="deliverables reveal">
+      <div class="deliverable">
+        <div class="deliverable__number">01</div>
+        <div>
+          <div class="deliverable__title">Smart Deduplication</div>
+          <p class="deliverable__desc">Every duplicate is identified and reviewed before merging. I use Claude AI to flag merge conflicts that need human judgment. Nothing is deleted without your explicit approval. You get a full audit log of every decision.</p>
+        </div>
+      </div>
+      <div class="deliverable">
+        <div class="deliverable__number">02</div>
+        <div>
+          <div class="deliverable__title">Pipeline Rebuild</div>
+          <p class="deliverable__desc">Pipelines rebuilt to match how you actually sell, not the default HubSpot template. Stage definitions, required fields, deal age alerts, and rotting deal notifications configured to your process. Up to 3 pipelines on Standard, unlimited on Advanced.</p>
+        </div>
+      </div>
+      <div class="deliverable">
+        <div class="deliverable__number">03</div>
+        <div>
+          <div class="deliverable__title">Workflow Automation</div>
+          <p class="deliverable__desc">The tasks your team does manually, automated. Lead assignment, call logging, email follow-up sequences, deal stage triggers, Slack alerts for hot leads. 1 workflow on Starter, 5 on Standard, 10 on Advanced.</p>
+        </div>
+      </div>
+      <div class="deliverable">
+        <div class="deliverable__number">04</div>
+        <div>
+          <div class="deliverable__title">AI Lead Scoring (Standard+)</div>
+          <p class="deliverable__desc">HubSpot AI lead scoring configured using your existing contact and deal data. Scores update automatically as contacts engage. Your reps see who to call next without guessing.</p>
+        </div>
+      </div>
+      <div class="deliverable">
+        <div class="deliverable__number">05</div>
+        <div>
+          <div class="deliverable__title">Loom Walkthrough + Documentation</div>
+          <p class="deliverable__desc">Full Loom recording of every change made to your HubSpot, plus a written SOP your team can follow without calling me. Support window starts on delivery day. Nothing handed off and abandoned.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section class="section--tight section--alt">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-label">How It Works</div>
+      <h2 class="section-title">5 steps. No surprises.</h2>
+    </div>
+    <div class="steps reveal">
+      <div class="step">
+        <div class="step__phase">Step 01</div>
+        <div class="step__number">01</div>
+        <div class="step__title">CRM Audit + Kickoff</div>
+        <p class="step__desc">30-minute call. We map your database, pipelines, and workflows. You approve the plan before anything is touched.</p>
+      </div>
+      <div class="step">
+        <div class="step__phase">Step 02</div>
+        <div class="step__number">02</div>
+        <div class="step__title">Dedup + Data Cleanup</div>
+        <p class="step__desc">Contacts deduplicated using smart merge logic. Properties standardized. Nothing deleted without your review.</p>
+      </div>
+      <div class="step">
+        <div class="step__phase">Step 03</div>
+        <div class="step__number">03</div>
+        <div class="step__title">Pipeline + Workflow Build</div>
+        <p class="step__desc">Pipelines rebuilt to your process. Workflows built for every task your team does manually today.</p>
+      </div>
+      <div class="step">
+        <div class="step__phase">Step 04</div>
+        <div class="step__number">04</div>
+        <div class="step__title">Integration + Testing</div>
+        <p class="step__desc">Connected to Slack, Gmail, Google Calendar, and any other tools in scope. Every workflow tested end-to-end.</p>
+      </div>
+      <div class="step">
+        <div class="step__phase">Step 05</div>
+        <div class="step__number">05</div>
+        <div class="step__title">Loom Handoff</div>
+        <p class="step__desc">Full walkthrough recording. Written SOP. Support window starts on delivery day. Done.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section id="pricing" class="section">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-label">Pricing</div>
+      <h2 class="section-title">Three fixed-price tiers. No hourly billing.</h2>
+      <p class="section-subtitle">50% at kickoff. 50% at delivery. No surprises.</p>
+    </div>
+    <div class="pricing-grid reveal">
+
+      <!-- STARTER -->
+      <div class="pricing-tier">
+        <div class="pricing-tier__name">Starter</div>
+        <div class="pricing-tier__title">Contact Cleanup Sprint</div>
+        <div class="pricing-tier__desc">Best for small databases under 5,000 contacts with obvious duplicate and property issues.</div>
+        <div class="pricing-tier__price">$1,200</div>
+        <div class="pricing-tier__timeline">5 business days</div>
+        <div class="pricing-tier__divider"></div>
+        <div class="pricing-tier__features">
+          <div class="pricing-tier__feature"><span class="pricing-tier__check">&#10003;</span> Up to 5,000 contacts deduplicated</div>
+          <div class="pricing-tier__feature"><span class="pricing-tier__check">&#10003;</span> Property cleanup + standardization</div>
+          <div class="pricing-tier__feature"><span class="pricing-tier__check">&#10003;</span> 1 pipeline restructured</div>
+          <div class="pricing-tier__feature"><span class="pricing-tier__check">&#10003;</span> 1 automated workflow built</div>
+          <div class="pricing-tier__feature"><span class="pricing-tier__check">&#10003;</span> Loom walkthrough + documentation</div>
+          <div class="pricing-tier__feature"><span class="pricing-tier__check">&#10003;</span> 7-day support window</div>
+        </div>
+        <a href="https://www.upwork.com/services/product/sales-marketing-a-hubspot-crm-cleanup-deduplication-automation-build" class="pricing-tier__cta" target="_blank" rel="noopener">Get Started on Upwork</a>
+      </div>
+
+      <!-- STANDARD (FEATURED) -->
+      <div class="pricing-tier pricing-tier--featured">
+        <div class="pricing-tier__badge">Most Popular</div>
+        <div class="pricing-tier__name">Standard</div>
+        <div class="pricing-tier__title">Full CRM Rebuild</div>
+        <div class="pricing-tier__desc">Best for growing teams with 5K to 20K contacts who need a reliable system, not just a cleanup.</div>
+        <div class="pricing-tier__price">$2,800</div>
+        <div class="pricing-tier__timeline">10 business days</div>
+        <div class="pricing-tier__divider"></div>
+        <div class="pricing-tier__features">
+          <div class="pricing-tier__feature"><span class="pricing-tier__check">&#10003;</span> Up to 20,000 contacts deduplicated</div>
+          <div class="pricing-tier__feature"><span class="pricing-tier__check">&#10003;</span> 3 pipelines fully rebuilt</div>
+          <div class="pricing-tier__feature"><span class="pricing-tier__check">&#10003;</span> 5 automated workflows</div>
+          <div class="pricing-tier__feature"><span class="pricing-tier__check">&#10003;</span> Call + email logging automation</div>
+          <div class="pricing-tier__feature"><span class="pricing-tier__check">&#10003;</span> AI lead scoring configured</div>
+          <div class="pricing-tier__feature"><span class="pricing-tier__check">&#10003;</span> Custom reporting dashboard (5 reports)</div>
+          <div class="pricing-tier__feature"><span class="pricing-tier__check">&#10003;</span> Slack + Gmail + Calendar integration</div>
+          <div class="pricing-tier__feature"><span class="pricing-tier__check">&#10003;</span> Loom walkthrough + written SOP</div>
+          <div class="pricing-tier__feature"><span class="pricing-tier__check">&#10003;</span> 14-day support window</div>
+        </div>
+        <a href="https://www.upwork.com/services/product/sales-marketing-a-hubspot-crm-cleanup-deduplication-automation-build" class="pricing-tier__cta" target="_blank" rel="noopener">Get Started on Upwork</a>
+      </div>
+
+      <!-- ADVANCED -->
+      <div class="pricing-tier">
+        <div class="pricing-tier__name">Advanced</div>
+        <div class="pricing-tier__title">CRM Migration + Full Build</div>
+        <div class="pricing-tier__desc">Best for teams migrating from Salesforce, Pipedrive, or databases over 20,000 contacts.</div>
+        <div class="pricing-tier__price">$5,500</div>
+        <div class="pricing-tier__timeline">14 business days</div>
+        <div class="pricing-tier__divider"></div>
+        <div class="pricing-tier__features">
+          <div class="pricing-tier__feature"><span class="pricing-tier__check">&#10003;</span> Full migration from any CRM</div>
+          <div class="pricing-tier__feature"><span class="pricing-tier__check">&#10003;</span> Up to 50,000 contacts</div>
+          <div class="pricing-tier__feature"><span class="pricing-tier__check">&#10003;</span> Unlimited pipelines</div>
+          <div class="pricing-tier__feature"><span class="pricing-tier__check">&#10003;</span> 10 automated workflows</div>
+          <div class="pricing-tier__feature"><span class="pricing-tier__check">&#10003;</span> Full integration setup</div>
+          <div class="pricing-tier__feature"><span class="pricing-tier__check">&#10003;</span> Team training session (60 min, recorded)</div>
+          <div class="pricing-tier__feature"><span class="pricing-tier__check">&#10003;</span> 30-day support window</div>
+        </div>
+        <a href="https://www.upwork.com/services/product/sales-marketing-a-hubspot-crm-cleanup-deduplication-automation-build" class="pricing-tier__cta" target="_blank" rel="noopener">Get Started on Upwork</a>
+      </div>
+
+    </div>
+
+    <!-- ADD-ONS -->
+    <div class="reveal" style="margin-top: 48px;">
+      <div class="section-label">Add-Ons</div>
+      <h3 style="font-size: 22px; font-weight: 700; margin-bottom: 8px;">Available with any tier</h3>
+    </div>
+    <div class="addon-grid reveal">
+      <div class="addon-card">
+        <div>
+          <div class="addon-card__label">Add-On</div>
+          <div class="addon-card__title">Claude AI Call Logging</div>
+          <div class="addon-card__desc">Connects your VOIP system to HubSpot via Claude AI. Transcribes calls, extracts next steps and sentiment, logs structured notes automatically.</div>
+        </div>
+        <div class="addon-card__price">+$600</div>
+      </div>
+      <div class="addon-card">
+        <div>
+          <div class="addon-card__label">Add-On</div>
+          <div class="addon-card__title">Team Training Session</div>
+          <div class="addon-card__desc">60-minute recorded Zoom walkthrough with your team. Covers new pipelines, workflows, and day-to-day usage.</div>
+        </div>
+        <div class="addon-card__price">+$400</div>
+      </div>
+      <div class="addon-card">
+        <div>
+          <div class="addon-card__label">Add-On</div>
+          <div class="addon-card__title">Additional Source Migration</div>
+          <div class="addon-card__desc">Each additional CRM, spreadsheet, or external database beyond the primary source. Includes field mapping and validation.</div>
+        </div>
+        <div class="addon-card__price">+$500</div>
+      </div>
+      <div class="addon-card">
+        <div>
+          <div class="addon-card__label">Add-On</div>
+          <div class="addon-card__title">30-Day Support Extension</div>
+          <div class="addon-card__desc">Extends your support window to 45 days. Includes up to 3 workflow adjustments and 1 pipeline update.</div>
+        </div>
+        <div class="addon-card__price">+$500</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="section--tight section--alt">
+  <div class="container--narrow">
+    <div class="reveal">
+      <div class="section-label">FAQ</div>
+      <h2 class="section-title">Common questions</h2>
+    </div>
+    <div class="faq-list reveal">
+      <div class="faq-item">
+        <div class="faq-q">Will you delete my contact data? <span class="faq-q__icon">+</span></div>
+        <div class="faq-a"><p>No. Every deduplication decision is reviewed before merging. I document every change and work from a clear audit trail. Nothing is deleted without explicit written approval from you.</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">My team has ignored HubSpot for 18 months. Is it too far gone? <span class="faq-q__icon">+</span></div>
+        <div class="faq-a"><p>Probably not. The worst I have inherited was four years of unmanaged data from a company that imported every LinkedIn connection they ever had. We fixed it in 12 days. The key is agreeing on what data actually matters before we start cleaning anything.</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Do you work directly in our HubSpot account? <span class="faq-q__icon">+</span></div>
+        <div class="faq-a"><p>Yes. You add me as an admin user for the project duration. I do not need your password and you can remove access immediately after delivery.</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Can you migrate us from Salesforce? <span class="faq-q__icon">+</span></div>
+        <div class="faq-a"><p>Yes. The Advanced tier is designed for this. I handle field mapping, custom object migration, historical activity translation, and full validation before anything goes live. I know where the gaps are between Salesforce and HubSpot data models and I have done this migration specifically.</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">When does the delivery clock start? <span class="faq-q__icon">+</span></div>
+        <div class="faq-a"><p>When you complete the intake requirements, not when you purchase. Most clients finish intake within 24 hours and are live well inside the delivery window.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="section">
+  <div class="container--narrow">
+    <div class="cta-inner reveal">
+      <h2 class="cta-inner__title">Ready to fix your HubSpot?</h2>
+      <p class="cta-inner__sub">Book a 20-minute call to confirm fit, or go straight to Upwork to get started.</p>
+      <div class="cta-inner__btns">
+        <a href="https://www.upwork.com/services/product/sales-marketing-a-hubspot-crm-cleanup-deduplication-automation-build" class="btn btn--primary" target="_blank" rel="noopener">
+          View on Upwork
+          <svg class="btn__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+        <a href="https://meetings.hubspot.com/chris4642" class="btn btn--ghost" target="_blank" rel="noopener">Book a Free 20-Min Call</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer__grid">
+      <div>
+        <div class="footer__brand-logo">Resultant<span>AI</span></div>
+        <p class="footer__tagline">AI systems that run without you.<br>Built for small teams that move fast.</p>
+      </div>
+      <div class="footer__column">
+        <h4>Services</h4>
+        <div class="footer__links">
+          <a href="/voice-ai/" class="footer__link">Voice AI</a>
+          <a href="/hubspot-crm/" class="footer__link">HubSpot CRM</a>
+          <a href="/aeo-geo-audit/" class="footer__link">AEO/GEO Audit</a>
+          <a href="/services/" class="footer__link">All Services</a>
+        </div>
+      </div>
+      <div class="footer__column">
+        <h4>Company</h4>
+        <div class="footer__links">
+          <a href="/work/" class="footer__link">Case Studies</a>
+          <a href="/about/" class="footer__link">About</a>
+          <a href="/faq/" class="footer__link">FAQ</a>
+          <a href="/contact-us/" class="footer__link">Contact</a>
+        </div>
+      </div>
+      <div class="footer__column">
+        <h4>Hire Us</h4>
+        <div class="footer__links">
+          <a href="https://meetings.hubspot.com/chris4642" class="footer__link" target="_blank" rel="noopener">Book a Call</a>
+          <a href="https://www.upwork.com/ag/resultantai/" class="footer__link" target="_blank" rel="noopener">Upwork Profile</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      &copy; 2026 ResultantAI. All rights reserved.
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Nav scroll
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 40);
+  });
+
+  // Reveal on scroll
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+  }, { threshold: 0.1 });
+  reveals.forEach(el => observer.observe(el));
+
+  // FAQ accordion
+  document.querySelectorAll('.faq-q').forEach(q => {
+    q.addEventListener('click', () => {
+      const item = q.closest('.faq-item');
+      const isOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+      if (!isOpen) item.classList.add('open');
+    });
+  });
+</script>
+
+</body>
+</html>
