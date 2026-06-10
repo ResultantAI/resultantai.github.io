@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Signal Monitor That Drafts Your Alerts | ResultantAI</title>
+  <meta name="description" content="AI monitors news, regulatory feeds, and social sources 24/7. Classifies signals, scores relevance, and drafts your briefings before you ask. Deployed in 7–18 days." />
+  <link rel="canonical" href="https://resultantai.com/ai-signal-alerts/" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Service",
+        "name": "AI Signal Alert System",
+        "description": "Automated signal monitoring across news, regulatory, and social sources. Real-time Slack alerts with AI-drafted briefings. Custom taxonomy. Built for PR, government affairs, and compliance teams.",
+        "provider": { "@type": "Organization", "name": "ResultantAI", "url": "https://resultantai.com" },
+        "offers": [
+          { "@type": "Offer", "name": "Signal Monitor", "price": "1500", "priceCurrency": "USD" },
+          { "@type": "Offer", "name": "Real-Time Alert System", "price": "3500", "priceCurrency": "USD" },
+          { "@type": "Offer", "name": "Full Signal Intelligence", "price": "6500", "priceCurrency": "USD" }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          { "@type": "Question", "name": "What sources can you monitor?", "acceptedAnswer": { "@type": "Answer", "text": "RSS feeds, news APIs, government document feeds, LinkedIn company pages, Twitter/X accounts, and public web pages. If you currently check it manually, it can be automated." } },
+          { "@type": "Question", "name": "How do you prevent too many irrelevant alerts?", "acceptedAnswer": { "@type": "Answer", "text": "The relevance filter is built from examples of signals you acted on vs. ignored. Thresholds are tuned during the first week. Most clients land at 5–15 meaningful alerts per day." } }
+        ]
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://resultantai.com" },
+          { "@type": "ListItem", "position": 2, "name": "AI Signal Alerts", "item": "https://resultantai.com/ai-signal-alerts/" }
+        ]
+      }
+    ]
+  }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #0a0f1a; --bg-secondary: #0f172a; --bg-card: #151d2e;
+      --emerald: #10b981; --emerald-dark: #059669;
+      --emerald-dim: rgba(16,185,129,0.1); --emerald-border: rgba(16,185,129,0.25);
+      --text: #f1f5f9; --text-muted: #94a3b8; --text-dim: #64748b;
+      --border: rgba(255,255,255,0.07); --red: #ef4444;
+    }
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; line-height: 1.6; overflow-x: hidden; }
+    body::before {
+      content: ''; position: fixed; inset: 0;
+      background-image: linear-gradient(rgba(16,185,129,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(16,185,129,0.03) 1px, transparent 1px);
+      background-size: 60px 60px; pointer-events: none; z-index: 0;
+    }
+    * { position: relative; z-index: 1; }
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 1rem 2rem; background: rgba(10,15,26,0.8); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
+    .nav-logo { font-weight: 700; font-size: 1.1rem; color: var(--text); text-decoration: none; letter-spacing: -0.02em; }
+    .nav-logo span { color: var(--emerald); }
+    .nav-cta { background: var(--emerald); color: #0a0f1a; font-weight: 600; font-size: 0.85rem; padding: 0.5rem 1.25rem; border-radius: 6px; text-decoration: none; transition: background 0.2s, transform 0.2s; }
+    .nav-cta:hover { background: var(--emerald-dark); transform: translateY(-1px); }
+    .hero { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 8rem 2rem 5rem; text-align: center; }
+    .hero-inner { max-width: 820px; }
+    .hero-badge { display: inline-flex; align-items: center; gap: 0.5rem; background: var(--emerald-dim); border: 1px solid var(--emerald-border); color: var(--emerald); font-size: 0.8rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; padding: 0.4rem 1rem; border-radius: 20px; margin-bottom: 2rem; }
+    .hero-badge::before { content: '●'; font-size: 0.5rem; animation: pulse 2s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+    .hero h1 { font-size: clamp(2.2rem, 5vw, 3.6rem); font-weight: 700; line-height: 1.15; letter-spacing: -0.03em; margin-bottom: 1.5rem; }
+    .hero h1 em { font-style: normal; color: var(--emerald); }
+    .hero-sub { font-size: 1.15rem; color: var(--text-muted); max-width: 620px; margin: 0 auto 2.5rem; line-height: 1.7; }
+    .hero-stats { display: flex; justify-content: center; gap: 2.5rem; flex-wrap: wrap; margin-bottom: 2.5rem; padding: 1.5rem; background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; }
+    .stat { text-align: center; }
+    .stat-val { font-family: 'JetBrains Mono', monospace; font-size: 1.5rem; font-weight: 700; color: var(--emerald); }
+    .stat-label { font-size: 0.8rem; color: var(--text-muted); margin-top: 0.2rem; }
+    .hero-cta { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+    .btn-primary { background: var(--emerald); color: #0a0f1a; font-weight: 700; font-size: 1rem; padding: 0.85rem 2rem; border-radius: 8px; text-decoration: none; transition: background 0.2s, transform 0.2s; }
+    .btn-primary:hover { background: var(--emerald-dark); transform: translateY(-2px); }
+    .btn-secondary { background: transparent; color: var(--text); font-weight: 600; font-size: 1rem; padding: 0.85rem 2rem; border-radius: 8px; text-decoration: none; border: 1px solid var(--border); transition: border-color 0.2s, transform 0.2s; }
+    .btn-secondary:hover { border-color: var(--emerald); transform: translateY(-2px); }
+    section { padding: 6rem 2rem; }
+    .container { max-width: 1100px; margin: 0 auto; }
+    .section-tag { font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; font-weight: 500; color: var(--emerald); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 1rem; }
+    h2 { font-size: clamp(1.8rem, 3.5vw, 2.6rem); font-weight: 700; letter-spacing: -0.03em; margin-bottom: 1rem; line-height: 1.2; }
+    .section-sub { font-size: 1.05rem; color: var(--text-muted); max-width: 580px; line-height: 1.7; margin-bottom: 3rem; }
+    .section--alt { background: var(--bg-secondary); }
+    .problem-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
+    .problem-card { background: var(--bg-card); border: 1px solid var(--border); border-top: 3px solid var(--red); border-radius: 12px; padding: 2rem; }
+    .problem-card h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: 0.75rem; }
+    .problem-card p { font-size: 0.95rem; color: var(--text-muted); line-height: 1.65; }
+    .deliverables-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.25rem; }
+    .deliverable { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 1.75rem; display: flex; gap: 1rem; align-items: flex-start; }
+    .deliverable-num { font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; font-weight: 700; color: var(--emerald); background: var(--emerald-dim); border: 1px solid var(--emerald-border); width: 2rem; height: 2rem; border-radius: 6px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .deliverable h3 { font-size: 0.95rem; font-weight: 700; margin-bottom: 0.4rem; }
+    .deliverable p { font-size: 0.88rem; color: var(--text-muted); line-height: 1.55; }
+    .process-steps { display: flex; flex-direction: column; max-width: 780px; }
+    .process-step { display: flex; gap: 1.5rem; padding: 2rem 0; border-bottom: 1px solid var(--border); }
+    .process-step:last-child { border-bottom: none; }
+    .step-num { font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; font-weight: 700; color: var(--emerald); background: var(--emerald-dim); border: 1px solid var(--emerald-border); width: 2.5rem; height: 2.5rem; border-radius: 8px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 0.2rem; }
+    .step-content h3 { font-size: 1rem; font-weight: 700; margin-bottom: 0.5rem; }
+    .step-content p { font-size: 0.92rem; color: var(--text-muted); line-height: 1.65; }
+    .pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; align-items: start; }
+    .pricing-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; padding: 2rem; position: relative; }
+    .pricing-card--featured { background: linear-gradient(135deg, rgba(16,185,129,0.08) 0%, var(--bg-card) 60%); border-color: var(--emerald-border); transform: scale(1.03); }
+    .popular-badge { position: absolute; top: -14px; left: 50%; transform: translateX(-50%); background: var(--emerald); color: #0a0f1a; font-size: 0.75rem; font-weight: 700; padding: 0.3rem 1rem; border-radius: 20px; white-space: nowrap; letter-spacing: 0.04em; }
+    .pricing-tier { font-size: 0.8rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.5rem; }
+    .pricing-name { font-size: 1.3rem; font-weight: 700; margin-bottom: 0.5rem; }
+    .pricing-desc { font-size: 0.88rem; color: var(--text-muted); margin-bottom: 1.5rem; line-height: 1.5; }
+    .pricing-price { font-family: 'JetBrains Mono', monospace; font-size: 2.2rem; font-weight: 700; color: var(--emerald); margin-bottom: 0.25rem; }
+    .pricing-delivery { font-size: 0.82rem; color: var(--text-dim); margin-bottom: 1.5rem; }
+    .pricing-features { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; margin-bottom: 1.75rem; }
+    .pricing-features li { font-size: 0.9rem; color: var(--text-muted); display: flex; gap: 0.6rem; align-items: flex-start; }
+    .pricing-features li::before { content: '✓'; color: var(--emerald); font-weight: 700; flex-shrink: 0; margin-top: 0.05rem; }
+    .pricing-btn { display: block; text-align: center; font-weight: 700; font-size: 0.95rem; padding: 0.85rem; border-radius: 8px; text-decoration: none; transition: all 0.2s; }
+    .pricing-btn--primary { background: var(--emerald); color: #0a0f1a; }
+    .pricing-btn--primary:hover { background: var(--emerald-dark); transform: translateY(-1px); }
+    .pricing-btn--outline { border: 1px solid var(--border); color: var(--text); }
+    .pricing-btn--outline:hover { border-color: var(--emerald); transform: translateY(-1px); }
+    .addons-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.25rem; }
+    .addon-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; display: flex; flex-direction: column; gap: 0.5rem; }
+    .addon-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; }
+    .addon-name { font-size: 0.95rem; font-weight: 700; }
+    .addon-price { font-family: 'JetBrains Mono', monospace; font-size: 0.9rem; color: var(--emerald); white-space: nowrap; }
+    .addon-desc { font-size: 0.87rem; color: var(--text-muted); line-height: 1.55; }
+    .faq-list { display: flex; flex-direction: column; max-width: 780px; }
+    .faq-item { border-bottom: 1px solid var(--border); }
+    .faq-item:first-child { border-top: 1px solid var(--border); }
+    .faq-q { width: 100%; text-align: left; background: none; border: none; color: var(--text); font-family: 'Inter', sans-serif; font-size: 1rem; font-weight: 600; cursor: pointer; padding: 1.5rem 0; display: flex; justify-content: space-between; align-items: center; gap: 1rem; }
+    .faq-q::after { content: '+'; color: var(--emerald); font-size: 1.3rem; font-weight: 400; flex-shrink: 0; transition: transform 0.2s; }
+    .faq-q.open::after { transform: rotate(45deg); }
+    .faq-a { display: none; padding-bottom: 1.5rem; font-size: 0.95rem; color: var(--text-muted); line-height: 1.7; }
+    .faq-a.open { display: block; }
+    .cta-section { text-align: center; padding: 7rem 2rem; background: linear-gradient(135deg, rgba(16,185,129,0.06) 0%, transparent 60%); border-top: 1px solid var(--border); }
+    .cta-section h2 { margin-bottom: 1rem; }
+    .cta-section p { color: var(--text-muted); font-size: 1.05rem; max-width: 540px; margin: 0 auto 2.5rem; }
+    footer { background: var(--bg-secondary); border-top: 1px solid var(--border); padding: 2.5rem 2rem; text-align: center; }
+    .footer-logo { font-weight: 700; font-size: 1rem; margin-bottom: 0.5rem; }
+    .footer-logo span { color: var(--emerald); }
+    footer p { font-size: 0.85rem; color: var(--text-dim); }
+    footer a { color: var(--text-muted); text-decoration: none; }
+    footer a:hover { color: var(--emerald); }
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.55s ease, transform 0.55s ease; }
+    .reveal.visible { opacity: 1; transform: none; }
+    @media (max-width: 768px) { nav { padding: 1rem; } .hero-stats { gap: 1.5rem; } .pricing-card--featured { transform: none; } }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="https://resultantai.com" class="nav-logo">Resultant<span>AI</span></a>
+  <a href="https://www.upwork.com/services/product/marketing-an-ai-signal-monitor-that-drafts-your-alerts-before-you-even-ask" class="nav-cta" target="_blank" rel="noopener">View on Upwork</a>
+</nav>
+
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-badge">AI Signal Monitoring Build</div>
+    <h1>By the time you saw it,<br><em>your clients already asked about it.</em></h1>
+    <p class="hero-sub">AI monitors your sources 24/7, classifies what matters, and drafts the briefing before the story breaks. You edit and send — or forward as-is.</p>
+    <div class="hero-stats">
+      <div class="stat"><div class="stat-val">20+</div><div class="stat-label">sources monitored</div></div>
+      <div class="stat"><div class="stat-val">&lt;60 sec</div><div class="stat-label">signal-to-alert time</div></div>
+      <div class="stat"><div class="stat-val">AI</div><div class="stat-label">drafts the briefing</div></div>
+      <div class="stat"><div class="stat-val">7–18 days</div><div class="stat-label">to deployment</div></div>
+    </div>
+    <div class="hero-cta">
+      <a href="https://www.upwork.com/services/product/marketing-an-ai-signal-monitor-that-drafts-your-alerts-before-you-even-ask" class="btn-primary" target="_blank" rel="noopener">See Pricing on Upwork</a>
+      <a href="#pricing" class="btn-secondary">View Tiers</a>
+    </div>
+  </div>
+</section>
+
+<section class="section--alt">
+  <div class="container">
+    <p class="section-tag reveal">The problem</p>
+    <h2 class="reveal">You're monitoring the news manually.<br>The news doesn't sleep.</h2>
+    <p class="section-sub reveal">Every morning, the same 15 tabs. Every afternoon, the fear you missed something. Every client call, the catch-up.</p>
+    <div class="problem-grid">
+      <div class="problem-card reveal">
+        <h3>Signal Lag</h3>
+        <p>You check sources once in the morning and hope nothing breaks in the afternoon. A regulatory announcement drops at 3pm. Your client sees it on LinkedIn at 4pm. You find out at 4:02pm when they call. The alert was your job.</p>
+      </div>
+      <div class="problem-card reveal">
+        <h3>Alert Fatigue</h3>
+        <p>You signed up for Google Alerts. Now you get 200 emails a day about your clients' names, 190 of which are noise. You stopped reading them. The 10 that mattered went unread too. Noise is as dangerous as silence.</p>
+      </div>
+      <div class="problem-card reveal">
+        <h3>No Context with the Alert</h3>
+        <p>Even when you catch the story, you still have to write the briefing. Summarize it. Add the relevant context. Explain what it means for the client. That takes 45 minutes per alert. You have six clients. Do the math.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="deliverables">
+  <div class="container">
+    <p class="section-tag reveal">What you get</p>
+    <h2 class="reveal">From raw signal to client-ready brief<br>in under 60 seconds</h2>
+    <p class="section-sub reveal">The system knows what matters to you, watches your sources continuously, and hands you a draft — not a link.</p>
+    <div class="deliverables-grid">
+      <div class="deliverable reveal">
+        <div class="deliverable-num">01</div>
+        <div>
+          <h3>Automated Ingest Pipeline</h3>
+          <p>RSS feeds, news APIs, government document sources, and public web pages ingested on a continuous schedule. Deduplication prevents the same story from firing multiple alerts.</p>
+        </div>
+      </div>
+      <div class="deliverable reveal">
+        <div class="deliverable-num">02</div>
+        <div>
+          <h3>Signal Taxonomy & Relevance Filter</h3>
+          <p>Built from examples of alerts you acted on vs. ignored. Each signal scored by topic, urgency, and client match. Only what matters fires — not everything that matches a keyword.</p>
+        </div>
+      </div>
+      <div class="deliverable reveal">
+        <div class="deliverable-num">03</div>
+        <div>
+          <h3>Real-Time Slack Alerts</h3>
+          <p>Matched signals fire to your Slack channel within 60 seconds of publication. Each alert includes headline, source, topic tags, urgency level, and matched client profiles.</p>
+        </div>
+      </div>
+      <div class="deliverable reveal">
+        <div class="deliverable-num">04</div>
+        <div>
+          <h3>AI-Drafted Briefings</h3>
+          <p>Claude generates a first-draft briefing in your format for every matched signal. Summary, key takeaways, and recommended client action. You edit and send — or forward as-is.</p>
+        </div>
+      </div>
+      <div class="deliverable reveal">
+        <div class="deliverable-num">05</div>
+        <div>
+          <h3>Daily Digest Email</h3>
+          <p>End-of-day summary of all signals, organized by client or topic. Useful for teams that want a single review moment rather than real-time interruptions throughout the day.</p>
+        </div>
+      </div>
+      <div class="deliverable reveal">
+        <div class="deliverable-num">06</div>
+        <div>
+          <h3>Source Management + Documentation</h3>
+          <p>Full documentation of every source, its ingest method, and the taxonomy logic. Adding a new source takes 10 minutes without touching code. You own the pipeline.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section--alt">
+  <div class="container">
+    <p class="section-tag reveal">How it works</p>
+    <h2 class="reveal">Five steps from manual monitoring<br>to automated intelligence</h2>
+    <div class="process-steps">
+      <div class="process-step reveal">
+        <div class="step-num">01</div>
+        <div class="step-content">
+          <h3>Signal Taxonomy & Source Map</h3>
+          <p>I document your monitored topics, entities, and relevance rules. Source list confirmed and tested for accessibility. Taxonomy built — the logic that determines what fires an alert vs. what gets filtered out.</p>
+        </div>
+      </div>
+      <div class="process-step reveal">
+        <div class="step-num">02</div>
+        <div class="step-content">
+          <h3>Ingest Pipeline Build</h3>
+          <p>Automated ingestion across all sources: RSS feeds, news APIs, web scrapers where needed. Deduplication logic prevents the same story from firing multiple times. Content normalized for AI processing.</p>
+        </div>
+      </div>
+      <div class="process-step reveal">
+        <div class="step-num">03</div>
+        <div class="step-content">
+          <h3>AI Classification & Relevance Scoring</h3>
+          <p>Each signal classified by topic, sentiment, urgency, and matched against your entity list. Claude generates a relevance score and, for matched signals, drafts a brief in your preferred format.</p>
+        </div>
+      </div>
+      <div class="process-step reveal">
+        <div class="step-num">04</div>
+        <div class="step-content">
+          <h3>Alert Delivery & Distribution</h3>
+          <p>Slack alerts configured with topic tags, urgency indicators, and AI draft text inline. Email digest formatted and scheduled. Client routing rules built if you serve multiple accounts.</p>
+        </div>
+      </div>
+      <div class="process-step reveal">
+        <div class="step-num">05</div>
+        <div class="step-content">
+          <h3>Testing & Handoff</h3>
+          <p>48-hour test run monitoring all sources. Alert volume calibrated — too many is as bad as too few. Documentation delivered: source list, taxonomy logic, how to add a source, and how to tune thresholds.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="pricing">
+  <div class="container">
+    <p class="section-tag reveal">Pricing</p>
+    <h2 class="reveal">Three tiers. Zero missed signals.</h2>
+    <p class="section-sub reveal">Start with daily monitoring. Add real-time Slack alerts, AI drafting, and multi-client routing as you scale.</p>
+    <div class="pricing-grid">
+      <div class="pricing-card reveal">
+        <div class="pricing-tier">Starter</div>
+        <div class="pricing-name">Signal Monitor</div>
+        <div class="pricing-desc">5 sources, daily digest email, AI summarization, keyword and topic filtering</div>
+        <div class="pricing-price">$1,500</div>
+        <div class="pricing-delivery">Delivered in 7 days · 1 revision</div>
+        <ul class="pricing-features">
+          <li>5 sources monitored</li>
+          <li>Keyword + topic relevance filter</li>
+          <li>AI summarization on matched signals</li>
+          <li>Daily digest email</li>
+          <li>Action plan + documentation</li>
+        </ul>
+        <a href="https://www.upwork.com/services/product/marketing-an-ai-signal-monitor-that-drafts-your-alerts-before-you-even-ask" class="pricing-btn pricing-btn--outline" target="_blank" rel="noopener">Get Started</a>
+      </div>
+      <div class="pricing-card pricing-card--featured reveal">
+        <div class="popular-badge">Most Popular</div>
+        <div class="pricing-tier">Standard</div>
+        <div class="pricing-name">Real-Time Alert System</div>
+        <div class="pricing-desc">20 sources, Slack real-time alerts, sentiment scoring, AI-drafted briefings</div>
+        <div class="pricing-price">$3,500</div>
+        <div class="pricing-delivery">Delivered in 12 days · 2 revisions</div>
+        <ul class="pricing-features">
+          <li>Everything in Starter</li>
+          <li>20 sources monitored</li>
+          <li>Real-time Slack alerts (&lt;60 seconds)</li>
+          <li>Sentiment + urgency scoring</li>
+          <li>AI-drafted briefings per alert</li>
+          <li>Client/topic routing rules</li>
+          <li>Full documentation</li>
+        </ul>
+        <a href="https://www.upwork.com/services/product/marketing-an-ai-signal-monitor-that-drafts-your-alerts-before-you-even-ask" class="pricing-btn pricing-btn--primary" target="_blank" rel="noopener">Get Started</a>
+      </div>
+      <div class="pricing-card reveal">
+        <div class="pricing-tier">Advanced</div>
+        <div class="pricing-name">Full Signal Intelligence</div>
+        <div class="pricing-desc">50+ sources, custom taxonomy, auto-drafted briefings, weekly trend reports</div>
+        <div class="pricing-price">$6,500</div>
+        <div class="pricing-delivery">Delivered in 18 days · 3 revisions</div>
+        <ul class="pricing-features">
+          <li>Everything in Standard</li>
+          <li>50+ sources monitored</li>
+          <li>Custom signal taxonomy</li>
+          <li>Auto-drafted client briefings</li>
+          <li>Weekly signal trend report</li>
+          <li>Competitive intelligence layer</li>
+          <li>60-day post-launch support</li>
+        </ul>
+        <a href="https://www.upwork.com/services/product/marketing-an-ai-signal-monitor-that-drafts-your-alerts-before-you-even-ask" class="pricing-btn pricing-btn--outline" target="_blank" rel="noopener">Get Started</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section--alt">
+  <div class="container">
+    <p class="section-tag reveal">Add-ons</p>
+    <h2 class="reveal">Extend your signal system</h2>
+    <p class="section-sub reveal">Each add-on integrates into the same pipeline — no separate projects, no re-architecture.</p>
+    <div class="addons-grid">
+      <div class="addon-card reveal">
+        <div class="addon-header"><div class="addon-name">Regulatory / Legislative Feed</div><div class="addon-price">+$400</div></div>
+        <p class="addon-desc">Federal Register, state legislature RSS, committee hearing transcripts, and agency announcements. AI classifies by topic, urgency, and affected industry. Essential for government affairs and compliance teams.</p>
+      </div>
+      <div class="addon-card reveal">
+        <div class="addon-header"><div class="addon-name">Client Alert Distribution</div><div class="addon-price">+$300</div></div>
+        <p class="addon-desc">Alerts automatically routed to separate Slack channels or email threads per client based on their topic subscriptions. Each client sees only what is relevant to them — no manual filtering.</p>
+      </div>
+      <div class="addon-card reveal">
+        <div class="addon-header"><div class="addon-name">Competitive Intelligence Layer</div><div class="addon-price">+$500</div></div>
+        <p class="addon-desc">Monitor competitor mentions, press releases, product announcements, and funding news. Delivered as a weekly competitive digest or real-time Slack alert when a competitor enters your territory.</p>
+      </div>
+      <div class="addon-card reveal">
+        <div class="addon-header"><div class="addon-name">Monthly Signal Trend Report</div><div class="addon-price">+$300</div></div>
+        <p class="addon-desc">Monthly Slack or email summary: top topics by volume, sentiment trends, outlet coverage patterns, and signal velocity (how fast topics are accelerating). Useful for leadership briefings.</p>
+      </div>
+      <div class="addon-card reveal">
+        <div class="addon-header"><div class="addon-name">CRM Activity Logging</div><div class="addon-price">+$400</div></div>
+        <p class="addon-desc">Matched alerts logged as activities in HubSpot or Salesforce against the relevant contact or company. Your account team sees the signal without leaving the CRM.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <p class="section-tag reveal">FAQ</p>
+    <h2 class="reveal">Common questions</h2>
+    <div class="faq-list">
+      <div class="faq-item reveal">
+        <button class="faq-q">What sources can you monitor?</button>
+        <div class="faq-a">RSS feeds, news APIs (NewsAPI, GDELT, Google News), government document feeds (Federal Register, Congress.gov, state legislature RSS), LinkedIn company pages, Twitter/X accounts, and public web pages with regular updates. If you currently check it manually, it can be automated.</div>
+      </div>
+      <div class="faq-item reveal">
+        <button class="faq-q">How do you prevent the system from firing too many irrelevant alerts?</button>
+        <div class="faq-a">The relevance filter is the most important part of the build. I start by reviewing examples of signals you acted on vs. ones you ignored. That trains the classification logic. After go-live, I tune the thresholds during the first week based on real alert volume. Most clients land at 5–15 meaningful alerts per day.</div>
+      </div>
+      <div class="faq-item reveal">
+        <button class="faq-q">Can the AI draft briefings in my firm's format and voice?</button>
+        <div class="faq-a">Yes. I build the drafting prompt around your existing briefing format — structure, tone, length, and any required disclosures. The AI generates a first draft you edit and send. Most clients edit less than 20% of the draft after the first two weeks of tuning.</div>
+      </div>
+      <div class="faq-item reveal">
+        <button class="faq-q">What if a source does not have an RSS feed?</button>
+        <div class="faq-a">I build a scraper for web pages that update regularly. If the source requires login or has aggressive bot protection, I document it at kickoff and propose an alternative — email digest forward, manual upload, or API if available. No surprises mid-build.</div>
+      </div>
+      <div class="faq-item reveal">
+        <button class="faq-q">Can this serve multiple clients with different alert profiles?</button>
+        <div class="faq-a">Yes. The Client Alert Distribution add-on routes signals to separate channels or email threads based on each client's topic subscriptions. A firm with 10 clients gets 10 separate alert streams — each client sees only what is relevant to them. No manual filtering required.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-section">
+  <div class="container">
+    <h2 class="reveal">Stop monitoring manually.<br>Start receiving intelligence.</h2>
+    <p class="reveal">20+ sources, real-time Slack alerts, AI-drafted briefings. Deployed in 7–18 days. You own the pipeline.</p>
+    <a href="https://www.upwork.com/services/product/marketing-an-ai-signal-monitor-that-drafts-your-alerts-before-you-even-ask" class="btn-primary reveal" target="_blank" rel="noopener">View on Upwork →</a>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo">Resultant<span>AI</span></div>
+  <p>Built by <a href="https://resultantai.com">ResultantAI</a> · <a href="https://resultantai.com/aeo-geo-audit/">AEO/GEO Audit</a> · <a href="https://resultantai.com/voice-ai/">Voice AI</a></p>
+</footer>
+
+<script>
+  !function(t){if(!window[t]){var e=window[t]=function(){e.process?e.process.apply(e,arguments):e.queue.push(arguments)};e.queue=[];var n=document.createElement("script");n.async=!0,n.src="https://assets.apollo.io/micro/website-tracker/tracker.iife.js?nocache="+new Date().getDate();var o=document.getElementsByTagName("script")[0];o.parentNode.insertBefore(n,o),e("init",{appId:"679c52d7b1fed801981d9adb"})}else window[t]}("trackingFunc");
+</script>
+<script>
+  const ro = new IntersectionObserver(e => e.forEach(e => { if(e.isIntersecting){e.target.classList.add('visible');ro.unobserve(e.target);} }), {threshold:0.1});
+  document.querySelectorAll('.reveal').forEach(el => ro.observe(el));
+  document.querySelectorAll('.faq-q').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const a = btn.nextElementSibling, open = btn.classList.contains('open');
+      document.querySelectorAll('.faq-q').forEach(b => { b.classList.remove('open'); b.nextElementSibling.classList.remove('open'); });
+      if(!open){ btn.classList.add('open'); a.classList.add('open'); }
+    });
+  });
+</script>
+</body>
+</html>
