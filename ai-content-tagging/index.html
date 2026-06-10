@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Content Tagging Engine That Organizes Your Library Automatically | ResultantAI</title>
+  <meta name="description" content="AI reads your entire content library, applies a custom taxonomy, and writes tags back to your CMS — all 5,000 items in 24 hours. Auto-tag on publish. Deployed in 7–18 days." />
+  <link rel="canonical" href="https://resultantai.com/ai-content-tagging/" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Service",
+        "name": "AI Content Tagging & CMS Automation",
+        "description": "Bulk AI classification of content libraries against a custom taxonomy. Tags written directly to WordPress, Sanity, Contentful, or Airtable via API. Auto-tag on publish. 95%+ accuracy. Deployed in 7–18 days.",
+        "provider": { "@type": "Organization", "name": "ResultantAI", "url": "https://resultantai.com" },
+        "offers": [
+          { "@type": "Offer", "name": "Content Tagger", "price": "1800", "priceCurrency": "USD" },
+          { "@type": "Offer", "name": "CMS Integration Engine", "price": "4500", "priceCurrency": "USD" },
+          { "@type": "Offer", "name": "Full Content Intelligence Platform", "price": "8500", "priceCurrency": "USD" }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          { "@type": "Question", "name": "What CMS platforms can you integrate with?", "acceptedAnswer": { "@type": "Answer", "text": "WordPress, Webflow, Sanity, Contentful, Airtable, Notion, and any CMS with a REST API or GraphQL endpoint. If your CMS supports API writes to taxonomy fields, it can be integrated." } },
+          { "@type": "Question", "name": "How accurate is the AI tagging?", "acceptedAnswer": { "@type": "Answer", "text": "On well-defined taxonomies with clear category boundaries, accuracy typically exceeds 95 percent on the test set before the bulk run starts. Items below the confidence threshold are routed to a review queue rather than mislabeled silently." } }
+        ]
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://resultantai.com" },
+          { "@type": "ListItem", "position": 2, "name": "AI Content Tagging", "item": "https://resultantai.com/ai-content-tagging/" }
+        ]
+      }
+    ]
+  }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #0a0f1a; --bg-secondary: #0f172a; --bg-card: #151d2e;
+      --emerald: #10b981; --emerald-dark: #059669;
+      --emerald-dim: rgba(16,185,129,0.1); --emerald-border: rgba(16,185,129,0.25);
+      --text: #f1f5f9; --text-muted: #94a3b8; --text-dim: #64748b;
+      --border: rgba(255,255,255,0.07); --red: #ef4444;
+    }
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; line-height: 1.6; overflow-x: hidden; }
+    body::before {
+      content: ''; position: fixed; inset: 0;
+      background-image: linear-gradient(rgba(16,185,129,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(16,185,129,0.03) 1px, transparent 1px);
+      background-size: 60px 60px; pointer-events: none; z-index: 0;
+    }
+    * { position: relative; z-index: 1; }
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 1rem 2rem; background: rgba(10,15,26,0.8); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
+    .nav-logo { font-weight: 700; font-size: 1.1rem; color: var(--text); text-decoration: none; letter-spacing: -0.02em; }
+    .nav-logo span { color: var(--emerald); }
+    .nav-cta { background: var(--emerald); color: #0a0f1a; font-weight: 600; font-size: 0.85rem; padding: 0.5rem 1.25rem; border-radius: 6px; text-decoration: none; transition: background 0.2s, transform 0.2s; }
+    .nav-cta:hover { background: var(--emerald-dark); transform: translateY(-1px); }
+    .hero { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 8rem 2rem 5rem; text-align: center; }
+    .hero-inner { max-width: 820px; }
+    .hero-badge { display: inline-flex; align-items: center; gap: 0.5rem; background: var(--emerald-dim); border: 1px solid var(--emerald-border); color: var(--emerald); font-size: 0.8rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; padding: 0.4rem 1rem; border-radius: 20px; margin-bottom: 2rem; }
+    .hero-badge::before { content: '●'; font-size: 0.5rem; animation: pulse 2s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+    .hero h1 { font-size: clamp(2.2rem, 5vw, 3.6rem); font-weight: 700; line-height: 1.15; letter-spacing: -0.03em; margin-bottom: 1.5rem; }
+    .hero h1 em { font-style: normal; color: var(--emerald); }
+    .hero-sub { font-size: 1.15rem; color: var(--text-muted); max-width: 620px; margin: 0 auto 2.5rem; line-height: 1.7; }
+    .hero-stats { display: flex; justify-content: center; gap: 2.5rem; flex-wrap: wrap; margin-bottom: 2.5rem; padding: 1.5rem; background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; }
+    .stat { text-align: center; }
+    .stat-val { font-family: 'JetBrains Mono', monospace; font-size: 1.5rem; font-weight: 700; color: var(--emerald); }
+    .stat-label { font-size: 0.8rem; color: var(--text-muted); margin-top: 0.2rem; }
+    .hero-cta { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+    .btn-primary { background: var(--emerald); color: #0a0f1a; font-weight: 700; font-size: 1rem; padding: 0.85rem 2rem; border-radius: 8px; text-decoration: none; transition: background 0.2s, transform 0.2s; }
+    .btn-primary:hover { background: var(--emerald-dark); transform: translateY(-2px); }
+    .btn-secondary { background: transparent; color: var(--text); font-weight: 600; font-size: 1rem; padding: 0.85rem 2rem; border-radius: 8px; text-decoration: none; border: 1px solid var(--border); transition: border-color 0.2s, transform 0.2s; }
+    .btn-secondary:hover { border-color: var(--emerald); transform: translateY(-2px); }
+    section { padding: 6rem 2rem; }
+    .container { max-width: 1100px; margin: 0 auto; }
+    .section-tag { font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; font-weight: 500; color: var(--emerald); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 1rem; }
+    h2 { font-size: clamp(1.8rem, 3.5vw, 2.6rem); font-weight: 700; letter-spacing: -0.03em; margin-bottom: 1rem; line-height: 1.2; }
+    .section-sub { font-size: 1.05rem; color: var(--text-muted); max-width: 580px; line-height: 1.7; margin-bottom: 3rem; }
+    .section--alt { background: var(--bg-secondary); }
+    .problem-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
+    .problem-card { background: var(--bg-card); border: 1px solid var(--border); border-top: 3px solid var(--red); border-radius: 12px; padding: 2rem; }
+    .problem-card h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: 0.75rem; }
+    .problem-card p { font-size: 0.95rem; color: var(--text-muted); line-height: 1.65; }
+    .deliverables-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.25rem; }
+    .deliverable { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 1.75rem; display: flex; gap: 1rem; align-items: flex-start; }
+    .deliverable-num { font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; font-weight: 700; color: var(--emerald); background: var(--emerald-dim); border: 1px solid var(--emerald-border); width: 2rem; height: 2rem; border-radius: 6px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .deliverable h3 { font-size: 0.95rem; font-weight: 700; margin-bottom: 0.4rem; }
+    .deliverable p { font-size: 0.88rem; color: var(--text-muted); line-height: 1.55; }
+    .process-steps { display: flex; flex-direction: column; max-width: 780px; }
+    .process-step { display: flex; gap: 1.5rem; padding: 2rem 0; border-bottom: 1px solid var(--border); }
+    .process-step:last-child { border-bottom: none; }
+    .step-num { font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; font-weight: 700; color: var(--emerald); background: var(--emerald-dim); border: 1px solid var(--emerald-border); width: 2.5rem; height: 2.5rem; border-radius: 8px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 0.2rem; }
+    .step-content h3 { font-size: 1rem; font-weight: 700; margin-bottom: 0.5rem; }
+    .step-content p { font-size: 0.92rem; color: var(--text-muted); line-height: 1.65; }
+    .pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; align-items: start; }
+    .pricing-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; padding: 2rem; position: relative; }
+    .pricing-card--featured { background: linear-gradient(135deg, rgba(16,185,129,0.08) 0%, var(--bg-card) 60%); border-color: var(--emerald-border); transform: scale(1.03); }
+    .popular-badge { position: absolute; top: -14px; left: 50%; transform: translateX(-50%); background: var(--emerald); color: #0a0f1a; font-size: 0.75rem; font-weight: 700; padding: 0.3rem 1rem; border-radius: 20px; white-space: nowrap; letter-spacing: 0.04em; }
+    .pricing-tier { font-size: 0.8rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.5rem; }
+    .pricing-name { font-size: 1.3rem; font-weight: 700; margin-bottom: 0.5rem; }
+    .pricing-desc { font-size: 0.88rem; color: var(--text-muted); margin-bottom: 1.5rem; line-height: 1.5; }
+    .pricing-price { font-family: 'JetBrains Mono', monospace; font-size: 2.2rem; font-weight: 700; color: var(--emerald); margin-bottom: 0.25rem; }
+    .pricing-delivery { font-size: 0.82rem; color: var(--text-dim); margin-bottom: 1.5rem; }
+    .pricing-features { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; margin-bottom: 1.75rem; }
+    .pricing-features li { font-size: 0.9rem; color: var(--text-muted); display: flex; gap: 0.6rem; align-items: flex-start; }
+    .pricing-features li::before { content: '✓'; color: var(--emerald); font-weight: 700; flex-shrink: 0; margin-top: 0.05rem; }
+    .pricing-btn { display: block; text-align: center; font-weight: 700; font-size: 0.95rem; padding: 0.85rem; border-radius: 8px; text-decoration: none; transition: all 0.2s; }
+    .pricing-btn--primary { background: var(--emerald); color: #0a0f1a; }
+    .pricing-btn--primary:hover { background: var(--emerald-dark); transform: translateY(-1px); }
+    .pricing-btn--outline { border: 1px solid var(--border); color: var(--text); }
+    .pricing-btn--outline:hover { border-color: var(--emerald); transform: translateY(-1px); }
+    .addons-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.25rem; }
+    .addon-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; display: flex; flex-direction: column; gap: 0.5rem; }
+    .addon-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; }
+    .addon-name { font-size: 0.95rem; font-weight: 700; }
+    .addon-price { font-family: 'JetBrains Mono', monospace; font-size: 0.9rem; color: var(--emerald); white-space: nowrap; }
+    .addon-desc { font-size: 0.87rem; color: var(--text-muted); line-height: 1.55; }
+    .faq-list { display: flex; flex-direction: column; max-width: 780px; }
+    .faq-item { border-bottom: 1px solid var(--border); }
+    .faq-item:first-child { border-top: 1px solid var(--border); }
+    .faq-q { width: 100%; text-align: left; background: none; border: none; color: var(--text); font-family: 'Inter', sans-serif; font-size: 1rem; font-weight: 600; cursor: pointer; padding: 1.5rem 0; display: flex; justify-content: space-between; align-items: center; gap: 1rem; }
+    .faq-q::after { content: '+'; color: var(--emerald); font-size: 1.3rem; font-weight: 400; flex-shrink: 0; transition: transform 0.2s; }
+    .faq-q.open::after { transform: rotate(45deg); }
+    .faq-a { display: none; padding-bottom: 1.5rem; font-size: 0.95rem; color: var(--text-muted); line-height: 1.7; }
+    .faq-a.open { display: block; }
+    .cta-section { text-align: center; padding: 7rem 2rem; background: linear-gradient(135deg, rgba(16,185,129,0.06) 0%, transparent 60%); border-top: 1px solid var(--border); }
+    .cta-section h2 { margin-bottom: 1rem; }
+    .cta-section p { color: var(--text-muted); font-size: 1.05rem; max-width: 540px; margin: 0 auto 2.5rem; }
+    footer { background: var(--bg-secondary); border-top: 1px solid var(--border); padding: 2.5rem 2rem; text-align: center; }
+    .footer-logo { font-weight: 700; font-size: 1rem; margin-bottom: 0.5rem; }
+    .footer-logo span { color: var(--emerald); }
+    footer p { font-size: 0.85rem; color: var(--text-dim); }
+    footer a { color: var(--text-muted); text-decoration: none; }
+    footer a:hover { color: var(--emerald); }
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.55s ease, transform 0.55s ease; }
+    .reveal.visible { opacity: 1; transform: none; }
+    @media (max-width: 768px) { nav { padding: 1rem; } .hero-stats { gap: 1.5rem; } .pricing-card--featured { transform: none; } }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="https://resultantai.com" class="nav-logo">Resultant<span>AI</span></a>
+  <a href="https://www.upwork.com/services/product/ai-content-tagging" class="nav-cta" target="_blank" rel="noopener">View on Upwork</a>
+</nav>
+
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-badge">AI Content Tagging Build</div>
+    <h1>Your content library has 5,000 articles.<br><em>Two hundred of them have tags.</em></h1>
+    <p class="hero-sub">AI reads your entire library, applies a custom taxonomy, and writes tags back to your CMS — all 5,000 items in 24 hours. New content tagged automatically on publish.</p>
+    <div class="hero-stats">
+      <div class="stat"><div class="stat-val">95%+</div><div class="stat-label">accuracy</div></div>
+      <div class="stat"><div class="stat-val">5K items</div><div class="stat-label">in 24 hrs</div></div>
+      <div class="stat"><div class="stat-val">CMS sync</div><div class="stat-label">tags written via API</div></div>
+      <div class="stat"><div class="stat-val">7–18 days</div><div class="stat-label">to deployment</div></div>
+    </div>
+    <div class="hero-cta">
+      <a href="https://www.upwork.com/services/product/ai-content-tagging" class="btn-primary" target="_blank" rel="noopener">See Pricing on Upwork</a>
+      <a href="#pricing" class="btn-secondary">View Tiers</a>
+    </div>
+  </div>
+</section>
+
+<section class="section--alt">
+  <div class="container">
+    <p class="section-tag reveal">The problem</p>
+    <h2 class="reveal">Your content is unorganized.<br>Search is broken. Related content is random.</h2>
+    <p class="section-sub reveal">Every new article goes live with whatever tags the editor remembers. The taxonomy drifts. Search returns whatever it wants. The library grows while the metadata degrades.</p>
+    <div class="problem-grid">
+      <div class="problem-card reveal">
+        <h3>The Missing Tags</h3>
+        <p>40% of your content library has no tags. The other 60% uses whatever categories editors made up in 2021. You have 14 variations of "Case Study" and nobody knows which one to use. Your search returns random results because there's no consistent metadata.</p>
+      </div>
+      <div class="problem-card reveal">
+        <h3>Manual Tagging Doesn't Scale</h3>
+        <p>Every new piece takes 15 minutes of tagging. Multiply by 200 articles a month. That's 50 hours of editorial time per month spent on metadata — not writing, not improving content, just clicking dropdowns. And the queue is always behind.</p>
+      </div>
+      <div class="problem-card reveal">
+        <h3>CMS Drift</h3>
+        <p>The taxonomy you designed six months ago already has 30% of items in the wrong categories. Editors tag from memory. New editors tag differently. Nobody has time to audit 5,000 items. The content library degrades with every new publish.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="deliverables">
+  <div class="container">
+    <p class="section-tag reveal">What you get</p>
+    <h2 class="reveal">From inconsistent metadata to<br>a structured, self-maintaining library</h2>
+    <p class="section-sub reveal">The system classifies your full library, writes tags to your CMS, and keeps the taxonomy current automatically on every new publish.</p>
+    <div class="deliverables-grid">
+      <div class="deliverable reveal">
+        <div class="deliverable-num">01</div>
+        <div>
+          <h3>Custom Taxonomy Design</h3>
+          <p>Dimensions defined: topic categories, audience segments, content formats, funnel stages, or whatever matters to your team. Decision rules built so the taxonomy stays consistent over time.</p>
+        </div>
+      </div>
+      <div class="deliverable reveal">
+        <div class="deliverable-num">02</div>
+        <div>
+          <h3>Bulk Classification Engine</h3>
+          <p>AI reads each piece of content and assigns tags across all dimensions simultaneously. Confidence scoring per tag — high-confidence applied automatically, low-confidence flagged for review.</p>
+        </div>
+      </div>
+      <div class="deliverable reveal">
+        <div class="deliverable-num">03</div>
+        <div>
+          <h3>CMS Write-Back Integration</h3>
+          <p>Tags written directly to your CMS via API after approval. WordPress, Webflow, Sanity, Contentful, and Airtable all supported. Field mapping documented precisely.</p>
+        </div>
+      </div>
+      <div class="deliverable reveal">
+        <div class="deliverable-num">04</div>
+        <div>
+          <h3>Auto-Tag on Publish</h3>
+          <p>A webhook triggers classification the moment new content is published. Tags applied in seconds. Your taxonomy stays current without any team action required.</p>
+        </div>
+      </div>
+      <div class="deliverable reveal">
+        <div class="deliverable-num">05</div>
+        <div>
+          <h3>Review Queue</h3>
+          <p>Low-confidence tags surfaced in a review interface with the content excerpt and proposed tags side-by-side. Reviewers approve or correct. Corrections refine future classifications.</p>
+        </div>
+      </div>
+      <div class="deliverable reveal">
+        <div class="deliverable-num">06</div>
+        <div>
+          <h3>Taxonomy Documentation</h3>
+          <p>Full taxonomy guide for editors: what each tag means, how to choose between similar categories, and how to handle edge cases. Reduces editorial variance permanently.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section--alt">
+  <div class="container">
+    <p class="section-tag reveal">How it works</p>
+    <h2 class="reveal">Five steps from inconsistent tags<br>to a self-maintaining content library</h2>
+    <div class="process-steps">
+      <div class="process-step reveal">
+        <div class="step-num">01</div>
+        <div class="step-content">
+          <h3>Taxonomy Audit & Schema Design</h3>
+          <p>Existing tags are reviewed and classification dimensions defined — what the AI tags for, allowed values per dimension, and decision rules for edge cases. If no taxonomy exists, it is designed here before any classification starts.</p>
+        </div>
+      </div>
+      <div class="process-step reveal">
+        <div class="step-num">02</div>
+        <div class="step-content">
+          <h3>Classification Prompt Engineering</h3>
+          <p>Claude prompts built per taxonomy dimension, tested against a 50-item sample. Tuned until accuracy exceeds 95% on the test set. Confidence scoring calibrated — items below the threshold go to the review queue instead of being mislabeled silently.</p>
+        </div>
+      </div>
+      <div class="process-step reveal">
+        <div class="step-num">03</div>
+        <div class="step-content">
+          <h3>Bulk Classification Run</h3>
+          <p>Full library processed in batches. Output staged as a spreadsheet for your review before any tags are written to production. Your editorial team can approve by content type or dimension before anything changes in the CMS.</p>
+        </div>
+      </div>
+      <div class="process-step reveal">
+        <div class="step-num">04</div>
+        <div class="step-content">
+          <h3>CMS Integration & Write-Back</h3>
+          <p>Approved tags written to your CMS taxonomy fields via API. Field mapping documented. Auto-tag webhook configured — new content classified and tagged in seconds on publish, with no manual action required.</p>
+        </div>
+      </div>
+      <div class="process-step reveal">
+        <div class="step-num">05</div>
+        <div class="step-content">
+          <h3>Review Queue & Handoff</h3>
+          <p>Low-confidence items surfaced for editorial review. Taxonomy documentation delivered: what each tag means, how to handle edge cases, how to add new taxonomy values, and how to retag a batch without rebuilding the system.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="pricing">
+  <div class="container">
+    <p class="section-tag reveal">Pricing</p>
+    <h2 class="reveal">Three tiers. Every item tagged.</h2>
+    <p class="section-sub reveal">Start with bulk classification and a CSV output. Add CMS integration, confidence scoring, and auto-tag on publish as you scale.</p>
+    <div class="pricing-grid">
+      <div class="pricing-card reveal">
+        <div class="pricing-tier">Starter</div>
+        <div class="pricing-name">Content Tagger</div>
+        <div class="pricing-desc">Up to 500 items, custom taxonomy, bulk AI classification, CSV or API output</div>
+        <div class="pricing-price">$1,800</div>
+        <div class="pricing-delivery">Delivered in 7 days · 1 revision</div>
+        <ul class="pricing-features">
+          <li>Up to 500 content items</li>
+          <li>Custom taxonomy design</li>
+          <li>Bulk AI classification</li>
+          <li>CSV or API output</li>
+          <li>Taxonomy documentation</li>
+        </ul>
+        <a href="https://www.upwork.com/services/product/ai-content-tagging" class="pricing-btn pricing-btn--outline" target="_blank" rel="noopener">Get Started</a>
+      </div>
+      <div class="pricing-card pricing-card--featured reveal">
+        <div class="popular-badge">Most Popular</div>
+        <div class="pricing-tier">Standard</div>
+        <div class="pricing-name">CMS Integration Engine</div>
+        <div class="pricing-desc">Up to 5K items, CMS integration, confidence scoring, auto-tag on publish</div>
+        <div class="pricing-price">$4,500</div>
+        <div class="pricing-delivery">Delivered in 12 days · 2 revisions</div>
+        <ul class="pricing-features">
+          <li>Everything in Starter</li>
+          <li>Up to 5,000 content items</li>
+          <li>CMS write-back via API</li>
+          <li>Confidence scoring per tag</li>
+          <li>Auto-tag on publish (webhook)</li>
+          <li>Review queue for low-confidence items</li>
+          <li>Full taxonomy documentation</li>
+        </ul>
+        <a href="https://www.upwork.com/services/product/ai-content-tagging" class="pricing-btn pricing-btn--primary" target="_blank" rel="noopener">Get Started</a>
+      </div>
+      <div class="pricing-card reveal">
+        <div class="pricing-tier">Advanced</div>
+        <div class="pricing-name">Full Content Intelligence Platform</div>
+        <div class="pricing-desc">20K+ items, multi-language, search optimization, ongoing reclassification</div>
+        <div class="pricing-price">$8,500</div>
+        <div class="pricing-delivery">Delivered in 18 days · 3 revisions</div>
+        <ul class="pricing-features">
+          <li>Everything in Standard</li>
+          <li>20,000+ content items</li>
+          <li>Multi-language tagging</li>
+          <li>Search & recommendation optimization</li>
+          <li>Ongoing monthly reclassification</li>
+          <li>60-day post-launch support</li>
+        </ul>
+        <a href="https://www.upwork.com/services/product/ai-content-tagging" class="pricing-btn pricing-btn--outline" target="_blank" rel="noopener">Get Started</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section--alt">
+  <div class="container">
+    <p class="section-tag reveal">Add-ons</p>
+    <h2 class="reveal">Extend your tagging system</h2>
+    <p class="section-sub reveal">Each add-on integrates into the same pipeline — no separate projects, no re-architecture.</p>
+    <div class="addons-grid">
+      <div class="addon-card reveal">
+        <div class="addon-header"><div class="addon-name">Taxonomy Design Workshop</div><div class="addon-price">+$600</div></div>
+        <p class="addon-desc">Before any tagging begins, a structured taxonomy design session: mapping your content types, identifying the dimensions that matter (topic, audience, format, funnel stage, region), and resolving edge cases. Output is a finalized tag vocabulary and decision tree your team can use for manual tagging too.</p>
+      </div>
+      <div class="addon-card reveal">
+        <div class="addon-header"><div class="addon-name">Multi-Language Tagging</div><div class="addon-price">+$800</div></div>
+        <p class="addon-desc">Extends the tagging engine to classify content in Spanish, French, Portuguese, German, or other languages. Tags are normalized to your master taxonomy regardless of content language. Essential for publishers and education platforms serving multilingual audiences.</p>
+      </div>
+      <div class="addon-card reveal">
+        <div class="addon-header"><div class="addon-name">Auto-Tag on Publish (Webhook)</div><div class="addon-price">+$500</div></div>
+        <p class="addon-desc">Adds a publish hook to your CMS so that every new piece of content is automatically classified the moment it goes live. No manual tagging queue — the taxonomy stays current without any team action required.</p>
+      </div>
+      <div class="addon-card reveal">
+        <div class="addon-header"><div class="addon-name">Search & Recommendation Optimization</div><div class="addon-price">+$700</div></div>
+        <p class="addon-desc">Tagged metadata used to power on-site search facets, related content recommendations, or personalized content feeds. Filter logic built and wired into your existing search layer (Algolia, Elasticsearch, or native CMS search). Tags become UX features, not just backend metadata.</p>
+      </div>
+      <div class="addon-card reveal">
+        <div class="addon-header"><div class="addon-name">Monthly Reclassification Run</div><div class="addon-price">+$400</div></div>
+        <p class="addon-desc">Monthly recurring job that re-classifies your full content library against the current taxonomy. Catches items tagged under an outdated schema, newly published items that missed the auto-tag hook, and content whose category changed after an editorial refresh.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <p class="section-tag reveal">FAQ</p>
+    <h2 class="reveal">Common questions</h2>
+    <div class="faq-list">
+      <div class="faq-item reveal">
+        <button class="faq-q">What CMS platforms can you integrate with?</button>
+        <div class="faq-a">WordPress, Webflow, Sanity, Contentful, Airtable, Notion, and any CMS with a REST API or GraphQL endpoint. If your CMS supports API writes to taxonomy fields, it can be integrated. Airtable and Google Sheets work as lightweight CMS targets for teams without a formal CMS.</div>
+      </div>
+      <div class="faq-item reveal">
+        <button class="faq-q">How accurate is the AI tagging?</button>
+        <div class="faq-a">On well-defined taxonomies with clear category boundaries, accuracy typically exceeds 95 percent on the test set before the bulk run starts. Accuracy drops when taxonomy categories overlap significantly or when content is genuinely ambiguous — those items are routed to a review queue rather than mislabeled silently.</div>
+      </div>
+      <div class="faq-item reveal">
+        <button class="faq-q">What if my taxonomy doesn't exist yet?</button>
+        <div class="faq-a">Start with the Taxonomy Design Workshop add-on. I facilitate a session to map your content types, define the dimensions worth tagging (topic, audience, format, funnel stage, etc.), and build the full tag vocabulary. You get a finalized taxonomy your editors can use manually too — not just an input for the AI.</div>
+      </div>
+      <div class="faq-item reveal">
+        <button class="faq-q">Can this handle content in multiple languages?</button>
+        <div class="faq-a">English is supported by default. The Multi-Language Tagging add-on extends classification to Spanish, French, Portuguese, German, and others. Tags are normalized to your master taxonomy regardless of content language — a Spanish article and an English article on the same topic receive the same tags.</div>
+      </div>
+      <div class="faq-item reveal">
+        <button class="faq-q">What happens to content published after the initial tagging run?</button>
+        <div class="faq-a">The Auto-Tag on Publish add-on handles this — a webhook triggers the classification engine the moment content is published and writes tags back to the CMS in seconds. Without the add-on, I can set up a weekly batch job to classify newly published content on a schedule.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-section">
+  <div class="container">
+    <h2 class="reveal">Organize your content library in 24 hours.</h2>
+    <p class="reveal">5K items tagged, CMS integrated, auto-tag on publish. Deployed in 7–18 days. You own the taxonomy.</p>
+    <a href="https://www.upwork.com/services/product/ai-content-tagging" class="btn-primary reveal" target="_blank" rel="noopener">View on Upwork →</a>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo">Resultant<span>AI</span></div>
+  <p>Built by <a href="https://resultantai.com">ResultantAI</a> · <a href="https://resultantai.com/aeo-geo-audit/">AEO/GEO Audit</a> · <a href="https://resultantai.com/voice-ai/">Voice AI</a></p>
+</footer>
+
+<script>
+  const ro = new IntersectionObserver(e => e.forEach(e => { if(e.isIntersecting){e.target.classList.add('visible');ro.unobserve(e.target);} }), {threshold:0.1});
+  document.querySelectorAll('.reveal').forEach(el => ro.observe(el));
+  document.querySelectorAll('.faq-q').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const a = btn.nextElementSibling, open = btn.classList.contains('open');
+      document.querySelectorAll('.faq-q').forEach(b => { b.classList.remove('open'); b.nextElementSibling.classList.remove('open'); });
+      if(!open){ btn.classList.add('open'); a.classList.add('open'); }
+    });
+  });
+</script>
+</body>
+</html>

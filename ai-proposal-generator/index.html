@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Proposal Generator That Writes Client-Ready SOWs in Under 5 Minutes | ResultantAI</title>
+  <meta name="description" content="AI proposal generator that turns your intake answers into a complete scope of work, pricing, and executive summary in under 5 minutes -- written in your voice. Deployed in 6-14 days." />
+  <link rel="canonical" href="https://resultantai.com/ai-proposal-generator/" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Service",
+        "name": "AI-Powered Proposal & Scope of Work Generator",
+        "description": "Custom AI proposal generator that turns intake form answers into a complete, client-ready proposal in under 5 minutes. Executive summary, scope of work, pricing, timeline, and next steps -- written in your voice. CRM deal creation, Google Doc output, revision workflow.",
+        "provider": { "@type": "Organization", "name": "ResultantAI", "url": "https://resultantai.com" },
+        "offers": [
+          { "@type": "Offer", "name": "Proposal Generator", "price": "1500", "priceCurrency": "USD" },
+          { "@type": "Offer", "name": "Multi-Template Proposal System", "price": "3200", "priceCurrency": "USD" },
+          { "@type": "Offer", "name": "Client Portal + Proposal Suite", "price": "6000", "priceCurrency": "USD" }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          { "@type": "Question", "name": "Will the proposals actually sound like me?", "acceptedAnswer": { "@type": "Answer", "text": "Yes, if you provide samples. Brand voice calibration uses your existing proposals, website copy, and case studies to extract your tone -- sentence length, preferred vocabulary, how you describe deliverables, what you avoid. The first test proposal will be close. We tune from there until you'd send it as-is." } },
+          { "@type": "Question", "name": "Can it handle different types of proposals -- project, retainer, discovery?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. Each service type gets its own template. A project proposal has a fixed scope section and one-time pricing. A retainer proposal has monthly scope, terms, and a recurring fee. A discovery call proposal is shorter with a single low-ticket price. The intake form routes to the correct template automatically." } }
+        ]
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://resultantai.com" },
+          { "@type": "ListItem", "position": 2, "name": "AI Proposal Generator", "item": "https://resultantai.com/ai-proposal-generator/" }
+        ]
+      }
+    ]
+  }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #0a0f1a; --bg-secondary: #0f172a; --bg-card: #151d2e;
+      --emerald: #10b981; --emerald-dark: #059669;
+      --emerald-dim: rgba(16,185,129,0.1); --emerald-border: rgba(16,185,129,0.25);
+      --text: #f1f5f9; --text-muted: #94a3b8; --text-dim: #64748b;
+      --border: rgba(255,255,255,0.07); --red: #ef4444;
+    }
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; line-height: 1.6; overflow-x: hidden; }
+    body::before {
+      content: ''; position: fixed; inset: 0;
+      background-image: linear-gradient(rgba(16,185,129,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(16,185,129,0.03) 1px, transparent 1px);
+      background-size: 60px 60px; pointer-events: none; z-index: 0;
+    }
+    * { position: relative; z-index: 1; }
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 1rem 2rem; background: rgba(10,15,26,0.8); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
+    .nav-logo { font-weight: 700; font-size: 1.1rem; color: var(--text); text-decoration: none; letter-spacing: -0.02em; }
+    .nav-logo span { color: var(--emerald); }
+    .nav-cta { background: var(--emerald); color: #0a0f1a; font-weight: 600; font-size: 0.85rem; padding: 0.5rem 1.25rem; border-radius: 6px; text-decoration: none; transition: background 0.2s, transform 0.2s; }
+    .nav-cta:hover { background: var(--emerald-dark); transform: translateY(-1px); }
+    .hero { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 8rem 2rem 5rem; text-align: center; }
+    .hero-inner { max-width: 820px; }
+    .hero-badge { display: inline-flex; align-items: center; gap: 0.5rem; background: var(--emerald-dim); border: 1px solid var(--emerald-border); color: var(--emerald); font-size: 0.8rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; padding: 0.4rem 1rem; border-radius: 20px; margin-bottom: 2rem; }
+    .hero-badge::before { content: '●'; font-size: 0.5rem; animation: pulse 2s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+    .hero h1 { font-size: clamp(2.2rem, 5vw, 3.6rem); font-weight: 700; line-height: 1.15; letter-spacing: -0.03em; margin-bottom: 1.5rem; }
+    .hero h1 em { font-style: normal; color: var(--emerald); }
+    .hero-sub { font-size: 1.15rem; color: var(--text-muted); max-width: 620px; margin: 0 auto 2.5rem; line-height: 1.7; }
+    .hero-stats { display: flex; justify-content: center; gap: 2.5rem; flex-wrap: wrap; margin-bottom: 2.5rem; padding: 1.5rem; background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; }
+    .stat { text-align: center; }
+    .stat-val { font-family: 'JetBrains Mono', monospace; font-size: 1.5rem; font-weight: 700; color: var(--emerald); }
+    .stat-label { font-size: 0.8rem; color: var(--text-muted); margin-top: 0.2rem; }
+    .hero-cta { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+    .btn-primary { background: var(--emerald); color: #0a0f1a; font-weight: 700; font-size: 1rem; padding: 0.85rem 2rem; border-radius: 8px; text-decoration: none; transition: background 0.2s, transform 0.2s; }
+    .btn-primary:hover { background: var(--emerald-dark); transform: translateY(-2px); }
+    .btn-secondary { background: transparent; color: var(--text); font-weight: 600; font-size: 1rem; padding: 0.85rem 2rem; border-radius: 8px; text-decoration: none; border: 1px solid var(--border); transition: border-color 0.2s, transform 0.2s; }
+    .btn-secondary:hover { border-color: var(--emerald); transform: translateY(-2px); }
+    section { padding: 6rem 2rem; }
+    .container { max-width: 1100px; margin: 0 auto; }
+    .section-tag { font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; font-weight: 500; color: var(--emerald); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 1rem; }
+    h2 { font-size: clamp(1.8rem, 3.5vw, 2.6rem); font-weight: 700; letter-spacing: -0.03em; margin-bottom: 1rem; line-height: 1.2; }
+    .section-sub { font-size: 1.05rem; color: var(--text-muted); max-width: 580px; line-height: 1.7; margin-bottom: 3rem; }
+    .section--alt { background: var(--bg-secondary); }
+    .problem-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
+    .problem-card { background: var(--bg-card); border: 1px solid var(--border); border-top: 3px solid var(--red); border-radius: 12px; padding: 2rem; }
+    .problem-card h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: 0.75rem; }
+    .problem-card p { font-size: 0.95rem; color: var(--text-muted); line-height: 1.65; }
+    .deliverables-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.25rem; }
+    .deliverable { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 1.75rem; display: flex; gap: 1rem; align-items: flex-start; }
+    .deliverable-num { font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; font-weight: 700; color: var(--emerald); background: var(--emerald-dim); border: 1px solid var(--emerald-border); width: 2rem; height: 2rem; border-radius: 6px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .deliverable h3 { font-size: 0.95rem; font-weight: 700; margin-bottom: 0.4rem; }
+    .deliverable p { font-size: 0.88rem; color: var(--text-muted); line-height: 1.55; }
+    .process-steps { display: flex; flex-direction: column; max-width: 780px; }
+    .process-step { display: flex; gap: 1.5rem; padding: 2rem 0; border-bottom: 1px solid var(--border); }
+    .process-step:last-child { border-bottom: none; }
+    .step-num { font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; font-weight: 700; color: var(--emerald); background: var(--emerald-dim); border: 1px solid var(--emerald-border); width: 2.5rem; height: 2.5rem; border-radius: 8px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 0.2rem; }
+    .step-content h3 { font-size: 1rem; font-weight: 700; margin-bottom: 0.5rem; }
+    .step-content p { font-size: 0.92rem; color: var(--text-muted); line-height: 1.65; }
+    .pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; align-items: start; }
+    .pricing-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; padding: 2rem; position: relative; }
+    .pricing-card--featured { background: linear-gradient(135deg, rgba(16,185,129,0.08) 0%, var(--bg-card) 60%); border-color: var(--emerald-border); transform: scale(1.03); }
+    .popular-badge { position: absolute; top: -14px; left: 50%; transform: translateX(-50%); background: var(--emerald); color: #0a0f1a; font-size: 0.75rem; font-weight: 700; padding: 0.3rem 1rem; border-radius: 20px; white-space: nowrap; letter-spacing: 0.04em; }
+    .pricing-tier { font-size: 0.8rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.5rem; }
+    .pricing-name { font-size: 1.3rem; font-weight: 700; margin-bottom: 0.5rem; }
+    .pricing-desc { font-size: 0.88rem; color: var(--text-muted); margin-bottom: 1.5rem; line-height: 1.5; }
+    .pricing-price { font-family: 'JetBrains Mono', monospace; font-size: 2.2rem; font-weight: 700; color: var(--emerald); margin-bottom: 0.25rem; }
+    .pricing-delivery { font-size: 0.82rem; color: var(--text-dim); margin-bottom: 1.5rem; }
+    .pricing-features { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; margin-bottom: 1.75rem; }
+    .pricing-features li { font-size: 0.9rem; color: var(--text-muted); display: flex; gap: 0.6rem; align-items: flex-start; }
+    .pricing-features li::before { content: '✓'; color: var(--emerald); font-weight: 700; flex-shrink: 0; margin-top: 0.05rem; }
+    .pricing-btn { display: block; text-align: center; font-weight: 700; font-size: 0.95rem; padding: 0.85rem; border-radius: 8px; text-decoration: none; transition: all 0.2s; }
+    .pricing-btn--primary { background: var(--emerald); color: #0a0f1a; }
+    .pricing-btn--primary:hover { background: var(--emerald-dark); transform: translateY(-1px); }
+    .pricing-btn--outline { border: 1px solid var(--border); color: var(--text); }
+    .pricing-btn--outline:hover { border-color: var(--emerald); transform: translateY(-1px); }
+    .addons-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.25rem; }
+    .addon-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; display: flex; flex-direction: column; gap: 0.5rem; }
+    .addon-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; }
+    .addon-name { font-size: 0.95rem; font-weight: 700; }
+    .addon-price { font-family: 'JetBrains Mono', monospace; font-size: 0.9rem; color: var(--emerald); white-space: nowrap; }
+    .addon-desc { font-size: 0.87rem; color: var(--text-muted); line-height: 1.55; }
+    .faq-list { display: flex; flex-direction: column; max-width: 780px; }
+    .faq-item { border-bottom: 1px solid var(--border); }
+    .faq-item:first-child { border-top: 1px solid var(--border); }
+    .faq-q { width: 100%; text-align: left; background: none; border: none; color: var(--text); font-family: 'Inter', sans-serif; font-size: 1rem; font-weight: 600; cursor: pointer; padding: 1.5rem 0; display: flex; justify-content: space-between; align-items: center; gap: 1rem; }
+    .faq-q::after { content: '+'; color: var(--emerald); font-size: 1.3rem; font-weight: 400; flex-shrink: 0; transition: transform 0.2s; }
+    .faq-q.open::after { transform: rotate(45deg); }
+    .faq-a { display: none; padding-bottom: 1.5rem; font-size: 0.95rem; color: var(--text-muted); line-height: 1.7; }
+    .faq-a.open { display: block; }
+    .cta-section { text-align: center; padding: 7rem 2rem; background: linear-gradient(135deg, rgba(16,185,129,0.06) 0%, transparent 60%); border-top: 1px solid var(--border); }
+    .cta-section h2 { margin-bottom: 1rem; }
+    .cta-section p { color: var(--text-muted); font-size: 1.05rem; max-width: 540px; margin: 0 auto 2.5rem; }
+    footer { background: var(--bg-secondary); border-top: 1px solid var(--border); padding: 2.5rem 2rem; text-align: center; }
+    .footer-logo { font-weight: 700; font-size: 1rem; margin-bottom: 0.5rem; }
+    .footer-logo span { color: var(--emerald); }
+    footer p { font-size: 0.85rem; color: var(--text-dim); }
+    footer a { color: var(--text-muted); text-decoration: none; }
+    footer a:hover { color: var(--emerald); }
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.55s ease, transform 0.55s ease; }
+    .reveal.visible { opacity: 1; transform: none; }
+    @media (max-width: 768px) { nav { padding: 1rem; } .hero-stats { gap: 1.5rem; } .pricing-card--featured { transform: none; } }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="https://resultantai.com" class="nav-logo">Resultant<span>AI</span></a>
+  <a href="https://www.upwork.com/services/product/ai-proposal-generator" class="nav-cta" target="_blank" rel="noopener">View on Upwork</a>
+</nav>
+
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-badge">AI Proposal Automation Build</div>
+    <h1>You had a great call.<br><em>Then you spent three hours writing a proposal.</em></h1>
+    <p class="hero-sub">An AI proposal generator that turns your intake answers into a complete, client-ready SOW in under 5 minutes -- written in your voice.</p>
+    <div class="hero-stats">
+      <div class="stat"><div class="stat-val">&lt;5 min</div><div class="stat-label">per proposal</div></div>
+      <div class="stat"><div class="stat-val">3</div><div class="stat-label">templates included</div></div>
+      <div class="stat"><div class="stat-val">CRM</div><div class="stat-label">deal auto-created</div></div>
+      <div class="stat"><div class="stat-val">6–14 days</div><div class="stat-label">to deploy</div></div>
+    </div>
+    <div class="hero-cta">
+      <a href="https://www.upwork.com/services/product/ai-proposal-generator" class="btn-primary" target="_blank" rel="noopener">See Pricing on Upwork</a>
+      <a href="#pricing" class="btn-secondary">View Tiers</a>
+    </div>
+  </div>
+</section>
+
+<section class="section--alt">
+  <div class="container">
+    <p class="section-tag reveal">The problem</p>
+    <h2 class="reveal">Slow proposals lose deals.<br>You're writing from scratch every time.</h2>
+    <p class="section-sub reveal">The client is hottest in the 48 hours after the call. Every hour without a proposal in their inbox is an hour they're talking to someone else.</p>
+    <div class="problem-grid">
+      <div class="problem-card reveal">
+        <h3>The 3-Hour Proposal</h3>
+        <p>You finish the call excited. Then you open a blank doc and spend three hours writing scope language you've written 40 times before. Same deliverables. Different client name. Different formatting choices every time. By the time you send it, they've talked to two other vendors.</p>
+      </div>
+      <div class="problem-card reveal">
+        <h3>Inconsistent Pricing</h3>
+        <p>You scope every deal from memory. Sometimes you undercharge. Sometimes you forget a deliverable. Sometimes you quote differently for two clients with the same problem. There's no system -- just whoever wrote the last proposal and whatever they remembered to include.</p>
+      </div>
+      <div class="problem-card reveal">
+        <h3>Speed Kills Deals</h3>
+        <p>The client is hot for 48 hours after the call. Every hour you don't have a proposal in their inbox is an hour they're talking to someone else. The winner isn't always the cheapest or the best -- it's the one who followed up first with something professional.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="deliverables">
+  <div class="container">
+    <p class="section-tag reveal">What you get</p>
+    <h2 class="reveal">From intake form answers<br>to client-ready proposal in under 5 minutes</h2>
+    <p class="section-sub reveal">The system captures what you need, generates in your voice, and hands off a formatted doc ready to review and send.</p>
+    <div class="deliverables-grid">
+      <div class="deliverable reveal">
+        <div class="deliverable-num">01</div>
+        <div>
+          <h3>Intake Form</h3>
+          <p>8-12 questions that capture everything needed to write an accurate proposal. Takes 3 minutes to fill out right after the call while details are fresh. Routes to the correct template automatically based on service type.</p>
+        </div>
+      </div>
+      <div class="deliverable reveal">
+        <div class="deliverable-num">02</div>
+        <div>
+          <h3>Claude Proposal Prompts</h3>
+          <p>Engineered prompts per service template that generate a complete proposal: executive summary, scope of work, deliverables, timeline, pricing, and next steps. All in your voice.</p>
+        </div>
+      </div>
+      <div class="deliverable reveal">
+        <div class="deliverable-num">03</div>
+        <div>
+          <h3>Brand Voice Calibration</h3>
+          <p>Your existing proposals used to extract tone, vocabulary, section structure, and phrasing patterns. The AI writes like you, not like a generic AI tool.</p>
+        </div>
+      </div>
+      <div class="deliverable reveal">
+        <div class="deliverable-num">04</div>
+        <div>
+          <h3>CRM Deal Creation</h3>
+          <p>Intake submission automatically creates a deal in HubSpot or Salesforce with all fields populated: service type, value, timeline, contact. No manual CRM entry required.</p>
+        </div>
+      </div>
+      <div class="deliverable reveal">
+        <div class="deliverable-num">05</div>
+        <div>
+          <h3>Google Doc Output</h3>
+          <p>Each proposal lands in a Google Doc in your Drive, formatted and ready for review. You edit for 5 minutes and send. Revision history tracked automatically.</p>
+        </div>
+      </div>
+      <div class="deliverable reveal">
+        <div class="deliverable-num">06</div>
+        <div>
+          <h3>Revision Workflow</h3>
+          <p>Client requests a change? The intake form logs the revision request. Claude regenerates the affected sections. The revised doc is ready in 2 minutes.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section--alt">
+  <div class="container">
+    <p class="section-tag reveal">How it works</p>
+    <h2 class="reveal">Five steps from blank doc<br>to automated proposal pipeline</h2>
+    <div class="process-steps">
+      <div class="process-step reveal">
+        <div class="step-num">01</div>
+        <div class="step-content">
+          <h3>Proposal Audit &amp; Template Design</h3>
+          <p>I review your existing proposals and extract your structure: the sections you always include, how you describe deliverables, how you present pricing, and the language that closes deals. Template skeleton built and reviewed before any prompts are written.</p>
+        </div>
+      </div>
+      <div class="process-step reveal">
+        <div class="step-num">02</div>
+        <div class="step-content">
+          <h3>Intake Form Build</h3>
+          <p>Intake form designed around the minimum information needed to write an accurate proposal. Too few questions and the output is generic. Too many and your sales team skips it. Built in Typeform, Tally, or Google Form -- your choice.</p>
+        </div>
+      </div>
+      <div class="process-step reveal">
+        <div class="step-num">03</div>
+        <div class="step-content">
+          <h3>Prompt Engineering &amp; Voice Calibration</h3>
+          <p>Claude prompts engineered per template with strict output structure. Voice calibration run against your sample proposals -- the AI generates in your tone, uses your section headings, and avoids language you never use. Test proposals reviewed together until you approve the output quality.</p>
+        </div>
+      </div>
+      <div class="process-step reveal">
+        <div class="step-num">04</div>
+        <div class="step-content">
+          <h3>CRM Integration &amp; Output Pipeline</h3>
+          <p>Proposal generated, Google Doc created, stored in Drive, CRM deal created with all fields populated, email draft queued or sent automatically. Each step confirmed end-to-end before handoff.</p>
+        </div>
+      </div>
+      <div class="process-step reveal">
+        <div class="step-num">05</div>
+        <div class="step-content">
+          <h3>Testing &amp; Handoff</h3>
+          <p>5 test proposals generated across different service types and client profiles. Edge cases tested. Handoff package: how to add a new template, update pricing logic, and modify the voice calibration prompt without rebuilding anything.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="pricing">
+  <div class="container">
+    <p class="section-tag reveal">Pricing</p>
+    <h2 class="reveal">Three tiers. Every proposal in your voice.</h2>
+    <p class="section-sub reveal">Start with a single template. Add tone calibration, CRM sync, and a client-facing intake portal as you scale.</p>
+    <div class="pricing-grid">
+      <div class="pricing-card reveal">
+        <div class="pricing-tier">Starter</div>
+        <div class="pricing-name">Proposal Generator</div>
+        <div class="pricing-desc">Custom Claude prompt, intake form, 1 template, Google Doc or PDF output</div>
+        <div class="pricing-price">$1,500</div>
+        <div class="pricing-delivery">Delivered in 6 days · 1 revision</div>
+        <ul class="pricing-features">
+          <li>1 service template</li>
+          <li>Custom Claude prompt</li>
+          <li>Intake form (Typeform or Tally)</li>
+          <li>Google Doc or PDF output</li>
+          <li>Action plan + documentation</li>
+        </ul>
+        <a href="https://www.upwork.com/services/product/ai-proposal-generator" class="pricing-btn pricing-btn--outline" target="_blank" rel="noopener">Get Started</a>
+      </div>
+      <div class="pricing-card pricing-card--featured reveal">
+        <div class="popular-badge">Most Popular</div>
+        <div class="pricing-tier">Standard</div>
+        <div class="pricing-name">Multi-Template Proposal System</div>
+        <div class="pricing-desc">3 templates, tone calibration, CRM trigger, revision workflow, full handoff</div>
+        <div class="pricing-price">$3,200</div>
+        <div class="pricing-delivery">Delivered in 10 days · 2 revisions</div>
+        <ul class="pricing-features">
+          <li>Everything in Starter</li>
+          <li>3 service templates</li>
+          <li>Brand voice calibration</li>
+          <li>CRM deal creation (HubSpot or Salesforce)</li>
+          <li>Revision workflow</li>
+          <li>Full handoff documentation</li>
+        </ul>
+        <a href="https://www.upwork.com/services/product/ai-proposal-generator" class="pricing-btn pricing-btn--primary" target="_blank" rel="noopener">Get Started</a>
+      </div>
+      <div class="pricing-card reveal">
+        <div class="pricing-tier">Advanced</div>
+        <div class="pricing-name">Client Portal + Proposal Suite</div>
+        <div class="pricing-desc">5+ templates, client-facing intake portal, Make/Zapier trigger, analytics</div>
+        <div class="pricing-price">$6,000</div>
+        <div class="pricing-delivery">Delivered in 14 days · 3 revisions</div>
+        <ul class="pricing-features">
+          <li>Everything in Standard</li>
+          <li>5+ service templates</li>
+          <li>Client-facing intake portal</li>
+          <li>Make.com or Zapier trigger</li>
+          <li>Win/loss analytics dashboard</li>
+          <li>60-day post-launch support</li>
+        </ul>
+        <a href="https://www.upwork.com/services/product/ai-proposal-generator" class="pricing-btn pricing-btn--outline" target="_blank" rel="noopener">Get Started</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section--alt">
+  <div class="container">
+    <p class="section-tag reveal">Add-ons</p>
+    <h2 class="reveal">Extend your proposal system</h2>
+    <p class="section-sub reveal">Each add-on integrates into the same pipeline -- no separate projects, no re-architecture.</p>
+    <div class="addons-grid">
+      <div class="addon-card reveal">
+        <div class="addon-header"><div class="addon-name">Brand Voice Calibration</div><div class="addon-price">+$400</div></div>
+        <p class="addon-desc">Your existing proposals, case studies, and website copy used to extract your brand voice -- tone, sentence structure, preferred phrasing, and vocabulary you avoid. The AI generates proposals that sound like you wrote them. Includes a voice guide you can reuse for other AI applications.</p>
+      </div>
+      <div class="addon-card reveal">
+        <div class="addon-header"><div class="addon-name">Pricing Logic Engine</div><div class="addon-price">+$500</div></div>
+        <p class="addon-desc">Dynamic pricing logic built into the intake form -- scope questions drive price calculations automatically. The proposal populates with the correct tier, line items, and total based on what the client selects. You stop calculating pricing manually and stop under-scoping by accident.</p>
+      </div>
+      <div class="addon-card reveal">
+        <div class="addon-header"><div class="addon-name">E-Signature Integration</div><div class="addon-price">+$400</div></div>
+        <p class="addon-desc">Proposal delivered via HelloSign, DocuSign, or PandaDoc with signing built in. Client signs from the same link they use to view the proposal. Signed status synced back to HubSpot or Airtable automatically. You know when they opened it, signed it, and when to follow up.</p>
+      </div>
+      <div class="addon-card reveal">
+        <div class="addon-header"><div class="addon-name">CRM Deal Creation</div><div class="addon-price">+$400</div></div>
+        <p class="addon-desc">Intake form submission automatically creates a deal in HubSpot or Salesforce with all proposal fields populated -- service type, value, timeline, contact, and current stage. No manual CRM entry after a proposal is sent. Deal moves to the correct stage when signed.</p>
+      </div>
+      <div class="addon-card reveal">
+        <div class="addon-header"><div class="addon-name">Win/Loss Analytics Dashboard</div><div class="addon-price">+$600</div></div>
+        <p class="addon-desc">Lightweight Airtable or Google Data Studio dashboard tracking every proposal: service type, value, client industry, sent date, outcome (won/lost/ghosted), and close time. After 30 proposals, you can see which services convert best, which price points win, and where deals die.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <p class="section-tag reveal">FAQ</p>
+    <h2 class="reveal">Common questions</h2>
+    <div class="faq-list">
+      <div class="faq-item reveal">
+        <button class="faq-q">Will the proposals actually sound like me?</button>
+        <div class="faq-a">Yes, if you provide samples. Brand voice calibration uses your existing proposals, website copy, and case studies to extract your tone -- sentence length, preferred vocabulary, how you describe deliverables, what you avoid. The first test proposal will be close. We tune from there until you'd send it as-is.</div>
+      </div>
+      <div class="faq-item reveal">
+        <button class="faq-q">Can it handle different types of proposals -- project, retainer, discovery call?</button>
+        <div class="faq-a">Yes. Each service type gets its own template. A project proposal has a fixed scope section and one-time pricing. A retainer proposal has a monthly scope, terms, and a recurring fee. A discovery call proposal is shorter with a single low-ticket price. The intake form routes to the correct template automatically based on service type selected.</div>
+      </div>
+      <div class="faq-item reveal">
+        <button class="faq-q">What if the client's scope is unusual and doesn't fit a template?</button>
+        <div class="faq-a">The intake form includes a free-text "notes" field for anything that doesn't fit the standard questions. Claude incorporates those notes into the proposal rather than ignoring them. For edge cases, the system generates the closest-fitting template and flags the unusual scope for your review before sending.</div>
+      </div>
+      <div class="faq-item reveal">
+        <button class="faq-q">What output formats does it produce?</button>
+        <div class="faq-a">Google Docs by default -- easy to review, edit, and share. PDF export available for final send. If you use PandaDoc or DocuSign, the E-Signature add-on delivers proposals through those platforms with signing built in. Notion or Airtable storage also available if that is where you manage your sales workflow.</div>
+      </div>
+      <div class="faq-item reveal">
+        <button class="faq-q">How do I update pricing after the system is built?</button>
+        <div class="faq-a">Pricing logic lives in a single configuration file or Airtable table that you control. Updating a price, adding a tier, or changing a line item does not require touching the AI prompt or any code. I document this explicitly at handoff so you never need to come back to me for a price change.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-section">
+  <div class="container">
+    <h2 class="reveal">Send your first AI-generated proposal today.</h2>
+    <p class="reveal">3 templates, CRM sync, brand voice calibration. Deployed in 6-14 days. You own the templates, the prompts, and the intake form.</p>
+    <a href="https://www.upwork.com/services/product/ai-proposal-generator" class="btn-primary reveal" target="_blank" rel="noopener">View on Upwork →</a>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo">Resultant<span>AI</span></div>
+  <p>Built by <a href="https://resultantai.com">ResultantAI</a> · <a href="https://resultantai.com/aeo-geo-audit/">AEO/GEO Audit</a> · <a href="https://resultantai.com/voice-ai/">Voice AI</a></p>
+</footer>
+
+<script>
+  const ro = new IntersectionObserver(e => e.forEach(e => { if(e.isIntersecting){e.target.classList.add('visible');ro.unobserve(e.target);} }), {threshold:0.1});
+  document.querySelectorAll('.reveal').forEach(el => ro.observe(el));
+  document.querySelectorAll('.faq-q').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const a = btn.nextElementSibling, open = btn.classList.contains('open');
+      document.querySelectorAll('.faq-q').forEach(b => { b.classList.remove('open'); b.nextElementSibling.classList.remove('open'); });
+      if(!open){ btn.classList.add('open'); a.classList.add('open'); }
+    });
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Document Intake That Extracts, Routes & Logs Automatically | ResultantAI</title>
+  <meta name="description" content="AI reads your incoming documents, extracts the data that matters, and routes it to the right destination without a human in the loop. 97%+ accuracy. Deployed in 6–16 days." />
+  <link rel="canonical" href="https://resultantai.com/document-ai/" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Service",
+        "name": "Document AI: Intake, Extraction & Routing",
+        "description": "AI document intake pipeline that reads incoming PDFs and forms, extracts structured data with confidence scoring, routes to CRM and other destinations, and flags exceptions for human review. Built for professional services, legal, and healthcare intake teams.",
+        "provider": { "@type": "Organization", "name": "ResultantAI", "url": "https://resultantai.com" },
+        "offers": [
+          { "@type": "Offer", "name": "Document Extractor", "price": "1500", "priceCurrency": "USD" },
+          { "@type": "Offer", "name": "Smart Intake Pipeline", "price": "3200", "priceCurrency": "USD" },
+          { "@type": "Offer", "name": "Full Document Intelligence", "price": "6000", "priceCurrency": "USD" }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          { "@type": "Question", "name": "What document formats can you process?", "acceptedAnswer": { "@type": "Answer", "text": "PDF, Word (.docx), Excel (.xlsx), scanned images (JPEG, PNG, TIFF), and plain email bodies. Scanned PDFs require the OCR add-on for best accuracy — native digital PDFs extract cleanly without it." } },
+          { "@type": "Question", "name": "How accurate is the extraction?", "acceptedAnswer": { "@type": "Answer", "text": "On clean, structured PDFs, extraction accuracy typically exceeds 97 percent. Anything below 85 percent confidence gets flagged for human review rather than passed through silently." } }
+        ]
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://resultantai.com" },
+          { "@type": "ListItem", "position": 2, "name": "Document AI", "item": "https://resultantai.com/document-ai/" }
+        ]
+      }
+    ]
+  }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #0a0f1a; --bg-secondary: #0f172a; --bg-card: #151d2e;
+      --emerald: #10b981; --emerald-dark: #059669;
+      --emerald-dim: rgba(16,185,129,0.1); --emerald-border: rgba(16,185,129,0.25);
+      --text: #f1f5f9; --text-muted: #94a3b8; --text-dim: #64748b;
+      --border: rgba(255,255,255,0.07); --red: #ef4444;
+    }
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; line-height: 1.6; overflow-x: hidden; }
+    body::before {
+      content: ''; position: fixed; inset: 0;
+      background-image: linear-gradient(rgba(16,185,129,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(16,185,129,0.03) 1px, transparent 1px);
+      background-size: 60px 60px; pointer-events: none; z-index: 0;
+    }
+    * { position: relative; z-index: 1; }
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 1rem 2rem; background: rgba(10,15,26,0.8); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
+    .nav-logo { font-weight: 700; font-size: 1.1rem; color: var(--text); text-decoration: none; letter-spacing: -0.02em; }
+    .nav-logo span { color: var(--emerald); }
+    .nav-cta { background: var(--emerald); color: #0a0f1a; font-weight: 600; font-size: 0.85rem; padding: 0.5rem 1.25rem; border-radius: 6px; text-decoration: none; transition: background 0.2s, transform 0.2s; }
+    .nav-cta:hover { background: var(--emerald-dark); transform: translateY(-1px); }
+    .hero { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 8rem 2rem 5rem; text-align: center; }
+    .hero-inner { max-width: 820px; }
+    .hero-badge { display: inline-flex; align-items: center; gap: 0.5rem; background: var(--emerald-dim); border: 1px solid var(--emerald-border); color: var(--emerald); font-size: 0.8rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; padding: 0.4rem 1rem; border-radius: 20px; margin-bottom: 2rem; }
+    .hero-badge::before { content: '●'; font-size: 0.5rem; animation: pulse 2s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+    .hero h1 { font-size: clamp(2.2rem, 5vw, 3.6rem); font-weight: 700; line-height: 1.15; letter-spacing: -0.03em; margin-bottom: 1.5rem; }
+    .hero h1 em { font-style: normal; color: var(--emerald); }
+    .hero-sub { font-size: 1.15rem; color: var(--text-muted); max-width: 620px; margin: 0 auto 2.5rem; line-height: 1.7; }
+    .hero-stats { display: flex; justify-content: center; gap: 2.5rem; flex-wrap: wrap; margin-bottom: 2.5rem; padding: 1.5rem; background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; }
+    .stat { text-align: center; }
+    .stat-val { font-family: 'JetBrains Mono', monospace; font-size: 1.5rem; font-weight: 700; color: var(--emerald); }
+    .stat-label { font-size: 0.8rem; color: var(--text-muted); margin-top: 0.2rem; }
+    .hero-cta { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+    .btn-primary { background: var(--emerald); color: #0a0f1a; font-weight: 700; font-size: 1rem; padding: 0.85rem 2rem; border-radius: 8px; text-decoration: none; transition: background 0.2s, transform 0.2s; }
+    .btn-primary:hover { background: var(--emerald-dark); transform: translateY(-2px); }
+    .btn-secondary { background: transparent; color: var(--text); font-weight: 600; font-size: 1rem; padding: 0.85rem 2rem; border-radius: 8px; text-decoration: none; border: 1px solid var(--border); transition: border-color 0.2s, transform 0.2s; }
+    .btn-secondary:hover { border-color: var(--emerald); transform: translateY(-2px); }
+    section { padding: 6rem 2rem; }
+    .container { max-width: 1100px; margin: 0 auto; }
+    .section-tag { font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; font-weight: 500; color: var(--emerald); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 1rem; }
+    h2 { font-size: clamp(1.8rem, 3.5vw, 2.6rem); font-weight: 700; letter-spacing: -0.03em; margin-bottom: 1rem; line-height: 1.2; }
+    .section-sub { font-size: 1.05rem; color: var(--text-muted); max-width: 580px; line-height: 1.7; margin-bottom: 3rem; }
+    .section--alt { background: var(--bg-secondary); }
+    .problem-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
+    .problem-card { background: var(--bg-card); border: 1px solid var(--border); border-top: 3px solid var(--red); border-radius: 12px; padding: 2rem; }
+    .problem-card h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: 0.75rem; }
+    .problem-card p { font-size: 0.95rem; color: var(--text-muted); line-height: 1.65; }
+    .deliverables-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.25rem; }
+    .deliverable { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 1.75rem; display: flex; gap: 1rem; align-items: flex-start; }
+    .deliverable-num { font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; font-weight: 700; color: var(--emerald); background: var(--emerald-dim); border: 1px solid var(--emerald-border); width: 2rem; height: 2rem; border-radius: 6px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .deliverable h3 { font-size: 0.95rem; font-weight: 700; margin-bottom: 0.4rem; }
+    .deliverable p { font-size: 0.88rem; color: var(--text-muted); line-height: 1.55; }
+    .process-steps { display: flex; flex-direction: column; max-width: 780px; }
+    .process-step { display: flex; gap: 1.5rem; padding: 2rem 0; border-bottom: 1px solid var(--border); }
+    .process-step:last-child { border-bottom: none; }
+    .step-num { font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; font-weight: 700; color: var(--emerald); background: var(--emerald-dim); border: 1px solid var(--emerald-border); width: 2.5rem; height: 2.5rem; border-radius: 8px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 0.2rem; }
+    .step-content h3 { font-size: 1rem; font-weight: 700; margin-bottom: 0.5rem; }
+    .step-content p { font-size: 0.92rem; color: var(--text-muted); line-height: 1.65; }
+    .pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; align-items: start; }
+    .pricing-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; padding: 2rem; position: relative; }
+    .pricing-card--featured { background: linear-gradient(135deg, rgba(16,185,129,0.08) 0%, var(--bg-card) 60%); border-color: var(--emerald-border); transform: scale(1.03); }
+    .popular-badge { position: absolute; top: -14px; left: 50%; transform: translateX(-50%); background: var(--emerald); color: #0a0f1a; font-size: 0.75rem; font-weight: 700; padding: 0.3rem 1rem; border-radius: 20px; white-space: nowrap; letter-spacing: 0.04em; }
+    .pricing-tier { font-size: 0.8rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.5rem; }
+    .pricing-name { font-size: 1.3rem; font-weight: 700; margin-bottom: 0.5rem; }
+    .pricing-desc { font-size: 0.88rem; color: var(--text-muted); margin-bottom: 1.5rem; line-height: 1.5; }
+    .pricing-price { font-family: 'JetBrains Mono', monospace; font-size: 2.2rem; font-weight: 700; color: var(--emerald); margin-bottom: 0.25rem; }
+    .pricing-delivery { font-size: 0.82rem; color: var(--text-dim); margin-bottom: 1.5rem; }
+    .pricing-features { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; margin-bottom: 1.75rem; }
+    .pricing-features li { font-size: 0.9rem; color: var(--text-muted); display: flex; gap: 0.6rem; align-items: flex-start; }
+    .pricing-features li::before { content: '✓'; color: var(--emerald); font-weight: 700; flex-shrink: 0; margin-top: 0.05rem; }
+    .pricing-btn { display: block; text-align: center; font-weight: 700; font-size: 0.95rem; padding: 0.85rem; border-radius: 8px; text-decoration: none; transition: all 0.2s; }
+    .pricing-btn--primary { background: var(--emerald); color: #0a0f1a; }
+    .pricing-btn--primary:hover { background: var(--emerald-dark); transform: translateY(-1px); }
+    .pricing-btn--outline { border: 1px solid var(--border); color: var(--text); }
+    .pricing-btn--outline:hover { border-color: var(--emerald); transform: translateY(-1px); }
+    .addons-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.25rem; }
+    .addon-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; display: flex; flex-direction: column; gap: 0.5rem; }
+    .addon-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; }
+    .addon-name { font-size: 0.95rem; font-weight: 700; }
+    .addon-price { font-family: 'JetBrains Mono', monospace; font-size: 0.9rem; color: var(--emerald); white-space: nowrap; }
+    .addon-desc { font-size: 0.87rem; color: var(--text-muted); line-height: 1.55; }
+    .faq-list { display: flex; flex-direction: column; max-width: 780px; }
+    .faq-item { border-bottom: 1px solid var(--border); }
+    .faq-item:first-child { border-top: 1px solid var(--border); }
+    .faq-q { width: 100%; text-align: left; background: none; border: none; color: var(--text); font-family: 'Inter', sans-serif; font-size: 1rem; font-weight: 600; cursor: pointer; padding: 1.5rem 0; display: flex; justify-content: space-between; align-items: center; gap: 1rem; }
+    .faq-q::after { content: '+'; color: var(--emerald); font-size: 1.3rem; font-weight: 400; flex-shrink: 0; transition: transform 0.2s; }
+    .faq-q.open::after { transform: rotate(45deg); }
+    .faq-a { display: none; padding-bottom: 1.5rem; font-size: 0.95rem; color: var(--text-muted); line-height: 1.7; }
+    .faq-a.open { display: block; }
+    .cta-section { text-align: center; padding: 7rem 2rem; background: linear-gradient(135deg, rgba(16,185,129,0.06) 0%, transparent 60%); border-top: 1px solid var(--border); }
+    .cta-section h2 { margin-bottom: 1rem; }
+    .cta-section p { color: var(--text-muted); font-size: 1.05rem; max-width: 540px; margin: 0 auto 2.5rem; }
+    footer { background: var(--bg-secondary); border-top: 1px solid var(--border); padding: 2.5rem 2rem; text-align: center; }
+    .footer-logo { font-weight: 700; font-size: 1rem; margin-bottom: 0.5rem; }
+    .footer-logo span { color: var(--emerald); }
+    footer p { font-size: 0.85rem; color: var(--text-dim); }
+    footer a { color: var(--text-muted); text-decoration: none; }
+    footer a:hover { color: var(--emerald); }
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.55s ease, transform 0.55s ease; }
+    .reveal.visible { opacity: 1; transform: none; }
+    @media (max-width: 768px) { nav { padding: 1rem; } .hero-stats { gap: 1.5rem; } .pricing-card--featured { transform: none; } }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="https://resultantai.com" class="nav-logo">Resultant<span>AI</span></a>
+  <a href="https://www.upwork.com/services/product/document-ai" class="nav-cta" target="_blank" rel="noopener">View on Upwork</a>
+</nav>
+
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-badge">AI Document Processing Build</div>
+    <h1>Your team is opening PDFs<br>and <em>retyping data into a spreadsheet.</em></h1>
+    <p class="hero-sub">AI reads your incoming documents, extracts the data that matters, and routes it to exactly where it needs to go — without a human in the loop.</p>
+    <div class="hero-stats">
+      <div class="stat"><div class="stat-val">97%+</div><div class="stat-label">extraction accuracy</div></div>
+      <div class="stat"><div class="stat-val">&lt;10 min</div><div class="stat-label">processing time</div></div>
+      <div class="stat"><div class="stat-val">0</div><div class="stat-label">manual entry</div></div>
+      <div class="stat"><div class="stat-val">6–16 days</div><div class="stat-label">to deployment</div></div>
+    </div>
+    <div class="hero-cta">
+      <a href="https://www.upwork.com/services/product/document-ai" class="btn-primary" target="_blank" rel="noopener">See Pricing on Upwork</a>
+      <a href="#pricing" class="btn-secondary">View Tiers</a>
+    </div>
+  </div>
+</section>
+
+<section class="section--alt">
+  <div class="container">
+    <p class="section-tag reveal">The problem</p>
+    <h2 class="reveal">You're processing documents by hand.<br>Every. Single. Day.</h2>
+    <p class="section-sub reveal">PDFs pile up. Someone opens each one, reads it, types the fields into a spreadsheet or CRM, and files it. Three hours a day, every day. It doesn't have to be that way.</p>
+    <div class="problem-grid">
+      <div class="problem-card reveal">
+        <h3>Manual Re-Entry</h3>
+        <p>Someone opens every PDF and types the data into a spreadsheet. It takes 3 hours a day. There are typos. Records get missed. That person could be doing something that actually requires a brain.</p>
+      </div>
+      <div class="problem-card reveal">
+        <h3>Routing Done by Memory</h3>
+        <p>When a contract comes in, someone decides where it goes based on what they remember. Sometimes it goes to the wrong place. Sometimes it sits in an inbox for two days. The pipeline depends on one person not being sick.</p>
+      </div>
+      <div class="problem-card reveal">
+        <h3>No Audit Trail</h3>
+        <p>When something goes wrong six months later, you can't prove what the document said when it arrived, who processed it, or what happened to the data. You're recreating the paper trail from memory.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="deliverables">
+  <div class="container">
+    <p class="section-tag reveal">What you get</p>
+    <h2 class="reveal">Six components. Zero manual entry.<br>Full traceability.</h2>
+    <p class="section-sub reveal">Every piece of the pipeline working together — extraction, routing, exception handling, and an audit log that covers every document processed.</p>
+    <div class="deliverables-grid">
+      <div class="deliverable reveal">
+        <div class="deliverable-num">01</div>
+        <div>
+          <h3>Extraction Pipeline</h3>
+          <p>Claude reads each document and extracts structured fields with confidence scoring. High-confidence values pass through automatically. Low-confidence items are flagged, not silently wrong.</p>
+        </div>
+      </div>
+      <div class="deliverable reveal">
+        <div class="deliverable-num">02</div>
+        <div>
+          <h3>Multi-Document Schema</h3>
+          <p>Each document type gets its own extraction schema: invoices, contracts, applications, forms. The schema defines every field, its expected type, and its validation rules.</p>
+        </div>
+      </div>
+      <div class="deliverable reveal">
+        <div class="deliverable-num">03</div>
+        <div>
+          <h3>Intelligent Routing</h3>
+          <p>Extracted data routes to multiple destinations simultaneously: CRM, Airtable, Google Sheets, Slack. Rules can branch by document type, field values, or confidence level.</p>
+        </div>
+      </div>
+      <div class="deliverable reveal">
+        <div class="deliverable-num">04</div>
+        <div>
+          <h3>Exception Queue</h3>
+          <p>Documents below the confidence threshold go into a review queue with the original document and extracted values side-by-side. Reviewers fix issues in 30 seconds rather than re-processing from scratch.</p>
+        </div>
+      </div>
+      <div class="deliverable reveal">
+        <div class="deliverable-num">05</div>
+        <div>
+          <h3>Audit Log</h3>
+          <p>Every document processed, every field extracted, every routing decision recorded. Full traceability: what arrived, what was extracted, when, and where it went.</p>
+        </div>
+      </div>
+      <div class="deliverable reveal">
+        <div class="deliverable-num">06</div>
+        <div>
+          <h3>Handoff Documentation</h3>
+          <p>Schema definitions, routing rules, how to add a new document type, how to adjust confidence thresholds. You maintain the pipeline without a developer.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section--alt">
+  <div class="container">
+    <p class="section-tag reveal">How it works</p>
+    <h2 class="reveal">Five steps from manual document<br>processing to automated intelligence</h2>
+    <div class="process-steps">
+      <div class="process-step reveal">
+        <div class="step-num">01</div>
+        <div class="step-content">
+          <h3>Document Audit & Schema Design</h3>
+          <p>I review your sample documents and design the extraction schema — fields to pull from each document type, expected data types, and validation rules. Ambiguous cases are documented and resolved before any code is written. This step determines extraction accuracy more than any other.</p>
+        </div>
+      </div>
+      <div class="process-step reveal">
+        <div class="step-num">02</div>
+        <div class="step-content">
+          <h3>Extraction Pipeline Build</h3>
+          <p>Claude extraction prompts engineered per document type with structured JSON output. Confidence scoring added for each field — a contract extraction that is 40% confident on payment terms triggers a flag, not a silent bad value. OCR pre-processing added if scanned documents are in scope.</p>
+        </div>
+      </div>
+      <div class="process-step reveal">
+        <div class="step-num">03</div>
+        <div class="step-content">
+          <h3>Routing Logic Configuration</h3>
+          <p>Output destinations configured and tested. A document can route to multiple destinations simultaneously — Airtable for archiving, HubSpot for CRM update, Slack for team notification. Routing rules can branch by document type, extracted field values, or confidence thresholds.</p>
+        </div>
+      </div>
+      <div class="process-step reveal">
+        <div class="step-num">04</div>
+        <div class="step-content">
+          <h3>Exception Handling & Review Queue</h3>
+          <p>Documents below confidence threshold are routed to a review queue rather than passed through silently. Reviewer sees the original document and extracted values side-by-side, approves or corrects. Corrections are used to refine extraction prompts.</p>
+        </div>
+      </div>
+      <div class="process-step reveal">
+        <div class="step-num">05</div>
+        <div class="step-content">
+          <h3>Load Testing & Handoff</h3>
+          <p>Pipeline stress-tested with bulk document batches. Processing time, accuracy rates, and exception volume documented. Handoff package: schema definitions, how to add a new document type, how to adjust routing rules, and monitoring configuration.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="pricing">
+  <div class="container">
+    <p class="section-tag reveal">Pricing</p>
+    <h2 class="reveal">Three tiers. Fixed price. No surprises.</h2>
+    <p class="section-sub reveal">Start with one document type. Add multi-type routing, CRM sync, and exception handling as you scale.</p>
+    <div class="pricing-grid">
+      <div class="pricing-card reveal">
+        <div class="pricing-tier">Starter</div>
+        <div class="pricing-name">Document Extractor</div>
+        <div class="pricing-desc">1 document type, Claude extraction, structured output to Airtable or Sheets</div>
+        <div class="pricing-price">$1,500</div>
+        <div class="pricing-delivery">Delivered in 6 days · 1 revision</div>
+        <ul class="pricing-features">
+          <li>1 document type</li>
+          <li>Claude extraction pipeline</li>
+          <li>Structured output to Airtable or Sheets</li>
+          <li>Confidence scoring per field</li>
+          <li>Action plan + documentation</li>
+        </ul>
+        <a href="https://www.upwork.com/services/product/document-ai" class="pricing-btn pricing-btn--outline" target="_blank" rel="noopener">Get Started</a>
+      </div>
+      <div class="pricing-card pricing-card--featured reveal">
+        <div class="popular-badge">Most Popular</div>
+        <div class="pricing-tier">Standard</div>
+        <div class="pricing-name">Smart Intake Pipeline</div>
+        <div class="pricing-desc">3 document types, intelligent routing, exception flags, CRM sync included</div>
+        <div class="pricing-price">$3,200</div>
+        <div class="pricing-delivery">Delivered in 10 days · 2 revisions</div>
+        <ul class="pricing-features">
+          <li>Everything in Starter</li>
+          <li>3 document types</li>
+          <li>Intelligent routing rules</li>
+          <li>Exception flagging + review queue</li>
+          <li>CRM sync (HubSpot or Salesforce)</li>
+          <li>Multi-destination output</li>
+          <li>Full documentation</li>
+        </ul>
+        <a href="https://www.upwork.com/services/product/document-ai" class="pricing-btn pricing-btn--primary" target="_blank" rel="noopener">Get Started</a>
+      </div>
+      <div class="pricing-card reveal">
+        <div class="pricing-tier">Advanced</div>
+        <div class="pricing-name">Full Document Intelligence</div>
+        <div class="pricing-desc">5+ types, multi-language, signature detection, audit log, 30-day support</div>
+        <div class="pricing-price">$6,000</div>
+        <div class="pricing-delivery">Delivered in 16 days · 3 revisions</div>
+        <ul class="pricing-features">
+          <li>Everything in Standard</li>
+          <li>5+ document types</li>
+          <li>Multi-language processing</li>
+          <li>Signature &amp; checkbox detection</li>
+          <li>Full immutable audit log</li>
+          <li>Exception handling dashboard</li>
+          <li>30-day post-launch support</li>
+        </ul>
+        <a href="https://www.upwork.com/services/product/document-ai" class="pricing-btn pricing-btn--outline" target="_blank" rel="noopener">Get Started</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section--alt">
+  <div class="container">
+    <p class="section-tag reveal">Add-ons</p>
+    <h2 class="reveal">Extend your document pipeline</h2>
+    <p class="section-sub reveal">Each add-on integrates into the same pipeline — no separate projects, no re-architecture.</p>
+    <div class="addons-grid">
+      <div class="addon-card reveal">
+        <div class="addon-header"><div class="addon-name">OCR &amp; Scanned Document Support</div><div class="addon-price">+$300</div></div>
+        <p class="addon-desc">Extends the pipeline to handle scanned PDFs, photos of forms, and image-based documents. Pre-processing cleans and deskews images before extraction, significantly improving accuracy on printed or handwritten legacy documents.</p>
+      </div>
+      <div class="addon-card reveal">
+        <div class="addon-header"><div class="addon-name">Multi-Language Processing</div><div class="addon-price">+$500</div></div>
+        <p class="addon-desc">Extraction logic extended to handle documents in Spanish, French, Portuguese, or German. Useful for businesses receiving contracts or intake forms from international clients or vendors. Output normalized to English by default.</p>
+      </div>
+      <div class="addon-card reveal">
+        <div class="addon-header"><div class="addon-name">Signature &amp; Checkbox Detection</div><div class="addon-price">+$400</div></div>
+        <p class="addon-desc">AI detects signature fields (signed or unsigned) and checkbox states on structured forms. Output includes a signature_status flag and checkbox values as boolean fields. Essential for compliance intake workflows and agreement tracking.</p>
+      </div>
+      <div class="addon-card reveal">
+        <div class="addon-header"><div class="addon-name">Exception Handling Dashboard</div><div class="addon-price">+$500</div></div>
+        <p class="addon-desc">Low-confidence extractions are surfaced in a review queue (Airtable or lightweight web UI). Reviewer sees the original document alongside extracted values, corrects as needed, and the pipeline learns from corrections over time.</p>
+      </div>
+      <div class="addon-card reveal">
+        <div class="addon-header"><div class="addon-name">CRM Activity Logging</div><div class="addon-price">+$400</div></div>
+        <p class="addon-desc">Extracted documents logged as activities in HubSpot or Salesforce against the matched contact or company record. Sales and account teams see inbound contracts and applications without leaving their CRM.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <p class="section-tag reveal">FAQ</p>
+    <h2 class="reveal">Common questions</h2>
+    <div class="faq-list">
+      <div class="faq-item reveal">
+        <button class="faq-q">What document formats can you process?</button>
+        <div class="faq-a">PDF, Word (.docx), Excel (.xlsx), scanned images (JPEG, PNG, TIFF), and plain email bodies. PDFs are the most common. Scanned PDFs require the OCR add-on for best accuracy — native digital PDFs extract cleanly without it.</div>
+      </div>
+      <div class="faq-item reveal">
+        <button class="faq-q">How accurate is the extraction?</button>
+        <div class="faq-a">On clean, structured PDFs, extraction accuracy typically exceeds 97 percent. Accuracy drops on handwritten fields, inconsistent layouts, and low-resolution scans. I set per-field confidence thresholds — anything below 85 percent confidence gets flagged for human review rather than passed through silently.</div>
+      </div>
+      <div class="faq-item reveal">
+        <button class="faq-q">What if my documents don't always have the same structure?</button>
+        <div class="faq-a">Most real-world documents vary. The extraction prompt is designed to handle layout variance rather than relying on fixed field positions. I test against your actual samples — at least 5–10 per document type — before finalizing the extraction logic.</div>
+      </div>
+      <div class="faq-item reveal">
+        <button class="faq-q">Can the pipeline handle documents in multiple languages?</button>
+        <div class="faq-a">English is supported by default. Spanish, French, Portuguese, and German are available via the Multi-Language add-on. If you need another language, mention it at kickoff — Claude's language coverage is broad and most are feasible.</div>
+      </div>
+      <div class="faq-item reveal">
+        <button class="faq-q">What happens when the pipeline makes a mistake?</button>
+        <div class="faq-a">The exception handling layer is built to catch low-confidence extractions before they become bad data. When something does get through, the audit log shows the original document, the extracted values, and the timestamp — so you can trace exactly what happened and correct the upstream prompt.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-section">
+  <div class="container">
+    <h2 class="reveal">Stop processing documents by hand.</h2>
+    <p class="reveal">97%+ extraction accuracy, automated routing, exception handling. Deployed in 6–16 days. You own the pipeline.</p>
+    <a href="https://www.upwork.com/services/product/document-ai" class="btn-primary reveal" target="_blank" rel="noopener">View on Upwork →</a>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo">Resultant<span>AI</span></div>
+  <p>Built by <a href="https://resultantai.com">ResultantAI</a> · <a href="https://resultantai.com/aeo-geo-audit/">AEO/GEO Audit</a> · <a href="https://resultantai.com/voice-ai/">Voice AI</a></p>
+</footer>
+
+<script>
+  const ro = new IntersectionObserver(e => e.forEach(e => { if(e.isIntersecting){e.target.classList.add('visible');ro.unobserve(e.target);} }), {threshold:0.1});
+  document.querySelectorAll('.reveal').forEach(el => ro.observe(el));
+  document.querySelectorAll('.faq-q').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const a = btn.nextElementSibling, open = btn.classList.contains('open');
+      document.querySelectorAll('.faq-q').forEach(b => { b.classList.remove('open'); b.nextElementSibling.classList.remove('open'); });
+      if(!open){ btn.classList.add('open'); a.classList.add('open'); }
+    });
+  });
+</script>
+</body>
+</html>

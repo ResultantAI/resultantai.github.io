@@ -1,5 +1,52 @@
 .env
+.env.*
 node_modules/
 package-lock.json
 package.json
 screenshot-sections.mjs
+
+# Internal docs — not for public serving
+*.pdf
+CRITICAL_BUGS_FOUND.md
+STRIPE_PRODUCTS_SPEC.md
+FEATURE_GAP_MATRIX.md
+COMPARISON_PAGES_AUDIT.md
+PRODUCT_AUDIT_REPORT.md
+BACKEND_DEPLOYMENT_GUIDE.md
+CHATBOT_IMPLEMENTATION_SUMMARY.md
+CHATBOT_QUICKSTART.md
+CHATBOT_README.md
+GOOGLE-TRACKING-SETUP.md
+QUICK_START_BACKLINKS.md
+SEO_AUTHORITY_PLAN.md
+SEO_SUMMARY.md
+TESTING_CHECKLIST.md
+REDIRECTS.md
+LEAD_ENRICHMENT_README.md
+MAKE_BLUEPRINTS_README.md
+MARKETING_AUDIT_README.md
+MARYLAND_BILL_TRACKER_README.md
+MCA_QUALIFICATION_README.md
+SERVER_README.md
+ResultantAI*Meta-Instructions*.md
+github-readme-content.md
+Export LinkedIn posts.pdf
+
+# Operational scripts
+*.py
+update_footers.py
+add-ga4-direct.py
+add-tracking.py
+seo-fix.py
+seo-fix-phase2.py
+marketing_audit.py
+lead_enrichment.py
+maryland_bill_tracker.py
+mca_qualification.py
+chatbot.py
+server.py
+test_chatbot.py
+
+# macOS
+.DS_Store
+**/.DS_Store
