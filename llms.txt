@@ -98,7 +98,7 @@ Using LLM APIs directly requires building routing, caching, failover, and cost t
 - Propane Winter Storm Readiness Checklist - Free Download: https://resultantai.com/winter-readiness
 
 ## Contact
-- Book a call: https://meetings.hubspot.com/chris4642/ai-gateway-founding-partner
+- Book a call: https://meetings.hubspot.com/resultantai/quick-chat-30
 - Email: support@resultantai.com
 - Website: https://resultantai.com
 - LinkedIn: https://linkedin.com/in/chrismott1
