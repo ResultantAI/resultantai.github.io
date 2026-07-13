@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="canonical" href="https://resultantai.com/gateway/pricing/">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="AI Gateway pricing: 5M tokens at $49/mo, 20M tokens at $149/mo, custom scale. One flat token rate, no input/output complexity. Budget caps prevent bill shock.">
+  <title>AI Gateway Pricing: Token-Based Cost Control | ResultantAI</title>
+
+  <meta property="og:title" content="AI Gateway Pricing: Token-Based Cost Control | ResultantAI">
+  <meta property="og:description" content="AI Gateway pricing starting at $49/mo with 5M tokens included. One simple rate if you go over. Budget caps prevent surprise bills.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://resultantai.com/gateway/pricing/">
+  <meta property="og:site_name" content="ResultantAI">
+  <meta property="og:image" content="https://resultantai.com/images/og-default.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="AI Gateway Pricing: Token-Based Cost Control | ResultantAI">
+  <meta name="twitter:description" content="AI Gateway pricing starting at $49/mo with 5M tokens included.">
+  <meta name="twitter:image" content="https://resultantai.com/images/og-default.jpg">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/styles.css">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": "ResultantAI AI Gateway",
+    "description": "Multi-provider AI API gateway with usage-based token billing, smart routing, and per-client attribution.",
+    "brand": { "@type": "Brand", "name": "ResultantAI" },
+    "offers": [
+      {
+        "@type": "Offer",
+        "name": "Starter",
+        "price": "49.00",
+        "priceCurrency": "USD",
+        "description": "5M tokens included. 1 project, basic routing, email support."
+      },
+      {
+        "@type": "Offer",
+        "name": "Growth",
+        "price": "149.00",
+        "priceCurrency": "USD",
+        "description": "20M tokens included. 5 projects, smart routing, priority support, cost dashboards."
+      },
+      {
+        "@type": "Offer",
+        "name": "Scale",
+        "priceCurrency": "USD",
+        "description": "Custom base. Volume token allocation. Unlimited projects, dedicated routing, SLA, white-label."
+      }
+    ]
+  }
+  </script>
+
+  <!-- Apollo.io Website Tracker -->
+  <script>function initApollo(){var n=Math.random().toString(36).substring(7),o=document.createElement("script");o.src="https://assets.apollo.io/micro/website-tracker/tracker.iife.js?nocache="+n,o.async=!0,o.defer=!0,o.onload=function(){window.trackingFunctions.onLoad({appId:"679c52d7b1fed801981d9adb"})},document.head.appendChild(o)}initApollo();</script>
+
+  <!-- Google Analytics 4 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-DY95GS9YX5"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-DY95GS9YX5');
+  </script>
+
+  <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-WBGJ9J8X');</script>
+
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="icon" type="image/png" href="/favicon.png">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+  <style>
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-top: 32px;
+    }
+    .pricing-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 32px;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      transition: border-color 0.25s, transform 0.25s;
+    }
+    .pricing-card:hover { border-color: rgba(16,185,129,0.4); transform: translateY(-4px); }
+    .pricing-card--featured {
+      border: 2px solid var(--accent);
+      background: linear-gradient(135deg, rgba(16,185,129,0.06), var(--bg-card));
+    }
+    .pricing-card__badge {
+      position: absolute; top: -13px; left: 50%; transform: translateX(-50%);
+      background: var(--accent); color: var(--bg-primary); font-size: 0.7rem;
+      font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em;
+      padding: 4px 14px; border-radius: 9999px; white-space: nowrap;
+    }
+    .pricing-card__tier { font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); margin-bottom: 8px; }
+    .pricing-card__tier--featured { color: var(--accent); }
+    .pricing-card__price { font-size: 2.75rem; font-weight: 900; color: var(--text-primary); font-family: var(--font-mono); line-height: 1; margin-bottom: 4px; }
+    .pricing-card__price span { font-size: 1rem; font-weight: 500; color: var(--text-muted); }
+    .pricing-card__included { font-size: 0.9rem; color: var(--accent); font-weight: 600; margin-bottom: 4px; }
+    .pricing-card__overage { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 20px; padding-bottom: 20px; border-bottom: 1px solid var(--border); }
+    .pricing-card__features { list-style: none; flex: 1; margin-bottom: 24px; }
+    .pricing-card__features li { padding: 7px 0; padding-left: 24px; position: relative; color: var(--text-secondary); font-size: 0.9rem; }
+    .pricing-card__features li::before { content: ''; position: absolute; left: 0; top: 11px; width: 16px; height: 16px; background: rgba(16,185,129,0.1); border-radius: 50%; border: 1.5px solid var(--accent); }
+    .pricing-card__features li::after { content: ''; position: absolute; left: 4px; top: 15px; width: 8px; height: 4px; border-left: 1.5px solid var(--accent); border-bottom: 1.5px solid var(--accent); transform: rotate(-45deg); }
+    .pricing-card__cta { display: block; text-align: center; padding: 13px 24px; border-radius: 10px; font-weight: 600; font-size: 0.95rem; transition: all 0.2s; }
+    .pricing-card__cta--primary { background: var(--accent); color: var(--bg-primary); }
+    .pricing-card__cta--primary:hover { background: #34d399; box-shadow: 0 8px 25px rgba(16,185,129,0.35); transform: translateY(-2px); color: var(--bg-primary); }
+    .pricing-card__cta--secondary { background: transparent; color: var(--accent); border: 1.5px solid var(--accent); }
+    .pricing-card__cta--secondary:hover { background: rgba(16,185,129,0.08); }
+
+    .comparison-table { width: 100%; border-collapse: collapse; margin-top: 32px; }
+    .comparison-table th, .comparison-table td { padding: 16px 20px; text-align: center; border-bottom: 1px solid var(--border); font-size: 0.9rem; }
+    .comparison-table th:first-child, .comparison-table td:first-child { text-align: left; font-weight: 600; color: var(--text-primary); }
+    .comparison-table thead th { font-weight: 700; color: var(--text-primary); font-size: 0.95rem; padding-bottom: 20px; border-bottom: 2px solid var(--border); }
+    .comparison-table thead th.featured-col { color: var(--accent); background: rgba(16,185,129,0.06); border-radius: 10px 10px 0 0; }
+    .comparison-table td { color: var(--text-secondary); }
+    .comparison-table td.featured-col { background: rgba(16,185,129,0.03); }
+    .comparison-table .check { color: var(--accent); font-weight: 700; }
+    .comparison-table .dash { color: var(--text-muted); }
+
+    @media (max-width: 1024px) {
+      .pricing-grid { grid-template-columns: 1fr; max-width: 480px; margin-left: auto; margin-right: auto; }
+    }
+    @media (max-width: 768px) {
+      .comparison-table-wrapper { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+      .comparison-table { min-width: 560px; }
+    }
+  </style>
+</head>
+<body>
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WBGJ9J8X"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+
+  <nav id="nav">
+    <div class="nav__inner">
+      <a href="/" class="nav__logo">Resultant<span>AI</span></a>
+      <button class="mobile-menu-toggle" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+      <div class="nav__links">
+        <div class="nav__dropdown">
+          <div class="nav__dropdown-trigger nav__link">Solutions &#9662;</div>
+          <div class="nav__dropdown-content">
+            <div class="nav__dropdown-grid">
+              <div class="nav__dropdown-section">
+                <h4>Core Solutions</h4>
+                <a href="/lp/b2b-automation/" class="nav__dropdown-link">B2B Operations Automation</a>
+                <a href="/lp/voice-ai/" class="nav__dropdown-link">Voice AI Agents</a>
+                <a href="/lp/agency-automation/" class="nav__dropdown-link">Agency White-Label AI</a>
+              </div>
+              <div class="nav__dropdown-section">
+                <h4>More</h4>
+                <a href="/gateway/" class="nav__dropdown-link">AI Gateway (Cost Control)</a>
+                <a href="/integrations/" class="nav__dropdown-link">Integrations</a>
+                <a href="/voice-roi-calculator" class="nav__dropdown-link">ROI Calculator</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <a href="/case-studies" class="nav__link">Case Studies</a>
+        <a href="/blog" class="nav__link">Blog</a>
+        <a href="/pricing/" class="nav__link">Pricing</a>
+      </div>
+      <a href="https://meetings.hubspot.com/resultantai/quick-chat-30?source=gateway-pricing-nav" class="nav__cta">Book a Call</a>
+    </div>
+  </nav>
+
+  <section class="hero">
+    <div class="container">
+      <span class="hero__label reveal">AI Gateway</span>
+      <h1 class="hero__title reveal">AI Gateway Pricing</h1>
+      <p class="hero__subtitle reveal">
+        5 million AI tokens included at $49/mo. One flat rate if you go over. Budget caps so you never get a surprise bill.
+      </p>
+      <p style="text-align: center; color: var(--text-muted); font-size: 0.875rem;" class="reveal">
+        Looking for system build pricing? See <a href="/pricing/" style="color: var(--accent);">resultantai.com/pricing</a>
+      </p>
+    </div>
+  </section>
+
+  <section style="padding-top: 0;">
+    <div class="container">
+      <div class="pricing-grid">
+
+        <div class="pricing-card reveal">
+          <div class="pricing-card__tier">Starter</div>
+          <div class="pricing-card__price">$49<span>/mo</span></div>
+          <div class="pricing-card__included">5M tokens included</div>
+          <div class="pricing-card__overage">Then $3/M tokens overage</div>
+          <ul class="pricing-card__features">
+            <li>1 project</li>
+            <li>Basic routing</li>
+            <li>All AI providers</li>
+            <li>Email support</li>
+            <li>30-day logs</li>
+            <li>Usage dashboard</li>
+            <li>Budget caps</li>
+          </ul>
+          <a href="https://meetings.hubspot.com/resultantai/quick-chat-30?source=gateway-pricing-starter" class="pricing-card__cta pricing-card__cta--secondary">Get Started</a>
+        </div>
+
+        <div class="pricing-card pricing-card--featured reveal">
+          <div class="pricing-card__badge">Most Popular</div>
+          <div class="pricing-card__tier pricing-card__tier--featured">Growth</div>
+          <div class="pricing-card__price">$149<span>/mo</span></div>
+          <div class="pricing-card__included">20M tokens included</div>
+          <div class="pricing-card__overage">Then $2.50/M tokens overage</div>
+          <ul class="pricing-card__features">
+            <li>5 projects</li>
+            <li>Smart routing</li>
+            <li>All AI providers</li>
+            <li>Priority support</li>
+            <li>60-day logs</li>
+            <li>Cost dashboards</li>
+            <li>Per-client tracking</li>
+            <li>Budget caps</li>
+          </ul>
+          <a href="https://meetings.hubspot.com/resultantai/quick-chat-30?source=gateway-pricing-growth" class="pricing-card__cta pricing-card__cta--primary">Get Started</a>
+        </div>
+
+        <div class="pricing-card reveal">
+          <div class="pricing-card__tier">Scale</div>
+          <div class="pricing-card__price">Custom</div>
+          <div class="pricing-card__included">Volume token allocation</div>
+          <div class="pricing-card__overage">Then $2/M tokens overage</div>
+          <ul class="pricing-card__features">
+            <li>Unlimited projects</li>
+            <li>Dedicated routing</li>
+            <li>All AI providers</li>
+            <li>SLA guarantee</li>
+            <li>1-year logs</li>
+            <li>White-label dashboard</li>
+            <li>Per-client tracking</li>
+            <li>PII scrubbing</li>
+            <li>Budget caps</li>
+          </ul>
+          <a href="https://meetings.hubspot.com/resultantai/quick-chat-30?source=gateway-pricing-scale" class="pricing-card__cta pricing-card__cta--secondary">Get Started</a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <section style="background: var(--bg-secondary); padding: var(--space-xl) 0;">
+    <div class="container">
+      <h2 class="section-title reveal">Compare Plans</h2>
+      <p class="section-subtitle reveal">Every plan includes all AI providers with automatic failover.</p>
+      <div class="comparison-table-wrapper reveal">
+        <table class="comparison-table">
+          <thead>
+            <tr>
+              <th>Feature</th>
+              <th>Starter</th>
+              <th class="featured-col">Growth</th>
+              <th>Scale</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Base price</td><td>$49/mo</td><td class="featured-col">$149/mo</td><td>Custom</td></tr>
+            <tr><td>Included tokens</td><td>5M</td><td class="featured-col">20M</td><td>Volume</td></tr>
+            <tr><td>Overage rate</td><td>$3/M tokens</td><td class="featured-col">$2.50/M tokens</td><td>$2/M tokens</td></tr>
+            <tr><td>Projects</td><td>1</td><td class="featured-col">5</td><td>Unlimited</td></tr>
+            <tr><td>All AI providers</td><td class="check">Yes</td><td class="featured-col check">Yes</td><td class="check">Yes</td></tr>
+            <tr><td>Smart routing</td><td>Basic</td><td class="featured-col check">Yes</td><td class="check">Dedicated</td></tr>
+            <tr><td>Budget caps</td><td class="check">Yes</td><td class="featured-col check">Yes</td><td class="check">Yes</td></tr>
+            <tr><td>Per-client tracking</td><td class="dash">--</td><td class="featured-col check">Yes</td><td class="check">Yes</td></tr>
+            <tr><td>Cost dashboards</td><td class="dash">--</td><td class="featured-col check">Yes</td><td class="check">Yes</td></tr>
+            <tr><td>White-label</td><td class="dash">--</td><td class="dash featured-col">--</td><td class="check">Yes</td></tr>
+            <tr><td>PII scrubbing</td><td class="dash">--</td><td class="dash featured-col">--</td><td class="check">Yes</td></tr>
+            <tr><td>SLA</td><td class="dash">--</td><td class="dash featured-col">--</td><td class="check">99.9%</td></tr>
+            <tr><td>Log retention</td><td>30 days</td><td class="featured-col">60 days</td><td>1 year</td></tr>
+            <tr><td>Support</td><td>Email</td><td class="featured-col">Priority email</td><td>Dedicated + Slack</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section style="padding: var(--space-xl) 0;">
+    <div class="container text-center">
+      <div class="card reveal" style="max-width: 700px; margin: 0 auto; border: 2px solid rgba(16,185,129,0.3);">
+        <h2 style="font-size: 2rem; margin-bottom: 12px;">Ready to take control of your AI costs?</h2>
+        <p style="font-size: 1.05rem; color: var(--text-secondary); margin-bottom: 28px;">
+          Start with 5M tokens at $49/mo. One simple rate. No input/output complexity. Book a 30-minute discovery call.
+        </p>
+        <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;">
+          <a href="https://meetings.hubspot.com/resultantai/quick-chat-30?source=gateway-pricing-cta" class="btn btn-primary">Book a Discovery Call</a>
+          <a href="mailto:support@resultantai.com" class="btn btn-secondary">Email Us</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <div class="footer__grid">
+        <div>
+          <div class="footer__brand">Resultant<span>AI</span></div>
+          <p class="footer__description">AI systems for B2B revenue operations.<br>Built with AI. Run by humans.</p>
+          <div class="footer__social">
+            <a href="https://www.linkedin.com/in/chrismott1/" class="footer__social-link" target="_blank">
+              <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+            </a>
+            <a href="https://github.com/ResultantAI" class="footer__social-link" target="_blank">
+              <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+            </a>
+            <a href="https://x.com/resultswithai" class="footer__social-link" target="_blank">
+              <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+            </a>
+          </div>
+        </div>
+        <div>
+          <h4 class="footer__section-title">Solutions</h4>
+          <ul class="footer__links">
+            <li><a href="/lp/b2b-automation/" class="footer__link">B2B Automation</a></li>
+            <li><a href="/lp/voice-ai/" class="footer__link">Voice AI</a></li>
+            <li><a href="/gateway/" class="footer__link">AI Gateway</a></li>
+            <li><a href="/case-studies" class="footer__link">Case Studies</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="footer__section-title">Resources</h4>
+          <ul class="footer__links">
+            <li><a href="/blog" class="footer__link">Blog</a></li>
+            <li><a href="/faq/" class="footer__link">FAQ</a></li>
+            <li><a href="/pricing/" class="footer__link">Pricing</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="footer__section-title">Company</h4>
+          <ul class="footer__links">
+            <li><a href="https://meetings.hubspot.com/resultantai/quick-chat-30" class="footer__link">Book a Call</a></li>
+            <li><a href="mailto:support@resultantai.com" class="footer__link">Email Us</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <div>&copy; 2026 ResultantAI. All rights reserved.</div>
+        <div>Built with AI. Run by humans.</div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/js/theme-toggle.js"></script>
+  <script src="/js/main.js"></script>
+  <script src="/js/ab-track.js"></script>
+</body>
+</html>
