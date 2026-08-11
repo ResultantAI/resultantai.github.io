@@ -27,6 +27,12 @@
   ],
   "redirects": [
     {
+      "source": "/",
+      "has": [{ "type": "host", "value": "www.resultantai.com" }],
+      "destination": "https://resultantai.com/",
+      "permanent": true
+    },
+    {
       "source": "/:path*",
       "has": [{ "type": "host", "value": "www.resultantai.com" }],
       "destination": "https://resultantai.com/:path*",
