@@ -41,28 +41,64 @@
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "Organization",
-    "@id": "https://resultantai.com/#organization",
-    "name": "ResultantAI",
-    "url": "https://resultantai.com",
-    "logo": "https://resultantai.com/apple-touch-icon.png",
-    "description": "AI systems for B2B revenue operations. CRM automation, voice AI agents, and white-label agency tools.",
-    "founder": {
-      "@type": "Person",
-      "@id": "https://resultantai.com/#chris-mott",
-      "name": "Chris Mott",
-      "jobTitle": "Founder & CEO",
-      "url": "https://linkedin.com/in/chrismott1"
-    },
-    "contactPoint": {
-      "@type": "ContactPoint",
-      "contactType": "Sales",
-      "url": "https://meetings.hubspot.com/resultantai/quick-chat-30"
-    },
-    "sameAs": [
-      "https://linkedin.com/company/resultantai",
-      "https://x.com/resultswithai",
-      "https://github.com/ResultantAI"
+    "@graph": [
+      {
+        "@type": "ProfessionalService",
+        "@id": "https://resultantai.com/#organization",
+        "name": "ResultantAI",
+        "url": "https://resultantai.com",
+        "logo": "https://resultantai.com/apple-touch-icon.png",
+        "email": "chris@resultantai.com",
+        "foundingDate": "2022-11",
+        "description": "AI automation consultancy building production voice AI systems, workflow automation, and revenue operations infrastructure for small and mid-market businesses.",
+        "disambiguatingDescription": "ResultantAI is an independent AI automation consultancy founded by Chris Mott, based in the East Bay, California. It is not affiliated with Resultant (resultant.com), the Indianapolis-based technology and data consulting firm formerly known as KSM Consulting.",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Clayton",
+          "addressRegion": "CA",
+          "addressCountry": "US"
+        },
+        "areaServed": [
+          { "@type": "Place", "name": "San Francisco Bay Area" },
+          { "@type": "Country", "name": "United States" }
+        ],
+        "founder": { "@id": "https://resultantai.com/#chris-mott" },
+        "knowsAbout": [
+          "AI voice agents",
+          "Retell AI",
+          "Make.com automation",
+          "n8n workflow automation",
+          "HubSpot CRM automation",
+          "Athena Health API integration",
+          "HIPAA-compliant voice systems",
+          "Revenue operations automation"
+        ],
+        "sameAs": [
+          "https://www.linkedin.com/company/resultantai",
+          "https://github.com/ResultantAI"
+        ]
+      },
+      {
+        "@type": "Person",
+        "@id": "https://resultantai.com/#chris-mott",
+        "name": "Chris Mott",
+        "jobTitle": "Founder",
+        "worksFor": { "@id": "https://resultantai.com/#organization" },
+        "description": "Founder of ResultantAI. Fifteen years in B2B go-to-market and revenue operations, including EVERFI and Metadata.io, now building AI automation and voice systems in production.",
+        "knowsAbout": [
+          "AI automation",
+          "Voice AI systems",
+          "Revenue operations",
+          "B2B go-to-market"
+        ],
+        "alumniOf": [
+          { "@type": "Organization", "name": "EVERFI" },
+          { "@type": "Organization", "name": "Metadata.io" }
+        ],
+        "sameAs": [
+          "https://www.linkedin.com/in/chrismott1"
+        ]
+      }
     ]
   }
   </script>
@@ -411,7 +447,8 @@
           <div class="footer__brand">Resultant<span>AI</span></div>
           <p class="footer__description">
             AI systems for B2B revenue operations.<br>
-            Built with AI. Run by humans.
+            Built with AI. Run by humans.<br>
+            <span style="color: var(--text-muted); font-size: 0.875em;">East Bay, California.</span>
           </p>
           <div class="footer__social">
             <a href="https://www.linkedin.com/in/chrismott1/" class="footer__social-link" target="_blank">
