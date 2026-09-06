@@ -32,7 +32,6 @@ White-label automation and per-client AI cost attribution for marketing agencies
 
 ## Case Studies
 
-- Wayne Conn Plumbing: 60% to 100% call capture, +$5,000/month recovered revenue — https://resultantai.com/blog/wayne-conn-plumbing-case-study/
 - Beaver Pumice (Mining): Eliminated $500/week in billing errors via digital truck ticketing + QuickBooks integration — https://resultantai.com/case-study-beaver-pumice
 - Adleg Marketing: Marketing audit time reduced from 90 minutes to 2 minutes, 97% time savings — https://resultantai.com/work/adleg/
 - Healthcare Technology Partner: HIPAA-compliant voice scheduling for 3-location medical practice, athenahealth EHR integration — https://resultantai.com/blog/voice-ai-healthcare/
@@ -62,5 +61,5 @@ Full blog: https://resultantai.com/blog
 
 ## Contact
 
-Book a call: https://meetings.hubspot.com/resultantai/quick-chat-30
+Book a call: https://cal.com/chris-mott-eebyqs/30min
 Email: chris@resultantai.com

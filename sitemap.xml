@@ -176,12 +176,6 @@
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
-  <url>
-    <loc>https://resultantai.com/work/wayne-conn/</loc>
-    <lastmod>2026-07-12</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
 
   <!-- Compare Pages -->
   <url>
@@ -350,12 +344,6 @@
   </url>
   <url>
     <loc>https://resultantai.com/blog/voice-ai-lead-qualification-system/</loc>
-    <lastmod>2026-02-28</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://resultantai.com/blog/wayne-conn-plumbing-case-study/</loc>
     <lastmod>2026-02-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
