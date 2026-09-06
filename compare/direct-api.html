@@ -5,21 +5,21 @@
   <link rel="canonical" href="https://resultantai.com/compare/direct-api">
 
   <!-- Open Graph -->
-  <meta property="og:title" content="AI Gateway vs Direct API Access: When Do You Need a Gateway? (2026)">
-  <meta property="og:description" content="Should you use an LLM gateway or call OpenAI directly? Compare simplicity vs budget protection. When does a gateway pay for itself?">
+  <meta property="og:title" content="Direct API vs an LLM Gateway: When You Actually Need One (2026)">
+  <meta property="og:description" content="Calling providers directly is the right default for one app and one provider. The five honest triggers for adding a gateway, what the options really cost, and how many of them are free.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://resultantai.com/compare/direct-api">
   <meta property="og:site_name" content="ResultantAI">
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="AI Gateway vs Direct API Access: When Do You Need a Gateway? (2026)">
-  <meta name="twitter:description" content="Should you use an LLM gateway or call OpenAI directly? Compare simplicity vs budget protection. When does a gateway pay for itself?">
+  <meta name="twitter:title" content="Direct API vs an LLM Gateway: When You Actually Need One (2026)">
+  <meta name="twitter:description" content="Calling providers directly is the right default for one app and one provider. The five honest triggers for adding a gateway, what the options really cost, and how many of them are free.">
 
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AI Gateway vs Direct API Access: When Do You Need a Gateway? (2026)</title>
-  <meta name="description" content="Should you use an LLM gateway or call OpenAI directly? Compare simplicity vs budget protection. When does a gateway pay for itself?">
+  <title>Direct API vs an LLM Gateway: When You Actually Need One (2026)</title>
+  <meta name="description" content="Calling providers directly is the right default for one app and one provider. The five honest triggers for adding a gateway, what the options really cost, and how many of them are free.">
 
   <!-- Google Search Console Verification -->
   <meta name="google-site-verification" content="EUs3oELHtHvHjcAdzN2HjjzWzEP_6KWVZFzaIoLdp70">
@@ -240,7 +240,7 @@
   {
     "@context": "https://schema.org",
     "@type": "WebPage",
-    "name": "AI Gateway vs Direct API Access: When Do You Need a Gateway? (2026)",
+    "name": "Direct API vs an LLM Gateway: When You Actually Need One (2026)",
     "description": "Should you use an LLM gateway or call OpenAI directly? Compare simplicity vs budget protection. When does a gateway pay for itself?",
     "url": "https://resultantai.com/compare/direct-api",
     "about": {
@@ -299,212 +299,76 @@
 
   <!-- Main Content -->
   <div class="compare-content">
-    <h1>AI Gateway vs Direct API Access</h1>
+    <h1>Direct API vs an LLM Gateway: When You Actually Need One</h1>
 
     <div class="verdict-box">
-      <strong>When to use direct API:</strong> Building a prototype or need absolute simplicity.
-      <strong>When to use a gateway:</strong> At $49/month with 5M tokens included,
-      the Gateway pays for itself after one surprise bill or once you hit 2M+ monthly tokens.
-      You get budget caps, failover, smart routing, and per-client tracking -- all included.
+      <strong>Bottom line:</strong> If you call one provider from one application, going direct is correct and a gateway
+      is overhead you do not need yet. Most teams add one too early. The honest triggers are below, and when you do
+      cross one, several of the good options are free.
     </div>
 
-    <h2>Direct API Access: The Simple Path</h2>
-
-    <h3>What is Direct API Access?</h3>
+    <h2>Going Direct Is the Right Default</h2>
     <p>
-      Calling OpenAI, Anthropic, or Google directly from your application. You get an API key from
-      their dashboard, install their SDK, and make requests. Simple, fast, and works great for
-      prototypes and low-volume use cases.
+      Calling OpenAI or Anthropic straight from your application means one dependency, one SDK, no extra hop, no second
+      vendor to trust with your traffic, and nothing between you and the provider when you are debugging. For a single
+      product calling a single provider, that is not a compromise. That is the correct architecture, and adding a
+      gateway to it buys you complexity.
     </p>
 
-    <h3>Advantages of Direct API</h3>
-    <p class="feature-list">
-      <span class="check">&#10003;</span> <strong>Simplicity:</strong> 5 lines of code, no middleman<br>
-      <span class="check">&#10003;</span> <strong>Official SDKs:</strong> Best-in-class libraries from providers<br>
-      <span class="check">&#10003;</span> <strong>Lowest latency:</strong> No proxy overhead (~20-30ms faster)<br>
-      <span class="check">&#10003;</span> <strong>Immediate access:</strong> New features available day 1<br>
-      <span class="check">&#10003;</span> <strong>Pay-per-use:</strong> Only pay for what you consume
+    <h2>Five Signs You Have Outgrown It</h2>
+    <p class="choose-list">
+      <span class="check">&#10003;</span> You call more than one provider and are writing your own routing code<br>
+      <span class="check">&#10003;</span> A provider outage takes your feature down because you have no failover<br>
+      <span class="check">&#10003;</span> You need to know spend per team, per product or per client, and the provider bill is one number<br>
+      <span class="check">&#10003;</span> You need hard spending caps rather than a bill you read afterwards<br>
+      <span class="check">&#10003;</span> Multiple teams share one API key and nobody can say who spent what
+    </p>
+    <p>
+      One of those is a reason to look. None of them is a reason to pay before you have tried a free option.
     </p>
 
-    <h2>The Problem with Direct API</h2>
-
-    <div class="warning-box">
-      <strong>Real scenario:</strong> A Make.com automation with a loop bug consumed $247 in
-      GPT-4 tokens overnight. No warning, no kill switch, just a surprise bill. This happens
-      to teams every single day.
-    </div>
-
-    <h3>What Direct API Doesn't Give You</h3>
-    <p class="feature-list">
-      <span class="cross">&#10005;</span> <strong>No budget caps:</strong> If your app goes viral, you're on the hook for unlimited charges<br>
-      <span class="cross">&#10005;</span> <strong>No spending alerts:</strong> You discover overspending when the bill arrives<br>
-      <span class="cross">&#10005;</span> <strong>No automatic failover:</strong> OpenAI downtime = your app is down<br>
-      <span class="cross">&#10005;</span> <strong>No per-client tracking:</strong> Can't track costs by customer/project<br>
-      <span class="cross">&#10005;</span> <strong>No intelligent routing:</strong> You manually choose models (often overspending)<br>
-      <span class="cross">&#10005;</span> <strong>Multiple API keys:</strong> Managing OpenAI + Claude + Gemini separately
+    <h2>What a Gateway Costs When You Do Need One</h2>
+    <p>
+      Prices below come from each vendor's own pricing page. Note how much of this list is free.
     </p>
-
-    <h2>When a Gateway Makes Sense</h2>
-
-    <h3>5 signs you need a gateway:</h3>
-
-    <div class="sign-item">
-      <strong>1. Your monthly AI bill exceeds $49</strong>
-      <span class="detail">At $49/mo with 5M tokens included, the Gateway costs less than paying providers directly once you hit ~2M tokens</span>
-    </div>
-
-    <div class="sign-item">
-      <strong>2. You've had an unexpected bill spike</strong>
-      <span class="detail">Even one $200 surprise bill justifies a gateway forever</span>
-    </div>
-
-    <div class="sign-item">
-      <strong>3. You bill clients for AI usage</strong>
-      <span class="detail">Per-client tracking and CSV export saves hours of manual work</span>
-    </div>
-
-    <div class="sign-item">
-      <strong>4. You use multiple providers</strong>
-      <span class="detail">Managing 3 API keys + 3 billing accounts + 3 dashboards = chaos</span>
-    </div>
-
-    <div class="sign-item">
-      <strong>5. Uptime matters</strong>
-      <span class="detail">OpenAI goes down monthly. Automatic failover to Claude prevents customer-facing failures</span>
-    </div>
-
-    <h2>Feature Comparison</h2>
-
-    <div class="comparison-table">
+    <div class="compare-table-wrapper">
       <table>
-        <thead>
-          <tr>
-            <th>Feature</th>
-            <th>Direct API</th>
-            <th>ResultantAI Gateway</th>
-          </tr>
-        </thead>
+        <thead><tr><th>Option</th><th>Price</th><th>Shape</th></tr></thead>
         <tbody>
-          <tr>
-            <td>Setup time</td>
-            <td><span class="check">&#10003; 5 minutes</span></td>
-            <td>5 minutes</td>
-          </tr>
-          <tr>
-            <td>Latency</td>
-            <td><span class="check">&#10003; 800ms (direct)</span></td>
-            <td>815-830ms (+15-30ms)</td>
-          </tr>
-          <tr>
-            <td>Budget caps</td>
-            <td><span class="cross">&#10005;</span></td>
-            <td><span class="check">&#10003;</span></td>
-          </tr>
-          <tr>
-            <td>Spending alerts</td>
-            <td><span class="cross">&#10005;</span></td>
-            <td><span class="check">&#10003;</span></td>
-          </tr>
-          <tr>
-            <td>Automatic failover</td>
-            <td><span class="cross">&#10005;</span></td>
-            <td><span class="check">&#10003;</span></td>
-          </tr>
-          <tr>
-            <td>Per-client tracking</td>
-            <td><span class="cross">&#10005; Manual tagging</span></td>
-            <td><span class="check">&#10003; Built-in</span></td>
-          </tr>
-          <tr>
-            <td>Intelligent routing</td>
-            <td><span class="cross">&#10005; Manual</span></td>
-            <td><span class="check">&#10003; 40-50% savings</span></td>
-          </tr>
-          <tr>
-            <td>Multi-provider support</td>
-            <td>Separate SDKs</td>
-            <td><span class="check">&#10003; Unified API</span></td>
-          </tr>
-          <tr>
-            <td>Monthly cost</td>
-            <td>$2.50+ per 1M (unlimited)</td>
-            <td>$49/month (5M tokens included)</td>
-          </tr>
-          <tr>
-            <td>Bill shock risk</td>
-            <td><span class="cross">&#10005; High</span></td>
-            <td><span class="check">&#10003; Eliminated</span></td>
-          </tr>
+          <tr><td><strong>LiteLLM</strong></td><td>Free forever, self-hosted</td><td>MIT licensed, 140+ providers, virtual keys and budgets. You run it.</td></tr>
+          <tr><td><strong>Portkey Developer</strong></td><td>Free forever</td><td>10k recorded logs/month, 3 day log retention. They say it is not for production.</td></tr>
+          <tr><td><strong>Portkey open source</strong></td><td>Free, self-hosted</td><td>Routing, retries, fallbacks, guardrails, basic dashboard.</td></tr>
+          <tr><td><strong>Helicone Hobby</strong></td><td>Free</td><td>10,000 requests, 7 day retention. Observability rather than routing.</td></tr>
+          <tr><td><strong>Portkey Production</strong></td><td>$49/month</td><td>100k recorded logs, then $9 per additional 100k. 30 day retention.</td></tr>
+          <tr><td><strong>Helicone Pro</strong></td><td>$79/month</td><td>Unlimited seats, alerts and reports, 1 month retention.</td></tr>
         </tbody>
       </table>
     </div>
-
-    <h2>Cost Comparison</h2>
-
-    <h3>Cost Comparison Scenario</h3>
     <p>
-      <strong>Direct API:</strong><br>
-      Usage-based billing at ~$2.50/M tokens (blended). Risk: one bug could cost $200+ overnight.
-      No routing optimization -- always pay full price for every model. Total: variable (high risk of bill shock).
+      In every one of these you still pay OpenAI and Anthropic directly for tokens. A gateway is a layer, not a
+      reseller. Be suspicious of any comparison that presents a gateway fee as replacing your provider bill.
     </p>
 
-    <p>
-      <strong>ResultantAI Gateway:</strong><br>
-      $49/month includes 5M tokens. Overage is $3/M tokens. Smart routing sends most traffic to cheap models
-      (Gemini Flash $0.15/M, Haiku $0.80/M). Budget cap prevents runaway costs.
-      Total at 5M tokens: $49/month. Total at 10M tokens: $64/month. Zero risk, predictable.
-    </p>
-
-    <h3>Break-Even Analysis</h3>
-    <p>
-      The Gateway pays for itself if:<br>
-      It prevents ONE $50+ surprise bill (instantly ROI positive), OR<br>
-      You use 2M+ tokens/month (direct API ~$5 vs Gateway's $49 but with failover, routing, budget caps included), OR<br>
-      Per-client tracking saves you 1+ hour/month at $50/hr billable rate (saves $50/month).
-    </p>
-
-    <h2>Decision Framework</h2>
-
-    <h3>Use Direct API if:</h3>
-    <p class="feature-list">
-      <span class="check">&#10003;</span> You're building a prototype or MVP<br>
-      <span class="check">&#10003;</span> You're using under 1M tokens/month<br>
-      <span class="check">&#10003;</span> You're comfortable manually monitoring usage<br>
-      <span class="check">&#10003;</span> Downtime is acceptable (personal projects)<br>
-      <span class="check">&#10003;</span> You need absolute maximum performance (latency-critical)
-    </p>
-
-    <h3>Use the Gateway if:</h3>
-    <p class="feature-list">
-      <span class="check">&#10003;</span> You use 2M+ tokens/month ($49/mo with 5M included is hard to beat)<br>
-      <span class="check">&#10003;</span> You need predictable, capped costs<br>
-      <span class="check">&#10003;</span> You bill clients and need per-client tracking<br>
-      <span class="check">&#10003;</span> You use multiple providers (OpenAI + Claude + Gemini)<br>
-      <span class="check">&#10003;</span> You've experienced bill shock before<br>
-      <span class="check">&#10003;</span> Uptime matters (customer-facing features)<br>
-      <span class="check">&#10003;</span> You want to optimize costs automatically
-    </p>
-
-    <h2>Migration Path</h2>
-    <p>
-      Most teams start with direct API and migrate to a gateway once they hit production scale.
-      The migration is simple:
-    </p>
-
-    <ol class="migration-steps">
-      <li>Get ResultantAI Gateway API key</li>
-      <li>Change <code style="font-family: 'JetBrains Mono', monospace; background: var(--bg-card); padding: 2px 8px; border-radius: 4px; font-size: 0.875em;">base_url</code> in your OpenAI client config</li>
-      <li>Replace API key</li>
-      <li>Deploy</li>
-    </ol>
-
-    <p>
-      Migration time: 5 minutes. Zero code rewrite required.
-    </p>
+      <h2>The Problem No Gateway Solves</h2>
+      <p>
+        Every tool on this page is built for engineers. They answer which model handled a request, how long it took,
+        and what it cost in aggregate. That is the right shape for a product team.
+      </p>
+      <p>
+        It is the wrong shape for an agency. If you are billing eleven clients and running AI inside deliverables for
+        all of them, the month-end question is not what your OpenAI bill was. It is which client is eating your margin.
+        That means tying every call to a client, a deliverable and a rate card, then putting it somewhere your billing
+        process can read. A gateway gives you raw usage. It does not give you attribution, and it does not put it on an
+        invoice.
+      </p>
+      <p>
+        That is the part I build. Not a gateway, and not a product with a monthly fee. A cost attribution and reporting
+        layer that sits on top of whichever gateway you already picked, wired into how you actually bill.
+      </p>
 
     <div class="cta-section">
-      <p><strong style="color: var(--text-primary); font-size: 1.25rem;">Ready to eliminate bill shock?</strong></p>
-      <p>Try the ResultantAI Gateway free -- no credit card required.</p>
+      <p><strong style="color: var(--text-primary); font-size: 1.25rem;">If your AI bill is fine but your client margins are not, that is a different problem.</strong></p>
+      <p>Worth 30 minutes.</p>
       <a href="https://cal.com/chris-mott-eebyqs/30min?source=ai-cost-control" class="btn btn-primary" style="margin-top: 16px;">Talk through your AI costs &rarr;</a>
     </div>
   </div>
