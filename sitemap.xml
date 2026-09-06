@@ -109,12 +109,6 @@
 
   <!-- Service Pages -->
   <url>
-    <loc>https://resultantai.com/gateway/</loc>
-    <lastmod>2026-02-28</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
     <loc>https://resultantai.com/automation/</loc>
     <lastmod>2026-02-27</lastmod>
     <changefreq>weekly</changefreq>
@@ -172,12 +166,6 @@
   </url>
   <url>
     <loc>https://resultantai.com/work/adleg/</loc>
-    <lastmod>2026-07-12</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://resultantai.com/work/wayne-conn/</loc>
     <lastmod>2026-07-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
@@ -355,12 +343,6 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://resultantai.com/blog/wayne-conn-plumbing-case-study/</loc>
-    <lastmod>2026-02-28</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
     <loc>https://resultantai.com/blog/voice-ai-cost-roi-breakdown/</loc>
     <lastmod>2026-02-27</lastmod>
     <changefreq>monthly</changefreq>
@@ -380,36 +362,6 @@
   </url>
 
   <!-- Reddit / Community -->
-  <url>
-    <loc>https://resultantai.com/reddit/</loc>
-    <lastmod>2026-02-28</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://resultantai.com/reddit/bill-shock/</loc>
-    <lastmod>2026-02-28</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://resultantai.com/reddit/billing/</loc>
-    <lastmod>2026-02-28</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://resultantai.com/reddit/one-key/</loc>
-    <lastmod>2026-02-28</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://resultantai.com/reddit/reddit-landing-white</loc>
-    <lastmod>2026-02-28</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
 
   <!-- Legal -->
   <url>

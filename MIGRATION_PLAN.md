@@ -88,8 +88,8 @@ Target: Single system at `/case-studies/{client-slug}/`.
 
 | Old Link | 301 Target |
 |----------|------------|
-| `/discovery` | `https://meetings.hubspot.com/resultantai/quick-chat-30?source=discovery` |
-| `/paper-to-digital` | `https://meetings.hubspot.com/resultantai/quick-chat-30?source=paper-to-digital` |
+| `/discovery` | `https://cal.com/chris-mott-eebyqs/30min?source=discovery` |
+| `/paper-to-digital` | `https://cal.com/chris-mott-eebyqs/30min?source=paper-to-digital` |
 
 ---
 
