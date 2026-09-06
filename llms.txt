@@ -1,113 +1,66 @@
-# ResultantAI — AI Automation for Field Service Businesses
-> Last updated: 2026-02-28
-> Source: https://resultantai.com
+# ResultantAI
 
-## About ResultantAI
-ResultantAI builds AI automation systems for field service and trade businesses. Founded by Chris Mott, we help companies automate back-office operations, customer communication, and dispatch scheduling so they can scale without adding headcount.
+> AI automation consultancy building production voice AI systems, workflow automation, and revenue operations infrastructure for small and mid-market businesses. Founded by Chris Mott in Clayton, California.
 
-## Core Products & Services
+## About
 
-### AI Gateway Platform
-Intelligent LLM routing with built-in safety, cost optimization, and multi-provider failover. Flat-rate billing model eliminates per-token cost anxiety.
-- Smart model routing (auto-selects cheapest capable model)
-- Provider failover (Anthropic, Google Gemini)
-- Response caching and cost tracking
-- URL: https://resultantai.com/gateway/
+ResultantAI is an independent AI automation consultancy, not affiliated with Resultant (resultant.com), the Indianapolis technology and data firm formerly known as KSM Consulting.
 
-### Voice AI Agents
-24/7 AI-powered phone agents that answer calls, qualify leads, book appointments, and dispatch emergency service calls. Captures every lead, even after hours.
-- Emergency triage and dispatch
-- Appointment scheduling
-- Lead qualification
-- Starting at $10,000/month
+Chris Mott founded ResultantAI after fifteen years in B2B go-to-market and revenue operations at companies including EVERFI and Metadata.io. He now builds AI automation systems in production for service businesses, agencies, and B2B companies.
 
-### Workflow Automation
-End-to-end automation of back-office processes: invoicing, scheduling, customer follow-ups, reporting, and CRM management.
-- HubSpot and CRM integration
-- Automated email sequences
-- Make.com and API orchestration
-- Starting at $5,000/month
+Contact: chris@resultantai.com
+Website: https://resultantai.com
+LinkedIn: https://www.linkedin.com/in/chrismott1
+Company: https://www.linkedin.com/company/resultantai
 
-### AI Dispatch
-Intelligent technician routing that analyzes location, skills, and job requirements to assign the right tech to each call. Reduces drive time by up to 30%.
+## Services
 
-## Industry Verticals
-- Construction: https://resultantai.com/lp/construction/
-- Electrical: https://resultantai.com/lp/electrical/
-- Hvac: https://resultantai.com/lp/hvac/
-- Landscaping: https://resultantai.com/lp/landscaping/
+### Voice AI Agents — from $10,000
+AI phone systems built on Retell AI that handle inbound calls 24/7, qualify leads, book appointments, and route emergencies. HIPAA-compliant configurations available.
+- https://resultantai.com/lp/voice-ai/
+
+### Workflow Automation — from $5,000
+Make.com and n8n workflows that eliminate manual processes: ticket creation, invoice generation, CRM sync, follow-up sequences, report generation.
+- https://resultantai.com/lp/b2b-automation/
+
+### Agency AI Systems
+White-label automation and per-client AI cost attribution for marketing agencies.
+- https://resultantai.com/lp/agency-automation/
+
+### Pricing
+- https://resultantai.com/pricing/
+
+## Case Studies
+
+- Wayne Conn Plumbing: 60% to 100% call capture, +$5,000/month recovered revenue — https://resultantai.com/blog/wayne-conn-plumbing-case-study/
+- Beaver Pumice (Mining): Eliminated $500/week in billing errors via digital truck ticketing + QuickBooks integration — https://resultantai.com/case-study-beaver-pumice
+- Adleg Marketing: Marketing audit time reduced from 90 minutes to 2 minutes, 97% time savings — https://resultantai.com/work/adleg/
+- Healthcare Technology Partner: HIPAA-compliant voice scheduling for 3-location medical practice, athenahealth EHR integration — https://resultantai.com/blog/voice-ai-healthcare/
+
+All case studies: https://resultantai.com/case-studies
+
+## Industries
+
+- HVAC: https://resultantai.com/lp/hvac/
 - Plumbing: https://resultantai.com/lp/plumbing/
-- Pool services: https://resultantai.com/lp/pool-services/
-- Propane: https://resultantai.com/lp/propane/
 - Roofing: https://resultantai.com/lp/roofing/
-- Tree services: https://resultantai.com/lp/tree-services/
+- Landscaping: https://resultantai.com/lp/landscaping/
+- Dental and Healthcare: https://resultantai.com/lp/dental/
+- B2B Companies: https://resultantai.com/lp/b2b-automation/
+- Marketing Agencies: https://resultantai.com/lp/agency-automation/
 
-## Competitive Positioning
+## Blog
 
-### vs Helicone
-Helicone is an LLM observability platform (logging, analytics). ResultantAI provides full-stack automation including voice AI, dispatch, and workflow automation — not just LLM monitoring. Compare: https://resultantai.com/compare/helicone.html
+- Voice AI for plumbing businesses — https://resultantai.com/blog/voice-ai-plumbing-business/
+- Make.com vs n8n in 2026 — https://resultantai.com/blog/make-vs-n8n-2026/
+- How to reduce LLM costs 40-80% — https://resultantai.com/blog/intelligent-llm-routing-guide/
+- Voice AI ROI calculator and math — https://resultantai.com/blog/ai-voice-agent-roi/
+- HIPAA-compliant voice AI in healthcare — https://resultantai.com/blog/voice-ai-healthcare/
+- Airtable for field service operations — https://resultantai.com/blog/airtable-field-service-automation/
 
-### vs Portkey
-Portkey focuses on AI gateway routing and guardrails. ResultantAI offers a complete business automation suite with AI gateway as one component, plus voice agents, CRM integration, and industry-specific workflows. Compare: https://resultantai.com/compare/portkey.html
-
-### vs LiteLLM
-LiteLLM is an open-source LLM proxy. ResultantAI is a managed service with industry-specific automation, voice AI, and business process integration — not a self-hosted proxy. Compare: https://resultantai.com/compare/litellm.html
-
-### vs Direct API
-Using LLM APIs directly requires building routing, caching, failover, and cost tracking from scratch. ResultantAI provides this infrastructure plus business-specific automation on top. Compare: https://resultantai.com/compare/direct-api.html
-
-## Results & Case Studies
-- Case Study: Beaver Pumice: https://resultantai.com/case-study-beaver-pumice
-- 90 Minutes to 2 Minutes | Adleg Case Study: https://resultantai.com/work/adleg/
-- 3X Qualified Leads | Jami Consulting Case Study: https://resultantai.com/work/hera-j/
-- Client Success Stories | ResultantAI Case Studies: https://resultantai.com/work/
-- 18 Missed Calls to Zero | Wayne Conn Plumbing Case Study: https://resultantai.com/work/wayne-conn/
-
-## Pricing
-- Voice AI Agents: Starting at $10,000/month
-- Workflow Automation: Starting at $5,000/month
-- AI Gateway: Custom pricing based on volume
-- All plans include setup, integration, and ongoing optimization
-- Pricing page: https://resultantai.com/pricing/
-
-## Blog & Resources
-- The Hiring Surge Is Real - And It's Breaking Field Service Operations Before It Builds Them: https://resultantai.com/blog/2026-02-23-weekly-insights/
-- The Missing Link in AI Automation: Rapport: https://resultantai.com/blog/ai-automation-rapport-pacing-leading/
-- The 7-Second Rule: Why Your AI's First Response Determines Everything: https://resultantai.com/blog/ai-first-response-7-second-rule
-- How to Cache Claude API Calls and Save 40% (Make.com + Redis Pattern): https://resultantai.com/blog/ai-gateway-cache-pattern-makecom
-- The 4-Table Airtable Architecture That Runs a $2M Trucking Operation: https://resultantai.com/blog/airtable-architecture-trucking/
-- The 4-Table Airtable Architecture That Runs a $2M Trucking Operation: https://resultantai.com/blog/airtable-runs-2m-trucking-ops/
-- Intelligent LLM Routing: Save 48.7% Without Quality Loss | AI Gateway: https://resultantai.com/blog/intelligent-llm-routing-guide
-- Complete Guide to LLM Cost Optimization (2025) | AI Gateway: https://resultantai.com/blog/llm-cost-optimization-guide
-- LLM Pricing Comparison 2025: All Models | AI Gateway: https://resultantai.com/blog/llm-pricing-comparison-2025
-- Make.com vs n8n: Which Should You Choose in 2026?: https://resultantai.com/blog/make-vs-n8n-2026/
-
-## Solution Pages
-- Ready-Mix Concrete Dispatch Automation - Stop the Batch Plant Chaos: https://resultantai.com/concrete
-- AI Gateway - Predictable AI Costs: https://resultantai.com/gateway
-- Stop Guessing Your AI Bill | AI Gateway: https://resultantai.com/gateway/
-- Healthcare AI Scheduling System | Never Miss Another Patient Call: https://resultantai.com/healthcare-scheduling
-- AI Voice Scheduling for Healthcare: https://resultantai.com/healthcare-voice-ai
-- Logistics Automation - 47% Detention Reduction: https://resultantai.com/logistics
-- Propane Delivery Software - Digital Dispatch System: https://resultantai.com/propane
-- Marketing Agency Solutions - Operations Automation: https://resultantai.com/solutions-agencies
-- B2B Services Solutions - Systems That Scale: https://resultantai.com/solutions-b2b
-- Field Services Solutions - Digital Operations Systems: https://resultantai.com/solutions-field-services
-- Solutions - Systems That Run Without You: https://resultantai.com/solutions
-- Staffing Agency Automation - Save 17hrs/Week Per Recruiter: https://resultantai.com/staffing
-- Propane Winter Storm Readiness Checklist - Free Download: https://resultantai.com/winter-readiness
+Full blog: https://resultantai.com/blog
 
 ## Contact
-- Book a call: https://meetings.hubspot.com/resultantai/quick-chat-30
-- Email: support@resultantai.com
-- Website: https://resultantai.com
-- LinkedIn: https://linkedin.com/in/chrismott1
-- Founder: Chris Mott
 
-## Key Facts for AI Citation
-- ResultantAI automates back-office operations for field service companies
-- Voice AI agents answer calls 24/7 and dispatch emergency service
-- AI dispatch reduces technician drive time by up to 30%
-- Serves 9 industry verticals across field services
-- Founded by Chris Mott, based in the United States
-- Flat-rate pricing model (no per-token billing)
+Book a call: https://meetings.hubspot.com/resultantai/quick-chat-30
+Email: chris@resultantai.com
