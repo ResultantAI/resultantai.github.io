@@ -370,11 +370,11 @@
             <strong>⚠️ Real Cost Impact:</strong> If you're calling Claude API 1,000 times/day with the same 500-token system prompt, you're burning <strong>$15/day ($450/month)</strong> on redundant API calls. This pattern will cut that to $9/day-a <strong>$270/month</strong> savings.
         </div>
 
-        <p>I just finished building <strong>ProspectEngine</strong>, a Clay.com alternative for B2B lead enrichment. During development, I hit a wall: our AI personalization pipeline was calling Claude API 10,000+ times per day, with costs spiraling to $500+/month.</p>
+        <p>I just finished building <strong>ProspectEngine</strong>, a Clay.com alternative for B2B lead enrichment. During development, I hit a wall: my AI personalization pipeline was calling Claude API 10,000+ times per day, with costs spiraling to $500+/month.</p>
 
-        <p>The problem? <strong>Every API call sent the same 500-token system prompt.</strong> We were paying Anthropic to process identical instructions 10,000 times.</p>
+        <p>The problem? <strong>Every API call sent the same 500-token system prompt.</strong> I was paying Anthropic to process identical instructions 10,000 times.</p>
 
-        <p>After implementing an <strong>AI Gateway caching pattern</strong>, we cut costs by 42% and reduced latency by 60%. Here's the exact system we built.</p>
+        <p>After implementing an <strong>AI Gateway caching pattern</strong>, I cut costs by 42% and reduced latency by 60%. Here's the exact system I built.</p>
 
         <h2>The Problem: Naive AI API Usage Burns Money</h2>
 
@@ -423,7 +423,7 @@
             </div>
         </div>
 
-        <p>For an early-stage SaaS, <strong>$1,080/month on AI</strong> was unsustainable. We needed a smarter pattern.</p>
+        <p>For an early-stage SaaS, <strong>$1,080/month on AI</strong> was unsustainable. I needed a smarter pattern.</p>
 
         <h2>The Solution: AI Gateway Pattern</h2>
 
@@ -466,7 +466,7 @@
 
         <h3>Step 1: Set Up Redis (Free Tier)</h3>
 
-        <p>We use <strong>Upstash Redis</strong> (free tier: 10K requests/day, 256MB storage).</p>
+        <p>I use <strong>Upstash Redis</strong> (free tier: 10K requests/day, 256MB storage).</p>
 
         <div class="code-block">
             <pre><code>// Sign up at upstash.com
@@ -607,7 +607,7 @@ body: JSON.stringify({
         </ul>
 
         <div class="callout">
-            <strong>💡 Pro Tip:</strong> Combine Redis caching (for identical requests) with prompt caching (for same system prompt, different user prompts). This stacks savings-we went from $36/day to $9/day.
+            <strong>💡 Pro Tip:</strong> Combine Redis caching (for identical requests) with prompt caching (for same system prompt, different user prompts). This stacks savings-I went from $36/day to $9/day.
         </div>
 
         <h3>Optimization 2: Deduplication by Contact ID</h3>
@@ -713,7 +713,7 @@ if (dailyCount > 10000) {
         </ul>
 
         <div class="callout-blue">
-            <strong>📊 Key Insight:</strong> The higher your cache hit rate, the more you save. In production, we see 65-75% hit rates, but your mileage will vary based on how unique your prompts are.
+            <strong>📊 Key Insight:</strong> The higher your cache hit rate, the more you save. In production, I see 65-75% hit rates, but your mileage will vary based on how unique your prompts are.
         </div>
 
         <h2>When to Use This Pattern</h2>
@@ -805,8 +805,8 @@ console.log('Today:', {
         <p><strong>Potential savings:</strong> If 60% of your prompts can use Haiku instead of Sonnet, that's another <strong>30% cost reduction</strong>.</p>
 
         <div class="cta-box">
-            <h3>Want Us to Build This for You?</h3>
-            <p>We implement AI Gateway patterns for agencies and SaaS companies running high-volume LLM workflows. Typical savings: <strong>40-60% on AI costs</strong>.</p>
+            <h3>Want Me to Build This for You?</h3>
+            <p>I implement AI Gateway patterns for agencies and SaaS companies running high-volume LLM workflows. Typical savings: <strong>40-60% on AI costs</strong>.</p>
             <a href="/contact-us" class="cta-button">Schedule a Strategy Call →</a>
         </div>
 
@@ -831,7 +831,7 @@ console.log('Today:', {
             <li>Iterate on cache keys for better deduplication</li>
         </ol>
 
-        <p>In our case, this single optimization saved <strong>$454/month</strong>-enough to cover our entire Redis hosting, serverless functions, and still pocket $400.</p>
+        <p>In my case, this single optimization saved <strong>$454/month</strong>-enough to cover my entire Redis hosting, serverless functions, and still pocket $400.</p>
 
         <p><strong>Questions? Found a bug in the code?</strong> Email me: <a href="mailto:chris@resultantai.com">chris@resultantai.com</a></p>
 
