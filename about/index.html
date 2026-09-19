@@ -22,7 +22,7 @@
 
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>About ResultantAI — AI Systems for B2B Revenue Operations | Chris Mott</title>
+  <title>About ResultantAI, AI Systems for B2B Revenue Operations | Chris Mott</title>
   <meta name="description" content="I'm ResultantAI. I build AI systems that actually work: voice agents, workflow automation, and chatbots. Fixed price, deployed in weeks, you own everything.">
 
   <!-- Google Search Console Verification -->
@@ -50,19 +50,19 @@
       --bg-card: #151d2e;
       --border: #1e293b;
       --border-light: #334155;
-      --border-glow: rgba(16, 185, 129, 0.3);
+      --border-glow: rgba(14, 165, 233, 0.3);
       
       --text-primary: #ffffff;
       --text-secondary: #94a3b8;
       --text-muted: #64748b;
       
-      --accent: #10b981;
-      --accent-light: #34d399;
-      --accent-subtle: rgba(16, 185, 129, 0.08);
-      --accent-glow: rgba(16, 185, 129, 0.4);
+      --accent: #0ea5e9;
+      --accent-light: #38bdf8;
+      --accent-subtle: rgba(14, 165, 233, 0.08);
+      --accent-glow: rgba(14, 165, 233, 0.4);
       
-      --gradient-accent: linear-gradient(135deg, #10b981 0%, #34d399 100%);
-      --gradient-hero: radial-gradient(ellipse 80% 50% at 50% -20%, rgba(16, 185, 129, 0.15), transparent);
+      --gradient-accent: linear-gradient(135deg, #0ea5e9 0%, #38bdf8 100%);
+      --gradient-hero: radial-gradient(ellipse 80% 50% at 50% -20%, rgba(14, 165, 233, 0.15), transparent);
       
       --radius-sm: 6px;
       --radius-md: 10px;
@@ -127,8 +127,8 @@
       right: 0;
       bottom: 0;
       background-image: 
-        linear-gradient(rgba(16, 185, 129, 0.03) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(16, 185, 129, 0.03) 1px, transparent 1px);
+        linear-gradient(rgba(14, 165, 233, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(14, 165, 233, 0.03) 1px, transparent 1px);
       background-size: 60px 60px;
       pointer-events: none;
       z-index: 0;
@@ -282,7 +282,7 @@
       gap: 8px;
       padding: 8px 16px;
       background: var(--accent-subtle);
-      border: 1px solid rgba(16, 185, 129, 0.2);
+      border: 1px solid rgba(14, 165, 233, 0.2);
       border-radius: var(--radius-full);
       font-size: 13px;
       font-weight: 500;
@@ -563,12 +563,12 @@
       font-weight: 700;
       border-radius: var(--radius-md);
       transition: all var(--transition);
-      box-shadow: 0 4px 20px rgba(16, 185, 129, 0.3);
+      box-shadow: 0 4px 20px rgba(14, 165, 233, 0.3);
     }
 
     .cta__button:hover {
       transform: translateY(-3px);
-      box-shadow: 0 8px 30px rgba(16, 185, 129, 0.4);
+      box-shadow: 0 8px 30px rgba(14, 165, 233, 0.4);
     }
 
     .cta__button svg {
@@ -612,7 +612,7 @@
     }
 
     .footer__brand-logo span {
-      background: linear-gradient(135deg, #10b981 0%, #34d399 100%);
+      background: linear-gradient(135deg, #0ea5e9 0%, #38bdf8 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
@@ -721,7 +721,15 @@
       opacity: 1;
       transform: translateY(0);
     }
-  </style>
+  
+/* canonical nav dropdown, injected by unify-nav.py */
+.nav-dropdown { position: relative; }
+.nav-dropdown__toggle { display: inline-flex; align-items: center; gap: 4px; cursor: pointer; }
+.nav-dropdown__menu { position: absolute; top: calc(100% + 12px); left: 0; background: var(--bg-card, #151d2e); border: 1px solid var(--border, #1e293b); border-radius: 10px; padding: 8px; min-width: 210px; opacity: 0; visibility: hidden; transition: opacity 0.2s ease, visibility 0.2s ease; box-shadow: 0 8px 24px rgba(0,0,0,0.4); z-index: 200; }
+.nav-dropdown:hover .nav-dropdown__menu, .nav-dropdown:focus-within .nav-dropdown__menu { opacity: 1; visibility: visible; }
+.nav-dropdown__item { display: block; padding: 10px 14px; border-radius: 6px; font-size: 14px; color: var(--text-secondary, #94a3b8); text-decoration: none; transition: background 0.2s ease, color 0.2s ease; }
+.nav-dropdown__item:hover { background: var(--bg-secondary, #0f172a); color: var(--accent, #0ea5e9); }
+</style>
   <!-- Google Analytics 4 (Direct) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-DY95GS9YX5"></script>
   <script>
@@ -832,11 +840,29 @@
       <div class="header__inner">
         <a href="https://resultantai.com" class="header__logo">Resultant<span class="logo-accent">AI</span></a>
         <nav class="header__nav">
-          <a href="https://resultantai.com" class="header__link">Home</a>
-          <a href="https://resultantai.com/about" class="header__link header__link--active">About</a>
-          <a href="https://resultantai.com/contact-us" class="header__link">Contact</a>
-          <a href="https://resultantai.com/gateway" class="header__link">Gateway</a>
-          <a href="https://cal.com/chris-mott-eebyqs/30min" target="_blank" class="header__cta">Book a Call</a>
+          <div class="nav-dropdown">
+          <div class="nav-dropdown__toggle header__link">Industries<svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" style="margin-left:4px"><path d="M3 4.5l3 3 3-3"/></svg></div>
+          <div class="nav-dropdown__menu">
+            <a href="/senior-living/" class="nav-dropdown__item">Senior Living</a>
+            <a href="/early-childhood/" class="nav-dropdown__item">Early Childhood</a>
+            <a href="/healthcare/" class="nav-dropdown__item">Healthcare</a>
+            <a href="/dental/" class="nav-dropdown__item">Dental</a>
+            <a href="/trades/" class="nav-dropdown__item">Trades</a>
+          </div>
+        </div>
+        <div class="nav-dropdown">
+          <div class="nav-dropdown__toggle header__link">Solutions<svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" style="margin-left:4px"><path d="M3 4.5l3 3 3-3"/></svg></div>
+          <div class="nav-dropdown__menu">
+            <a href="/lp/voice-ai/" class="nav-dropdown__item">Voice AI</a>
+            <a href="/automation/" class="nav-dropdown__item">Automation</a>
+            <a href="/agent-security-audit/" class="nav-dropdown__item">Agent Security Audit</a>
+            <a href="/aeo-geo-audit/" class="nav-dropdown__item">AEO/GEO Audit</a>
+          </div>
+        </div>
+        <a href="/case-studies" class="header__link">Work</a>
+        <a href="/pricing/" class="header__link">Pricing</a>
+        <a href="/blog" class="header__link">Blog</a>
+        <a href="https://cal.com/chris-mott-eebyqs/30min" class="header__cta">Book a Call</a>
         </nav>
       </div>
     </div>
@@ -893,7 +919,7 @@
         <div class="values__grid">
           <div class="value-card reveal">
             <div class="value-card__icon">
-              <svg width="24" height="24" fill="none" stroke="#10b981" stroke-width="2">
+              <svg width="24" height="24" fill="none" stroke="#0ea5e9" stroke-width="2">
                 <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/>
                 <polyline points="22 4 12 14.01 9 11.01"/>
               </svg>
@@ -903,7 +929,7 @@
           </div>
           <div class="value-card reveal">
             <div class="value-card__icon">
-              <svg width="24" height="24" fill="none" stroke="#10b981" stroke-width="2">
+              <svg width="24" height="24" fill="none" stroke="#0ea5e9" stroke-width="2">
                 <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/>
                 <polyline points="14 2 14 8 20 8"/>
                 <line x1="16" y1="13" x2="8" y2="13"/>
@@ -915,7 +941,7 @@
           </div>
           <div class="value-card reveal">
             <div class="value-card__icon">
-              <svg width="24" height="24" fill="none" stroke="#10b981" stroke-width="2">
+              <svg width="24" height="24" fill="none" stroke="#0ea5e9" stroke-width="2">
                 <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
                 <path d="M7 11V7a5 5 0 0110 0v4"/>
               </svg>
@@ -925,7 +951,7 @@
           </div>
           <div class="value-card reveal">
             <div class="value-card__icon">
-              <svg width="24" height="24" fill="none" stroke="#10b981" stroke-width="2">
+              <svg width="24" height="24" fill="none" stroke="#0ea5e9" stroke-width="2">
                 <circle cx="12" cy="12" r="10"/>
                 <polyline points="12 6 12 12 16 14"/>
               </svg>
@@ -935,7 +961,7 @@
           </div>
           <div class="value-card reveal">
             <div class="value-card__icon">
-              <svg width="24" height="24" fill="none" stroke="#10b981" stroke-width="2">
+              <svg width="24" height="24" fill="none" stroke="#0ea5e9" stroke-width="2">
                 <line x1="12" y1="1" x2="12" y2="23"/>
                 <path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/>
               </svg>
@@ -945,7 +971,7 @@
           </div>
           <div class="value-card reveal">
             <div class="value-card__icon">
-              <svg width="24" height="24" fill="none" stroke="#10b981" stroke-width="2">
+              <svg width="24" height="24" fill="none" stroke="#0ea5e9" stroke-width="2">
                 <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/>
               </svg>
             </div>

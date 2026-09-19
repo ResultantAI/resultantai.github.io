@@ -4,16 +4,16 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Claude API Integration for SaaS | Streaming, Tool Use & Cost Control | ResultantAI</title>
-  <meta name="description" content="Production Claude API integrations for SaaS products. Streaming responses, tool use, prompt caching, and a cost dashboard. Live in 5–14 days. Starts at $1,500.">
+  <meta name="description" content="Production Claude API integrations for SaaS products. Streaming responses, tool use, prompt caching, and a cost dashboard. Live in 5-14 days. Starts at $1,500.">
   <link rel="canonical" href="https://resultantai.com/claude-api-integration/">
   <meta property="og:title" content="Claude API Integration for SaaS | ResultantAI">
-  <meta property="og:description" content="Streaming, tool use, prompt caching, and cost control. Not a tutorial — a production Claude integration for your product.">
+  <meta property="og:description" content="Streaming, tool use, prompt caching, and cost control. Not a tutorial, a production Claude integration for your product.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://resultantai.com/claude-api-integration/">
   <meta property="og:site_name" content="ResultantAI">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Claude API Integration for SaaS | ResultantAI">
-  <meta name="twitter:description" content="Adding Claude to your product is not just an API call. Prompt engineering, streaming, caching, and cost tracking — built for production.">
+  <meta name="twitter:description" content="Adding Claude to your product is not just an API call. Prompt engineering, streaming, caching, and cost tracking, built for production.">
 
   <script type="application/ld+json">
   {
@@ -22,7 +22,7 @@
     "name": "Claude API Integration for SaaS Products",
     "serviceType": "AI API Integration",
     "provider": { "@type": "Organization", "name": "ResultantAI", "url": "https://resultantai.com" },
-    "description": "Production Claude API integrations — streaming responses, tool use, prompt caching, cost dashboard, and multi-model fallback.",
+    "description": "Production Claude API integrations, streaming responses, tool use, prompt caching, cost dashboard, and multi-model fallback.",
     "offers": [
       { "@type": "Offer", "name": "Single Endpoint Integration", "price": "1500", "priceCurrency": "USD", "description": "1 Claude endpoint, prompt engineering, error handling, cost monitoring. 5 days." },
       { "@type": "Offer", "name": "Full AI Feature Build", "price": "3500", "priceCurrency": "USD", "description": "Up to 3 endpoints, streaming, tool use, prompt caching, cost dashboard. 10 days." },
@@ -36,10 +36,10 @@
     "@type": "FAQPage",
     "mainEntity": [
       { "@type": "Question", "name": "Do I need to know the Anthropic API?", "acceptedAnswer": { "@type": "Answer", "text": "No. I handle the API setup, prompt engineering, and integration architecture. I also help set up your Anthropic account and billing alerts if needed." } },
-      { "@type": "Question", "name": "How much will Claude cost per month?", "acceptedAnswer": { "@type": "Answer", "text": "Depends on volume. I set up token logging and a cost dashboard so you have real numbers within the first week. Prompt caching typically cuts costs 60–90% vs a naive implementation." } },
-      { "@type": "Question", "name": "Can Claude access my product's data?", "acceptedAnswer": { "@type": "Answer", "text": "Yes — via structured API calls that pass relevant records into the prompt, or via the RAG add-on which adds semantic search so Claude answers from your specific content." } },
+      { "@type": "Question", "name": "How much will Claude cost per month?", "acceptedAnswer": { "@type": "Answer", "text": "Depends on volume. I set up token logging and a cost dashboard so you have real numbers within the first week. Prompt caching is configured by default so you pay less per repeated prompt." } },
+      { "@type": "Question", "name": "Can Claude access my product's data?", "acceptedAnswer": { "@type": "Answer", "text": "Yes, via structured API calls that pass relevant records into the prompt, or via the RAG add-on which adds semantic search so Claude answers from your specific content." } },
       { "@type": "Question", "name": "What if Claude's API is down?", "acceptedAnswer": { "@type": "Answer", "text": "The Multi-Model Fallback add-on reroutes to GPT-4 automatically when Claude is unavailable. Without fallback, I build circuit breakers and graceful degradation so your product stays functional." } },
-      { "@type": "Question", "name": "Can you improve an existing Claude integration I already have?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. Most clients come with a naive integration — one big prompt, no caching, no streaming, no cost tracking. A rebuild typically reduces latency 60% and cost 80% while improving output consistency." } }
+      { "@type": "Question", "name": "Can you improve an existing Claude integration I already have?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. Most clients come with a naive integration, one big prompt, no caching, no streaming, no cost tracking. A rebuild adds caching, streaming, cost tracking, and prompt evaluation so latency and cost come down and output consistency goes up." } }
     ]
   }
   </script>
@@ -204,7 +204,7 @@
     </div>
     <div class="hero__stat-row">
       <div class="hero__stat"><span class="hero__stat-num">5 days</span><span class="hero__stat-label">fastest turnaround</span></div>
-      <div class="hero__stat"><span class="hero__stat-num">90%</span><span class="hero__stat-label">cost reduction with caching</span></div>
+      <div class="hero__stat"><span class="hero__stat-num">Caching</span><span class="hero__stat-label">enabled by default</span></div>
       <div class="hero__stat"><span class="hero__stat-num">$1,500</span><span class="hero__stat-label">starting price</span></div>
       <div class="hero__stat"><span class="hero__stat-num">100%</span><span class="hero__stat-label">client-owned code</span></div>
     </div>
@@ -221,7 +221,7 @@
       <div class="problem-card reveal">
         <div class="problem-card__label">Cost Explosion</div>
         <h3 class="problem-card__title">Your API bill doubles every week. Nobody knows why. There is no per-request cost logging.</h3>
-        <p class="problem-card__desc">Without prompt caching and token tracking, costs scale linearly with usage — and linearly fast. A feature that costs $0.18 per request seems fine at 100 users. At 10,000 users, it costs $18,000 per month. Prompt caching configured correctly brings that to $1,800 or less.</p>
+        <p class="problem-card__desc">Without prompt caching and token tracking, costs scale linearly with usage, and linearly fast. A feature that costs $0.18 per request seems fine at 100 users. At 10,000 users, it costs $18,000 per month. Prompt caching configured correctly brings that to $1,800 or less.</p>
       </div>
       <div class="problem-card reveal">
         <div class="problem-card__label">4-Second Wait</div>
@@ -230,8 +230,8 @@
       </div>
       <div class="problem-card reveal">
         <div class="problem-card__label">Inconsistent Output</div>
-        <h3 class="problem-card__title">Claude produces great output 80% of the time and garbage 20% of the time. The prompt is not production-ready.</h3>
-        <p class="problem-card__desc">A prompt that works in the Anthropic playground does not always work under real user inputs — edge cases, unexpected formats, adversarial phrasing. Production prompt engineering requires testing against representative inputs and building handling for the cases that fail.</p>
+        <h3 class="problem-card__title">A prompt that works most of the time is not production-ready.</h3>
+        <p class="problem-card__desc">A prompt that works in the Anthropic playground does not always work under real user inputs, edge cases, unexpected formats, adversarial phrasing. Production prompt engineering requires testing against representative inputs and building handling for the cases that fail.</p>
       </div>
     </div>
   </div>
@@ -241,14 +241,14 @@
   <div class="container">
     <div class="reveal">
       <div class="section-label">What You Get</div>
-      <h2 class="section-title">A production Claude integration — streaming, cached, and cost-tracked.</h2>
+      <h2 class="section-title">A production Claude integration, streaming, cached, and cost-tracked.</h2>
       <p class="section-subtitle">Built for your specific use case, tested against real inputs, and documented so your engineering team can maintain it without me.</p>
     </div>
     <div class="deliverables reveal">
-      <div class="deliverable"><div class="deliverable__number">01</div><div><div class="deliverable__title">Prompt Engineering + Edge Case Testing</div><p class="deliverable__desc">Prompts engineered for your specific use case and tested against real representative inputs — not just the happy path. System prompts designed for consistency, edge case handling, and appropriate refusal behavior. You see the test cases and approve the prompts before they go to production.</p></div></div>
-      <div class="deliverable"><div class="deliverable__number">02</div><div><div class="deliverable__title">Streaming Responses</div><p class="deliverable__desc">Every endpoint built with streaming so users see output word-by-word instead of waiting for the full response. Frontend streaming component included — works with React, Vue, or vanilla JS. Loading states, error display, and graceful degradation all handled.</p></div></div>
-      <div class="deliverable"><div class="deliverable__number">03</div><div><div class="deliverable__title">Prompt Caching + Cost Control</div><p class="deliverable__desc">Prompt caching configured for any repeated system prompt or context that appears across requests. Typically reduces costs 60 to 90 percent compared to a naive implementation. Token usage logged on every call — you see exactly what each feature costs per request before the bill arrives.</p></div></div>
-      <div class="deliverable"><div class="deliverable__number">04</div><div><div class="deliverable__title">Tool Use / Function Calling (Standard+)</div><p class="deliverable__desc">Claude wired with tool use so it can call your APIs, query your database, search your documents, or trigger actions based on what users ask. Multi-step reasoning handled correctly — Claude decides which tools to call, in what order, and when it has enough information to respond.</p></div></div>
+      <div class="deliverable"><div class="deliverable__number">01</div><div><div class="deliverable__title">Prompt Engineering + Edge Case Testing</div><p class="deliverable__desc">Prompts engineered for your specific use case and tested against real representative inputs, not just the happy path. System prompts designed for consistency, edge case handling, and appropriate refusal behavior. You see the test cases and approve the prompts before they go to production.</p></div></div>
+      <div class="deliverable"><div class="deliverable__number">02</div><div><div class="deliverable__title">Streaming Responses</div><p class="deliverable__desc">Every endpoint built with streaming so users see output word-by-word instead of waiting for the full response. Frontend streaming component included, works with React, Vue, or vanilla JS. Loading states, error display, and graceful degradation all handled.</p></div></div>
+      <div class="deliverable"><div class="deliverable__number">03</div><div><div class="deliverable__title">Prompt Caching + Cost Control</div><p class="deliverable__desc">Prompt caching configured for any repeated system prompt or context that appears across requests. Typically reduces costs 60 to 90 percent compared to a naive implementation. Token usage logged on every call, you see exactly what each feature costs per request before the bill arrives.</p></div></div>
+      <div class="deliverable"><div class="deliverable__number">04</div><div><div class="deliverable__title">Tool Use / Function Calling (Standard+)</div><p class="deliverable__desc">Claude wired with tool use so it can call your APIs, query your database, search your documents, or trigger actions based on what users ask. Multi-step reasoning handled correctly, Claude decides which tools to call, in what order, and when it has enough information to respond.</p></div></div>
       <div class="deliverable"><div class="deliverable__number">05</div><div><div class="deliverable__title">API Documentation + Deployment Guide</div><p class="deliverable__desc">Full documentation for every endpoint: parameters, expected inputs, output format, error codes, and prompt versioning strategy. Deployment guide for your specific hosting environment. Engineering handoff notes so your team can ship the next Claude feature without me.</p></div></div>
     </div>
   </div>
@@ -306,7 +306,7 @@
         <div class="pricing-tier__features">
           <div class="pricing-tier__feature"><span class="pricing-tier__check">&#10003;</span> Up to 3 Claude endpoints</div>
           <div class="pricing-tier__feature"><span class="pricing-tier__check">&#10003;</span> Tool use / function calling</div>
-          <div class="pricing-tier__feature"><span class="pricing-tier__check">&#10003;</span> Prompt caching (60–90% cost reduction)</div>
+          <div class="pricing-tier__feature"><span class="pricing-tier__check">&#10003;</span> Prompt caching enabled</div>
           <div class="pricing-tier__feature"><span class="pricing-tier__check">&#10003;</span> Streaming + loading states</div>
           <div class="pricing-tier__feature"><span class="pricing-tier__check">&#10003;</span> Cost dashboard configured</div>
           <div class="pricing-tier__feature"><span class="pricing-tier__check">&#10003;</span> Spend alerts (daily/monthly)</div>
@@ -338,7 +338,7 @@
       <div class="addon-card"><div><div class="addon-card__label">Add-On</div><div class="addon-card__title">Prompt Evaluation Framework</div><div class="addon-card__desc">Test suite for your prompts: input/output pairs, accuracy metrics, regression testing before any prompt change ships.</div></div><div class="addon-card__price">+$600</div></div>
       <div class="addon-card"><div><div class="addon-card__label">Add-On</div><div class="addon-card__title">Multi-Model Fallback</div><div class="addon-card__desc">Auto-fallback from Claude to GPT-4 when the primary API is unavailable or rate-limited. Zero downtime for users.</div></div><div class="addon-card__price">+$500</div></div>
       <div class="addon-card"><div><div class="addon-card__label">Add-On</div><div class="addon-card__title">Streaming Response UI</div><div class="addon-card__desc">Frontend component showing Claude output word-by-word. React, Vue, or vanilla JS. Loading states and error display included.</div></div><div class="addon-card__price">+$400</div></div>
-      <div class="addon-card"><div><div class="addon-card__label">Add-On</div><div class="addon-card__title">RAG / Vector Search Layer</div><div class="addon-card__desc">Connect your documents to Claude via embeddings. Claude answers from your specific content — not general training data.</div></div><div class="addon-card__price">+$800</div></div>
+      <div class="addon-card"><div><div class="addon-card__label">Add-On</div><div class="addon-card__title">RAG / Vector Search Layer</div><div class="addon-card__desc">Connect your documents to Claude via embeddings. Claude answers from your specific content, not general training data.</div></div><div class="addon-card__price">+$800</div></div>
     </div>
   </div>
 </section>
@@ -348,10 +348,10 @@
     <div class="reveal"><div class="section-label">FAQ</div><h2 class="section-title">Common questions</h2></div>
     <div class="faq-list reveal">
       <div class="faq-item"><div class="faq-q">Do I need to know the Anthropic API? <span class="faq-q__icon">+</span></div><div class="faq-a"><p>No. I handle the API setup, prompt engineering, and integration architecture. If you don't have an Anthropic account, I help you set one up and configure billing alerts at kickoff.</p></div></div>
-      <div class="faq-item"><div class="faq-q">How much will Claude cost per month? <span class="faq-q__icon">+</span></div><div class="faq-a"><p>Depends on your volume and use case. I set up token logging and a cost dashboard so you have real numbers within the first week. Prompt caching typically cuts costs 60 to 90 percent compared to a naive implementation — so the dashboard usually pays for itself in the first month.</p></div></div>
-      <div class="faq-item"><div class="faq-q">Can Claude access my product's data? <span class="faq-q__icon">+</span></div><div class="faq-a"><p>Yes — via structured API calls that pull relevant records and pass them into the prompt, or via the RAG add-on which adds semantic search so Claude answers questions from your specific content without stuffing entire databases into every prompt.</p></div></div>
+      <div class="faq-item"><div class="faq-q">How much will Claude cost per month? <span class="faq-q__icon">+</span></div><div class="faq-a"><p>Depends on your volume and use case. I set up token logging and a cost dashboard so you have real numbers within the first week. Prompt caching typically cuts costs 60 to 90 percent compared to a naive implementation, so the dashboard usually pays for itself in the first month.</p></div></div>
+      <div class="faq-item"><div class="faq-q">Can Claude access my product's data? <span class="faq-q__icon">+</span></div><div class="faq-a"><p>Yes, via structured API calls that pull relevant records and pass them into the prompt, or via the RAG add-on which adds semantic search so Claude answers questions from your specific content without stuffing entire databases into every prompt.</p></div></div>
       <div class="faq-item"><div class="faq-q">What if Claude's API is down? <span class="faq-q__icon">+</span></div><div class="faq-a"><p>The Multi-Model Fallback add-on reroutes to GPT-4 automatically when Claude is unavailable or rate-limited. For builds without fallback, I implement circuit breakers and graceful degradation so your product stays functional even when the AI layer is down.</p></div></div>
-      <div class="faq-item"><div class="faq-q">Can you improve an existing integration I already have? <span class="faq-q__icon">+</span></div><div class="faq-a"><p>Yes. Most clients come with a naive integration — one big prompt, no caching, no streaming, no cost tracking. A rebuild typically reduces latency 60 percent and cost 80 percent while making outputs more consistent. Start with the Starter tier and scope from there.</p></div></div>
+      <div class="faq-item"><div class="faq-q">Can you improve an existing integration I already have? <span class="faq-q__icon">+</span></div><div class="faq-a"><p>Yes. Most clients come with a naive integration, one big prompt, no caching, no streaming, no cost tracking. A rebuild typically reduces latency 60 percent and cost 80 percent while making outputs more consistent. Start with the Starter tier and scope from there.</p></div></div>
     </div>
   </div>
 </section>

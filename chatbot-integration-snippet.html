@@ -11,11 +11,11 @@
   ========================================
 
   Use the LAZY-LOAD pattern below. Do NOT load chatbot.css in <head>
-  or chatbot.js as a synchronous <script> tag — that pattern was the
+  or chatbot.js as a synchronous <script> tag, that pattern was the
   old eager approach and causes unnecessary render-blocking on page load.
 -->
 
-<!-- Add before closing </body> tag — lazy loads on first user interaction -->
+<!-- Add before closing </body> tag, lazy loads on first user interaction -->
 <script>
 (function() {
   var loaded = false;

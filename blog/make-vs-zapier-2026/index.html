@@ -63,12 +63,12 @@
       --text-primary: #ffffff;
       --text-secondary: #94a3b8;
       --text-muted: #64748b;
-      --accent: #10b981;
-      --accent-light: #34d399;
-      --accent-subtle: rgba(16, 185, 129, 0.08);
+      --accent: #0ea5e9;
+      --accent-light: #38bdf8;
+      --accent-subtle: rgba(14, 165, 233, 0.08);
       --cat-automation: #f59e0b;
-      --gradient-accent: linear-gradient(135deg, #10b981 0%, #34d399 100%);
-      --gradient-hero: radial-gradient(ellipse 80% 50% at 50% -20%, rgba(16, 185, 129, 0.15), transparent);
+      --gradient-accent: linear-gradient(135deg, #0ea5e9 0%, #38bdf8 100%);
+      --gradient-hero: radial-gradient(ellipse 80% 50% at 50% -20%, rgba(14, 165, 233, 0.15), transparent);
       --radius-sm: 6px;
       --radius-md: 10px;
       --radius-lg: 16px;
@@ -87,7 +87,7 @@
     img { max-width: 100%; display: block; }
     ::selection { background: var(--accent); color: var(--bg-primary); }
 
-    .bg-grid { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background-image: linear-gradient(rgba(16, 185, 129, 0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(16, 185, 129, 0.03) 1px, transparent 1px); background-size: 60px 60px; pointer-events: none; z-index: 0; }
+    .bg-grid { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background-image: linear-gradient(rgba(14, 165, 233, 0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(14, 165, 233, 0.03) 1px, transparent 1px); background-size: 60px 60px; pointer-events: none; z-index: 0; }
     .bg-gradient { position: fixed; top: 0; left: 0; right: 0; height: 100vh; background: var(--gradient-hero); pointer-events: none; z-index: 0; }
 
     .container { max-width: 800px; margin: 0 auto; padding: 0 24px; }
@@ -103,8 +103,8 @@
     .nav__link::after { content: ''; position: absolute; bottom: 4px; left: 50%; width: 0; height: 2px; background: var(--accent); border-radius: var(--radius-full); transition: all var(--transition); transform: translateX(-50%); }
     .nav__link:hover { color: var(--text-primary); }
     .nav__link:hover::after { width: calc(100% - 32px); }
-    .nav__cta { background: var(--gradient-accent); color: var(--bg-primary); padding: 10px 24px; border-radius: var(--radius-md); font-size: 14px; font-weight: 600; transition: all var(--transition); box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3); margin-left: 16px; }
-    .nav__cta:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(16, 185, 129, 0.4); color: var(--bg-primary); }
+    .nav__cta { background: var(--gradient-accent); color: var(--bg-primary); padding: 10px 24px; border-radius: var(--radius-md); font-size: 14px; font-weight: 600; transition: all var(--transition); box-shadow: 0 4px 15px rgba(14, 165, 233, 0.3); margin-left: 16px; }
+    .nav__cta:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(14, 165, 233, 0.4); color: var(--bg-primary); }
     @media (max-width: 768px) { .nav__links { display: none; } }
 
     .article-header { padding: 140px 0 60px; position: relative; z-index: 1; }
@@ -134,12 +134,12 @@
     .article-content li { font-size: 17px; line-height: 1.8; color: var(--text-secondary); margin-bottom: 12px; }
     .article-content li::marker { color: var(--accent); }
 
-    .tldr-box { background: linear-gradient(135deg, var(--bg-card) 0%, rgba(16, 185, 129, 0.02) 100%); border: 1px solid var(--border); border-left: 4px solid var(--accent); border-radius: var(--radius-lg); padding: 28px 32px; margin: 32px 0; }
+    .tldr-box { background: linear-gradient(135deg, var(--bg-card) 0%, rgba(14, 165, 233, 0.02) 100%); border: 1px solid var(--border); border-left: 4px solid var(--accent); border-radius: var(--radius-lg); padding: 28px 32px; margin: 32px 0; }
     .tldr-box__title { display: flex; align-items: center; gap: 10px; font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--accent); margin-bottom: 16px; }
     .tldr-box ul { margin: 0; padding-left: 20px; }
     .tldr-box li { font-size: 15px; margin-bottom: 8px; color: var(--text-primary); }
 
-    .callout { background: var(--accent-subtle); border: 1px solid rgba(16, 185, 129, 0.2); border-radius: var(--radius-lg); padding: 24px 28px; margin: 32px 0; }
+    .callout { background: var(--accent-subtle); border: 1px solid rgba(14, 165, 233, 0.2); border-radius: var(--radius-lg); padding: 24px 28px; margin: 32px 0; }
     .callout__icon { display: flex; align-items: center; gap: 10px; font-size: 14px; font-weight: 600; color: var(--accent); margin-bottom: 12px; }
     .callout p { margin: 0; color: var(--text-primary); font-size: 15px; }
 
@@ -166,11 +166,11 @@
     .quote__author { font-size: 14px; color: var(--text-muted); }
     .quote__author strong { color: var(--accent); }
 
-    .article-cta { background: linear-gradient(135deg, var(--bg-card) 0%, rgba(16, 185, 129, 0.02) 100%); border: 1px solid var(--border); border-radius: var(--radius-xl); padding: 48px; text-align: center; margin: 60px 0; position: relative; overflow: hidden; }
-    .article-cta::before { content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 400px; height: 200px; background: radial-gradient(ellipse, rgba(16, 185, 129, 0.15), transparent); pointer-events: none; }
+    .article-cta { background: linear-gradient(135deg, var(--bg-card) 0%, rgba(14, 165, 233, 0.02) 100%); border: 1px solid var(--border); border-radius: var(--radius-xl); padding: 48px; text-align: center; margin: 60px 0; position: relative; overflow: hidden; }
+    .article-cta::before { content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 400px; height: 200px; background: radial-gradient(ellipse, rgba(14, 165, 233, 0.15), transparent); pointer-events: none; }
     .article-cta__title { font-size: 28px; font-weight: 800; margin-bottom: 12px; position: relative; }
     .article-cta__text { font-size: 16px; color: var(--text-secondary); margin-bottom: 28px; position: relative; }
-    .article-cta__btn { display: inline-flex; align-items: center; gap: 10px; padding: 16px 32px; background: var(--gradient-accent); color: var(--bg-primary); font-size: 15px; font-weight: 600; border-radius: var(--radius-md); box-shadow: 0 4px 20px rgba(16, 185, 129, 0.3); position: relative; }
+    .article-cta__btn { display: inline-flex; align-items: center; gap: 10px; padding: 16px 32px; background: var(--gradient-accent); color: var(--bg-primary); font-size: 15px; font-weight: 600; border-radius: var(--radius-md); box-shadow: 0 4px 20px rgba(14, 165, 233, 0.3); position: relative; }
     .article-cta__btn:hover { transform: translateY(-2px); color: var(--bg-primary); }
 
     .author-bio { display: flex; gap: 24px; padding: 32px; background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-xl); margin-top: 60px; }
@@ -247,7 +247,7 @@
       </nav>
       <span class="article-header__category">Automation</span>
       <h1 class="article-header__title">Make vs Zapier in 2026: Which Automation Platform Is Right for Your Service Business?</h1>
-      <p class="article-header__excerpt">Zapier vs Make is the top question I get from service business owners. Both are legitimate — but they serve different needs. This guide breaks down what actually matters for HVAC, plumbing, staffing, and service ops teams.</p>
+      <p class="article-header__excerpt">Zapier vs Make is the top question I get from service business owners. Both are legitimate, but they serve different needs. This guide breaks down what actually matters for HVAC, plumbing, staffing, and service ops teams.</p>
       <div class="article-header__meta">
         <div class="article-header__author">
           <div class="article-header__author-avatar">CM</div>
@@ -273,10 +273,10 @@
 
   <article class="article-content">
     <div class="container">
-      <p style="background:rgba(16,185,129,0.08);border-left:3px solid #10b981;padding:12px 16px;border-radius:6px;margin-bottom:2rem;font-size:0.9rem;">Need automation help? <a href="/automation/" style="color:#10b981;font-weight:600;">See my automation services</a> for service businesses — from simple workflows to complete dispatch automation.</p>
+      <p style="background:rgba(14, 165, 233,0.08);border-left:3px solid #0ea5e9;padding:12px 16px;border-radius:6px;margin-bottom:2rem;font-size:0.9rem;">Need automation help? <a href="/automation/" style="color:#0ea5e9;font-weight:600;">See my automation services</a> for service businesses, from simple workflows to complete dispatch automation.</p>
 
       <div class="tldr-box">
-        <div class="tldr-box__title">TL;DR — Quick Answer</div>
+        <div class="tldr-box__title">TL;DR, Quick Answer</div>
         <ul>
           <li><strong>For complex workflows:</strong> Make wins on cost, flexibility, and error handling.</li>
           <li><strong>For simple automations:</strong> Zapier is faster to set up if you are non-technical.</li>
@@ -366,7 +366,7 @@
 
       <h2>What Service Businesses Actually Need from Automation</h2>
 
-      <p>Service businesses — plumbing, HVAC, staffing agencies, field service companies — have different automation needs than SaaS startups or e-commerce stores. Here is what matters:</p>
+      <p>Service businesses, plumbing, HVAC, staffing agencies, field service companies, have different automation needs than SaaS startups or e-commerce stores. Here is what matters:</p>
 
       <h3>Error Handling and Retry Logic</h3>
       <p><strong>Make wins.</strong> Make scenarios can branch based on conditions, retry failed steps automatically, send error alerts to specific team members, and continue processing even when one step fails. Zapier has basic error handling, but it is linear. If step 3 fails, the entire Zap fails. For mission-critical dispatch or scheduling workflows, that is unacceptable.</p>
@@ -387,7 +387,7 @@
       <p><strong>Zapier slightly easier for setup.</strong> Zapier has more pre-built templates for CRM workflows. If you need to sync HubSpot contacts to your job management software, Zapier will get you live faster. Make requires more manual configuration, but gives you finer control over field mapping and conditional logic.</p>
 
       <h3>Real Verdict for Service Businesses</h3>
-      <p>If you are running dispatch, ticketing, or job scheduling workflows with conditional routing, error handling, and high volume — Make wins. If you are just syncing new leads from your website form into your CRM, Zapier is faster to set up.</p>
+      <p>If you are running dispatch, ticketing, or job scheduling workflows with conditional routing, error handling, and high volume, Make wins. If you are just syncing new leads from your website form into your CRM, Zapier is faster to set up.</p>
 
       <h2>Where Zapier Still Wins</h2>
 
@@ -429,7 +429,7 @@
       <p>Zapier does not have a direct export function, but you can screenshot your Zap steps or manually document the trigger, actions, and field mappings. This becomes your blueprint.</p>
 
       <h3>Step 2: Rebuild as Make scenarios</h3>
-      <p>You will recreate each Zap as a Make scenario. The logic is the same — trigger, actions, data mapping — but the interface is visual (flowchart-style) instead of linear. Expect this to take 2-3x longer than the original Zapier setup the first time you do it.</p>
+      <p>You will recreate each Zap as a Make scenario. The logic is the same, trigger, actions, data mapping, but the interface is visual (flowchart-style) instead of linear. Expect this to take 2-3x longer than the original Zapier setup the first time you do it.</p>
 
       <h3>Step 3: Test with low-volume first</h3>
       <p>Run both Zapier and Make in parallel for 1-2 weeks. Let Zapier handle your production load while Make processes test triggers. Verify data accuracy, error handling, and edge cases.</p>
@@ -442,7 +442,7 @@
       </ul>
 
       <h3>Step 5: Cutover and monitor</h3>
-      <p>Once testing is clean, turn off the Zapier workflow and make Make your production system. Monitor closely for the first week. Check error logs daily. Make's error notifications are excellent — configure them to alert you immediately if anything fails.</p>
+      <p>Once testing is clean, turn off the Zapier workflow and make Make your production system. Monitor closely for the first week. Check error logs daily. Make's error notifications are excellent, configure them to alert you immediately if anything fails.</p>
 
       <h2>My Recommendation: When to Use Each Platform</h2>
 
@@ -510,7 +510,7 @@
       <p>Yes, via API and webhooks. ServiceTitan does not have a native Make module, so you will be using Make's HTTP/API request modules. This requires more technical setup than a pre-built integration, but it works reliably once configured. I have built multiple ServiceTitan + Make integrations for HVAC and plumbing companies.</p>
 
       <h3>Which platform has better support?</h3>
-      <p>Zapier's documentation is more beginner-friendly and their support team responds faster. Make's documentation is more technical but comprehensive. Make's community forum is larger and more active — you will find answers to complex questions there. For mission-critical workflows, both platforms offer paid priority support tiers.</p>
+      <p>Zapier's documentation is more beginner-friendly and their support team responds faster. Make's documentation is more technical but comprehensive. Make's community forum is larger and more active, you will find answers to complex questions there. For mission-critical workflows, both platforms offer paid priority support tiers.</p>
 
       <div class="article-cta">
         <div class="article-cta__title">Need help choosing or building your automation?</div>

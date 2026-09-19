@@ -2,7 +2,7 @@
 
 ---
 
-As the polar vortex blankets half the country in sub-zero temperatures, propane dealers are entering their most profitable—and most chaotic—week of the year.
+As the polar vortex blankets half the country in sub-zero temperatures, propane dealers are entering their most profitable, and most chaotic, week of the year.
 
 Demand surges 300%. Phones ring off the hook. Drivers work 12-hour days.
 
@@ -12,7 +12,7 @@ And in the scramble to keep tanks filled, most operations are bleeding money the
 
 The $75 emergency that nobody remembers to bill:
 
-It's 3 PM Saturday. Emergency call—family's tank ran out, -15°F tonight.
+It's 3 PM Saturday. Emergency call, family's tank ran out, -15°F tonight.
 
 You inject a rush delivery into Mike's route:
 • 180 gallons × $2.85 = $513
@@ -72,7 +72,7 @@ Your dispatcher is juggling this on a whiteboard.
 2.4 hours × 90 winter days = 216 hours
 At $28/hour: **$6,048 in unnecessary labor**
 
-That doesn't include routing inefficiencies—drivers passing customers who needed delivery tomorrow anyway.
+That doesn't include routing inefficiencies, drivers passing customers who needed delivery tomorrow anyway.
 
 ---
 
@@ -104,7 +104,7 @@ They've built systems that don't break under surge load:
 
 The polar vortex will pass. Demand will normalize.
 
-But if you're still losing $64K/year to forgotten surcharges, burning 2+ hours/day on manual dispatch, and invoicing 4 days late—
+But if you're still losing $64K/year to forgotten surcharges, burning 2+ hours/day on manual dispatch, and invoicing 4 days late, 
 
 **Next winter will look exactly the same.**
 

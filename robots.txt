@@ -1,4 +1,4 @@
-# ResultantAI — AI Automation Agency
+# ResultantAI, AI Automation Agency
 # https://resultantai.com
 # AI systems that generate revenue, not complexity.
 
@@ -16,7 +16,7 @@ Sitemap: https://resultantai.com/sitemap.xml
 # LLM-readable content
 # llms.txt: https://resultantai.com/llms.txt
 
-# ── AI Crawlers — Welcome ────────────────────────────────
+# ── AI Crawlers, Welcome ────────────────────────────────
 # We explicitly allow all major AI crawlers to index our content.
 
 # OpenAI

@@ -5,7 +5,7 @@
   <link rel="canonical" href="https://resultantai.com/">
 
   <!-- Open Graph -->
-  <meta property="og:title" content="ResultantAI — AI Systems for B2B Revenue Operations">
+  <meta property="og:title" content="ResultantAI, AI Systems for B2B Revenue Operations">
   <meta property="og:description" content="CRM automation, voice AI agents, and white-label operations for B2B companies, professional services, and agencies. Fixed price. Deployed in weeks. You own everything.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://resultantai.com/">
@@ -15,14 +15,14 @@
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="ResultantAI — AI Systems for B2B Revenue Operations">
+  <meta name="twitter:title" content="ResultantAI, AI Systems for B2B Revenue Operations">
   <meta name="twitter:description" content="CRM automation, voice AI agents, and white-label operations for B2B companies, professional services, and agencies. Fixed price. Deployed in weeks.">
   <meta name="twitter:image" content="https://resultantai.com/images/og-default.jpg">
 
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="AI systems for B2B revenue operations. Voice AI agents, CRM automation, and white-label agency tools. Fixed price, deployed in weeks, you own everything.">
-  <title>ResultantAI — AI Systems for B2B Revenue Operations</title>
+  <title>ResultantAI, AI Systems for B2B Revenue Operations</title>
 
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -116,6 +116,15 @@
   <link rel="icon" type="image/png" href="/favicon.png">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 
+<style>
+/* canonical nav dropdown, injected by unify-nav.py */
+.nav-dropdown { position: relative; }
+.nav-dropdown__toggle { display: inline-flex; align-items: center; gap: 4px; cursor: pointer; }
+.nav-dropdown__menu { position: absolute; top: calc(100% + 12px); left: 0; background: var(--bg-card, #151d2e); border: 1px solid var(--border, #1e293b); border-radius: 10px; padding: 8px; min-width: 210px; opacity: 0; visibility: hidden; transition: opacity 0.2s ease, visibility 0.2s ease; box-shadow: 0 8px 24px rgba(0,0,0,0.4); z-index: 200; }
+.nav-dropdown:hover .nav-dropdown__menu, .nav-dropdown:focus-within .nav-dropdown__menu { opacity: 1; visibility: visible; }
+.nav-dropdown__item { display: block; padding: 10px 14px; border-radius: 6px; font-size: 14px; color: var(--text-secondary, #94a3b8); text-decoration: none; transition: background 0.2s ease, color 0.2s ease; }
+.nav-dropdown__item:hover { background: var(--bg-secondary, #0f172a); color: var(--accent, #0ea5e9); }
+</style>
 </head>
 <body>
   <!-- Floating Orbs -->
@@ -130,30 +139,31 @@
         <span></span><span></span><span></span>
       </button>
       <div class="nav__links">
-        <div class="nav__dropdown">
-          <div class="nav__dropdown-trigger nav__link">Solutions &#9662;</div>
-          <div class="nav__dropdown-content">
-            <div class="nav__dropdown-grid">
-              <div class="nav__dropdown-section">
-                <h4>Core Solutions</h4>
-                <a href="/lp/b2b-automation/" class="nav__dropdown-link">B2B Operations Automation</a>
-                <a href="/lp/voice-ai/" class="nav__dropdown-link">Voice AI Agents</a>
-                <a href="/lp/agency-automation/" class="nav__dropdown-link">Agency White-Label AI</a>
-              </div>
-              <div class="nav__dropdown-section">
-                <h4>More</h4>
-                <a href="/integrations/" class="nav__dropdown-link">Integrations</a>
-                <a href="/voice-roi-calculator" class="nav__dropdown-link">ROI Calculator</a>
-              </div>
-            </div>
+        <div class="nav-dropdown">
+          <div class="nav-dropdown__toggle nav__link">Industries<svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" style="margin-left:4px"><path d="M3 4.5l3 3 3-3"/></svg></div>
+          <div class="nav-dropdown__menu">
+            <a href="/senior-living/" class="nav-dropdown__item">Senior Living</a>
+            <a href="/early-childhood/" class="nav-dropdown__item">Early Childhood</a>
+            <a href="/healthcare/" class="nav-dropdown__item">Healthcare</a>
+            <a href="/dental/" class="nav-dropdown__item">Dental</a>
+            <a href="/trades/" class="nav-dropdown__item">Trades</a>
           </div>
         </div>
+        <div class="nav-dropdown">
+          <div class="nav-dropdown__toggle nav__link">Solutions<svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" style="margin-left:4px"><path d="M3 4.5l3 3 3-3"/></svg></div>
+          <div class="nav-dropdown__menu">
+            <a href="/lp/voice-ai/" class="nav-dropdown__item">Voice AI</a>
+            <a href="/automation/" class="nav-dropdown__item">Automation</a>
+            <a href="/agent-security-audit/" class="nav-dropdown__item">Agent Security Audit</a>
+            <a href="/aeo-geo-audit/" class="nav-dropdown__item">AEO/GEO Audit</a>
+          </div>
+        </div>
+        <a href="/case-studies" class="nav__link">Work</a>
         <a href="/pricing/" class="nav__link">Pricing</a>
-        <a href="/case-studies" class="nav__link">Case Studies</a>
         <a href="/blog" class="nav__link">Blog</a>
-        <a href="/faq/" class="nav__link">FAQ</a>
+        <a href="https://cal.com/chris-mott-eebyqs/30min" class="nav__cta">Book a Call</a>
       </div>
-      <a href="https://cal.com/chris-mott-eebyqs/30min" class="nav__cta">Book a Call</a>
+      
     </div>
   </nav>
 
@@ -163,7 +173,7 @@
       <span class="hero__label reveal">AI-Powered Revenue Operations</span>
 
       <div class="reveal" style="display: flex; gap: var(--space-xs); flex-wrap: wrap; justify-content: center; margin-bottom: var(--space-md);">
-        <span style="display: inline-block; padding: 6px 16px; background: var(--accent-subtle); color: var(--accent); border-radius: var(--radius-full); font-size: 0.8rem; font-weight: 600; border: 1px solid rgba(16, 185, 129, 0.2);">B2B Automation</span>
+        <span style="display: inline-block; padding: 6px 16px; background: var(--accent-subtle); color: var(--accent); border-radius: var(--radius-full); font-size: 0.8rem; font-weight: 600; border: 1px solid rgba(14, 165, 233, 0.2);">B2B Automation</span>
         <span style="display: inline-block; padding: 6px 16px; background: var(--blue-subtle); color: var(--blue); border-radius: var(--radius-full); font-size: 0.8rem; font-weight: 600; border: 1px solid rgba(59, 130, 246, 0.2);">Voice AI</span>
         <span style="display: inline-block; padding: 6px 16px; background: var(--purple-subtle); color: var(--purple); border-radius: var(--radius-full); font-size: 0.8rem; font-weight: 600; border: 1px solid rgba(139, 92, 246, 0.2);">Agency White-Label</span>
       </div>
@@ -229,7 +239,7 @@
           </div>
           <h3 class="card__title">B2B Operations Automation</h3>
           <p class="card__description">
-            Your sales team spends 60% of their time not selling. I automate CRM data entry, lead scoring, outbound sequencing, and pipeline reporting.
+            Your sales team spends most of their day on work that is not selling. I automate CRM data entry, lead scoring, outbound sequencing, and pipeline reporting.
           </p>
 
           <div class="u-callout">
@@ -508,7 +518,6 @@
   </footer>
 
   <!-- Scripts -->
-  <script defer src="js/theme-toggle.js"></script>
   <script defer src="js/main.js"></script>
   <script defer src="js/ab-track.js"></script>
   <script>

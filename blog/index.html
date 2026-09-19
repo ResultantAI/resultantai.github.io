@@ -25,16 +25,16 @@
       --text-primary: #fff;
       --text-secondary: #94a3b8;
       --text-muted: #64748b;
-      --accent: #10b981;
-      --accent-light: #34d399;
-      --accent-subtle: rgba(16, 185, 129, 0.08);
-      --accent-glow: rgba(16, 185, 129, 0.15);
+      --accent: #0ea5e9;
+      --accent-light: #38bdf8;
+      --accent-subtle: rgba(14, 165, 233, 0.08);
+      --accent-glow: rgba(14, 165, 233, 0.15);
       --cat-voice: #8b5cf6;
       --cat-case: #f59e0b;
       --cat-ops: #3b82f6;
       --cat-compare: #ec4899;
-      --gradient-accent: linear-gradient(135deg, #10b981 0%, #34d399 100%);
-      --gradient-hero: radial-gradient(ellipse 80% 50% at 50% -20%, rgba(16, 185, 129, 0.15), transparent);
+      --gradient-accent: linear-gradient(135deg, #0ea5e9 0%, #38bdf8 100%);
+      --gradient-hero: radial-gradient(ellipse 80% 50% at 50% -20%, rgba(14, 165, 233, 0.15), transparent);
       --radius-sm: 6px;
       --radius-md: 10px;
       --radius-lg: 16px;
@@ -65,8 +65,8 @@
       position: fixed;
       top: 0; left: 0; right: 0; bottom: 0;
       background-image: 
-        linear-gradient(rgba(16, 185, 129, 0.03) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(16, 185, 129, 0.03) 1px, transparent 1px);
+        linear-gradient(rgba(14, 165, 233, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(14, 165, 233, 0.03) 1px, transparent 1px);
       background-size: 60px 60px;
       pointer-events: none;
       z-index: 0;
@@ -128,12 +128,12 @@
       font-size: 14px;
       font-weight: 600;
       transition: all var(--transition);
-      box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+      box-shadow: 0 4px 15px rgba(14, 165, 233, 0.3);
       margin-left: 16px;
     }
     .nav__cta:hover {
       transform: translateY(-2px);
-      box-shadow: 0 8px 25px rgba(16, 185, 129, 0.4);
+      box-shadow: 0 8px 25px rgba(14, 165, 233, 0.4);
       color: var(--bg-primary);
     }
     @media (max-width: 768px) { .nav__links { display: none; } }
@@ -158,7 +158,7 @@
       gap: 8px;
       padding: 8px 16px;
       background: var(--accent-subtle);
-      border: 1px solid rgba(16, 185, 129, 0.2);
+      border: 1px solid rgba(14, 165, 233, 0.2);
       border-radius: var(--radius-full);
       font-size: 13px;
       font-weight: 600;
@@ -231,7 +231,7 @@
       position: absolute;
       top: 0; left: 0; right: 0;
       height: 3px;
-      background: linear-gradient(90deg, rgba(245, 158, 11, 0.5), rgba(16, 185, 129, 0.5));
+      background: linear-gradient(90deg, rgba(245, 158, 11, 0.5), rgba(14, 165, 233, 0.5));
       opacity: 0.5;
     }
     .coming-soon__card:hover {
@@ -372,7 +372,7 @@
       position: absolute;
       inset: 0;
       background: radial-gradient(circle at 70% 30%, rgba(139, 92, 246, 0.15), transparent 50%),
-                  radial-gradient(circle at 30% 70%, rgba(16, 185, 129, 0.1), transparent 50%);
+                  radial-gradient(circle at 30% 70%, rgba(14, 165, 233, 0.1), transparent 50%);
     }
     
     /* Rapport Visual - Conversation Flow */
@@ -414,8 +414,8 @@
       border-bottom-right-radius: 4px;
     }
     .rapport-visual__message--ai.good {
-      background: linear-gradient(135deg, rgba(16, 185, 129, 0.2), rgba(16, 185, 129, 0.1));
-      border-color: rgba(16, 185, 129, 0.3);
+      background: linear-gradient(135deg, rgba(14, 165, 233, 0.2), rgba(14, 165, 233, 0.1));
+      border-color: rgba(14, 165, 233, 0.3);
     }
     .rapport-visual__label {
       position: absolute;
@@ -438,7 +438,7 @@
       color: #a78bfa;
     }
     .rapport-visual__message--ai.good .rapport-visual__label {
-      background: rgba(16, 185, 129, 0.3);
+      background: rgba(14, 165, 233, 0.3);
       color: var(--accent-light);
     }
     .rapport-visual__arrow {
@@ -928,7 +928,7 @@
 
     /* Highlight for search */
     .highlight {
-      background: rgba(16, 185, 129, 0.3);
+      background: rgba(14, 165, 233, 0.3);
       padding: 0 2px;
       border-radius: 2px;
     }
@@ -995,7 +995,7 @@
 
     /* Newsletter CTA */
     .newsletter {
-      background: linear-gradient(135deg, var(--bg-card) 0%, rgba(16, 185, 129, 0.05) 100%);
+      background: linear-gradient(135deg, var(--bg-card) 0%, rgba(14, 165, 233, 0.05) 100%);
       border: 1px solid var(--border);
       border-radius: var(--radius-xl);
       padding: 56px 48px;
@@ -1018,7 +1018,7 @@
       width: 64px;
       height: 64px;
       background: var(--accent-subtle);
-      border: 1px solid rgba(16, 185, 129, 0.2);
+      border: 1px solid rgba(14, 165, 233, 0.2);
       border-radius: 16px;
       display: flex;
       align-items: center;
@@ -1075,7 +1075,7 @@
     }
     .newsletter__btn:hover {
       transform: translateY(-2px);
-      box-shadow: 0 8px 25px rgba(16, 185, 129, 0.4);
+      box-shadow: 0 8px 25px rgba(14, 165, 233, 0.4);
     }
     .newsletter__note {
       font-size: 13px;
@@ -1134,7 +1134,15 @@
     .post-card:nth-child(4) { animation-delay: 0.2s; }
     .post-card:nth-child(5) { animation-delay: 0.25s; }
     .post-card:nth-child(6) { animation-delay: 0.3s; }
-  </style>
+  
+/* canonical nav dropdown, injected by unify-nav.py */
+.nav-dropdown { position: relative; }
+.nav-dropdown__toggle { display: inline-flex; align-items: center; gap: 4px; cursor: pointer; }
+.nav-dropdown__menu { position: absolute; top: calc(100% + 12px); left: 0; background: var(--bg-card, #151d2e); border: 1px solid var(--border, #1e293b); border-radius: 10px; padding: 8px; min-width: 210px; opacity: 0; visibility: hidden; transition: opacity 0.2s ease, visibility 0.2s ease; box-shadow: 0 8px 24px rgba(0,0,0,0.4); z-index: 200; }
+.nav-dropdown:hover .nav-dropdown__menu, .nav-dropdown:focus-within .nav-dropdown__menu { opacity: 1; visibility: visible; }
+.nav-dropdown__item { display: block; padding: 10px 14px; border-radius: 6px; font-size: 14px; color: var(--text-secondary, #94a3b8); text-decoration: none; transition: background 0.2s ease, color 0.2s ease; }
+.nav-dropdown__item:hover { background: var(--bg-secondary, #0f172a); color: var(--accent, #0ea5e9); }
+</style>
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <link rel="icon" type="image/png" href="/favicon.png">
 
@@ -1148,10 +1156,29 @@
     <div class="nav__inner">
       <a href="https://resultantai.com" class="nav__logo">Resultant<span>AI</span></a>
       <div class="nav__links">
-        <a href="https://resultantai.com" class="nav__link">Home</a>
-        <a href="https://resultantai.com/solutions" class="nav__link">Solutions</a>
-        <a href="/blog/" class="nav__link nav__link--active">Blog</a>
-        <a href="https://app.resultantai.com/gateway/signup" class="nav__cta">Book a Call</a>
+        <div class="nav-dropdown">
+          <div class="nav-dropdown__toggle nav__link">Industries<svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" style="margin-left:4px"><path d="M3 4.5l3 3 3-3"/></svg></div>
+          <div class="nav-dropdown__menu">
+            <a href="/senior-living/" class="nav-dropdown__item">Senior Living</a>
+            <a href="/early-childhood/" class="nav-dropdown__item">Early Childhood</a>
+            <a href="/healthcare/" class="nav-dropdown__item">Healthcare</a>
+            <a href="/dental/" class="nav-dropdown__item">Dental</a>
+            <a href="/trades/" class="nav-dropdown__item">Trades</a>
+          </div>
+        </div>
+        <div class="nav-dropdown">
+          <div class="nav-dropdown__toggle nav__link">Solutions<svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" style="margin-left:4px"><path d="M3 4.5l3 3 3-3"/></svg></div>
+          <div class="nav-dropdown__menu">
+            <a href="/lp/voice-ai/" class="nav-dropdown__item">Voice AI</a>
+            <a href="/automation/" class="nav-dropdown__item">Automation</a>
+            <a href="/agent-security-audit/" class="nav-dropdown__item">Agent Security Audit</a>
+            <a href="/aeo-geo-audit/" class="nav-dropdown__item">AEO/GEO Audit</a>
+          </div>
+        </div>
+        <a href="/case-studies" class="nav__link">Work</a>
+        <a href="/pricing/" class="nav__link">Pricing</a>
+        <a href="/blog" class="nav__link" style="color: var(--accent);" style="color: var(--accent);">Blog</a>
+        <a href="https://cal.com/chris-mott-eebyqs/30min" class="nav__cta">Book a Call</a>
       </div>
     </div>
   </nav>
@@ -2157,7 +2184,7 @@
           </form>
           <p class="newsletter__note" id="newsletter-note">Join 500+ service business owners and agency founders</p>
           <p class="newsletter__success" id="newsletter-success" style="display: none; color: var(--accent); font-size: 14px; margin-top: 12px;">✅ You're subscribed! Check your email for confirmation.</p>
-          <p class="newsletter__error" id="newsletter-error" style="display: none; color: #ef4444; font-size: 14px; margin-top: 12px;">Something went wrong. Please try again or <a href="https://app.resultantai.com/gateway/signup" style="color: #ef4444; text-decoration: underline;">book a call</a>.</p>
+          <p class="newsletter__error" id="newsletter-error" style="display: none; color: #ef4444; font-size: 14px; margin-top: 12px;">Something went wrong. Please try again or <a href="https://cal.com/chris-mott-eebyqs/30min" style="color: #ef4444; text-decoration: underline;">book a call</a>.</p>
         </div>
       </section>
     </div>
