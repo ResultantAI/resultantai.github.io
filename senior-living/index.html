@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Voice and Automation for Senior Living and Affordable Senior Housing | ResultantAI</title>
+  <meta name="description" content="Multilingual HIPAA-compliant voice AI for affordable senior housing and senior living operators. Live across three locations in English, Spanish and Korean, integrated with Athena Health.">
+
+  <link rel="canonical" href="https://resultantai.com/senior-living/">
+
+  <meta property="og:title" content="AI Voice and Automation for Senior Living and Affordable Senior Housing | ResultantAI">
+  <meta property="og:description" content="Multilingual HIPAA-compliant voice AI for affordable senior housing and senior living operators. Live across three locations in English, Spanish and Korean, integrated with Athena Health.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://resultantai.com/senior-living/">
+  <meta property="og:site_name" content="ResultantAI">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="AI Voice and Automation for Senior Living and Affordable Senior Housing | ResultantAI">
+  <meta name="twitter:description" content="Multilingual HIPAA-compliant voice AI for affordable senior housing and senior living operators. Live across three locations in English, Spanish and Korean, integrated with Athena Health.">
+
+  <meta name="google-site-verification" content="EUs3oELHtHvHjcAdzN2HjjzWzEP_6KWVZFzaIoLdp70">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "AI Automation for Senior Living and Affordable Senior Housing",
+    "description": "HIPAA-compliant multilingual voice AI and workflow automation for affordable senior housing operators and senior living providers, including EHR integration and multilingual scheduling.",
+    "provider": {"@type": "Organization", "name": "ResultantAI", "url": "https://resultantai.com"},
+    "url": "https://resultantai.com/senior-living/",
+    "areaServed": "US",
+    "serviceType": "Senior Living AI Automation"
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://resultantai.com/"},
+      {"@type": "ListItem", "position": 2, "name": "Senior Living", "item": "https://resultantai.com/senior-living/"}
+    ]
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {"@type":"Question","name":"Which senior living settings have you actually worked in?",
+       "acceptedAnswer":{"@type":"Answer","text":"Affordable senior housing, specifically HUD-assisted properties with co-located clinical and behavioral health services and a telehealth line. I have not built in licensed assisted living, memory care or skilled nursing. Those are different regulators, different staffing models and different buyers, and I would rather say so than imply coverage I do not have."}},
+      {"@type":"Question","name":"Is the voice system HIPAA compliant?",
+       "acceptedAnswer":{"@type":"Answer","text":"Yes. A BAA is executed before anything touches a resident line. The deployment running today is integrated with Athena Health under that arrangement."}},
+      {"@type":"Question","name":"Does this replace staff?",
+       "acceptedAnswer":{"@type":"Answer","text":"No, and I would not sell it that way. It removes phone and scheduling load from people whose job is residents and families. Every design decision assumes a human stays in the loop and that escalation to a person is always available."}},
+      {"@type":"Question","name":"What languages does it handle?",
+       "acceptedAnswer":{"@type":"Answer","text":"The live deployment runs English, Spanish and Korean. Adding a language is straightforward on the agent side. The harder question is whether there is a person on the other end who speaks it, and that is a staffing conversation before it is a technology one."}},
+      {"@type":"Question","name":"Who inside the organization actually uses it?",
+       "acceptedAnswer":{"@type":"Answer","text":"The executive director usually buys it. The service coordinator or front desk lives with it daily. If it makes the coordinator's day worse it fails regardless of what the reporting says, so the coordinator is who I design around."}}
+    ]
+  }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="/favicon.png">
+
+  <style>
+    :root {
+      --bg-primary: #0a0f1a;
+      --bg-secondary: #0f172a;
+      --bg-card: #151d2e;
+      --bg-card-hover: #1a2540;
+      --border: #1e293b;
+      --border-light: #334155;
+      --text-primary: #ffffff;
+      --text-secondary: #94a3b8;
+      --text-muted: #64748b;
+      --accent: #0ea5e9;
+      --accent-light: #38bdf8;
+      --accent-subtle: rgba(14, 165, 233, 0.08);
+      --accent-glow: rgba(14, 165, 233, 0.4);
+      --blue: #3b82f6;
+      --blue-subtle: rgba(59, 130, 246, 0.1);
+      --purple: #8b5cf6;
+      --purple-subtle: rgba(139, 92, 246, 0.1);
+      --red: #ef4444;
+      --red-subtle: rgba(239, 68, 68, 0.1);
+      --amber: #f59e0b;
+      --amber-subtle: rgba(245, 158, 11, 0.1);
+      --slate: #64748b;
+      --slate-subtle: rgba(100, 116, 139, 0.1);
+      --orange: #f97316;
+      --gradient-accent: linear-gradient(135deg, #0ea5e9 0%, #38bdf8 100%);
+      --gradient-purple: linear-gradient(135deg, #8b5cf6 0%, #a78bfa 100%);
+      --gradient-amber: linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%);
+      --gradient-hero: radial-gradient(ellipse 80% 50% at 50% -20%, rgba(14, 165, 233, 0.15), transparent);
+      --font-sans: 'Inter', -apple-system, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 16px;
+      --radius-xl: 24px;
+      --radius-full: 9999px;
+      --shadow-card: 0 4px 24px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.03);
+      --transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+    body { font-family: var(--font-sans); background: var(--bg-primary); color: var(--text-primary); line-height: 1.6; overflow-x: hidden; }
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+
+    .bg-grid {
+      position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+      background-image: linear-gradient(rgba(14, 165, 233, 0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(14, 165, 233, 0.03) 1px, transparent 1px);
+      background-size: 60px 60px; pointer-events: none; z-index: 0;
+    }
+    .bg-gradient { position: fixed; top: 0; left: 0; right: 0; height: 100vh; background: var(--gradient-hero); pointer-events: none; z-index: 0; }
+
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+    .container--narrow { max-width: 860px; margin: 0 auto; padding: 0 24px; }
+    .section { padding: 120px 0; position: relative; }
+    .section--tight { padding: 80px 0; }
+
+    /* HERO */
+    .hero { min-height: 100vh; display: flex; align-items: center; padding: 140px 0 100px; position: relative; z-index: 1; }
+    .hero__inner { max-width: 900px; }
+    .hero__badge { display: inline-flex; align-items: center; gap: 8px; background: var(--accent-subtle); border: 1px solid rgba(14,165,233,0.2); color: var(--accent); font-size: 13px; font-weight: 600; padding: 8px 16px; border-radius: var(--radius-full); margin-bottom: 24px; font-family: var(--font-mono); }
+    .hero__badge-dot { width: 6px; height: 6px; background: var(--accent); border-radius: 50%; animation: pulse 2s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1}50%{opacity:0.4} }
+    .hero__stats-pills { display: flex; gap: 12px; margin-bottom: 32px; flex-wrap: wrap; }
+    .hero__stat-pill { background: var(--bg-card); border: 1px solid var(--border); color: var(--text-secondary); font-size: 13px; font-weight: 500; padding: 10px 16px; border-radius: var(--radius-full); font-family: var(--font-mono); }
+    .hero__title { font-size: clamp(42px, 7vw, 72px); font-weight: 800; letter-spacing: -0.04em; line-height: 1.1; margin-bottom: 28px; }
+    .hero__title .accent { background: var(--gradient-accent); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .hero__subtitle { font-size: 18px; color: var(--text-secondary); line-height: 1.7; max-width: 740px; margin-bottom: 40px; }
+    .hero__buttons { display: flex; gap: 16px; flex-wrap: wrap; }
+    .btn { display: inline-flex; align-items: center; gap: 8px; padding: 14px 28px; font-size: 15px; font-weight: 600; border-radius: var(--radius-md); transition: all var(--transition); cursor: pointer; border: none; }
+    .btn--primary { background: var(--accent); color: #000; }
+    .btn--primary:hover { background: var(--accent-light); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(14,165,233,0.3); }
+    .btn--ghost { background: transparent; color: var(--text-primary); border: 1px solid var(--border-light); }
+    .btn--ghost:hover { border-color: var(--accent); color: var(--accent); }
+    .btn__icon { width: 16px; height: 16px; }
+
+    /* SECTIONS */
+    .section-label { font-family: var(--font-mono); font-size: 12px; font-weight: 600; color: var(--accent); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 16px; }
+    .section-title { font-size: clamp(32px, 4vw, 52px); font-weight: 800; letter-spacing: -0.03em; line-height: 1.1; margin-bottom: 20px; }
+    .section-subtitle { font-size: 18px; color: var(--text-secondary); line-height: 1.7; max-width: 660px; }
+
+    /* PAIN CARDS */
+    .pain-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-top: 64px; }
+    .pain-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 28px; transition: all var(--transition); position: relative; }
+    .pain-card:hover { border-color: var(--border-light); transform: translateY(-2px); }
+    .pain-card__icon { width: 48px; height: 48px; margin-bottom: 16px; }
+    .pain-card__title { font-size: 18px; font-weight: 700; margin-bottom: 10px; }
+    .pain-card__desc { font-size: 14px; color: var(--text-secondary); line-height: 1.6; }
+
+    /* SOLUTION CARDS */
+    .solutions-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px; margin-top: 64px; }
+    .solution-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 36px; transition: all var(--transition); position: relative; overflow: hidden; }
+    .solution-card:hover { border-color: rgba(14,165,233,0.4); transform: translateY(-2px); box-shadow: 0 8px 32px rgba(14,165,233,0.15); }
+    .solution-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--gradient-accent); }
+    .solution-card__icon { width: 56px; height: 56px; margin-bottom: 20px; }
+    .solution-card__title { font-size: 22px; font-weight: 700; margin-bottom: 12px; color: var(--accent); }
+    .solution-card__desc { font-size: 15px; color: var(--text-secondary); line-height: 1.7; margin-bottom: 20px; }
+    .solution-card__features { list-style: none; margin-bottom: 24px; }
+    .solution-card__features li { font-size: 14px; color: var(--text-secondary); padding-left: 20px; position: relative; margin-bottom: 8px; line-height: 1.5; }
+    .solution-card__features li::before { content: '→'; position: absolute; left: 0; color: var(--accent); font-weight: 700; }
+    .solution-card__link { display: inline-flex; align-items: center; gap: 6px; color: var(--accent); font-size: 14px; font-weight: 600; transition: all var(--transition); }
+    .solution-card__link:hover { gap: 10px; }
+
+    /* STEPS */
+    .steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 2px; margin-top: 64px; background: var(--border); border-radius: var(--radius-xl); overflow: hidden; }
+    .step { background: var(--bg-card); padding: 40px 32px; position: relative; }
+    .step__number { font-family: var(--font-mono); font-size: 48px; font-weight: 800; color: var(--border-light); line-height: 1; margin-bottom: 20px; }
+    .step__title { font-size: 20px; font-weight: 700; margin-bottom: 12px; }
+    .step__desc { font-size: 15px; color: var(--text-secondary); line-height: 1.6; }
+    .step--active .step__number { background: var(--gradient-accent); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+
+    /* STATS BAR */
+    .stats-bar { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 2px; margin-top: 64px; background: var(--border); border-radius: var(--radius-xl); overflow: hidden; }
+    .stat { background: var(--bg-card); padding: 40px 28px; text-align: center; }
+    .stat__value { font-size: 48px; font-weight: 800; font-family: var(--font-mono); line-height: 1; margin-bottom: 12px; background: var(--gradient-accent); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .stat__label { font-size: 14px; font-weight: 600; color: var(--text-primary); margin-bottom: 6px; }
+    .stat__desc { font-size: 13px; color: var(--text-muted); }
+
+    /* TRUST SIGNALS */
+    .trust-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-top: 48px; }
+    .trust-card { background: var(--accent-subtle); border: 1px solid rgba(14,165,233,0.2); border-radius: var(--radius-lg); padding: 24px; }
+    .trust-card__icon { width: 40px; height: 40px; margin-bottom: 12px; }
+    .trust-card__title { font-size: 16px; font-weight: 700; margin-bottom: 8px; color: var(--accent); }
+    .trust-card__desc { font-size: 14px; color: var(--text-secondary); line-height: 1.6; }
+
+    /* INTEGRATION TAGS */
+    .integration-tags { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 24px; }
+    .integration-tag { background: var(--bg-card); border: 1px solid var(--border); color: var(--text-secondary); font-size: 14px; font-weight: 500; padding: 10px 18px; border-radius: var(--radius-full); transition: all var(--transition); }
+    .integration-tag:hover { border-color: var(--accent); color: var(--accent); }
+
+    /* FAQ */
+    .faq-list { margin-top: 64px; display: grid; gap: 12px; }
+    .faq-item { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 24px; }
+    .faq-q { font-size: 16px; font-weight: 600; margin-bottom: 12px; color: var(--text-primary); }
+    .faq-a { font-size: 15px; color: var(--text-secondary); line-height: 1.7; }
+
+    /* CTA */
+    .cta-section { position: relative; z-index: 1; }
+    .cta-inner { background: linear-gradient(135deg, rgba(14,165,233,0.1), rgba(14,165,233,0.03)); border: 1px solid rgba(14,165,233,0.2); border-radius: var(--radius-xl); padding: 80px 48px; text-align: center; }
+    .cta-inner__title { font-size: 48px; font-weight: 800; letter-spacing: -0.03em; margin-bottom: 16px; line-height: 1.2; }
+    .cta-inner__sub { font-size: 18px; color: var(--text-secondary); margin-bottom: 32px; max-width: 800px; margin-left: auto; margin-right: auto; line-height: 1.7; }
+    .cta-inner__btns { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+    .cta-inner__note { font-size: 13px; color: var(--text-muted); margin-top: 16px; font-family: var(--font-mono); }
+
+    /* FOOTER */
+    .footer { border-top: 1px solid var(--border); padding: 64px 0 40px; position: relative; z-index: 1; }
+    .footer__grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px; margin-bottom: 48px; }
+    @media (max-width: 768px) { .footer__grid { grid-template-columns: 1fr 1fr; } }
+    .footer__brand-logo { font-size: 22px; font-weight: 800; letter-spacing: -0.03em; margin-bottom: 16px; }
+    .footer__brand-logo span { background: var(--gradient-accent); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .footer__tagline { font-size: 14px; color: var(--text-muted); line-height: 1.6; margin-bottom: 8px; }
+    .footer__column h4 { font-size: 13px; font-weight: 700; color: var(--text-primary); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 16px; }
+    .footer__links { display: flex; flex-direction: column; gap: 10px; }
+    .footer__link { font-size: 14px; color: var(--text-muted); transition: color var(--transition); }
+    .footer__link:hover { color: var(--accent); }
+    .footer__bottom { border-top: 1px solid var(--border); padding-top: 32px; font-size: 13px; color: var(--text-muted); text-align: center; }
+
+    /* REVEAL */
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* NAV DROPDOWN */
+    .nav-dropdown { position: relative; }
+    .nav-dropdown__toggle { display: flex; align-items: center; gap: 4px; cursor: pointer; }
+    .nav-dropdown__menu { position: absolute; top: calc(100% + 12px); left: 0; background: var(--bg-secondary); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 8px; min-width: 200px; opacity: 0; visibility: hidden; transition: all var(--transition); box-shadow: 0 8px 24px rgba(0,0,0,0.4); }
+    .nav-dropdown:hover .nav-dropdown__menu { opacity: 1; visibility: visible; }
+    .nav-dropdown__item { display: block; padding: 10px 14px; border-radius: 6px; font-size: 14px; color: var(--text-secondary); transition: all var(--transition); }
+    .nav-dropdown__item:hover { background: var(--bg-card); color: var(--accent); }
+  </style>
+</head>
+<body>
+
+<div class="bg-grid"></div>
+<div class="bg-gradient"></div>
+
+<!-- NAV -->
+<nav style="position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 16px 24px; background: rgba(10,15,26,0.9); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between;">
+  <a href="/" style="font-size: 1.125rem; font-weight: 700; color: var(--text-primary); text-decoration: none;">Resultant<span style="color: var(--accent);">AI</span></a>
+  <div style="display: flex; gap: 32px; align-items: center;">
+    <div class="nav-dropdown">
+      <div class="nav-dropdown__toggle" style="color: var(--text-secondary); font-size: 0.9rem;">
+        Industries
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 4.5l3 3 3-3"/></svg>
+      </div>
+      <div class="nav-dropdown__menu">
+        <a href="/senior-living/" class="nav-dropdown__item" style="color: var(--accent); font-weight: 600;">Senior Living</a>
+        <a href="/early-childhood/" class="nav-dropdown__item">Early Childhood</a>
+        <a href="/healthcare/" class="nav-dropdown__item">Healthcare</a>
+        <a href="/dental/" class="nav-dropdown__item">Dental</a>
+        <a href="/trades/" class="nav-dropdown__item">Trades</a>
+      </div>
+    </div>
+    <div class="nav-dropdown">
+      <div class="nav-dropdown__toggle" style="color: var(--text-secondary); font-size: 0.9rem;">
+        Solutions
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 4.5l3 3 3-3"/></svg>
+      </div>
+      <div class="nav-dropdown__menu">
+        <a href="/voice-ai/" class="nav-dropdown__item">Voice AI</a>
+        <a href="/automation/" class="nav-dropdown__item">Automation</a>
+      </div>
+    </div>
+    <a href="/blog" style="color: var(--text-secondary); text-decoration: none; font-size: 0.9rem;">Blog</a>
+  </div>
+  <a href="https://cal.com/chris-mott-eebyqs/30min" style="background: var(--accent); color: #000; padding: 10px 20px; border-radius: 8px; font-weight: 600; text-decoration: none; font-size: 0.9rem;">Book a Call</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="container">
+    <div class="hero__inner">
+      <div class="hero__badge">
+        <span class="hero__badge-dot"></span>
+        Affordable Senior Housing · Service Coordination · Co-located Clinical Services
+      </div>
+
+      <div class="hero__stats-pills">
+        <div class="hero__stat-pill">Live across three locations</div>
+        <div class="hero__stat-pill">English, Spanish and Korean</div>
+        <div class="hero__stat-pill">Athena Health integrated, BAA executed</div>
+      </div>
+
+      <h1 class="hero__title">
+        <span class="accent">A full building with the wrong labor model</span><br>
+        is not a success
+      </h1>
+
+      <p class="hero__subtitle">Occupancy is only half the number. The other half is what your people spend their day doing, and in senior housing a large share of it is the phone. I build multilingual voice systems that take scheduling and routine calls off the service coordinator and the front desk, so the people hired to work with residents are doing that instead.</p>
+
+      <div class="hero__buttons">
+        <a href="https://cal.com/chris-mott-eebyqs/30min?source=senior-living-hero" class="btn btn--primary">
+          Book a scoping call
+          <svg class="btn__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+        <a href="#running" class="btn btn--ghost">
+          See what is running today
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LOAD -->
+<section class="section section--tight" style="z-index: 1; position: relative;">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-label">The operating problem</div>
+      <h2 class="section-title">The load is not the calls. It is who is absorbing them.</h2>
+      <p class="section-subtitle">Turnover in aging services runs high, and the roles closest to residents turn over fastest. Every hour a service coordinator spends returning calls is an hour not spent on the work that keeps residents housed and connected to services.</p>
+    </div>
+    <div class="faq-list reveal">
+      <div class="faq-item">
+        <div class="faq-q">Adult children call during business hours and expect answers</div>
+        <div class="faq-a">The family member is often the decision maker and the one who escalates. A system that handles residents well and families badly fails, so families are designed for first, not second.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Language coverage does not match the resident population</div>
+        <div class="faq-a">Most properties have at least one language they cannot reliably cover live. The call still has to be answered, so it gets answered slowly, or in a language the caller is not comfortable in.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Scheduling sits between housing and a clinical system</div>
+        <div class="faq-a">When a property has co-located clinical or telehealth services, the person booking is doing it across two systems that were never designed to talk to each other.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Nobody has time to build the reporting that would prove any of this</div>
+        <div class="faq-a">Call volume by location and by language, booking conversion, escalation rate. Useful numbers, and nobody is producing them by hand.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RUNNING -->
+<section class="section" id="running" style="background: var(--bg-secondary); z-index: 1; position: relative;">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-label">What is running today</div>
+      <h2 class="section-title">Seniors Rising: three locations, three languages, one clinical system</h2>
+      <p class="section-subtitle">This is a live production deployment, not a pilot and not a demo.</p>
+    </div>
+    <div class="faq-list reveal">
+      <div class="faq-item">
+        <div class="faq-q">The client: Seniors Rising</div>
+        <div class="faq-a">A low income senior housing operator running three locations, with telehealth, clinical and behavioral health services attached. Published with their permission. Housing and clinical services in one operation, which is a harder integration problem than either one alone.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">What was built</div>
+        <div class="faq-a">A voice agent on Retell AI, integrated with Athena Health, handling scheduling in English, Spanish and Korean across all three locations. HIPAA-compliant architecture with a BAA executed before launch, reviewed against an <a href="/agent-security-audit/" style="color: var(--accent);">agent security audit</a> before it took a single resident call. Defined escalation triggers hand the call to a person.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">What is honestly still open</div>
+        <div class="faq-a">The Korean-language agent can book a telehealth appointment, and there is not always a Korean-speaking clinician on the other side. That is a staffing gap the technology exposed rather than created. Naming it matters more than hiding it, because most operators have some version of the same gap and the vendors selling to them do not say so.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">What happens after launch</div>
+        <div class="faq-a">An ongoing operations retainer with a monthly performance report: call volume by location and by language, booking conversion, escalation rate and uptime. The reporting is contractual, not optional.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SCOPE -->
+<section class="section section--tight" style="z-index: 1; position: relative;">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-label">Scope</div>
+      <h2 class="section-title">Where this fits, and where it does not</h2>
+      <p class="section-subtitle">Senior living covers several settings with different regulators, different staffing and different buyers. Treating them as one category is how vendors lose this sector, so here is the honest map.</p>
+    </div>
+    <div class="faq-list reveal">
+      <div class="faq-item">
+        <div class="faq-q">Affordable senior housing, including HUD-assisted properties</div>
+        <div class="faq-a">Where the live deployment runs. Service coordination, resident and family contact, scheduling into a co-located clinical service.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Independent living and hospitality-model communities</div>
+        <div class="faq-a">A good fit on the same mechanics. Inquiry handling and scheduling, without the clinical layer.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Assisted living, memory care and skilled nursing</div>
+        <div class="faq-a">I have not delivered in these settings. They are state licensed, the rules vary enormously by state, and anything touching resident assessment needs a compliance conversation before a technology one. I will say that in a first meeting rather than after a contract.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">What I do not do</div>
+        <div class="faq-a">Nothing that assesses, triages or diagnoses. The system routes, schedules and escalates. Clinical judgment stays with clinical staff, and scope of practice is not a boundary to be clever about.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ENGAGEMENT -->
+<section class="section section--tight" style="background: var(--bg-secondary); z-index: 1; position: relative;">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-label">How an engagement runs</div>
+      <h2 class="section-title">Scoped in a week, live in weeks, documented so you own it</h2>
+    </div>
+    <div class="faq-list reveal">
+      <div class="faq-item">
+        <div class="faq-q">1. Scoping</div>
+        <div class="faq-a">Which setting, which systems, which languages, who answers today and what happens when they cannot. A BAA and the compliance path get settled here, not later.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">2. Build</div>
+        <div class="faq-a">Voice agent, integration, escalation design, disclosure language, retry and voicemail behavior. Every call opens with an automated-call disclosure.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">3. Handover</div>
+        <div class="faq-a">Documented so your team can run it. You own the build. Voice AI engagements start at $5,000.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">4. Operations</div>
+        <div class="faq-a">Optional monthly retainer covering language quality, script and flow updates, and the performance report.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="section section--tight" id="faq" style="z-index: 1; position: relative;">
+  <div class="container container--narrow">
+    <div class="reveal">
+      <div class="section-label">Questions</div>
+      <h2 class="section-title">What operators ask first</h2>
+    </div>
+    <div class="faq-list reveal">
+      <div class="faq-item">
+        <div class="faq-q">Does this replace staff?</div>
+        <div class="faq-a">No, and I would not sell it that way. This sector has watched a decade of vendors promise labor replacement and ship software that added work. It removes administrative load from people whose job is residents and families.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">What happens when it gets something wrong?</div>
+        <div class="faq-a">It escalates to a person on defined triggers, and the escalation design is part of the build rather than an afterthought. The first version of any escalation map is always incomplete, which is why the retainer exists.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Will residents talk to it?</div>
+        <div class="faq-a">Some will and some will not, and the design assumes both. Every call opens with a disclosure that it is an automated call, and reaching a person is always available.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Who has to approve this internally?</div>
+        <div class="faq-a">Usually the executive director buys, the service coordinator or front desk uses it, and a corporate or ownership layer signs off. All three want different things and I would rather hear from all three early than discover the third one late.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Can it be paid for out of a supportive services budget?</div>
+        <div class="faq-a">Sometimes, and that depends on your funding sources rather than on me. Bring whoever owns allowability into the second conversation.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="section cta-section">
+  <div class="container container--narrow">
+    <div class="cta-inner reveal">
+      <h2 class="cta-inner__title">Start with the setting, not the software</h2>
+      <p class="cta-inner__sub">Tell me which setting you operate, what your residents speak, and who is answering the phone today. If it is not a fit I will say so on the call.</p>
+      <div class="cta-inner__btns">
+        <a href="https://cal.com/chris-mott-eebyqs/30min?source=senior-living-cta" class="btn btn--primary">
+          Book a scoping call
+          <svg class="btn__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+      <div class="cta-inner__note">30 minutes · No deck · support@resultantai.com</div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer__grid">
+      <div class="footer__column">
+        <div class="footer__brand-logo">Resultant<span>AI</span></div>
+        <p class="footer__tagline">AI voice agents and automation for service businesses. Built in weeks, not months.</p>
+        <p style="font-size: 13px; color: var(--text-muted); margin-top: 16px;">© 2026 ResultantAI. All rights reserved.</p>
+      </div>
+      <div class="footer__column">
+        <h4>Industries</h4>
+        <div class="footer__links">
+          <a href="/healthcare/" class="footer__link">Healthcare</a>
+          <a href="/dental/" class="footer__link">Dental</a>
+          <a href="/field-service-automation/" class="footer__link">Field Service</a>
+        </div>
+      </div>
+      <div class="footer__column">
+        <h4>Solutions</h4>
+        <div class="footer__links">
+          <a href="/voice-ai/" class="footer__link">Voice AI</a>
+          <a href="/automation/" class="footer__link">Automation</a>
+          <a href="/healthcare-voice-ai" class="footer__link">Healthcare Voice AI</a>
+          <a href="/healthcare-scheduling" class="footer__link">Smart Scheduling</a>
+        </div>
+      </div>
+      <div class="footer__column">
+        <h4>Company</h4>
+        <div class="footer__links">
+          <a href="/blog" class="footer__link">Blog</a>
+          <a href="/work/" class="footer__link">Case Studies</a>
+          <a href="/faq/" class="footer__link">FAQ</a>
+          <a href="mailto:support@resultantai.com" class="footer__link">Contact</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer__bottom">Built by humans. Deployed by AI. ResultantAI.</div>
+  </div>
+</footer>
+
+<script>
+  // Reveal on scroll
+  const reveals = document.querySelectorAll('.reveal');
+  const revealOnScroll = () => {
+    reveals.forEach(el => {
+      if (el.getBoundingClientRect().top < window.innerHeight - 80) {
+        el.classList.add('visible');
+      }
+    });
+  };
+  window.addEventListener('scroll', revealOnScroll);
+  revealOnScroll();
+</script>
+
+<script src="/js/main.js"></script>
+
+</body>
+</html>
