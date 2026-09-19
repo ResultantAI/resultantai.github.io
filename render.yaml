@@ -1,0 +1,16 @@
+services:
+  - type: web
+    name: resultantai-chatbot-api
+    runtime: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn server:app
+    envVars:
+      - key: ANTHROPIC_API_KEY
+        sync: false
+      - key: MODEL_NAME
+        value: claude-sonnet-4-5-20250929
+      - key: MAX_TOKENS
+        value: "2048"
+      - key: PORT
+        value: "10000"
+    healthCheckPath: /health
