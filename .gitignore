@@ -50,3 +50,16 @@ test_chatbot.py
 # macOS
 .DS_Store
 **/.DS_Store
+
+# Internal, tracked-by-mistake
+SYSTEMS_LEDGER.md
+CLAUDE.md
+MIGRATION_PLAN.md
+PHASE1_AUDIT.md
+icp_config.json
+make-blueprint-*.json
+deploy.sh
+render.yaml
+Procfile
+runtime.txt
+requirements.txt
