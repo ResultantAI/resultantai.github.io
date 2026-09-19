@@ -36,10 +36,10 @@
     "@type": "FAQPage",
     "mainEntity": [
       { "@type": "Question", "name": "Do I need to know the Anthropic API?", "acceptedAnswer": { "@type": "Answer", "text": "No. I handle the API setup, prompt engineering, and integration architecture. I also help set up your Anthropic account and billing alerts if needed." } },
-      { "@type": "Question", "name": "How much will Claude cost per month?", "acceptedAnswer": { "@type": "Answer", "text": "Depends on volume. I set up token logging and a cost dashboard so you have real numbers within the first week. Prompt caching typically cuts costs 60–90% vs a naive implementation." } },
+      { "@type": "Question", "name": "How much will Claude cost per month?", "acceptedAnswer": { "@type": "Answer", "text": "Depends on volume. I set up token logging and a cost dashboard so you have real numbers within the first week. Prompt caching is configured by default so you pay less per repeated prompt." } },
       { "@type": "Question", "name": "Can Claude access my product's data?", "acceptedAnswer": { "@type": "Answer", "text": "Yes — via structured API calls that pass relevant records into the prompt, or via the RAG add-on which adds semantic search so Claude answers from your specific content." } },
       { "@type": "Question", "name": "What if Claude's API is down?", "acceptedAnswer": { "@type": "Answer", "text": "The Multi-Model Fallback add-on reroutes to GPT-4 automatically when Claude is unavailable. Without fallback, I build circuit breakers and graceful degradation so your product stays functional." } },
-      { "@type": "Question", "name": "Can you improve an existing Claude integration I already have?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. Most clients come with a naive integration — one big prompt, no caching, no streaming, no cost tracking. A rebuild typically reduces latency 60% and cost 80% while improving output consistency." } }
+      { "@type": "Question", "name": "Can you improve an existing Claude integration I already have?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. Most clients come with a naive integration — one big prompt, no caching, no streaming, no cost tracking. A rebuild adds caching, streaming, cost tracking, and prompt evaluation so latency and cost come down and output consistency goes up." } }
     ]
   }
   </script>
@@ -204,7 +204,7 @@
     </div>
     <div class="hero__stat-row">
       <div class="hero__stat"><span class="hero__stat-num">5 days</span><span class="hero__stat-label">fastest turnaround</span></div>
-      <div class="hero__stat"><span class="hero__stat-num">90%</span><span class="hero__stat-label">cost reduction with caching</span></div>
+      <div class="hero__stat"><span class="hero__stat-num">Caching</span><span class="hero__stat-label">enabled by default</span></div>
       <div class="hero__stat"><span class="hero__stat-num">$1,500</span><span class="hero__stat-label">starting price</span></div>
       <div class="hero__stat"><span class="hero__stat-num">100%</span><span class="hero__stat-label">client-owned code</span></div>
     </div>
@@ -230,7 +230,7 @@
       </div>
       <div class="problem-card reveal">
         <div class="problem-card__label">Inconsistent Output</div>
-        <h3 class="problem-card__title">Claude produces great output 80% of the time and garbage 20% of the time. The prompt is not production-ready.</h3>
+        <h3 class="problem-card__title">A prompt that works most of the time is not production-ready.</h3>
         <p class="problem-card__desc">A prompt that works in the Anthropic playground does not always work under real user inputs — edge cases, unexpected formats, adversarial phrasing. Production prompt engineering requires testing against representative inputs and building handling for the cases that fail.</p>
       </div>
     </div>
@@ -306,7 +306,7 @@
         <div class="pricing-tier__features">
           <div class="pricing-tier__feature"><span class="pricing-tier__check">&#10003;</span> Up to 3 Claude endpoints</div>
           <div class="pricing-tier__feature"><span class="pricing-tier__check">&#10003;</span> Tool use / function calling</div>
-          <div class="pricing-tier__feature"><span class="pricing-tier__check">&#10003;</span> Prompt caching (60–90% cost reduction)</div>
+          <div class="pricing-tier__feature"><span class="pricing-tier__check">&#10003;</span> Prompt caching enabled</div>
           <div class="pricing-tier__feature"><span class="pricing-tier__check">&#10003;</span> Streaming + loading states</div>
           <div class="pricing-tier__feature"><span class="pricing-tier__check">&#10003;</span> Cost dashboard configured</div>
           <div class="pricing-tier__feature"><span class="pricing-tier__check">&#10003;</span> Spend alerts (daily/monthly)</div>

@@ -105,8 +105,8 @@
       display: flex;
       align-items: center;
       gap: 10px;
-      background: rgba(16,185,129,0.08);
-      border: 1px solid rgba(16,185,129,0.25);
+      background: rgba(14, 165, 233,0.08);
+      border: 1px solid rgba(14, 165, 233,0.25);
       padding: 12px 20px;
       border-radius: 10px;
       font-size: 0.9rem;
@@ -147,12 +147,12 @@
       transition: border-color 0.25s, transform 0.25s;
     }
     .pricing-card:hover {
-      border-color: rgba(16,185,129,0.4);
+      border-color: rgba(14, 165, 233,0.4);
       transform: translateY(-4px);
     }
     .pricing-card--featured {
       border: 2px solid var(--accent);
-      background: linear-gradient(135deg, rgba(16,185,129,0.06), var(--bg-card));
+      background: linear-gradient(135deg, rgba(14, 165, 233,0.06), var(--bg-card));
     }
     .pricing-card__badge {
       position: absolute;
@@ -225,7 +225,7 @@
       top: 11px;
       width: 16px;
       height: 16px;
-      background: rgba(16,185,129,0.1);
+      background: rgba(14, 165, 233,0.1);
       border-radius: 50%;
       border: 1.5px solid var(--accent);
     }
@@ -254,8 +254,8 @@
       color: var(--bg-primary);
     }
     .pricing-card__cta--primary:hover {
-      background: #34d399;
-      box-shadow: 0 8px 25px rgba(16,185,129,0.35);
+      background: #38bdf8;
+      box-shadow: 0 8px 25px rgba(14, 165, 233,0.35);
       transform: translateY(-2px);
       color: var(--bg-primary);
     }
@@ -265,13 +265,13 @@
       border: 1.5px solid var(--accent);
     }
     .pricing-card__cta--secondary:hover {
-      background: rgba(16,185,129,0.08);
+      background: rgba(14, 165, 233,0.08);
     }
 
     /* Single-item callout */
     .callout-card {
-      background: linear-gradient(135deg, rgba(16,185,129,0.06), var(--bg-card));
-      border: 1px solid rgba(16,185,129,0.3);
+      background: linear-gradient(135deg, rgba(14, 165, 233,0.06), var(--bg-card));
+      border: 1px solid rgba(14, 165, 233,0.3);
       border-radius: 20px;
       padding: 40px;
       display: grid;
@@ -308,7 +308,7 @@
     .callout-card__proof {
       margin-top: 16px;
       padding: 14px 18px;
-      background: rgba(16,185,129,0.08);
+      background: rgba(14, 165, 233,0.08);
       border-left: 3px solid var(--accent);
       border-radius: 0 8px 8px 0;
       font-size: 0.875rem;
@@ -331,7 +331,7 @@
       transition: border-color 0.25s;
     }
     .project-card:hover {
-      border-color: rgba(16,185,129,0.3);
+      border-color: rgba(14, 165, 233,0.3);
     }
     .project-card__price {
       font-size: 1.75rem;
@@ -371,7 +371,7 @@
     }
     .project-card--featured {
       border: 2px solid var(--accent);
-      background: linear-gradient(135deg, rgba(16,185,129,0.06), var(--bg-card));
+      background: linear-gradient(135deg, rgba(14, 165, 233,0.06), var(--bg-card));
       position: relative;
     }
     .project-card__label {
@@ -503,7 +503,15 @@
     @media (max-width: 768px) {
       .pricing-card__setup { font-size: 2.25rem; }
     }
-  </style>
+  
+/* canonical nav dropdown, injected by unify-nav.py */
+.nav-dropdown { position: relative; }
+.nav-dropdown__toggle { display: inline-flex; align-items: center; gap: 4px; cursor: pointer; }
+.nav-dropdown__menu { position: absolute; top: calc(100% + 12px); left: 0; background: var(--bg-card, #151d2e); border: 1px solid var(--border, #1e293b); border-radius: 10px; padding: 8px; min-width: 210px; opacity: 0; visibility: hidden; transition: opacity 0.2s ease, visibility 0.2s ease; box-shadow: 0 8px 24px rgba(0,0,0,0.4); z-index: 200; }
+.nav-dropdown:hover .nav-dropdown__menu, .nav-dropdown:focus-within .nav-dropdown__menu { opacity: 1; visibility: visible; }
+.nav-dropdown__item { display: block; padding: 10px 14px; border-radius: 6px; font-size: 14px; color: var(--text-secondary, #94a3b8); text-decoration: none; transition: background 0.2s ease, color 0.2s ease; }
+.nav-dropdown__item:hover { background: var(--bg-secondary, #0f172a); color: var(--accent, #0ea5e9); }
+</style>
 </head>
 <body>
   <!-- Google Tag Manager (noscript) -->
@@ -520,30 +528,31 @@
         <span></span><span></span><span></span>
       </button>
       <div class="nav__links">
-        <div class="nav__dropdown">
-          <div class="nav__dropdown-trigger nav__link">Solutions &#9662;</div>
-          <div class="nav__dropdown-content">
-            <div class="nav__dropdown-grid">
-              <div class="nav__dropdown-section">
-                <h4>Core Solutions</h4>
-                <a href="/lp/b2b-automation/" class="nav__dropdown-link">B2B Operations Automation</a>
-                <a href="/lp/voice-ai/" class="nav__dropdown-link">Voice AI Agents</a>
-                <a href="/lp/agency-automation/" class="nav__dropdown-link">Agency White-Label AI</a>
-              </div>
-              <div class="nav__dropdown-section">
-                <h4>More</h4>
-                <a href="/aeo-geo-audit/" class="nav__dropdown-link">AEO/GEO Audit</a>
-                <a href="/integrations/" class="nav__dropdown-link">Integrations</a>
-                <a href="/voice-roi-calculator" class="nav__dropdown-link">ROI Calculator</a>
-              </div>
-            </div>
+        <div class="nav-dropdown">
+          <div class="nav-dropdown__toggle nav__link">Industries<svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" style="margin-left:4px"><path d="M3 4.5l3 3 3-3"/></svg></div>
+          <div class="nav-dropdown__menu">
+            <a href="/senior-living/" class="nav-dropdown__item">Senior Living</a>
+            <a href="/early-childhood/" class="nav-dropdown__item">Early Childhood</a>
+            <a href="/healthcare/" class="nav-dropdown__item">Healthcare</a>
+            <a href="/dental/" class="nav-dropdown__item">Dental</a>
+            <a href="/trades/" class="nav-dropdown__item">Trades</a>
           </div>
         </div>
-        <a href="/case-studies" class="nav__link">Case Studies</a>
+        <div class="nav-dropdown">
+          <div class="nav-dropdown__toggle nav__link">Solutions<svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" style="margin-left:4px"><path d="M3 4.5l3 3 3-3"/></svg></div>
+          <div class="nav-dropdown__menu">
+            <a href="/lp/voice-ai/" class="nav-dropdown__item">Voice AI</a>
+            <a href="/automation/" class="nav-dropdown__item">Automation</a>
+            <a href="/agent-security-audit/" class="nav-dropdown__item">Agent Security Audit</a>
+            <a href="/aeo-geo-audit/" class="nav-dropdown__item">AEO/GEO Audit</a>
+          </div>
+        </div>
+        <a href="/case-studies" class="nav__link">Work</a>
+        <a href="/pricing/" class="nav__link" style="color: var(--accent);" style="color: var(--accent);">Pricing</a>
         <a href="/blog" class="nav__link">Blog</a>
-        <a href="/pricing/" class="nav__link" style="color: var(--accent);">Pricing</a>
+        <a href="https://cal.com/chris-mott-eebyqs/30min" class="nav__cta">Book a Call</a>
       </div>
-      <a href="https://cal.com/chris-mott-eebyqs/30min?source=pricing-nav" class="nav__cta">Book a Call</a>
+      
     </div>
   </nav>
 
@@ -828,7 +837,7 @@
   <!-- CTA -->
   <section style="padding: var(--space-xl) 0;">
     <div class="container text-center">
-      <div class="card reveal" style="max-width: 720px; margin: 0 auto; border: 2px solid rgba(16,185,129,0.3); background: linear-gradient(135deg, rgba(16,185,129,0.05), var(--bg-card));">
+      <div class="card reveal" style="max-width: 720px; margin: 0 auto; border: 2px solid rgba(14, 165, 233,0.3); background: linear-gradient(135deg, rgba(14, 165, 233,0.05), var(--bg-card));">
         <h2 style="font-size: 2rem; margin-bottom: 12px;">Know what you're buying before you sign.</h2>
         <p style="font-size: 1.05rem; color: var(--text-secondary); margin-bottom: 28px; max-width: 560px; margin-left: auto; margin-right: auto;">
           Book a 30-minute call. I'll scope your build, confirm the price, and tell you the exact delivery date. No vague estimates, no consultants on retainer before anything ships.
@@ -900,7 +909,6 @@
     </div>
   </footer>
 
-  <script src="/js/theme-toggle.js"></script>
   <script src="/js/main.js"></script>
   <script src="/js/ab-track.js"></script>
   <script>

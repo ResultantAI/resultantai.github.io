@@ -4,19 +4,19 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>AI Receptionist for Dental Practices | ResultantAI</title>
-  <meta name="description" content="Dental practices miss 30% of calls — that's $100K+/year walking out. My AI receptionist answers every call 24/7, books appointments, handles insurance questions, and syncs with your practice management software.">
+  <meta name="description" content="Dental practices miss 30% of calls. My AI receptionist answers every call 24/7, books appointments, handles insurance questions, and syncs with your practice management software.">
 
   <link rel="canonical" href="https://resultantai.com/dental">
 
   <meta property="og:title" content="AI Receptionist for Dental Practices | ResultantAI">
-  <meta property="og:description" content="Dental practices miss 30% of calls — that's $100K+/year walking out. My AI receptionist answers every call 24/7, books appointments, handles insurance questions, and syncs with your practice management software.">
+  <meta property="og:description" content="Dental practices miss 30% of calls. My AI receptionist answers every call 24/7, books appointments, handles insurance questions, and syncs with your practice management software.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://resultantai.com/dental/">
   <meta property="og:site_name" content="ResultantAI">
 
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="AI Receptionist for Dental Practices | ResultantAI">
-  <meta name="twitter:description" content="Dental practices miss 30% of calls — that's $100K+/year walking out. My AI receptionist answers every call 24/7.">
+  <meta name="twitter:description" content="Dental practices miss 30% of calls. My AI receptionist answers every call 24/7.">
 
   <meta name="google-site-verification" content="EUs3oELHtHvHjcAdzN2HjjzWzEP_6KWVZFzaIoLdp70">
 
@@ -100,16 +100,16 @@
       --text-primary: #ffffff;
       --text-secondary: #94a3b8;
       --text-muted: #64748b;
-      --accent: #10b981;
-      --accent-light: #34d399;
-      --accent-subtle: rgba(16, 185, 129, 0.08);
-      --accent-glow: rgba(16, 185, 129, 0.4);
+      --accent: #0ea5e9;
+      --accent-light: #38bdf8;
+      --accent-subtle: rgba(14, 165, 233, 0.08);
+      --accent-glow: rgba(14, 165, 233, 0.4);
       --blue: #3b82f6;
       --blue-subtle: rgba(59, 130, 246, 0.1);
       --purple: #8b5cf6;
       --orange: #f59e0b;
-      --gradient-accent: linear-gradient(135deg, #10b981 0%, #34d399 100%);
-      --gradient-hero: radial-gradient(ellipse 80% 50% at 50% -20%, rgba(16, 185, 129, 0.15), transparent);
+      --gradient-accent: linear-gradient(135deg, #0ea5e9 0%, #38bdf8 100%);
+      --gradient-hero: radial-gradient(ellipse 80% 50% at 50% -20%, rgba(14, 165, 233, 0.15), transparent);
       --font-sans: 'Inter', -apple-system, sans-serif;
       --font-mono: 'JetBrains Mono', monospace;
       --radius-sm: 6px;
@@ -128,7 +128,7 @@
 
     .bg-grid {
       position: fixed; top: 0; left: 0; right: 0; bottom: 0;
-      background-image: linear-gradient(rgba(16, 185, 129, 0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(16, 185, 129, 0.03) 1px, transparent 1px);
+      background-image: linear-gradient(rgba(14, 165, 233, 0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(14, 165, 233, 0.03) 1px, transparent 1px);
       background-size: 60px 60px; pointer-events: none; z-index: 0;
     }
     .bg-gradient { position: fixed; top: 0; left: 0; right: 0; height: 100vh; background: var(--gradient-hero); pointer-events: none; z-index: 0; }
@@ -153,15 +153,15 @@
 
     /* HERO */
     .hero { padding: 180px 0 120px; position: relative; text-align: center; }
-    .badge { display: inline-flex; align-items: center; padding: 6px 14px; font-size: 12px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; background: var(--accent-subtle); color: var(--accent); border-radius: var(--radius-full); border: 1px solid rgba(16, 185, 129, 0.2); margin-bottom: 24px; }
+    .badge { display: inline-flex; align-items: center; padding: 6px 14px; font-size: 12px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; background: var(--accent-subtle); color: var(--accent); border-radius: var(--radius-full); border: 1px solid rgba(14, 165, 233, 0.2); margin-bottom: 24px; }
     .hero__h1 { font-size: clamp(40px, 6vw, 64px); font-weight: 800; line-height: 1.1; letter-spacing: -0.03em; margin-bottom: 24px; background: linear-gradient(135deg, #ffffff 0%, #94a3b8 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
     .hero__subhead { font-size: clamp(18px, 2.5vw, 22px); color: var(--text-secondary); max-width: 900px; margin: 0 auto 40px; line-height: 1.5; }
     .hero__pills { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 12px; margin-bottom: 40px; }
     .pill { padding: 10px 18px; font-size: 14px; font-weight: 600; background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-full); color: var(--text-secondary); }
     .hero__cta-group { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 16px; }
     .btn { display: inline-flex; align-items: center; justify-content: center; padding: 16px 32px; font-size: 16px; font-weight: 600; border-radius: var(--radius-md); transition: all var(--transition); cursor: pointer; }
-    .btn--primary { background: var(--accent); color: #000; box-shadow: 0 4px 16px rgba(16, 185, 129, 0.3); }
-    .btn--primary:hover { background: var(--accent-light); transform: translateY(-2px); box-shadow: 0 6px 24px rgba(16, 185, 129, 0.4); }
+    .btn--primary { background: var(--accent); color: #000; box-shadow: 0 4px 16px rgba(14, 165, 233, 0.3); }
+    .btn--primary:hover { background: var(--accent-light); transform: translateY(-2px); box-shadow: 0 6px 24px rgba(14, 165, 233, 0.4); }
     .btn--secondary { background: transparent; color: var(--text-primary); border: 1px solid var(--border-light); }
     .btn--secondary:hover { background: rgba(255,255,255,0.05); border-color: var(--accent); }
 
@@ -192,7 +192,7 @@
     .comparison-table { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-card); max-width: 900px; margin: 0 auto; }
     .comparison-table__header { display: grid; grid-template-columns: 1fr 1fr; background: var(--bg-secondary); border-bottom: 1px solid var(--border); }
     .comparison-table__header-cell { padding: 20px 24px; font-size: 16px; font-weight: 700; text-align: center; }
-    .comparison-table__header-cell:first-child { background: rgba(16, 185, 129, 0.1); color: var(--accent); border-right: 1px solid var(--border); }
+    .comparison-table__header-cell:first-child { background: rgba(14, 165, 233, 0.1); color: var(--accent); border-right: 1px solid var(--border); }
     .comparison-table__row { display: grid; grid-template-columns: 1fr 1fr; border-bottom: 1px solid var(--border); }
     .comparison-table__row:last-child { border-bottom: none; }
     .comparison-table__cell { padding: 20px 24px; font-size: 14px; color: var(--text-secondary); border-right: 1px solid var(--border); }
@@ -246,7 +246,15 @@
       .comparison-table__cell:last-child { border-bottom: none; }
       .comparison-table__label::before { content: ""; }
     }
-  </style>
+  
+/* canonical nav dropdown, injected by unify-nav.py */
+.nav-dropdown { position: relative; }
+.nav-dropdown__toggle { display: inline-flex; align-items: center; gap: 4px; cursor: pointer; }
+.nav-dropdown__menu { position: absolute; top: calc(100% + 12px); left: 0; background: var(--bg-card, #151d2e); border: 1px solid var(--border, #1e293b); border-radius: 10px; padding: 8px; min-width: 210px; opacity: 0; visibility: hidden; transition: opacity 0.2s ease, visibility 0.2s ease; box-shadow: 0 8px 24px rgba(0,0,0,0.4); z-index: 200; }
+.nav-dropdown:hover .nav-dropdown__menu, .nav-dropdown:focus-within .nav-dropdown__menu { opacity: 1; visibility: visible; }
+.nav-dropdown__item { display: block; padding: 10px 14px; border-radius: 6px; font-size: 14px; color: var(--text-secondary, #94a3b8); text-decoration: none; transition: background 0.2s ease, color 0.2s ease; }
+.nav-dropdown__item:hover { background: var(--bg-secondary, #0f172a); color: var(--accent, #0ea5e9); }
+</style>
 </head>
 <body>
   <div class="bg-grid"></div>
@@ -257,11 +265,27 @@
     <div class="nav__inner">
       <a href="/" class="nav__logo">Resultant<span>AI</span></a>
       <div class="nav__links">
-        <a href="/voice-ai/" class="nav__link">Voice AI</a>
-        <a href="/automation/" class="nav__link">Automation</a>
-        <a href="/services/" class="nav__link">Services</a>
-        <a href="/work/" class="nav__link">Work</a>
-        <a href="/faq/" class="nav__link">FAQ</a>
+        <div class="nav-dropdown">
+          <div class="nav-dropdown__toggle nav__link">Industries<svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" style="margin-left:4px"><path d="M3 4.5l3 3 3-3"/></svg></div>
+          <div class="nav-dropdown__menu">
+            <a href="/senior-living/" class="nav-dropdown__item">Senior Living</a>
+            <a href="/early-childhood/" class="nav-dropdown__item">Early Childhood</a>
+            <a href="/healthcare/" class="nav-dropdown__item">Healthcare</a>
+            <a href="/dental/" class="nav-dropdown__item" style="color: var(--accent); font-weight: 600;">Dental</a>
+            <a href="/trades/" class="nav-dropdown__item">Trades</a>
+          </div>
+        </div>
+        <div class="nav-dropdown">
+          <div class="nav-dropdown__toggle nav__link">Solutions<svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" style="margin-left:4px"><path d="M3 4.5l3 3 3-3"/></svg></div>
+          <div class="nav-dropdown__menu">
+            <a href="/lp/voice-ai/" class="nav-dropdown__item">Voice AI</a>
+            <a href="/automation/" class="nav-dropdown__item">Automation</a>
+            <a href="/agent-security-audit/" class="nav-dropdown__item">Agent Security Audit</a>
+            <a href="/aeo-geo-audit/" class="nav-dropdown__item">AEO/GEO Audit</a>
+          </div>
+        </div>
+        <a href="/case-studies" class="nav__link">Work</a>
+        <a href="/pricing/" class="nav__link">Pricing</a>
         <a href="/blog" class="nav__link">Blog</a>
         <a href="https://cal.com/chris-mott-eebyqs/30min" class="nav__cta">Book a Call</a>
       </div>
@@ -272,13 +296,13 @@
   <section class="hero">
     <div class="container">
       <div class="badge">AI FOR DENTAL PRACTICES</div>
-      <h1 class="hero__h1">Your Dental Practice Is Losing $100K/Year to Missed Calls</h1>
+      <h1 class="hero__h1">An AI Receptionist That Answers Every Dental Call</h1>
       <p class="hero__subhead">30% of dental office calls go unanswered. 86% of those patients don't leave a voicemail — they call the next dentist on Google. My AI receptionist answers every call, 24/7, books appointments, handles insurance questions, and syncs with your practice management software.</p>
 
       <div class="hero__pills">
         <div class="pill">30% of calls go unanswered</div>
         <div class="pill">86% don't leave voicemail</div>
-        <div class="pill">$100K+/year in lost revenue</div>
+        <div class="pill">Answered 24/7</div>
       </div>
 
       <div class="hero__cta-group">
@@ -319,7 +343,7 @@
     <div class="container">
       <div class="section-header">
         <h2 class="section-header__title">What my AI receptionist handles</h2>
-        <p class="section-header__subtitle">Built specifically for dental practices. Powered by my <a href="/voice-ai/" style="color: var(--accent);">voice AI agents</a> that understand dental workflows.</p>
+        <p class="section-header__subtitle">Built specifically for dental practices. Powered by my <a href="/lp/voice-ai/" style="color: var(--accent);">voice AI agents</a> that understand dental workflows.</p>
       </div>
 
       <div class="feature-grid">
@@ -427,7 +451,7 @@
         <div class="comparison-table__row">
           <div class="comparison-table__cell">
             <span class="comparison-table__label">Appointment reminders</span>
-            Automated, 100% sent
+            Automated for every booking
           </div>
           <div class="comparison-table__cell">
             <span class="comparison-table__label">Appointment reminders</span>
@@ -488,40 +512,6 @@
     </div>
   </section>
 
-  <!-- ROI SECTION -->
-  <section class="section section--tight" style="background: var(--bg-secondary); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
-    <div class="container">
-      <div class="section-header">
-        <h2 class="section-header__title">What does this mean for your practice?</h2>
-        <p class="section-header__subtitle">Real numbers from real dental practices. Check out <a href="/work/" style="color: var(--accent);">my work</a> to see actual implementations.</p>
-      </div>
-
-      <div class="stat-grid stat-grid--compact">
-        <div class="stat-card">
-          <div class="stat-card__number">$100K+</div>
-          <div class="stat-card__label">missed revenue/year (avg practice)</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-card__number">2-3 wks</div>
-          <div class="stat-card__label">to go live</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-card__number">24/7</div>
-          <div class="stat-card__label">coverage</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-card__number">30 days</div>
-          <div class="stat-card__label">avg payback</div>
-        </div>
-      </div>
-
-      <div class="roi-box">
-        <div class="roi-box__label">Sample ROI Calculation</div>
-        <div class="roi-box__content">A 2-provider dental practice answering 40 more calls/month at $800 new patient value = $32,000/mo in recovered revenue potential. AI cost: custom-scoped to your practice.</div>
-      </div>
-    </div>
-  </section>
-
   <!-- INTEGRATIONS -->
   <section class="section section--tight">
     <div class="container">
@@ -575,7 +565,7 @@
   <!-- BOTTOM CTA -->
   <section class="cta-section">
     <div class="container">
-      <h2 class="cta-section__title">Ready to stop losing $100K/year to missed calls?</h2>
+      <h2 class="cta-section__title">Ready to stop losing patients to missed calls?</h2>
       <p class="cta-section__body">Book a free 30-minute practice audit. I'll show you exactly how many calls you're missing, what they're worth, and how I'd set up your AI receptionist.</p>
       <div class="cta-section__buttons">
         <a href="https://cal.com/chris-mott-eebyqs/30min" class="btn btn--primary">Book Free Practice Audit</a>

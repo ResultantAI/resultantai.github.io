@@ -46,9 +46,9 @@
       --text-primary: #ffffff;
       --text-secondary: #94a3b8;
       --text-muted: #64748b;
-      --accent: #10b981;
-      --accent-light: #34d399;
-      --gradient-accent: linear-gradient(135deg, #10b981 0%, #34d399 100%);
+      --accent: #0ea5e9;
+      --accent-light: #38bdf8;
+      --gradient-accent: linear-gradient(135deg, #0ea5e9 0%, #38bdf8 100%);
       --radius-lg: 16px;
       --radius-xl: 24px;
       --shadow-card: 0 4px 24px rgba(0, 0, 0, 0.3);
@@ -360,7 +360,7 @@
     }
 
     .footer__brand-logo span {
-      background: linear-gradient(135deg, #10b981 0%, #34d399 100%);
+      background: linear-gradient(135deg, #0ea5e9 0%, #38bdf8 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
@@ -470,7 +470,15 @@
         flex-wrap: wrap;
       }
     }
-  </style>
+  
+/* canonical nav dropdown, injected by unify-nav.py */
+.nav-dropdown { position: relative; }
+.nav-dropdown__toggle { display: inline-flex; align-items: center; gap: 4px; cursor: pointer; }
+.nav-dropdown__menu { position: absolute; top: calc(100% + 12px); left: 0; background: var(--bg-card, #151d2e); border: 1px solid var(--border, #1e293b); border-radius: 10px; padding: 8px; min-width: 210px; opacity: 0; visibility: hidden; transition: opacity 0.2s ease, visibility 0.2s ease; box-shadow: 0 8px 24px rgba(0,0,0,0.4); z-index: 200; }
+.nav-dropdown:hover .nav-dropdown__menu, .nav-dropdown:focus-within .nav-dropdown__menu { opacity: 1; visibility: visible; }
+.nav-dropdown__item { display: block; padding: 10px 14px; border-radius: 6px; font-size: 14px; color: var(--text-secondary, #94a3b8); text-decoration: none; transition: background 0.2s ease, color 0.2s ease; }
+.nav-dropdown__item:hover { background: var(--bg-secondary, #0f172a); color: var(--accent, #0ea5e9); }
+</style>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -497,8 +505,33 @@
 </head>
 <body>
   <nav>
-    <div class="container">
-      <a href="/" class="nav__logo">Resultant<span>AI</span></a>
+    <div class="container" style="display: flex; align-items: center; justify-content: space-between; gap: 24px;">
+      <a href="/" class="nav__logo" style="text-decoration: none;">Resultant<span>AI</span></a>
+      <div style="display: flex; gap: 24px; align-items: center;">
+        <div class="nav-dropdown">
+          <div class="nav-dropdown__toggle" style="color: var(--text-secondary); text-decoration: none; font-size: 0.9rem;">Industries<svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" style="margin-left:4px"><path d="M3 4.5l3 3 3-3"/></svg></div>
+          <div class="nav-dropdown__menu">
+            <a href="/senior-living/" class="nav-dropdown__item">Senior Living</a>
+            <a href="/early-childhood/" class="nav-dropdown__item">Early Childhood</a>
+            <a href="/healthcare/" class="nav-dropdown__item">Healthcare</a>
+            <a href="/dental/" class="nav-dropdown__item">Dental</a>
+            <a href="/trades/" class="nav-dropdown__item">Trades</a>
+          </div>
+        </div>
+        <div class="nav-dropdown">
+          <div class="nav-dropdown__toggle" style="color: var(--text-secondary); text-decoration: none; font-size: 0.9rem;">Solutions<svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" style="margin-left:4px"><path d="M3 4.5l3 3 3-3"/></svg></div>
+          <div class="nav-dropdown__menu">
+            <a href="/lp/voice-ai/" class="nav-dropdown__item">Voice AI</a>
+            <a href="/automation/" class="nav-dropdown__item">Automation</a>
+            <a href="/agent-security-audit/" class="nav-dropdown__item">Agent Security Audit</a>
+            <a href="/aeo-geo-audit/" class="nav-dropdown__item">AEO/GEO Audit</a>
+          </div>
+        </div>
+        <a href="/case-studies" style="color: var(--text-secondary); text-decoration: none; font-size: 0.9rem;">Work</a>
+        <a href="/pricing/" style="color: var(--text-secondary); text-decoration: none; font-size: 0.9rem;">Pricing</a>
+        <a href="/blog" style="color: var(--text-secondary); text-decoration: none; font-size: 0.9rem;">Blog</a>
+        <a href="https://cal.com/chris-mott-eebyqs/30min" style="background: var(--accent); color: #000; padding: 10px 20px; border-radius: 8px; font-weight: 600; text-decoration: none; font-size: 0.9rem;">Book a Call</a>
+      </div>
     </div>
   </nav>
 

@@ -34,7 +34,7 @@
         "name": "How much does a voice AI agent cost?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Voice systems start at $5,000 as a one-time setup fee, and most builds land between $5,000 and $10,000 depending on how many call paths and integrations are involved. Monthly platform runs from $750 based on call volume. HIPAA builds start at $15,000. Most clients see full ROI within 30 days."
+          "text": "Voice systems start at $5,000 as a one-time setup fee, and most builds land between $5,000 and $10,000 depending on how many call paths and integrations are involved. Monthly platform runs from $750 based on call volume. HIPAA builds start at $15,000."
         }
       },
       {
@@ -91,14 +91,14 @@
       --text-primary: #ffffff;
       --text-secondary: #94a3b8;
       --text-muted: #64748b;
-      --accent: #10b981;
-      --accent-light: #34d399;
-      --accent-subtle: rgba(16, 185, 129, 0.08);
+      --accent: #0ea5e9;
+      --accent-light: #38bdf8;
+      --accent-subtle: rgba(14, 165, 233, 0.08);
       --blue: #3b82f6;
       --purple: #8b5cf6;
       --orange: #f59e0b;
-      --gradient-accent: linear-gradient(135deg, #10b981 0%, #34d399 100%);
-      --gradient-hero: radial-gradient(ellipse 80% 50% at 50% -20%, rgba(16, 185, 129, 0.15), transparent);
+      --gradient-accent: linear-gradient(135deg, #0ea5e9 0%, #38bdf8 100%);
+      --gradient-hero: radial-gradient(ellipse 80% 50% at 50% -20%, rgba(14, 165, 233, 0.15), transparent);
       --font-sans: 'Inter', -apple-system, sans-serif;
       --font-mono: 'JetBrains Mono', monospace;
       --radius-sm: 6px;
@@ -113,7 +113,7 @@
     body { font-family: var(--font-sans); background: var(--bg-primary); color: var(--text-primary); line-height: 1.6; overflow-x: hidden; }
     a { color: inherit; text-decoration: none; }
 
-    .bg-grid { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background-image: linear-gradient(rgba(16,185,129,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(16,185,129,0.03) 1px, transparent 1px); background-size: 60px 60px; pointer-events: none; z-index: 0; }
+    .bg-grid { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background-image: linear-gradient(rgba(14, 165, 233,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(14, 165, 233,0.03) 1px, transparent 1px); background-size: 60px 60px; pointer-events: none; z-index: 0; }
     .bg-gradient { position: fixed; top: 0; left: 0; right: 0; height: 100vh; background: var(--gradient-hero); pointer-events: none; z-index: 0; }
 
     .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
@@ -161,8 +161,8 @@
     /* FAQ ITEMS */
     .faq-list { display: grid; gap: 8px; }
     .faq-item { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; transition: border-color var(--transition); }
-    .faq-item:hover { border-color: rgba(16,185,129,0.2); }
-    .faq-item.open { border-color: rgba(16,185,129,0.3); }
+    .faq-item:hover { border-color: rgba(14, 165, 233,0.2); }
+    .faq-item.open { border-color: rgba(14, 165, 233,0.3); }
     .faq-q { padding: 20px 24px; font-size: 16px; font-weight: 600; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 16px; user-select: none; }
     .faq-q__text { flex: 1; }
     .faq-q__icon { width: 24px; height: 24px; border-radius: 50%; background: var(--bg-secondary); border: 1px solid var(--border-light); display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 14px; transition: all var(--transition); color: var(--text-muted); }
@@ -174,7 +174,7 @@
     .faq-a__inner a:hover { text-decoration: underline; }
 
     /* CONTACT BLOCK */
-    .contact-block { background: linear-gradient(135deg, rgba(16,185,129,0.08), rgba(16,185,129,0.02)); border: 1px solid rgba(16,185,129,0.2); border-radius: var(--radius-xl); padding: 48px; display: grid; grid-template-columns: 1fr auto; gap: 32px; align-items: center; margin-top: 64px; }
+    .contact-block { background: linear-gradient(135deg, rgba(14, 165, 233,0.08), rgba(14, 165, 233,0.02)); border: 1px solid rgba(14, 165, 233,0.2); border-radius: var(--radius-xl); padding: 48px; display: grid; grid-template-columns: 1fr auto; gap: 32px; align-items: center; margin-top: 64px; }
     @media (max-width: 600px) { .contact-block { grid-template-columns: 1fr; } }
     .contact-block__title { font-size: 24px; font-weight: 700; margin-bottom: 8px; }
     .contact-block__sub { font-size: 15px; color: var(--text-secondary); }
@@ -203,7 +203,15 @@
 
     /* HIDDEN FAQ */
     .faq-item.hidden { display: none; }
-  </style>
+  
+/* canonical nav dropdown, injected by unify-nav.py */
+.nav-dropdown { position: relative; }
+.nav-dropdown__toggle { display: inline-flex; align-items: center; gap: 4px; cursor: pointer; }
+.nav-dropdown__menu { position: absolute; top: calc(100% + 12px); left: 0; background: var(--bg-card, #151d2e); border: 1px solid var(--border, #1e293b); border-radius: 10px; padding: 8px; min-width: 210px; opacity: 0; visibility: hidden; transition: opacity 0.2s ease, visibility 0.2s ease; box-shadow: 0 8px 24px rgba(0,0,0,0.4); z-index: 200; }
+.nav-dropdown:hover .nav-dropdown__menu, .nav-dropdown:focus-within .nav-dropdown__menu { opacity: 1; visibility: visible; }
+.nav-dropdown__item { display: block; padding: 10px 14px; border-radius: 6px; font-size: 14px; color: var(--text-secondary, #94a3b8); text-decoration: none; transition: background 0.2s ease, color 0.2s ease; }
+.nav-dropdown__item:hover { background: var(--bg-secondary, #0f172a); color: var(--accent, #0ea5e9); }
+</style>
 </head>
 <body>
 
@@ -215,12 +223,30 @@
   <div class="nav__inner">
     <a href="/" class="nav__logo">Resultant<span>AI</span></a>
     <div class="nav__links">
-      <a href="/services/" class="nav__link">Services</a>
-      <a href="/voice-ai/" class="nav__link">Voice AI</a>
-      <a href="/work/" class="nav__link">Case Studies</a>
-      <a href="/faq/" class="nav__link" style="color: var(--accent);">FAQ</a>
-      <a href="https://cal.com/chris-mott-eebyqs/30min" class="nav__cta" target="_blank" rel="noopener">Book a Call</a>
-    </div>
+        <div class="nav-dropdown">
+          <div class="nav-dropdown__toggle nav__link">Industries<svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" style="margin-left:4px"><path d="M3 4.5l3 3 3-3"/></svg></div>
+          <div class="nav-dropdown__menu">
+            <a href="/senior-living/" class="nav-dropdown__item">Senior Living</a>
+            <a href="/early-childhood/" class="nav-dropdown__item">Early Childhood</a>
+            <a href="/healthcare/" class="nav-dropdown__item">Healthcare</a>
+            <a href="/dental/" class="nav-dropdown__item">Dental</a>
+            <a href="/trades/" class="nav-dropdown__item">Trades</a>
+          </div>
+        </div>
+        <div class="nav-dropdown">
+          <div class="nav-dropdown__toggle nav__link">Solutions<svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" style="margin-left:4px"><path d="M3 4.5l3 3 3-3"/></svg></div>
+          <div class="nav-dropdown__menu">
+            <a href="/lp/voice-ai/" class="nav-dropdown__item">Voice AI</a>
+            <a href="/automation/" class="nav-dropdown__item">Automation</a>
+            <a href="/agent-security-audit/" class="nav-dropdown__item">Agent Security Audit</a>
+            <a href="/aeo-geo-audit/" class="nav-dropdown__item">AEO/GEO Audit</a>
+          </div>
+        </div>
+        <a href="/case-studies" class="nav__link">Work</a>
+        <a href="/pricing/" class="nav__link">Pricing</a>
+        <a href="/blog" class="nav__link">Blog</a>
+        <a href="https://cal.com/chris-mott-eebyqs/30min" class="nav__cta">Book a Call</a>
+      </div>
   </div>
 </nav>
 
@@ -356,16 +382,6 @@
           </div>
           <div class="faq-a">
             <div class="faq-a__inner">Voice systems start at $5,000 as a one-time setup fee, and most builds land between $5,000 and $10,000 depending on complexity (number of call flows, integrations, outbound sequences). Monthly platform and maintenance runs $500 to $1,500/mo based on call volume. There are no per-minute charges on my end - I absorb usage within the monthly fee.</div>
-          </div>
-        </div>
-
-        <div class="faq-item" data-cat="pricing">
-          <div class="faq-q">
-            <span class="faq-q__text">How quickly do most clients see ROI?</span>
-            <span class="faq-q__icon">+</span>
-          </div>
-          <div class="faq-a">
-            <div class="faq-a__inner">Most clients see positive ROI within 18-30 days of go-live. A plumbing company answering 5 additional after-hours calls per week at $350/job average captures $7,000/month in previously lost revenue - against a $1,000/mo platform fee. The math typically works well within the first month.</div>
           </div>
         </div>
 
@@ -615,7 +631,7 @@
       <div class="footer__column">
         <h4>Voice AI</h4>
         <div class="footer__links">
-          <a href="/voice-ai/" class="footer__link">Overview</a>
+          <a href="/lp/voice-ai/" class="footer__link">Overview</a>
           <a href="/demo/ortho-voice/" class="footer__link">Demo Call</a>
           <a href="/lp/plumbing/" class="footer__link">Plumbing</a>
           <a href="/lp/hvac/" class="footer__link">HVAC</a>
@@ -626,7 +642,7 @@
         <h4>Company</h4>
         <div class="footer__links">
           <a href="/services/" class="footer__link">Services</a>
-          <a href="/work/" class="footer__link">Case Studies</a>
+          <a href="/case-studies" class="footer__link">Case Studies</a>
           <a href="/about" class="footer__link">About</a>
           <a href="/faq/" class="footer__link">FAQ</a>
           <a href="/contact-us/" class="footer__link">Contact</a>

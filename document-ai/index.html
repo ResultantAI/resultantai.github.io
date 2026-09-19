@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>AI Document Intake That Extracts, Routes & Logs Automatically | ResultantAI</title>
-  <meta name="description" content="AI reads your incoming documents, extracts the data that matters, and routes it to the right destination without a human in the loop. 97%+ accuracy. Deployed in 6–16 days." />
+  <meta name="description" content="AI reads your incoming documents, extracts the data that matters, and routes it to the right destination without a human in the loop. Deployed in 6–16 days." />
   <link rel="canonical" href="https://resultantai.com/document-ai/" />
 
   <script type="application/ld+json">
@@ -26,7 +26,7 @@
         "@type": "FAQPage",
         "mainEntity": [
           { "@type": "Question", "name": "What document formats can you process?", "acceptedAnswer": { "@type": "Answer", "text": "PDF, Word (.docx), Excel (.xlsx), scanned images (JPEG, PNG, TIFF), and plain email bodies. Scanned PDFs require the OCR add-on for best accuracy — native digital PDFs extract cleanly without it." } },
-          { "@type": "Question", "name": "How accurate is the extraction?", "acceptedAnswer": { "@type": "Answer", "text": "On clean, structured PDFs, extraction accuracy typically exceeds 97 percent. Anything below 85 percent confidence gets flagged for human review rather than passed through silently." } }
+          { "@type": "Question", "name": "How accurate is the extraction?", "acceptedAnswer": { "@type": "Answer", "text": "Every field carries a confidence score. Low-confidence extractions get flagged for human review rather than passed through silently. I tune the extraction prompts against a labeled sample of your documents before the pipeline goes live." } }
         ]
       },
       {
@@ -162,7 +162,7 @@
     <h1>Your team is opening PDFs<br>and <em>retyping data into a spreadsheet.</em></h1>
     <p class="hero-sub">AI reads your incoming documents, extracts the data that matters, and routes it to exactly where it needs to go — without a human in the loop.</p>
     <div class="hero-stats">
-      <div class="stat"><div class="stat-val">97%+</div><div class="stat-label">extraction accuracy</div></div>
+      <div class="stat"><div class="stat-val">Field-level</div><div class="stat-label">confidence scoring</div></div>
       <div class="stat"><div class="stat-val">&lt;10 min</div><div class="stat-label">processing time</div></div>
       <div class="stat"><div class="stat-val">0</div><div class="stat-label">manual entry</div></div>
       <div class="stat"><div class="stat-val">6–16 days</div><div class="stat-label">to deployment</div></div>
@@ -264,7 +264,7 @@
         <div class="step-num">02</div>
         <div class="step-content">
           <h3>Extraction Pipeline Build</h3>
-          <p>Claude extraction prompts engineered per document type with structured JSON output. Confidence scoring added for each field — a contract extraction that is 40% confident on payment terms triggers a flag, not a silent bad value. OCR pre-processing added if scanned documents are in scope.</p>
+          <p>Claude extraction prompts engineered per document type with structured JSON output. Confidence scoring added for each field. Low-confidence extractions trigger a flag rather than a silent bad value. OCR pre-processing added if scanned documents are in scope.</p>
         </div>
       </div>
       <div class="process-step reveal">
@@ -414,7 +414,7 @@
 <section class="cta-section">
   <div class="container">
     <h2 class="reveal">Stop processing documents by hand.</h2>
-    <p class="reveal">97%+ extraction accuracy, automated routing, exception handling. Deployed in 6–16 days. You own the pipeline.</p>
+    <p class="reveal">Field-level confidence scoring, automated routing, exception handling. Deployed in 6–16 days. You own the pipeline.</p>
     <a href="https://www.upwork.com/services/product/document-ai" class="btn-primary reveal" target="_blank" rel="noopener">View on Upwork →</a>
   </div>
 </section>
