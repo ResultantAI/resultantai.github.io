@@ -237,7 +237,7 @@
     <div class="brand">
       <div class="brand-mark">RA</div>
       <div class="brand-text">
-        <h1>AI Taxonomy Tagging Pipeline — Demo</h1>
+        <h1>AI Taxonomy Tagging Pipeline, Demo</h1>
         <p>Architecture proof for Acelero / Shine Early Learning Phase 3</p>
       </div>
     </div>
@@ -246,7 +246,7 @@
 
   <!-- Hero -->
   <div class="hero">
-    <div class="hero-eyebrow">Phase 3 — AI Integration Architecture</div>
+    <div class="hero-eyebrow">Phase 3, AI Integration Architecture</div>
     <h2>What "substantially reduces manual tagging" actually looks like in production</h2>
     <p>This demo shows the exact two-pass tagging architecture proposed in the response to your RFP. Pick a sample asset, run the pipeline, and watch how Claude classifies against the 20-field taxonomy, validates its own confidence, runs reading-level assessment on family-facing content, and routes ambiguous tags to a human review queue. No LLM call is made; this runs the same logic against pre-computed model outputs to demonstrate the architecture without API costs.</p>
     <div class="hero-meta">
@@ -311,15 +311,15 @@
     <div class="card-body">
       <div class="queue-summary">
         <div class="stat-tile">
-          <div class="stat-num" id="statAuto">—</div>
+          <div class="stat-num" id="statAuto">, </div>
           <div class="stat-label">Auto-tagged (high confidence)</div>
         </div>
         <div class="stat-tile">
-          <div class="stat-num warn" id="statReview">—</div>
+          <div class="stat-num warn" id="statReview">, </div>
           <div class="stat-label">Routed to review (low confidence)</div>
         </div>
         <div class="stat-tile">
-          <div class="stat-num info" id="statBlocked">—</div>
+          <div class="stat-num info" id="statBlocked">, </div>
           <div class="stat-label">Status blocked (reading level fail)</div>
         </div>
       </div>
@@ -335,13 +335,13 @@
     <p>This demo runs in your browser with no LLM calls. In your production deployment, the same logic runs through Make.com calling the Anthropic API. Asset submission triggers the pipeline:</p>
     <ol>
       <li><b>New asset submitted in AO Docs</b> → webhook fires to Make.com with asset metadata and content text.</li>
-      <li><b>Pass 1: Classification</b> — Claude tags against the 20-field schema with each field's enum constrained in the response schema. <code>response_format: json_schema</code> eliminates freeform value drift.</li>
-      <li><b>Pass 2: Self-validation</b> — Claude reviews its own classification, scoring confidence per field. Fields below the configured threshold (default 0.75) flag for human review.</li>
-      <li><b>Reading-level gate</b> — Family-facing content runs through a separate prompt scoring against Family-Accessible (6th grade) and Plain Language (4th grade). Failures block Active status.</li>
-      <li><b>Companion content suggestions</b> — semantic similarity surfaces likely companion assets. These are <i>suggestions for human approval</i>, never automatic links.</li>
-      <li><b>Write to Airtable</b> — high-confidence fields populate directly. Low-confidence fields write with a Flag for Review status. Reading-level failures block Status = Active.</li>
+      <li><b>Pass 1: Classification</b>, Claude tags against the 20-field schema with each field's enum constrained in the response schema. <code>response_format: json_schema</code> eliminates freeform value drift.</li>
+      <li><b>Pass 2: Self-validation</b>, Claude reviews its own classification, scoring confidence per field. Fields below the configured threshold (default 0.75) flag for human review.</li>
+      <li><b>Reading-level gate</b>, Family-facing content runs through a separate prompt scoring against Family-Accessible (6th grade) and Plain Language (4th grade). Failures block Active status.</li>
+      <li><b>Companion content suggestions</b>, semantic similarity surfaces likely companion assets. These are <i>suggestions for human approval</i>, never automatic links.</li>
+      <li><b>Write to Airtable</b>, high-confidence fields populate directly. Low-confidence fields write with a Flag for Review status. Reading-level failures block Status = Active.</li>
     </ol>
-    <p>The accuracy validation against your sample of 50 already-tagged assets establishes the baseline reduction in manual tagging burden. That number — measured in hours per asset before vs. after — is delivered as part of the Phase 3 sign-off package.</p>
+    <p>The accuracy validation against your sample of 50 already-tagged assets establishes the baseline reduction in manual tagging burden. That number, measured in hours per asset before vs. after, is delivered as part of the Phase 3 sign-off package.</p>
   </div>
 
   <div class="foot">
@@ -351,12 +351,12 @@
 
 <script>
 // ============================================================
-// SAMPLE ASSETS — pre-computed pipeline outputs for demo purposes
+// SAMPLE ASSETS, pre-computed pipeline outputs for demo purposes
 // ============================================================
 const SAMPLES = [
   {
     id: 'coaching-1',
-    label: 'Coaching Tool — Reflective Practice Guide',
+    label: 'Coaching Tool, Reflective Practice Guide',
     title: 'Reflective Practice Guide for Pre-K Coaches',
     audience: 'Practitioner-facing',
     text: 'A structured guide for coaches working with preschool teachers. Walks through the three reflective practice cycles: observation, conversation, and follow-through. Includes prompts for coaching conversations, sample documentation forms, and a four-week implementation arc. Aligned to internal coaching scope and sequence Theme 2: Strengthening the Coaching Stance. Designed for coaches at the Application learning level (post-Awareness, pre-Mastery).',
@@ -364,7 +364,7 @@ const SAMPLES = [
       { name: 'Content Type', value: 'Coaching Resource', conf: 0.96 },
       { name: 'Functional Domain', value: 'Leadership & Supervision', conf: 0.92 },
       { name: 'Audience', value: 'Coach', conf: 0.99 },
-      { name: 'Age Group', value: 'Preschool (3–5 years)', conf: 0.94 },
+      { name: 'Age Group', value: 'Preschool (3-5 years)', conf: 0.94 },
       { name: 'Developmental Domain', value: 'Mixed/Integrated', conf: 0.71 },
       { name: 'Setting', value: 'Center-based', conf: 0.78 },
       { name: 'Instructional Context', value: 'Coaching Session', conf: 0.97 },
@@ -382,7 +382,7 @@ const SAMPLES = [
   },
   {
     id: 'family-1',
-    label: 'Family Tool — Mealtime Conversation Cards',
+    label: 'Family Tool, Mealtime Conversation Cards',
     title: 'Mealtime Conversation Cards for Caregivers',
     audience: 'Family-facing',
     text: 'A printable set of conversation prompts caregivers can use at family meals. 20 cards covering social-emotional topics like feelings, friendships, kindness, and trying new things. Designed for children ages 3 to 5 and their grown-ups. Print, cut, and keep on the table. Pick one a day, ask the question, listen, share your own answer. Available in English and Spanish. Reading level reviewed.',
@@ -390,7 +390,7 @@ const SAMPLES = [
       { name: 'Content Type', value: 'Family Engagement Tool', conf: 0.98 },
       { name: 'Functional Domain', value: 'Family Engagement', conf: 0.96 },
       { name: 'Audience', value: 'Family/Caregiver', conf: 1.00 },
-      { name: 'Age Group', value: 'Preschool (3–5 years)', conf: 0.93 },
+      { name: 'Age Group', value: 'Preschool (3-5 years)', conf: 0.93 },
       { name: 'Developmental Domain', value: 'Social-Emotional', conf: 0.94 },
       { name: 'Setting', value: 'Home-based', conf: 0.86 },
       { name: 'Instructional Context', value: 'Family Share', conf: 0.91 },
@@ -408,7 +408,7 @@ const SAMPLES = [
   },
   {
     id: 'family-2',
-    label: 'Family Tool — Compliance-style language (FAILS reading-level)',
+    label: 'Family Tool, Compliance-style language (FAILS reading-level)',
     title: 'Family Engagement Communication Standards',
     audience: 'Family-facing',
     text: 'In accordance with established programmatic guidelines and the requirements set forth under applicable Head Start performance standards, family engagement communications must demonstrate adherence to evidence-based practices that facilitate sustained caregiver participation throughout the duration of enrollment. This document elucidates expectations regarding bidirectional information exchange, prerequisite documentation, and the implementation of culturally responsive engagement methodologies.',
@@ -432,7 +432,7 @@ const SAMPLES = [
   },
   {
     id: 'compliance-1',
-    label: 'Compliance Doc — ELOF Alignment Reference',
+    label: 'Compliance Doc, ELOF Alignment Reference',
     title: 'ELOF Domain Alignment Quick-Reference',
     audience: 'Practitioner-facing',
     text: 'Quick-reference document mapping internal curriculum themes to the Head Start Early Learning Outcomes Framework (ELOF) domains. Used by program directors and education coordinators during program self-assessment. Covers all five ELOF central domains: Approaches to Learning, Social and Emotional Development, Language and Literacy, Cognition, and Perceptual, Motor, and Physical Development. Updated April 2026.',
@@ -506,9 +506,9 @@ function clearResults() {
   logBox.innerHTML = '<div class="empty">Run the pipeline to see live output.</div>';
   resultBox.innerHTML = '<div class="empty">Tagged fields with confidence scores will appear here.</div>';
   queueList.innerHTML = '<div class="empty">Queue items will appear here after pipeline runs.</div>';
-  statAuto.textContent = '—';
-  statReview.textContent = '—';
-  statBlocked.textContent = '—';
+  statAuto.textContent = ', ';
+  statReview.textContent = ', ';
+  statBlocked.textContent = ', ';
   statusEl.className = 'status';
   statusText.textContent = 'Idle';
 }
@@ -542,9 +542,9 @@ async function runPipeline(s) {
   logBox.innerHTML = '';
   resultBox.innerHTML = '<div class="empty">Tagging in progress...</div>';
   queueList.innerHTML = '<div class="empty">Queue forming...</div>';
-  statAuto.textContent = '—';
-  statReview.textContent = '—';
-  statBlocked.textContent = '—';
+  statAuto.textContent = ', ';
+  statReview.textContent = ', ';
+  statBlocked.textContent = ', ';
 
   const t0 = Date.now();
   const log = (msg, cls='log-msg') => {
@@ -612,7 +612,7 @@ async function runPipeline(s) {
     log('→ Companion content suggestions (semantic similarity)', 'log-companion');
     await wait(500);
     s.companions.forEach(c => {
-      log(`  · Suggested: "${c.name}" (similarity ${c.conf.toFixed(2)}) — awaiting human approval`, 'log-msg');
+      log(`  · Suggested: "${c.name}" (similarity ${c.conf.toFixed(2)}), awaiting human approval`, 'log-msg');
     });
     await wait(300);
   }
@@ -625,7 +625,7 @@ async function runPipeline(s) {
     log(`  · ${lowConfidence.length} field(s) written with Flag for Review status`, 'log-flag');
   }
   if (readingBlocked) {
-    log(`  · Asset Status set to BLOCKED — cannot move to Active until reading-level resolved`, 'log-flag');
+    log(`  · Asset Status set to BLOCKED, cannot move to Active until reading-level resolved`, 'log-flag');
   }
   await wait(400);
 

@@ -6,7 +6,7 @@
 
   <!-- Open Graph -->
   <meta property="og:title" content="How I Built a Voice AI System That Qualifies Leads While You Sleep | ResultantAI">
-  <meta property="og:description" content="Learn how I built a voice AI system that 3x'd qualified lead volume for an MCA lender using Retell, Make.com, and HubSpot. Full technical breakdown inside.">
+  <meta property="og:description" content="Learn how I built a voice AI system that 3x'd qualified lead volume for a specialty finance lender using Retell, Make.com, and HubSpot. Full technical breakdown inside.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://resultantai.com/blog/voice-ai-lead-qualification-system/">
   <meta property="og:site_name" content="ResultantAI">
@@ -14,12 +14,12 @@
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="How I Built a Voice AI System That Qualifies Leads While You Sleep | ResultantAI">
-  <meta name="twitter:description" content="Learn how I built a voice AI system that 3x'd qualified lead volume for an MCA lender using Retell, Make.com, and HubSpot. Full technical breakdown inside.">
+  <meta name="twitter:description" content="Learn how I built a voice AI system that 3x'd qualified lead volume for a specialty finance lender using Retell, Make.com, and HubSpot. Full technical breakdown inside.">
 
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>How I Built a Voice AI System That Qualifies Leads While You Sleep | ResultantAI</title>
-  <meta name="description" content="Learn how I built a voice AI system that 3x'd qualified lead volume for an MCA lender using Retell, Make.com, and HubSpot. Full technical breakdown inside.">
+  <meta name="description" content="Learn how I built a voice AI system that 3x'd qualified lead volume for a specialty finance lender using Retell, Make.com, and HubSpot. Full technical breakdown inside.">
   
   <!-- Open Graph -->
   <meta property="og:title" content="How I Built a Voice AI System That Qualifies Leads While You Sleep">
@@ -337,7 +337,7 @@
       </nav>
       <span class="article-header__category">Voice AI</span>
       <h1 class="article-header__title">How I Built a Voice AI System That Qualifies Leads While You Sleep</h1>
-      <p class="article-header__excerpt">A complete technical breakdown of the outbound voice AI + email automation system I built for an MCA lender. 100-120 calls/hour, 3x qualified lead volume, $0.12 per call.</p>
+      <p class="article-header__excerpt">A complete technical breakdown of the outbound voice AI + email automation system I built for a specialty finance lender. 100-120 calls/hour, 3x qualified lead volume, $0.12 per call.</p>
       <div class="article-header__meta">
         <div class="article-header__author">
           <div class="article-header__author-avatar">CM</div>
@@ -370,7 +370,7 @@
       <div class="tldr-box">
         <div class="tldr-box__title">⚡ TL;DR</div>
         <ul>
-          <li>Built an outbound voice AI + email automation system for an MCA lender</li>
+          <li>Built an outbound voice AI + email automation system for a specialty finance lender</li>
           <li>Handles 100-120 calls/hour with consistent qualification questions</li>
           <li>Reduced document collection time from 5 days to 1.5 days</li>
           <li>3x increase in qualified lead volume without additional headcount</li>
@@ -398,13 +398,13 @@
 
       <h2>The Problem: Manual Lead Qualification Doesn't Scale</h2>
       
-      <p>Jay runs an MCA (Merchant Cash Advance) lending operation. His team was spending 6+ hours daily calling leads, asking the same qualification questions:</p>
+      <p>Jay runs a specialty finance lending operation. His team was spending 6+ hours daily calling leads, asking the same qualification questions:</p>
       
       <ul>
         <li>How long have you been in business?</li>
         <li>What's your average monthly revenue?</li>
         <li>How much funding are you looking for?</li>
-        <li>Do you have any existing merchant cash advances?</li>
+        <li>Do you have any existing advances outstanding?</li>
       </ul>
       
       <p>At $25/hour for a caller doing 15-20 calls/hour, each qualified lead was costing $8-12 in labor alone. And the bigger problem was <strong>inconsistency</strong> - different reps captured data differently, creating chaos in the CRM.</p>
@@ -449,7 +449,7 @@
           </div>
           <span class="code-block__lang">prompt.txt</span>
         </div>
-        <pre><code><span class="comment"># MCA Lead Qualification Agent</span>
+        <pre><code><span class="comment"># Lead Qualification Agent</span>
 
 <span class="keyword">ROLE:</span> <span class="string">You are Sarah, a funding specialist.</span>
 <span class="keyword">OBJECTIVE:</span> <span class="string">Qualify business owners for MCAs.</span>

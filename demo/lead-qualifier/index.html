@@ -799,7 +799,7 @@
                             <div class="decision-summary">
                                 <h3 id="leadName">Sarah Mitchell</h3>
                                 <div class="decision-status qualified" id="decisionStatus">
-                                    <span>✓</span> Qualified — Route to Sales
+                                    <span>✓</span> Qualified, Route to Sales
                                 </div>
                             </div>
                         </div>
@@ -810,7 +810,7 @@
                                 <span>🧠</span> AI Reasoning
                             </div>
                             <div class="reasoning-text" id="reasoningText">
-                                <span class="highlight">QUALIFIED</span> — Strong signals across multiple criteria. 
+                                <span class="highlight">QUALIFIED</span>, Strong signals across multiple criteria. 
                                 <span class="highlight">Decision-maker confirmed</span> (VP-level title indicates authority). 
                                 <span class="highlight">Budget aligned</span> ($5K-$15K matches typical automation project scope). 
                                 <span class="highlight">Urgency present</span> (ASAP timeline + specific pain point articulated). 
@@ -1068,16 +1068,16 @@
             if (qual.qualified) {
                 scoreBadge.className = 'score-badge qualified';
                 status.className = 'decision-status qualified';
-                status.innerHTML = '<span>✓</span> Qualified — Route to Sales';
+                status.innerHTML = '<span>✓</span> Qualified, Route to Sales';
             } else {
                 scoreBadge.className = 'score-badge unqualified';
                 status.className = 'decision-status unqualified';
-                status.innerHTML = '<span>○</span> Nurture — Needs Development';
+                status.innerHTML = '<span>○</span> Nurture, Needs Development';
             }
 
             // Update reasoning
             const statusWord = qual.qualified ? '<span class="highlight">QUALIFIED</span>' : '<span class="concern">NURTURE</span>';
-            reasoning.innerHTML = statusWord + ' — ' + qual.reasons.join('. ') + '.';
+            reasoning.innerHTML = statusWord + ', ' + qual.reasons.join('. ') + '.';
 
             // Update criteria grid
             criteriaGrid.innerHTML = `

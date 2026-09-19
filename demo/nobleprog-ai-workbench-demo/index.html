@@ -1143,17 +1143,17 @@
 
             if (roiScore >= 70) {
                 recommendation.className = 'recommendation high';
-                recommendationTitle.textContent = '🟢 HIGH PRIORITY – Strong AI Candidate';
+                recommendationTitle.textContent = '🟢 HIGH PRIORITY - Strong AI Candidate';
                 recommendationText.textContent = `This opportunity has excellent ROI potential. Annual cost of $${annualCost.toLocaleString()} and high consistency (${consistency}/10) make this ideal for AI automation. Expected payback < 6 months.`;
                 workbenchData.recommendation = 'HIGH PRIORITY';
             } else if (roiScore >= 40) {
                 recommendation.className = 'recommendation medium';
-                recommendationTitle.textContent = '🟡 WORTH EXPLORING – Moderate Fit';
+                recommendationTitle.textContent = '🟡 WORTH EXPLORING - Moderate Fit';
                 recommendationText.textContent = `This opportunity shows moderate ROI potential. Annual cost of $${annualCost.toLocaleString()} with consistency score of ${consistency}/10. Pilot recommended to validate feasibility.`;
                 workbenchData.recommendation = 'WORTH EXPLORING';
             } else {
                 recommendation.className = 'recommendation low';
-                recommendationTitle.textContent = '🔴 DEPRIORITIZE – Low ROI';
+                recommendationTitle.textContent = '🔴 DEPRIORITIZE - Low ROI';
                 recommendationText.textContent = `This opportunity has limited ROI potential. Annual cost of $${annualCost.toLocaleString()} with low consistency (${consistency}/10) suggests AI may not be cost-effective. Focus on higher-priority opportunities first.`;
                 workbenchData.recommendation = 'DEPRIORITIZE';
             }
