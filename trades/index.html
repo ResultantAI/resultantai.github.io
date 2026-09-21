@@ -130,7 +130,7 @@
     .hero__badge { display: inline-flex; align-items: center; gap: 8px; background: var(--accent-subtle); border: 1px solid rgba(14,165,233,0.2); color: var(--accent); font-size: 13px; font-weight: 600; padding: 8px 16px; border-radius: var(--radius-full); margin-bottom: 24px; font-family: var(--font-mono); }
     .hero__badge-dot { width: 6px; height: 6px; background: var(--accent); border-radius: 50%; animation: pulse 2s infinite; }
     @keyframes pulse { 0%,100%{opacity:1}50%{opacity:0.4} }
-    .hero__stats-pills { display: flex; gap: 12px; margin-bottom: 32px; flex-wrap: wrap; }
+    .hero__stats-pills { display: flex; gap: 12px; margin-top: 36px; margin-bottom: 0; flex-wrap: wrap; }
     .hero__stat-pill { background: var(--bg-card); border: 1px solid var(--border); color: var(--text-secondary); font-size: 13px; font-weight: 500; padding: 10px 16px; border-radius: var(--radius-full); font-family: var(--font-mono); }
     .hero__title { font-size: clamp(42px, 7vw, 72px); font-weight: 800; letter-spacing: -0.04em; line-height: 1.1; margin-bottom: 28px; }
     .hero__title .accent { background: var(--gradient-accent); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
@@ -281,11 +281,6 @@
         HVAC · Plumbing · Electrical · Roofing · Landscaping · Materials and Logistics
       </div>
 
-      <div class="hero__stats-pills">
-        <div class="hero__stat-pill">Fixed fee, from $5,000</div>
-        <div class="hero__stat-pill">Two to four weeks</div>
-        <div class="hero__stat-pill">Documented, you own it</div>
-      </div>
 
       <h1 class="hero__title">
         <span class="accent">Paper, phones and follow-up</span><br>
@@ -302,6 +297,11 @@
         <a href="#proof" class="btn btn--ghost">
           See the work
         </a>
+      </div>
+      <div class="hero__stats-pills">
+        <div class="hero__stat-pill">Fixed fee, from $5,000</div>
+        <div class="hero__stat-pill">Two to four weeks</div>
+        <div class="hero__stat-pill">Documented, you own it</div>
       </div>
     </div>
   </div>

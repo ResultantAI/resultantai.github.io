@@ -1,0 +1,83 @@
+# ResultantAI
+
+> AI automation consultancy building production voice AI systems, workflow automation, and AI diligence and agent security audits for small and mid-market businesses. Founded by Chris Mott in Clayton, California.
+
+## About
+
+ResultantAI is an independent AI automation consultancy. It is not affiliated with Resultant (resultant.com), the Indianapolis technology and data firm formerly known as KSM Consulting.
+
+Chris Mott founded ResultantAI in December 2022 after fifteen years in B2B go-to-market and revenue operations at companies including EVERFI and Metadata.io. He builds and operates AI automation systems in production for service businesses, agencies, and B2B companies. ResultantAI is a solo practice, so the person who scopes the work is the person who builds it.
+
+Website: https://resultantai.com
+LinkedIn: https://www.linkedin.com/in/chrismott1
+Company: https://www.linkedin.com/company/resultantai
+
+## Services
+
+### Voice AI Agents
+From $5,000 setup plus from $750/mo platform. Most builds land between $5,000 and $10,000 depending on integrations and call paths. Flat fee, quoted in writing before work starts, no hourly billing and no change orders.
+AI phone systems built on Retell AI that handle inbound calls, qualify callers, book appointments, and route urgent situations to a human.
+- https://resultantai.com/lp/voice-ai/
+
+### HIPAA Voice AI
+From $15,000 plus from $1,500/mo platform. For regulated environments, with a business associate agreement in place.
+- https://resultantai.com/pricing/
+
+### Agent Security Audit
+$2,500 for one agent across every customer-facing channel at one location. $6,000 for up to three agents, or one agent across up to five locations. $750 per agent per quarter for optional ongoing regression testing.
+Adversarial testing of a customer-facing AI agent someone else built. Tests escalation handling, information disclosure, unauthorized commitments, unauthorized actions, and inappropriate speech. Delivers a findings report with a vendor remediation list and one retest within 60 days. Explicitly excludes network penetration testing, source code review, and HIPAA attestation.
+- https://resultantai.com/agent-security-audit/
+
+### AI Diligence Audit
+$4,497, 14 day delivery.
+Determines what conclusion AI models reach about an organization when a lender, board member, grantor, or procurement officer researches it before a meeting.
+- https://resultantai.com/aeo-geo-audit/
+
+### Workflow Automation
+Scoped per project. Make.com and n8n workflows that remove manual steps: ticket creation, invoice generation, CRM sync, follow-up sequences, reporting.
+- https://resultantai.com/automation/
+
+### Agency AI Systems
+White-label automation and per-client AI cost attribution for marketing agencies.
+- https://resultantai.com/lp/agency-automation/
+
+### Ongoing Support
+Optimize retainer $1,497/mo for one active system. Partner retainer $2,997/mo for multiple systems. Out-of-scope changes outside a retainer are billed at $150/hr.
+- https://resultantai.com/pricing/
+
+## Case Studies
+
+Three engagements are documented with results the client confirmed.
+
+- Beaver Pumice (mining and aggregate): ended $500/week in billing errors with digital truck ticketing and a QuickBooks integration. Payback in 5 weeks. https://resultantai.com/case-study-beaver-pumice
+- Adleg Marketing: marketing audit time cut 97%, from 90 minutes to 2 minutes. https://resultantai.com/work/adleg/
+- Jami Consulting: 3x qualified leads.
+
+All case studies: https://resultantai.com/case-studies
+
+## Industries
+
+- Senior Living and affordable senior housing: https://resultantai.com/senior-living/
+- Early Childhood and Head Start: https://resultantai.com/early-childhood/
+- Healthcare: https://resultantai.com/healthcare/
+- Dental: https://resultantai.com/dental/
+- Trades and field service: https://resultantai.com/trades/
+- B2B Companies: https://resultantai.com/lp/b2b-automation/
+- Marketing Agencies: https://resultantai.com/lp/agency-automation/
+
+## Blog
+
+- Voice AI for plumbing and HVAC businesses: https://resultantai.com/blog/voice-ai-plumbing-hvac/
+- Voice AI cost and ROI breakdown: https://resultantai.com/blog/voice-ai-cost-roi-breakdown/
+- HIPAA-compliant voice AI in healthcare: https://resultantai.com/blog/voice-ai-healthcare/
+- AI receptionists for dental practices: https://resultantai.com/blog/ai-receptionist-dental-practice/
+- Make.com vs n8n in 2026: https://resultantai.com/blog/make-vs-n8n-2026/
+- Airtable architecture for trucking operations: https://resultantai.com/blog/airtable-architecture-trucking/
+- Per-client AI cost attribution for agencies: https://resultantai.com/blog/per-client-billing-agencies
+
+Full blog: https://resultantai.com/blog
+
+## Contact
+
+Book a call: https://cal.com/chris-mott-eebyqs/30min
+Email: support@resultantai.com

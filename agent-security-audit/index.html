@@ -139,7 +139,7 @@
     .hero__badge { display: inline-flex; align-items: center; gap: 8px; background: var(--accent-subtle); border: 1px solid rgba(14,165,233,0.2); color: var(--accent); font-size: 13px; font-weight: 600; padding: 8px 16px; border-radius: var(--radius-full); margin-bottom: 24px; font-family: var(--font-mono); }
     .hero__badge-dot { width: 6px; height: 6px; background: var(--accent); border-radius: 50%; animation: pulse 2s infinite; }
     @keyframes pulse { 0%,100%{opacity:1}50%{opacity:0.4} }
-    .hero__stats-pills { display: flex; gap: 12px; margin-bottom: 32px; flex-wrap: wrap; }
+    .hero__stats-pills { display: flex; gap: 12px; margin-top: 36px; margin-bottom: 0; flex-wrap: wrap; }
     .hero__stat-pill { background: var(--bg-card); border: 1px solid var(--border); color: var(--text-secondary); font-size: 13px; font-weight: 500; padding: 10px 16px; border-radius: var(--radius-full); font-family: var(--font-mono); }
     .hero__title { font-size: clamp(42px, 7vw, 72px); font-weight: 800; letter-spacing: -0.04em; line-height: 1.1; margin-bottom: 28px; }
     .hero__title .accent { background: var(--gradient-accent); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
@@ -244,7 +244,20 @@
     .nav-dropdown:hover .nav-dropdown__menu { opacity: 1; visibility: visible; }
     .nav-dropdown__item { display: block; padding: 10px 14px; border-radius: 6px; font-size: 14px; color: var(--text-secondary); transition: all var(--transition); }
     .nav-dropdown__item:hover { background: var(--bg-card); color: var(--accent); }
-  </style>
+  
+    /* Pricing tiers. Previously rendered with the FAQ component, which set the
+       price at the same size and weight as a FAQ question and put eight
+       identical cards in a row with the real FAQ below it. */
+    .tiers { margin-top: 56px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; align-items: stretch; }
+    .tier { display: flex; flex-direction: column; background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 32px 28px; }
+    .tier--lead { border-color: var(--accent); background: linear-gradient(180deg, rgba(14,165,233,0.07), var(--bg-card)); }
+    .tier__name { font-family: var(--font-mono); font-size: 12px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 18px; }
+    .tier__price { font-family: var(--font-mono); font-size: 2.6rem; font-weight: 800; line-height: 1; color: var(--accent); margin-bottom: 10px; }
+    .tier__unit { font-size: 13px; color: var(--text-secondary); margin-bottom: 20px; padding-bottom: 20px; border-bottom: 1px solid var(--border); }
+    .tier__body { font-size: 15px; color: var(--text-secondary); line-height: 1.7; margin: 0; }
+    .tier__terms { margin-top: 28px; font-size: 15px; color: var(--text-muted); line-height: 1.7; }
+    @media (max-width: 900px) { .tiers { grid-template-columns: 1fr; } }
+</style>
 </head>
 <body>
 
@@ -290,11 +303,6 @@
         Agent Security Audit &middot; Senior Living and Aging Services
       </div>
 
-      <div class="hero__stats-pills">
-        <div class="hero__stat-pill">One agent, every channel it answers on</div>
-        <div class="hero__stat-pill">Ten business days to report</div>
-        <div class="hero__stat-pill">Flat price, never hourly</div>
-      </div>
 
       <h1 class="hero__title">
         <span class="accent">Nobody has ever tried to break</span><br>
@@ -311,6 +319,11 @@
         <a href="#tested" class="btn btn--ghost">
           See what gets tested
         </a>
+      </div>
+      <div class="hero__stats-pills">
+        <div class="hero__stat-pill">One agent, every channel it answers on</div>
+        <div class="hero__stat-pill">Ten business days to report</div>
+        <div class="hero__stat-pill">Flat price, never hourly</div>
       </div>
     </div>
   </div>
@@ -419,24 +432,30 @@
       <h2 class="section-title">Flat, fixed, and narrower than you expect</h2>
       <p class="section-subtitle">No network or infrastructure penetration testing. No source code review. No HIPAA assessment or attestation. No legal opinion. No access to your electronic health record, your CRM, or any system other than the agent a stranger can already reach. No certificate, no seal, and no passing grade. You are buying a test, not an endorsement.</p>
     </div>
-    <div class="faq-list reveal">
-      <div class="faq-item">
-        <div class="faq-q">Single Agent &nbsp;&middot;&nbsp; $2,500</div>
-        <div class="faq-a">One agent, every customer-facing channel it answers on, one community. All five areas, the full report, and one retest.</div>
+    <div class="tiers reveal">
+      <div class="tier">
+        <div class="tier__name">Single Agent</div>
+        <div class="tier__price">$2,500</div>
+        <div class="tier__unit">One agent &middot; one community</div>
+        <p class="tier__body">Every customer-facing channel that agent answers on. All five areas, the full report, and one retest.</p>
       </div>
-      <div class="faq-item">
-        <div class="faq-q">Multi-Agent &nbsp;&middot;&nbsp; $6,000</div>
-        <div class="faq-a">Up to three distinct agents, or one agent as deployed across up to five communities. Adds cross agent consistency findings, meaning every place two of your own agents give a different answer to the same question.</div>
+
+      <div class="tier tier--lead">
+        <div class="tier__name">Multi-Agent</div>
+        <div class="tier__price">$6,000</div>
+        <div class="tier__unit">Up to three agents, or five communities</div>
+        <p class="tier__body">Adds cross agent consistency findings, meaning every place two of your own agents give a different answer to the same question.</p>
       </div>
-      <div class="faq-item">
-        <div class="faq-q">Quarterly Watch &nbsp;&middot;&nbsp; $750 per agent per quarter</div>
-        <div class="faq-a">Optional. Vendors push prompt changes, swap models and add integrations without telling you. An audit is true on the day it was run. This re-runs the standing test set and reports what changed.</div>
-      </div>
-      <div class="faq-item">
-        <div class="faq-q">Ten business days, quoted in writing before anything starts</div>
-        <div class="faq-a">No hourly billing and no change orders. The test window spans at least one evening and one weekend, because the escalation gap is an after hours problem.</div>
+
+      <div class="tier">
+        <div class="tier__name">Quarterly Watch</div>
+        <div class="tier__price">$750</div>
+        <div class="tier__unit">Per agent, per quarter &middot; optional</div>
+        <p class="tier__body">Vendors push prompt changes, swap models and add integrations without telling you. An audit is true on the day it was run. This re-runs the standing test set and reports what changed.</p>
       </div>
     </div>
+
+    <p class="tier__terms reveal">Ten business days from signed authorization to delivered report, quoted in writing before anything starts. Flat fee, no hourly billing and no change orders. The test window spans at least one evening and one weekend, because the escalation gap is an after hours problem.</p>
   </div>
 </section>
 
