@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" width="1600" height="900" role="img" aria-label="Adleg Marketing: prospect audit time cut from 90 minutes to 2 minutes">
+  <rect width="1600" height="900" fill="#151d2e"/>
+  <rect x="0.5" y="0.5" width="1599" height="899" fill="none" stroke="#1e293b"/>
+
+  <text x="80" y="120" font-family="ui-monospace,'SF Mono',SFMono-Regular,Menlo,Consolas,monospace" font-size="34" letter-spacing="6" fill="#64748b">ADLEG MARKETING</text>
+  <line x1="80" y1="164" x2="1520" y2="164" stroke="#1e293b" stroke-width="2"/>
+
+  <text x="80" y="520" font-family="ui-monospace,'SF Mono',SFMono-Regular,Menlo,Consolas,monospace" font-size="190" font-weight="700" fill="#94a3b8" opacity="0.62">90</text>
+  <text x="80" y="580" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif" font-size="38" fill="#64748b">minutes per audit</text>
+
+  <g stroke="#0ea5e9" stroke-width="7" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <line x1="700" y1="470" x2="890" y2="470"/>
+    <path d="M838 424 L888 470 L838 516"/>
+  </g>
+
+  <text x="950" y="520" font-family="ui-monospace,'SF Mono',SFMono-Regular,Menlo,Consolas,monospace" font-size="190" font-weight="800" fill="#0ea5e9">2</text>
+  <text x="950" y="580" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif" font-size="38" fill="#94a3b8">minutes per audit</text>
+
+  <line x1="80" y1="700" x2="1520" y2="700" stroke="#1e293b" stroke-width="2"/>
+  <text x="80" y="775" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif" font-size="36" fill="#94a3b8">Prospect audit built by hand, rebuilt as an automated report.</text>
+</svg>

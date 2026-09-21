@@ -45,7 +45,7 @@
       --border-light: #334155;
       --text-primary: #ffffff;
       --text-secondary: #94a3b8;
-      --text-muted: #64748b;
+      --text-muted: #8593a8;
       --accent: #0ea5e9;
       --accent-light: #38bdf8;
       --gradient-accent: linear-gradient(135deg, #0ea5e9 0%, #38bdf8 100%);
@@ -478,6 +478,25 @@
 .nav-dropdown:hover .nav-dropdown__menu, .nav-dropdown:focus-within .nav-dropdown__menu { opacity: 1; visibility: visible; }
 .nav-dropdown__item { display: block; padding: 10px 14px; border-radius: 6px; font-size: 14px; color: var(--text-secondary, #94a3b8); text-decoration: none; transition: background 0.2s ease, color 0.2s ease; }
 .nav-dropdown__item:hover { background: var(--bg-secondary, #0f172a); color: var(--accent, #0ea5e9); }
+
+    /* Mobile nav. Measured at 390px the link group is 396px wide, which either
+       overflows the viewport or wraps the bar to 122px. Below 860px the nav is
+       the logo and the one action that matters; full navigation is in the
+       footer. No JS, because the existing hamburgers were never wired up. */
+    @media (max-width: 860px) {
+      .nav__links > *:not(.nav__cta),
+      .nav__group > *:not(.nav__cta),
+      .header__nav > *:not(.header__cta) { display: none !important; }
+      .nav-dropdown__menu { display: none !important; }
+      .nav__cta, .header__cta { min-height: 44px; display: inline-flex !important;
+        align-items: center; justify-content: center; }
+      .footer__link { display: inline-block; padding: 7px 0; }
+    }
+
+    /* A flex item defaults to min-width:auto and will not shrink below its
+       content, so .container inside the flex .hero blew out past the viewport
+       on a phone. Same family as the grid minmax(0,1fr) fix. */
+    .hero > .container, .hero > * { min-width: 0; }
 </style>
   <script type="application/ld+json">
   {
@@ -507,7 +526,7 @@
   <nav>
     <div class="container" style="display: flex; align-items: center; justify-content: space-between; gap: 24px;">
       <a href="/" class="nav__logo" style="text-decoration: none;">Resultant<span>AI</span></a>
-      <div style="display: flex; gap: 24px; align-items: center;">
+      <div class="nav__group" style="display: flex; gap: 24px; align-items: center;">
         <div class="nav-dropdown">
           <div class="nav-dropdown__toggle" style="color: var(--text-secondary); text-decoration: none; font-size: 0.9rem;">Industries<svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" style="margin-left:4px"><path d="M3 4.5l3 3 3-3"/></svg></div>
           <div class="nav-dropdown__menu">
@@ -530,7 +549,7 @@
         <a href="/case-studies" style="color: var(--text-secondary); text-decoration: none; font-size: 0.9rem;">Work</a>
         <a href="/pricing/" style="color: var(--text-secondary); text-decoration: none; font-size: 0.9rem;">Pricing</a>
         <a href="/blog" style="color: var(--text-secondary); text-decoration: none; font-size: 0.9rem;">Blog</a>
-        <a href="https://cal.com/chris-mott-eebyqs/30min" style="background: var(--accent); color: #000; padding: 10px 20px; border-radius: 8px; font-weight: 600; text-decoration: none; font-size: 0.9rem;">Book a Call</a>
+        <a class="nav__cta" href="https://cal.com/chris-mott-eebyqs/30min" style="background: var(--accent); color: #000; padding: 10px 20px; border-radius: 8px; font-weight: 600; text-decoration: none; font-size: 0.9rem;">Book a Call</a>
       </div>
     </div>
   </nav>
@@ -607,7 +626,7 @@
     </section>
 
     <!-- Solution -->
-    <section class="section" style="background: var(--bg-secondary); margin: 0 -100vw; padding-left: 100vw; padding-right: 100vw;">
+    <section class="section" style="background: var(--bg-secondary); margin-inline: calc(50% - 50vw); padding-inline: calc(50vw - 50%);">
       <div class="container container--narrow">
         <div class="section__label">The Solution</div>
         <h2>A 6-Platform Automation That Runs Itself</h2>

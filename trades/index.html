@@ -76,7 +76,7 @@
       --border-light: #334155;
       --text-primary: #ffffff;
       --text-secondary: #94a3b8;
-      --text-muted: #64748b;
+      --text-muted: #8593a8;
       --accent: #0ea5e9;
       --accent-light: #38bdf8;
       --accent-subtle: rgba(14, 165, 233, 0.08);
@@ -130,7 +130,7 @@
     .hero__badge { display: inline-flex; align-items: center; gap: 8px; background: var(--accent-subtle); border: 1px solid rgba(14,165,233,0.2); color: var(--accent); font-size: 13px; font-weight: 600; padding: 8px 16px; border-radius: var(--radius-full); margin-bottom: 24px; font-family: var(--font-mono); }
     .hero__badge-dot { width: 6px; height: 6px; background: var(--accent); border-radius: 50%; animation: pulse 2s infinite; }
     @keyframes pulse { 0%,100%{opacity:1}50%{opacity:0.4} }
-    .hero__stats-pills { display: flex; gap: 12px; margin-bottom: 32px; flex-wrap: wrap; }
+    .hero__stats-pills { display: flex; gap: 12px; margin-top: 36px; margin-bottom: 0; flex-wrap: wrap; }
     .hero__stat-pill { background: var(--bg-card); border: 1px solid var(--border); color: var(--text-secondary); font-size: 13px; font-weight: 500; padding: 10px 16px; border-radius: var(--radius-full); font-family: var(--font-mono); }
     .hero__title { font-size: clamp(42px, 7vw, 72px); font-weight: 800; letter-spacing: -0.04em; line-height: 1.1; margin-bottom: 28px; }
     .hero__title .accent { background: var(--gradient-accent); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
@@ -235,7 +235,26 @@
     .nav-dropdown:hover .nav-dropdown__menu { opacity: 1; visibility: visible; }
     .nav-dropdown__item { display: block; padding: 10px 14px; border-radius: 6px; font-size: 14px; color: var(--text-secondary); transition: all var(--transition); }
     .nav-dropdown__item:hover { background: var(--bg-card); color: var(--accent); }
-  </style>
+  
+    /* Mobile nav. Measured at 390px the link group is 396px wide, which either
+       overflows the viewport or wraps the bar to 122px. Below 860px the nav is
+       the logo and the one action that matters; full navigation is in the
+       footer. No JS, because the existing hamburgers were never wired up. */
+    @media (max-width: 860px) {
+      .nav__links > *:not(.nav__cta),
+      .nav__group > *:not(.nav__cta),
+      .header__nav > *:not(.header__cta) { display: none !important; }
+      .nav-dropdown__menu { display: none !important; }
+      .nav__cta, .header__cta { min-height: 44px; display: inline-flex !important;
+        align-items: center; justify-content: center; }
+      .footer__link { display: inline-block; padding: 7px 0; }
+    }
+
+    /* A flex item defaults to min-width:auto and will not shrink below its
+       content, so .container inside the flex .hero blew out past the viewport
+       on a phone. Same family as the grid minmax(0,1fr) fix. */
+    .hero > .container, .hero > * { min-width: 0; }
+</style>
 </head>
 <body>
 
@@ -245,31 +264,29 @@
 <!-- NAV -->
 <nav style="position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 16px 24px; background: rgba(10,15,26,0.9); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between;">
   <a href="/" style="font-size: 1.125rem; font-weight: 700; color: var(--text-primary); text-decoration: none;">Resultant<span style="color: var(--accent);">AI</span></a>
-  <div style="display: flex; gap: 32px; align-items: center;">
+  <div class="nav__group" style="display: flex; gap: 32px; align-items: center;">
     <div class="nav-dropdown">
-      <div class="nav-dropdown__toggle" style="color: var(--text-secondary); font-size: 0.9rem;">
-        Industries
-        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 4.5l3 3 3-3"/></svg>
-      </div>
-      <div class="nav-dropdown__menu">
-        <a href="/senior-living/" class="nav-dropdown__item">Senior Living</a>
-        <a href="/early-childhood/" class="nav-dropdown__item">Early Childhood</a>
-        <a href="/healthcare/" class="nav-dropdown__item">Healthcare</a>
-        <a href="/dental/" class="nav-dropdown__item">Dental</a>
-        <a href="/trades/" class="nav-dropdown__item" style="color: var(--accent); font-weight: 600;">Trades</a>
-      </div>
-    </div>
-    <div class="nav-dropdown">
-      <div class="nav-dropdown__toggle" style="color: var(--text-secondary); font-size: 0.9rem;">
-        Solutions
-        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 4.5l3 3 3-3"/></svg>
-      </div>
-      <div class="nav-dropdown__menu">
-        <a href="/voice-ai/" class="nav-dropdown__item">Voice AI</a>
-        <a href="/automation/" class="nav-dropdown__item">Automation</a>
-      </div>
-    </div>
-    <a href="/blog" style="color: var(--text-secondary); text-decoration: none; font-size: 0.9rem;">Blog</a>
+          <div class="nav-dropdown__toggle" style="color: var(--text-secondary); text-decoration: none; font-size: 0.9rem;">Industries<svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" style="margin-left:4px"><path d="M3 4.5l3 3 3-3"/></svg></div>
+          <div class="nav-dropdown__menu">
+            <a href="/senior-living/" class="nav-dropdown__item">Senior Living</a>
+            <a href="/early-childhood/" class="nav-dropdown__item">Early Childhood</a>
+            <a href="/healthcare/" class="nav-dropdown__item">Healthcare</a>
+            <a href="/dental/" class="nav-dropdown__item">Dental</a>
+            <a href="/trades/" class="nav-dropdown__item" style="color: var(--accent); font-weight: 600;">Trades</a>
+          </div>
+        </div>
+        <div class="nav-dropdown">
+          <div class="nav-dropdown__toggle" style="color: var(--text-secondary); text-decoration: none; font-size: 0.9rem;">Solutions<svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" style="margin-left:4px"><path d="M3 4.5l3 3 3-3"/></svg></div>
+          <div class="nav-dropdown__menu">
+            <a href="/lp/voice-ai/" class="nav-dropdown__item">Voice AI</a>
+            <a href="/automation/" class="nav-dropdown__item">Automation</a>
+            <a href="/agent-security-audit/" class="nav-dropdown__item">Agent Security Audit</a>
+            <a href="/aeo-geo-audit/" class="nav-dropdown__item">AEO/GEO Audit</a>
+          </div>
+        </div>
+        <a href="/case-studies" style="color: var(--text-secondary); text-decoration: none; font-size: 0.9rem;">Work</a>
+        <a href="/pricing/" style="color: var(--text-secondary); text-decoration: none; font-size: 0.9rem;">Pricing</a>
+        <a href="/blog" style="color: var(--text-secondary); text-decoration: none; font-size: 0.9rem;">Blog</a>
   </div>
   <a href="https://cal.com/chris-mott-eebyqs/30min" style="background: var(--accent); color: #000; padding: 10px 20px; border-radius: 8px; font-weight: 600; text-decoration: none; font-size: 0.9rem;">Book a Call</a>
 </nav>
@@ -283,11 +300,6 @@
         HVAC · Plumbing · Electrical · Roofing · Landscaping · Materials and Logistics
       </div>
 
-      <div class="hero__stats-pills">
-        <div class="hero__stat-pill">Fixed fee, from $5,000</div>
-        <div class="hero__stat-pill">Two to four weeks</div>
-        <div class="hero__stat-pill">Documented, you own it</div>
-      </div>
 
       <h1 class="hero__title">
         <span class="accent">Paper, phones and follow-up</span><br>
@@ -304,6 +316,11 @@
         <a href="#proof" class="btn btn--ghost">
           See the work
         </a>
+      </div>
+      <div class="hero__stats-pills">
+        <div class="hero__stat-pill">Fixed fee, from $5,000</div>
+        <div class="hero__stat-pill">Two to four weeks</div>
+        <div class="hero__stat-pill">Documented, you own it</div>
       </div>
     </div>
   </div>
@@ -422,23 +439,23 @@
         <div class="footer__links">
           <a href="/healthcare/" class="footer__link">Healthcare</a>
           <a href="/dental/" class="footer__link">Dental</a>
-          <a href="/field-service-automation/" class="footer__link">Field Service</a>
+          <a href="/trades/" class="footer__link">Field Service</a>
         </div>
       </div>
       <div class="footer__column">
         <h4>Solutions</h4>
         <div class="footer__links">
-          <a href="/voice-ai/" class="footer__link">Voice AI</a>
+          <a href="/lp/voice-ai/" class="footer__link">Voice AI</a>
           <a href="/automation/" class="footer__link">Automation</a>
-          <a href="/healthcare-voice-ai" class="footer__link">Healthcare Voice AI</a>
-          <a href="/healthcare-scheduling" class="footer__link">Smart Scheduling</a>
+          <a href="/healthcare/" class="footer__link">Healthcare Voice AI</a>
+          <a href="/senior-living/" class="footer__link">Smart Scheduling</a>
         </div>
       </div>
       <div class="footer__column">
         <h4>Company</h4>
         <div class="footer__links">
           <a href="/blog" class="footer__link">Blog</a>
-          <a href="/work/" class="footer__link">Case Studies</a>
+          <a href="/case-studies" class="footer__link">Case Studies</a>
           <a href="/faq/" class="footer__link">FAQ</a>
           <a href="mailto:support@resultantai.com" class="footer__link">Contact</a>
         </div>

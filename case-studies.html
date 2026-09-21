@@ -37,6 +37,34 @@
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <link rel="icon" type="image/png" href="/favicon.png">
 
+<style>
+/* canonical nav dropdown, injected by unify-nav.py */
+.nav-dropdown { position: relative; }
+.nav-dropdown__toggle { display: inline-flex; align-items: center; gap: 4px; cursor: pointer; }
+.nav-dropdown__menu { position: absolute; top: calc(100% + 12px); left: 0; background: var(--bg-card, #151d2e); border: 1px solid var(--border, #1e293b); border-radius: 10px; padding: 8px; min-width: 210px; opacity: 0; visibility: hidden; transition: opacity 0.2s ease, visibility 0.2s ease; box-shadow: 0 8px 24px rgba(0,0,0,0.4); z-index: 200; }
+.nav-dropdown:hover .nav-dropdown__menu, .nav-dropdown:focus-within .nav-dropdown__menu { opacity: 1; visibility: visible; }
+.nav-dropdown__item { display: block; padding: 10px 14px; border-radius: 6px; font-size: 14px; color: var(--text-secondary, #94a3b8); text-decoration: none; transition: background 0.2s ease, color 0.2s ease; }
+.nav-dropdown__item:hover { background: var(--bg-secondary, #0f172a); color: var(--accent, #0ea5e9); }
+
+    /* Mobile nav. Measured at 390px the link group is 396px wide, which either
+       overflows the viewport or wraps the bar to 122px. Below 860px the nav is
+       the logo and the one action that matters; full navigation is in the
+       footer. No JS, because the existing hamburgers were never wired up. */
+    @media (max-width: 860px) {
+      .nav__links > *:not(.nav__cta),
+      .nav__group > *:not(.nav__cta),
+      .header__nav > *:not(.header__cta) { display: none !important; }
+      .nav-dropdown__menu { display: none !important; }
+      .nav__cta, .header__cta { min-height: 44px; display: inline-flex !important;
+        align-items: center; justify-content: center; }
+      .footer__link { display: inline-block; padding: 7px 0; }
+    }
+
+    /* A flex item defaults to min-width:auto and will not shrink below its
+       content, so .container inside the flex .hero blew out past the viewport
+       on a phone. Same family as the grid minmax(0,1fr) fix. */
+    .hero > .container, .hero > * { min-width: 0; }
+</style>
 </head>
 <body>
   <!-- Floating Orbs -->
@@ -48,14 +76,31 @@
     <div class="nav__inner">
       <a href="/" class="nav__logo">Resultant<span>AI</span></a>
       <div class="nav__links">
-        <a href="/" class="nav__link">Home</a>
-        <a href="/lp/b2b-automation/" class="nav__link">B2B Automation</a>
-        <a href="/lp/voice-ai/" class="nav__link">Voice AI</a>
+        <div class="nav-dropdown">
+          <div class="nav-dropdown__toggle nav__link">Industries<svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" style="margin-left:4px"><path d="M3 4.5l3 3 3-3"/></svg></div>
+          <div class="nav-dropdown__menu">
+            <a href="/senior-living/" class="nav-dropdown__item">Senior Living</a>
+            <a href="/early-childhood/" class="nav-dropdown__item">Early Childhood</a>
+            <a href="/healthcare/" class="nav-dropdown__item">Healthcare</a>
+            <a href="/dental/" class="nav-dropdown__item">Dental</a>
+            <a href="/trades/" class="nav-dropdown__item">Trades</a>
+          </div>
+        </div>
+        <div class="nav-dropdown">
+          <div class="nav-dropdown__toggle nav__link">Solutions<svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" style="margin-left:4px"><path d="M3 4.5l3 3 3-3"/></svg></div>
+          <div class="nav-dropdown__menu">
+            <a href="/lp/voice-ai/" class="nav-dropdown__item">Voice AI</a>
+            <a href="/automation/" class="nav-dropdown__item">Automation</a>
+            <a href="/agent-security-audit/" class="nav-dropdown__item">Agent Security Audit</a>
+            <a href="/aeo-geo-audit/" class="nav-dropdown__item">AEO/GEO Audit</a>
+          </div>
+        </div>
+        <a href="/case-studies" class="nav__link">Work</a>
         <a href="/pricing/" class="nav__link">Pricing</a>
         <a href="/blog" class="nav__link">Blog</a>
-        <a href="/faq/" class="nav__link">FAQ</a>
+        <a href="https://cal.com/chris-mott-eebyqs/30min" class="nav__cta">Book a Call</a>
       </div>
-      <a href="https://cal.com/chris-mott-eebyqs/30min" class="nav__cta">Book a Call</a>
+      
     </div>
   </nav>
 
@@ -91,7 +136,7 @@
 
         <!-- Hero Image -->
         <div style="aspect-ratio: 16/9; background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); border-radius: var(--radius-lg); overflow: hidden; margin-bottom: var(--space-lg); border: 1px solid var(--border);">
-          <img src="images/case-studies/beaver-pumice-tablet.png" alt="Beaver Pumice - Digital ticketing tablet interface showing instant ticket generation" style="width: 100%; height: 100%; object-fit: cover;">
+          <img src="images/case-studies/beaver-pumice-tickets.svg" alt="Beaver Pumice: roughly $500 a week in lost paper tickets reduced to zero after digital ticketing" style="width: 100%; height: 100%; object-fit: contain;">
         </div>
 
         <!-- Results Grid -->
@@ -196,12 +241,12 @@
         <h2 style="font-size: 2.5rem; margin-bottom: var(--space-sm);">Adleg Marketing</h2>
 
         <p style="font-size: 1.25rem; color: var(--text-secondary); margin-bottom: var(--space-lg); line-height: 1.7;">
-          Marketing audit automation that cut audit time from 90 minutes to 2 minutes. 97% time savings. 10X output increase.
+          Marketing audit automation that cut audit time from 90 minutes to 2 minutes. Output went from 3 audits a week to 40.
         </p>
 
         <!-- Hero Image -->
         <div style="aspect-ratio: 16/9; background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); border-radius: var(--radius-lg); overflow: hidden; margin-bottom: var(--space-lg); border: 1px solid var(--border);">
-          <img src="images/case-studies/adleg-before-after.svg" alt="Adleg Marketing - Before/after audit comparison showing 90 min to 2 min improvement" style="width: 100%; height: 100%; object-fit: cover;">
+          <img src="images/case-studies/adleg-audit-time.svg" alt="Adleg Marketing: prospect audit time cut from 90 minutes to 2 minutes" style="width: 100%; height: 100%; object-fit: contain;">
         </div>
 
         <!-- Results Grid -->
@@ -213,9 +258,9 @@
           </div>
 
           <div style="text-align: center; padding: var(--space-md); background: var(--bg-secondary); border-radius: var(--radius-lg); border: 1px solid var(--border);">
-            <div style="font-size: 3rem; font-weight: 900; color: var(--accent); font-family: var(--font-mono); margin-bottom: 8px;">10X</div>
-            <div style="color: var(--text-secondary); font-size: 0.95rem;">Output</div>
-            <div style="color: var(--text-muted); font-size: 0.875rem; margin-top: 4px;">Increase</div>
+            <div style="font-size: 3rem; font-weight: 900; color: var(--accent); font-family: var(--font-mono); margin-bottom: 8px;">3 wks</div>
+            <div style="color: var(--text-secondary); font-size: 0.95rem;">Kickoff</div>
+            <div style="color: var(--text-muted); font-size: 0.875rem; margin-top: 4px;">to live</div>
           </div>
 
           <div style="text-align: center; padding: var(--space-md); background: var(--bg-secondary); border-radius: var(--radius-lg); border: 1px solid var(--border);">
@@ -253,7 +298,7 @@
           <h3 style="font-size: 1.5rem; margin-bottom: var(--space-sm); color: var(--accent);">The Results</h3>
           <p style="font-size: 1.125rem; color: var(--text-secondary); line-height: 1.7; margin-bottom: var(--space-md);">
             <strong style="color: var(--accent);">97% time savings</strong> (90 min → 2 min per audit)<br>
-            <strong style="color: var(--accent);">10X output increase</strong> (3 audits/week → 40 audits/week)<br>
+            <strong style="color: var(--accent);">Output up from 3 audits a week to 40</strong><br>
             <strong style="color: var(--accent);">4 clients closed</strong> in first month using faster audit delivery
           </p>
 
@@ -289,7 +334,7 @@
 
         <!-- Hero Image -->
         <div style="aspect-ratio: 16/9; background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); border-radius: var(--radius-lg); overflow: hidden; margin-bottom: var(--space-lg); border: 1px solid var(--border);">
-          <img src="images/case-studies/jami-consulting-workflow.svg" alt="Jami Consulting - AI call workflow dashboard showing outbound qualification system" style="width: 100%; height: 100%; object-fit: cover;">
+          <img src="images/case-studies/specialty-finance-outbound.svg" alt="Specialty finance lender: outbound call volume from 15 to 20 calls a day to 100 to 120 calls an hour" style="width: 100%; height: 100%; object-fit: contain;">
         </div>
 
         <!-- Results Grid -->

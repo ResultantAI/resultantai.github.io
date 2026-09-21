@@ -34,6 +34,9 @@ Export LinkedIn posts.pdf
 
 # Operational scripts
 *.py
+# ...but the Render service runs these two, they must stay tracked
+!server.py
+!chatbot.py
 update_footers.py
 add-ga4-direct.py
 add-tracking.py
@@ -43,10 +46,17 @@ marketing_audit.py
 lead_enrichment.py
 maryland_bill_tracker.py
 mca_qualification.py
-chatbot.py
-server.py
 test_chatbot.py
 
 # macOS
 .DS_Store
 **/.DS_Store
+
+# Internal, tracked-by-mistake
+SYSTEMS_LEDGER.md
+CLAUDE.md
+MIGRATION_PLAN.md
+PHASE1_AUDIT.md
+icp_config.json
+make-blueprint-*.json
+deploy.sh
