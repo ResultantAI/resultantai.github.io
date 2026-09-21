@@ -1,0 +1,201 @@
+<svg width="1600" height="900" viewBox="0 0 1600 900" xmlns="http://www.w3.org/2000/svg">
+  <!-- Dark gradient background -->
+  <defs>
+    <linearGradient id="bgGrad3" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1e293b;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#0f172a;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1600" height="900" fill="url(#bgGrad3)"/>
+
+  <!-- Subtle grid pattern -->
+  <g opacity="0.03">
+    <line x1="0" y1="200" x2="1600" y2="200" stroke="#8b5cf6" stroke-width="1"/>
+    <line x1="0" y1="450" x2="1600" y2="450" stroke="#8b5cf6" stroke-width="1"/>
+    <line x1="0" y1="700" x2="1600" y2="700" stroke="#8b5cf6" stroke-width="1"/>
+    <line x1="400" y1="0" x2="400" y2="900" stroke="#8b5cf6" stroke-width="1"/>
+    <line x1="800" y1="0" x2="800" y2="900" stroke="#8b5cf6" stroke-width="1"/>
+    <line x1="1200" y1="0" x2="1200" y2="900" stroke="#8b5cf6" stroke-width="1"/>
+  </g>
+
+  <!-- Title -->
+  <text x="800" y="70" font-family="'Inter', sans-serif" font-size="36" font-weight="700" fill="#ffffff" text-anchor="middle">
+    AI Outbound Sales Workflow
+  </text>
+  <text x="800" y="110" font-family="'Inter', sans-serif" font-size="18" fill="#64748b" text-anchor="middle">
+    100-120 calls/hour • Automated qualification • Multi-channel follow-up
+  </text>
+
+  <!-- Workflow Steps -->
+
+  <!-- Step 1: Lead List -->
+  <rect x="80" y="180" width="260" height="140" rx="8" fill="#151d2e" opacity="0.9"/>
+  <rect x="80" y="180" width="260" height="40" rx="8" fill="#8b5cf6" opacity="0.2"/>
+  <text x="210" y="207" font-family="'Inter', sans-serif" font-size="16" font-weight="700" fill="#8b5cf6" text-anchor="middle">
+    1. Lead List
+  </text>
+  <text x="100" y="250" font-family="'Inter', sans-serif" font-size="14" fill="#ffffff">
+    Import prospect list
+  </text>
+  <text x="100" y="275" font-family="'Inter', sans-serif" font-size="14" fill="#94a3b8">
+    • Business name
+  </text>
+  <text x="100" y="295" font-family="'Inter', sans-serif" font-size="14" fill="#94a3b8">
+    • Phone number
+  </text>
+
+  <!-- Arrow -->
+  <line x1="340" y1="250" x2="400" y2="250" stroke="#8b5cf6" stroke-width="2"/>
+  <polygon points="400,245 410,250 400,255" fill="#8b5cf6"/>
+
+  <!-- Step 2: AI Voice Agent -->
+  <rect x="420" y="180" width="260" height="140" rx="8" fill="#151d2e" opacity="0.9"/>
+  <rect x="420" y="180" width="260" height="40" rx="8" fill="#8b5cf6" opacity="0.2"/>
+  <text x="550" y="207" font-family="'Inter', sans-serif" font-size="16" font-weight="700" fill="#8b5cf6" text-anchor="middle">
+    2. AI Voice Agent
+  </text>
+  <text x="440" y="250" font-family="'Inter', sans-serif" font-size="14" fill="#ffffff">
+    Automated outbound calls
+  </text>
+  <text x="440" y="275" font-family="'Inter', sans-serif" font-size="14" fill="#10b981">
+    ✓ 100-120 calls/hour
+  </text>
+  <text x="440" y="295" font-family="'Inter', sans-serif" font-size="14" fill="#10b981">
+    ✓ TCPA compliant
+  </text>
+
+  <!-- Arrow -->
+  <line x1="680" y1="250" x2="740" y2="250" stroke="#8b5cf6" stroke-width="2"/>
+  <polygon points="740,245 750,250 740,255" fill="#8b5cf6"/>
+
+  <!-- Step 3: Qualification Logic -->
+  <rect x="760" y="180" width="260" height="140" rx="8" fill="#151d2e" opacity="0.9"/>
+  <rect x="760" y="180" width="260" height="40" rx="8" fill="#8b5cf6" opacity="0.2"/>
+  <text x="890" y="207" font-family="'Inter', sans-serif" font-size="16" font-weight="700" fill="#8b5cf6" text-anchor="middle">
+    3. Qualification
+  </text>
+  <text x="780" y="250" font-family="'Inter', sans-serif" font-size="14" fill="#ffffff">
+    Intelligent routing
+  </text>
+  <text x="780" y="275" font-family="'Inter', sans-serif" font-size="14" fill="#94a3b8">
+    • Interest level
+  </text>
+  <text x="780" y="295" font-family="'Inter', sans-serif" font-size="14" fill="#94a3b8">
+    • Qualification status
+  </text>
+
+  <!-- Arrow -->
+  <line x1="1020" y1="250" x2="1080" y2="250" stroke="#8b5cf6" stroke-width="2"/>
+  <polygon points="1080,245 1090,250 1080,255" fill="#8b5cf6"/>
+
+  <!-- Step 4: CRM Integration -->
+  <rect x="1100" y="180" width="260" height="140" rx="8" fill="#151d2e" opacity="0.9"/>
+  <rect x="1100" y="180" width="260" height="40" rx="8" fill="#8b5cf6" opacity="0.2"/>
+  <text x="1230" y="207" font-family="'Inter', sans-serif" font-size="16" font-weight="700" fill="#8b5cf6" text-anchor="middle">
+    4. CRM Sync
+  </text>
+  <text x="1120" y="250" font-family="'Inter', sans-serif" font-size="14" fill="#ffffff">
+    Auto-update records
+  </text>
+  <text x="1120" y="275" font-family="'Inter', sans-serif" font-size="14" fill="#10b981">
+    ✓ Call recording
+  </text>
+  <text x="1120" y="295" font-family="'Inter', sans-serif" font-size="14" fill="#10b981">
+    ✓ Transcript saved
+  </text>
+
+  <!-- Conditional Paths -->
+  <text x="800" y="380" font-family="'Inter', sans-serif" font-size="20" font-weight="700" fill="#ffffff" text-anchor="middle">
+    Conditional Email Sequences
+  </text>
+
+  <!-- Path 1: Qualified -->
+  <rect x="120" y="420" width="280" height="120" rx="8" fill="#10b981" opacity="0.15"/>
+  <text x="260" y="450" font-family="'Inter', sans-serif" font-size="16" font-weight="700" fill="#10b981" text-anchor="middle">
+    ✓ Qualified
+  </text>
+  <text x="140" y="480" font-family="'Inter', sans-serif" font-size="14" fill="#94a3b8">
+    • Document request email
+  </text>
+  <text x="140" y="502" font-family="'Inter', sans-serif" font-size="14" fill="#94a3b8">
+    • Reminders (Day 1, 3, 5)
+  </text>
+  <text x="140" y="524" font-family="'Inter', sans-serif" font-size="14" fill="#94a3b8">
+    • Hand-off to sales rep
+  </text>
+
+  <!-- Path 2: Objections -->
+  <rect x="440" y="420" width="280" height="120" rx="8" fill="#f59e0b" opacity="0.15"/>
+  <text x="580" y="450" font-family="'Inter', sans-serif" font-size="16" font-weight="700" fill="#f59e0b" text-anchor="middle">
+    ⚠ Objections
+  </text>
+  <text x="460" y="480" font-family="'Inter', sans-serif" font-size="14" fill="#94a3b8">
+    • Objection handling sequence
+  </text>
+  <text x="460" y="502" font-family="'Inter', sans-serif" font-size="14" fill="#94a3b8">
+    • Case study examples
+  </text>
+  <text x="460" y="524" font-family="'Inter', sans-serif" font-size="14" fill="#94a3b8">
+    • Nurture over 30 days
+  </text>
+
+  <!-- Path 3: No Answer -->
+  <rect x="760" y="420" width="280" height="120" rx="8" fill="#3b82f6" opacity="0.15"/>
+  <text x="900" y="450" font-family="'Inter', sans-serif" font-size="16" font-weight="700" fill="#3b82f6" text-anchor="middle">
+    ⊘ No Answer
+  </text>
+  <text x="780" y="480" font-family="'Inter', sans-serif" font-size="14" fill="#94a3b8">
+    • Retry call (3 attempts)
+  </text>
+  <text x="780" y="502" font-family="'Inter', sans-serif" font-size="14" fill="#94a3b8">
+    • Voicemail + email combo
+  </text>
+  <text x="780" y="524" font-family="'Inter', sans-serif" font-size="14" fill="#94a3b8">
+    • LinkedIn outreach
+  </text>
+
+  <!-- Path 4: Incomplete -->
+  <rect x="1080" y="420" width="280" height="120" rx="8" fill="#ef4444" opacity="0.15"/>
+  <text x="1220" y="450" font-family="'Inter', sans-serif" font-size="16" font-weight="700" fill="#ef4444" text-anchor="middle">
+    ✗ Not Qualified
+  </text>
+  <text x="1100" y="480" font-family="'Inter', sans-serif" font-size="14" fill="#94a3b8">
+    • Mark as "Not a fit"
+  </text>
+  <text x="1100" y="502" font-family="'Inter', sans-serif" font-size="14" fill="#94a3b8">
+    • Optional nurture sequence
+  </text>
+  <text x="1100" y="524" font-family="'Inter', sans-serif" font-size="14" fill="#94a3b8">
+    • Re-engage in 6 months
+  </text>
+
+  <!-- Results Box -->
+  <rect x="520" y="600" width="560" height="220" rx="12" fill="#151d2e" opacity="0.95"/>
+  <text x="800" y="640" font-family="'Inter', sans-serif" font-size="24" font-weight="700" fill="#ffffff" text-anchor="middle">
+    System Results
+  </text>
+
+  <g transform="translate(560, 670)">
+    <text x="0" y="0" font-family="'JetBrains Mono', monospace" font-size="36" font-weight="900" fill="#10b981">3X</text>
+    <text x="0" y="25" font-family="'Inter', sans-serif" font-size="14" fill="#64748b">Qualified Leads</text>
+  </g>
+
+  <g transform="translate(800, 670)">
+    <text x="0" y="0" font-family="'JetBrains Mono', monospace" font-size="36" font-weight="900" fill="#10b981">75%</text>
+    <text x="0" y="25" font-family="'Inter', sans-serif" font-size="14" fill="#64748b">Less Manual Time</text>
+  </g>
+
+  <g transform="translate(560, 745)">
+    <text x="0" y="0" font-family="'JetBrains Mono', monospace" font-size="36" font-weight="900" fill="#10b981">1.5d</text>
+    <text x="0" y="25" font-family="'Inter', sans-serif" font-size="14" fill="#64748b">Doc Collection</text>
+    <text x="0" y="42" font-family="'Inter', sans-serif" font-size="12" fill="#64748b">(was 5 days)</text>
+  </g>
+
+  <g transform="translate(800, 745)">
+    <text x="0" y="0" font-family="'JetBrains Mono', monospace" font-size="36" font-weight="900" fill="#10b981">24/7</text>
+    <text x="0" y="25" font-family="'Inter', sans-serif" font-size="14" fill="#64748b">Coverage</text>
+    <text x="0" y="42" font-family="'Inter', sans-serif" font-size="12" fill="#64748b">(was bus. hrs)</text>
+  </g>
+</svg>
