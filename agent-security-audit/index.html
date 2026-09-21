@@ -85,7 +85,7 @@
       --border-light: #334155;
       --text-primary: #ffffff;
       --text-secondary: #94a3b8;
-      --text-muted: #64748b;
+      --text-muted: #8593a8;
       --accent: #0ea5e9;
       --accent-light: #38bdf8;
       --accent-subtle: rgba(14, 165, 233, 0.08);
@@ -257,6 +257,9 @@
     .tier__body { font-size: 15px; color: var(--text-secondary); line-height: 1.7; margin: 0; }
     .tier__terms { margin-top: 28px; font-size: 15px; color: var(--text-muted); line-height: 1.7; }
     @media (max-width: 900px) { .tiers { grid-template-columns: 1fr; } }
+
+    .tier__terms { max-width: 84ch; }
+    .section-subtitle { max-width: 72ch; }
 </style>
 </head>
 <body>
