@@ -45,6 +45,25 @@
 .nav-dropdown:hover .nav-dropdown__menu, .nav-dropdown:focus-within .nav-dropdown__menu { opacity: 1; visibility: visible; }
 .nav-dropdown__item { display: block; padding: 10px 14px; border-radius: 6px; font-size: 14px; color: var(--text-secondary, #94a3b8); text-decoration: none; transition: background 0.2s ease, color 0.2s ease; }
 .nav-dropdown__item:hover { background: var(--bg-secondary, #0f172a); color: var(--accent, #0ea5e9); }
+
+    /* Mobile nav. Measured at 390px the link group is 396px wide, which either
+       overflows the viewport or wraps the bar to 122px. Below 860px the nav is
+       the logo and the one action that matters; full navigation is in the
+       footer. No JS, because the existing hamburgers were never wired up. */
+    @media (max-width: 860px) {
+      .nav__links > *:not(.nav__cta),
+      .nav__group > *:not(.nav__cta),
+      .header__nav > *:not(.header__cta) { display: none !important; }
+      .nav-dropdown__menu { display: none !important; }
+      .nav__cta, .header__cta { min-height: 44px; display: inline-flex !important;
+        align-items: center; justify-content: center; }
+      .footer__link { display: inline-block; padding: 7px 0; }
+    }
+
+    /* A flex item defaults to min-width:auto and will not shrink below its
+       content, so .container inside the flex .hero blew out past the viewport
+       on a phone. Same family as the grid minmax(0,1fr) fix. */
+    .hero > .container, .hero > * { min-width: 0; }
 </style>
 </head>
 <body>
@@ -222,7 +241,7 @@
         <h2 style="font-size: 2.5rem; margin-bottom: var(--space-sm);">Adleg Marketing</h2>
 
         <p style="font-size: 1.25rem; color: var(--text-secondary); margin-bottom: var(--space-lg); line-height: 1.7;">
-          Marketing audit automation that cut audit time from 90 minutes to 2 minutes. 97% time savings. 10X output increase.
+          Marketing audit automation that cut audit time from 90 minutes to 2 minutes. Output went from 3 audits a week to 40.
         </p>
 
         <!-- Hero Image -->
@@ -239,9 +258,9 @@
           </div>
 
           <div style="text-align: center; padding: var(--space-md); background: var(--bg-secondary); border-radius: var(--radius-lg); border: 1px solid var(--border);">
-            <div style="font-size: 3rem; font-weight: 900; color: var(--accent); font-family: var(--font-mono); margin-bottom: 8px;">10X</div>
-            <div style="color: var(--text-secondary); font-size: 0.95rem;">Output</div>
-            <div style="color: var(--text-muted); font-size: 0.875rem; margin-top: 4px;">Increase</div>
+            <div style="font-size: 3rem; font-weight: 900; color: var(--accent); font-family: var(--font-mono); margin-bottom: 8px;">3 wks</div>
+            <div style="color: var(--text-secondary); font-size: 0.95rem;">Kickoff</div>
+            <div style="color: var(--text-muted); font-size: 0.875rem; margin-top: 4px;">to live</div>
           </div>
 
           <div style="text-align: center; padding: var(--space-md); background: var(--bg-secondary); border-radius: var(--radius-lg); border: 1px solid var(--border);">
@@ -279,7 +298,7 @@
           <h3 style="font-size: 1.5rem; margin-bottom: var(--space-sm); color: var(--accent);">The Results</h3>
           <p style="font-size: 1.125rem; color: var(--text-secondary); line-height: 1.7; margin-bottom: var(--space-md);">
             <strong style="color: var(--accent);">97% time savings</strong> (90 min → 2 min per audit)<br>
-            <strong style="color: var(--accent);">10X output increase</strong> (3 audits/week → 40 audits/week)<br>
+            <strong style="color: var(--accent);">Output up from 3 audits a week to 40</strong><br>
             <strong style="color: var(--accent);">4 clients closed</strong> in first month using faster audit delivery
           </p>
 

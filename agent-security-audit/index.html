@@ -260,6 +260,25 @@
 
     .tier__terms { max-width: 84ch; }
     .section-subtitle { max-width: 72ch; }
+
+    /* Mobile nav. Measured at 390px the link group is 396px wide, which either
+       overflows the viewport or wraps the bar to 122px. Below 860px the nav is
+       the logo and the one action that matters; full navigation is in the
+       footer. No JS, because the existing hamburgers were never wired up. */
+    @media (max-width: 860px) {
+      .nav__links > *:not(.nav__cta),
+      .nav__group > *:not(.nav__cta),
+      .header__nav > *:not(.header__cta) { display: none !important; }
+      .nav-dropdown__menu { display: none !important; }
+      .nav__cta, .header__cta { min-height: 44px; display: inline-flex !important;
+        align-items: center; justify-content: center; }
+      .footer__link { display: inline-block; padding: 7px 0; }
+    }
+
+    /* A flex item defaults to min-width:auto and will not shrink below its
+       content, so .container inside the flex .hero blew out past the viewport
+       on a phone. Same family as the grid minmax(0,1fr) fix. */
+    .hero > .container, .hero > * { min-width: 0; }
 </style>
 </head>
 <body>
@@ -270,7 +289,7 @@
 <!-- NAV -->
 <nav style="position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 16px 24px; background: rgba(10,15,26,0.9); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between;">
   <a href="/" style="font-size: 1.125rem; font-weight: 700; color: var(--text-primary); text-decoration: none;">Resultant<span style="color: var(--accent);">AI</span></a>
-  <div style="display: flex; gap: 32px; align-items: center;">
+  <div class="nav__group" style="display: flex; gap: 32px; align-items: center;">
     <div class="nav-dropdown">
           <div class="nav-dropdown__toggle" style="color: var(--text-secondary); text-decoration: none; font-size: 0.9rem;">Industries<svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" style="margin-left:4px"><path d="M3 4.5l3 3 3-3"/></svg></div>
           <div class="nav-dropdown__menu">

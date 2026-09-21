@@ -5,66 +5,176 @@
   "trailingSlash": false,
   "rewrites": [
     {
-      "source": "/",
-      "has": [{ "type": "cookie", "key": "ab_variant", "value": "b" }],
-      "destination": "/index-b.html"
-    },
-    {
       "source": "/lp/b2b-automation",
-      "has": [{ "type": "cookie", "key": "ab_variant", "value": "b" }],
+      "has": [
+        {
+          "type": "cookie",
+          "key": "ab_variant",
+          "value": "b"
+        }
+      ],
       "destination": "/lp/b2b-automation/index-b.html"
     },
     {
       "source": "/lp/voice-ai",
-      "has": [{ "type": "cookie", "key": "ab_variant", "value": "b" }],
+      "has": [
+        {
+          "type": "cookie",
+          "key": "ab_variant",
+          "value": "b"
+        }
+      ],
       "destination": "/lp/voice-ai/index-b.html"
     },
     {
       "source": "/lp/agency-automation",
-      "has": [{ "type": "cookie", "key": "ab_variant", "value": "b" }],
+      "has": [
+        {
+          "type": "cookie",
+          "key": "ab_variant",
+          "value": "b"
+        }
+      ],
       "destination": "/lp/agency-automation/index-b.html"
     }
   ],
   "redirects": [
     {
       "source": "/",
-      "has": [{ "type": "host", "value": "www.resultantai.com" }],
+      "has": [
+        {
+          "type": "host",
+          "value": "www.resultantai.com"
+        }
+      ],
       "destination": "https://resultantai.com/",
       "permanent": true
     },
     {
       "source": "/:path*",
-      "has": [{ "type": "host", "value": "www.resultantai.com" }],
+      "has": [
+        {
+          "type": "host",
+          "value": "www.resultantai.com"
+        }
+      ],
       "destination": "https://resultantai.com/:path*",
       "permanent": true
     },
-    { "source": "/blog/airtable-trucking-operations", "destination": "/blog/airtable-architecture-trucking", "permanent": true },
-    { "source": "/blog/make-vs-n8n", "destination": "/blog/make-vs-n8n-2026", "permanent": true },
-    { "source": "/blog/per-client-ai-billing", "destination": "/blog/per-client-billing-agencies", "permanent": true },
-    { "source": "/blog/plumbing-ai-case-study", "destination": "/case-studies", "permanent": true },
-    { "source": "/gateway", "destination": "/lp/agency-automation", "permanent": true },
-    { "source": "/gateway.html", "destination": "/lp/agency-automation", "permanent": true },
-    { "source": "/gateway/pricing", "destination": "/lp/agency-automation", "permanent": true },
-    { "source": "/reddit", "destination": "/lp/agency-automation", "permanent": true },
-    { "source": "/reddit/bill-shock", "destination": "/lp/agency-automation", "permanent": true },
-    { "source": "/reddit/billing", "destination": "/lp/agency-automation", "permanent": true },
-    { "source": "/reddit/one-key", "destination": "/lp/agency-automation", "permanent": true },
-    { "source": "/reddit/reddit-landing-white", "destination": "/lp/agency-automation", "permanent": true },
-    { "source": "/blog/wayne-conn-plumbing-case-study", "destination": "/case-studies", "permanent": true },
-    { "source": "/work/wayne-conn", "destination": "/case-studies", "permanent": true },
-    { "source": "/case-studies/wayne-conn", "destination": "/case-studies", "permanent": true },
-    { "source": "/demo/wayne-conn-plumbing-demo", "destination": "/demo/gallery", "permanent": true },
-    { "source": "/contact", "destination": "/contact-us", "permanent": true },
-    { "source": "/demos", "destination": "/demo/gallery", "permanent": true },
-    { "source": "/electrical", "destination": "/lp/electrical", "permanent": true },
-    { "source": "/hvac", "destination": "/lp/hvac", "permanent": true },
-    { "source": "/plumbing", "destination": "/lp/plumbing", "permanent": true }
+    {
+      "source": "/blog/airtable-trucking-operations",
+      "destination": "/blog/airtable-architecture-trucking",
+      "permanent": true
+    },
+    {
+      "source": "/blog/make-vs-n8n",
+      "destination": "/blog/make-vs-n8n-2026",
+      "permanent": true
+    },
+    {
+      "source": "/blog/per-client-ai-billing",
+      "destination": "/blog/per-client-billing-agencies",
+      "permanent": true
+    },
+    {
+      "source": "/blog/plumbing-ai-case-study",
+      "destination": "/case-studies",
+      "permanent": true
+    },
+    {
+      "source": "/gateway",
+      "destination": "/lp/agency-automation",
+      "permanent": true
+    },
+    {
+      "source": "/gateway.html",
+      "destination": "/lp/agency-automation",
+      "permanent": true
+    },
+    {
+      "source": "/gateway/pricing",
+      "destination": "/lp/agency-automation",
+      "permanent": true
+    },
+    {
+      "source": "/reddit",
+      "destination": "/lp/agency-automation",
+      "permanent": true
+    },
+    {
+      "source": "/reddit/bill-shock",
+      "destination": "/lp/agency-automation",
+      "permanent": true
+    },
+    {
+      "source": "/reddit/billing",
+      "destination": "/lp/agency-automation",
+      "permanent": true
+    },
+    {
+      "source": "/reddit/one-key",
+      "destination": "/lp/agency-automation",
+      "permanent": true
+    },
+    {
+      "source": "/reddit/reddit-landing-white",
+      "destination": "/lp/agency-automation",
+      "permanent": true
+    },
+    {
+      "source": "/blog/wayne-conn-plumbing-case-study",
+      "destination": "/case-studies",
+      "permanent": true
+    },
+    {
+      "source": "/work/wayne-conn",
+      "destination": "/case-studies",
+      "permanent": true
+    },
+    {
+      "source": "/case-studies/wayne-conn",
+      "destination": "/case-studies",
+      "permanent": true
+    },
+    {
+      "source": "/demo/wayne-conn-plumbing-demo",
+      "destination": "/demo/gallery",
+      "permanent": true
+    },
+    {
+      "source": "/contact",
+      "destination": "/contact-us",
+      "permanent": true
+    },
+    {
+      "source": "/demos",
+      "destination": "/demo/gallery",
+      "permanent": true
+    },
+    {
+      "source": "/electrical",
+      "destination": "/lp/electrical",
+      "permanent": true
+    },
+    {
+      "source": "/hvac",
+      "destination": "/lp/hvac",
+      "permanent": true
+    },
+    {
+      "source": "/plumbing",
+      "destination": "/lp/plumbing",
+      "permanent": true
+    }
   ],
   "headers": [
     {
       "source": "/(.*)",
       "headers": [
-        { "key": "X-Content-Type-Options", "value": "nosniff" }
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        }
       ]
     }
   ]
