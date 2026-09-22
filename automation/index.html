@@ -290,6 +290,12 @@
        on a phone. Same family as the grid minmax(0,1fr) fix. */
     .hero > .container, .hero > * { min-width: 0; }
 </style>
+<style>
+    /* rai-icon colour */
+    .pain-card__icon { color: var(--accent); }
+    .rai-icon { display: inline-block; vertical-align: middle; flex-shrink: 0; }
+    .pain-card__icon { line-height: 0; }
+  </style>
 </head>
 <body>
 
@@ -366,22 +372,22 @@
     </div>
     <div class="pain-grid reveal">
       <div class="pain-card">
-        <div class="pain-card__icon">🔁</div>
+        <div class="pain-card__icon"><svg class="rai-icon" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4.2 10.4A7.8 7.8 0 0 1 17.4 6.6l2.4 2.2"/><path d="M19.8 4.6v4.2h-4.2"/><path d="M19.8 13.6a7.8 7.8 0 0 1-13.2 3.8l-2.4-2.2"/><path d="M4.2 19.4v-4.2h4.2"/></svg></div>
         <div class="pain-card__title">Copying data between tools</div>
         <div class="pain-card__desc">You're moving leads from a form into your CRM. Updating a spreadsheet. Re-entering info that already exists somewhere else.</div>
       </div>
       <div class="pain-card">
-        <div class="pain-card__icon">⏰</div>
+        <div class="pain-card__icon"><svg class="rai-icon" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="8.4"/><path d="M12 7.2V12l3.2 2"/></svg></div>
         <div class="pain-card__title">Following up manually</div>
         <div class="pain-card__desc">Someone fills out a form. You remember to email them 3 days later, if you remember. Meanwhile they hired the other guy.</div>
       </div>
       <div class="pain-card">
-        <div class="pain-card__icon">📊</div>
+        <div class="pain-card__icon"><svg class="rai-icon" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 19.2V4.8"/><path d="M4 19.2h15.5"/><path d="M8.4 19.2v-4.6"/><path d="M12.6 19.2v-8.4"/><path d="M16.8 19.2v-6"/></svg></div>
         <div class="pain-card__title">Building the same report every week</div>
         <div class="pain-card__desc">Every Monday: open the CRM, filter by date, copy to sheets, format the chart. Repeat forever.</div>
       </div>
       <div class="pain-card">
-        <div class="pain-card__icon">🔔</div>
+        <div class="pain-card__icon"><svg class="rai-icon" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M17.2 10.4a5.2 5.2 0 1 0-10.4 0c0 4.4-1.8 5.6-1.8 5.6h14s-1.8-1.2-1.8-5.6Z"/><path d="M13.5 19.2a1.8 1.8 0 0 1-3 0"/></svg></div>
         <div class="pain-card__title">Notifications that don't reach the right person</div>
         <div class="pain-card__desc">A lead comes in at 2pm Friday. It sits in an inbox until someone checks Monday morning.</div>
       </div>
