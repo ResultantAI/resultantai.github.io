@@ -41,6 +41,10 @@ Scoped per project. Make.com and n8n workflows that remove manual steps: ticket 
 White-label automation and per-client AI cost attribution for marketing agencies.
 - https://resultantai.com/lp/agency-automation/
 
+### Team Training
+Team Training: working sessions that teach HR, operations and shared services leaders to delegate work to AI and score which processes are ready for an agent. Quoted per engagement.
+- https://resultantai.com/training/
+
 ### Ongoing Support
 Optimize retainer $1,497/mo for one active system. Partner retainer $2,997/mo for multiple systems. Out-of-scope changes outside a retainer are billed at $150/hr.
 - https://resultantai.com/pricing/
