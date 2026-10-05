@@ -33,6 +33,12 @@ $4,497, 14 day delivery.
 Determines what conclusion AI models reach about an organization when a lender, board member, grantor, or procurement officer researches it before a meeting.
 - https://resultantai.com/aeo-geo-audit/
 
+### AgentReady
+$4 per call attempt, live. Volume pricing per answered call for design partners, quoted on a call.
+A tool AI agents can discover and call over MCP, and humans can buy through a web form. It phones a business, asks up to six structured questions, and returns structured answers with the verbatim transcript quote and a confidence value behind each one. An agent can initiate a purchase through an HTTP 402 flow; a human settles payment. Not real time; built for batch and back office use.
+- https://resultantai.com/agentready
+- https://agents.resultantai.com/llms.txt
+
 ### Workflow Automation
 Scoped per project. Make.com and n8n workflows that remove manual steps: ticket creation, invoice generation, CRM sync, follow-up sequences, reporting.
 - https://resultantai.com/automation/
