@@ -369,7 +369,6 @@
         <div class="hero__stat-pill">Verbatim quote behind every answer</div>
         <div class="hero__stat-pill">Proven end to end</div>
       </div>
-      <p class="hero__subtitle" style="font-size: 0.95rem; margin-top: 20px;">Proven end to end. An agent can pay for a real phone call through Stripe's Machine Payments Protocol, tested end to end in Stripe's sandbox.</p>
     </div>
   </div>
 </section>
@@ -424,7 +423,7 @@
     <div class="reveal">
       <div class="section-label">How an agent pays, today</div>
       <h2 class="section-title">Your agent starts the purchase. A human settles it.</h2>
-      <p class="section-subtitle">For agent builders. A machine client that calls a paid tool gets a real HTTP 402 with a checkout rail. It posts the same request to the rail, gets back a checkout link for its human, and polls for the result. That is the live rail today.</p>
+      <p class="section-subtitle">A machine client that calls a paid tool gets a real HTTP 402 with a checkout rail. It posts the same request to the rail, gets back a checkout link for its human, and polls for the result. Fully autonomous settlement over machine payment rails is not live yet, and this page will say so until it is.</p>
     </div>
     <div class="code-block reveal"><span class="c"># 1. call the paid tool</span>
 <span class="k">POST</span> verify.by_phone        <span class="c">&rarr;</span> 402 { error: "payment_required", item, rails: ["checkout"] }
@@ -434,30 +433,6 @@
 
 <span class="c"># 3. a human opens checkout_url and pays. the agent polls.</span>
 <span class="k">GET</span>  poll_url              <span class="c">&rarr;</span> answers, quotes, confidence</div>
-    <div class="reveal" style="margin-top: 48px;">
-      <div class="section-label">Tested in Stripe's sandbox, not live</div>
-      <h2 class="section-title">The agent pays through the protocol. No checkout page.</h2>
-      <p class="section-subtitle">The agent pays through the protocol; its owner approves the spend with one tap. No checkout page. We ran it end to end in Stripe's sandbox with Stripe's Machine Payments Protocol: a real 402 challenge, a test-mode receipt, no real money, and a real phone call placed. It is not live yet, and every payment still needs a person to approve it. When the live rail ships, this page will say so.</p>
-    </div>
-    <div class="code-block reveal"><span class="c"># sandbox only. the live discovery document advertises rails: ["checkout"]</span>
-<span class="k">POST</span> verify.by_phone        <span class="c">&rarr;</span> 402 { rails: ["mpp", "checkout"] } + WWW-Authenticate: Payment
-
-<span class="c"># the owner approves the spend with one tap. the client pays and retries.</span>
-<span class="k">POST</span> verify.by_phone        <span class="c">&rarr;</span> 202 + payment receipt, call placed</div>
-  </div>
-</section>
-
-<!-- HUMAN BUYERS -->
-<section class="section section--tight" style="z-index: 1; position: relative;">
-  <div class="container">
-    <div class="reveal">
-      <div class="section-label">For people who need one answer</div>
-      <h2 class="section-title">No agent required.</h2>
-      <p class="section-subtitle">Fill in the form, pay by card, and the call goes out. You get the answers and the quotes on a status page.</p>
-    </div>
-    <div class="hero__buttons reveal" style="justify-content: flex-start;">
-      <a href="https://agents.resultantai.com/verify" class="btn btn--ghost">Buy one call</a>
-    </div>
   </div>
 </section>
 
@@ -476,7 +451,7 @@
       </div>
       <div class="faq-item">
         <div class="faq-q">Senior living search and placement</div>
-        <div class="faq-a">The first market. Availability and real pricing for senior living are not published anywhere machine readable, so every family, advisor and assistant ends up making the same calls. Operators can use it as a front desk mystery shop. The answers go to whoever paid for the call. Nothing is published.</div>
+        <div class="faq-a">The first market. Availability and real pricing for senior living are not published anywhere machine readable, so every family, advisor and assistant ends up making the same calls.</div>
       </div>
       <div class="faq-item">
         <div class="faq-q">Multi-location brand checks</div>
@@ -506,14 +481,6 @@
       <div class="faq-item">
         <div class="faq-q">Self-serve batch and API keys are not live</div>
         <div class="faq-a">Today it is one call per request. Prepaid credits, an API key and a batch endpoint are next, and they get built with the first teams who need them. That is what the call below is for.</div>
-      </div>
-      <div class="faq-item">
-        <div class="faq-q">No purchase happens without a human approval</div>
-        <div class="faq-a">Every payment today needs a person to approve it, by checkout or by one tap. Machine payments through Stripe's Machine Payments Protocol are tested end to end in Stripe's sandbox and are not live. The live rail is checkout.</div>
-      </div>
-      <div class="faq-item">
-        <div class="faq-q">Caller ID is not verified yet</div>
-        <div class="faq-a">Verification is submitted and pending. Until it clears, the call can show up as an unknown number.</div>
       </div>
       <div class="faq-item">
         <div class="faq-q">The confidence value is a hint</div>
@@ -563,7 +530,7 @@
       </div>
       <div class="faq-item">
         <div class="faq-q">Is it legal to have an AI call a business?</div>
-        <div class="faq-a">It is a real question and it gets treated like one. Every call opens with an automated call disclosure, calls have a hard length cap, and there is a daily call cap per requester. None of that is legal advice, and if your use case has its own rules, they are yours to know.</div>
+        <div class="faq-a">It is a real question and it gets treated like one. Every call opens with an automated call disclosure, calls have a hard length cap, there are daily caps per requester, and anyone who asks not to be called again is not called again. None of that is legal advice, and if your use case has its own rules, they are yours to know.</div>
       </div>
       <div class="faq-item">
         <div class="faq-q">What happens when it gets an answer wrong?</div>
