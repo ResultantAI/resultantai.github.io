@@ -35,7 +35,7 @@ Determines what conclusion AI models reach about an organization when a lender, 
 
 ### AgentReady
 $4 per call attempt, live. Volume pricing per answered call for design partners, quoted on a call.
-A tool AI agents can discover and call over MCP, and humans can buy through a web form. It phones a business, asks up to six structured questions, and returns structured answers with the verbatim transcript quote and a confidence value behind each one. An agent can initiate a purchase through an HTTP 402 flow; a human settles payment. Not real time; built for batch and back office use.
+A tool AI agents can discover and call over MCP, and humans can buy through a web form. It phones a business, asks up to six structured questions, and returns structured answers with the verbatim transcript quote and a confidence value behind each one. An agent can initiate a purchase through an HTTP 402 flow; a human settles payment through checkout, which is the live rail. An agent can also pay for a real phone call through Stripe's Machine Payments Protocol, tested end to end in Stripe's sandbox and not live: the agent pays through the protocol and its owner approves the spend with one tap. Every purchase today needs a human approval. Not real time; built for batch and back office use.
 - https://resultantai.com/agentready
 - https://agents.resultantai.com/llms.txt
 
